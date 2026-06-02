@@ -45,6 +45,10 @@ def _merge_records(existing: PaperRecord, incoming: PaperRecord) -> PaperRecord:
         merged_cats = list(dict.fromkeys([*(data.get("categories") or []), *incoming.categories]))
         data["categories"] = merged_cats
 
+    if incoming.subjects:
+        merged_subjects = list(dict.fromkeys([*(data.get("subjects") or []), *incoming.subjects]))
+        data["subjects"] = merged_subjects
+
     if incoming.authors and not data.get("authors"):
         data["authors"] = incoming.authors
 

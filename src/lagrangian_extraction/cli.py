@@ -8,12 +8,12 @@ from pathlib import Path
 import typer
 
 from lagrangian_extraction.config import PathConfig, RankConfig, Settings
-from lagrangian_extraction.models import SearchQuery
+from lagrangian_extraction.models import PaperRecord, SearchQuery
 from lagrangian_extraction.pipeline.search import run_search
 
 app = typer.Typer(
     name="lex",
-    help="Lagrangian Extraction — Stage 1 literature search (INSPIRE + arXiv).",
+    help="Lagrangian Extraction — select one theory paper and prepare it for extraction.",
     no_args_is_help=True,
 )
 
@@ -21,6 +21,34 @@ app = typer.Typer(
 @app.callback()
 def cli_root() -> None:
     """Lagrangian Extraction CLI."""
+
+
+def _format_paper_line(paper: PaperRecord, rank: int) -> str:
+    year = str(paper.published.year) if paper.published else "-"
+    arxiv = paper.arxiv_id or "-"
+    inspire = str(paper.inspire_id) if paper.inspire_id is not None else "-"
+    title = paper.title[:60] + ("..." if len(paper.title) > 60 else "")
+    return (
+        f"{rank:<5} {paper.score:<8.4f} {arxiv:<16} {inspire:<7} "
+        f"{paper.citation_count:<7} {year:<6} {title}"
+    )
+
+
+def _print_selected_paper(paper: PaperRecord, downloads_by_arxiv: dict[str, str | None]) -> None:
+    typer.echo("Selected paper for Lagrangian extraction")
+    typer.echo("-" * 60)
+    typer.echo(f"Title:    {paper.title}")
+    typer.echo(f"arXiv:    {paper.arxiv_id or '-'}")
+    typer.echo(f"INSPIRE:  {paper.inspire_id or '-'}")
+    typer.echo(f"Cites:    {paper.citation_count}")
+    typer.echo(f"Score:    {paper.score:.4f}")
+    if paper.score_breakdown:
+        breakdown = ", ".join(f"{k}={v}" for k, v in paper.score_breakdown.items())
+        typer.echo(f"Breakdown: {breakdown}")
+    if paper.arxiv_id and paper.arxiv_id in downloads_by_arxiv:
+        text_path = downloads_by_arxiv[paper.arxiv_id]
+        if text_path:
+            typer.echo(f"Text:     {text_path}")
 
 
 @app.command("search")
@@ -32,14 +60,54 @@ def search_command(
         "-k",
         help="Additional BSM keywords (repeatable).",
     ),
-    top_k: int = typer.Option(10, "--top-k", help="Number of ranked candidates to return."),
+    exclude_keywords: list[str] = typer.Option(
+        [],
+        "--exclude-keywords",
+        "-K",
+        help="Exclude papers containing these keywords (repeatable).",
+    ),
+    authors: list[str] = typer.Option(
+        [],
+        "--author",
+        "-a",
+        help="Require papers by these authors (repeatable).",
+    ),
+    exclude_authors: list[str] = typer.Option(
+        [],
+        "--exclude-author",
+        "-A",
+        help="Exclude papers by these authors (repeatable).",
+    ),
+    top_k: int = typer.Option(
+        1,
+        "--top-k",
+        help="Number of papers to select (default 1 for Lagrangian extraction).",
+    ),
+    runners_up: int = typer.Option(
+        0,
+        "--runners-up",
+        help="Also show this many alternate candidates in the output/audit log.",
+    ),
     since: str | None = typer.Option(
         None, "--since", help="Earliest publication date (YYYY-MM-DD)."
     ),
+    until: str | None = typer.Option(
+        None, "--until", help="Latest publication date (YYYY-MM-DD)."
+    ),
     sort: str = typer.Option(
-        "combined",
+        "relevance",
         "--sort",
-        help="Ranking mode: combined, mostcited, or mostrecent.",
+        help="Ranking mode: relevance, combined, mostcited, mostrecent, or semantic.",
+    ),
+    search_mode: str = typer.Option(
+        "keyword",
+        "--search-mode",
+        help="Query mode: keyword (title-focused) or semantic (free-text).",
+    ),
+    theory_only: bool = typer.Option(
+        True,
+        "--theory-only/--include-experiment",
+        help="Keep only theory papers (hep-ph / Theory-HEP).",
     ),
     download_pdfs: bool = typer.Option(True, "--download-pdfs/--no-download-pdfs"),
     extract_text: bool = typer.Option(True, "--extract-text/--no-extract-text"),
@@ -48,20 +116,36 @@ def search_command(
     out: Path = typer.Option(Path("runs"), "--out", help="Directory for audit JSON logs."),
     data_dir: Path = typer.Option(Path("data"), "--data-dir", help="Root data directory."),
 ) -> None:
-    """Search INSPIRE and arXiv, rank candidates, and optionally fetch PDFs."""
+    """Search INSPIRE and arXiv, select the best theory paper, and fetch its PDF/text."""
     since_date: date | None = None
     if since:
         since_date = date.fromisoformat(since)
 
-    if sort not in {"combined", "mostcited", "mostrecent"}:
-        raise typer.BadParameter("sort must be one of: combined, mostcited, mostrecent")
+    until_date: date | None = None
+    if until:
+        until_date = date.fromisoformat(until)
+
+    if sort not in {"relevance", "combined", "mostcited", "mostrecent", "semantic"}:
+        raise typer.BadParameter(
+            "sort must be one of: relevance, combined, mostcited, mostrecent, semantic"
+        )
+
+    if search_mode not in {"keyword", "semantic"}:
+        raise typer.BadParameter("search-mode must be one of: keyword, semantic")
 
     query = SearchQuery(
         model_name=model_name,
         keywords=keywords,
+        exclude_keywords=exclude_keywords,
+        authors=authors,
+        exclude_authors=exclude_authors,
         top_k=top_k,
+        runners_up=runners_up,
         since=since_date,
+        until=until_date,
         sort=sort,  # type: ignore[arg-type]
+        search_mode=search_mode,  # type: ignore[arg-type]
+        theory_only=theory_only,
         download_pdfs=download_pdfs,
         extract_text=extract_text,
     )
@@ -76,28 +160,55 @@ def search_command(
         rank=RankConfig(weight_citation=w_cite, weight_recency=w_recent),
     )
 
-    typer.echo(f"Searching for: {model_name!r}")
+    typer.echo(f"Selecting source paper for: {model_name!r}")
     if keywords:
         typer.echo(f"Keywords: {', '.join(keywords)}")
+    if exclude_keywords:
+        typer.echo(f"Exclude keywords: {', '.join(exclude_keywords)}")
+    if authors:
+        typer.echo(f"Authors: {', '.join(authors)}")
+    if exclude_authors:
+        typer.echo(f"Exclude authors: {', '.join(exclude_authors)}")
+    if theory_only:
+        typer.echo("Filter: theory papers only")
 
     audit = run_search(query, settings)
 
-    typer.echo("")
-    typer.echo(f"{'Rank':<5} {'Score':<8} {'arXiv ID':<16} {'Cites':<7} {'Year':<6} Title")
-    typer.echo("-" * 90)
-    for i, paper in enumerate(audit.candidates, start=1):
-        year = str(paper.published.year) if paper.published else "-"
-        arxiv = paper.arxiv_id or "-"
-        title = paper.title[:50] + ("..." if len(paper.title) > 50 else "")
-        typer.echo(
-            f"{i:<5} {paper.score:<8.4f} {arxiv:<16} {paper.citation_count:<7} {year:<6} {title}"
-        )
+    downloads_by_arxiv = {
+        item.arxiv_id: item.text_path for item in audit.downloads if item.text_path
+    }
 
     typer.echo("")
-    typer.echo(f"INSPIRE hits: {audit.raw_counts.inspire_hits}")
-    typer.echo(f"arXiv hits:   {audit.raw_counts.arxiv_hits}")
-    typer.echo(f"Merged:       {audit.raw_counts.merged_unique}")
-    typer.echo(f"Audit log:    {out / f'{audit.run_id}.json'}")
+    if audit.selected_paper is not None:
+        _print_selected_paper(audit.selected_paper, downloads_by_arxiv)
+    else:
+        typer.echo("No suitable paper found.")
+
+    if audit.runners_up:
+        typer.echo("")
+        typer.echo("Runners-up")
+        typer.echo(
+            f"{'Rank':<5} {'Score':<8} {'arXiv ID':<16} {'INSPIRE':<7} {'Cites':<7} {'Year':<6} Title"
+        )
+        typer.echo("-" * 98)
+        for i, paper in enumerate(audit.runners_up, start=2):
+            typer.echo(_format_paper_line(paper, i))
+
+    if top_k > 1:
+        typer.echo("")
+        typer.echo("Additional selections")
+        typer.echo(
+            f"{'Rank':<5} {'Score':<8} {'arXiv ID':<16} {'INSPIRE':<7} {'Cites':<7} {'Year':<6} Title"
+        )
+        typer.echo("-" * 98)
+        for i, paper in enumerate(audit.candidates[1:], start=2):
+            typer.echo(_format_paper_line(paper, i))
+
+    typer.echo("")
+    typer.echo(f"Pool searched: {audit.raw_counts.merged_unique} unique papers")
+    typer.echo(f"INSPIRE hits:  {audit.raw_counts.inspire_hits}")
+    typer.echo(f"arXiv hits:    {audit.raw_counts.arxiv_hits}")
+    typer.echo(f"Audit log:     {out / f'{audit.run_id}.json'}")
 
     if audit.errors:
         typer.echo("")

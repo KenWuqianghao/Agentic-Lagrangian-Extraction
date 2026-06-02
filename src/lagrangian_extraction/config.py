@@ -18,12 +18,17 @@ class RateLimitConfig:
 
 @dataclass
 class RankConfig:
-    """Weights and parameters for combined citation + recency ranking."""
+    """Weights and parameters for ranking paper candidates."""
 
     weight_citation: float = 0.7
     weight_recency: float = 0.3
+    weight_semantic: float = 0.45
+    weight_lagrangian: float = 0.25
     recency_half_life_years: float = 5.0
     max_cites_seen: int = 10_000
+
+    # Pool size when selecting a single paper for Lagrangian extraction.
+    selection_pool_size: int = 50
 
 
 @dataclass
@@ -68,7 +73,39 @@ ARXIV_BASE_URL = "https://export.arxiv.org/api/query"
 INSPIRE_FIELDS = (
     "titles,authors.full_name,arxiv_eprints,dois,"
     "citation_count,citation_count_without_self_citations,"
-    "earliest_date,abstracts,control_number"
+    "earliest_date,abstracts,control_number,subjects.term"
 )
 
 TITLE_SIMILARITY_THRESHOLD = 0.95
+
+EXPERIMENTAL_ARXIV_CATEGORIES = frozenset(
+    {
+        "hep-ex",
+        "nucl-ex",
+        "physics.ins-det",
+        "physics.acc-ph",
+        "astro-ph.CO",
+        "astro-ph.HE",
+        "astro-ph.IM",
+        "astro-ph.SR",
+    }
+)
+
+THEORY_ARXIV_CATEGORIES = frozenset(
+    {
+        "hep-ph",
+        "hep-th",
+        "hep-lat",
+        "gr-qc",
+        "math-ph",
+        "nucl-th",
+    }
+)
+
+EXPERIMENTAL_INSPIRE_SUBJECTS = frozenset(
+    {
+        "Experiment-HEP",
+        "Experiment-Nucl",
+        "Astrophysics",
+    }
+)

@@ -34,8 +34,36 @@ def test_inspire_build_query_with_keywords_and_since() -> None:
     from datetime import date
 
     q = InspireClient.build_query(
-        "scalar leptoquark", ["BSM", "leptoquark"], since=date(2015, 1, 1)
+        "scalar leptoquark",
+        ["BSM", "leptoquark"],
+        since=date(2015, 1, 1),
+        theory_only=True,
     )
-    assert 'title "scalar leptoquark"' in q
-    assert "k BSM" in q
+    assert 'title "scalar leptoquark"' in q or "abstracts.value:" in q
+    assert "abstracts.value:BSM" in q
+    assert "ft BSM" in q
     assert "date 2015+" in q
+    assert "not subject:Experiment-HEP" in q
+
+
+def test_inspire_build_query_with_negation_and_authors() -> None:
+    q = InspireClient.build_query(
+        "scalar leptoquark",
+        exclude_keywords=["supersymmetry"],
+        authors=["Crivellin"],
+        exclude_authors=["ATLAS"],
+        semantic=True,
+    )
+    assert "scalar leptoquark" in q
+    assert 'title "' not in q
+    assert "not (abstracts.value:supersymmetry" in q
+    assert "ft supersymmetry" in q
+    assert 'a "Crivellin"' in q
+    assert 'not a "ATLAS"' in q
+
+
+def test_inspire_keyword_clause_searches_abstract_and_title() -> None:
+    clause = InspireClient._keyword_match_clause("sugra")
+    assert "abstracts.value:sugra" in clause
+    assert "ft sugra" in clause
+    assert "title sugra" in clause

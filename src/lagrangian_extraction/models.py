@@ -24,6 +24,7 @@ class PaperRecord(BaseModel):
     authors: list[Author] = Field(default_factory=list)
     abstract: str | None = None
     categories: list[str] = Field(default_factory=list)
+    subjects: list[str] = Field(default_factory=list)
     published: date | None = None
     updated: date | None = None
     citation_count: int = 0
@@ -33,6 +34,11 @@ class PaperRecord(BaseModel):
     sources: list[Literal["inspire", "arxiv"]] = Field(default_factory=list)
     score: float = 0.0
     score_breakdown: dict[str, float] = Field(default_factory=dict)
+
+    @property
+    def is_extractable(self) -> bool:
+        """True when the paper has an arXiv ID suitable for PDF/text extraction."""
+        return self.arxiv_id is not None
 
     @property
     def source_ids(self) -> list[str]:
@@ -50,18 +56,31 @@ class PaperRecord(BaseModel):
 class SearchQuery(BaseModel):
     model_name: str
     keywords: list[str] = Field(default_factory=list)
-    top_k: int = 20
+    exclude_keywords: list[str] = Field(default_factory=list)
+    authors: list[str] = Field(default_factory=list)
+    exclude_authors: list[str] = Field(default_factory=list)
+    top_k: int = 1
+    runners_up: int = 0
     since: date | None = None
-    sort: Literal["combined", "mostcited", "mostrecent"] = "combined"
+    until: date | None = None
+    sort: Literal["relevance", "combined", "mostcited", "mostrecent", "semantic"] = "relevance"
+    search_mode: Literal["keyword", "semantic"] = "keyword"
+    theory_only: bool = True
     download_pdfs: bool = True
     extract_text: bool = True
 
-    @field_validator("keywords", mode="before")
+    @field_validator(
+        "keywords",
+        "exclude_keywords",
+        "authors",
+        "exclude_authors",
+        mode="before",
+    )
     @classmethod
-    def strip_keywords(cls, value: list[str] | None) -> list[str]:
+    def strip_terms(cls, value: list[str] | None) -> list[str]:
         if not value:
             return []
-        return [k.strip() for k in value if k.strip()]
+        return [item.strip() for item in value if item.strip()]
 
 
 class LocalPDF(BaseModel):
@@ -90,6 +109,8 @@ class AuditRun(BaseModel):
     inspire_url: str | None = None
     arxiv_url: str | None = None
     raw_counts: RawSearchCounts = Field(default_factory=RawSearchCounts)
+    selected_paper: PaperRecord | None = None
+    runners_up: list[PaperRecord] = Field(default_factory=list)
     candidates: list[PaperRecord] = Field(default_factory=list)
     downloads: list[LocalPDF] = Field(default_factory=list)
     errors: list[str] = Field(default_factory=list)
