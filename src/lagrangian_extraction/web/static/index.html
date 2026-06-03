@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lagrangian Extraction — Paper Search</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>Paper Search</h1>
+      <p>Select one theory paper for Lagrangian extraction (INSPIRE + arXiv).</p>
+    </header>
+
+    <form id="search-form" class="card">
+      <label class="field">
+        <span>Model name *</span>
+        <input type="text" name="model_name" required placeholder="scalar leptoquark">
+      </label>
+
+      <div class="grid-2">
+        <label class="field">
+          <span>Keywords</span>
+          <input type="text" name="keywords" placeholder="BSM, leptoquark">
+          <small>Comma-separated</small>
+        </label>
+        <label class="field">
+          <span>Exclude keywords</span>
+          <input type="text" name="exclude_keywords" placeholder="supersymmetry">
+        </label>
+      </div>
+
+      <div class="grid-2">
+        <label class="field">
+          <span>Authors</span>
+          <input type="text" name="authors" placeholder="Crivellin">
+        </label>
+        <label class="field">
+          <span>Exclude authors</span>
+          <input type="text" name="exclude_authors" placeholder="ATLAS">
+        </label>
+      </div>
+
+      <div class="grid-2">
+        <label class="field">
+          <span>Since</span>
+          <input type="date" name="since">
+        </label>
+        <label class="field">
+          <span>Until</span>
+          <input type="date" name="until">
+        </label>
+      </div>
+
+      <div class="grid-3">
+        <label class="field">
+          <span>Sort</span>
+          <select name="sort">
+            <option value="relevance" selected>Relevance</option>
+            <option value="combined">Combined</option>
+            <option value="mostcited">Most cited</option>
+            <option value="mostrecent">Most recent</option>
+            <option value="semantic">Semantic</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Search mode</span>
+          <select name="search_mode">
+            <option value="keyword" selected>Keyword</option>
+            <option value="semantic">Semantic</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Runners-up</span>
+          <input type="number" name="runners_up" min="0" max="10" value="0">
+        </label>
+      </div>
+
+      <div class="checks">
+        <label><input type="checkbox" name="theory_only" checked> Theory papers only</label>
+        <label><input type="checkbox" name="download_pdfs"> Download PDF</label>
+        <label><input type="checkbox" name="extract_text"> Extract text</label>
+      </div>
+
+      <button type="submit" id="submit-btn">Search</button>
+    </form>
+
+    <section id="status" class="status hidden"></section>
+    <section id="result" class="card hidden"></section>
+    <section id="runners" class="card hidden"></section>
+    <section id="meta" class="meta hidden"></section>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
