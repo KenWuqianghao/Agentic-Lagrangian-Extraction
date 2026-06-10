@@ -1,96 +1,107 @@
 # Lagrangian Extraction — Stage 1 Literature Search
 
-Stage 1 of the HEPSIM5 agentic pipeline: search INSPIRE-HEP and arXiv for BSM model papers, deduplicate and rank candidates by citation count and recency, download PDFs from arXiv, extract plain text, and write a reproducible audit trail.
-
-This implements **Weeks 1–2 (first half)** of the [GSoC HEPSIM5 proposal](https://github.com/KenWuqianghao): literature retrieval and PDF text extraction. Chunking, ChromaDB indexing, LLM extraction, Jinja2 `.fr` generation, and FeynRules validation are deferred to later stages.
+Stage 1 of the HEPSIM5 agentic pipeline: search **INSPIRE-HEP**, **arXiv**, and **NASA ADS** for BSM model papers, filter and rank candidates (with abstract-focused semantic scoring), download PDFs from arXiv, extract plain text, optionally probe LaTeX source availability, and write a reproducible audit trail.
 
 ## Quickstart
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -e ".[dev]"
+uv venv .venv && source .venv/bin/activate
+uv pip install -e ".[dev,web]"
 
-# Search for scalar leptoquark papers
-lex search "scalar leptoquark" \
-  --keywords BSM --keywords leptoquark \
-  --top-k 10 \
-  --since 2015-01-01 \
-  --w-cite 0.7 --w-recent 0.3
+# Copy and fill in your ADS token (optional but recommended)
+cp .env.example .env
+
+# Default: select one theory paper with relevance ranking
+lex search "scalar leptoquark" -k BSM -k leptoquark --since 2015-01-01
+
+# Abstract-focused search and ranking
+lex search "scalar leptoquark" -k BSM \
+  --require-abstract --abstract-keyword-match \
+  --semantic-scope abstract --no-download-pdfs
+
+# Probe LaTeX source for the selected paper
+lex search "scalar leptoquark" -k BSM --probe-latex-source
 ```
 
-### CLI options
+### Key CLI flags
 
 | Flag | Default | Description |
 |------|---------|-------------|
-| `--keywords / -k` | (none) | Additional BSM keywords (repeatable) |
-| `--top-k` | 10 | Number of ranked candidates |
-| `--since` | (none) | Earliest publication date (`YYYY-MM-DD`) |
-| `--sort` | `combined` | `combined`, `mostcited`, or `mostrecent` |
-| `--download-pdfs / --no-download-pdfs` | on | Download arXiv PDFs |
-| `--extract-text / --no-extract-text` | on | Extract text with PyMuPDF |
-| `--w-cite` | 0.7 | Citation weight (combined ranking) |
-| `--w-recent` | 0.3 | Recency weight (combined ranking) |
-| `--out` | `runs/` | Audit log output directory |
-| `--data-dir` | `data/` | Root for cached PDFs and text |
+| `-k` / `--keywords` | (none) | Include keywords (title + abstract) |
+| `-K` / `--exclude-keywords` | (none) | Exclude keywords |
+| `--sort` | `relevance` | `relevance`, `combined`, `mostcited`, `mostrecent`, `semantic` |
+| `--semantic-scope` | `combined` | `full`, `abstract`, or `combined` token-cosine scoring |
+| `--require-abstract` | off | Drop papers without a long abstract |
+| `--abstract-keyword-match` | off | Require include-keywords in abstract |
+| `--use-ads / --no-ads` | on | Include NASA ADS (needs `ADS_API_TOKEN`) |
+| `--probe-latex-source` | off | Check arXiv `/src/` LaTeX availability |
+| `--theory-only` | on | Exclude experimental papers |
+
+### ADS setup
+
+1. Create an account at [ui.adsabs.harvard.edu](https://ui.adsabs.harvard.edu)
+2. Generate a token at Settings → API Token
+3. Export `ADS_API_TOKEN=...` or add to `.env`
+
+If no token is set, ADS is skipped with a warning in the audit log.
 
 ## What a run produces
 
 ```
-runs/{run_id}.json     # Audit trail (query URLs, candidates, downloads, errors)
+runs/{run_id}.json       # Audit trail (selected paper, score breakdown, latex_probe)
 data/pdfs/{arxiv_id}.pdf
 data/text/{arxiv_id}.txt
+data/src/{arxiv_id}/     # Cached main .tex when --probe-latex-source
 ```
-
-The audit JSON includes the exact INSPIRE and arXiv URLs queried, raw hit counts, ranked candidates with score breakdowns, and per-PDF download/extraction outcomes.
 
 ## Architecture
 
 ```
-CLI (lex search)
+CLI / lex-web
   └─ run_search()
-       ├─ InspireClient  → INSPIRE-HEP REST API (15 req / 5 s)
-       ├─ ArxivClient    → arXiv Atom API (1 req / 3 s)
-       ├─ dedup_and_merge (arxiv_id / DOI / title similarity)
-       ├─ rank_candidates (log-citation + exponential recency)
+       ├─ InspireClient  → INSPIRE-HEP REST API
+       ├─ ArxivClient    → arXiv Atom API
+       ├─ AdsClient      → NASA ADS Search API (Bearer token)
+       ├─ dedup_and_merge (arxiv_id / DOI / bibcode / title)
+       ├─ enrich_inspire_citations()
+       ├─ apply_post_filters()  # theory, abstract, keywords, dates
+       ├─ rank_for_extraction() # semantic_full + semantic_abstract + Lagrangian heuristics
        ├─ fetch_pdfs_and_extract (PyMuPDF)
+       ├─ probe_arxiv_source()  # optional LaTeX /src/ probe
        └─ write_audit_log
 ```
 
-Both API clients run concurrently via a thread pool. HTTP requests use per-host token-bucket rate limiting and tenacity retries on 429/5xx.
+## LaTeX source investigation
 
-## Python API
+| Source | Author LaTeX available? |
+|--------|-------------------------|
+| **arXiv** | Yes — `https://arxiv.org/src/{arxiv_id}` (gzipped tar or single `.tex.gz`) |
+| **INSPIRE** | No — metadata and indexed full-text only; no downloadable TeX |
 
-```python
-from lagrangian_extraction.models import SearchQuery
-from lagrangian_extraction.pipeline.search import run_search
+Benchmark availability on a prior audit run:
 
-audit = run_search(SearchQuery(
-    model_name="scalar leptoquark",
-    keywords=["BSM", "leptoquark"],
-    top_k=10,
-))
+```bash
+python scripts/latex_availability_benchmark.py --audit runs/{run_id}.json
+```
 
-for paper in audit.candidates:
-    print(paper.score, paper.arxiv_id, paper.title)
+## Web UI
+
+```bash
+lex-web
+# Open http://127.0.0.1:8000
 ```
 
 ## Testing
 
 ```bash
-pytest -v
+pytest -v   # 52 tests, mocked HTTP
 ```
 
-Tests use `respx` to mock INSPIRE/arXiv HTTP responses and synthetic PDFs for extraction — no network required.
+## Deferred (Stage 2+)
 
-## Deferred (future stages)
+- Chunking + ChromaDB indexing
+- Embedding-based semantic search
+- LLM Lagrangian extraction + Jinja2 `.fr` templates
+- FeynRules / MadGraph validation
 
-- **Chunking + ChromaDB indexing** — semantic chunk retrieval for Stage 2 extraction
-- **LangGraph / LangChain tool wrapper** — HEPTAPOD integration
-- **Pydantic extraction schema + Jinja2 `.fr` templates** — Stage 2–3
-- **FeynRules / MadGraph validation** — Stage 4
-- **LaTeX source bundles** — higher-fidelity term extraction from arXiv source tarballs
-
-## License
-
-Part of the GSoC 2026 ML4SCI / HEPSIM5 project.
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and [docs/IMPLEMENTATION_NOTES.md](docs/IMPLEMENTATION_NOTES.md) for details.

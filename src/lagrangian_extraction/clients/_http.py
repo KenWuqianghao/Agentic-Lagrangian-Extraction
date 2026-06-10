@@ -69,6 +69,10 @@ class RateLimitedClient:
                 rate_limits.arxiv_max_requests,
                 rate_limits.arxiv_window_seconds,
             ),
+            "api.adsabs.harvard.edu": TokenBucket(
+                rate_limits.ads_max_requests,
+                rate_limits.ads_window_seconds,
+            ),
         }
         self._default_bucket = TokenBucket(10, 1.0)
 

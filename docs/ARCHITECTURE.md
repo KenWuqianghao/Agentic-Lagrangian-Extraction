@@ -1,6 +1,6 @@
 # Lagrangian Extraction — Architecture & Feature Guide
 
-Stage 1 of the HEPSIM5 pipeline: search INSPIRE and arXiv, select **one theory paper** suitable for Lagrangian extraction, optionally download its PDF and extract plain text, and write a reproducible audit log.
+Stage 1 of the HEPSIM5 pipeline: search **INSPIRE**, **arXiv**, and **NASA ADS**, filter and rank with abstract-focused semantic scoring, select **one theory paper** for Lagrangian extraction, optionally download PDF / probe LaTeX source, and write a reproducible audit log.
 
 ---
 
@@ -35,6 +35,7 @@ flowchart TD
     subgraph fetch [Parallel API search]
         INSPIRE[INSPIRE /api/literature]
         ARXIV[arXiv Atom API]
+        ADS[ADS Search API]
     end
 
     subgraph process [Processing]
@@ -46,6 +47,7 @@ flowchart TD
 
     subgraph optional [Optional]
         PDF[fetch_pdfs_and_extract]
+        LATEX[probe_arxiv_source]
         AUDIT[write_audit_log]
     end
 
@@ -56,12 +58,15 @@ flowchart TD
     SQ --> AQ
     IQ --> INSPIRE
     AQ --> ARXIV
+    SQ --> ADS
+    ADS --> DEDUP
     INSPIRE --> DEDUP
     ARXIV --> DEDUP
     DEDUP --> CITE
     CITE --> FILTER
     FILTER --> RANK
     RANK --> PDF
+    RANK --> LATEX
     RANK --> AUDIT
 ```
 
@@ -69,16 +74,17 @@ flowchart TD
 
 | Step | What happens | File |
 |------|----------------|------|
-| 1 | Build INSPIRE and arXiv query strings from `SearchQuery` | `pipeline/search.py` → `clients/inspire.py`, `clients/arxiv.py` |
+| 1 | Build INSPIRE, arXiv, and ADS query strings from `SearchQuery` | `pipeline/search.py` → `clients/*.py` |
 | 2 | Open rate-limited HTTP client | `clients/_http.py` |
-| 3 | Search INSPIRE and arXiv **in parallel** (thread pool) | `pipeline/search.py` |
-| 4 | Parse API responses into `PaperRecord` lists | `clients/inspire.py`, `clients/arxiv.py` |
+| 3 | Search INSPIRE, arXiv, and ADS **in parallel** (thread pool) | `pipeline/search.py` |
+| 4 | Parse API responses into `PaperRecord` lists | `clients/inspire.py`, `clients/arxiv.py`, `clients/ads.py` |
 | 5 | Merge and deduplicate records | `pipeline/dedup.py` |
 | 6 | Fill missing INSPIRE citation counts by arXiv ID | `pipeline/citations.py` |
-| 7 | Apply client-side filters (theory, dates, exclude terms) | `pipeline/filter.py` |
-| 8 | Rank candidates; take `top_k` + `runners_up` | `pipeline/search.py` → `pipeline/rank.py` or `pipeline/semantic.py` |
+| 7 | Apply client-side filters (theory, abstract, dates, keywords) | `pipeline/filter.py` |
+| 8 | Rank candidates (`semantic_full` + `semantic_abstract` when relevance) | `pipeline/rank.py` / `pipeline/semantic.py` |
 | 9 | Optionally download PDF and extract text (selected papers only) | `pipeline/pdfs.py` |
-| 10 | Write JSON audit log | `pipeline/audit.py` |
+| 10 | Optionally probe arXiv LaTeX `/src/` for selected paper | `pipeline/sources.py` |
+| 11 | Write JSON audit log | `pipeline/audit.py` |
 
 The orchestrator is **`run_search()`** in `src/lagrangian_extraction/pipeline/search.py`. Everything else is called from there.
 
@@ -133,7 +139,8 @@ src/lagrangian_extraction/
 ├── clients/
 │   ├── _http.py           # RateLimitedClient (token bucket + retries)
 │   ├── inspire.py         # INSPIRE query builder, search, citation lookup
-│   └── arxiv.py           # arXiv query builder, Atom feed parser
+│   ├── arxiv.py           # arXiv query builder, Atom feed parser
+│   └── ads.py             # NASA ADS query builder, search (Bearer token)
 ├── pipeline/
 │   ├── search.py          # Orchestrator: run_search()
 │   ├── dedup.py           # Merge INSPIRE + arXiv; dedup by ID/title
@@ -142,6 +149,7 @@ src/lagrangian_extraction/
 │   ├── rank.py            # combined + relevance (extraction) ranking
 │   ├── semantic.py        # Token cosine similarity ranking
 │   ├── pdfs.py            # Download PDF + PyMuPDF text extraction
+│   ├── sources.py         # arXiv LaTeX /src/ probe + fidelity compare
 │   └── audit.py           # Atomic JSON audit log writer
 └── web/
     ├── app.py             # FastAPI routes
@@ -449,7 +457,7 @@ data/text/{arxiv_id}.txt
 | Web API | `tests/test_web.py` |
 | PDF extraction | `tests/test_pdfs.py` |
 
-Run: `pytest -v` (36 tests; requires `[dev]` and `[web]` extras for web tests).
+Run: `pytest -v` (52 tests; requires `[dev]` and `[web]` extras for web tests).
 
 ---
 

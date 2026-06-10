@@ -39,7 +39,7 @@ function paperHtml(paper, heading) {
     <dl>
       <dt>arXiv</dt><dd>${paper.arxiv_id || "—"}</dd>
       <dt>INSPIRE</dt><dd>${paper.inspire_id ?? "—"}</dd>
-      <dt>Citations</dt><dd>${paper.citation_count}</dd>
+      <dt>INSPIRE cites</dt><dd>${paper.citation_count}</dd>
       <dt>Year</dt><dd>${year}</dd>
       <dt>Score</dt><dd>${paper.score.toFixed(4)}</dd>
       ${breakdown ? `<dt>Breakdown</dt><dd>${breakdown}</dd>` : ""}
@@ -63,7 +63,7 @@ form.addEventListener("submit", async (event) => {
   hide(resultEl);
   hide(runnersEl);
   hide(metaEl);
-  setStatus("Searching INSPIRE and arXiv…");
+  setStatus("Searching INSPIRE, arXiv, and ADS…");
 
   const data = new FormData(form);
   const body = {
@@ -77,6 +77,11 @@ form.addEventListener("submit", async (event) => {
     sort: data.get("sort"),
     search_mode: data.get("search_mode"),
     theory_only: data.get("theory_only") === "on",
+    use_ads: data.get("use_ads") === "on",
+    require_abstract: data.get("require_abstract") === "on",
+    abstract_keyword_match: data.get("abstract_keyword_match") === "on",
+    semantic_scope: data.get("semantic_scope") || "combined",
+    probe_latex_source: data.get("probe_latex_source") === "on",
     runners_up: Number(data.get("runners_up") || 0),
     download_pdfs: data.get("download_pdfs") === "on",
     extract_text: data.get("extract_text") === "on",
@@ -110,16 +115,21 @@ form.addEventListener("submit", async (event) => {
           .map(
             (paper, i) =>
               `<li><strong>#${i + 2}</strong> ${escapeHtml(paper.title)} ` +
-              `(${paper.arxiv_id || "no arXiv"}, ${paper.citation_count} cites, score ${paper.score.toFixed(3)})</li>`
+              `(${paper.arxiv_id || "no arXiv"}, ${paper.citation_count} INSPIRE cites, score ${paper.score.toFixed(3)})</li>`
           )
           .join("") +
         "</ul>";
       show(runnersEl);
     }
 
-    metaEl.innerHTML =
-      `Pool: ${payload.pool_searched} papers · INSPIRE: ${payload.inspire_hits} · arXiv: ${payload.arxiv_hits}<br>` +
-      `Audit log: ${escapeHtml(payload.audit_log)}`;
+    let meta =
+      `Pool: ${payload.pool_searched} papers · INSPIRE: ${payload.inspire_hits} · arXiv: ${payload.arxiv_hits} · ADS: ${payload.ads_hits}`;
+    if (payload.latex_probe) {
+      const lp = payload.latex_probe;
+      meta += `<br>LaTeX: available=${lp.available}, format=${lp.format}, main=${lp.main_tex || "—"}`;
+    }
+    meta += `<br>Audit log: ${escapeHtml(payload.audit_log)}`;
+    metaEl.innerHTML = meta;
     show(metaEl);
   } catch (err) {
     setStatus(err.message || "Something went wrong.", "error");

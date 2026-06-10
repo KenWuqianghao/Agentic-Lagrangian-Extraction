@@ -30,7 +30,7 @@ def _format_paper_line(paper: PaperRecord, rank: int) -> str:
     title = paper.title[:60] + ("..." if len(paper.title) > 60 else "")
     return (
         f"{rank:<5} {paper.score:<8.4f} {arxiv:<16} {inspire:<7} "
-        f"{paper.citation_count:<7} {year:<6} {title}"
+        f"{paper.citation_count:<13} {year:<6} {title}"
     )
 
 
@@ -40,7 +40,7 @@ def _print_selected_paper(paper: PaperRecord, downloads_by_arxiv: dict[str, str 
     typer.echo(f"Title:    {paper.title}")
     typer.echo(f"arXiv:    {paper.arxiv_id or '-'}")
     typer.echo(f"INSPIRE:  {paper.inspire_id or '-'}")
-    typer.echo(f"Cites:    {paper.citation_count}")
+    typer.echo(f"INSPIRE cites: {paper.citation_count}")
     typer.echo(f"Score:    {paper.score:.4f}")
     if paper.score_breakdown:
         breakdown = ", ".join(f"{k}={v}" for k, v in paper.score_breakdown.items())
@@ -109,6 +109,36 @@ def search_command(
         "--theory-only/--include-experiment",
         help="Keep only theory papers (hep-ph / Theory-HEP).",
     ),
+    use_ads: bool = typer.Option(
+        True,
+        "--use-ads/--no-ads",
+        help="Include NASA ADS as a third source (requires ADS_API_TOKEN).",
+    ),
+    require_abstract: bool = typer.Option(
+        False,
+        "--require-abstract",
+        help="Drop papers without a sufficiently long abstract.",
+    ),
+    abstract_keyword_match: bool = typer.Option(
+        False,
+        "--abstract-keyword-match",
+        help="Require at least one include-keyword to appear in the abstract.",
+    ),
+    abstract_exclude_only: bool = typer.Option(
+        False,
+        "--abstract-exclude-only",
+        help="Apply exclude-keywords only against abstract text.",
+    ),
+    semantic_scope: str = typer.Option(
+        "combined",
+        "--semantic-scope",
+        help="Semantic scoring scope: full, abstract, or combined.",
+    ),
+    probe_latex_source: bool = typer.Option(
+        False,
+        "--probe-latex-source",
+        help="Probe arXiv LaTeX source availability for the selected paper.",
+    ),
     download_pdfs: bool = typer.Option(True, "--download-pdfs/--no-download-pdfs"),
     extract_text: bool = typer.Option(True, "--extract-text/--no-extract-text"),
     w_cite: float = typer.Option(0.7, "--w-cite", help="Citation weight for combined ranking."),
@@ -133,6 +163,9 @@ def search_command(
     if search_mode not in {"keyword", "semantic"}:
         raise typer.BadParameter("search-mode must be one of: keyword, semantic")
 
+    if semantic_scope not in {"full", "abstract", "combined"}:
+        raise typer.BadParameter("semantic-scope must be one of: full, abstract, combined")
+
     query = SearchQuery(
         model_name=model_name,
         keywords=keywords,
@@ -146,6 +179,12 @@ def search_command(
         sort=sort,  # type: ignore[arg-type]
         search_mode=search_mode,  # type: ignore[arg-type]
         theory_only=theory_only,
+        use_ads=use_ads,
+        require_abstract=require_abstract,
+        abstract_keyword_match=abstract_keyword_match,
+        abstract_exclude_only=abstract_exclude_only,
+        semantic_scope=semantic_scope,  # type: ignore[arg-type]
+        probe_latex_source=probe_latex_source,
         download_pdfs=download_pdfs,
         extract_text=extract_text,
     )
@@ -155,6 +194,7 @@ def search_command(
             data_dir=data_dir,
             pdf_dir=data_dir / "pdfs",
             text_dir=data_dir / "text",
+            src_dir=data_dir / "src",
             runs_dir=out,
         ),
         rank=RankConfig(weight_citation=w_cite, weight_recency=w_recent),
@@ -171,6 +211,12 @@ def search_command(
         typer.echo(f"Exclude authors: {', '.join(exclude_authors)}")
     if theory_only:
         typer.echo("Filter: theory papers only")
+    if require_abstract:
+        typer.echo("Filter: require abstract")
+    if abstract_keyword_match:
+        typer.echo("Filter: keyword must appear in abstract")
+    if semantic_scope != "combined":
+        typer.echo(f"Semantic scope: {semantic_scope}")
 
     audit = run_search(query, settings)
 
@@ -187,9 +233,11 @@ def search_command(
     if audit.runners_up:
         typer.echo("")
         typer.echo("Runners-up")
-        typer.echo(
-            f"{'Rank':<5} {'Score':<8} {'arXiv ID':<16} {'INSPIRE':<7} {'Cites':<7} {'Year':<6} Title"
+        header = (
+            f"{'Rank':<5} {'Score':<8} {'arXiv ID':<16} {'INSPIRE':<7} "
+            f"{'INSPIRE cites':<13} {'Year':<6} Title"
         )
+        typer.echo(header)
         typer.echo("-" * 98)
         for i, paper in enumerate(audit.runners_up, start=2):
             typer.echo(_format_paper_line(paper, i))
@@ -197,9 +245,7 @@ def search_command(
     if top_k > 1:
         typer.echo("")
         typer.echo("Additional selections")
-        typer.echo(
-            f"{'Rank':<5} {'Score':<8} {'arXiv ID':<16} {'INSPIRE':<7} {'Cites':<7} {'Year':<6} Title"
-        )
+        typer.echo(header)
         typer.echo("-" * 98)
         for i, paper in enumerate(audit.candidates[1:], start=2):
             typer.echo(_format_paper_line(paper, i))
@@ -208,6 +254,13 @@ def search_command(
     typer.echo(f"Pool searched: {audit.raw_counts.merged_unique} unique papers")
     typer.echo(f"INSPIRE hits:  {audit.raw_counts.inspire_hits}")
     typer.echo(f"arXiv hits:    {audit.raw_counts.arxiv_hits}")
+    typer.echo(f"ADS hits:      {audit.raw_counts.ads_hits}")
+    if audit.latex_probe is not None:
+        probe = audit.latex_probe
+        typer.echo(
+            f"LaTeX source:  available={probe.available}, format={probe.format}, "
+            f"main_tex={probe.main_tex or '-'}"
+        )
     typer.echo(f"Audit log:     {out / f'{audit.run_id}.json'}")
 
     if audit.errors:

@@ -9,7 +9,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from lagrangian_extraction.models import AuditRun, PaperRecord, RawSearchCounts, SearchQuery
-from lagrangian_extraction.web.app import create_app
+from lagrangian_extraction.web.app import STATIC_DIR, create_app
 
 
 @pytest.fixture
@@ -23,12 +23,18 @@ def test_index_page_loads(client: TestClient) -> None:
     assert "Paper Search" in response.text
 
 
+def test_web_labels_show_inspire_citation_source() -> None:
+    static_js = (STATIC_DIR / "app.js").read_text(encoding="utf-8")
+    assert "INSPIRE cites" in static_js
+
+
 def test_filters_endpoint(client: TestClient) -> None:
     response = client.get("/api/filters")
     assert response.status_code == 200
     payload = response.json()
     assert "relevance" in payload["sort_options"]
     assert payload["defaults"]["theory_only"] is True
+    assert "abstract" in payload["semantic_scopes"]
 
 
 @patch("lagrangian_extraction.web.app.run_search")
@@ -49,7 +55,9 @@ def test_search_endpoint_returns_selected_paper(mock_run: object, client: TestCl
         finished_at=datetime.now(UTC),
         selected_paper=paper,
         candidates=[paper],
-        raw_counts=RawSearchCounts(inspire_hits=10, arxiv_hits=5, merged_unique=12),
+        raw_counts=RawSearchCounts(
+            inspire_hits=10, arxiv_hits=5, ads_hits=3, merged_unique=12
+        ),
     )
 
     response = client.post(
@@ -67,6 +75,7 @@ def test_search_endpoint_returns_selected_paper(mock_run: object, client: TestCl
     assert payload["selected_paper"]["title"] == "Scalar leptoquark Lagrangian"
     assert payload["selected_paper"]["citation_count"] == 50
     assert payload["pool_searched"] == 12
+    assert payload["ads_hits"] == 3
 
     call_args = mock_run.call_args[0][0]
     assert call_args.keywords == ["BSM", "leptoquark"]

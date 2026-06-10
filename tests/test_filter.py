@@ -50,6 +50,48 @@ def test_author_filter() -> None:
     assert filtered[0].authors[0].name.startswith("Crivellin")
 
 
+def test_require_abstract_filter() -> None:
+    papers = [
+        _paper(abstract="Short"),
+        _paper(
+            abstract=(
+                "A sufficiently long abstract describing scalar leptoquark phenomenology "
+                "and BSM model building for Lagrangian extraction purposes."
+            ),
+        ),
+    ]
+    query = SearchQuery(model_name="test", require_abstract=True, abstract_min_length=80)
+    filtered = apply_post_filters(papers, query)
+    assert len(filtered) == 1
+    assert "sufficiently long" in filtered[0].abstract  # type: ignore[operator]
+
+
+def test_abstract_keyword_match_filter() -> None:
+    papers = [
+        _paper(title="Scalar leptoquark model", abstract="We study BSM extensions."),
+        _paper(title="Scalar leptoquark model", abstract="Collider search limits only."),
+    ]
+    query = SearchQuery(model_name="test", keywords=["BSM"], abstract_keyword_match=True)
+    filtered = apply_post_filters(papers, query)
+    assert len(filtered) == 1
+    assert "BSM" in filtered[0].abstract  # type: ignore[operator]
+
+
+def test_abstract_exclude_only_filter() -> None:
+    papers = [
+        _paper(title="Scalar leptoquark", abstract="We study supersymmetric extensions."),
+        _paper(title="Scalar leptoquark", abstract="We study BSM phenomenology."),
+    ]
+    query = SearchQuery(
+        model_name="test",
+        exclude_keywords=["supersymmetry"],
+        abstract_exclude_only=True,
+    )
+    filtered = apply_post_filters(papers, query)
+    assert len(filtered) == 1
+    assert "BSM" in filtered[0].abstract  # type: ignore[operator]
+
+
 def test_until_date_filter() -> None:
     papers = [
         _paper(published=date(2018, 1, 1)),

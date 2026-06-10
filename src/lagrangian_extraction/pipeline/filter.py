@@ -16,6 +16,10 @@ def _normalize_text(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", text.lower()).strip()
 
 
+def _abstract_blob(paper: PaperRecord) -> str:
+    return _normalize_text(paper.abstract or "")
+
+
 def _text_blob(paper: PaperRecord) -> str:
     author_names = " ".join(a.name for a in paper.authors)
     parts = [paper.title, paper.abstract or "", author_names]
@@ -35,6 +39,10 @@ def _keyword_in_text(text: str, keyword: str) -> bool:
 
 def _matches_keyword(paper: PaperRecord, keyword: str) -> bool:
     return _keyword_in_text(_text_blob(paper), keyword)
+
+
+def _matches_keyword_in_abstract(paper: PaperRecord, keyword: str) -> bool:
+    return _keyword_in_text(_abstract_blob(paper), keyword)
 
 
 def _matches_author(paper: PaperRecord, author: str) -> bool:
@@ -60,11 +68,13 @@ def is_theory_paper(paper: PaperRecord) -> bool:
             return False
         if any(c in THEORY_ARXIV_CATEGORIES for c in paper.categories):
             return True
-        # Unknown arXiv category — keep if not explicitly experimental.
         return not any(c.startswith("hep-ex") or c.startswith("nucl-ex") for c in paper.categories)
 
-    # No category/subject metadata: default to keeping the record.
     return True
+
+
+def _has_sufficient_abstract(paper: PaperRecord, min_length: int) -> bool:
+    return paper.abstract is not None and len(paper.abstract.strip()) >= min_length
 
 
 def apply_post_filters(papers: list[PaperRecord], query: SearchQuery) -> list[PaperRecord]:
@@ -73,6 +83,9 @@ def apply_post_filters(papers: list[PaperRecord], query: SearchQuery) -> list[Pa
 
     if query.theory_only:
         filtered = [p for p in filtered if is_theory_paper(p)]
+
+    if query.require_abstract:
+        filtered = [p for p in filtered if _has_sufficient_abstract(p, query.abstract_min_length)]
 
     if query.until is not None:
         filtered = [
@@ -84,12 +97,28 @@ def apply_post_filters(papers: list[PaperRecord], query: SearchQuery) -> list[Pa
             p for p in filtered if p.published is None or p.published >= query.since  # type: ignore[operator]
         ]
 
-    if query.exclude_keywords:
+    if query.abstract_keyword_match and query.keywords:
         filtered = [
             p
             for p in filtered
-            if not any(_matches_keyword(p, keyword) for keyword in query.exclude_keywords)
+            if any(_matches_keyword_in_abstract(p, keyword) for keyword in query.keywords)
         ]
+
+    if query.exclude_keywords:
+        if query.abstract_exclude_only:
+            filtered = [
+                p
+                for p in filtered
+                if not any(
+                    _matches_keyword_in_abstract(p, keyword) for keyword in query.exclude_keywords
+                )
+            ]
+        else:
+            filtered = [
+                p
+                for p in filtered
+                if not any(_matches_keyword(p, keyword) for keyword in query.exclude_keywords)
+            ]
 
     if query.exclude_authors:
         filtered = [

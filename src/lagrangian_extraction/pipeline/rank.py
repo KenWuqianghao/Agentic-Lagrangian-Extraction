@@ -4,10 +4,16 @@ from __future__ import annotations
 
 import math
 from datetime import date
+from typing import Literal
 
 from lagrangian_extraction.config import RankConfig
 from lagrangian_extraction.models import PaperRecord
-from lagrangian_extraction.pipeline.semantic import paper_text, semantic_similarity
+from lagrangian_extraction.pipeline.semantic import (
+    combine_semantic_scores,
+    paper_text,
+    semantic_similarity,
+    semantic_similarity_abstract,
+)
 
 # Terms suggesting an explicit model / Lagrangian definition.
 _LAGRANGIAN_POSITIVE = (
@@ -82,6 +88,7 @@ def compute_extraction_score(
     now: date,
     config: RankConfig,
     max_cites_seen: int | None = None,
+    semantic_scope: Literal["full", "abstract", "combined"] = "combined",
 ) -> tuple[float, dict[str, float]]:
     """Score a paper for single-paper Lagrangian extraction selection."""
     cite_ceiling = max_cites_seen or config.max_cites_seen
@@ -93,11 +100,18 @@ def compute_extraction_score(
     recency = math.exp(-age_years / config.recency_half_life_years)
 
     text = paper_text(paper)
-    semantic = semantic_similarity(query_text, text)
+    semantic_full = semantic_similarity(query_text, text)
+    semantic_abstract = semantic_similarity_abstract(query_text, paper)
+    semantic = combine_semantic_scores(
+        semantic_full,
+        semantic_abstract,
+        semantic_scope,
+        weight_full=config.weight_semantic_full,
+        weight_abstract=config.weight_semantic_abstract,
+    )
     lagrangian = _lagrangian_signal(text)
     extractable = 1.0 if paper.arxiv_id else 0.0
 
-    # Relevance-first weighting: semantic + Lagrangian signals dominate over raw citations.
     cite_weight = 1.0 - config.weight_semantic - config.weight_lagrangian - 0.1
     cite_weight = max(cite_weight, 0.05)
     recency_weight = 0.1
@@ -111,6 +125,8 @@ def compute_extraction_score(
     )
     breakdown = {
         "semantic": round(semantic, 6),
+        "semantic_full": round(semantic_full, 6),
+        "semantic_abstract": round(semantic_abstract, 6),
         "lagrangian_signal": round(lagrangian, 6),
         "citation_norm": round(cite_norm, 6),
         "recency": round(recency, 6),
@@ -153,6 +169,7 @@ def rank_for_extraction(
     config: RankConfig | None = None,
     now: date | None = None,
     top_k: int | None = None,
+    semantic_scope: Literal["full", "abstract", "combined"] = "combined",
 ) -> list[PaperRecord]:
     """Rank papers for selecting one source to extract a Lagrangian from."""
     cfg = config or RankConfig()
@@ -167,6 +184,7 @@ def rank_for_extraction(
             now=reference_date,
             config=cfg,
             max_cites_seen=max_cites,
+            semantic_scope=semantic_scope,
         )
         scored.append(
             paper.model_copy(update={"score": round(score, 6), "score_breakdown": breakdown})

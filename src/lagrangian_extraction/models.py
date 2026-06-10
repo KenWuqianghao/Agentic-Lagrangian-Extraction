@@ -19,6 +19,7 @@ class PaperRecord(BaseModel):
 
     arxiv_id: str | None = None
     inspire_id: int | None = None
+    ads_bibcode: str | None = None
     doi: str | None = None
     title: str
     authors: list[Author] = Field(default_factory=list)
@@ -31,7 +32,7 @@ class PaperRecord(BaseModel):
     citation_count_no_self: int | None = None
     pdf_url: str | None = None
     abs_url: str | None = None
-    sources: list[Literal["inspire", "arxiv"]] = Field(default_factory=list)
+    sources: list[Literal["inspire", "arxiv", "ads"]] = Field(default_factory=list)
     score: float = 0.0
     score_breakdown: dict[str, float] = Field(default_factory=dict)
 
@@ -50,6 +51,8 @@ class PaperRecord(BaseModel):
             ids.append(f"inspire:{self.inspire_id}")
         if self.doi:
             ids.append(f"doi:{self.doi}")
+        if self.ads_bibcode:
+            ids.append(f"ads:{self.ads_bibcode}")
         return ids
 
 
@@ -66,6 +69,13 @@ class SearchQuery(BaseModel):
     sort: Literal["relevance", "combined", "mostcited", "mostrecent", "semantic"] = "relevance"
     search_mode: Literal["keyword", "semantic"] = "keyword"
     theory_only: bool = True
+    use_ads: bool = True
+    require_abstract: bool = False
+    abstract_keyword_match: bool = False
+    abstract_exclude_only: bool = False
+    abstract_min_length: int = 80
+    semantic_scope: Literal["full", "abstract", "combined"] = "combined"
+    probe_latex_source: bool = False
     download_pdfs: bool = True
     extract_text: bool = True
 
@@ -95,9 +105,23 @@ class LocalPDF(BaseModel):
     error: str | None = None
 
 
+class SourceProbeResult(BaseModel):
+    arxiv_id: str
+    src_url: str
+    available: bool
+    format: Literal["tex_tar", "single_tex", "pdf_only", "unavailable", "error"] = "unavailable"
+    main_tex: str | None = None
+    tex_char_count: int = 0
+    pdf_text_char_count: int | None = None
+    equation_markers: int = 0
+    section_count: int = 0
+    error: str | None = None
+
+
 class RawSearchCounts(BaseModel):
     inspire_hits: int = 0
     arxiv_hits: int = 0
+    ads_hits: int = 0
     merged_unique: int = 0
 
 
@@ -108,7 +132,9 @@ class AuditRun(BaseModel):
     finished_at: datetime | None = None
     inspire_url: str | None = None
     arxiv_url: str | None = None
+    ads_url: str | None = None
     raw_counts: RawSearchCounts = Field(default_factory=RawSearchCounts)
+    latex_probe: SourceProbeResult | None = None
     selected_paper: PaperRecord | None = None
     runners_up: list[PaperRecord] = Field(default_factory=list)
     candidates: list[PaperRecord] = Field(default_factory=list)

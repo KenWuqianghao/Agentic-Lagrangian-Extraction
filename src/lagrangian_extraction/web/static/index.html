@@ -10,7 +10,7 @@
   <main class="page">
     <header>
       <h1>Paper Search</h1>
-      <p>Select one theory paper for Lagrangian extraction (INSPIRE + arXiv).</p>
+      <p>Select one theory paper for Lagrangian extraction (INSPIRE + arXiv + ADS).</p>
     </header>
 
     <form id="search-form" class="card">
@@ -72,6 +72,17 @@
           </select>
         </label>
         <label class="field">
+          <span>Semantic scope</span>
+          <select name="semantic_scope">
+            <option value="combined" selected>Combined</option>
+            <option value="abstract">Abstract only</option>
+            <option value="full">Full text</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="grid-2">
+        <label class="field">
           <span>Runners-up</span>
           <input type="number" name="runners_up" min="0" max="10" value="0">
         </label>
@@ -79,8 +90,12 @@
 
       <div class="checks">
         <label><input type="checkbox" name="theory_only" checked> Theory papers only</label>
+        <label><input type="checkbox" name="use_ads" checked> Include ADS</label>
+        <label><input type="checkbox" name="require_abstract"> Require abstract</label>
+        <label><input type="checkbox" name="abstract_keyword_match"> Keyword in abstract</label>
         <label><input type="checkbox" name="download_pdfs"> Download PDF</label>
         <label><input type="checkbox" name="extract_text"> Extract text</label>
+        <label><input type="checkbox" name="probe_latex_source"> Probe LaTeX source</label>
       </div>
 
       <button type="submit" id="submit-btn">Search</button>

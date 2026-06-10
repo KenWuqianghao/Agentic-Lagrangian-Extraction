@@ -19,6 +19,7 @@ STATIC_DIR = Path(__file__).parent / "static"
 
 SORT_OPTIONS = ("relevance", "combined", "mostcited", "mostrecent", "semantic")
 SEARCH_MODES = ("keyword", "semantic")
+SEMANTIC_SCOPES = ("full", "abstract", "combined")
 
 
 def _split_terms(value: str) -> list[str]:
@@ -36,6 +37,12 @@ class SearchRequest(BaseModel):
     sort: Literal["relevance", "combined", "mostcited", "mostrecent", "semantic"] = "relevance"
     search_mode: Literal["keyword", "semantic"] = "keyword"
     theory_only: bool = True
+    use_ads: bool = True
+    require_abstract: bool = False
+    abstract_keyword_match: bool = False
+    abstract_exclude_only: bool = False
+    semantic_scope: Literal["full", "abstract", "combined"] = "combined"
+    probe_latex_source: bool = False
     runners_up: int = Field(default=0, ge=0, le=10)
     download_pdfs: bool = False
     extract_text: bool = False
@@ -53,6 +60,16 @@ class PaperResponse(BaseModel):
     text_path: str | None = None
 
 
+class LatexProbeResponse(BaseModel):
+    arxiv_id: str
+    available: bool
+    format: str
+    main_tex: str | None
+    tex_char_count: int
+    pdf_text_char_count: int | None
+    error: str | None
+
+
 class SearchResponse(BaseModel):
     run_id: str
     selected_paper: PaperResponse | None
@@ -60,6 +77,8 @@ class SearchResponse(BaseModel):
     pool_searched: int
     inspire_hits: int
     arxiv_hits: int
+    ads_hits: int
+    latex_probe: LatexProbeResponse | None
     audit_log: str
     errors: list[str]
 
@@ -92,6 +111,12 @@ def _build_query(body: SearchRequest) -> SearchQuery:
         sort=body.sort,
         search_mode=body.search_mode,
         theory_only=body.theory_only,
+        use_ads=body.use_ads,
+        require_abstract=body.require_abstract,
+        abstract_keyword_match=body.abstract_keyword_match,
+        abstract_exclude_only=body.abstract_exclude_only,
+        semantic_scope=body.semantic_scope,
+        probe_latex_source=body.probe_latex_source,
         download_pdfs=body.download_pdfs,
         extract_text=body.extract_text,
     )
@@ -113,6 +138,19 @@ def _audit_to_response(audit: AuditRun, audit_path: Path) -> SearchResponse:
         for paper in audit.runners_up
     ]
 
+    latex_probe = None
+    if audit.latex_probe is not None:
+        lp = audit.latex_probe
+        latex_probe = LatexProbeResponse(
+            arxiv_id=lp.arxiv_id,
+            available=lp.available,
+            format=lp.format,
+            main_tex=lp.main_tex,
+            tex_char_count=lp.tex_char_count,
+            pdf_text_char_count=lp.pdf_text_char_count,
+            error=lp.error,
+        )
+
     return SearchResponse(
         run_id=audit.run_id,
         selected_paper=selected,
@@ -120,6 +158,8 @@ def _audit_to_response(audit: AuditRun, audit_path: Path) -> SearchResponse:
         pool_searched=audit.raw_counts.merged_unique,
         inspire_hits=audit.raw_counts.inspire_hits,
         arxiv_hits=audit.raw_counts.arxiv_hits,
+        ads_hits=audit.raw_counts.ads_hits,
+        latex_probe=latex_probe,
         audit_log=str(audit_path / f"{audit.run_id}.json"),
         errors=audit.errors,
     )
@@ -135,6 +175,7 @@ def create_app(data_dir: Path | None = None, runs_dir: Path | None = None) -> Fa
             data_dir=root_data,
             pdf_dir=root_data / "pdfs",
             text_dir=root_data / "text",
+            src_dir=root_data / "src",
             runs_dir=root_runs,
         ),
         rank=RankConfig(),
@@ -149,13 +190,19 @@ def create_app(data_dir: Path | None = None, runs_dir: Path | None = None) -> Fa
         return {
             "sort_options": list(SORT_OPTIONS),
             "search_modes": list(SEARCH_MODES),
+            "semantic_scopes": list(SEMANTIC_SCOPES),
             "defaults": {
                 "sort": "relevance",
                 "search_mode": "keyword",
+                "semantic_scope": "combined",
                 "theory_only": True,
+                "use_ads": True,
+                "require_abstract": False,
+                "abstract_keyword_match": False,
                 "runners_up": 0,
                 "download_pdfs": False,
                 "extract_text": False,
+                "probe_latex_source": False,
             },
         }
 

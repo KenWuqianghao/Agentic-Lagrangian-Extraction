@@ -14,6 +14,8 @@ class RateLimitConfig:
     inspire_window_seconds: float = 5.0
     arxiv_max_requests: int = 1
     arxiv_window_seconds: float = 3.0
+    ads_max_requests: int = 1
+    ads_window_seconds: float = 1.0
 
 
 @dataclass
@@ -23,6 +25,8 @@ class RankConfig:
     weight_citation: float = 0.7
     weight_recency: float = 0.3
     weight_semantic: float = 0.45
+    weight_semantic_full: float = 0.4
+    weight_semantic_abstract: float = 0.6
     weight_lagrangian: float = 0.25
     recency_half_life_years: float = 5.0
     max_cites_seen: int = 10_000
@@ -38,11 +42,13 @@ class PathConfig:
     data_dir: Path = field(default_factory=lambda: Path("data"))
     pdf_dir: Path = field(default_factory=lambda: Path("data/pdfs"))
     text_dir: Path = field(default_factory=lambda: Path("data/text"))
+    src_dir: Path = field(default_factory=lambda: Path("data/src"))
     runs_dir: Path = field(default_factory=lambda: Path("runs"))
 
     def ensure_dirs(self) -> None:
         self.pdf_dir.mkdir(parents=True, exist_ok=True)
         self.text_dir.mkdir(parents=True, exist_ok=True)
+        self.src_dir.mkdir(parents=True, exist_ok=True)
         self.runs_dir.mkdir(parents=True, exist_ok=True)
 
 
@@ -69,6 +75,8 @@ DEFAULT_SETTINGS = Settings()
 
 INSPIRE_BASE_URL = "https://inspirehep.net/api/literature"
 ARXIV_BASE_URL = "https://export.arxiv.org/api/query"
+ADS_BASE_URL = "https://api.adsabs.harvard.edu/v1/search/query"
+ADS_FIELDS = "bibcode,title,abstract,author,citation_count,arxiv,doi,pubdate,year,arxiv_class"
 
 INSPIRE_FIELDS = (
     "titles,authors.full_name,arxiv_eprints,dois,"

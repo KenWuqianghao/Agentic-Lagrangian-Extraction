@@ -7,7 +7,13 @@ from pathlib import Path
 
 import respx
 
-from lagrangian_extraction.config import ARXIV_BASE_URL, INSPIRE_BASE_URL, PathConfig, Settings
+from lagrangian_extraction.config import (
+    ADS_BASE_URL,
+    ARXIV_BASE_URL,
+    INSPIRE_BASE_URL,
+    PathConfig,
+    Settings,
+)
 from lagrangian_extraction.models import SearchQuery
 from lagrangian_extraction.pipeline.audit import write_audit_log
 from lagrangian_extraction.pipeline.search import run_search
@@ -15,13 +21,16 @@ from tests.conftest import load_fixture, make_synthetic_pdf
 
 
 @respx.mock
-def test_search_e2e_with_mocked_apis(tmp_path: Path) -> None:
+def test_search_e2e_with_mocked_apis(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setenv("ADS_API_TOKEN", "test-token")
     inspire_payload = json.loads(load_fixture("inspire_leptoquark.json"))
     arxiv_payload = load_fixture("arxiv_leptoquark.xml")
+    ads_payload = json.loads(load_fixture("ads_leptoquark.json"))
     pdf_bytes = make_synthetic_pdf(tmp_path / "sample.pdf", ["Lagrangian terms here"]).read_bytes()
 
     respx.get(INSPIRE_BASE_URL).respond(json=inspire_payload)
     respx.get(ARXIV_BASE_URL).respond(text=arxiv_payload)
+    respx.get(ADS_BASE_URL).respond(json=ads_payload)
     respx.get(url__regex=r"https://arxiv\.org/pdf/.*").respond(content=pdf_bytes)
 
     settings = Settings(
@@ -37,6 +46,7 @@ def test_search_e2e_with_mocked_apis(tmp_path: Path) -> None:
         model_name="scalar leptoquark",
         keywords=["BSM"],
         top_k=3,
+        use_ads=True,
         download_pdfs=True,
         extract_text=True,
     )
@@ -48,6 +58,7 @@ def test_search_e2e_with_mocked_apis(tmp_path: Path) -> None:
     assert audit.arxiv_url is not None
     assert audit.raw_counts.inspire_hits == 2
     assert audit.raw_counts.arxiv_hits == 2
+    assert audit.raw_counts.ads_hits == 2
     assert len(audit.candidates) <= 3
     assert audit.candidates[0].score >= 0
 

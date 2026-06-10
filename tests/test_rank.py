@@ -58,3 +58,30 @@ def test_rank_for_extraction_prefers_lagrangian_paper() -> None:
         top_k=1,
     )
     assert "Lagrangian" in ranked[0].title
+    assert "semantic_abstract" in ranked[0].score_breakdown
+    assert "semantic_full" in ranked[0].score_breakdown
+
+
+def test_abstract_scope_boosts_abstract_match() -> None:
+    title_match = PaperRecord(
+        title="Scalar leptoquark BSM model",
+        abstract="Collider limits and search prospects.",
+        citation_count=10,
+        published=date(2020, 1, 1),
+        arxiv_id="2001.00001",
+    )
+    abstract_match = PaperRecord(
+        title="LHC constraints",
+        abstract="Scalar leptoquark BSM phenomenology and couplings.",
+        citation_count=10,
+        published=date(2020, 1, 1),
+        arxiv_id="2002.00002",
+    )
+    ranked = rank_for_extraction(
+        [title_match, abstract_match],
+        query_text="scalar leptoquark BSM",
+        now=date(2025, 1, 1),
+        top_k=1,
+        semantic_scope="abstract",
+    )
+    assert "BSM" in ranked[0].abstract  # type: ignore[operator]

@@ -152,7 +152,9 @@ class InspireClient:
     def lookup_by_arxiv_ids(self, arxiv_ids: list[str]) -> dict[str, InspireLookup]:
         """Batch-fetch INSPIRE citation metadata keyed by normalized arXiv ID."""
         normalized_ids = [
-            aid for aid in dict.fromkeys(normalize_arxiv_id(arxiv_id) for arxiv_id in arxiv_ids) if aid
+            aid
+            for aid in dict.fromkeys(normalize_arxiv_id(aid) for aid in arxiv_ids)
+            if aid
         ]
         if not normalized_ids:
             return {}

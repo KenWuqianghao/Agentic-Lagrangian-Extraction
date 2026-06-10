@@ -58,6 +58,38 @@ def test_dedup_by_similar_title() -> None:
     assert len(merged) == 1
 
 
+def test_dedup_by_ads_bibcode() -> None:
+    ads = _paper(ads_bibcode="2020PhRvD.101.035001", title="Paper A", sources=["ads"])
+    inspire = _paper(
+        ads_bibcode="2020PhRvD.101.035001",
+        inspire_id=999,
+        citation_count=50,
+        sources=["inspire"],
+    )
+    merged = dedup_and_merge([ads], [inspire])
+    assert len(merged) == 1
+    assert merged[0].citation_count == 50
+
+
+def test_dedup_ads_arxiv_overlap() -> None:
+    ads = _paper(
+        arxiv_id="2002.12544",
+        ads_bibcode="2020PhRvD.101.035001",
+        abstract="ADS abstract",
+        sources=["ads"],
+    )
+    arxiv = _paper(
+        arxiv_id="2002.12544",
+        title="Getting chirality right",
+        pdf_url="https://arxiv.org/pdf/2002.12544.pdf",
+        sources=["arxiv"],
+    )
+    merged = dedup_and_merge([], [arxiv], [ads])
+    assert len(merged) == 1
+    assert set(merged[0].sources) == {"arxiv", "ads"}
+    assert merged[0].pdf_url is not None
+
+
 def test_no_false_merge_different_titles() -> None:
     a = _paper(title="Scalar Leptoquarks")
     b = _paper(title="Two Higgs Doublet Model", sources=["arxiv"])

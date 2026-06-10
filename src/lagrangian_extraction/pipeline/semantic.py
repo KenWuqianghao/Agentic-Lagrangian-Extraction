@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import math
 import re
+from typing import Literal
 
 from lagrangian_extraction.models import PaperRecord
 
@@ -24,8 +25,8 @@ def paper_text(paper: PaperRecord) -> str:
     )
 
 
-def _paper_text(paper: PaperRecord) -> str:
-    return paper_text(paper)
+def abstract_text(paper: PaperRecord) -> str:
+    return paper.abstract or ""
 
 
 def semantic_similarity(query: str, text: str) -> float:
@@ -47,6 +48,26 @@ def semantic_similarity(query: str, text: str) -> float:
     return dot / (query_norm * text_norm)
 
 
+def semantic_similarity_abstract(query: str, paper: PaperRecord) -> float:
+    """Cosine similarity between query and abstract tokens only."""
+    return semantic_similarity(query, abstract_text(paper))
+
+
+def combine_semantic_scores(
+    semantic_full: float,
+    semantic_abstract: float,
+    scope: Literal["full", "abstract", "combined"],
+    *,
+    weight_full: float = 0.4,
+    weight_abstract: float = 0.6,
+) -> float:
+    if scope == "full":
+        return semantic_full
+    if scope == "abstract":
+        return semantic_abstract
+    return weight_full * semantic_full + weight_abstract * semantic_abstract
+
+
 def build_semantic_query(model_name: str, keywords: list[str]) -> str:
     parts = [model_name, *keywords]
     return " ".join(part.strip() for part in parts if part.strip())
@@ -57,16 +78,23 @@ def rank_by_semantic(
     query_text: str,
     *,
     top_k: int | None = None,
+    scope: Literal["full", "abstract", "combined"] = "combined",
 ) -> list[PaperRecord]:
     """Rank papers by semantic similarity to the query text."""
     scored: list[PaperRecord] = []
     for paper in papers:
-        similarity = semantic_similarity(query_text, _paper_text(paper))
+        full = semantic_similarity(query_text, paper_text(paper))
+        abstract = semantic_similarity_abstract(query_text, paper)
+        similarity = combine_semantic_scores(full, abstract, scope)
         scored.append(
             paper.model_copy(
                 update={
                     "score": round(similarity, 6),
-                    "score_breakdown": {"semantic_similarity": round(similarity, 6)},
+                    "score_breakdown": {
+                        "semantic_similarity": round(similarity, 6),
+                        "semantic_full": round(full, 6),
+                        "semantic_abstract": round(abstract, 6),
+                    },
                 }
             )
         )
