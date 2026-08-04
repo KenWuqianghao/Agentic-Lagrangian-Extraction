@@ -1,0 +1,507 @@
+<title>Closed-loop validation: 28 FeynRules models</title>
+
+<style>
+  :root {
+    --paper:      #F6F8F9;
+    --raised:     #FFFFFF;
+    --ink:        #131A21;
+    --ink-2:      #46555F;
+    --ink-3:      #75858F;
+    --rule:       #DDE4E7;
+    --rule-soft:  #EAEFF1;
+    --accent:     #0B7A87;
+    --accent-dim: #E2F0F1;
+    --pass:       #2F7A55;
+    --pass-dim:   #E0EFE6;
+    --fixed:      #B0761F;
+    --fixed-dim:  #F7EEDC;
+    --unfixed:    #A63A38;
+    --unfixed-dim:#F6E3E2;
+    --shadow:     0 1px 2px rgba(19,26,33,.05), 0 8px 24px -16px rgba(19,26,33,.28);
+
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Source Serif 4", Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #0E1418; --raised: #161E24; --ink: #E6EDF0; --ink-2: #A5B4BC;
+      --ink-3: #74848D; --rule: #26323A; --rule-soft: #1D262C;
+      --accent: #52CFD6; --accent-dim: #122E33;
+      --pass: #5FBF8C; --pass-dim: #132C21;
+      --fixed: #D9A253; --fixed-dim: #2E2415;
+      --unfixed: #E0736F; --unfixed-dim: #2E1917;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0E1418; --raised: #161E24; --ink: #E6EDF0; --ink-2: #A5B4BC;
+    --ink-3: #74848D; --rule: #26323A; --rule-soft: #1D262C;
+    --accent: #52CFD6; --accent-dim: #122E33;
+    --pass: #5FBF8C; --pass-dim: #132C21;
+    --fixed: #D9A253; --fixed-dim: #2E2415;
+    --unfixed: #E0736F; --unfixed-dim: #2E1917;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8);
+  }
+  :root[data-theme="light"] {
+    --paper: #F6F8F9; --raised: #FFFFFF; --ink: #131A21; --ink-2: #46555F;
+    --ink-3: #75858F; --rule: #DDE4E7; --rule-soft: #EAEFF1;
+    --accent: #0B7A87; --accent-dim: #E2F0F1;
+    --pass: #2F7A55; --pass-dim: #E0EFE6;
+    --fixed: #B0761F; --fixed-dim: #F7EEDC;
+    --unfixed: #A63A38; --unfixed-dim: #F6E3E2;
+    --shadow: 0 1px 2px rgba(19,26,33,.05), 0 8px 24px -16px rgba(19,26,33,.28);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+    margin: 0; padding: 0 1.25rem 6rem;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 62rem; margin: 0 auto; }
+  .prose { max-width: 40rem; }
+
+  h1, h2, h3 { font-family: var(--serif); font-weight: 600; text-wrap: balance; margin: 0; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.08; letter-spacing: -.015em; }
+  h2 { font-size: clamp(1.4rem, 3vw, 1.85rem); line-height: 1.2; letter-spacing: -.01em; }
+  h3 { font-size: 1.06rem; line-height: 1.3; }
+  p { margin: 0; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+  a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+  .eyebrow {
+    font-family: var(--mono); font-size: .7rem; text-transform: uppercase;
+    letter-spacing: .13em; color: var(--ink-3); margin: 0;
+  }
+  .num { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+
+  /* ---------- masthead ---------- */
+  header { padding: 4rem 0 2.5rem; border-bottom: 1px solid var(--rule); }
+  .lede { font-size: 1.12rem; color: var(--ink-2); margin-top: 1.25rem; }
+  .meta {
+    margin-top: 2rem; display: flex; flex-wrap: wrap; gap: .5rem 1.5rem;
+    font-family: var(--mono); font-size: .76rem; color: var(--ink-3);
+  }
+
+  section { padding: 3.5rem 0 0; }
+  .sec-head { display: flex; flex-direction: column; gap: .6rem; margin-bottom: 1.75rem; }
+
+  /* ---------- headline figure ---------- */
+  .headline {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: .75rem 1.5rem;
+    margin-top: 2rem;
+  }
+  .big {
+    font-family: var(--mono); font-variant-numeric: tabular-nums;
+    font-size: clamp(3.2rem, 11vw, 5.5rem); line-height: .9;
+    letter-spacing: -.04em; color: var(--accent); font-weight: 600;
+  }
+  .big small { font-size: .38em; color: var(--ink-3); letter-spacing: 0; }
+
+  /* ---------- channel map ---------- */
+  .map { display: flex; flex-direction: column; gap: .55rem; }
+  .map-row { display: grid; grid-template-columns: 9.5rem 1fr auto; align-items: center; gap: 1rem; }
+  .map-label { font-family: var(--mono); font-size: .76rem; color: var(--ink-2); }
+  .cells { display: grid; grid-template-columns: repeat(28, 1fr); gap: 3px; }
+  .cell { aspect-ratio: 1; border-radius: 2px; background: var(--rule-soft); border: 1px solid transparent; }
+  .cell.pass   { background: var(--pass); }
+  .cell.new    { background: var(--fixed); }
+  .cell.fail   { background: var(--rule-soft); border-color: var(--rule); }
+  .cell.hard   { background: var(--unfixed-dim); border-color: var(--unfixed); }
+  .map-score { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: .82rem; color: var(--ink-2); white-space: nowrap; }
+  .map-score b { color: var(--ink); font-weight: 600; }
+  .map-foot { margin-top: 1.25rem; display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; font-size: .78rem; color: var(--ink-2); }
+  .key { display: inline-flex; align-items: center; gap: .45rem; }
+  .swatch { width: .7rem; height: .7rem; border-radius: 2px; display: inline-block; }
+
+  /* ---------- callout ---------- */
+  .callout {
+    margin-top: 2.5rem; padding: 1.5rem 1.6rem; background: var(--raised);
+    border: 1px solid var(--rule); border-left: 3px solid var(--accent);
+    border-radius: 3px; box-shadow: var(--shadow);
+  }
+  .callout p + p { margin-top: .85rem; }
+
+  /* ---------- stats ---------- */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; }
+  .stat { background: var(--raised); padding: 1.15rem 1.25rem; }
+  .stat-v { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 1.6rem; letter-spacing: -.02em; }
+  .stat-k { font-family: var(--mono); font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-3); margin-top: .3rem; }
+
+  /* ---------- tables ---------- */
+  .scroll { overflow-x: auto; border: 1px solid var(--rule); border-radius: 3px; background: var(--raised); }
+  table { border-collapse: collapse; width: 100%; font-size: .86rem; }
+  th, td { text-align: left; padding: .6rem .8rem; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+  thead th {
+    font-family: var(--mono); font-size: .68rem; text-transform: uppercase;
+    letter-spacing: .09em; color: var(--ink-3); font-weight: 500;
+    border-bottom: 1px solid var(--rule); white-space: nowrap;
+  }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.model { font-family: var(--mono); font-size: .8rem; white-space: nowrap; }
+  td.cause { color: var(--ink-2); min-width: 22rem; }
+
+  .chip {
+    display: inline-block; font-family: var(--mono); font-size: .68rem;
+    padding: .12rem .45rem; border-radius: 2px; white-space: nowrap; letter-spacing: .02em;
+  }
+  .chip.pass { background: var(--pass-dim); color: var(--pass); }
+  .chip.fixed { background: var(--fixed-dim); color: var(--fixed); }
+  .chip.unfixed { background: var(--unfixed-dim); color: var(--unfixed); }
+  .chip.none { color: var(--ink-3); }
+
+  /* ---------- taxonomy ---------- */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem; }
+  .card { background: var(--raised); border: 1px solid var(--rule); border-radius: 3px; padding: 1.3rem; box-shadow: var(--shadow); }
+  .card h3 { margin-bottom: .5rem; }
+  .card p { font-size: .88rem; color: var(--ink-2); }
+  .card .tag { font-family: var(--mono); font-size: .66rem; text-transform: uppercase; letter-spacing: .1em; margin-bottom: .7rem; display: block; }
+
+  /* ---------- grade bars ---------- */
+  .grades { display: flex; flex-direction: column; gap: .9rem; }
+  .grade-row { display: grid; grid-template-columns: 7.5rem 1fr 2.5rem; align-items: center; gap: 1rem; }
+  .grade-k { font-family: var(--mono); font-size: .78rem; }
+  .bar { height: .6rem; border-radius: 2px; background: var(--rule-soft); overflow: hidden; }
+  .bar span { display: block; height: 100%; border-radius: 2px; }
+  .grade-n { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: .82rem; text-align: right; color: var(--ink-2); }
+
+  ul { margin: 0; padding-left: 1.15rem; color: var(--ink-2); }
+  li + li { margin-top: .5rem; }
+  .stack { display: flex; flex-direction: column; gap: 1rem; }
+  .stack-lg { display: flex; flex-direction: column; gap: 1.75rem; }
+
+  footer { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--rule); font-size: .82rem; color: var(--ink-3); }
+
+  @media (max-width: 640px) {
+    .map-row { grid-template-columns: 1fr; gap: .35rem; }
+    .map-score { text-align: left; }
+    .grade-row { grid-template-columns: 6rem 1fr 2.2rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Agentic Lagrangian extraction &middot; loop benchmark</p>
+  <h1>What the closed repair loop actually fixed</h1>
+  <p class="lede prose">
+    28 published BSM models from the FeynRules database, each re-derived from its own
+    paper by an agent, then pushed through the full chain: FeynRules&thinsp;/&thinsp;Wolfram UFO
+    compile &rarr; Hermiticity, kinetic-term and mass-spectrum checks &rarr; MadGraph import.
+    Anything that failed went into a closed repair loop.
+  </p>
+
+  <div class="headline">
+    <div class="big">25<small>&thinsp;/&thinsp;28</small></div>
+    <div>
+      <p style="font-size:.95rem"><b>89% clear the full chain</b>, up from 15&thinsp;/&thinsp;28 one-shot.</p>
+      <p style="font-size:.95rem; color:var(--ink-3)">The loop recovered 10 of the 13 failures.</p>
+    </div>
+  </div>
+
+  <div class="meta">
+    <span>28 models</span><span>63 repair rounds</span><span>3 diagnostic phases</span>
+    <span>no human input inside the loop</span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Figure 1 &middot; per-model state after each phase</p>
+    <h2>Every model, every stage</h2>
+    <p class="prose" style="color:var(--ink-2)">
+      One cell per model, in a fixed order across all four rows &mdash; so you can follow a
+      single model down the figure. Amber marks the phase that recovered it.
+    </p>
+  </div>
+
+  <div class="map" id="map"></div>
+
+  <div class="map-foot">
+    <span class="key"><i class="swatch" style="background:var(--pass)"></i> passing</span>
+    <span class="key"><i class="swatch" style="background:var(--fixed)"></i> recovered this phase</span>
+    <span class="key"><i class="swatch" style="background:var(--rule-soft); border:1px solid var(--rule)"></i> still failing</span>
+    <span class="key"><i class="swatch" style="background:var(--unfixed-dim); border:1px solid var(--unfixed)"></i> never recovered</span>
+  </div>
+
+  <div class="callout prose">
+    <p><b>The binding constraint was diagnostic signal, not agent intelligence.</b></p>
+    <p>
+      Each phase used the same repair agent, isolated the same way &mdash; no network, no
+      reference files, no model name. Only the diagnostics improved. On the
+      UFO-serialization class the agent scored <span class="num">0&thinsp;/&thinsp;5</span> while
+      working blind from a log tail; once the harness pinpointed the offending file and
+      line, the same class became routine.
+    </p>
+    <p style="color:var(--ink-2)">
+      Phase&nbsp;2 added check-block extraction, <code class="num">py_compile</code>
+      pinpointing and the generated UFO in the agent's workdir. Phase&nbsp;3 added a direct
+      UFO import check.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Cost</p>
+    <h2>What the loop spent</h2>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-v">63</div><div class="stat-k">repair rounds</div></div>
+    <div class="stat"><div class="stat-v">10.8<span style="font-size:.6em">h</span></div><div class="stat-k">agent wall time</div></div>
+    <div class="stat"><div class="stat-v">2,144</div><div class="stat-k">diff lines</div></div>
+    <div class="stat"><div class="stat-v">4.05<span style="font-size:.6em">M</span></div><div class="stat-k">tokens</div></div>
+  </div>
+  <p class="prose" style="margin-top:1rem; font-size:.85rem; color:var(--ink-3)">
+    Validation compiles excluded from wall time. One model, SLQrules, legitimately needs
+    500&ndash;550&thinsp;s per compile.
+  </p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Recoveries</p>
+    <h2>The 13 one-shot failures</h2>
+    <p class="prose" style="color:var(--ink-2)">
+      Ten recovered. The phase that fixed each one, and the round within it, says more
+      about the diagnostics than about the difficulty.
+    </p>
+  </div>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr><th>Model</th><th>Failed at</th><th>P1</th><th>P2</th><th>P3</th><th>Root cause</th></tr>
+      </thead>
+      <tbody id="recov"></tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Taxonomy</p>
+    <h2>Four kinds of defect</h2>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <span class="tag" style="color:var(--pass)">Reliably repairable</span>
+      <h3>Visible in the FeynRules log</h3>
+      <p>
+        Syntax errors, undefined Lagrangian symbols, self-conjugate fields carrying
+        quantum numbers, duplicate names &mdash; and above all namespace collisions.
+        <code class="num">ClassName&nbsp;&rarr;&nbsp;N</code> hit four models; a coupling named
+        <code class="num">e</code> collided with the electron field; an index named
+        <code class="num">HC</code> collided with FeynRules' own
+        <code class="num">HC[]</code> and caused a mystery 900&thinsp;s timeout. The loop
+        cleared every instance once the error text reached its report.
+      </p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color:var(--fixed)">The blind class</span>
+      <h3>UFO-serialization leaks</h3>
+      <p>
+        <code class="num">WriteUFO</code> silently emits unevaluated Wolfram expressions
+        into the UFO Python. Every FeynRules check passes; MadGraph then fails with one
+        constant, misleading message. Seen: ReplaceAll leaks,
+        <code class="num">[[..]]</code> Part syntax, <code class="num">PRIVATE`</code>
+        internals, 2D-typeset exponents, <code class="num">$</code> in symbol names.
+        Blind: 0 fixed. Pinpointed: routine.
+      </p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color:var(--unfixed)">Hard physics</span>
+      <h3>Hermiticity residuals</h3>
+      <p>
+        SU(2)-multiplet covariant-derivative commutator residuals. Vertex-level check
+        output helps &mdash; it cleared pSPSS in phase&nbsp;2 &mdash; but does not guarantee
+        convergence. SLQrules survived nine rounds unrepaired.
+      </p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color:var(--ink-3)">Generator-side</span>
+      <h3>Structural defects</h3>
+      <p>
+        Multi-member <code class="num">ClassMembers</code> scalar classes serialize to
+        invalid UFO Python, and faithful restructuring exceeds the compile budget. Best
+        fixed deterministically in the generator, not by a repair agent.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">The part that still needs a physicist</p>
+    <h2>Passing is not the same as correct</h2>
+    <p class="prose" style="color:var(--ink-2)">
+      Passing means the tool chain accepts the model. It does not mean the physics matches
+      the paper &mdash; every stage after extraction inherits the extraction's reading of it.
+      So we ran the chain backwards: an agent that never saw the paper reconstructed the
+      Lagrangian from the sanitized <code class="num">.fr</code> alone, and a second fresh
+      agent graded that reconstruction against the paper term by term.
+    </p>
+  </div>
+
+  <div class="grades" style="margin-bottom:1.75rem">
+    <div class="grade-row">
+      <span class="grade-k" style="color:var(--unfixed)">substantive</span>
+      <span class="bar"><span style="width:100%; background:var(--unfixed)"></span></span>
+      <span class="grade-n">79</span>
+    </div>
+    <div class="grade-row">
+      <span class="grade-k" style="color:var(--fixed)">convention</span>
+      <span class="bar"><span style="width:57%; background:var(--fixed)"></span></span>
+      <span class="grade-n">45</span>
+    </div>
+    <div class="grade-row">
+      <span class="grade-k" style="color:var(--ink-3)">cosmetic</span>
+      <span class="bar"><span style="width:16%; background:var(--ink-3)"></span></span>
+      <span class="grade-n">13</span>
+    </div>
+  </div>
+
+  <div class="callout prose" style="border-left-color:var(--unfixed); margin-top:0">
+    <p><b>These grades come from an agent, not a physicist.</b></p>
+    <p style="color:var(--ink-2)">
+      They are the question list, not the answer. 137 rows across 21 cross-checks; the 79
+      substantive ones are where review time should go. Four of the 25 review packages
+      have no cross-check at all &mdash; <span class="num">331</span>,
+      <span class="num">B-L-SM</span>, <span class="num">CHEIDI</span>,
+      <span class="num">VLC_LN</span> hit agent-transport failures, not a physics result.
+      Treat those as not yet reviewed.
+    </p>
+  </div>
+
+  <div class="stack" style="margin-top:2rem">
+    <h3>Where the convention disagreements cluster</h3>
+    <div class="grades" id="themes"></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Caveats</p>
+    <h2>What this does not establish</h2>
+  </div>
+  <ul class="prose">
+    <li>The repair agent ran isolated, but the underlying model may have seen these public
+      model files in training. Sanitizing removes the labels, not that risk.</li>
+    <li>Symbol names survive sanitizing on purpose &mdash; a reviewer needs them &mdash; so the
+      blank-slate agent was not perfectly blind.</li>
+    <li>Repairs that replaced symbolic values with numerics keep the tool chain valid while
+      narrowing the model's parameter generality. The analysis flags each one.</li>
+    <li>Three models were never recovered: <span class="num">ALRM_general</span>,
+      <span class="num">HNLs</span>, <span class="num">SLQrules</span>. They ship in the
+      review bundle too, so the picture is not only the successes.</li>
+  </ul>
+</section>
+
+<footer>
+  <p>
+    Generated from <span class="num">validation_benchmark_report.json</span>,
+    the three repair-phase reports and <span class="num">disagreements.json</span>.
+    Full data, per-model repair histories and the review packages accompany this summary
+    in the review bundle.
+  </p>
+</footer>
+
+</div>
+
+<script>
+  const ORDER = [
+    "ChernSimonsPortal","DMsimp","HeavyN","HiggsCharacterisation","LeptoQuark","Monotops",
+    "NJLComposite","SMWeinberg","Sextets","Top-Philic-Zprime","Triplets","VLQ","Wprime",
+    "pNG","topBSM",
+    "EffLRSM","GeneralU1","MDMmodel","368sextets","MSSMD",
+    "331","B-L-SM","CHEIDI","VLC_LN",
+    "pSPSS",
+    "ALRM_general","HNLs","SLQrules"
+  ];
+  // phase at which each model first passes; 0 = one-shot, 99 = never
+  const WON = {
+    EffLRSM:1, GeneralU1:1, MDMmodel:1, "368sextets":1, MSSMD:1,
+    "331":2, "B-L-SM":2, CHEIDI:2, VLC_LN:2,
+    pSPSS:3,
+    ALRM_general:99, HNLs:99, SLQrules:99
+  };
+  const STAGES = [
+    { key:"one-shot",        phase:0, n:15 },
+    { key:"+ repair P1",     phase:1, n:20 },
+    { key:"+ repair P2",     phase:2, n:24 },
+    { key:"+ repair P3",     phase:3, n:25 }
+  ];
+
+  const map = document.getElementById("map");
+  STAGES.forEach(st => {
+    const row = document.createElement("div");
+    row.className = "map-row";
+
+    const label = document.createElement("div");
+    label.className = "map-label";
+    label.textContent = st.key;
+
+    const cells = document.createElement("div");
+    cells.className = "cells";
+    ORDER.forEach(m => {
+      const won = WON[m] === undefined ? 0 : WON[m];
+      const c = document.createElement("div");
+      let cls = "cell ", state;
+      if (won <= st.phase)      { cls += (won === st.phase && won !== 0) ? "new" : "pass";
+                                  state = won === 0 ? "passed one-shot" : "recovered in phase " + won; }
+      else if (won === 99)      { cls += "hard";  state = "never recovered"; }
+      else                      { cls += "fail";  state = "still failing"; }
+      c.className = cls;
+      c.title = m + " — " + state;
+      cells.appendChild(c);
+    });
+
+    const score = document.createElement("div");
+    score.className = "map-score";
+    score.innerHTML = "<b>" + st.n + "</b>/28 &nbsp;" + Math.round(st.n / 28 * 100) + "%";
+
+    row.append(label, cells, score);
+    map.appendChild(row);
+  });
+
+  const RECOV = [
+    ["331","compile",-1,2,null,"Coupling named <code class=\"num\">e</code> collided with the electron field under <code class=\"num\">HC[]</code>; string-valued mixing declaration; symbolic benchmark values reached the UFO"],
+    ["368sextets","mg5 import",2,null,null,"Interaction-order bookkeeping (<code class=\"num\">Part::partw</code>) leaked into <code class=\"num\">coupling_orders.py</code>"],
+    ["ALRM_general","mg5 import",-1,-1,-1,"Multi-member <code class=\"num\">ClassMembers</code> scalar classes serialize to invalid UFO Python; restructuring re-breaks or times out the compile"],
+    ["B-L-SM","checks",-1,3,null,"<code class=\"num\">ClassName N</code> collision; indexed Yukawa leaked <code class=\"num\">p /. ynu</code> parameter names into the UFO"],
+    ["CHEIDI","mg5 import",-1,1,null,"<code class=\"num\">$</code> in symbol names (<code class=\"num\">Heidi$v</code>) — legal Wolfram, invalid Python"],
+    ["EffLRSM","mg5 import",2,null,null,"<code class=\"num\">ClassName N</code> collided with Mathematica's built-in <code class=\"num\">N[]</code>; <code class=\"num\">Q-&gt;0</code> on a self-conjugate field"],
+    ["GeneralU1","compile",3,null,null,"Stray parenthesis; <code class=\"num\">ClassName N</code> collision; interaction-order hierarchy syntax"],
+    ["HNLs","compile",-1,-1,-1,"Layered semantic UFO leaks — each fixed once named, but the stack outlasted the round budget"],
+    ["MDMmodel","checks",1,null,null,"Duplicate SM Higgs declaration; zero quantum numbers on self-conjugate real scalars"],
+    ["MSSMD","mg5 import",1,null,null,"Light Higgs <code class=\"num\">ParticleName h</code> collided with the SM; self-conjugate quantum numbers"],
+    ["SLQrules","compile",-1,-1,-1,"Residual SU(2)-multiplet covariant-derivative Hermiticity violation — genuinely hard, not a tooling gap"],
+    ["VLC_LN","timeout",-1,2,null,"Index named <code class=\"num\">HC</code> collided with FeynRules' <code class=\"num\">HC[]</code>, causing the &gt;900&thinsp;s compile timeout"],
+    ["pSPSS","checks",-1,-1,1,"Hermiticity residual, then C-style float literals <code class=\"num\">1.000000e+02</code> leaked a bare <code class=\"num\">e</code> NameError into the UFO"]
+  ];
+  const cellFor = v => {
+    if (v === null)  return '<span class="chip none">&mdash;</span>';
+    if (v === -1)    return '<span class="chip unfixed">fail</span>';
+    return '<span class="chip pass">pass r' + v + '</span>';
+  };
+  document.getElementById("recov").innerHTML = RECOV.map(r =>
+    '<tr><td class="model">' + r[0] + '</td>' +
+    '<td><span class="chip fixed">' + r[1] + '</span></td>' +
+    '<td>' + cellFor(r[2]) + '</td><td>' + cellFor(r[3]) + '</td><td>' + cellFor(r[4]) + '</td>' +
+    '<td class="cause">' + r[5] + '</td></tr>'
+  ).join("");
+
+  const THEMES = [
+    ["sign / ordering", 12], ["conjugation & phase", 10], ["gauge / derivative", 3],
+    ["normalisation", 3], ["chirality", 2], ["index & flavour", 1], ["naming", 1],
+    ["unclassified", 13]
+  ];
+  const maxT = Math.max(...THEMES.map(t => t[1]));
+  document.getElementById("themes").innerHTML = THEMES.map(([k, v]) =>
+    '<div class="grade-row"><span class="grade-k">' + k + '</span>' +
+    '<span class="bar"><span style="width:' + (v / maxT * 100) + '%; background:var(--accent)"></span></span>' +
+    '<span class="grade-n">' + v + '</span></div>'
+  ).join("");
+</script>
