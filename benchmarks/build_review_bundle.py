@@ -8,8 +8,9 @@ Produces `review_bundle/` and `review_bundle.zip`:
     CONVENTION_DISAGREEMENTS.md      graded reconstruction-vs-paper rows
     REPAIR_BENCHMARK_ANALYSIS.md     full write-up and error taxonomy
     reports/                         the four machine-generated reports
-    passing/<model>/                 validated .fr + REVIEW.pdf   (25 models)
-    failing/<model>/                 best .fr + last failure log  (3 models)
+    passing/<model>/                 validated .fr + one PDF      (18 models)
+    failing/<model>/                 best .fr + failure log        (1 model)
+    unscored/<model>/                .fr + dossier, no declared total (9)
 
 Reads only files in this directory. No FeynRules, no agent, no network.
 
@@ -42,7 +43,35 @@ HERE = Path(__file__).parent
 BUNDLE = HERE / "review_bundle"
 ZIP = HERE / "review_bundle.zip"
 
-FAILING = ("ALRM_general", "HNLs", "SLQrules")
+ALL_MODELS = 28
+
+
+def _verdicts() -> tuple[list[str], list[str], list[str]]:
+    """(passing, failing, unscored) from the post-fix revalidation run.
+
+    Grouping used to come from the old pass/fail split, which was computed
+    before the total-Lagrangian bug was found. It now comes from
+    revalidation_report.json, and anything the harness could not score is a
+    third category rather than being forced into pass or fail.
+    """
+    rep = HERE / "revalidation_report.json"
+    if not rep.is_file():
+        raise SystemExit("revalidation_report.json missing — run "
+                         "revalidate_affected.py first")
+    rows = json.loads(rep.read_text())["rows"]
+    scored = {r["page"]: bool(r.get("full_chain_ok")) for r in rows}
+    passing = sorted(p for p, ok in scored.items() if ok)
+    failing = sorted(p for p, ok in scored.items() if not ok)
+    # db_candidates.json is the authority for what the benchmark covers.
+    # Listing directories picks up leftovers from earlier runs — SMScalars
+    # has a model/ directory but was never one of the 28 candidates.
+    cands = json.loads((HERE / "db_candidates.json").read_text())["candidates"]
+    known = {c["page"] for c in cands}
+    stray = set(scored) - known
+    if stray:
+        raise SystemExit(f"scored models outside the candidate set: {stray}")
+    unscored = sorted(known - set(scored))
+    return passing, failing, unscored
 
 REPORTS = (
     "validation_benchmark_report.md",
@@ -82,6 +111,50 @@ def _crosscheck_counts() -> dict:
     return json.loads(p.read_text())
 
 
+def _last_round_label(model: str) -> str:
+    rd = _last_round(model)
+    return f"{rd.parent.name}/{rd.name}" if rd else "no repair round recorded"
+
+
+def _place(model: str, dst: Path, have_review: set,
+           pdf_pages: dict) -> None:
+    """One model directory: the .fr files plus exactly one PDF to open.
+
+    Where the reverse run finished, that PDF is the completed REVIEW.pdf.
+    Where it did not, build_model_pdfs.py wrote a DOSSIER.pdf carrying the
+    verbatim Lagrangian, the validation result and the repair history; it
+    supersedes the 2-3 empty pages the aborted review left behind.
+    """
+    dst.mkdir(parents=True)
+    dossier = HERE / model / "dossier" / "DOSSIER.pdf"
+
+    if model in have_review:
+        for f in sorted((HERE / "ian_review_bundle" / model).iterdir()):
+            if f.is_file():
+                if f.name == "REVIEW.pdf" and dossier.is_file():
+                    continue                        # superseded
+                shutil.copy2(f, dst / f.name)
+    else:
+        rd = _last_round(model)
+        if rd:
+            shutil.copy2(rd / "model.fr", dst / f"{model}.fr")
+            for name in ("VALIDATION_REPORT.md", "REPAIR_HISTORY.md"):
+                if (rd / name).is_file():
+                    shutil.copy2(rd / name, dst / name)
+
+    gen = HERE / model / "model" / f"{model}_gen.fr"
+    if gen.is_file() and not (dst / f"{model}.fr").is_file():
+        shutil.copy2(gen, dst / f"{model}.fr")
+    elif gen.is_file():
+        shutil.copy2(gen, dst / f"{model}_one_shot.fr")
+
+    if dossier.is_file():
+        shutil.copy2(dossier, dst / "DOSSIER.pdf")
+
+    pdf = dst / ("DOSSIER.pdf" if dossier.is_file() else "REVIEW.pdf")
+    pdf_pages[model] = (pdf.name, _pages(pdf)) if pdf.is_file() else ("—", 0)
+
+
 def assemble() -> None:
     if BUNDLE.exists():
         shutil.rmtree(BUNDLE)
@@ -91,45 +164,17 @@ def assemble() -> None:
     # Where the reverse run did not finish, REVIEW.pdf is 2-3 empty pages.
     # build_model_pdfs.py writes a DOSSIER.pdf for those; it supersedes the
     # empty review, so each model directory holds exactly one PDF to open.
-    passing = _passing_models()
-    (BUNDLE / "passing").mkdir()
+    passing, failing, unscored = _verdicts()
+    have_review = set(_passing_models())
     pdf_pages: dict[str, tuple[str, int]] = {}
-    for m in passing:
-        src, dst = HERE / "ian_review_bundle" / m, BUNDLE / "passing" / m
-        dst.mkdir()
-        dossier = HERE / m / "dossier" / "DOSSIER.pdf"
-        for f in sorted(src.iterdir()):
-            if f.is_file():
-                if f.name == "REVIEW.pdf" and dossier.is_file():
-                    continue  # superseded
-                shutil.copy2(f, dst / f.name)
-        if dossier.is_file():
-            shutil.copy2(dossier, dst / "DOSSIER.pdf")
-        pdf = dst / ("DOSSIER.pdf" if dossier.is_file() else "REVIEW.pdf")
-        pdf_pages[m] = (pdf.name, _pages(pdf)) if pdf.is_file() else ("—", 0)
 
-    # ---- failing models: best .fr + the log that says why -------------
-    (BUNDLE / "failing").mkdir()
-    fail_rows = []
-    for m in FAILING:
-        dst = BUNDLE / "failing" / m
-        dst.mkdir()
-        rd = _last_round(m)
-        note = "no repair round recorded"
-        if rd:
-            shutil.copy2(rd / "model.fr", dst / f"{m}.fr")
-            for name in ("VALIDATION_REPORT.md", "REPAIR_HISTORY.md"):
-                if (rd / name).is_file():
-                    shutil.copy2(rd / name, dst / name)
-            note = f"{rd.parent.name}/{rd.name}"
-        gen = HERE / m / "model" / f"{m}_gen.fr"
-        if gen.is_file():
-            shutil.copy2(gen, dst / f"{m}_one_shot.fr")
-        dossier = HERE / m / "dossier" / "DOSSIER.pdf"
-        if dossier.is_file():
-            shutil.copy2(dossier, dst / "DOSSIER.pdf")
-            pdf_pages[m] = ("DOSSIER.pdf", _pages(dst / "DOSSIER.pdf"))
-        fail_rows.append((m, note))
+    for group, members in (("passing", passing), ("failing", failing),
+                           ("unscored", unscored)):
+        (BUNDLE / group).mkdir()
+        for m in members:
+            _place(m, BUNDLE / group / m, have_review, pdf_pages)
+
+    fail_rows = [(m, _last_round_label(m)) for m in failing]
 
     # ---- reports and analysis ----------------------------------------
     (BUNDLE / "reports").mkdir()
@@ -137,12 +182,12 @@ def assemble() -> None:
         if (HERE / r).is_file():
             shutil.copy2(HERE / r, BUNDLE / "reports" / r)
     for top in ("REPAIR_BENCHMARK_ANALYSIS.md", "CONVENTION_DISAGREEMENTS.md",
-                "LAGRANGIAN_COVERAGE.md"):
+                "LAGRANGIAN_AMBIGUITY.md", "CORRECTION_2026-08.md"):
         if (HERE / top).is_file():
             shutil.copy2(HERE / top, BUNDLE / top)
 
     (BUNDLE / "README.md").write_text(
-        _readme(passing, fail_rows, pdf_pages), encoding="utf-8")
+        _readme(passing, fail_rows, unscored, pdf_pages), encoding="utf-8")
 
     if ZIP.exists():
         ZIP.unlink()
@@ -152,11 +197,13 @@ def assemble() -> None:
                 z.write(f, f.relative_to(BUNDLE.parent))
 
     n = sum(1 for f in BUNDLE.rglob("*") if f.is_file())
-    print(f"[bundle] {len(passing)} passing, {len(FAILING)} failing")
+    print(f"[bundle] {len(passing)} passing, {len(failing)} failing, "
+          f"{len(unscored)} unscored")
     print(f"[bundle] {n} files -> {ZIP.name} ({ZIP.stat().st_size // 1024} KB)")
 
 
 def _readme(passing: list[str], fail_rows: list[tuple[str, str]],
+            unscored: list[str],
             pdf_pages: dict[str, tuple[str, int]]) -> str:
     d = _crosscheck_counts()
     c = d.get("counts", {})
@@ -171,26 +218,42 @@ def _readme(passing: list[str], fail_rows: list[tuple[str, str]],
         "Hermiticity / kinetic-term / mass-spectrum checks, MadGraph import. "
         "Models that failed entered a closed repair loop.",
         "",
-        "| stage | passing | rate |",
-        "|---|---:|---:|",
-        "| one-shot | 15/28 | 54% |",
-        "| + repair phase 1 | 20/28 | 71% |",
-        "| + repair phase 2 | 24/28 | 86% |",
-        "| **+ repair phase 3** | **25/28** | **89%** |",
+        "| outcome | models |",
+        "|---|---:|",
+        "| clear the full chain | **18** |",
+        "| fail the full chain | 1 |",
+        "| cannot be scored — see below | 9 |",
+        "| **total** | **28** |",
         "",
         "## Read this first",
         "",
-        "**The pass rate above overstates coverage for 9 of the 25 passing "
-        "models.** The harness picks each model's total-Lagrangian symbol by "
-        "file position — the last `L... =` line — and for those 9 that symbol "
-        "is not the model's total, so FeynRules compiled a fragment. A "
-        "fragment can be Hermitian, pass every check and import into "
-        "MadGraph. `VLQ` passed on 1 of its 11 Lagrangian terms; `topBSM` on "
-        "5 of 23; `331` on 2 of 5.",
+        "An earlier version of this bundle reported 25 of 28 passing. That "
+        "number was wrong and is withdrawn.",
         "",
-        "This is our bug, not a defect in the models, and it is unfixed as of "
-        "this bundle. `LAGRANGIAN_COVERAGE.md` lists every affected model and "
-        "what was omitted. Please weigh the pass rate accordingly.",
+        "The harness used to choose each model's total-Lagrangian symbol by "
+        "file position — the last `L... =` line. For 11 models that picked a "
+        "sub-Lagrangian, so FeynRules compiled only a fragment. A fragment is "
+        "easier to satisfy than the whole: it can be Hermitian when the full "
+        "Lagrangian is not, and it can show a clean mass spectrum simply by "
+        "omitting most fields. Those fragments passed every check and "
+        "imported into MadGraph. `VLQ` was scored as passing having compiled "
+        "1 of its 11 Lagrangian terms.",
+        "",
+        "The total is now resolved by reference analysis — the term no other "
+        "term refers to — and where a model never declares one, the harness "
+        "**refuses to guess** and leaves it unscored. Everything was re-run. "
+        "All 19 scoreable models reproduced their previous verdict, so the "
+        "pipeline did not get worse; 9 models were simply never measured.",
+        "",
+        "**Unscoreable is not failed.** Those 9 models may be perfectly "
+        "correct. They just never say which symbol is the whole model, so "
+        "there is nothing defensible to compile. `LAGRANGIAN_AMBIGUITY.md` "
+        "lists what each one defines — it is a short decision list, and four "
+        "of the nine are genuine physics choices only you can make.",
+        "",
+        "Three of the ten repairs the loop claimed are also affected: `331`, "
+        "`CHEIDI` and `VLC_LN` were scored `pass_repaired` against fragments, "
+        "so those claims cannot be evaluated. Seven repairs stand.",
         "",
         "## What we are asking you to check",
         "",
@@ -223,8 +286,8 @@ def _readme(passing: list[str], fail_rows: list[tuple[str, str]],
     L += [
         "## Reading order",
         "",
-        "1. `LAGRANGIAN_COVERAGE.md` — which models were only partly "
-        "compiled, and what was left out. This bounds what the rest means.",
+        "1. `LAGRANGIAN_AMBIGUITY.md` — the nine unscoreable models and what "
+        "each defines. Four need a physics decision from you.",
         "2. `CONVENTION_DISAGREEMENTS.md` — every graded row, grouped by "
         "theme. Start with the substantive ones.",
         "3. `passing/<model>/REVIEW.pdf` — the full review package for any "
@@ -233,7 +296,8 @@ def _readme(passing: list[str], fail_rows: list[tuple[str, str]],
         "4. `REPAIR_BENCHMARK_ANALYSIS.md` — what the loop fixed, what it "
         "could not, and the error taxonomy.",
         "5. `reports/` — the machine-generated per-stage results.",
-        "6. `failing/` — the three models the loop could not repair.",
+        "6. `failing/` and `unscored/` — the models that did not clear "
+        "the chain, and the nine that could not be scored at all.",
         "",
         "## Contents",
         "",
@@ -269,23 +333,53 @@ def _readme(passing: list[str], fail_rows: list[tuple[str, str]],
         "",
         f"### failing/ ({len(fail_rows)} models)",
         "",
-        "The loop could not get these through the chain. Included so the "
-        "picture is complete, not only the successes. Read `DOSSIER.pdf`; "
-        "`<model>_one_shot.fr` is the first attempt, `<model>.fr` the best "
-        "repaired attempt, and `VALIDATION_REPORT.md` the failure it stopped "
-        "on.",
+        "Scored, and did not clear the chain.",
         "",
-        "| model | best attempt | why it resisted |",
+        "| model | best attempt | why |",
         "|---|---|---|",
-        "| ALRM_general | " + dict(fail_rows).get("ALRM_general", "—") +
-        " | multi-member `ClassMembers` scalar classes serialize to invalid "
-        "UFO Python; restructuring re-breaks or times out the compile |",
-        "| HNLs | " + dict(fail_rows).get("HNLs", "—") +
-        " | layered semantic UFO leaks; each was fixed once named, but the "
-        "stack outlasted the round budget |",
         "| SLQrules | " + dict(fail_rows).get("SLQrules", "—") +
-        " | residual SU(2)-multiplet covariant-derivative Hermiticity "
-        "violation — genuinely hard physics, not a tooling gap |",
+        " | A syntax error at line 660 stops FeynRules loading the model, so "
+        "its total Lagrangian is never defined. The repair loop never "
+        "produced a working version, so this is the one-shot file. Behind it "
+        "sits a residual SU(2)-multiplet covariant-derivative Hermiticity "
+        "violation that survived nine rounds — genuinely hard physics rather "
+        "than a tooling gap. |",
+        "",
+        f"### unscored/ ({len(unscored)} models)",
+        "",
+        "**Neither passed nor failed.** These models define several "
+        "independent top-level Lagrangians and never say which one — or "
+        "which sum — is the model, so there is nothing defensible to "
+        "compile. Earlier numbers scored them by picking whichever came last "
+        "in the file, which is how `VLQ` came to be reported as passing on 1 "
+        "of its 11 terms.",
+        "",
+        "`LAGRANGIAN_AMBIGUITY.md` lists the competing definitions for each. "
+        "Five look like complementary sectors where a sum is the natural "
+        "reading; four are genuine alternatives — `ChernSimonsPortal` "
+        "(symmetric versus broken phase), `DMsimp` (spin-0 versus spin-1 "
+        "mediator), `topBSM` (four simplified models in one file) and "
+        "`CHEIDI` (full top loop versus heavy-top limit). Those four need a "
+        "physicist, not a parser.",
+        "",
+        "| model | competing definitions |",
+        "|---|---|",
+    ]
+    _amb = {
+        "331": "LHiggs331, LGauge331Mass, LScalarFermion331, LTot",
+        "ALRM_general": "LYALRM, LSALRM, LFALRM, LeffALRM",
+        "CHEIDI": "LHEIDI, LHEIDIgg, LTot",
+        "ChernSimonsPortal": "LChernSimonsPortal, LChernSimonsPortalBroken",
+        "DMsimp": "L0DM, L1DM",
+        "HNLs": "LagHeavyN, LHeavyNDiracMass, LHeavyNEW + 4 hadronic terms",
+        "VLC_LN": "LChiralFull, LEDM, LTot",
+        "VLQ": "11 separate T'/B' coupling terms",
+        "topBSM": "LS0, LO0, LS1, LO1",
+    }
+    for m in unscored:
+        L.append(f"| {m} | {_amb.get(m, '—')} |")
+
+    L += [
         "",
         "## Caveats",
         "",

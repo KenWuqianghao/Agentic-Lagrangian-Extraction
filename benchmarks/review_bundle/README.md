@@ -2,18 +2,24 @@
 
 28 published BSM models from the FeynRules model database were re-derived from their own papers by an agent, then pushed through the full validation chain: FeynRules/Wolfram UFO compile, Hermiticity / kinetic-term / mass-spectrum checks, MadGraph import. Models that failed entered a closed repair loop.
 
-| stage | passing | rate |
-|---|---:|---:|
-| one-shot | 15/28 | 54% |
-| + repair phase 1 | 20/28 | 71% |
-| + repair phase 2 | 24/28 | 86% |
-| **+ repair phase 3** | **25/28** | **89%** |
+| outcome | models |
+|---|---:|
+| clear the full chain | **18** |
+| fail the full chain | 1 |
+| cannot be scored — see below | 9 |
+| **total** | **28** |
 
 ## Read this first
 
-**The pass rate above overstates coverage for 9 of the 25 passing models.** The harness picks each model's total-Lagrangian symbol by file position — the last `L... =` line — and for those 9 that symbol is not the model's total, so FeynRules compiled a fragment. A fragment can be Hermitian, pass every check and import into MadGraph. `VLQ` passed on 1 of its 11 Lagrangian terms; `topBSM` on 5 of 23; `331` on 2 of 5.
+An earlier version of this bundle reported 25 of 28 passing. That number was wrong and is withdrawn.
 
-This is our bug, not a defect in the models, and it is unfixed as of this bundle. `LAGRANGIAN_COVERAGE.md` lists every affected model and what was omitted. Please weigh the pass rate accordingly.
+The harness used to choose each model's total-Lagrangian symbol by file position — the last `L... =` line. For 11 models that picked a sub-Lagrangian, so FeynRules compiled only a fragment. A fragment is easier to satisfy than the whole: it can be Hermitian when the full Lagrangian is not, and it can show a clean mass spectrum simply by omitting most fields. Those fragments passed every check and imported into MadGraph. `VLQ` was scored as passing having compiled 1 of its 11 Lagrangian terms.
+
+The total is now resolved by reference analysis — the term no other term refers to — and where a model never declares one, the harness **refuses to guess** and leaves it unscored. Everything was re-run. All 19 scoreable models reproduced their previous verdict, so the pipeline did not get worse; 9 models were simply never measured.
+
+**Unscoreable is not failed.** Those 9 models may be perfectly correct. They just never say which symbol is the whole model, so there is nothing defensible to compile. `LAGRANGIAN_AMBIGUITY.md` lists what each one defines — it is a short decision list, and four of the nine are genuine physics choices only you can make.
+
+Three of the ten repairs the loop claimed are also affected: `331`, `CHEIDI` and `VLC_LN` were scored `pass_repaired` against fragments, so those claims cannot be evaluated. Seven repairs stand.
 
 ## What we are asking you to check
 
@@ -31,16 +37,16 @@ To test the physics we ran the chain backwards. For each passing model, an agent
 
 ## Reading order
 
-1. `LAGRANGIAN_COVERAGE.md` — which models were only partly compiled, and what was left out. This bounds what the rest means.
+1. `LAGRANGIAN_AMBIGUITY.md` — the nine unscoreable models and what each defines. Four need a physics decision from you.
 2. `CONVENTION_DISAGREEMENTS.md` — every graded row, grouped by theme. Start with the substantive ones.
 3. `passing/<model>/REVIEW.pdf` — the full review package for any model whose rows you want to see in context. The last page is a sign-off block.
 4. `REPAIR_BENCHMARK_ANALYSIS.md` — what the loop fixed, what it could not, and the error taxonomy.
 5. `reports/` — the machine-generated per-stage results.
-6. `failing/` — the three models the loop could not repair.
+6. `failing/` and `unscored/` — the models that did not clear the chain, and the nine that could not be scored at all.
 
 ## Contents
 
-### passing/ (25 models)
+### passing/ (18 models)
 
 `<model>.fr` is the validated FeynRules file, agent-extracted and, where the loop repaired it, self-repaired with no human input. **Every model has exactly one PDF — open that and you have everything.**
 
@@ -48,12 +54,8 @@ To test the physics we ran the chain backwards. For each passing model, an agent
 
 | model | PDF | pages | state |
 |---|---|---:|---|
-| 331 | `DOSSIER.pdf` | 6 | reverse run unfinished — **not yet reviewed** |
 | 368sextets | `REVIEW.pdf` | 8 | full term-by-term cross-check |
 | B-L-SM | `DOSSIER.pdf` | 6 | reverse run unfinished — **not yet reviewed** |
-| CHEIDI | `DOSSIER.pdf` | 10 | reverse run unfinished — **not yet reviewed** |
-| ChernSimonsPortal | `REVIEW.pdf` | 7 | full term-by-term cross-check |
-| DMsimp | `REVIEW.pdf` | 8 | full term-by-term cross-check |
 | EffLRSM | `REVIEW.pdf` | 8 | full term-by-term cross-check |
 | GeneralU1 | `REVIEW.pdf` | 9 | full term-by-term cross-check |
 | HeavyN | `REVIEW.pdf` | 9 | full term-by-term cross-check |
@@ -67,24 +69,37 @@ To test the physics we ran the chain backwards. For each passing model, an agent
 | Sextets | `REVIEW.pdf` | 9 | full term-by-term cross-check |
 | Top-Philic-Zprime | `REVIEW.pdf` | 7 | full term-by-term cross-check |
 | Triplets | `REVIEW.pdf` | 7 | full term-by-term cross-check |
-| VLC_LN | `DOSSIER.pdf` | 7 | reverse run unfinished — **not yet reviewed** |
-| VLQ | `REVIEW.pdf` | 10 | full term-by-term cross-check |
 | Wprime | `REVIEW.pdf` | 8 | full term-by-term cross-check |
 | pNG | `REVIEW.pdf` | 8 | full term-by-term cross-check |
 | pSPSS | `REVIEW.pdf` | 9 | full term-by-term cross-check |
-| topBSM | `REVIEW.pdf` | 15 | full term-by-term cross-check |
 
 4 of these have no cross-check. Their reverse runs hit agent-transport failures, not a physics result. Treat them as not yet reviewed — their `DOSSIER.pdf` says so on page 1.
 
-### failing/ (3 models)
+### failing/ (1 models)
 
-The loop could not get these through the chain. Included so the picture is complete, not only the successes. Read `DOSSIER.pdf`; `<model>_one_shot.fr` is the first attempt, `<model>.fr` the best repaired attempt, and `VALIDATION_REPORT.md` the failure it stopped on.
+Scored, and did not clear the chain.
 
-| model | best attempt | why it resisted |
+| model | best attempt | why |
 |---|---|---|
-| ALRM_general | repair3/round3 | multi-member `ClassMembers` scalar classes serialize to invalid UFO Python; restructuring re-breaks or times out the compile |
-| HNLs | repair3/round3 | layered semantic UFO leaks; each was fixed once named, but the stack outlasted the round budget |
-| SLQrules | repair3/round3 | residual SU(2)-multiplet covariant-derivative Hermiticity violation — genuinely hard physics, not a tooling gap |
+| SLQrules | repair3/round3 | A syntax error at line 660 stops FeynRules loading the model, so its total Lagrangian is never defined. The repair loop never produced a working version, so this is the one-shot file. Behind it sits a residual SU(2)-multiplet covariant-derivative Hermiticity violation that survived nine rounds — genuinely hard physics rather than a tooling gap. |
+
+### unscored/ (9 models)
+
+**Neither passed nor failed.** These models define several independent top-level Lagrangians and never say which one — or which sum — is the model, so there is nothing defensible to compile. Earlier numbers scored them by picking whichever came last in the file, which is how `VLQ` came to be reported as passing on 1 of its 11 terms.
+
+`LAGRANGIAN_AMBIGUITY.md` lists the competing definitions for each. Five look like complementary sectors where a sum is the natural reading; four are genuine alternatives — `ChernSimonsPortal` (symmetric versus broken phase), `DMsimp` (spin-0 versus spin-1 mediator), `topBSM` (four simplified models in one file) and `CHEIDI` (full top loop versus heavy-top limit). Those four need a physicist, not a parser.
+
+| model | competing definitions |
+|---|---|
+| 331 | LHiggs331, LGauge331Mass, LScalarFermion331, LTot |
+| ALRM_general | LYALRM, LSALRM, LFALRM, LeffALRM |
+| CHEIDI | LHEIDI, LHEIDIgg, LTot |
+| ChernSimonsPortal | LChernSimonsPortal, LChernSimonsPortalBroken |
+| DMsimp | L0DM, L1DM |
+| HNLs | LagHeavyN, LHeavyNDiracMass, LHeavyNEW + 4 hadronic terms |
+| VLC_LN | LChiralFull, LEDM, LTot |
+| VLQ | 11 separate T'/B' coupling terms |
+| topBSM | LS0, LO0, LS1, LO1 |
 
 ## Caveats
 

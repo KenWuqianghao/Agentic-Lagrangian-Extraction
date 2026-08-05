@@ -1,4 +1,4 @@
-<title>Closed-loop validation: 28 FeynRules models</title>
+<title>Closed-loop validation: 28 FeynRules models (corrected)</title>
 
 <style>
   :root {
@@ -105,6 +105,7 @@
   .map-row { display: grid; grid-template-columns: 9.5rem 1fr auto; align-items: center; gap: 1rem; }
   .map-label { font-family: var(--mono); font-size: .76rem; color: var(--ink-2); }
   .cells { display: grid; grid-template-columns: repeat(28, 1fr); gap: 3px; }
+  .cell.unscored { background: var(--fixed-dim); border: 1px dashed var(--fixed); }
   .cell { aspect-ratio: 1; border-radius: 2px; background: var(--rule-soft); border: 1px solid transparent; }
   .cell.pass   { background: var(--pass); }
   .cell.new    { background: var(--fixed); }
@@ -195,36 +196,56 @@
   </p>
 
   <div class="headline">
-    <div class="big">25<small>&thinsp;/&thinsp;28</small></div>
+    <div class="big">18<small>&thinsp;/&thinsp;28</small></div>
     <div>
-      <p style="font-size:.95rem"><b>89% clear the full chain</b>, up from 15&thinsp;/&thinsp;28 one-shot.</p>
-      <p style="font-size:.95rem; color:var(--ink-3)">The loop recovered 10 of the 13 failures.</p>
+      <p style="font-size:.95rem"><b>18 confirmed to clear the full chain.</b> 1 fails.</p>
+      <p style="font-size:.95rem; color:var(--ink-3)">The other 9 cannot be scored at all &mdash; see below.</p>
     </div>
   </div>
 
   <div class="meta">
-    <span>28 models</span><span>63 repair rounds</span><span>3 diagnostic phases</span>
-    <span>no human input inside the loop</span>
+    <span>28 models</span><span>19 scoreable</span><span>63 repair rounds</span>
+    <span>corrected 2026-08-04</span>
   </div>
 </header>
 
 <section>
   <div class="sec-head">
-    <p class="eyebrow">Figure 1 &middot; per-model state after each phase</p>
-    <h2>Every model, every stage</h2>
+    <p class="eyebrow">Figure 1 &middot; corrected per-model outcome</p>
+    <h2>Where the 28 models actually stand</h2>
     <p class="prose" style="color:var(--ink-2)">
-      One cell per model, in a fixed order across all four rows &mdash; so you can follow a
-      single model down the figure. Amber marks the phase that recovered it.
+      One cell per model. Nine of them cannot be scored at all: they define several
+      independent top-level Lagrangians and never say which is the model, so there is
+      nothing defensible to compile. That is not a failure &mdash; it is an open question.
     </p>
   </div>
 
   <div class="map" id="map"></div>
 
   <div class="map-foot">
-    <span class="key"><i class="swatch" style="background:var(--pass)"></i> passing</span>
-    <span class="key"><i class="swatch" style="background:var(--fixed)"></i> recovered this phase</span>
-    <span class="key"><i class="swatch" style="background:var(--rule-soft); border:1px solid var(--rule)"></i> still failing</span>
-    <span class="key"><i class="swatch" style="background:var(--unfixed-dim); border:1px solid var(--unfixed)"></i> never recovered</span>
+    <span class="key"><i class="swatch" style="background:var(--pass)"></i> clears the full chain (18)</span>
+    <span class="key"><i class="swatch" style="background:var(--unfixed-dim); border:1px solid var(--unfixed)"></i> fails (1)</span>
+    <span class="key"><i class="swatch" style="background:var(--fixed-dim); border:1px dashed var(--fixed)"></i> cannot be scored (9)</span>
+  </div>
+
+  <div class="callout prose" style="border-left-color:var(--unfixed)">
+    <p><b>This page was corrected on 4 August 2026. It previously reported 25 of 28
+    passing; that number is withdrawn.</b></p>
+    <p style="color:var(--ink-2)">
+      The harness chose each model's total-Lagrangian symbol by file position &mdash; the
+      last <code class="num">L... =</code> line. For 11 models that selected a
+      sub-Lagrangian, so FeynRules compiled a <em>fragment</em>. A fragment is easier to
+      satisfy than the whole: it can be Hermitian when the full Lagrangian is not, and it
+      can show a clean mass spectrum by omitting most fields.
+      <span class="num">VLQ</span> was scored as passing having compiled 1 of its 11
+      Lagrangian terms.
+    </p>
+    <p style="color:var(--ink-2)">
+      The total is now resolved by reference analysis, and where a model never declares
+      one the harness refuses to guess. Everything was re-run: <b>all 19 scoreable models
+      reproduced their previous verdict</b>. The pipeline did not get worse &mdash; nine
+      models were simply never measured.
+    </p>
   </div>
 
   <div class="callout prose">
@@ -267,7 +288,10 @@
     <h2>The 13 one-shot failures</h2>
     <p class="prose" style="color:var(--ink-2)">
       Ten recovered. The phase that fixed each one, and the round within it, says more
-      about the diagnostics than about the difficulty.
+      about the diagnostics than about the difficulty. <b>Three of those ten &mdash;
+      <span class="num">331</span>, <span class="num">CHEIDI</span> and
+      <span class="num">VLC_LN</span> &mdash; were scored against fragments, so those
+      repair claims cannot be evaluated. Seven stand.</b>
     </p>
   </div>
   <div class="scroll">
@@ -411,59 +435,48 @@
 </div>
 
 <script>
-  const ORDER = [
-    "ChernSimonsPortal","DMsimp","HeavyN","HiggsCharacterisation","LeptoQuark","Monotops",
-    "NJLComposite","SMWeinberg","Sextets","Top-Philic-Zprime","Triplets","VLQ","Wprime",
-    "pNG","topBSM",
-    "EffLRSM","GeneralU1","MDMmodel","368sextets","MSSMD",
-    "331","B-L-SM","CHEIDI","VLC_LN",
-    "pSPSS",
-    "ALRM_general","HNLs","SLQrules"
-  ];
-  // phase at which each model first passes; 0 = one-shot, 99 = never
-  const WON = {
-    EffLRSM:1, GeneralU1:1, MDMmodel:1, "368sextets":1, MSSMD:1,
-    "331":2, "B-L-SM":2, CHEIDI:2, VLC_LN:2,
-    pSPSS:3,
-    ALRM_general:99, HNLs:99, SLQrules:99
+  const PASS = ["368sextets","B-L-SM","EffLRSM","GeneralU1","HeavyN","HiggsCharacterisation",
+    "LeptoQuark","MDMmodel","MSSMD","Monotops","NJLComposite","SMWeinberg","Sextets",
+    "Top-Philic-Zprime","Triplets","Wprime","pNG","pSPSS"];
+  const FAIL = ["SLQrules"];
+  const UNSCORED = {
+    "331": "LHiggs331, LGauge331Mass, LScalarFermion331, LTot",
+    "ALRM_general": "LYALRM, LSALRM, LFALRM, LeffALRM",
+    "CHEIDI": "LHEIDI, LHEIDIgg, LTot",
+    "ChernSimonsPortal": "LChernSimonsPortal, LChernSimonsPortalBroken",
+    "DMsimp": "L0DM, L1DM",
+    "HNLs": "LagHeavyN, LHeavyNDiracMass, LHeavyNEW + 4 hadronic terms",
+    "VLC_LN": "LChiralFull, LEDM, LTot",
+    "VLQ": "11 separate T'/B' coupling terms",
+    "topBSM": "LS0, LO0, LS1, LO1"
   };
-  const STAGES = [
-    { key:"one-shot",        phase:0, n:15 },
-    { key:"+ repair P1",     phase:1, n:20 },
-    { key:"+ repair P2",     phase:2, n:24 },
-    { key:"+ repair P3",     phase:3, n:25 }
-  ];
 
   const map = document.getElementById("map");
-  STAGES.forEach(st => {
-    const row = document.createElement("div");
-    row.className = "map-row";
-
+  const ROWS = [
+    { key: "clears the chain", cls: "pass",   items: PASS.map(m => [m, "clears the full chain"]) },
+    { key: "fails",            cls: "hard",   items: FAIL.map(m => [m, "fails the full chain"]) },
+    { key: "not scoreable",    cls: "unscored", items: Object.entries(UNSCORED).map(
+        ([m, r]) => [m, "no declared total \u2014 competing: " + r]) }
+  ];
+  ROWS.forEach(row => {
+    const el = document.createElement("div");
+    el.className = "map-row";
     const label = document.createElement("div");
     label.className = "map-label";
-    label.textContent = st.key;
-
+    label.textContent = row.key;
     const cells = document.createElement("div");
     cells.className = "cells";
-    ORDER.forEach(m => {
-      const won = WON[m] === undefined ? 0 : WON[m];
+    row.items.forEach(([m, title]) => {
       const c = document.createElement("div");
-      let cls = "cell ", state;
-      if (won <= st.phase)      { cls += (won === st.phase && won !== 0) ? "new" : "pass";
-                                  state = won === 0 ? "passed one-shot" : "recovered in phase " + won; }
-      else if (won === 99)      { cls += "hard";  state = "never recovered"; }
-      else                      { cls += "fail";  state = "still failing"; }
-      c.className = cls;
-      c.title = m + " — " + state;
+      c.className = "cell " + row.cls;
+      c.title = m + " \u2014 " + title;
       cells.appendChild(c);
     });
-
     const score = document.createElement("div");
     score.className = "map-score";
-    score.innerHTML = "<b>" + st.n + "</b>/28 &nbsp;" + Math.round(st.n / 28 * 100) + "%";
-
-    row.append(label, cells, score);
-    map.appendChild(row);
+    score.innerHTML = "<b>" + row.items.length + "</b>/28";
+    el.append(label, cells, score);
+    map.appendChild(el);
   });
 
   const RECOV = [
