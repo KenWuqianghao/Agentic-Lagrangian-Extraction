@@ -21,8 +21,22 @@ from __future__ import annotations
 
 import json
 import shutil
+import subprocess
 import zipfile
 from pathlib import Path
+
+
+def _pages(pdf: Path) -> int:
+    """Page count via pdfinfo; 0 if unavailable."""
+    try:
+        r = subprocess.run(["pdfinfo", str(pdf)], capture_output=True,
+                           text=True, timeout=30)
+        for line in r.stdout.splitlines():
+            if line.startswith("Pages:"):
+                return int(line.split()[1])
+    except (OSError, subprocess.SubprocessError, ValueError):
+        pass
+    return 0
 
 HERE = Path(__file__).parent
 BUNDLE = HERE / "review_bundle"
@@ -73,15 +87,26 @@ def assemble() -> None:
         shutil.rmtree(BUNDLE)
     BUNDLE.mkdir()
 
-    # ---- passing models: .fr + REVIEW.pdf -----------------------------
+    # ---- passing models: .fr + one PDF --------------------------------
+    # Where the reverse run did not finish, REVIEW.pdf is 2-3 empty pages.
+    # build_model_pdfs.py writes a DOSSIER.pdf for those; it supersedes the
+    # empty review, so each model directory holds exactly one PDF to open.
     passing = _passing_models()
     (BUNDLE / "passing").mkdir()
+    pdf_pages: dict[str, tuple[str, int]] = {}
     for m in passing:
         src, dst = HERE / "ian_review_bundle" / m, BUNDLE / "passing" / m
         dst.mkdir()
+        dossier = HERE / m / "dossier" / "DOSSIER.pdf"
         for f in sorted(src.iterdir()):
             if f.is_file():
+                if f.name == "REVIEW.pdf" and dossier.is_file():
+                    continue  # superseded
                 shutil.copy2(f, dst / f.name)
+        if dossier.is_file():
+            shutil.copy2(dossier, dst / "DOSSIER.pdf")
+        pdf = dst / ("DOSSIER.pdf" if dossier.is_file() else "REVIEW.pdf")
+        pdf_pages[m] = (pdf.name, _pages(pdf)) if pdf.is_file() else ("—", 0)
 
     # ---- failing models: best .fr + the log that says why -------------
     (BUNDLE / "failing").mkdir()
@@ -100,6 +125,10 @@ def assemble() -> None:
         gen = HERE / m / "model" / f"{m}_gen.fr"
         if gen.is_file():
             shutil.copy2(gen, dst / f"{m}_one_shot.fr")
+        dossier = HERE / m / "dossier" / "DOSSIER.pdf"
+        if dossier.is_file():
+            shutil.copy2(dossier, dst / "DOSSIER.pdf")
+            pdf_pages[m] = ("DOSSIER.pdf", _pages(dst / "DOSSIER.pdf"))
         fail_rows.append((m, note))
 
     # ---- reports and analysis ----------------------------------------
@@ -107,11 +136,13 @@ def assemble() -> None:
     for r in REPORTS:
         if (HERE / r).is_file():
             shutil.copy2(HERE / r, BUNDLE / "reports" / r)
-    for top in ("REPAIR_BENCHMARK_ANALYSIS.md", "CONVENTION_DISAGREEMENTS.md"):
+    for top in ("REPAIR_BENCHMARK_ANALYSIS.md", "CONVENTION_DISAGREEMENTS.md",
+                "LAGRANGIAN_COVERAGE.md"):
         if (HERE / top).is_file():
             shutil.copy2(HERE / top, BUNDLE / top)
 
-    (BUNDLE / "README.md").write_text(_readme(passing, fail_rows), encoding="utf-8")
+    (BUNDLE / "README.md").write_text(
+        _readme(passing, fail_rows, pdf_pages), encoding="utf-8")
 
     if ZIP.exists():
         ZIP.unlink()
@@ -125,7 +156,8 @@ def assemble() -> None:
     print(f"[bundle] {n} files -> {ZIP.name} ({ZIP.stat().st_size // 1024} KB)")
 
 
-def _readme(passing: list[str], fail_rows: list[tuple[str, str]]) -> str:
+def _readme(passing: list[str], fail_rows: list[tuple[str, str]],
+            pdf_pages: dict[str, tuple[str, int]]) -> str:
     d = _crosscheck_counts()
     c = d.get("counts", {})
     no_cc = set(d.get("models_without_crosscheck", []))
@@ -145,6 +177,20 @@ def _readme(passing: list[str], fail_rows: list[tuple[str, str]]) -> str:
         "| + repair phase 1 | 20/28 | 71% |",
         "| + repair phase 2 | 24/28 | 86% |",
         "| **+ repair phase 3** | **25/28** | **89%** |",
+        "",
+        "## Read this first",
+        "",
+        "**The pass rate above overstates coverage for 9 of the 25 passing "
+        "models.** The harness picks each model's total-Lagrangian symbol by "
+        "file position — the last `L... =` line — and for those 9 that symbol "
+        "is not the model's total, so FeynRules compiled a fragment. A "
+        "fragment can be Hermitian, pass every check and import into "
+        "MadGraph. `VLQ` passed on 1 of its 11 Lagrangian terms; `topBSM` on "
+        "5 of 23; `331` on 2 of 5.",
+        "",
+        "This is our bug, not a defect in the models, and it is unfixed as of "
+        "this bundle. `LAGRANGIAN_COVERAGE.md` lists every affected model and "
+        "what was omitted. Please weigh the pass rate accordingly.",
         "",
         "## What we are asking you to check",
         "",
@@ -177,15 +223,17 @@ def _readme(passing: list[str], fail_rows: list[tuple[str, str]]) -> str:
     L += [
         "## Reading order",
         "",
-        "1. `CONVENTION_DISAGREEMENTS.md` — every graded row, grouped by "
+        "1. `LAGRANGIAN_COVERAGE.md` — which models were only partly "
+        "compiled, and what was left out. This bounds what the rest means.",
+        "2. `CONVENTION_DISAGREEMENTS.md` — every graded row, grouped by "
         "theme. Start with the substantive ones.",
-        "2. `passing/<model>/REVIEW.pdf` — the full review package for any "
+        "3. `passing/<model>/REVIEW.pdf` — the full review package for any "
         "model whose rows you want to see in context. The last page is a "
         "sign-off block.",
-        "3. `REPAIR_BENCHMARK_ANALYSIS.md` — what the loop fixed, what it "
+        "4. `REPAIR_BENCHMARK_ANALYSIS.md` — what the loop fixed, what it "
         "could not, and the error taxonomy.",
-        "4. `reports/` — the machine-generated per-stage results.",
-        "5. `failing/` — the three models the loop could not repair.",
+        "5. `reports/` — the machine-generated per-stage results.",
+        "6. `failing/` — the three models the loop could not repair.",
         "",
         "## Contents",
         "",
@@ -193,28 +241,39 @@ def _readme(passing: list[str], fail_rows: list[tuple[str, str]]) -> str:
         "",
         "`<model>.fr` is the validated FeynRules file, agent-extracted and, "
         "where the loop repaired it, self-repaired with no human input. "
-        "`REVIEW.pdf` is the blank-slate review package.",
+        "**Every model has exactly one PDF — open that and you have "
+        "everything.**",
         "",
-        "| model | review |",
-        "|---|---|",
+        "`REVIEW.pdf` is a completed reverse-check package: verbatim "
+        "Lagrangian terms, the blank-slate reconstruction, the term-by-term "
+        "paper comparison, and a sign-off block. `DOSSIER.pdf` appears where "
+        "the reverse run did not finish — it carries the verbatim Lagrangian, "
+        "whatever reconstruction exists, the validation result and the repair "
+        "history, so the model is still readable without opening source "
+        "files.",
+        "",
+        "| model | PDF | pages | state |",
+        "|---|---|---:|---|",
     ]
     for m in passing:
-        state = ("reconstruction incomplete — **not yet reviewed**"
+        name, pages = pdf_pages.get(m, ("—", 0))
+        state = ("reverse run unfinished — **not yet reviewed**"
                  if m in no_cc else "full term-by-term cross-check")
-        L.append(f"| {m} | {state} |")
+        L.append(f"| {m} | `{name}` | {pages} | {state} |")
 
     L += [
         "",
         f"{len(no_cc)} of these have no cross-check. Their reverse runs hit "
         "agent-transport failures, not a physics result. Treat them as not "
-        "yet reviewed.",
+        "yet reviewed — their `DOSSIER.pdf` says so on page 1.",
         "",
         f"### failing/ ({len(fail_rows)} models)",
         "",
         "The loop could not get these through the chain. Included so the "
-        "picture is complete, not only the successes. `<model>_one_shot.fr` "
-        "is the first attempt; `<model>.fr` is the best repaired attempt; "
-        "`VALIDATION_REPORT.md` is the failure it stopped on.",
+        "picture is complete, not only the successes. Read `DOSSIER.pdf`; "
+        "`<model>_one_shot.fr` is the first attempt, `<model>.fr` the best "
+        "repaired attempt, and `VALIDATION_REPORT.md` the failure it stopped "
+        "on.",
         "",
         "| model | best attempt | why it resisted |",
         "|---|---|---|",

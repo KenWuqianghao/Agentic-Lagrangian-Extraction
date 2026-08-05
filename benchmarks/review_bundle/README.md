@@ -9,6 +9,12 @@
 | + repair phase 2 | 24/28 | 86% |
 | **+ repair phase 3** | **25/28** | **89%** |
 
+## Read this first
+
+**The pass rate above overstates coverage for 9 of the 25 passing models.** The harness picks each model's total-Lagrangian symbol by file position — the last `L... =` line — and for those 9 that symbol is not the model's total, so FeynRules compiled a fragment. A fragment can be Hermitian, pass every check and import into MadGraph. `VLQ` passed on 1 of its 11 Lagrangian terms; `topBSM` on 5 of 23; `331` on 2 of 5.
+
+This is our bug, not a defect in the models, and it is unfixed as of this bundle. `LAGRANGIAN_COVERAGE.md` lists every affected model and what was omitted. Please weigh the pass rate accordingly.
+
 ## What we are asking you to check
 
 Passing means **the tool chain accepts the model**. It does not mean the physics matches the paper, and we are not claiming it does.
@@ -25,51 +31,54 @@ To test the physics we ran the chain backwards. For each passing model, an agent
 
 ## Reading order
 
-1. `CONVENTION_DISAGREEMENTS.md` — every graded row, grouped by theme. Start with the substantive ones.
-2. `passing/<model>/REVIEW.pdf` — the full review package for any model whose rows you want to see in context. The last page is a sign-off block.
-3. `REPAIR_BENCHMARK_ANALYSIS.md` — what the loop fixed, what it could not, and the error taxonomy.
-4. `reports/` — the machine-generated per-stage results.
-5. `failing/` — the three models the loop could not repair.
+1. `LAGRANGIAN_COVERAGE.md` — which models were only partly compiled, and what was left out. This bounds what the rest means.
+2. `CONVENTION_DISAGREEMENTS.md` — every graded row, grouped by theme. Start with the substantive ones.
+3. `passing/<model>/REVIEW.pdf` — the full review package for any model whose rows you want to see in context. The last page is a sign-off block.
+4. `REPAIR_BENCHMARK_ANALYSIS.md` — what the loop fixed, what it could not, and the error taxonomy.
+5. `reports/` — the machine-generated per-stage results.
+6. `failing/` — the three models the loop could not repair.
 
 ## Contents
 
 ### passing/ (25 models)
 
-`<model>.fr` is the validated FeynRules file, agent-extracted and, where the loop repaired it, self-repaired with no human input. `REVIEW.pdf` is the blank-slate review package.
+`<model>.fr` is the validated FeynRules file, agent-extracted and, where the loop repaired it, self-repaired with no human input. **Every model has exactly one PDF — open that and you have everything.**
 
-| model | review |
-|---|---|
-| 331 | reconstruction incomplete — **not yet reviewed** |
-| 368sextets | full term-by-term cross-check |
-| B-L-SM | reconstruction incomplete — **not yet reviewed** |
-| CHEIDI | reconstruction incomplete — **not yet reviewed** |
-| ChernSimonsPortal | full term-by-term cross-check |
-| DMsimp | full term-by-term cross-check |
-| EffLRSM | full term-by-term cross-check |
-| GeneralU1 | full term-by-term cross-check |
-| HeavyN | full term-by-term cross-check |
-| HiggsCharacterisation | full term-by-term cross-check |
-| LeptoQuark | full term-by-term cross-check |
-| MDMmodel | full term-by-term cross-check |
-| MSSMD | full term-by-term cross-check |
-| Monotops | full term-by-term cross-check |
-| NJLComposite | full term-by-term cross-check |
-| SMWeinberg | full term-by-term cross-check |
-| Sextets | full term-by-term cross-check |
-| Top-Philic-Zprime | full term-by-term cross-check |
-| Triplets | full term-by-term cross-check |
-| VLC_LN | reconstruction incomplete — **not yet reviewed** |
-| VLQ | full term-by-term cross-check |
-| Wprime | full term-by-term cross-check |
-| pNG | full term-by-term cross-check |
-| pSPSS | full term-by-term cross-check |
-| topBSM | full term-by-term cross-check |
+`REVIEW.pdf` is a completed reverse-check package: verbatim Lagrangian terms, the blank-slate reconstruction, the term-by-term paper comparison, and a sign-off block. `DOSSIER.pdf` appears where the reverse run did not finish — it carries the verbatim Lagrangian, whatever reconstruction exists, the validation result and the repair history, so the model is still readable without opening source files.
 
-4 of these have no cross-check. Their reverse runs hit agent-transport failures, not a physics result. Treat them as not yet reviewed.
+| model | PDF | pages | state |
+|---|---|---:|---|
+| 331 | `DOSSIER.pdf` | 6 | reverse run unfinished — **not yet reviewed** |
+| 368sextets | `REVIEW.pdf` | 8 | full term-by-term cross-check |
+| B-L-SM | `DOSSIER.pdf` | 6 | reverse run unfinished — **not yet reviewed** |
+| CHEIDI | `DOSSIER.pdf` | 10 | reverse run unfinished — **not yet reviewed** |
+| ChernSimonsPortal | `REVIEW.pdf` | 7 | full term-by-term cross-check |
+| DMsimp | `REVIEW.pdf` | 8 | full term-by-term cross-check |
+| EffLRSM | `REVIEW.pdf` | 8 | full term-by-term cross-check |
+| GeneralU1 | `REVIEW.pdf` | 9 | full term-by-term cross-check |
+| HeavyN | `REVIEW.pdf` | 9 | full term-by-term cross-check |
+| HiggsCharacterisation | `REVIEW.pdf` | 14 | full term-by-term cross-check |
+| LeptoQuark | `REVIEW.pdf` | 9 | full term-by-term cross-check |
+| MDMmodel | `REVIEW.pdf` | 8 | full term-by-term cross-check |
+| MSSMD | `REVIEW.pdf` | 8 | full term-by-term cross-check |
+| Monotops | `REVIEW.pdf` | 8 | full term-by-term cross-check |
+| NJLComposite | `REVIEW.pdf` | 9 | full term-by-term cross-check |
+| SMWeinberg | `REVIEW.pdf` | 9 | full term-by-term cross-check |
+| Sextets | `REVIEW.pdf` | 9 | full term-by-term cross-check |
+| Top-Philic-Zprime | `REVIEW.pdf` | 7 | full term-by-term cross-check |
+| Triplets | `REVIEW.pdf` | 7 | full term-by-term cross-check |
+| VLC_LN | `DOSSIER.pdf` | 7 | reverse run unfinished — **not yet reviewed** |
+| VLQ | `REVIEW.pdf` | 10 | full term-by-term cross-check |
+| Wprime | `REVIEW.pdf` | 8 | full term-by-term cross-check |
+| pNG | `REVIEW.pdf` | 8 | full term-by-term cross-check |
+| pSPSS | `REVIEW.pdf` | 9 | full term-by-term cross-check |
+| topBSM | `REVIEW.pdf` | 15 | full term-by-term cross-check |
+
+4 of these have no cross-check. Their reverse runs hit agent-transport failures, not a physics result. Treat them as not yet reviewed — their `DOSSIER.pdf` says so on page 1.
 
 ### failing/ (3 models)
 
-The loop could not get these through the chain. Included so the picture is complete, not only the successes. `<model>_one_shot.fr` is the first attempt; `<model>.fr` is the best repaired attempt; `VALIDATION_REPORT.md` is the failure it stopped on.
+The loop could not get these through the chain. Included so the picture is complete, not only the successes. Read `DOSSIER.pdf`; `<model>_one_shot.fr` is the first attempt, `<model>.fr` the best repaired attempt, and `VALIDATION_REPORT.md` the failure it stopped on.
 
 | model | best attempt | why it resisted |
 |---|---|---|
