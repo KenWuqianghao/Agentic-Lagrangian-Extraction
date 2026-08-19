@@ -114,6 +114,15 @@
   .chip.warn { background:var(--fixed-dim); color:var(--fixed); }
   .chip.bad { background:var(--unfixed-dim); color:var(--unfixed); }
 
+  pre { font-family:var(--mono); font-size:.78rem; line-height:1.5;
+    background:var(--raised); border:1px solid var(--rule); border-radius:3px;
+    padding:1rem 1.1rem; overflow-x:auto; margin:0; color:var(--ink-2); }
+  pre b { color:var(--ink); font-weight:600; }
+  pre .hi { color:var(--unfixed); font-weight:600; }
+  pre .ok { color:var(--pass); }
+  pre .dim { color:var(--ink-3); }
+  .exlabel { font-family:var(--mono); font-size:.68rem; text-transform:uppercase;
+    letter-spacing:.1em; color:var(--ink-3); margin:1.5rem 0 .5rem; }
   ul { margin:0; padding-left:1.15rem; color:var(--ink-2); }
   li + li { margin-top:.5rem; }
   footer { margin-top:4rem; padding-top:2rem; border-top:1px solid var(--rule);
@@ -304,6 +313,115 @@
       </p>
     </div>
   </div>
+
+  <p class="exlabel">Example 1 &middot; every published radius, one row per reference</p>
+<pre><b>MeasurementDisagreementTool(planet_name="HD 189733 b")</b>
+
+  pubdate    R_Earth  &plusmn; 1&sigma;    reference
+  <span class="hi">2005-12    14.120  &plusmn; 0.340   Bouchy et al. 2005      &larr; discovery paper</span>
+  2008-04    12.756  &plusmn; 0.303   Torres et al. 2008
+  2010-11    12.902  &plusmn; 0.426   Southworth 2010
+  2015-02    13.630  &plusmn; 0.269   Boyajian et al. 2015
+  2015-04    12.300  &plusmn;   &mdash;     Salz et al. 2015        <span class="dim">no uncertainty</span>
+  2016-01    12.778  &plusmn;   &mdash;     Sing et al. 2016        <span class="dim">no uncertainty</span>
+  <span class="ok">2017-03    12.666  &plusmn; 0.112   Stassun et al. 2017     &larr; archive default</span>
+  2017-06    12.756  &plusmn; 0.303   Bonomo et al. 2017
+  2017-07    13.301  &plusmn; 0.952   ExoFOP
+  2019-11    12.543  &plusmn; 0.426   Addison et al. 2019
+
+  median 12.767   spread 1.820   <b>max tension 4.1&sigma;</b>  (Bouchy 2005 vs Stassun 2017)</pre>
+  <p class="prose" style="margin-top:.8rem; font-size:.88rem; color:var(--ink-2)">
+    The discovery value sits high and everything since converges roughly a
+    full R<sub>&oplus;</sub> lower. Two references quote no uncertainty at all,
+    which is exactly why tension is computed pairwise rather than between the
+    extremes &mdash; <span class="num">12.300</span> is the minimum and carries
+    no error bar.
+  </p>
+
+  <p class="exlabel">Example 2 &middot; the instrument attribution <code>ps</code> cannot give you</p>
+<pre><b>transitspec</b> &mdash; 201 points, instrument names normalised
+
+  pts  instrument                              wavelength      facility
+   65  wide field camera 3                     1.105&ndash;1.635 &micro;m  HST
+   42  near infrared camera and multi-object   1.484&ndash;2.468 &micro;m  HST
+   41  space telescope imaging spectrograph    0.330&ndash;1.085 &micro;m  HST
+   30  harps echelle spectrograph              0.393&ndash;0.675 &micro;m  ESO 3.6 m
+   10  advanced camera for surveys             0.575&ndash;1.025 &micro;m  HST
+   10  <span class="hi">infrared array camera (irac)</span>            3.550&ndash;7.850 &micro;m  Spitzer
+    2  hipo                                    0.441&ndash;0.922 &micro;m  SOFIA
+    1  multiband imaging photometer (mips)    24.000&ndash;24.000 &micro;m  Spitzer
+
+  <span class="dim">meanwhile every one of the 21 ps rows reports the same
+  disc_facility: "Haute-Provence Observatory"</span></pre>
+  <p class="prose" style="margin-top:.8rem; font-size:.88rem; color:var(--ink-2)">
+    IRAC appears in the raw table as both "Infrared Array <b>C</b>amera (IRAC)"
+    and "Infrared Array <b>c</b>amera (IRAC)". Grouping without normalising
+    reports nine instruments where there are eight.
+  </p>
+
+  <p class="exlabel">Example 3 &middot; astro-ph.EP search, which previously refused to run</p>
+<pre><b>ArxivSearchTool(keywords=["hot Jupiter","atmosphere"], category="astro-ph.EP")</b>
+
+  <span class="dim">before:</span> Error: Provide either `query` or `model_name`
+          <span class="dim">&mdash; model_name meant a BSM model; astro has none</span>
+
+  <span class="ok">after:</span>  cat:astro-ph.EP AND (abs:"hot Jupiter" OR abs:"atmosphere")
+          2102.00211  Neutral metals in the atmosphere of HD149026b
+          2502.19394  Limited hysteresis in the atmospheric dynamics of&hellip;
+          2212.03833  The effect of interior heat flux on the atmospheric&hellip;</pre>
+
+  <p class="exlabel">Example 4 &middot; the table choice, in one query each</p>
+<pre>select count(*) from <b>ps</b>         where pl_name='HD 189733 b'  &rarr; <span class="ok">21</span>
+select count(*) from <b>pscomppars</b> where pl_name='HD 189733 b'  &rarr; <span class="hi">1</span>
+
+<span class="dim">TAP is free and keyless:
+  https://exoplanetarchive.ipac.caltech.edu/TAP/sync?query=&hellip;&amp;format=csv
+A malformed query returns HTTP 200 with an Oracle error in the body,
+so status-code-only handling accepts failure as an empty result.</span></pre>
+
+  <p class="exlabel">Example 5 &middot; an agent answering the question, end to end</p>
+<pre><span class="dim">prompt &mdash;</span> <b>"Find out how many separate published parameter sets the NASA
+Exoplanet Archive holds for HD 189733 b, and state that number explicitly.
+Then say which parameter shows the largest disagreement between references."</b>
+
+<span class="dim">27.0 s &middot; 3 tool calls</span>
+
+  <span class="dim">&#9679;</span> <i>"I'll look up the relevant tools for querying the NASA Exoplanet
+     Archive and measurement disagreements."</i>
+
+  <b>ToolSearch</b>  select:Resolveplanetname,Exoplanetarchivequery,
+              Publishedmeasurements,Measurementdisagreement
+  <b>ToolSearch</b>  "exoplanet archive query"
+
+  <span class="dim">&#9679;</span> <i>"Now I'll query the disagreement tool directly for HD 189733 b."</i>
+
+  <b class="ok">mcp__heptapod__Measurementdisagreement</b>
+     { "planet_name": "HD 189733 b", "include_spectroscopy": true }
+
+  <span class="dim">&#9679;</span> <i>"The NASA Exoplanet Archive holds <b>21 separate published parameter
+     sets</b> for HD 189733 b. Of the three parameters checked, the
+     <b>orbital period</b> shows the largest disagreement... the most
+     discrepant pair (Kokori et al. 2023 vs. Stassun et al. 2017)
+     differs by <b>4.75&sigma;</b> &mdash; even though the raw spread in period
+     values is small..."</i>
+
+  <span class="ok">score    &#10003;  21 confirmed by an independent archive query</span>
+  <span class="ok">required &#10003;  Measurementdisagreement was actually called</span></pre>
+  <p class="prose" style="margin-top:.8rem; font-size:.88rem; color:var(--ink-2)">
+    One call does the work: it pulls all 21 published parameter sets, compares
+    every pair that carries error bars, and separately fetches the 201
+    spectroscopy points. The agent's closing remark &mdash; <i>"even though the raw
+    spread in period values is small"</i> &mdash; is the tool earning its keep. The
+    period values differ only in the fourth decimal, so eyeballing them suggests
+    agreement; they are precise enough that the difference is still
+    <span class="num">4.75&sigma;</span>.
+  </p>
+  <p class="prose" style="margin-top:.8rem; font-size:.88rem; color:var(--ink-2)">
+    Both checks had to hold. An earlier run got <span class="num">21</span>
+    <i>correct</i> by running <code>curl</code> against the archive's web API and
+    was marked a <span class="chip bad">failure</span> &mdash; right answer, no
+    physics tool touched, and therefore no evidence about driving the toolkit.
+  </p>
 
   <div class="callout prose" style="border-left-color:var(--pass); margin-top:1.75rem">
     <p><b>What it finds on HD 189733 b, live.</b></p>
