@@ -1,0 +1,378 @@
+<title>Week 10 — three things running it caught</title>
+
+<style>
+  :root {
+    --paper:#F6F8F9; --raised:#FFFFFF; --ink:#131A21; --ink-2:#46555F;
+    --ink-3:#75858F; --rule:#DDE4E7; --rule-soft:#EAEFF1;
+    --accent:#0B7A87; --accent-dim:#E2F0F1;
+    --pass:#2F7A55; --pass-dim:#E0EFE6;
+    --fixed:#B0761F; --fixed-dim:#F7EEDC;
+    --unfixed:#A63A38; --unfixed-dim:#F6E3E2;
+    --shadow:0 1px 2px rgba(19,26,33,.05), 0 8px 24px -16px rgba(19,26,33,.28);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Source Serif 4",Georgia,serif;
+    --sans:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper:#0E1418; --raised:#161E24; --ink:#E6EDF0; --ink-2:#A5B4BC;
+      --ink-3:#74848D; --rule:#26323A; --rule-soft:#1D262C;
+      --accent:#52CFD6; --accent-dim:#122E33; --pass:#5FBF8C; --pass-dim:#132C21;
+      --fixed:#D9A253; --fixed-dim:#2E2415; --unfixed:#E0736F; --unfixed-dim:#2E1917;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8); }
+  }
+  :root[data-theme="dark"] { --paper:#0E1418; --raised:#161E24; --ink:#E6EDF0;
+    --ink-2:#A5B4BC; --ink-3:#74848D; --rule:#26323A; --rule-soft:#1D262C;
+    --accent:#52CFD6; --accent-dim:#122E33; --pass:#5FBF8C; --pass-dim:#132C21;
+    --fixed:#D9A253; --fixed-dim:#2E2415; --unfixed:#E0736F; --unfixed-dim:#2E1917;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8); }
+  :root[data-theme="light"] { --paper:#F6F8F9; --raised:#FFFFFF; --ink:#131A21;
+    --ink-2:#46555F; --ink-3:#75858F; --rule:#DDE4E7; --rule-soft:#EAEFF1;
+    --accent:#0B7A87; --accent-dim:#E2F0F1; --pass:#2F7A55; --pass-dim:#E0EFE6;
+    --fixed:#B0761F; --fixed-dim:#F7EEDC; --unfixed:#A63A38; --unfixed-dim:#F6E3E2;
+    --shadow:0 1px 2px rgba(19,26,33,.05), 0 8px 24px -16px rgba(19,26,33,.28); }
+
+  * { box-sizing:border-box; }
+  body { background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.6; margin:0; padding:0 1.25rem 6rem;
+    -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:62rem; margin:0 auto; }
+  .prose { max-width:40rem; }
+  h1,h2,h3 { font-family:var(--serif); font-weight:600; text-wrap:balance; margin:0; }
+  h1 { font-size:clamp(2rem,5vw,3rem); line-height:1.08; letter-spacing:-.015em; }
+  h2 { font-size:clamp(1.4rem,3vw,1.85rem); line-height:1.2; letter-spacing:-.01em; }
+  h3 { font-size:1.06rem; line-height:1.3; }
+  p { margin:0; }
+  a { color:var(--accent); text-underline-offset:2px; }
+  a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+  code { font-family:var(--mono); font-size:.88em; }
+  .eyebrow { font-family:var(--mono); font-size:.7rem; text-transform:uppercase;
+    letter-spacing:.13em; color:var(--ink-3); margin:0; }
+  .num { font-family:var(--mono); font-variant-numeric:tabular-nums; }
+
+  header { padding:4rem 0 2.5rem; border-bottom:1px solid var(--rule); }
+  .lede { font-size:1.12rem; color:var(--ink-2); margin-top:1.25rem; }
+  .meta { margin-top:2rem; display:flex; flex-wrap:wrap; gap:.5rem 1.5rem;
+    font-family:var(--mono); font-size:.76rem; color:var(--ink-3); }
+  section { padding:3.5rem 0 0; }
+  .sec-head { display:flex; flex-direction:column; gap:.6rem; margin-bottom:1.75rem; }
+
+  /* the three traps — the spine of the week */
+  .traps { display:flex; flex-direction:column; gap:1px; background:var(--rule);
+    border:1px solid var(--rule); border-radius:3px; overflow:hidden; }
+  .trap { background:var(--raised); padding:1.4rem 1.5rem; display:grid;
+    grid-template-columns:2.4rem 1fr; gap:.2rem 1rem; align-items:start; }
+  .trap-n { font-family:var(--mono); font-size:1.5rem; color:var(--unfixed);
+    line-height:1; font-weight:600; }
+  .trap-t { font-family:var(--serif); font-size:1.08rem; font-weight:600;
+    grid-column:2; }
+  .trap-b { grid-column:2; font-size:.9rem; color:var(--ink-2); margin-top:.45rem; }
+  .trap-fix { grid-column:2; margin-top:.7rem; font-size:.84rem;
+    color:var(--pass); font-family:var(--mono); }
+
+  .callout { margin-top:2.5rem; padding:1.5rem 1.6rem; background:var(--raised);
+    border:1px solid var(--rule); border-left:3px solid var(--accent);
+    border-radius:3px; box-shadow:var(--shadow); }
+  .callout p + p { margin-top:.85rem; }
+  blockquote { margin:1rem 0 0; padding-left:1rem;
+    border-left:2px solid var(--rule); color:var(--ink-2);
+    font-family:var(--serif); font-size:1.02rem; }
+
+  .scroll { overflow-x:auto; border:1px solid var(--rule); border-radius:3px;
+    background:var(--raised); }
+  table { border-collapse:collapse; width:100%; font-size:.86rem; }
+  th,td { text-align:left; padding:.6rem .8rem;
+    border-bottom:1px solid var(--rule-soft); vertical-align:top; }
+  thead th { font-family:var(--mono); font-size:.68rem; text-transform:uppercase;
+    letter-spacing:.09em; color:var(--ink-3); font-weight:500;
+    border-bottom:1px solid var(--rule); white-space:nowrap; }
+  tbody tr:last-child td { border-bottom:0; }
+  td.mono { font-family:var(--mono); font-size:.8rem; white-space:nowrap; }
+  td.num { font-family:var(--mono); font-variant-numeric:tabular-nums;
+    text-align:right; white-space:nowrap; }
+
+  .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
+    gap:1px; background:var(--rule); border:1px solid var(--rule);
+    border-radius:3px; overflow:hidden; }
+  .stat { background:var(--raised); padding:1.15rem 1.25rem; }
+  .stat-v { font-family:var(--mono); font-variant-numeric:tabular-nums;
+    font-size:1.6rem; letter-spacing:-.02em; }
+  .stat-k { font-family:var(--mono); font-size:.68rem; text-transform:uppercase;
+    letter-spacing:.1em; color:var(--ink-3); margin-top:.3rem; }
+
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));
+    gap:1rem; }
+  .card { background:var(--raised); border:1px solid var(--rule);
+    border-radius:3px; padding:1.3rem; box-shadow:var(--shadow); }
+  .card h3 { margin-bottom:.5rem; }
+  .card p { font-size:.88rem; color:var(--ink-2); }
+  .card .tag { font-family:var(--mono); font-size:.66rem; text-transform:uppercase;
+    letter-spacing:.1em; margin-bottom:.7rem; display:block; }
+
+  .chip { display:inline-block; font-family:var(--mono); font-size:.68rem;
+    padding:.12rem .45rem; border-radius:2px; white-space:nowrap; }
+  .chip.pass { background:var(--pass-dim); color:var(--pass); }
+  .chip.warn { background:var(--fixed-dim); color:var(--fixed); }
+  .chip.bad { background:var(--unfixed-dim); color:var(--unfixed); }
+
+  ul { margin:0; padding-left:1.15rem; color:var(--ink-2); }
+  li + li { margin-top:.5rem; }
+  footer { margin-top:4rem; padding-top:2rem; border-top:1px solid var(--rule);
+    font-size:.82rem; color:var(--ink-3); }
+  @media (max-width:640px){ .trap{grid-template-columns:1fr} .trap-t,.trap-b,.trap-fix{grid-column:1} }
+  @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} }
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Agentic Lagrangian extraction &middot; week 10</p>
+  <h1>Three things running it caught</h1>
+  <p class="lede prose">
+    A new astrophysics workstream, benchmark infrastructure for comparing models,
+    and an answer on the Diagrammatica paper. The through-line is that every
+    finding worth having this week came from executing something, not from
+    reasoning about it — and in three cases the code was confidently wrong right
+    up until it ran.
+  </p>
+  <div class="meta">
+    <span>PR #11 mergeable</span><span>+11,027 lines</span>
+    <span>2,014 new this week</span><span>18 Aug 2026</span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">The paper Konstantin mentioned</p>
+    <h2>It is your own team's</h2>
+  </div>
+  <p class="prose" style="color:var(--ink-2)">
+    <span class="num">arXiv:2603.26990</span>, <i>Agentic Diagrammatica</i> —
+    Menzo, Roman, Fleming, Gleyzer, <b>Matchev</b>, Mrenna. FERMILAB-PUB-26-0208-T.
+    It describes a symbolic-computation extension to the same HEPTAPOD framework
+    this project contributes to. Konstantin is an author; Tony is reviewing the PR.
+  </p>
+
+  <div class="callout prose">
+    <p><b>The most likely ask is named in their own conclusions.</b></p>
+    <blockquote>
+      "automatic parsing of UFO model files from FeynRules into FeynGraph vertex
+      rules for BSM diagram enumeration without manual model specification."
+    </blockquote>
+    <p style="color:var(--ink-2)">
+      One of three EDA extensions they list, and the only one whose <i>input is
+      exactly what this pipeline already produces and validates at scale</i>. Two
+      cheaper options exist: the paper explicitly invites other groups to attempt
+      its two benchmark tasks and report back, with both prompts printed verbatim;
+      and the 28-model FeynRules benchmark is the "Task 3" the paper lacks, since
+      both of its benchmarks assume the model is already known.
+    </p>
+  </div>
+
+  <div class="callout prose" style="border-left-color:var(--fixed)">
+    <p><b>A correction to my own first reading.</b></p>
+    <p style="color:var(--ink-2)">
+      Research initially concluded this pipeline is the free-form code-generation
+      pattern the paper argues against. Checking the source disproved it.
+      <code>GenerateFeynRulesModelTool</code> takes a schema-validated spec, and
+      <code>render.py</code> states that the convention-dependent Mathematica
+      syntax "is built here in tested Python". Agent says <i>what</i>, trusted
+      backend fixes the conventions — that is their tool-constrained architecture,
+      arrived at independently in a second domain. A confirming instance, not the
+      anti-pattern, which is a far better basis for pitching Task 3.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Benchmark infrastructure</p>
+    <h2>Three ways it lied before the checks existed</h2>
+    <p class="prose" style="color:var(--ink-2)">
+      The goal was infrastructure for "which model best drives the physics
+      toolkit". Each of these was caught by running it, and each would have
+      produced a credible-looking number.
+    </p>
+  </div>
+
+  <div class="traps">
+    <div class="trap">
+      <div class="trap-n">01</div>
+      <div class="trap-t">The toolkit was never served</div>
+      <div class="trap-b">
+        The first run made 4 tool calls, gave a plausible answer, and never
+        touched HEPTAPOD — it reached arxiv.org through a generic fetch tool.
+        A benchmark scoring only the answer would have recorded a pass.
+      </div>
+      <div class="trap-fix">fix &rarr; per-run MCP config serving only heptapod</div>
+    </div>
+    <div class="trap">
+      <div class="trap-n">02</div>
+      <div class="trap-t">It inherited the operator's own MCP servers</div>
+      <div class="trap-b">
+        Whatever the person running the benchmark happens to have configured
+        leaked into the agent's toolbox. That silently changes the question from
+        "how well does this model drive the toolkit" to "how resourceful is this
+        model in general" — a different question, with a flattering answer.
+      </div>
+      <div class="trap-fix">fix &rarr; --strict-mcp-config</div>
+    </div>
+    <div class="trap">
+      <div class="trap-n">03</div>
+      <div class="trap-t">Built-in shortcuts bypassed the physics tools</div>
+      <div class="trap-b">
+        With the toolkit correctly served, a run still <code>curl</code>'d the
+        archive's HTTP API directly, produced the <i>correct number</i>, and
+        scored <span class="chip pass">PASS</span> — having used no physics tool
+        at all. Only the separate required-tool check caught it.
+      </div>
+      <div class="trap-fix">fix &rarr; --disallowedTools Bash,WebFetch,WebSearch</div>
+    </div>
+  </div>
+
+  <p class="prose" style="margin-top:1.25rem; font-size:.88rem; color:var(--ink-3)">
+    A fourth issue was an argv bug rather than a lie: <code>--disallowedTools</code>
+    is variadic and swallowed the trailing positional prompt, so every case exited
+    in two seconds looking like a model failure. The prompt now goes on stdin.
+  </p>
+
+  <div class="scroll" style="margin-top:1.75rem">
+    <table>
+      <thead><tr><th>case</th><th>tier</th><th class="num">calls</th><th>required tools</th><th>score</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">t1-arxiv-astro-search</td><td>I</td><td class="num">3</td>
+            <td><span class="chip pass">ok</span></td>
+            <td><span class="chip warn">unscored</span></td></tr>
+        <tr><td class="mono">t2-exoplanet-disagreement</td><td>II</td><td class="num">3</td>
+            <td><span class="chip pass">ok</span></td>
+            <td><span class="chip pass">pass</span></td></tr>
+        <tr><td class="mono">t2-frgen-leptoquark</td><td>II</td><td class="num">15</td>
+            <td><span class="chip pass">ok</span></td>
+            <td><span class="chip pass">pass</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="prose" style="margin-top:.9rem; font-size:.85rem; color:var(--ink-3)">
+    Tier I has no artifact scorer yet and is reported unscored rather than counted
+    as a pass. Only Claude has credentials here; codex and orchestral are declared
+    with an explicit reason so a run says "no usage left" rather than quietly
+    comparing one model against nothing.
+  </p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">New workstream</p>
+    <h2>Why do two papers disagree about a planet?</h2>
+    <p class="prose" style="color:var(--ink-2)">
+      A new <code>exoplanet</code> bundle checks a paper's claimed measurements
+      against the NASA Exoplanet Archive. Three premises in the original brief
+      turned out to be wrong, all corrected by querying the service directly.
+    </p>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <span class="tag" style="color:var(--accent)">verified</span>
+      <h3>Only one table can answer it</h3>
+      <p>
+        <code>ps</code> holds one row per planet <i>per published reference</i>;
+        <code>pscomppars</code> holds one composite row. HD 189733 b:
+        <b>21 rows</b> versus <b>1</b>. Asking why papers disagree from
+        <code>pscomppars</code> is structurally impossible — it has already
+        discarded the disagreement. A test asserts it never appears in this path.
+      </p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color:var(--unfixed)">premise wrong</span>
+      <h3><code>ps</code> cannot name the telescope</h3>
+      <p>
+        Its three facility columns all describe the <i>discovery</i> and are
+        identical on every row — all 21 read "Haute-Provence Observatory" while
+        the radii come from Spitzer, HST and ground-based work. Per-instrument
+        attribution exists only in <code>transitspec</code> /
+        <code>emissionspec</code>, so the two halves are reported separately
+        rather than fused into a causal claim the archive cannot support.
+      </p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color:var(--unfixed)">premise wrong</span>
+      <h3>The atmospheres URL is not an API</h3>
+      <p>
+        <code>nph-firefly?atmospheres</code> returns HTTP 200 and 31 KB of
+        JavaScript shell with no data. The real per-instrument spectroscopy is in
+        the TAP tables above.
+      </p>
+    </div>
+  </div>
+
+  <div class="callout prose" style="border-left-color:var(--pass); margin-top:1.75rem">
+    <p><b>What it finds on HD 189733 b, live.</b></p>
+    <p style="color:var(--ink-2)">
+      10 published radii spanning 12.3&ndash;14.12 R<sub>&oplus;</sub>, with the most
+      discrepant pair <b>4.1&sigma;</b> apart (Stassun 2017 vs Bouchy 2005). Orbital
+      period contested at <b>4.7&sigma;</b> — a transit-timing signature. 201
+      spectroscopy points across <b>8 instruments</b> once names are normalised.
+    </p>
+    <p style="color:var(--ink-2)">
+      The 4.7&sigma; period result was invisible at first. Tension was computed
+      between the minimum and maximum values, and the extremes are frequently the
+      rows <i>without</i> error bars — so the tool reported "no uncertainties
+      quoted" for a planet where 14 of 18 references quote them. It now compares
+      every pair that has uncertainties.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Shipped</p>
+    <h2>State of the PR</h2>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-v">63</div><div class="stat-k">files</div></div>
+    <div class="stat"><div class="stat-v">+11,027</div><div class="stat-k">lines</div></div>
+    <div class="stat"><div class="stat-v">16</div><div class="stat-k">commits</div></div>
+    <div class="stat"><div class="stat-v">66</div><div class="stat-k">tools served</div></div>
+  </div>
+  <ul class="prose" style="margin-top:1.5rem">
+    <li><b>PR #11</b> on <code>heptapod-dev</code> — <span class="chip pass">MERGEABLE / CLEAN</span>, ready for review.</li>
+    <li><b>New <code>exoplanet</code> bundle</b>: 4 tools, 45/45 tests, no dependency and no configuration — the archive's TAP service is free and keyless.</li>
+    <li><b>astro-ph.EP search works.</b> <code>model_name</code> was mandatory on the arXiv tool, which is meaningless outside BSM physics; keywords alone now build a query.</li>
+    <li><b>Benchmark infrastructure</b> in <code>benchmarks/agent_bench/</code>, kept out of the PR deliberately — that PR is tools-only and under review.</li>
+  </ul>
+
+  <div class="callout prose" style="border-left-color:var(--unfixed); margin-top:1.75rem">
+    <p><b>One mistake worth recording.</b></p>
+    <p style="color:var(--ink-2)">
+      While wiring the bundle in, I copied the main repo's
+      <code>literature_tools.py</code> over the dev branch's, re-introducing a tool
+      that had been deliberately removed and restoring a dependency that had been
+      dropped. The diffstat gave it away — 119 changed lines where 2 were intended.
+      Restored, then only the intended edits re-applied.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Next</p>
+    <h2>What is open</h2>
+  </div>
+  <ul class="prose">
+    <li><b>The FeynRules/UFO &rarr; FeynGraph bridge</b> — the named next step in the Diagrammatica conclusions, and the strongest reading of what Konstantin asked for.</li>
+    <li><b>Their Task 1 and Task 2</b>, which the paper explicitly invites other groups to run and report. Cheap, and it doubles as calibration for the new harness.</li>
+    <li><b>Nine unscoreable models</b> from week 8 still need a physicist to declare which Lagrangian is the model; four are genuine physics choices.</li>
+    <li><b>Scorers for tiers III and IV</b>, an orchestral driver for non-Anthropic models, and a direct-API driver with no coding harness at all.</li>
+  </ul>
+</section>
+
+<footer>
+  <p>
+    New this week: <span class="num">1,073</span> lines of exoplanet tooling,
+    <span class="num">941</span> lines of benchmark infrastructure. All figures
+    from live runs against the NASA Exoplanet Archive TAP service, FeynRules,
+    Wolfram Engine, MadGraph and the heptapod MCP server.
+  </p>
+</footer>
+
+</div>
