@@ -27,7 +27,7 @@ dev = [
 ]
 
 [project.scripts]
-lex = "lagrangian_extraction.cli:app"
+lag-extract = "lagrangian_extraction.cli:app"
 
 [tool.hatch.build]
 dev-mode-dirs = ["src"]

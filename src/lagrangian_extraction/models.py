@@ -55,6 +55,7 @@ class SearchQuery(BaseModel):
     sort: Literal["combined", "mostcited", "mostrecent"] = "combined"
     download_pdfs: bool = True
     extract_text: bool = True
+    skip_arxiv: bool = False
 
     @field_validator("keywords", mode="before")
     @classmethod

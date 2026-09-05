@@ -1,0 +1,274 @@
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+Merging model-files...
+This model implementation was created by
+S. Amrith
+J. M. Butterworth
+F. F. Deppisch
+W. Liu
+A. Varma
+D. Yallup
+Model Version: 1.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+Model B-L-SM_gen loaded.
+[INFO] Total Lagrangian: LSM + LBL
+[INFO] Running FeynRules consistency checks.
+HEPTAPOD-CHECK-BEGIN: hermiticity
+Checking for hermiticity by calculating the Feynman rules contained in L-HC[L].
+If the lagrangian is hermitian, then the number of vertices should be zero.
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+12 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 12.
+1 vertex obtained.
+The lagrangian appears not to be hermitian.
+Non vanishing terms during the Feynman rule calculation for L - HC[L]:
+{{{Zp, 1}}, -I*g1p*(Conjugate[Sqrt[1 - VlN[Index[Generation, 1]]^2]]*(N1[Index[Spin, SP$1]] . N1[Index[Spin, SP$2]] . Sqrt[1 - HC[HCanti[VlN]][Index[Generation, 1]]^2] + N1[Index[Spin, SP$1]] . ve[Index[Spin, SP$2]] . HC[HCanti[VlN]][Index[Generation, 1]]) + Conjugate[Sqrt[1 - VlN[Index[Generation, 2]]^2]]*(N2[Index[Spin, SP$1]] . N2[Index[Spin, SP$2]] . Sqrt[1 - HC[HCanti[VlN]][Index[Generation, 2]]^2] + N2[Index[Spin, SP$1]] . vm[Index[Spin, SP$2]] . HC[HCanti[VlN]][Index[Generation, 2]]) + Conjugate[Sqrt[1 - VlN[Index[Generation, 3]]^2]]*N3[Index[Spin, SP$1]] . N3[Index[Spin, SP$2]] . Sqrt[1 - HC[HCanti[VlN]][Index[Generation, 3]]^2] + Conjugate[Sqrt[1 - VlN[Index[Generation, 3]]^2]]*N3[Index[Spin, SP$1]] . vt[Index[Spin, SP$2]] . HC[HCanti[VlN]][Index[Generation, 3]] + Conjugate[VlN[Index[Generation, 1]]]*vebar[Index[Spin, SP$1]] . N1[Index[Spin, SP$2]] . Sqrt[1 - HC[HCanti[VlN]][Index[Generation, 1]]^2] + Conjugate[VlN[Index[Generation, 1]]]*vebar[Index[Spin, SP$1]] . ve[Index[Spin, SP$2]] . HC[HCanti[VlN]][Index[Generation, 1]] + Conjugate[VlN[Index[Generation, 2]]]*vmbar[Index[Spin, SP$1]] . N2[Index[Spin, SP$2]] . Sqrt[1 - HC[HCanti[VlN]][Index[Generation, 2]]^2] + Conjugate[VlN[Index[Generation, 2]]]*vmbar[Index[Spin, SP$1]] . vm[Index[Spin, SP$2]] . HC[HCanti[VlN]][Index[Generation, 2]] + Conjugate[VlN[Index[Generation, 3]]]*vtbar[Index[Spin, SP$1]] . N3[Index[Spin, SP$2]] . Sqrt[1 - HC[HCanti[VlN]][Index[Generation, 3]]^2] + Conjugate[VlN[Index[Generation, 3]]]*vtbar[Index[Spin, SP$1]] . vt[Index[Spin, SP$2]] . HC[HCanti[VlN]][Index[Generation, 3]] - N1[Index[Spin, SP$1]] . Sqrt[1 - HCanti[VlN][Index[Generation, 1]]^2] . ve[Index[Spin, SP$2]]*VlN[Index[Generation, 1]] - vebar[Index[Spin, SP$1]] . HCanti[VlN][Index[Generation, 1]] . ve[Index[Spin, SP$2]]*VlN[Index[Generation, 1]] - N1[Index[Spin, SP$1]] . Sqrt[1 - HCanti[VlN][Index[Generation, 1]]^2] . N1[Index[Spin, SP$2]]*Sqrt[1 - VlN[Index[Generation, 1]]^2] - vebar[Index[Spin, SP$1]] . HCanti[VlN][Index[Generation, 1]] . N1[Index[Spin, SP$2]]*Sqrt[1 - VlN[Index[Generation, 1]]^2] - N2[Index[Spin, SP$1]] . Sqrt[1 - HCanti[VlN][Index[Generation, 2]]^2] . vm[Index[Spin, SP$2]]*VlN[Index[Generation, 2]] - vmbar[Index[Spin, SP$1]] . HCanti[VlN][Index[Generation, 2]] . vm[Index[Spin, SP$2]]*VlN[Index[Generation, 2]] - N2[Index[Spin, SP$1]] . Sqrt[1 - HCanti[VlN][Index[Generation, 2]]^2] . N2[Index[Spin, SP$2]]*Sqrt[1 - VlN[Index[Generation, 2]]^2] - vmbar[Index[Spin, SP$1]] . HCanti[VlN][Index[Generation, 2]] . N2[Index[Spin, SP$2]]*Sqrt[1 - VlN[Index[Generation, 2]]^2] - N3[Index[Spin, SP$1]] . Sqrt[1 - HCanti[VlN][Index[Generation, 3]]^2] . vt[Index[Spin, SP$2]]*VlN[Index[Generation, 3]] - vtbar[Index[Spin, SP$1]] . HCanti[VlN][Index[Generation, 3]] . vt[Index[Spin, SP$2]]*VlN[Index[Generation, 3]] - N3[Index[Spin, SP$1]] . Sqrt[1 - HCanti[VlN][Index[Generation, 3]]^2] . N3[Index[Spin, SP$2]]*Sqrt[1 - VlN[Index[Generation, 3]]^2] - vtbar[Index[Spin, SP$1]] . HCanti[VlN][Index[Generation, 3]] . N3[Index[Spin, SP$2]]*Sqrt[1 - VlN[Index[Generation, 3]]^2])*TensDot[Ga[Index[Lorentz, Ext[1]]], ProjP][Index[Spin, SP$1], Index[Spin, SP$2]]}
+HEPTAPOD-CHECK-END: hermiticity
+HEPTAPOD-CHECK-BEGIN: kinetic_terms
+Neglecting all terms with more than 2 particles.
+All kinetic terms are diagonal.
+HEPTAPOD-CHECK-END: kinetic_terms
+HEPTAPOD-CHECK-BEGIN: mass_spectrum
+Neglecting all terms with more than 2 particles.
+Non diagonal mass term found: -((vev*Conjugate[Sqrt[1 - VlN[Index[Generation, 1]]^2]]*Conjugate[yn[Index[Generation, 1], Index[Generation, 1]]]*N1bar[Index[Spin, r$18648]] . ve[Index[Spin, r$18649]]*ProjM[Index[Spin, r$18648], Index[Spin, r$18649]])/Sqrt[2])
+Non diagonal mass term found: -((vev*Conjugate[Sqrt[1 - VlN[Index[Generation, 2]]^2]]*Conjugate[yn[Index[Generation, 2], Index[Generation, 2]]]*N2bar[Index[Spin, r$18648]] . vm[Index[Spin, r$18649]]*ProjM[Index[Spin, r$18648], Index[Spin, r$18649]])/Sqrt[2])
+Non diagonal mass term found: -((vev*Conjugate[Sqrt[1 - VlN[Index[Generation, 3]]^2]]*Conjugate[yn[Index[Generation, 3], Index[Generation, 3]]]*N3bar[Index[Spin, r$18648]] . vt[Index[Spin, r$18649]]*ProjM[Index[Spin, r$18648], Index[Spin, r$18649]])/Sqrt[2])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((cosa*h2*CC[vebar[Index[Spin, r$18087]]*HCanti[VlN][1]] . ve[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18087], Index[Spin, sp2$18650]]*VlN[Index[Generation, 1]]*yM[Index[Generation, 1], Index[Generation, 1]])/Sqrt[2]) - (cosa*h2*CC[N1bar[Index[Spin, r$18088]]*Sqrt[1 - HCanti[VlN][1]^2]] . ve[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18088], Index[Spin, sp2$18650]]*VlN[Index[Generation, 1]]*yM[Index[Generation, 1], Index[Generation, 1]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (H*sina*CC[vebar[Index[Spin, r$18087]]*HCanti[VlN][1]] . ve[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18087], Index[Spin, sp2$18650]]*VlN[Index[Generation, 1]]*yM[Index[Generation, 1], Index[Generation, 1]])/Sqrt[2] + (H*sina*CC[N1bar[Index[Spin, r$18088]]*Sqrt[1 - HCanti[VlN][1]^2]] . ve[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18088], Index[Spin, sp2$18650]]*VlN[Index[Generation, 1]]*yM[Index[Generation, 1], Index[Generation, 1]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((cosa*h2*CC[vebar[Index[Spin, r$18087]]*HCanti[VlN][1]] . N1[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18087], Index[Spin, sp2$18650]]*Sqrt[1 - VlN[Index[Generation, 1]]^2]*yM[Index[Generation, 1], Index[Generation, 1]])/Sqrt[2]) - (cosa*h2*CC[N1bar[Index[Spin, r$18088]]*Sqrt[1 - HCanti[VlN][1]^2]] . N1[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18088], Index[Spin, sp2$18650]]*Sqrt[1 - VlN[Index[Generation, 1]]^2]*yM[Index[Generation, 1], Index[Generation, 1]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (H*sina*CC[vebar[Index[Spin, r$18087]]*HCanti[VlN][1]] . N1[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18087], Index[Spin, sp2$18650]]*Sqrt[1 - VlN[Index[Generation, 1]]^2]*yM[Index[Generation, 1], Index[Generation, 1]])/Sqrt[2] + (H*sina*CC[N1bar[Index[Spin, r$18088]]*Sqrt[1 - HCanti[VlN][1]^2]] . N1[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18088], Index[Spin, sp2$18650]]*Sqrt[1 - VlN[Index[Generation, 1]]^2]*yM[Index[Generation, 1], Index[Generation, 1]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((cosa*h2*CC[vmbar[Index[Spin, r$18087]]*HCanti[VlN][2]] . vm[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18087], Index[Spin, sp2$18650]]*VlN[Index[Generation, 2]]*yM[Index[Generation, 2], Index[Generation, 2]])/Sqrt[2]) - (cosa*h2*CC[N2bar[Index[Spin, r$18088]]*Sqrt[1 - HCanti[VlN][2]^2]] . vm[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18088], Index[Spin, sp2$18650]]*VlN[Index[Generation, 2]]*yM[Index[Generation, 2], Index[Generation, 2]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (H*sina*CC[vmbar[Index[Spin, r$18087]]*HCanti[VlN][2]] . vm[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18087], Index[Spin, sp2$18650]]*VlN[Index[Generation, 2]]*yM[Index[Generation, 2], Index[Generation, 2]])/Sqrt[2] + (H*sina*CC[N2bar[Index[Spin, r$18088]]*Sqrt[1 - HCanti[VlN][2]^2]] . vm[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18088], Index[Spin, sp2$18650]]*VlN[Index[Generation, 2]]*yM[Index[Generation, 2], Index[Generation, 2]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((cosa*h2*CC[vmbar[Index[Spin, r$18087]]*HCanti[VlN][2]] . N2[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18087], Index[Spin, sp2$18650]]*Sqrt[1 - VlN[Index[Generation, 2]]^2]*yM[Index[Generation, 2], Index[Generation, 2]])/Sqrt[2]) - (cosa*h2*CC[N2bar[Index[Spin, r$18088]]*Sqrt[1 - HCanti[VlN][2]^2]] . N2[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18088], Index[Spin, sp2$18650]]*Sqrt[1 - VlN[Index[Generation, 2]]^2]*yM[Index[Generation, 2], Index[Generation, 2]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (H*sina*CC[vmbar[Index[Spin, r$18087]]*HCanti[VlN][2]] . N2[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18087], Index[Spin, sp2$18650]]*Sqrt[1 - VlN[Index[Generation, 2]]^2]*yM[Index[Generation, 2], Index[Generation, 2]])/Sqrt[2] + (H*sina*CC[N2bar[Index[Spin, r$18088]]*Sqrt[1 - HCanti[VlN][2]^2]] . N2[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18088], Index[Spin, sp2$18650]]*Sqrt[1 - VlN[Index[Generation, 2]]^2]*yM[Index[Generation, 2], Index[Generation, 2]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((cosa*h2*CC[vtbar[Index[Spin, r$18087]]*HCanti[VlN][3]] . vt[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18087], Index[Spin, sp2$18650]]*VlN[Index[Generation, 3]]*yM[Index[Generation, 3], Index[Generation, 3]])/Sqrt[2]) - (cosa*h2*CC[N3bar[Index[Spin, r$18088]]*Sqrt[1 - HCanti[VlN][3]^2]] . vt[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18088], Index[Spin, sp2$18650]]*VlN[Index[Generation, 3]]*yM[Index[Generation, 3], Index[Generation, 3]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (H*sina*CC[vtbar[Index[Spin, r$18087]]*HCanti[VlN][3]] . vt[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18087], Index[Spin, sp2$18650]]*VlN[Index[Generation, 3]]*yM[Index[Generation, 3], Index[Generation, 3]])/Sqrt[2] + (H*sina*CC[N3bar[Index[Spin, r$18088]]*Sqrt[1 - HCanti[VlN][3]^2]] . vt[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18088], Index[Spin, sp2$18650]]*VlN[Index[Generation, 3]]*yM[Index[Generation, 3], Index[Generation, 3]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((cosa*h2*CC[vtbar[Index[Spin, r$18087]]*HCanti[VlN][3]] . N3[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18087], Index[Spin, sp2$18650]]*Sqrt[1 - VlN[Index[Generation, 3]]^2]*yM[Index[Generation, 3], Index[Generation, 3]])/Sqrt[2]) - (cosa*h2*CC[N3bar[Index[Spin, r$18088]]*Sqrt[1 - HCanti[VlN][3]^2]] . N3[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18088], Index[Spin, sp2$18650]]*Sqrt[1 - VlN[Index[Generation, 3]]^2]*yM[Index[Generation, 3], Index[Generation, 3]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (H*sina*CC[vtbar[Index[Spin, r$18087]]*HCanti[VlN][3]] . N3[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18087], Index[Spin, sp2$18650]]*Sqrt[1 - VlN[Index[Generation, 3]]^2]*yM[Index[Generation, 3], Index[Generation, 3]])/Sqrt[2] + (H*sina*CC[N3bar[Index[Spin, r$18088]]*Sqrt[1 - HCanti[VlN][3]^2]] . N3[Index[Spin, sp2$18650]]*ProjP[Index[Spin, r$18088], Index[Spin, sp2$18650]]*Sqrt[1 - VlN[Index[Generation, 3]]^2]*yM[Index[Generation, 3], Index[Generation, 3]])/Sqrt[2]
+Non diagonal mass term found: -((vev*vebar[Index[Spin, sp2$18633]] . N1[Index[Spin, sp2$18628]]*ProjP[Index[Spin, sp2$18633], Index[Spin, sp2$18628]]*Sqrt[1 - VlN[Index[Generation, 1]]^2]*yn[Index[Generation, 1], Index[Generation, 1]])/Sqrt[2])
+Non diagonal mass term found: -((vev*vmbar[Index[Spin, sp2$18633]] . N2[Index[Spin, sp2$18628]]*ProjP[Index[Spin, sp2$18633], Index[Spin, sp2$18628]]*Sqrt[1 - VlN[Index[Generation, 2]]^2]*yn[Index[Generation, 2], Index[Generation, 2]])/Sqrt[2])
+Non diagonal mass term found: -((vev*vtbar[Index[Spin, sp2$18633]] . N3[Index[Spin, sp2$18628]]*ProjP[Index[Spin, sp2$18633], Index[Spin, sp2$18628]]*Sqrt[1 - VlN[Index[Generation, 3]]^2]*yn[Index[Generation, 3], Index[Generation, 3]])/Sqrt[2])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((cosa*h2*Conjugate[VlN[Index[Generation, 1]]]*Conjugate[yM[Index[Generation, 1], Index[Generation, 1]]]*vebar[Index[Spin, r$18653]] . CC[anti[HCanti[VlN][1]]*ve[Index[Spin, r$18087]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18653], Index[Spin, r$18087]])/Sqrt[2]) - (cosa*h2*Conjugate[VlN[Index[Generation, 1]]]*Conjugate[yM[Index[Generation, 1], Index[Generation, 1]]]*vebar[Index[Spin, r$18655]] . CC[Sqrt[1 - anti[HCanti[VlN][1]]^2]*N1[Index[Spin, r$18088]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18655], Index[Spin, r$18088]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (H*sina*Conjugate[VlN[Index[Generation, 1]]]*Conjugate[yM[Index[Generation, 1], Index[Generation, 1]]]*vebar[Index[Spin, r$18654]] . CC[anti[HCanti[VlN][1]]*ve[Index[Spin, r$18087]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18654], Index[Spin, r$18087]])/Sqrt[2] + (H*sina*Conjugate[VlN[Index[Generation, 1]]]*Conjugate[yM[Index[Generation, 1], Index[Generation, 1]]]*vebar[Index[Spin, r$18656]] . CC[Sqrt[1 - anti[HCanti[VlN][1]]^2]*N1[Index[Spin, r$18088]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18656], Index[Spin, r$18088]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((cosa*h2*Conjugate[Sqrt[1 - VlN[Index[Generation, 1]]^2]]*Conjugate[yM[Index[Generation, 1], Index[Generation, 1]]]*N1bar[Index[Spin, r$18657]] . CC[anti[HCanti[VlN][1]]*ve[Index[Spin, r$18087]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18657], Index[Spin, r$18087]])/Sqrt[2]) - (cosa*h2*Conjugate[Sqrt[1 - VlN[Index[Generation, 1]]^2]]*Conjugate[yM[Index[Generation, 1], Index[Generation, 1]]]*N1bar[Index[Spin, r$18659]] . CC[Sqrt[1 - anti[HCanti[VlN][1]]^2]*N1[Index[Spin, r$18088]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18659], Index[Spin, r$18088]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (H*sina*Conjugate[Sqrt[1 - VlN[Index[Generation, 1]]^2]]*Conjugate[yM[Index[Generation, 1], Index[Generation, 1]]]*N1bar[Index[Spin, r$18658]] . CC[anti[HCanti[VlN][1]]*ve[Index[Spin, r$18087]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18658], Index[Spin, r$18087]])/Sqrt[2] + (H*sina*Conjugate[Sqrt[1 - VlN[Index[Generation, 1]]^2]]*Conjugate[yM[Index[Generation, 1], Index[Generation, 1]]]*N1bar[Index[Spin, r$18660]] . CC[Sqrt[1 - anti[HCanti[VlN][1]]^2]*N1[Index[Spin, r$18088]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18660], Index[Spin, r$18088]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((cosa*h2*Conjugate[VlN[Index[Generation, 2]]]*Conjugate[yM[Index[Generation, 2], Index[Generation, 2]]]*vmbar[Index[Spin, r$18661]] . CC[anti[HCanti[VlN][2]]*vm[Index[Spin, r$18087]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18661], Index[Spin, r$18087]])/Sqrt[2]) - (cosa*h2*Conjugate[VlN[Index[Generation, 2]]]*Conjugate[yM[Index[Generation, 2], Index[Generation, 2]]]*vmbar[Index[Spin, r$18663]] . CC[Sqrt[1 - anti[HCanti[VlN][2]]^2]*N2[Index[Spin, r$18088]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18663], Index[Spin, r$18088]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (H*sina*Conjugate[VlN[Index[Generation, 2]]]*Conjugate[yM[Index[Generation, 2], Index[Generation, 2]]]*vmbar[Index[Spin, r$18662]] . CC[anti[HCanti[VlN][2]]*vm[Index[Spin, r$18087]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18662], Index[Spin, r$18087]])/Sqrt[2] + (H*sina*Conjugate[VlN[Index[Generation, 2]]]*Conjugate[yM[Index[Generation, 2], Index[Generation, 2]]]*vmbar[Index[Spin, r$18664]] . CC[Sqrt[1 - anti[HCanti[VlN][2]]^2]*N2[Index[Spin, r$18088]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18664], Index[Spin, r$18088]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((cosa*h2*Conjugate[Sqrt[1 - VlN[Index[Generation, 2]]^2]]*Conjugate[yM[Index[Generation, 2], Index[Generation, 2]]]*N2bar[Index[Spin, r$18665]] . CC[anti[HCanti[VlN][2]]*vm[Index[Spin, r$18087]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18665], Index[Spin, r$18087]])/Sqrt[2]) - (cosa*h2*Conjugate[Sqrt[1 - VlN[Index[Generation, 2]]^2]]*Conjugate[yM[Index[Generation, 2], Index[Generation, 2]]]*N2bar[Index[Spin, r$18667]] . CC[Sqrt[1 - anti[HCanti[VlN][2]]^2]*N2[Index[Spin, r$18088]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18667], Index[Spin, r$18088]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (H*sina*Conjugate[Sqrt[1 - VlN[Index[Generation, 2]]^2]]*Conjugate[yM[Index[Generation, 2], Index[Generation, 2]]]*N2bar[Index[Spin, r$18666]] . CC[anti[HCanti[VlN][2]]*vm[Index[Spin, r$18087]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18666], Index[Spin, r$18087]])/Sqrt[2] + (H*sina*Conjugate[Sqrt[1 - VlN[Index[Generation, 2]]^2]]*Conjugate[yM[Index[Generation, 2], Index[Generation, 2]]]*N2bar[Index[Spin, r$18668]] . CC[Sqrt[1 - anti[HCanti[VlN][2]]^2]*N2[Index[Spin, r$18088]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18668], Index[Spin, r$18088]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((cosa*h2*Conjugate[VlN[Index[Generation, 3]]]*Conjugate[yM[Index[Generation, 3], Index[Generation, 3]]]*vtbar[Index[Spin, r$18669]] . CC[anti[HCanti[VlN][3]]*vt[Index[Spin, r$18087]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18669], Index[Spin, r$18087]])/Sqrt[2]) - (cosa*h2*Conjugate[VlN[Index[Generation, 3]]]*Conjugate[yM[Index[Generation, 3], Index[Generation, 3]]]*vtbar[Index[Spin, r$18671]] . CC[Sqrt[1 - anti[HCanti[VlN][3]]^2]*N3[Index[Spin, r$18088]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18671], Index[Spin, r$18088]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (H*sina*Conjugate[VlN[Index[Generation, 3]]]*Conjugate[yM[Index[Generation, 3], Index[Generation, 3]]]*vtbar[Index[Spin, r$18670]] . CC[anti[HCanti[VlN][3]]*vt[Index[Spin, r$18087]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18670], Index[Spin, r$18087]])/Sqrt[2] + (H*sina*Conjugate[VlN[Index[Generation, 3]]]*Conjugate[yM[Index[Generation, 3], Index[Generation, 3]]]*vtbar[Index[Spin, r$18672]] . CC[Sqrt[1 - anti[HCanti[VlN][3]]^2]*N3[Index[Spin, r$18088]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18672], Index[Spin, r$18088]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((cosa*h2*Conjugate[Sqrt[1 - VlN[Index[Generation, 3]]^2]]*Conjugate[yM[Index[Generation, 3], Index[Generation, 3]]]*N3bar[Index[Spin, r$18673]] . CC[anti[HCanti[VlN][3]]*vt[Index[Spin, r$18087]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18673], Index[Spin, r$18087]])/Sqrt[2]) - (cosa*h2*Conjugate[Sqrt[1 - VlN[Index[Generation, 3]]^2]]*Conjugate[yM[Index[Generation, 3], Index[Generation, 3]]]*N3bar[Index[Spin, r$18675]] . CC[Sqrt[1 - anti[HCanti[VlN][3]]^2]*N3[Index[Spin, r$18088]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18675], Index[Spin, r$18088]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (H*sina*Conjugate[Sqrt[1 - VlN[Index[Generation, 3]]^2]]*Conjugate[yM[Index[Generation, 3], Index[Generation, 3]]]*N3bar[Index[Spin, r$18674]] . CC[anti[HCanti[VlN][3]]*vt[Index[Spin, r$18087]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18674], Index[Spin, r$18087]])/Sqrt[2] + (H*sina*Conjugate[Sqrt[1 - VlN[Index[Generation, 3]]^2]]*Conjugate[yM[Index[Generation, 3], Index[Generation, 3]]]*N3bar[Index[Spin, r$18676]] . CC[Sqrt[1 - anti[HCanti[VlN][3]]^2]*N3[Index[Spin, r$18088]]] . Ga[0]*TensDot[Ga[0], ProjP][Index[Spin, r$18676], Index[Spin, r$18088]])/Sqrt[2]
+HEPTAPOD-CHECK-END: mass_spectrum
+[INFO] UFO output: /tmp/rerun_bench/v2_s1/B-L-SM_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+157 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 157.
+150 vertices obtained.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 150
+   - Saved vertices in InterfaceRun[ 1 ].
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number LeptonNumber not conserved in vertex {GP, N1bar, e}.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number LeptonNumber not conserved in vertex {GP, N2bar, mu}.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+General::stop: Further output of QN::NonConserv will be suppressed during this calculation.
+Quantum number LeptonNumber not conserved in vertex {GP, N3bar, ta}.
+Quantum number LeptonNumber not conserved in vertex {G0, N1bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {G0, N2bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {G0, N3bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {H, N1bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {H, N2bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {H, N3bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, ebar, N1}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, mubar, N2}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, tabar, N3}.
+Quantum number LeptonNumber not conserved in vertex {G0, vebar, N1}.
+Quantum number LeptonNumber not conserved in vertex {G0, vmbar, N2}.
+Quantum number LeptonNumber not conserved in vertex {G0, vtbar, N3}.
+Quantum number LeptonNumber not conserved in vertex {H, vebar, N1}.
+Quantum number LeptonNumber not conserved in vertex {H, vmbar, N2}.
+Quantum number LeptonNumber not conserved in vertex {H, vtbar, N3}.
+Preparing Python output.
+
+Part::pkspec1: The expression PRIVATE`hold[SP$1, SP$2] cannot be used as a part specification.
+
+Inner::incom: Length 0 of dimension 1 in {} is incommensurate with length 1 of dimension 1 in {TensDot[Ga[Index[Lorentz, Ext[1]]], ProjP][Index[Spin, SP$1], Index[Spin, SP$2]]}.
+
+Inner::normal: Nonatomic expression expected at position 3 in Inner[PRIVATE`TurnFermionicIndexDeltas, TensDot[Ga[Index[Lorentz, Ext[1]]], ProjP][Index[Spin, SP$1], Index[Spin, SP$2]], List].
+
+Join::heads: Heads Inner and List at positions 1 and 2 are expected to be the same.
+
+Join::heads: Heads Inner and List at positions 1 and 2 are expected to be the same.
+
+Join::heads: Heads Inner and List at positions 1 and 2 are expected to be the same.
+
+General::stop: Further output of Join::heads will be suppressed during this calculation.
+
+Function::slotn: Slot number 2 in Ext[#2, opt___] -> Ext[#3, opt] &  cannot be filled from (Ext[#2, opt___] -> Ext[#3, opt] & )[1].
+
+Function::slotn: Slot number 3 in Ext[#2, opt___] -> Ext[#3, opt] &  cannot be filled from (Ext[#2, opt___] -> Ext[#3, opt] & )[1].
+
+Function::slotn: Slot number 3 in Ext[#2, opt___] -> Ext[#3, opt] &  cannot be filled from (Ext[#2, opt___] -> Ext[#3, opt] & )[{Zp, 1}, 2].
+
+General::stop: Further output of Function::slotn will be suppressed during this calculation.
+
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+ReplaceAll::reps: {Rule[Ext[TensDot[Ga[Index[Lorentz, Ext[1]]], ProjP][Index[Spin, SP$1], Index[Spin, SP$2]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+
+MapAt::partw: Part {1} of List does not exist.
+
+MapAt::partw: Part {1} of 1 does not exist.
+
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+From kernel 1 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 2 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 3 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 4 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 5 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+From kernel 1 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 2 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 3 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 4 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 5 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+From kernel 1 (Local):
+ReplaceAll::reps: {Rule[Ext[TensDot[Ga[Index[Lorentz, Ext[1]]], ProjP][Index[Spin, SP$1], Index[Spin, SP$2]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 2 (Local):
+ReplaceAll::reps: {Rule[Ext[TensDot[Ga[Index[Lorentz, Ext[1]]], ProjP][Index[Spin, SP$1], Index[Spin, SP$2]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 3 (Local):
+ReplaceAll::reps: {Rule[Ext[TensDot[Ga[Index[Lorentz, Ext[1]]], ProjP][Index[Spin, SP$1], Index[Spin, SP$2]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 4 (Local):
+ReplaceAll::reps: {Rule[Ext[TensDot[Ga[Index[Lorentz, Ext[1]]], ProjP][Index[Spin, SP$1], Index[Spin, SP$2]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 5 (Local):
+ReplaceAll::reps: {Rule[Ext[TensDot[Ga[Index[Lorentz, Ext[1]]], ProjP][Index[Spin, SP$1], Index[Spin, SP$2]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of `1` is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing. will be suppressed during this calculation.
+
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+ReplaceAll::reps: {Rule[Ext[TensDot[Ga[Index[Lorentz, Ext[1]]], ProjP][Index[Spin, SP$1], Index[Spin, SP$2]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+
+ReplaceAll::reps: {Rule[Ext[L$Ga[Index[Lorentz, Ext[1]], Index[Spin, SP$1], Index[Spin, int$$53]] L$ProjP[Index[Spin, int$$53], Index[Spin, SP$2]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+From kernel 1 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 2 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 3 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 4 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 6 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+From kernel 1 (Local):
+ReplaceAll::reps: {Rule[Ext[L$Ga[Index[Lorentz, Ext[1]], Index[Spin, SP$1], Index[Spin, int$$53]] L$ProjP[Index[Spin, int$$53], Index[Spin, SP$2]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 2 (Local):
+ReplaceAll::reps: {Rule[Ext[L$Ga[Index[Lorentz, Ext[1]], Index[Spin, SP$1], Index[Spin, int$$53]] L$ProjP[Index[Spin, int$$53], Index[Spin, SP$2]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 3 (Local):
+ReplaceAll::reps: {Rule[Ext[L$Ga[Index[Lorentz, Ext[1]], Index[Spin, SP$1], Index[Spin, int$$53]] L$ProjP[Index[Spin, int$$53], Index[Spin, SP$2]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 4 (Local):
+ReplaceAll::reps: {Rule[Ext[L$Ga[Index[Lorentz, Ext[1]], Index[Spin, SP$1], Index[Spin, int$$53]] L$ProjP[Index[Spin, int$$53], Index[Spin, SP$2]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 6 (Local):
+ReplaceAll::reps: {Rule[Ext[L$Ga[Index[Lorentz, Ext[1]], Index[Spin, SP$1], Index[Spin, int$$53]] L$ProjP[Index[Spin, int$$53], Index[Spin, SP$2]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of `1` is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing. will be suppressed during this calculation.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/259 .
+
+StringJoin::string: String expected at position 1 in PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>V<>PRIVATE`ConvertSpinToString[0]<>1.
+
+StringJoin::string: String expected at position 2 in PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>V<>PRIVATE`ConvertSpinToString[0]<>1.
+
+StringJoin::string: String expected at position 3 in PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>V<>PRIVATE`ConvertSpinToString[0]<>1.
+
+General::stop: Further output of StringJoin::string will be suppressed during this calculation.
+    - Writing files.
+Done!
+[INFO] Done.

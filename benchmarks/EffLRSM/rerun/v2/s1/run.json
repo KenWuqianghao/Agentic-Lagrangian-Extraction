@@ -1,0 +1,38 @@
+{
+ "page": "EffLRSM",
+ "variant": "v2",
+ "seed": 1,
+ "agent": {
+  "ok": true,
+  "exit": 0,
+  "timed_out": false,
+  "seconds": 331.2,
+  "n_tool_calls": 5,
+  "read_paper": true,
+  "contaminated": false,
+  "outside_sandbox": [],
+  "benign_outside": [],
+  "files_read": [
+   "eval/benchmark_runs/EffLRSM/text/1610.08985.txt",
+   "tools/frgen/frmodel.py",
+   "eval/benchmark_runs/EffLRSM/text/1610.08985.txt",
+   "tools/feynrules/test_files/models/SM.fr",
+   "tools/frgen/render.py"
+  ],
+  "skipped": true
+ },
+ "render": {
+  "rendered": true,
+  "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/EffLRSM/rerun/v2/s1/model/EffLRSM_gen.fr"
+ },
+ "predicates": {
+  "available": true,
+  "results": {
+   "efflrsm_charge_conjugation": {
+    "resolved": true,
+    "detail": "no bare light-neutrino field on any W_R line (CC[...] used or X term dropped)"
+   }
+  },
+  "all_resolved": true
+ }
+}

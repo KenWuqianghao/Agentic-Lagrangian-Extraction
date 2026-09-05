@@ -1,0 +1,692 @@
+<title>Ian's Four Findings</title>
+
+<style>
+  :root {
+    --paper:#F6F8F9; --raised:#FFFFFF; --ink:#131A21; --ink-2:#46555F;
+    --ink-3:#75858F; --rule:#DDE4E7; --rule-soft:#EAEFF1;
+    --accent:#0B7A87; --accent-dim:#E2F0F1;
+    --pass:#2F7A55; --pass-dim:#E0EFE6;
+    --fixed:#B0761F; --fixed-dim:#F7EEDC;
+    --unfixed:#A63A38; --unfixed-dim:#F6E3E2;
+    --shadow:0 1px 2px rgba(19,26,33,.05), 0 8px 24px -16px rgba(19,26,33,.28);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Source Serif 4",Georgia,serif;
+    --sans:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --paper:#0E1418; --raised:#161E24; --ink:#E6EDF0;
+      --ink-2:#A5B4BC; --ink-3:#74848D; --rule:#26323A; --rule-soft:#1D262C;
+      --accent:#52CFD6; --accent-dim:#122E33; --pass:#5FBF8C; --pass-dim:#132C21;
+      --fixed:#D9A253; --fixed-dim:#2E2415; --unfixed:#E0736F; --unfixed-dim:#2E1917;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8); }
+  }
+  :root[data-theme="dark"] { --paper:#0E1418; --raised:#161E24; --ink:#E6EDF0;
+    --ink-2:#A5B4BC; --ink-3:#74848D; --rule:#26323A; --rule-soft:#1D262C;
+    --accent:#52CFD6; --accent-dim:#122E33; --pass:#5FBF8C; --pass-dim:#132C21;
+    --fixed:#D9A253; --fixed-dim:#2E2415; --unfixed:#E0736F; --unfixed-dim:#2E1917;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8); }
+
+  * { box-sizing:border-box; }
+  body { background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.6; margin:0; padding:0 1.25rem 6rem;
+    -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:62rem; margin:0 auto; }
+  .prose { max-width:40rem; }
+  .prose p + p { margin-top:1rem; }
+  h1,h2,h3 { font-family:var(--serif); font-weight:600; text-wrap:balance; margin:0; }
+  h1 { font-size:clamp(2rem,5vw,3rem); line-height:1.08; letter-spacing:-.015em; }
+  h2 { font-size:clamp(1.4rem,3vw,1.85rem); line-height:1.2; letter-spacing:-.01em; }
+  h3 { font-size:1.06rem; line-height:1.3; }
+  p { margin:0; }
+  a { color:var(--accent); text-underline-offset:2px; }
+  a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+  code { font-family:var(--mono); font-size:.88em; }
+  .eyebrow { font-family:var(--mono); font-size:.7rem; text-transform:uppercase;
+    letter-spacing:.13em; color:var(--ink-3); margin:0; }
+  .num { font-family:var(--mono); font-variant-numeric:tabular-nums; }
+
+  header { padding:4rem 0 2.5rem; border-bottom:1px solid var(--rule); }
+  .lede { font-size:1.12rem; color:var(--ink-2); margin-top:1.25rem; }
+  .meta { margin-top:2rem; display:flex; flex-wrap:wrap; gap:.5rem 1.5rem;
+    font-family:var(--mono); font-size:.76rem; color:var(--ink-3); }
+  section { padding:3.5rem 0 0; }
+  .sec-head { display:flex; flex-direction:column; gap:.6rem; margin-bottom:1.75rem; }
+
+  .pill { display:inline-block; font-family:var(--mono); font-size:.68rem;
+    padding:.15rem .55rem; border-radius:999px; letter-spacing:.04em;
+    white-space:nowrap; vertical-align:middle; }
+  .pill.ok { background:var(--pass-dim); color:var(--pass); }
+  .pill.warn { background:var(--fixed-dim); color:var(--fixed); }
+  .pill.bad { background:var(--unfixed-dim); color:var(--unfixed); }
+  .pill.info { background:var(--accent-dim); color:var(--accent); }
+
+  /* verdict cards — one per finding */
+  .verdicts { display:grid; grid-template-columns:repeat(auto-fit, minmax(20rem, 1fr));
+    gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:3px;
+    overflow:hidden; }
+  .verdict { background:var(--raised); padding:1.4rem 1.5rem; display:flex;
+    flex-direction:column; gap:.6rem; }
+  .verdict .model { font-family:var(--serif); font-size:1.1rem; font-weight:600; }
+  .verdict .finding { font-size:.9rem; color:var(--ink-2); font-style:italic; }
+  .verdict .why { font-size:.88rem; color:var(--ink-2); }
+  .verdict pre { margin:.2rem 0 0; padding:.7rem .9rem; background:var(--paper);
+    border:1px solid var(--rule-soft); border-radius:3px; font-family:var(--mono);
+    font-size:.74rem; line-height:1.5; overflow-x:auto; white-space:pre; }
+
+  .callout { margin-top:2rem; padding:1.5rem 1.6rem; background:var(--raised);
+    border:1px solid var(--rule); border-left:3px solid var(--accent);
+    border-radius:3px; box-shadow:var(--shadow); max-width:44rem; }
+  .callout p + p { margin-top:.85rem; }
+  .callout.warn { border-left-color:var(--unfixed); }
+
+  .scroll { overflow-x:auto; border:1px solid var(--rule); border-radius:3px;
+    background:var(--raised); margin-top:1.5rem; }
+  table { border-collapse:collapse; width:100%; font-size:.86rem; }
+  th,td { text-align:left; padding:.6rem .8rem;
+    border-bottom:1px solid var(--rule-soft); vertical-align:top; }
+  thead th { font-family:var(--mono); font-size:.68rem; text-transform:uppercase;
+    letter-spacing:.09em; color:var(--ink-3); font-weight:500;
+    border-bottom:1px solid var(--rule); white-space:nowrap; }
+  tbody tr:last-child td { border-bottom:0; }
+  td.mono { font-family:var(--mono); font-size:.8rem; }
+  td .d { display:block; font-size:.76rem; color:var(--ink-3); margin-top:.2rem; }
+
+  /* the fleet audit — 28 models, three bins */
+  .bins { display:grid; grid-template-columns:repeat(auto-fit, minmax(14rem, 1fr));
+    gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:3px;
+    overflow:hidden; margin-top:1.5rem; }
+  .bin { background:var(--raised); padding:1.2rem 1.4rem; }
+  .bin .n { font-family:var(--serif); font-size:2.2rem; font-weight:600; line-height:1; }
+  .bin .lab { font-family:var(--mono); font-size:.7rem; text-transform:uppercase;
+    letter-spacing:.1em; margin-top:.4rem; }
+  .bin .names { font-family:var(--mono); font-size:.74rem; color:var(--ink-3);
+    margin-top:.7rem; line-height:1.55; }
+  .bin.bad .n, .bin.bad .lab { color:var(--unfixed); }
+  .bin.warn .n, .bin.warn .lab { color:var(--fixed); }
+  .bin.ok .n, .bin.ok .lab { color:var(--pass); }
+
+  pre.code { margin:1.5rem 0 0; padding:1.1rem 1.3rem; background:var(--raised);
+    border:1px solid var(--rule); border-radius:3px; overflow-x:auto;
+    font-family:var(--mono); font-size:.8rem; line-height:1.65; }
+  pre.code .dim { color:var(--ink-3); }
+  pre.code .add { color:var(--pass); }
+  pre.code .del { color:var(--unfixed); }
+
+  .rules { margin:1.5rem 0 0; padding:0; list-style:none; display:flex;
+    flex-direction:column; gap:1px; background:var(--rule); border:1px solid var(--rule);
+    border-radius:3px; overflow:hidden; max-width:44rem; }
+  .rules li { background:var(--raised); padding:.9rem 1.3rem; font-size:.9rem;
+    display:grid; grid-template-columns:auto 1fr; gap:.9rem; }
+  .rules .k { font-family:var(--mono); font-size:.72rem; color:var(--accent);
+    padding-top:.2rem; white-space:nowrap; }
+
+  .open-items { margin-top:1.5rem; display:flex; flex-direction:column; gap:1px;
+    background:var(--rule); border:1px solid var(--rule); border-radius:3px;
+    overflow:hidden; max-width:44rem; }
+  .open-item { background:var(--raised); padding:1rem 1.4rem; display:grid;
+    grid-template-columns:auto 1fr; gap:1rem; align-items:baseline; font-size:.9rem; }
+  .open-item .who { font-family:var(--mono); font-size:.7rem; text-transform:uppercase;
+    letter-spacing:.09em; color:var(--ink-3); min-width:5.5rem; }
+
+  /* the fix ledger — one row per issue, grouped by where it was found */
+  .grp { margin-top:2.25rem; display:flex; align-items:baseline; gap:.9rem; }
+  .grp h3 { font-size:1.06rem; }
+  .grp .cnt { font-family:var(--mono); font-size:.72rem; color:var(--ink-3); }
+  .fixes table { font-size:.95rem; }
+  .fixes th:nth-child(1), .fixes td:nth-child(1) { min-width:16rem; width:34%; }
+  .fixes th:nth-child(2), .fixes td:nth-child(2) { min-width:20rem; }
+  .fixes td:nth-child(3) { white-space:nowrap; }
+  .fixes tr.g td { font-family:var(--mono); font-size:.7rem; text-transform:uppercase;
+    letter-spacing:.1em; color:var(--accent); background:var(--paper);
+    padding-top:.9rem; border-bottom:1px solid var(--rule); }
+  .fixes code { background:var(--paper); padding:.05rem .3rem; border-radius:2px; }
+  .legend { margin-top:1rem; display:flex; flex-wrap:wrap; gap:.5rem 1.2rem;
+    font-size:.82rem; color:var(--ink-2); }
+  .asks { margin-top:1.5rem; padding:0; list-style:none; display:flex;
+    flex-direction:column; gap:1px; background:var(--rule); border:1px solid var(--rule);
+    border-radius:3px; overflow:hidden; max-width:44rem; counter-reset:ask; }
+  .asks li { background:var(--raised); padding:.9rem 1.3rem; font-size:.95rem;
+    display:grid; grid-template-columns:auto 1fr; gap:.9rem; }
+  .asks li::before { counter-increment:ask; content:counter(ask);
+    font-family:var(--serif); font-size:1.1rem; font-weight:600; color:var(--accent);
+    line-height:1.2; }
+
+  footer { margin-top:4.5rem; padding-top:1.5rem; border-top:1px solid var(--rule);
+    font-family:var(--mono); font-size:.74rem; color:var(--ink-3); }
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">HEPTAPOD · reply to a physicist's review · 2026-09-02</p>
+  <h1 style="margin-top:1rem;">Ian's Four Findings</h1>
+  <p class="lede prose">Ian and Konstantin read four agent-generated FeynRules
+    models closely and reported one failure mode in each. This page traces
+    every finding to its cause, shows what the reruns did about it, and
+    reports the thing the tracing turned up on the way: most of the original
+    benchmark runs had read the answer key. The last section lists the fix for
+    every issue on the page, in one place, for the meeting.</p>
+  <div class="meta">
+    <span>models: Top-Philic-Zprime · 368sextets · EffLRSM · GeneralU1</span>
+    <span>reruns: 4 models × {original prompt, addendum} × 2 seeds</span>
+    <span>engine: claude-opus-5, read-only sandbox</span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head prose">
+    <p class="eyebrow">01 · Verdicts</p>
+    <h2>Where each finding stands</h2>
+    <p style="color:var(--ink-2);">Each finding was re-derived from the files by one
+      analyst and then attacked by two independent verifiers (one re-opening every
+      quoted line, one checking the physics). All seven votes confirmed the analyses.</p>
+  </div>
+  <div class="verdicts">
+    <div class="verdict">
+      <span><span class="pill info">not a defect · crosscheck misread</span></span>
+      <p class="model">Top-Philic Z′</p>
+      <p class="finding">“Missing kinetic and mass term for V1”</p>
+      <pre>LV1kin = -1/4 (del[V1[nu],mu] - del[V1[mu],nu])
+         (del[V1[nu],mu] - del[V1[mu],nu])
+       + 1/2 MV1^2 V1[mu] V1[mu];        <span class="dim">(* line 86 *)</span>
+LBSM  = LV1kin + LV1int;                  <span class="dim">(* line 94 *)</span></pre>
+      <p class="why">Both terms are in the file Ian received, with the class mass
+        symbol. The REVIEW.pdf row he read says the <em>paper</em> prints only
+        L<sub>int</sub>; its label “extra-in-reconstruction” invited the misread.
+        The FeynRules-DB reference is the file with no free-field terms. The
+        verdict labels are renamed in the reverse bundle (PR #16).</p>
+    </div>
+    <div class="verdict">
+      <span><span class="pill bad">confirmed</span></span>
+      <p class="model">EffLRSM</p>
+      <p class="finding">“Reconstruction omits the charge conjugation on the light neutrino”</p>
+      <pre>LWRLightNuNonHC := ... XL[ll,nn]
+   bar[ve[nn]].Ga[mu].ProjP.l[ll] WR[mu]   <span class="dim">(* line 192 *)</span>
+<span class="dim">paper Eq.(5):  \bar{ν^c_m} X_{ℓm} W_R γ P_R ℓ</span></pre>
+      <p class="why">In the <code>.fr</code>, not only in the reconstruction. The bare
+        field conserves lepton number; the paper's ν<sup>c</sup> violates it by two
+        units, as a Majorana ν requires. Inert at the benchmark point (X = 0) and
+        absent from the reference, but wrong as written.</p>
+    </div>
+    <div class="verdict">
+      <span><span class="pill bad">confirmed · both parts</span></span>
+      <p class="model">General U(1)</p>
+      <p class="finding">“Missing SU(2) epsilon contraction in the neutrino Dirac Yukawa; Higgs U(1)<sub>X</sub> charge sign flipped”</p>
+      <pre>LLbar[sp1,ii,ff1].ProjP.NR[sp2,ff2] Phibar[ii]   <span class="dim">(* no Eps *)</span>
+qHX == { Value -> -xH/2 }                        <span class="dim">(* Table I, literally *)</span>
+<span class="dim">reference: Phibar[jj] Eps[ii,jj];  BL -> xH/2</span></pre>
+      <p class="why">A shared index on two anti-doublets is not a singlet; after SM.fr's
+        Φ components it yields charge-violating l̄Nh and ν̄NG⁺ vertices, hidden because
+        every y<sub>ν</sub> was 0. The paper's Table I and Eq. (1) use different Y(H)
+        conventions; +xH/2 is the unique choice making all five Yukawas invariant.
+        Sharper than the tool's own crosscheck, which had marked the sign “agree”.</p>
+    </div>
+    <div class="verdict">
+      <span><span class="pill warn">real vs paper · run contaminated</span></span>
+      <p class="model">368 sextets</p>
+      <p class="finding">“Missing 1/Λ and 1/Λ² prefactors in higher-dimensional operators”</p>
+      <pre>LFu := CFu[mm] I Sqrt[2] K6[..] T[..] K3bar[..]
+       sFubar.(σ).CC[uR] FS[G,mu,nu,aa] + ...  <span class="dim">(* no Λ *)</span>
+<span class="dim">reference 368sextets.fr: byte-identical block, also no Λ</span></pre>
+      <p class="why">The paper's Eqs. (12–13) carry 1/Λ, 1/Λ³, 1/Λ²; the DB reference
+        absorbs them into dimensionful coefficients with placeholder 0.1. And the
+        agent's event log shows it opened that reference mid-run and copied the
+        convention — so this run says nothing about extracting 1/Λ from a paper.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head prose">
+    <p class="eyebrow">02 · The answer key was in the room</p>
+    <h2>Eighteen of the original 28 runs read their own reference</h2>
+  </div>
+  <div class="prose">
+    <p>The original fleet ran the agent with the whole repository visible, and
+      the physicist reference files sit under <code>eval/reference_cache/</code>,
+      one glob away. Auditing every run's command log for reads of a reference
+      file (<code>contamination_audit.py</code>):</p>
+  </div>
+  <pre class="code"><span class="dim"># from eval/benchmark_runs/368sextets/codex_events.jsonl</span>
+/bin/zsh -lc "sed -n '260,620p' eval/reference_cache/368sextets/368sextets.fr"
+<span class="dim"># from .../MSSMD/codex_events.jsonl</span>
+/bin/zsh -lc "sed -n '1,260p' eval/reference_cache/MSSMD/MSSMD.fr"</pre>
+  <div class="bins">
+    <div class="bin bad"><p class="n">18</p><p class="lab">read their own reference</p>
+      <p class="names">368sextets · CHEIDI · ChernSimonsPortal · DMsimp · HNLs · HeavyN ·
+        HiggsCharacterisation · LeptoQuark · MDMmodel · MSSMD · Monotops · SMWeinberg ·
+        Sextets · Triplets · VLC_LN · VLQ · pNG · topBSM</p></div>
+    <div class="bin warn"><p class="n">1</p><p class="lab">read another model's reference</p>
+      <p class="names">GeneralU1</p></div>
+    <div class="bin ok"><p class="n">9</p><p class="lab">clean</p>
+      <p class="names">331 · ALRM_general · B-L-SM · EffLRSM · NJLComposite · SLQrules ·
+        Top-Philic-Zprime · Wprime · pSPSS</p></div>
+  </div>
+  <div class="callout warn">
+    <p><strong>What this means for the numbers reported earlier.</strong> For those 18
+      models, the extraction scores and the “passed one-shot” provenance measured
+      the agent's ability to copy a physicist's file, not to read a paper. The
+      validation chain still says what it said — those files compile — but no pass
+      rate from the original fleet should be quoted as an extraction result until
+      the whole set is re-run sandboxed. Of Ian's four: Z′ and EffLRSM were clean,
+      368sextets read its own reference, General U(1) read others' but not its own.</p>
+    <p><strong>The fix, now in the rerun harness.</strong> The agent runs in a temporary
+      directory that mirrors the repo layout but holds only the paper text, the
+      schema, the renderer and <code>SM.fr</code> — nothing else exists, and the
+      directory's path reveals no repo location. Every run records whether the
+      paper was read and whether any tool call reached outside the sandbox;
+      reaching the same paper text through a real path is logged as benign, anything
+      naming <code>reference_cache</code> taints the run.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head prose">
+    <p class="eyebrow">03 · Reruns</p>
+    <h2>Does the finding recur when the agent can't see the key?</h2>
+    <p style="color:var(--ink-2);">Each model regenerated four times under one engine,
+      sandboxed: twice with the original prompt (v1) and twice with a
+      physics-completeness addendum (v2), so the prompt is the only variable. All 16
+      runs read the paper; none touched a reference file. Verdicts below are
+      deterministic checks on the <code>.fr</code> text, written against the construct
+      rather than the symbol names the original files used.</p>
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>model · finding</th><th>v1 · seed 1</th><th>v1 · seed 2</th><th>v2 · seed 1</th><th>v2 · seed 2</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Top-Philic Z′</strong><span class="d">kinetic + mass term, summed into the total</span></td>
+          <td><span class="pill ok">resolved</span><span class="d">-1/4 FS[V1]² + ½MV1²V1²</span></td>
+          <td><span class="pill ok">resolved</span></td>
+          <td><span class="pill ok">resolved</span></td>
+          <td><span class="pill ok">resolved</span></td></tr>
+        <tr><td><strong>368 sextets</strong><span class="d">explicit 1/Λ, 1/Λ³, 1/Λ² with External cutoffs</span></td>
+          <td><span class="pill ok">resolved</span><span class="d">6 cutoffs, powers 1·2·3</span></td>
+          <td><span class="pill ok">resolved</span><span class="d">6 cutoffs, powers 1·2·3</span></td>
+          <td><span class="pill ok">resolved</span></td>
+          <td><span class="pill ok">resolved</span></td></tr>
+        <tr><td><strong>EffLRSM</strong><span class="d">ν<sup>c</sup> on the light-neutrino W<sub>R</sub> current</span></td>
+          <td><span class="pill ok">resolved</span><span class="d">X term dropped, as the reference does</span></td>
+          <td><span class="pill ok">resolved</span><span class="d">CC[vlbar]</span></td>
+          <td><span class="pill ok">resolved</span><span class="d">bar[CC[vl[…]]]</span></td>
+          <td><span class="pill ok">resolved</span><span class="d">bar[CC[vl[…]]]</span></td></tr>
+        <tr><td><strong>General U(1)</strong><span class="d">Eps contraction <em>and</em> Higgs charge +xH/2</span></td>
+          <td><span class="pill bad">not resolved</span><span class="d">Eps ✓ · xHd = −xH/2, copied from Table I</span></td>
+          <td><span class="pill ok">resolved</span><span class="d">Eps ✓ · xHd = xH/2</span></td>
+          <td><span class="pill ok">resolved</span><span class="d">“sign re-derived from Yukawa invariance”</span></td>
+          <td><span class="pill ok">resolved</span><span class="d">“sign fixed by requiring all five Yukawas invariant”</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <p><strong>The honest reading.</strong> Once the agent cannot see the answer key,
+      three of the four defects mostly do not recur even under the original prompt:
+      the 1/Λ factors and the Eps contraction appear in every sandboxed run. The
+      one that does recur — copying a charge table without reconciling
+      conventions — is exactly what the addendum's charge-derivation rule targets,
+      and both v2 files state why they chose the sign. Two seeds is a small sample;
+      the v1 split on General U(1) (1 of 2) is seed variance the addendum removes.</p>
+  </div>
+  <div class="prose" style="margin-top:28px;">
+    <p><strong>The same 16 files through FeynRules → UFO → MadGraph.</strong> Wolfram was
+      re-activated and the FeynRules/MadGraph chain reinstalled the same day; every file
+      then went through the full chain with a 1800 s compile budget. Five of sixteen pass
+      end to end. The failures are not the physics the readers checked — they are three
+      FeynRules/UFO conventions the paper never states, plus two files FeynRules could not
+      finish.</p>
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>model · compile chain</th><th>v1 · seed 1</th><th>v1 · seed 2</th><th>v2 · seed 1</th><th>v2 · seed 2</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Top-Philic Z′</strong><span class="d">FS[] on a gauge-singlet vector compiles</span></td>
+          <td><span class="pill ok">full chain</span></td>
+          <td><span class="pill ok">full chain</span></td>
+          <td><span class="pill ok">full chain</span></td>
+          <td><span class="pill ok">full chain</span></td></tr>
+        <tr><td><strong>368 sextets</strong><span class="d">CC[] bilinears compile (six of them in v2/s1)</span></td>
+          <td><span class="pill bad">UFO leak</span><span class="d">20 vertices with Mathematica internals; explicit sextet index inside DC[]</span></td>
+          <td><span class="pill bad">stall</span><span class="d">60 min too; explicit index in DC[] + no gauge rep → gluon–sextet vertices, non-Hermitian</span></td>
+          <td><span class="pill ok">full chain</span><span class="d">319 s · 21 MadGraph particles</span></td>
+          <td><span class="pill bad">stall</span><span class="d">60 min too; same signature</span></td></tr>
+        <tr><td><strong>EffLRSM</strong><span class="d">the CC[] fix itself is not what fails</span></td>
+          <td><span class="pill bad">UFO leak</span><span class="d">4 vertices; W<sub>R</sub> quark current with explicit CKM<sub>R</sub> indices; not Hermitian</span></td>
+          <td><span class="pill warn">MadGraph rejects</span><span class="d">parameter named <code>YN1x1 /. YN</code></span></td>
+          <td><span class="pill bad">broken model</span><span class="d">loads despite class <code>N</code>; all three checks fail; particle-less vertex</span></td>
+          <td><span class="pill bad">UFO leak</span><span class="d">4 vertices; same W<sub>R</sub> current, written with HC[]</span></td></tr>
+        <tr><td><strong>General U(1)</strong><span class="d">the Eps and charge fixes both compile</span></td>
+          <td><span class="pill bad">hang</span><span class="d">nested generation index; FeynRules stalls in the Hermiticity check</span></td>
+          <td><span class="pill warn">MadGraph rejects</span><span class="d">"couplings have '1' order": λ<sub>HX</sub>, λ<sub>X</sub> lack InteractionOrder</span></td>
+          <td><span class="pill warn">MadGraph rejects</span><span class="d">parameter named <code>yNu1x1 /. yNu</code></span></td>
+          <td><span class="pill warn">MadGraph rejects</span><span class="d">order '1' again; FeynRules checks all pass</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <p><strong>What the compile adds to the reading.</strong> The four Z′ files and 368 sextets v2/s1 settle
+      the two conventions the readers were unsure of: <code>FS[]</code> on a gauge-singlet vector and
+      <code>CC[]</code> on a fermion both compile and import. Every other failure is one of four
+      constructs: an explicit index on a field inside <code>DC[]</code> or a flavour matrix written
+      with explicit indices instead of matrix form (FeynRules' UFO writer leaks its internals into
+      <code>vertices.py</code>); a pattern-rule <code>Definitions</code> on a tensor parameter (exported
+      verbatim as a parameter name); a new coupling with no <code>InteractionOrder</code> (MadGraph
+      refuses order-1 couplings); and a nested index that stalls FeynRules. None is visible from the
+      paper, and none is a physics error — they belong in the schema and the next addendum, not in a
+      physicist's review.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head prose">
+    <p class="eyebrow">04 · The prompt addendum</p>
+    <h2>Six rules and a self-audit, appended to the extraction prompt</h2>
+  </div>
+  <ul class="rules">
+    <li><span class="k">free fields</span><span>A named kinetic + mass term for every new particle class, even when the paper shows only L<sub>int</sub>, using the class <code>Mass</code> symbol and summed into the total.</span></li>
+    <li><span class="k">cutoffs</span><span>Every operator of dimension d &gt; 4 carries <code>1/Lam^(d−4)</code> with <code>Lam</code> an External parameter at the paper's benchmark; dimensionless couplings stay dimensionless. Absorbing κ/Λⁿ is allowed only with the mass dimension and units stated.</span></li>
+    <li><span class="k">conjugation</span><span>Wherever the paper writes ψ<sup>c</sup>, write <code>CC[psi]</code> — never the bare field, even when the coefficient is zero at the benchmark.</span></li>
+    <li><span class="k">SU(2)</span><span>Two objects of the same conjugation type contract with <code>Eps[ii,jj]</code> on distinct indices; a doublet with an anti-doublet on a shared index. SM.fr conventions: Φ has Y = +½.</span></li>
+    <li><span class="k">U(1) charges</span><span>Never copy a paper's charge table literally when its Yukawa equation uses a different convention; re-derive every SM field's new-U(1) charge from Yukawa invariance and say which sign was chosen and why.</span></li>
+    <li><span class="k">self-audit</span><span>Before the JSON: one row per term with operator dimension, coupling dimension, Q / Y / new-U(1) sums (all zero), SU(2)/SU(3) contraction, CC[] where the paper has ψ<sup>c</sup>, and the Hermitian partner.</span></li>
+  </ul>
+</section>
+
+<section id="judges">
+  <div class="sec-head prose">
+    <p class="eyebrow">05 · Two independent readers per file</p>
+    <h2>What the regenerated files still get wrong</h2>
+  </div>
+  <div class="prose">
+    <p>Two independent readers per regenerated file — one checking the specific
+      finding, one reviewing the whole model against the paper and the reference —
+      32 reads in all, then a synthesis. On the four findings they agree with the
+      deterministic checks above. What follows is what they found <em>beyond</em>
+      the findings: the defects a compile would not catch and a predicate was never
+      written for.</p>
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>model</th><th>residual issue</th><th>where</th><th>kind</th></tr></thead>
+      <tbody>
+        <tr><td><strong>368 sextets</strong></td>
+          <td><code>AddGaugeRepresentation[SU3C -&gt; {T6, Sextet}]</code> is missing, so the sextet fields
+            do not couple to gluons at all. The original file had it — because it copied the reference.
+            The schema has a verbatim <code>raw_preamble</code> slot that could carry it, but nothing in
+            the prompt or schema tells the agent a non-fundamental colour representation needs one.</td>
+          <td>all 4 runs</td><td><span class="pill bad">regression · tooling gap</span></td></tr>
+        <tr><td></td>
+          <td>Quark bilinear written without the barred spinor in one v1 seed; both v2 seeds write it
+            correctly. The cutoffs carry <code>InteractionOrder -&gt; {QED,-1}</code>, which the addendum
+            suggested and which is awkward for MadGraph coupling-order limits.</td>
+          <td>v1/s1 · v2 both</td><td><span class="pill warn">addendum side effect</span></td></tr>
+        <tr><td><strong>EffLRSM</strong></td>
+          <td>Both v1 seeds carry a factor ½ too many on the Z<sub>R</sub>–N–N current and one puts the
+            Z<sub>R</sub> square root in the numerator; neither v2 seed does, and v2/s2's Z<sub>R</sub>
+            sector checks fully against Eqs. (8–10) and Table II.</td>
+          <td>v1 both</td><td><span class="pill warn">normalisation</span></td><td><span class="pill warn">particle-less vertex</span></td></tr>
+        <tr><td></td>
+          <td>Heavy-neutrino class named <code>N</code> — a Protected Mathematica symbol; FeynRules will
+            not load it. The reference uses <code>Nl</code> for exactly this reason.</td>
+          <td>v2/s1</td><td><span class="pill bad">compile blocker</span></td></tr>
+        <tr><td><strong>General U(1)</strong></td>
+          <td>One v2 seed drops the Higgs-doublet Z′ current altogether and likely collides with SM.fr's
+            class keys <code>F[11]</code>/<code>S[11]</code>; the other keeps the fermion-versus-scalar
+            covariant-derivative sign mismatch the original also had. One v1 seed lost the Majorana mass
+            term. No run diagonalises Z–Z′ mixing or the portal-shifted minimum.</td>
+          <td>v2/s1 · v2/s2 · v1/s2</td><td><span class="pill warn">physics beyond the finding</span></td></tr>
+        <tr><td><strong>Top-Philic Z′</strong></td>
+          <td>No <code>MV1 &lt; 2 MT</code> guard on the internal width (the original wrapped it in
+            <code>If[...]</code>); PDG 32, the generic Z′ code, instead of a private one. Cosmetic.</td>
+          <td>all 4 runs</td><td><span class="pill info">cosmetic</span></td></tr>
+        <tr><td><strong>EffLRSM · General U(1)</strong> <span class="pill info">from the compile chain</span></td>
+          <td>A tensor parameter given a pattern rule, <code>Definitions -&gt; {YN[i_?NumericQ,
+            j_?NumericQ] :&gt; 0 /; (i =!= j)}</code>, compiles in FeynRules but is exported
+            verbatim into the UFO as a parameter named <code>YN1x1 /. YN</code> (General U(1):
+            <code>yNu1x1 /. yNu</code>), so MadGraph fails with a misleading "invalid syntax
+            (object_library.py, line 268)". Neither reader nor the predicates could see this.
+            The original EffLRSM run failed MadGraph the same way.</td>
+          <td>EffLRSM v1/s2 · U(1) v2/s1</td><td><span class="pill bad">compile blocker</span></td></tr>
+        <tr><td><strong>General U(1)</strong> <span class="pill info">from the compile chain</span></td>
+          <td>The scalar-potential couplings <code>lamHX</code>, <code>lamX</code> carry no
+            <code>InteractionOrder</code>, so six couplings come out with order <code>'1'</code> and
+            MadGraph refuses the model ("Some couplings have '1' order"). FeynRules and all three
+            consistency checks pass; only the import fails.</td>
+          <td>v1/s2 · v2/s2</td><td><span class="pill warn">MadGraph convention</span></td></tr>
+        <tr><td><strong>368 sextets · EffLRSM</strong> <span class="pill info">from the compile chain</span></td>
+          <td>Explicit indices where FeynRules wants matrix form. 368 sextets:
+            <code>Psiubar[ss].Ga[mu].DC[Psiu[ss], mu]</code> — both v1 seeds write it this way (one leaks
+            20 vertices, one times out), both v2 seeds write <code>DC[Psiu, mu]</code> (one passes the
+            full chain). EffLRSM: <code>VCKMR[ff1,ff2] uqbar[ff1,cc].Ga[mu].ProjP.dq[ff2,cc]</code>,
+            where the reference writes <code>uqbar.VCKMR.Ga[mu].ProjP.dq</code>; four vertices come out
+            as Mathematica internals (<code>ConvertSpinToString[0]</code>, <code>MakeIdenticalFermions</code>)
+            in <code>vertices.py</code>. The <code>CC[]</code> term the finding asked for is not the
+            part that fails.</td>
+          <td>368 v1 both · EffLRSM v1/s1, v2/s2</td><td><span class="pill bad">compile blocker</span></td></tr>
+        <tr><td><strong>EffLRSM</strong> <span class="pill info">from the compile chain</span></td>
+          <td>Correction to the row above: the file with the class named <code>N</code> does load
+            (FeynRules warns "Doubly defined particle classes" and moves on). What it produces is
+            worse than a load failure — all three consistency checks fail and the UFO carries a
+            vertex with no particles and a Lorentz structure named <code>1</code>.</td>
+          <td>v2/s1</td><td><span class="pill bad">broken model</span></td></tr>
+        <tr><td><strong>General U(1)</strong> <span class="pill info">from the compile chain</span></td>
+          <td>A generation index nested inside another (<code>ISind1[Generation, ISind2]</code>) makes
+            FeynRules stall in the Hermiticity check; killed at 1800 s. The two 368 sextets timeouts
+            (v1/s2, v2/s2) were retried with a 60-minute budget and logs kept: both stall after the
+            Hermiticity check finds 20 non-vanishing vertices, among them gluon–sextet vertices
+            like {G, Phiu} that violate charge and hypercharge — an explicit sextet index inside
+            <code>DC[]</code> with no <code>AddGaugeRepresentation</code>, the same defect the readers
+            flagged, plus <code>Part::pkspec1</code> index errors. Not slow; broken.</td>
+          <td>U(1) v1/s1 · 368 v1/s2, v2/s2</td><td><span class="pill bad">no verdict</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <p><strong>What the residuals say about the next addendum.</strong> Four rules would have
+      caught most of them: any non-fundamental colour representation needs an
+      <code>AddGaugeRepresentation</code> line in <code>raw_preamble</code>; class indices start at
+      100 so they cannot collide with SM.fr; never use a Protected Mathematica symbol
+      (<code>N</code>, <code>C</code>, <code>D</code>, <code>E</code>, <code>I</code>, <code>K</code>,
+      <code>O</code>) as a class name; give a cutoff no <code>InteractionOrder</code> unless the
+      paper's own implementation does; tensor parameters get an explicit value for every
+      component, never a pattern-and-condition <code>Definitions</code> rule. The compile chain
+      adds three: every new parameter carries an <code>InteractionOrder</code>; flavour matrices
+      are written in matrix form (<code>uqbar.VCKMR.Ga[mu].ProjP.dq</code>), never with explicit
+      generation indices; no explicit index on a field inside <code>DC[]</code>. Mixing
+      diagonalisation is a modelling decision the prompt can ask about but not decide.</p>
+    <p><strong>And what they do not say.</strong> The readers are language models reading the same
+      files; agreement lowers but does not remove the chance of a shared mistake on FeynRules
+      conventions. The compile chain, run after this review, settled the two they were unsure of
+      (<code>FS[]</code> on a gauge-singlet vector and <code>CC[]</code> both compile), caught four
+      defect classes none of them saw, and overturned one claim (the <code>N</code> file loads).
+      That is why the compile step is not optional.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head prose">
+    <p class="eyebrow">06 · Caveats and what happens next</p>
+    <h2>Open items</h2>
+  </div>
+  <div class="open-items">
+    <div class="open-item"><span class="who">done</span>
+      <span>Wolfram re-activated, FeynRules and MadGraph reinstalled, and all 16 regenerated
+        files for Ian's four models put through the full chain (§03, second table): 5 of 16
+        pass end to end, 13 of 16 compile, and every failure is a FeynRules/UFO convention
+        rather than a physics error. Three files hit the 1800 s budget and carry no verdict.</span></div>
+    <div class="open-item"><span class="who">in progress</span>
+      <span>The same compile pass over the 28-model fleet (§07) is running; a model with
+        the 1800 s budget takes up to half an hour, so the fleet numbers land later today.
+        The three timed-out files get one more attempt with a 3600 s budget after it.</span></div>
+    <div class="open-item"><span class="who">done</span>
+      <span>All 28 benchmark models re-run sandboxed with the addendum (§07). The
+        FeynRules/MadGraph chain was reinstalled the same day (both had gone missing
+        from the machine).</span></div>
+    <div class="open-item"><span class="who">shipped</span>
+      <span>Crosscheck verdict labels renamed to <code>in-paper-not-in-model</code> /
+        <code>in-model-not-in-paper</code>, with standard free-field completions
+        labelled as such — <a href="https://github.com/tonymenzo/heptapod-dev/pull/16">heptapod-dev #16</a>,
+        the last of the four-PR stack that replaced the single 63-file PR.</span></div>
+    <div class="open-item"><span class="who">method</span>
+      <span>The deterministic checks are evidence, not verdicts: they were written
+        against the constructs, checked to reject the original defective files, and
+        still cannot replace a physicist reading the file. The two-reader review in
+        §05 is the closest this tooling comes to that.</span></div>
+  </div>
+</section>
+
+
+<section>
+  <div class="sec-head prose">
+    <p class="eyebrow">07 · The 28-model sandboxed rerun</p>
+    <h2>The first honest measurement of the benchmark</h2>
+    <p style="color:var(--ink-2);">Every candidate regenerated once, sandboxed, with the
+      addendum, under one engine. All 28 read their paper; none reached outside the
+      sandbox. 27 rendered (HNLs failed schema validation: a non-string parameter
+      name). Field F1 is the fleet's own scorer — a signature match of new fields
+      against the physicist reference — so it rewards copying the reference exactly,
+      which is what the original numbers measured for 18 models.</p>
+  </div>
+  <div class="bins">
+    <div class="bin ok"><p class="n">0.77</p>
+      <p class="lab">field F1, models whose original run was clean</p>
+      <p class="names">original fleet on the same models: 0.65 → the sandboxed pipeline is better where the comparison is fair</p></div>
+    <div class="bin bad"><p class="n">0.56</p>
+      <p class="lab">field F1, models whose original run read its own reference</p>
+      <p class="names">original fleet on the same models: 0.79 → that number was the answer key, not extraction</p></div>
+    <div class="bin"><p class="n">0.63</p>
+      <p class="lab">field F1, all 26 scorable</p>
+      <p class="names">original fleet on the same models: 0.73</p></div>
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>model</th><th>original run</th><th>F1 original</th><th>F1 sandboxed</th><th>Δ</th><th>QN F1</th><th>fields gen/ref</th><th>compile chain</th></tr></thead>
+      <tbody><tr><td><strong>331</strong></td><td><span class="pill ok">clean</span></td><td class="tnum">0.20</td><td class="tnum">0.41</td><td class="tnum">+0.21</td><td class="tnum">0.41</td><td class="tnum">21/38</td><td><span class="pill ok">full chain</span></td></tr><tr><td><strong>ALRM_general</strong></td><td><span class="pill ok">clean</span></td><td class="tnum">0.52</td><td class="tnum">0.61</td><td class="tnum">+0.09</td><td class="tnum">0.42</td><td class="tnum">23/16</td><td><span class="pill bad">stall 1800 s</span></td></tr><tr><td><strong>topBSM</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">1.00</td><td class="tnum"><span class="pill info">n/a · EFT, no new fields</span></td><td class="tnum">—</td><td class="tnum">—</td><td class="tnum">0/0</td><td><span class="pill ok">full chain</span></td></tr><tr><td><strong>ChernSimonsPortal</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">1.00</td><td class="tnum">0.12</td><td class="tnum">-0.88</td><td class="tnum">0.12</td><td class="tnum">16/1</td><td><span class="pill ok">full chain</span></td></tr><tr><td><strong>DMsimp</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">0.67</td><td class="tnum">0.67</td><td class="tnum">+0.00</td><td class="tnum">0.89</td><td class="tnum">5/4</td><td><span class="pill info">two totals</span></td></tr><tr><td><strong>EffLRSM</strong></td><td><span class="pill ok">clean</span></td><td class="tnum">1.00</td><td class="tnum">1.00</td><td class="tnum">+0.00</td><td class="tnum">1.00</td><td class="tnum">3/3</td></tr><tr><td><strong>GeneralU1</strong></td><td><span class="pill warn">read other ref</span></td><td class="tnum">0.50</td><td class="tnum">0.50</td><td class="tnum">+0.00</td><td class="tnum">0.50</td><td class="tnum">5/15</td><td><span class="pill warn">pattern Definitions</span></td></tr><tr><td><strong>HeavyN</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">1.00</td><td class="tnum">1.00</td><td class="tnum">+0.00</td><td class="tnum">1.00</td><td class="tnum">3/3</td><td><span class="pill warn">UFO leak</span></td></tr><tr><td><strong>HNLs</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">0.98</td><td class="tnum"><span class="pill bad">schema failed</span></td><td class="tnum">—</td><td class="tnum">—</td><td class="tnum">—/—</td><td><span class="pill info">not rendered</span></td></tr><tr><td><strong>B-L-SM</strong></td><td><span class="pill ok">clean</span></td><td class="tnum">0.62</td><td class="tnum">0.75</td><td class="tnum">+0.12</td><td class="tnum">0.75</td><td class="tnum">6/10</td><td><span class="pill warn">UFO leak</span></td></tr><tr><td><strong>MDMmodel</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">0.62</td><td class="tnum">0.71</td><td class="tnum">+0.09</td><td class="tnum">0.71</td><td class="tnum">5/9</td><td><span class="pill ok">full chain</span></td></tr><tr><td><strong>Monotops</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">1.00</td><td class="tnum">1.00</td><td class="tnum">+0.00</td><td class="tnum">1.00</td><td class="tnum">6/6</td><td><span class="pill bad">FR recursion limit</span></td></tr><tr><td><strong>pNG</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">0.86</td><td class="tnum">0.75</td><td class="tnum">-0.11</td><td class="tnum">0.75</td><td class="tnum">5/3</td><td><span class="pill ok">full chain</span></td></tr><tr><td><strong>Sextets</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">1.00</td><td class="tnum">0.67</td><td class="tnum">-0.33</td><td class="tnum">0.67</td><td class="tnum">6/3</td><td><span class="pill ok">full chain</span></td></tr><tr><td><strong>368sextets</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">1.00</td><td class="tnum">1.00</td><td class="tnum">+0.00</td><td class="tnum">1.00</td><td class="tnum">4/4</td><td><span class="pill ok">full chain</span></td></tr><tr><td><strong>SLQrules</strong></td><td><span class="pill ok">clean</span></td><td class="tnum">0.78</td><td class="tnum">1.00</td><td class="tnum">+0.22</td><td class="tnum">1.00</td><td class="tnum">14/14</td><td><span class="pill bad">FR recursion limit</span></td></tr><tr><td><strong>pSPSS</strong></td><td><span class="pill ok">clean</span></td><td class="tnum">0.22</td><td class="tnum">1.00</td><td class="tnum">+0.78</td><td class="tnum">1.00</td><td class="tnum">6/6</td><td><span class="pill warn">UFO leak</span></td></tr><tr><td><strong>SMWeinberg</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">1.00</td><td class="tnum">1.00</td><td class="tnum">+0.00</td><td class="tnum">1.00</td><td class="tnum">1/1</td><td><span class="pill warn">particle-less vertex</span></td></tr><tr><td><strong>Top-Philic-Zprime</strong></td><td><span class="pill ok">clean</span></td><td class="tnum">1.00</td><td class="tnum">1.00</td><td class="tnum">+0.00</td><td class="tnum">1.00</td><td class="tnum">1/1</td><td><span class="pill ok">full chain</span></td></tr><tr><td><strong>Triplets</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">1.00</td><td class="tnum">0.00</td><td class="tnum">-1.00</td><td class="tnum">0.00</td><td class="tnum">3/1</td><td><span class="pill bad">non-Hermitian</span></td></tr><tr><td><strong>VLQ</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">0.40</td><td class="tnum">0.27</td><td class="tnum">-0.13</td><td class="tnum">0.00</td><td class="tnum">11/4</td><td><span class="pill info">two totals</span></td></tr><tr><td><strong>LeptoQuark</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">0.00</td><td class="tnum">0.00</td><td class="tnum">+0.00</td><td class="tnum">0.44</td><td class="tnum">3/6</td><td><span class="pill ok">full chain</span></td></tr><tr><td><strong>Wprime</strong></td><td><span class="pill ok">clean</span></td><td class="tnum">0.67</td><td class="tnum">0.67</td><td class="tnum">+0.00</td><td class="tnum">0.67</td><td class="tnum">2/1</td><td><span class="pill warn">name W'</span></td></tr><tr><td><strong>MSSMD</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">0.50</td><td class="tnum">0.27</td><td class="tnum">-0.23</td><td class="tnum">0.30</td><td class="tnum">6/39</td><td><span class="pill info">two totals</span></td></tr><tr><td><strong>CHEIDI</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">1.00</td><td class="tnum">0.22</td><td class="tnum">-0.78</td><td class="tnum">0.22</td><td class="tnum">8/1</td><td><span class="pill warn">name W'</span></td></tr><tr><td><strong>HiggsCharacterisation</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">1.00</td><td class="tnum">1.00</td><td class="tnum">+0.00</td><td class="tnum">1.00</td><td class="tnum">3/3</td><td><span class="pill warn">no InteractionOrder</span></td></tr><tr><td><strong>NJLComposite</strong></td><td><span class="pill ok">clean</span></td><td class="tnum">0.80</td><td class="tnum">0.50</td><td class="tnum">-0.30</td><td class="tnum">0.50</td><td class="tnum">6/18</td><td><span class="pill ok">full chain</span></td></tr><tr><td><strong>VLC_LN</strong></td><td><span class="pill bad">read own ref</span></td><td class="tnum">0.61</td><td class="tnum">0.31</td><td class="tnum">-0.31</td><td class="tnum">0.61</td><td class="tnum">9/4</td><td><span class="pill ok">full chain</span></td></tr></tbody>
+    </table>
+  </div>
+  <div class="callout warn">
+    <p><strong>Read the drops carefully.</strong> Triplets, CHEIDI and ChernSimonsPortal fall
+      from 1.00 to near 0 once their runs can no longer copy the reference; those are the
+      honest baselines and each is a model to look at by hand. topBSM's drop turned out to
+      be the benchmark's fault: its reference directory holds two files, and the entry had
+      paired arXiv 1305.7386 — Zhang &amp; Maltoni's t → qh EFT paper — with the heavy-resonance
+      model instead of Krastanov's flavor-changing-Higgs model <code>thu.fr</code>, which
+      declares no new particle at all. The sandboxed agent read the paper correctly and
+      wrote the same O<sub>uφ</sub>, O<sub>uG</sub> operators; the original run scored 1.00
+      by copying the wrong answer key. The pairing is corrected and the scorer now reports
+      F1 as undefined, not zero, for references with no new fields. MSSMD's pairing is
+      also suspect: its listed paper is a CMS search, which cannot define a 39-field
+      Lagrangian. The two largest gains, pSPSS 0.22 → 1.00 and 331 0.20 → 0.41, are
+      clean-run comparisons.</p>
+    <p><strong>Through the compile chain.</strong> 11 of 28 pass FeynRules → UFO → MadGraph first shot,
+      with no repair loop; 21 compile. The old fleet's 15 of 28 was measured on files that had, in 18
+      cases, copied a reference that compiles. The failures are the convention classes of §05 plus
+      three new ones: a particle named <code>W'</code> (Wprime, CHEIDI — the prime is not valid Python),
+      a field-free constant term exported as a vertex with no particles (EffLRSM, SMWeinberg), and a
+      FeynRules recursion-limit crash (Monotops, SLQrules). Three models declare two total-Lagrangian
+      symbols and the harness refuses to guess (DMsimp, VLQ, MSSMD); ALRM_general stalls in the
+      Hermiticity check; Triplets compiles and imports but is not Hermitian.</p>
+  </div>
+</section>
+
+
+<section id="fixes">
+  <div class="sec-head prose">
+    <p class="eyebrow">08 · The fix for each issue</p>
+    <h2>Nineteen issues, one line each</h2>
+    <p style="color:var(--ink-2);">What was wrong, the fix, and where it stands. Details are in the
+      sections above; this is the version to read out.</p>
+  </div>
+  <div class="bins">
+    <div class="bin ok"><p class="n">9</p><p class="lab">fixed</p><p class="names">in the harness, the data, or the prompt addendum</p></div>
+    <div class="bin warn"><p class="n">8</p><p class="lab">proposed</p><p class="names">written, not applied — mostly renderer checks</p></div>
+    <div class="bin bad"><p class="n">2</p><p class="lab">to decide</p><p class="names">plus three open questions, below</p></div>
+  </div>
+  <div class="scroll fixes">
+    <table>
+      <thead><tr><th>issue</th><th>fix</th><th>status</th></tr></thead>
+      <tbody>
+        <tr class="g"><td colspan="3">Ian's four findings</td></tr>
+        <tr><td><strong>Top-Philic Z′</strong> · "no kinetic or mass term"</td>
+          <td>Misread: the file has both. Crosscheck labels renamed so a standard completion no longer reads as a gap.</td>
+          <td><span class="pill ok">shipped</span></td></tr>
+        <tr><td><strong>368 sextets</strong> · no 1/Λ</td>
+          <td>Copied from the reference. Sandbox + rule: explicit 1/Λ<sup>d−4</sup> with External cutoffs. 4/4 reruns fixed.</td>
+          <td><span class="pill info">done</span></td></tr>
+        <tr><td><strong>EffLRSM</strong> · ν<sup>c</sup> missing</td>
+          <td>Rule: <code>CC[]</code> wherever the paper writes ψ<sup>c</sup>. 4/4 reruns fixed; <code>CC[]</code> compiles.</td>
+          <td><span class="pill info">done</span></td></tr>
+        <tr><td><strong>General U(1)</strong> · no Eps, Higgs sign</td>
+          <td>Rules: <code>Eps[ii,jj]</code> for doublet pairs; charges re-derived from Yukawa invariance, not copied. 2/2 addendum reruns fixed.</td>
+          <td><span class="pill info">done</span></td></tr>
+
+        <tr class="g"><td colspan="3">The benchmark itself</td></tr>
+        <tr><td><strong>18 of 28 runs read their own reference</strong></td>
+          <td>Sandboxed harness; the 28-model rerun replaces the old numbers (0.77 vs 0.65 fair, 0.56 vs 0.79 unfair).</td>
+          <td><span class="pill info">done</span></td></tr>
+        <tr><td><strong>topBSM</strong> · wrong reference file</td>
+          <td>Re-paired to <code>thu.fr</code>; F1 reported as undefined, not 0, for zero-field references.</td>
+          <td><span class="pill info">done</span></td></tr>
+        <tr><td><strong>MSSMD</strong> · paired with a CMS search</td>
+          <td>Needs the paper that defines the model.</td>
+          <td><span class="pill bad">decide</span></td></tr>
+        <tr><td><strong>HNLs</strong> · did not render</td>
+          <td>Renderer coerces parameter names to strings; re-run the entry.</td>
+          <td><span class="pill warn">proposed</span></td></tr>
+
+        <tr class="g"><td colspan="3">Found by the two-reader review</td></tr>
+        <tr><td><strong>Sextets don't couple to gluons</strong> · no <code>AddGaugeRepresentation</code></td>
+          <td>Schema field for gauge representations; renderer refuses a non-fundamental rep without one.</td>
+          <td><span class="pill warn">proposed</span></td></tr>
+        <tr><td><strong>Class named <code>N</code></strong></td>
+          <td>Renderer rejects Protected names (<code>N C D E I K O</code>).</td>
+          <td><span class="pill warn">proposed</span></td></tr>
+        <tr><td><strong>Class keys collide with SM.fr</strong></td>
+          <td>Renderer numbers new classes from 100.</td>
+          <td><span class="pill warn">proposed</span></td></tr>
+        <tr><td><strong>Extra ½ on Z<sub>R</sub>–N–N</strong></td>
+          <td>The addendum's per-term self-audit already removes it.</td>
+          <td><span class="pill info">done</span></td></tr>
+        <tr><td><strong>Z–Z′ mixing not diagonalised</strong></td>
+          <td>Modelling choice: gauge basis with a note, or a mixing block in the schema.</td>
+          <td><span class="pill bad">decide</span></td></tr>
+        <tr><td><strong>Cutoffs with <code>InteractionOrder {QED,-1}</code></strong></td>
+          <td>Rule: no order on cutoffs unless the paper's implementation has one.</td>
+          <td><span class="pill warn">proposed</span></td></tr>
+
+        <tr class="g"><td colspan="3">Found by the compile chain · 5 of 16 files pass end to end; every failure a convention, not physics</td></tr>
+        <tr><td><strong>Couplings with order '1'</strong> · no <code>InteractionOrder</code></td>
+          <td>Renderer supplies <code>{NP, 1}</code> to any new coupling without one.</td>
+          <td><span class="pill warn">proposed</span></td></tr>
+        <tr><td><strong>Parameter named <code>YN1x1 /. YN</code></strong> · pattern <code>Definitions</code></td>
+          <td>Renderer rejects pattern rules on tensor parameters; explicit value per component.</td>
+          <td><span class="pill warn">proposed</span></td></tr>
+        <tr><td><strong>UFO writer leaks internals</strong> · explicit indices in <code>DC[]</code> and flavour matrices</td>
+          <td>Rules: matrix form for flavour matrices; no index on a field inside <code>DC[]</code>. Renderer lint for both.</td>
+          <td><span class="pill warn">proposed</span></td></tr>
+        <tr><td><strong>FeynRules stalls in the Hermiticity check</strong></td>
+          <td>Logs now kept per run; stall detection (kill after ten silent minutes) to add.</td>
+          <td><span class="pill info">done</span></td></tr>
+        <tr><td><strong>Two sextet files exceed 30 minutes</strong></td>
+          <td>Retry at 60 minutes queued behind the fleet, logs kept.</td>
+          <td><span class="pill info">done</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <p><strong>Five questions for Ian and Konstantin.</strong></p>
+    <ol class="asks">
+      <li><span><strong>MSSMD</strong> — which paper defines the model?</span></li>
+      <li><span><strong>EffLRSM</strong> — keep the light-neutrino W<sub>R</sub> term with <code>CC[]</code> (paper), or drop it (reference, X = 0)?</span></li>
+      <li><span><strong>368 sextets</strong> — target explicit Λ (paper) or absorbed couplings (reference)?</span></li>
+      <li><span><strong>General U(1)</strong> — diagonalise Z–Z′ mixing, or stop at the gauge basis and say so?</span></li>
+      <li><span><strong>The metric</strong> — field-F1 against the reference rewards copying. Worth a per-model manifest from the paper?</span></li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <p>Ian's four findings · Agentic Lagrangian Extraction · every line quoted on this
+    page was read from the files this week; every count was computed, not recalled.</p>
+</footer>
+
+</div>

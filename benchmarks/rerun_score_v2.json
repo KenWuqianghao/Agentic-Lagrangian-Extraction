@@ -1,0 +1,1067 @@
+{
+ "summary": {
+  "n_candidates": 28,
+  "n_scored": 26,
+  "n_read_paper": 28,
+  "n_contaminated": 0,
+  "mean_field_f1_sandboxed": 0.632,
+  "mean_field_f1_original_same_models": 0.73,
+  "mean_field_f1_sandboxed_where_original_clean": 0.771,
+  "mean_field_f1_original_where_original_clean": 0.646,
+  "mean_field_f1_sandboxed_where_original_read_own_ref": 0.561,
+  "mean_field_f1_original_where_original_read_own_ref": 0.791
+ },
+ "rows": [
+  {
+   "page": "331",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "clean",
+   "original_field_f1": 0.196,
+   "original_qn_f1": 0.196,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 1478.3,
+   "n_tool_calls": 7,
+   "status": "scored",
+   "field_f1": 0.407,
+   "field_precision": 0.571,
+   "field_recall": 0.316,
+   "qn_f1": 0.407,
+   "param_jaccard": 0.014,
+   "n_fields": {
+    "reference": 38,
+    "generated": 21,
+    "reference_raw": 58,
+    "generated_raw": 21
+   },
+   "n_ref_fields": 38,
+   "missed": [
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "1/6+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "1/6-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "-1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  {
+   "page": "ALRM_general",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "clean",
+   "original_field_f1": 0.522,
+   "original_qn_f1": 0.471,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 1698.2,
+   "n_tool_calls": 5,
+   "status": "scored",
+   "field_f1": 0.615,
+   "field_precision": 0.522,
+   "field_recall": 0.75,
+   "qn_f1": 0.424,
+   "param_jaccard": 0.262,
+   "n_fields": {
+    "reference": 16,
+    "generated": 23,
+    "reference_raw": 30,
+    "generated_raw": 23
+   },
+   "n_ref_fields": 16,
+   "missed": []
+  },
+  {
+   "page": "topBSM",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 1.0,
+   "original_qn_f1": 1.0,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 343.9,
+   "n_tool_calls": 4,
+   "status": "scored_no_new_fields",
+   "field_f1": null,
+   "qn_f1": null,
+   "param_jaccard": 0.0,
+   "n_fields": {
+    "reference": 0,
+    "generated": 0,
+    "reference_raw": 0,
+    "generated_raw": 0
+   },
+   "n_ref_fields": 0
+  },
+  {
+   "page": "ChernSimonsPortal",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 1.0,
+   "original_qn_f1": 1.0,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 600.9,
+   "n_tool_calls": 4,
+   "status": "scored",
+   "field_f1": 0.118,
+   "field_precision": 0.062,
+   "field_recall": 1.0,
+   "qn_f1": 0.118,
+   "param_jaccard": 0.0,
+   "n_fields": {
+    "reference": 1,
+    "generated": 16,
+    "reference_raw": 1,
+    "generated_raw": 16
+   },
+   "n_ref_fields": 1,
+   "missed": []
+  },
+  {
+   "page": "DMsimp",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 0.667,
+   "original_qn_f1": 0.889,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 223.1,
+   "n_tool_calls": 4,
+   "status": "scored",
+   "field_f1": 0.667,
+   "field_precision": 0.6,
+   "field_recall": 0.75,
+   "qn_f1": 0.889,
+   "param_jaccard": 0.0,
+   "n_fields": {
+    "reference": 4,
+    "generated": 5,
+    "reference_raw": 4,
+    "generated_raw": 5
+   },
+   "n_ref_fields": 4,
+   "missed": [
+    [
+     "T",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  {
+   "page": "EffLRSM",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "clean",
+   "original_field_f1": 1.0,
+   "original_qn_f1": 1.0,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 331.2,
+   "n_tool_calls": 5,
+   "status": "scored",
+   "field_f1": 1.0,
+   "field_precision": 1.0,
+   "field_recall": 1.0,
+   "qn_f1": 1.0,
+   "param_jaccard": 0.28,
+   "n_fields": {
+    "reference": 3,
+    "generated": 3,
+    "reference_raw": 3,
+    "generated_raw": 3
+   },
+   "n_ref_fields": 3,
+   "missed": []
+  },
+  {
+   "page": "GeneralU1",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "other reference read",
+   "original_field_f1": 0.5,
+   "original_qn_f1": 0.5,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 592.9,
+   "n_tool_calls": 4,
+   "status": "scored",
+   "field_f1": 0.5,
+   "field_precision": 1.0,
+   "field_recall": 0.333,
+   "qn_f1": 0.5,
+   "param_jaccard": 0.026,
+   "n_fields": {
+    "reference": 15,
+    "generated": 5,
+    "reference_raw": 41,
+    "generated_raw": 5
+   },
+   "n_ref_fields": 15,
+   "missed": [
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  {
+   "page": "HeavyN",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 1.0,
+   "original_qn_f1": 1.0,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 258.8,
+   "n_tool_calls": 3,
+   "status": "scored",
+   "field_f1": 1.0,
+   "field_precision": 1.0,
+   "field_recall": 1.0,
+   "qn_f1": 1.0,
+   "param_jaccard": 0.692,
+   "n_fields": {
+    "reference": 3,
+    "generated": 3,
+    "reference_raw": 3,
+    "generated_raw": 3
+   },
+   "n_ref_fields": 3,
+   "missed": []
+  },
+  {
+   "page": "HNLs",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 0.977,
+   "original_qn_f1": 0.977,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 463.5,
+   "n_tool_calls": 6,
+   "status": "render_failed",
+   "reason": "schema_validation_failed"
+  },
+  {
+   "page": "B-L-SM",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "clean",
+   "original_field_f1": 0.625,
+   "original_qn_f1": 0.75,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 608.7,
+   "n_tool_calls": 5,
+   "status": "scored",
+   "field_f1": 0.75,
+   "field_precision": 1.0,
+   "field_recall": 0.6,
+   "qn_f1": 0.75,
+   "param_jaccard": 0.019,
+   "n_fields": {
+    "reference": 10,
+    "generated": 6,
+    "reference_raw": 30,
+    "generated_raw": 6
+   },
+   "n_ref_fields": 10,
+   "missed": [
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  {
+   "page": "MDMmodel",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 0.625,
+   "original_qn_f1": 0.625,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 550.8,
+   "n_tool_calls": 4,
+   "status": "scored",
+   "field_f1": 0.714,
+   "field_precision": 1.0,
+   "field_recall": 0.556,
+   "qn_f1": 0.714,
+   "param_jaccard": 0.038,
+   "n_fields": {
+    "reference": 9,
+    "generated": 5,
+    "reference_raw": 35,
+    "generated_raw": 5
+   },
+   "n_ref_fields": 9,
+   "missed": [
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ]
+   ]
+  },
+  {
+   "page": "Monotops",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 1.0,
+   "original_qn_f1": 1.0,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 353.8,
+   "n_tool_calls": 4,
+   "status": "scored",
+   "field_f1": 1.0,
+   "field_precision": 1.0,
+   "field_recall": 1.0,
+   "qn_f1": 1.0,
+   "param_jaccard": 0.0,
+   "n_fields": {
+    "reference": 6,
+    "generated": 6,
+    "reference_raw": 6,
+    "generated_raw": 6
+   },
+   "n_ref_fields": 6,
+   "missed": []
+  },
+  {
+   "page": "pNG",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 0.857,
+   "original_qn_f1": 0.857,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 379.7,
+   "n_tool_calls": 5,
+   "status": "scored",
+   "field_f1": 0.75,
+   "field_precision": 0.6,
+   "field_recall": 1.0,
+   "qn_f1": 0.75,
+   "param_jaccard": 0.0,
+   "n_fields": {
+    "reference": 3,
+    "generated": 5,
+    "reference_raw": 29,
+    "generated_raw": 5
+   },
+   "n_ref_fields": 3,
+   "missed": []
+  },
+  {
+   "page": "Sextets",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 1.0,
+   "original_qn_f1": 1.0,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 773.7,
+   "n_tool_calls": 8,
+   "status": "scored",
+   "field_f1": 0.667,
+   "field_precision": 0.5,
+   "field_recall": 1.0,
+   "qn_f1": 0.667,
+   "param_jaccard": 0.0,
+   "n_fields": {
+    "reference": 3,
+    "generated": 6,
+    "reference_raw": 3,
+    "generated_raw": 6
+   },
+   "n_ref_fields": 3,
+   "missed": []
+  },
+  {
+   "page": "368sextets",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 1.0,
+   "original_qn_f1": 1.0,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 375.9,
+   "n_tool_calls": 4,
+   "status": "scored",
+   "field_f1": 1.0,
+   "field_precision": 1.0,
+   "field_recall": 1.0,
+   "qn_f1": 1.0,
+   "param_jaccard": 0.0,
+   "n_fields": {
+    "reference": 4,
+    "generated": 4,
+    "reference_raw": 4,
+    "generated_raw": 4
+   },
+   "n_ref_fields": 4,
+   "missed": []
+  },
+  {
+   "page": "SLQrules",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "clean",
+   "original_field_f1": 0.783,
+   "original_qn_f1": 0.783,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 859.1,
+   "n_tool_calls": 6,
+   "status": "scored",
+   "field_f1": 1.0,
+   "field_precision": 1.0,
+   "field_recall": 1.0,
+   "qn_f1": 1.0,
+   "param_jaccard": 0.275,
+   "n_fields": {
+    "reference": 14,
+    "generated": 14,
+    "reference_raw": 14,
+    "generated_raw": 14
+   },
+   "n_ref_fields": 14,
+   "missed": []
+  },
+  {
+   "page": "pSPSS",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "clean",
+   "original_field_f1": 0.222,
+   "original_qn_f1": 0.667,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 438.5,
+   "n_tool_calls": 5,
+   "status": "scored",
+   "field_f1": 1.0,
+   "field_precision": 1.0,
+   "field_recall": 1.0,
+   "qn_f1": 1.0,
+   "param_jaccard": 0.208,
+   "n_fields": {
+    "reference": 6,
+    "generated": 6,
+    "reference_raw": 32,
+    "generated_raw": 6
+   },
+   "n_ref_fields": 6,
+   "missed": []
+  },
+  {
+   "page": "SMWeinberg",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 1.0,
+   "original_qn_f1": 1.0,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 289.4,
+   "n_tool_calls": 3,
+   "status": "scored",
+   "field_f1": 1.0,
+   "field_precision": 1.0,
+   "field_recall": 1.0,
+   "qn_f1": 1.0,
+   "param_jaccard": 0.091,
+   "n_fields": {
+    "reference": 1,
+    "generated": 1,
+    "reference_raw": 1,
+    "generated_raw": 1
+   },
+   "n_ref_fields": 1,
+   "missed": []
+  },
+  {
+   "page": "Top-Philic-Zprime",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "clean",
+   "original_field_f1": 1.0,
+   "original_qn_f1": 1.0,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 114.6,
+   "n_tool_calls": 6,
+   "status": "scored",
+   "field_f1": 1.0,
+   "field_precision": 1.0,
+   "field_recall": 1.0,
+   "qn_f1": 1.0,
+   "param_jaccard": 0.0,
+   "n_fields": {
+    "reference": 1,
+    "generated": 1,
+    "reference_raw": 1,
+    "generated_raw": 1
+   },
+   "n_ref_fields": 1,
+   "missed": []
+  },
+  {
+   "page": "Triplets",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 1.0,
+   "original_qn_f1": 1.0,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 623.6,
+   "n_tool_calls": 4,
+   "status": "scored",
+   "field_f1": 0.0,
+   "field_precision": 0.0,
+   "field_recall": 0.0,
+   "qn_f1": 0.0,
+   "param_jaccard": 0.0,
+   "n_fields": {
+    "reference": 1,
+    "generated": 3,
+    "reference_raw": 1,
+    "generated_raw": 3
+   },
+   "n_ref_fields": 1,
+   "missed": [
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ]
+   ]
+  },
+  {
+   "page": "VLQ",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 0.4,
+   "original_qn_f1": 0.0,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 562.1,
+   "n_tool_calls": 4,
+   "status": "scored",
+   "field_f1": 0.267,
+   "field_precision": 0.182,
+   "field_recall": 0.5,
+   "qn_f1": 0.0,
+   "param_jaccard": 0.0,
+   "n_fields": {
+    "reference": 4,
+    "generated": 11,
+    "reference_raw": 24,
+    "generated_raw": 11
+   },
+   "n_ref_fields": 4,
+   "missed": [
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ]
+   ]
+  },
+  {
+   "page": "LeptoQuark",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 0.0,
+   "original_qn_f1": 0.4,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 305.5,
+   "n_tool_calls": 4,
+   "status": "scored",
+   "field_f1": 0.0,
+   "field_precision": 0.0,
+   "field_recall": 0.0,
+   "qn_f1": 0.444,
+   "param_jaccard": 0.0,
+   "n_fields": {
+    "reference": 6,
+    "generated": 3,
+    "reference_raw": 6,
+    "generated_raw": 3
+   },
+   "n_ref_fields": 6,
+   "missed": [
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Y",
+      "-1/2"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ]
+   ]
+  },
+  {
+   "page": "Wprime",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "clean",
+   "original_field_f1": 0.667,
+   "original_qn_f1": 0.667,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 282.9,
+   "n_tool_calls": 5,
+   "status": "scored",
+   "field_f1": 0.667,
+   "field_precision": 0.5,
+   "field_recall": 1.0,
+   "qn_f1": 0.667,
+   "param_jaccard": 0.25,
+   "n_fields": {
+    "reference": 1,
+    "generated": 2,
+    "reference_raw": 1,
+    "generated_raw": 2
+   },
+   "n_ref_fields": 1,
+   "missed": []
+  },
+  {
+   "page": "MSSMD",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 0.5,
+   "original_qn_f1": 0.468,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 265.0,
+   "n_tool_calls": 4,
+   "status": "scored",
+   "field_f1": 0.267,
+   "field_precision": 1.0,
+   "field_recall": 0.154,
+   "qn_f1": 0.3,
+   "param_jaccard": 0.01,
+   "n_fields": {
+    "reference": 39,
+    "generated": 6,
+    "reference_raw": 60,
+    "generated_raw": 6
+   },
+   "n_ref_fields": 39,
+   "missed": [
+    [
+     "F",
+     "octet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "-1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "-1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ]
+   ]
+  },
+  {
+   "page": "CHEIDI",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 1.0,
+   "original_qn_f1": 1.0,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 560.7,
+   "n_tool_calls": 5,
+   "status": "scored",
+   "field_f1": 0.222,
+   "field_precision": 0.125,
+   "field_recall": 1.0,
+   "qn_f1": 0.222,
+   "param_jaccard": 0.0,
+   "n_fields": {
+    "reference": 1,
+    "generated": 8,
+    "reference_raw": 1,
+    "generated_raw": 8
+   },
+   "n_ref_fields": 1,
+   "missed": []
+  },
+  {
+   "page": "HiggsCharacterisation",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 1.0,
+   "original_qn_f1": 1.0,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 455.9,
+   "n_tool_calls": 5,
+   "status": "scored",
+   "field_f1": 1.0,
+   "field_precision": 1.0,
+   "field_recall": 1.0,
+   "qn_f1": 1.0,
+   "param_jaccard": 0.449,
+   "n_fields": {
+    "reference": 3,
+    "generated": 3,
+    "reference_raw": 3,
+    "generated_raw": 3
+   },
+   "n_ref_fields": 3,
+   "missed": []
+  },
+  {
+   "page": "NJLComposite",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "clean",
+   "original_field_f1": 0.8,
+   "original_qn_f1": 0.8,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 395.2,
+   "n_tool_calls": 4,
+   "status": "scored",
+   "field_f1": 0.5,
+   "field_precision": 1.0,
+   "field_recall": 0.333,
+   "qn_f1": 0.5,
+   "param_jaccard": 0.0,
+   "n_fields": {
+    "reference": 18,
+    "generated": 6,
+    "reference_raw": 18,
+    "generated_raw": 6
+   },
+   "n_ref_fields": 18,
+   "missed": []
+  },
+  {
+   "page": "VLC_LN",
+   "variant": "v2",
+   "seed": 1,
+   "original_verdict": "OWN REFERENCE READ",
+   "original_field_f1": 0.615,
+   "original_qn_f1": 0.615,
+   "read_paper": true,
+   "contaminated": false,
+   "seconds": 522.5,
+   "n_tool_calls": 4,
+   "status": "scored",
+   "field_f1": 0.308,
+   "field_precision": 0.222,
+   "field_recall": 0.5,
+   "qn_f1": 0.615,
+   "param_jaccard": 0.0,
+   "n_fields": {
+    "reference": 4,
+    "generated": 9,
+    "reference_raw": 30,
+    "generated_raw": 9
+   },
+   "n_ref_fields": 4,
+   "missed": [
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  }
+ ]
+}

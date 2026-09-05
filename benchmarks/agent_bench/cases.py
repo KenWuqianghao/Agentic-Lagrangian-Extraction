@@ -75,11 +75,17 @@ def _archive_value_matches(workdir: Path, ctx: Dict[str, Any]) -> Dict[str, Any]
     Ground truth is fetched live rather than hardcoded, so the case does not
     silently rot when the archive updates.
     """
-    import sys
-    sys.path.insert(0, str(Path(ctx["heptapod"])))
-    from tools.exoplanet.archive_interface import ExoplanetArchive
+    # The archive client lives in the aster toolkit now (migrated out of
+    # heptapod). Loaded by file path: importing through the aster_toolkit
+    # package would pull the TauREx stack, which the scorer does not need.
+    import importlib.util
+    mod_path = (Path(ctx["aster"]) / "aster_toolkit" / "measurements"
+                / "archive_interface.py")
+    spec = importlib.util.spec_from_file_location("_aster_archive", mod_path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
 
-    rows = ExoplanetArchive().query(
+    rows = mod.ExoplanetArchive().query(
         "select count(*) as n from ps where pl_name='HD 189733 b'")
     truth = int(rows[0]["n"])
 
@@ -125,6 +131,9 @@ def default_cases() -> List[Case]:
                 "disagreement between references."
             ),
             required_tools=["MeasurementDisagreementTool"],
+            # Served by the aster toolkit since the exoplanet bundle moved
+            # out of heptapod; the bench MCP config must serve aster too.
+            needs_external=["aster-toolkit"],
             timeout_s=600,
             scorer=_archive_value_matches,
         ),

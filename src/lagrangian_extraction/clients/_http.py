@@ -9,9 +9,11 @@ from typing import Any
 from urllib.parse import urlparse
 
 import httpx
-from tenacity import retry, retry_if_exception, stop_after_attempt, wait_exponential_jitter
+from tenacity import RetryCallState, retry, retry_if_exception, stop_after_attempt
 
 from lagrangian_extraction.config import HttpConfig, RateLimitConfig
+
+ARXIV_HOSTS = frozenset({"export.arxiv.org", "arxiv.org"})
 
 
 class TokenBucket:
@@ -42,6 +44,24 @@ def _is_retryable(exc: BaseException) -> bool:
     return isinstance(exc, httpx.TransportError)
 
 
+def _retry_wait_seconds(retry_state: RetryCallState) -> float:
+    """Honor Retry-After on 429; otherwise exponential backoff (arXiv omits the header)."""
+    if retry_state.outcome is not None:
+        exc = retry_state.outcome.exception()
+        if isinstance(exc, httpx.HTTPStatusError) and exc.response.status_code == 429:
+            retry_after = exc.response.headers.get("Retry-After")
+            if retry_after:
+                try:
+                    return max(float(retry_after), 3.0)
+                except ValueError:
+                    pass
+            # arXiv often returns 429 without Retry-After after burst traffic.
+            attempt = retry_state.attempt_number
+            return min(15.0 * (2 ** (attempt - 1)), 120.0)
+    attempt = retry_state.attempt_number
+    return min(3.0 * (2 ** (attempt - 1)), 60.0)
+
+
 class RateLimitedClient:
     """httpx wrapper that enforces per-host rate limits and retries."""
 
@@ -56,18 +76,15 @@ class RateLimitedClient:
             headers={"User-Agent": self._http_config.user_agent},
             follow_redirects=True,
         )
+        # arXiv rate-limits by IP across export.arxiv.org and arxiv.org — one shared bucket.
+        self._arxiv_bucket = TokenBucket(
+            rate_limits.arxiv_max_requests,
+            rate_limits.arxiv_window_seconds,
+        )
         self._buckets: dict[str, TokenBucket] = {
             "inspirehep.net": TokenBucket(
                 rate_limits.inspire_max_requests,
                 rate_limits.inspire_window_seconds,
-            ),
-            "export.arxiv.org": TokenBucket(
-                rate_limits.arxiv_max_requests,
-                rate_limits.arxiv_window_seconds,
-            ),
-            "arxiv.org": TokenBucket(
-                rate_limits.arxiv_max_requests,
-                rate_limits.arxiv_window_seconds,
             ),
         }
         self._default_bucket = TokenBucket(10, 1.0)
@@ -76,19 +93,26 @@ class RateLimitedClient:
         host = urlparse(url).netloc.lower()
         if host.startswith("www."):
             host = host[4:]
+        if host in ARXIV_HOSTS:
+            return self._arxiv_bucket
         return self._buckets.get(host, self._default_bucket)
 
-    @retry(
-        retry=retry_if_exception(_is_retryable),
-        stop=stop_after_attempt(3),
-        wait=wait_exponential_jitter(initial=1, max=30),
-        reraise=True,
-    )
     def get(self, url: str, **kwargs: Any) -> httpx.Response:
-        self._bucket_for(url).acquire()
-        response = self._client.get(url, **kwargs)
-        response.raise_for_status()
-        return response
+        max_attempts = self._http_config.max_retries
+
+        @retry(
+            retry=retry_if_exception(_is_retryable),
+            stop=stop_after_attempt(max_attempts),
+            wait=_retry_wait_seconds,
+            reraise=True,
+        )
+        def _do_get() -> httpx.Response:
+            self._bucket_for(url).acquire()
+            response = self._client.get(url, **kwargs)
+            response.raise_for_status()
+            return response
+
+        return _do_get()
 
     def close(self) -> None:
         self._client.close()

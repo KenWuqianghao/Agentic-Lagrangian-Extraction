@@ -12,7 +12,7 @@ from lagrangian_extraction.models import SearchQuery
 from lagrangian_extraction.pipeline.search import run_search
 
 app = typer.Typer(
-    name="lex",
+    name="lag-extract",
     help="Lagrangian Extraction — Stage 1 literature search (INSPIRE + arXiv).",
     no_args_is_help=True,
 )
@@ -43,6 +43,11 @@ def search_command(
     ),
     download_pdfs: bool = typer.Option(True, "--download-pdfs/--no-download-pdfs"),
     extract_text: bool = typer.Option(True, "--extract-text/--no-extract-text"),
+    skip_arxiv: bool = typer.Option(
+        False,
+        "--skip-arxiv",
+        help="Search INSPIRE only (useful when arXiv API is rate-limiting your IP).",
+    ),
     w_cite: float = typer.Option(0.7, "--w-cite", help="Citation weight for combined ranking."),
     w_recent: float = typer.Option(0.3, "--w-recent", help="Recency weight for combined ranking."),
     out: Path = typer.Option(Path("runs"), "--out", help="Directory for audit JSON logs."),
@@ -64,6 +69,7 @@ def search_command(
         sort=sort,  # type: ignore[arg-type]
         download_pdfs=download_pdfs,
         extract_text=extract_text,
+        skip_arxiv=skip_arxiv,
     )
 
     settings = Settings(

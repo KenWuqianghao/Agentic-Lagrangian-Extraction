@@ -47,7 +47,7 @@ class HttpConfig:
 
     user_agent: str = "LagrangianExtraction/0.1 (mailto:ken.wu@uwaterloo.ca)"
     timeout_seconds: float = 30.0
-    max_retries: int = 3
+    max_retries: int = 5
 
 
 @dataclass

@@ -11,8 +11,9 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -e ".[dev]"
 
-# Search for scalar leptoquark papers
-lex search "scalar leptoquark" \
+# Search for scalar leptoquark papers (CLI is `lag-extract`, not `lex` — macOS ships
+# /usr/bin/lex as the flex lexer, which conflicts if the package is not installed)
+lag-extract search "scalar leptoquark" \
   --keywords BSM --keywords leptoquark \
   --top-k 10 \
   --since 2015-01-01 \
@@ -29,6 +30,7 @@ lex search "scalar leptoquark" \
 | `--sort` | `combined` | `combined`, `mostcited`, or `mostrecent` |
 | `--download-pdfs / --no-download-pdfs` | on | Download arXiv PDFs |
 | `--extract-text / --no-extract-text` | on | Extract text with PyMuPDF |
+| `--skip-arxiv` | off | INSPIRE-only search (skip arXiv API; use if rate-limited) |
 | `--w-cite` | 0.7 | Citation weight (combined ranking) |
 | `--w-recent` | 0.3 | Recency weight (combined ranking) |
 | `--out` | `runs/` | Audit log output directory |
@@ -47,7 +49,7 @@ The audit JSON includes the exact INSPIRE and arXiv URLs queried, raw hit counts
 ## Architecture
 
 ```
-CLI (lex search)
+CLI (lag-extract search)
   └─ run_search()
        ├─ InspireClient  → INSPIRE-HEP REST API (15 req / 5 s)
        ├─ ArxivClient    → arXiv Atom API (1 req / 3 s)

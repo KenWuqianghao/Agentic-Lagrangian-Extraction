@@ -1,0 +1,96 @@
+{
+ "availability": {
+  "claude_code": {
+   "available": true,
+   "reason": null
+  },
+  "codex": {
+   "available": false,
+   "reason": "codex CLI present but this account has no usage left; verified by a run that returned 'You've hit your usage limit'"
+  },
+  "orchestral": {
+   "available": false,
+   "reason": "no provider key set (OPENAI_API_KEY / GEMINI_API_KEY / GROQ_API_KEY)"
+  }
+ },
+ "n_cases": 2,
+ "n_rows": 2,
+ "n_ran": 2,
+ "n_passed": 1,
+ "rows": [
+  {
+   "case_id": "t1-arxiv-astro-search",
+   "tier": 1,
+   "driver": "claude_code",
+   "model": "default",
+   "status": "ran",
+   "wall_seconds": 20.2,
+   "n_tool_calls": 2,
+   "n_failed_tool_calls": 0,
+   "tools_used": [
+    "ToolSearch",
+    "mcp__heptapod__Arxivsearch"
+   ],
+   "required_tool_coverage": {
+    "required": [
+     "ArxivSearchTool"
+    ],
+    "called": [
+     "ToolSearch",
+     "mcp__heptapod__Arxivsearch"
+    ],
+    "missing": [
+     "ArxivSearchTool"
+    ],
+    "satisfied": false
+   },
+   "score": {
+    "scored": false,
+    "reason": "no scorer; inspect the artifacts by hand"
+   },
+   "notes": [
+    "no toolbase log found; tool facts come from the harness stream, which reports intent rather than what the tool server actually executed"
+   ],
+   "workdir": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/agent_bench_runs/20260818-044508/t1-arxiv-astro-search__claude_code__default"
+  },
+  {
+   "case_id": "t2-exoplanet-disagreement",
+   "tier": 2,
+   "driver": "claude_code",
+   "model": "default",
+   "status": "ran",
+   "wall_seconds": 103.9,
+   "n_tool_calls": 5,
+   "n_failed_tool_calls": 0,
+   "tools_used": [
+    "Bash",
+    "ToolSearch",
+    "WebFetch"
+   ],
+   "required_tool_coverage": {
+    "required": [
+     "MeasurementDisagreementTool"
+    ],
+    "called": [
+     "Bash",
+     "ToolSearch",
+     "WebFetch"
+    ],
+    "missing": [
+     "MeasurementDisagreementTool"
+    ],
+    "satisfied": false
+   },
+   "score": {
+    "scored": true,
+    "passed": true,
+    "expected": 21,
+    "reason": "agent reported the archive's row count"
+   },
+   "notes": [
+    "no toolbase log found; tool facts come from the harness stream, which reports intent rather than what the tool server actually executed"
+   ],
+   "workdir": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/agent_bench_runs/20260818-044508/t2-exoplanet-disagreement__claude_code__default"
+  }
+ ]
+}

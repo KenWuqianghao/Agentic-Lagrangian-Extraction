@@ -1,0 +1,37 @@
+{
+ "lag_symbol": "LpSPSS",
+ "lag_resolution": {
+  "roots": [
+   "LpSPSS"
+  ],
+  "legacy_symbol": "LpSPSS",
+  "n_terms_defined": 5,
+  "ambiguous": false,
+  "changed_from_legacy": false
+ },
+ "compile_ok": true,
+ "timed_out": false,
+ "exit": 0,
+ "seconds": 256.3,
+ "ufo_files": [
+  "particles.py",
+  "parameters.py",
+  "couplings.py",
+  "vertices.py",
+  "lorentz.py"
+ ],
+ "checks": {
+  "hermiticity": true,
+  "kinetic_terms": true,
+  "mass_spectrum": true
+ },
+ "protected_symbol_errors": 3,
+ "log_tail": "",
+ "n_particles_ufo": 26,
+ "madgraph_import_ok": false,
+ "mg5_particles": null,
+ "lepton_number_violation": false,
+ "mg5_tail": "ers/kenwu/MG5_aMC/models/import_ufo.py\", line 251, in import_model\n    model = import_full_model(model_path, decay, prefix)\n  File \"/Users/kenwu/MG5_aMC/models/import_ufo.py\", line 413, in import_full_model\n    ufo_model = ufomodels.load_model(model_path, decay)\n  File \"/Users/kenwu/MG5_aMC/models/__init__.py\", line 101, in load_model\n    raise UFOError(str(error))\nmodels.UFOError: invalid syntax (object_library.py, line 268)\n\u001b[1;31mCommand \"import /private/tmp/rerun_bench/v2_s1/mg5run/mg5_import.txt\" interrupted in sub-command:\n\"import model /tmp/rerun_bench/v2_s1/pSPSS_UFO\" with error:\nUFOError : invalid syntax (object_library.py, line 268)\nPlease report this bug on https://bugs.launchpad.net/mg5amcnlo\nMore information is found in 'MG5_debug'.\nPlease attach this file to your report.\u001b[0m\n",
+ "status": "compiled",
+ "full_chain_pass": false
+}

@@ -1,0 +1,55 @@
+{
+ "availability": {
+  "claude_code": {
+   "available": true,
+   "reason": null
+  },
+  "codex": {
+   "available": false,
+   "reason": "codex CLI present but this account has no usage left; verified by a run that returned 'You've hit your usage limit'"
+  },
+  "orchestral": {
+   "available": false,
+   "reason": "no provider key set (OPENAI_API_KEY / GEMINI_API_KEY / GROQ_API_KEY)"
+  }
+ },
+ "n_cases": 1,
+ "n_rows": 1,
+ "n_ran": 1,
+ "n_passed": 0,
+ "rows": [
+  {
+   "case_id": "t1-arxiv-astro-search",
+   "tier": 1,
+   "driver": "claude_code",
+   "model": "default",
+   "status": "ran",
+   "wall_seconds": 21.8,
+   "n_tool_calls": 3,
+   "n_failed_tool_calls": 1,
+   "tools_used": [
+    "ToolSearch",
+    "mcp__heptapod__Arxivsearch"
+   ],
+   "required_tool_coverage": {
+    "required": [
+     "ArxivSearchTool"
+    ],
+    "called": [
+     "ToolSearch",
+     "mcp__heptapod__Arxivsearch"
+    ],
+    "missing": [],
+    "satisfied": true
+   },
+   "score": {
+    "scored": false,
+    "reason": "no scorer; inspect the artifacts by hand"
+   },
+   "notes": [
+    "no toolbase log found; tool facts come from the harness stream, which reports intent rather than what the tool server actually executed"
+   ],
+   "workdir": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/agent_bench_runs/20260818-044943/t1-arxiv-astro-search__claude_code__default"
+  }
+ ]
+}

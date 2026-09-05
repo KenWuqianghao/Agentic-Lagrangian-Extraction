@@ -1,0 +1,165 @@
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+From kernel 1 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+From kernel 2 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+From kernel 3 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+From kernel 4 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+From kernel 5 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+
+General::stop: Further output of Warning: Doubly defined particle classes. will be suppressed during this calculation.
+From kernel 4 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 5 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 8 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 1 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 2 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+
+General::stop: Further output of Warning : All particles should have different names. will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of LoadModel::Part will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of LoadModel::Part will be suppressed during this calculation.
+From kernel 8 (Local):
+General::stop: Further output of LoadModel::Part will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of LoadModel::Part will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of LoadModel::Part will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+From kernel 5 (Local):
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 8 (Local):
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 3 (Local):
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 4 (Local):
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 5 (Local):
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of `1` is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing. will be suppressed during this calculation.
+Merging model-files...
+
+MergeModels::Particles: Warning: Doubly defined particle classes.
+This model implementation was created by
+A. Das
+P. S. Bhupal Dev
+Y. Hosotani
+S. Mandal
+Model Version: 1.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+
+LoadModel::Part: Warning : All particles should have different names.
+
+LoadModel::Part: Warning : All particles should have different names.
+
+LoadModel::Part: Warning : All particles should have different names.
+
+General::stop: Further output of LoadModel::Part will be suppressed during this calculation.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+
+Model GeneralU1_gen loaded.
+[INFO] Total Lagrangian: LSM + LTotal
+[INFO] Running FeynRules consistency checks.
+HEPTAPOD-CHECK-BEGIN: hermiticity
+Checking for hermiticity by calculating the Feynman rules contained in L-HC[L].
+If the lagrangian is hermitian, then the number of vertices should be zero.
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+No vertices found.
+0 vertices obtained.
+The lagrangian is hermitian.
+HEPTAPOD-CHECK-END: hermiticity
+HEPTAPOD-CHECK-BEGIN: kinetic_terms
+Neglecting all terms with more than 2 particles.
+All kinetic terms are diagonal.
+HEPTAPOD-CHECK-END: kinetic_terms
+HEPTAPOD-CHECK-BEGIN: mass_spectrum
+Neglecting all terms with more than 2 particles.
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -(Conjugate[CKM[Index[Generation, 3], Index[Generation, 3]]]*Conjugate[yd[Index[Generation, 3], Index[Generation, 3]]]*bbar[Index[Spin, r$18490], Index[Colour, cc]] . t[Index[Spin, r$18491], Index[Colour, cc]]*HC[Phi[1]]*ProjM[Index[Spin, r$18490], Index[Spin, r$18491]]) - Conjugate[CKM[Index[Generation, 3], Index[Generation, 3]]]*Conjugate[yd[Index[Generation, 3], Index[Generation, 3]]]*bbar[Index[Spin, r$18639], Index[Colour, cc]] . t[Index[Spin, r$18640], Index[Colour, cc]]*HC[Phi[1]]*ProjM[Index[Spin, r$18639], Index[Spin, r$18640]] + Conjugate[CKM[Index[Generation, 3], Index[Generation, 3]]]*bbar[Index[Spin, sp2$18486], Index[Colour, cc]] . t[Index[Spin, sp2$18484], Index[Colour, cc]]*Phibar[1]*ProjP[Index[Spin, sp2$18486], Index[Spin, sp2$18484]]*yu[Index[Generation, 3], Index[Generation, 3]] + Conjugate[CKM[Index[Generation, 3], Index[Generation, 3]]]*bbar[Index[Spin, sp2$18635], Index[Colour, cc]] . t[Index[Spin, sp2$18633], Index[Colour, cc]]*Phibar[1]*ProjP[Index[Spin, sp2$18635], Index[Spin, sp2$18633]]*yu[Index[Generation, 3], Index[Generation, 3]]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -(Conjugate[CKM[Index[Generation, 2], Index[Generation, 1]]]*Conjugate[yd[Index[Generation, 1], Index[Generation, 1]]]*dbar[Index[Spin, r$18490], Index[Colour, cc]] . c[Index[Spin, r$18491], Index[Colour, cc]]*HC[Phi[1]]*ProjM[Index[Spin, r$18490], Index[Spin, r$18491]]) - Conjugate[CKM[Index[Generation, 2], Index[Generation, 1]]]*Conjugate[yd[Index[Generation, 1], Index[Generation, 1]]]*dbar[Index[Spin, r$18639], Index[Colour, cc]] . c[Index[Spin, r$18640], Index[Colour, cc]]*HC[Phi[1]]*ProjM[Index[Spin, r$18639], Index[Spin, r$18640]] + Conjugate[CKM[Index[Generation, 2], Index[Generation, 1]]]*dbar[Index[Spin, sp2$18486], Index[Colour, cc]] . c[Index[Spin, sp2$18484], Index[Colour, cc]]*Phibar[1]*ProjP[Index[Spin, sp2$18486], Index[Spin, sp2$18484]]*yu[Index[Generation, 2], Index[Generation, 2]] + Conjugate[CKM[Index[Generation, 2], Index[Generation, 1]]]*dbar[Index[Spin, sp2$18635], Index[Colour, cc]] . c[Index[Spin, sp2$18633], Index[Colour, cc]]*Phibar[1]*ProjP[Index[Spin, sp2$18635], Index[Spin, sp2$18633]]*yu[Index[Generation, 2], Index[Generation, 2]]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -(Conjugate[CKM[Index[Generation, 1], Index[Generation, 1]]]*Conjugate[yd[Index[Generation, 1], Index[Generation, 1]]]*dbar[Index[Spin, r$18490], Index[Colour, cc]] . u[Index[Spin, r$18491], Index[Colour, cc]]*HC[Phi[1]]*ProjM[Index[Spin, r$18490], Index[Spin, r$18491]]) - Conjugate[CKM[Index[Generation, 1], Index[Generation, 1]]]*Conjugate[yd[Index[Generation, 1], Index[Generation, 1]]]*dbar[Index[Spin, r$18639], Index[Colour, cc]] . u[Index[Spin, r$18640], Index[Colour, cc]]*HC[Phi[1]]*ProjM[Index[Spin, r$18639], Index[Spin, r$18640]] + Conjugate[CKM[Index[Generation, 1], Index[Generation, 1]]]*dbar[Index[Spin, sp2$18486], Index[Colour, cc]] . u[Index[Spin, sp2$18484], Index[Colour, cc]]*Phibar[1]*ProjP[Index[Spin, sp2$18486], Index[Spin, sp2$18484]]*yu[Index[Generation, 1], Index[Generation, 1]] + Conjugate[CKM[Index[Generation, 1], Index[Generation, 1]]]*dbar[Index[Spin, sp2$18635], Index[Colour, cc]] . u[Index[Spin, sp2$18633], Index[Colour, cc]]*Phibar[1]*ProjP[Index[Spin, sp2$18635], Index[Spin, sp2$18633]]*yu[Index[Generation, 1], Index[Generation, 1]]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -(Conjugate[CKM[Index[Generation, 2], Index[Generation, 2]]]*Conjugate[yd[Index[Generation, 2], Index[Generation, 2]]]*sbar[Index[Spin, r$18490], Index[Colour, cc]] . c[Index[Spin, r$18491], Index[Colour, cc]]*HC[Phi[1]]*ProjM[Index[Spin, r$18490], Index[Spin, r$18491]]) - Conjugate[CKM[Index[Generation, 2], Index[Generation, 2]]]*Conjugate[yd[Index[Generation, 2], Index[Generation, 2]]]*sbar[Index[Spin, r$18639], Index[Colour, cc]] . c[Index[Spin, r$18640], Index[Colour, cc]]*HC[Phi[1]]*ProjM[Index[Spin, r$18639], Index[Spin, r$18640]] + Conjugate[CKM[Index[Generation, 2], Index[Generation, 2]]]*sbar[Index[Spin, sp2$18486], Index[Colour, cc]] . c[Index[Spin, sp2$18484], Index[Colour, cc]]*Phibar[1]*ProjP[Index[Spin, sp2$18486], Index[Spin, sp2$18484]]*yu[Index[Generation, 2], Index[Generation, 2]] + Conjugate[CKM[Index[Generation, 2], Index[Generation, 2]]]*sbar[Index[Spin, sp2$18635], Index[Colour, cc]] . c[Index[Spin, sp2$18633], Index[Colour, cc]]*Phibar[1]*ProjP[Index[Spin, sp2$18635], Index[Spin, sp2$18633]]*yu[Index[Generation, 2], Index[Generation, 2]]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -(Conjugate[CKM[Index[Generation, 1], Index[Generation, 2]]]*Conjugate[yd[Index[Generation, 2], Index[Generation, 2]]]*sbar[Index[Spin, r$18490], Index[Colour, cc]] . u[Index[Spin, r$18491], Index[Colour, cc]]*HC[Phi[1]]*ProjM[Index[Spin, r$18490], Index[Spin, r$18491]]) - Conjugate[CKM[Index[Generation, 1], Index[Generation, 2]]]*Conjugate[yd[Index[Generation, 2], Index[Generation, 2]]]*sbar[Index[Spin, r$18639], Index[Colour, cc]] . u[Index[Spin, r$18640], Index[Colour, cc]]*HC[Phi[1]]*ProjM[Index[Spin, r$18639], Index[Spin, r$18640]] + Conjugate[CKM[Index[Generation, 1], Index[Generation, 2]]]*sbar[Index[Spin, sp2$18486], Index[Colour, cc]] . u[Index[Spin, sp2$18484], Index[Colour, cc]]*Phibar[1]*ProjP[Index[Spin, sp2$18486], Index[Spin, sp2$18484]]*yu[Index[Generation, 1], Index[Generation, 1]] + Conjugate[CKM[Index[Generation, 1], Index[Generation, 2]]]*sbar[Index[Spin, sp2$18635], Index[Colour, cc]] . u[Index[Spin, sp2$18633], Index[Colour, cc]]*Phibar[1]*ProjP[Index[Spin, sp2$18635], Index[Spin, sp2$18633]]*yu[Index[Generation, 1], Index[Generation, 1]]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: CKM[Index[Generation, 2], Index[Generation, 1]]*Conjugate[yu[Index[Generation, 2], Index[Generation, 2]]]*cbar[Index[Spin, r$18495], Index[Colour, cc]] . d[Index[Spin, r$18496], Index[Colour, cc]]*HC[Phibar[1]]*ProjM[Index[Spin, r$18495], Index[Spin, r$18496]] + CKM[Index[Generation, 2], Index[Generation, 1]]*Conjugate[yu[Index[Generation, 2], Index[Generation, 2]]]*cbar[Index[Spin, r$18644], Index[Colour, cc]] . d[Index[Spin, r$18645], Index[Colour, cc]]*HC[Phibar[1]]*ProjM[Index[Spin, r$18644], Index[Spin, r$18645]] - CKM[Index[Generation, 2], Index[Generation, 1]]*cbar[Index[Spin, sp2$18488], Index[Colour, cc]] . d[Index[Spin, sp2$18482], Index[Colour, cc]]*Phi[1]*ProjP[Index[Spin, sp2$18488], Index[Spin, sp2$18482]]*yd[Index[Generation, 1], Index[Generation, 1]] - CKM[Index[Generation, 2], Index[Generation, 1]]*cbar[Index[Spin, sp2$18637], Index[Colour, cc]] . d[Index[Spin, sp2$18631], Index[Colour, cc]]*Phi[1]*ProjP[Index[Spin, sp2$18637], Index[Spin, sp2$18631]]*yd[Index[Generation, 1], Index[Generation, 1]]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: CKM[Index[Generation, 2], Index[Generation, 2]]*Conjugate[yu[Index[Generation, 2], Index[Generation, 2]]]*cbar[Index[Spin, r$18495], Index[Colour, cc]] . s[Index[Spin, r$18496], Index[Colour, cc]]*HC[Phibar[1]]*ProjM[Index[Spin, r$18495], Index[Spin, r$18496]] + CKM[Index[Generation, 2], Index[Generation, 2]]*Conjugate[yu[Index[Generation, 2], Index[Generation, 2]]]*cbar[Index[Spin, r$18644], Index[Colour, cc]] . s[Index[Spin, r$18645], Index[Colour, cc]]*HC[Phibar[1]]*ProjM[Index[Spin, r$18644], Index[Spin, r$18645]] - CKM[Index[Generation, 2], Index[Generation, 2]]*cbar[Index[Spin, sp2$18488], Index[Colour, cc]] . s[Index[Spin, sp2$18482], Index[Colour, cc]]*Phi[1]*ProjP[Index[Spin, sp2$18488], Index[Spin, sp2$18482]]*yd[Index[Generation, 2], Index[Generation, 2]] - CKM[Index[Generation, 2], Index[Generation, 2]]*cbar[Index[Spin, sp2$18637], Index[Colour, cc]] . s[Index[Spin, sp2$18631], Index[Colour, cc]]*Phi[1]*ProjP[Index[Spin, sp2$18637], Index[Spin, sp2$18631]]*yd[Index[Generation, 2], Index[Generation, 2]]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: CKM[Index[Generation, 3], Index[Generation, 3]]*Conjugate[yu[Index[Generation, 3], Index[Generation, 3]]]*tbar[Index[Spin, r$18495], Index[Colour, cc]] . b[Index[Spin, r$18496], Index[Colour, cc]]*HC[Phibar[1]]*ProjM[Index[Spin, r$18495], Index[Spin, r$18496]] + CKM[Index[Generation, 3], Index[Generation, 3]]*Conjugate[yu[Index[Generation, 3], Index[Generation, 3]]]*tbar[Index[Spin, r$18644], Index[Colour, cc]] . b[Index[Spin, r$18645], Index[Colour, cc]]*HC[Phibar[1]]*ProjM[Index[Spin, r$18644], Index[Spin, r$18645]] - CKM[Index[Generation, 3], Index[Generation, 3]]*tbar[Index[Spin, sp2$18488], Index[Colour, cc]] . b[Index[Spin, sp2$18482], Index[Colour, cc]]*Phi[1]*ProjP[Index[Spin, sp2$18488], Index[Spin, sp2$18482]]*yd[Index[Generation, 3], Index[Generation, 3]] - CKM[Index[Generation, 3], Index[Generation, 3]]*tbar[Index[Spin, sp2$18637], Index[Colour, cc]] . b[Index[Spin, sp2$18631], Index[Colour, cc]]*Phi[1]*ProjP[Index[Spin, sp2$18637], Index[Spin, sp2$18631]]*yd[Index[Generation, 3], Index[Generation, 3]]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: CKM[Index[Generation, 1], Index[Generation, 1]]*Conjugate[yu[Index[Generation, 1], Index[Generation, 1]]]*ubar[Index[Spin, r$18495], Index[Colour, cc]] . d[Index[Spin, r$18496], Index[Colour, cc]]*HC[Phibar[1]]*ProjM[Index[Spin, r$18495], Index[Spin, r$18496]] + CKM[Index[Generation, 1], Index[Generation, 1]]*Conjugate[yu[Index[Generation, 1], Index[Generation, 1]]]*ubar[Index[Spin, r$18644], Index[Colour, cc]] . d[Index[Spin, r$18645], Index[Colour, cc]]*HC[Phibar[1]]*ProjM[Index[Spin, r$18644], Index[Spin, r$18645]] - CKM[Index[Generation, 1], Index[Generation, 1]]*ubar[Index[Spin, sp2$18488], Index[Colour, cc]] . d[Index[Spin, sp2$18482], Index[Colour, cc]]*Phi[1]*ProjP[Index[Spin, sp2$18488], Index[Spin, sp2$18482]]*yd[Index[Generation, 1], Index[Generation, 1]] - CKM[Index[Generation, 1], Index[Generation, 1]]*ubar[Index[Spin, sp2$18637], Index[Colour, cc]] . d[Index[Spin, sp2$18631], Index[Colour, cc]]*Phi[1]*ProjP[Index[Spin, sp2$18637], Index[Spin, sp2$18631]]*yd[Index[Generation, 1], Index[Generation, 1]]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: CKM[Index[Generation, 1], Index[Generation, 2]]*Conjugate[yu[Index[Generation, 1], Index[Generation, 1]]]*ubar[Index[Spin, r$18495], Index[Colour, cc]] . s[Index[Spin, r$18496], Index[Colour, cc]]*HC[Phibar[1]]*ProjM[Index[Spin, r$18495], Index[Spin, r$18496]] + CKM[Index[Generation, 1], Index[Generation, 2]]*Conjugate[yu[Index[Generation, 1], Index[Generation, 1]]]*ubar[Index[Spin, r$18644], Index[Colour, cc]] . s[Index[Spin, r$18645], Index[Colour, cc]]*HC[Phibar[1]]*ProjM[Index[Spin, r$18644], Index[Spin, r$18645]] - CKM[Index[Generation, 1], Index[Generation, 2]]*ubar[Index[Spin, sp2$18488], Index[Colour, cc]] . s[Index[Spin, sp2$18482], Index[Colour, cc]]*Phi[1]*ProjP[Index[Spin, sp2$18488], Index[Spin, sp2$18482]]*yd[Index[Generation, 2], Index[Generation, 2]] - CKM[Index[Generation, 1], Index[Generation, 2]]*ubar[Index[Spin, sp2$18637], Index[Colour, cc]] . s[Index[Spin, sp2$18631], Index[Colour, cc]]*Phi[1]*ProjP[Index[Spin, sp2$18637], Index[Spin, sp2$18631]]*yd[Index[Generation, 2], Index[Generation, 2]]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -1/2*(phiX*bar[N1[Index[Spin, sp2$18709]]*ProjM[Index[Spin, sp], Index[Spin, sp2$18709]]] . N1[Index[Spin, sp2$18708]]*ProjP[Index[Spin, sp], Index[Spin, sp2$18708]]*yN[Index[Generation, 1], Index[Generation, 1]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -1/2*(phiX*bar[N2[Index[Spin, sp2$18709]]*ProjM[Index[Spin, sp], Index[Spin, sp2$18709]]] . N2[Index[Spin, sp2$18708]]*ProjP[Index[Spin, sp], Index[Spin, sp2$18708]]*yN[Index[Generation, 2], Index[Generation, 2]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -1/2*(phiX*bar[N3[Index[Spin, sp2$18709]]*ProjM[Index[Spin, sp], Index[Spin, sp2$18709]]] . N3[Index[Spin, sp2$18708]]*ProjP[Index[Spin, sp], Index[Spin, sp2$18708]]*yN[Index[Generation, 3], Index[Generation, 3]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -1/2*(phiX*Conjugate[yN[Index[Generation, 1], Index[Generation, 1]]]*N1bar[Index[Spin, r$18711]] . HC[bar[N1[Index[Spin, sp2$18709]]*ProjM[Index[Spin, sp], Index[Spin, sp2$18709]]]]*TensDot[Ga[0], ProjP][Index[Spin, r$18711], Index[Spin, sp]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -1/2*(phiX*Conjugate[yN[Index[Generation, 2], Index[Generation, 2]]]*N2bar[Index[Spin, r$18712]] . HC[bar[N2[Index[Spin, sp2$18709]]*ProjM[Index[Spin, sp], Index[Spin, sp2$18709]]]]*TensDot[Ga[0], ProjP][Index[Spin, r$18712], Index[Spin, sp]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -1/2*(phiX*Conjugate[yN[Index[Generation, 3], Index[Generation, 3]]]*N3bar[Index[Spin, r$18713]] . HC[bar[N3[Index[Spin, sp2$18709]]*ProjM[Index[Spin, sp], Index[Spin, sp2$18709]]]]*TensDot[Ga[0], ProjP][Index[Spin, r$18713], Index[Spin, sp]])/Sqrt[2]
+HEPTAPOD-CHECK-END: mass_spectrum
+[INFO] UFO output: /tmp/rerun_bench/v2_s1/GeneralU1_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+47 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 47.
+45 vertices obtained.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 45
+   - Saved vertices in InterfaceRun[ 1 ].
+Preparing Python output.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/85 .
+    - Writing files.
+Warning: Non positive interaction order QED.
+                This might reduce the efficiency of certain matrix element generators.
+                See logfile for more details.
+Done!
+[INFO] Done.

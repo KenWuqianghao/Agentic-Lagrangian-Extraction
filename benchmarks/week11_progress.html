@@ -1,0 +1,514 @@
+<title>Week 11 — the exoplanet tools move to ASTER</title>
+
+<style>
+  :root {
+    --paper:#F6F8F9; --raised:#FFFFFF; --ink:#131A21; --ink-2:#46555F;
+    --ink-3:#75858F; --rule:#DDE4E7; --rule-soft:#EAEFF1;
+    --accent:#0B7A87; --accent-dim:#E2F0F1;
+    --pass:#2F7A55; --pass-dim:#E0EFE6;
+    --fixed:#B0761F; --fixed-dim:#F7EEDC;
+    --unfixed:#A63A38; --unfixed-dim:#F6E3E2;
+    --shadow:0 1px 2px rgba(19,26,33,.05), 0 8px 24px -16px rgba(19,26,33,.28);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Source Serif 4",Georgia,serif;
+    --sans:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --paper:#0E1418; --raised:#161E24; --ink:#E6EDF0;
+      --ink-2:#A5B4BC; --ink-3:#74848D; --rule:#26323A; --rule-soft:#1D262C;
+      --accent:#52CFD6; --accent-dim:#122E33; --pass:#5FBF8C; --pass-dim:#132C21;
+      --fixed:#D9A253; --fixed-dim:#2E2415; --unfixed:#E0736F; --unfixed-dim:#2E1917;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8); }
+  }
+  :root[data-theme="dark"] { --paper:#0E1418; --raised:#161E24; --ink:#E6EDF0;
+    --ink-2:#A5B4BC; --ink-3:#74848D; --rule:#26323A; --rule-soft:#1D262C;
+    --accent:#52CFD6; --accent-dim:#122E33; --pass:#5FBF8C; --pass-dim:#132C21;
+    --fixed:#D9A253; --fixed-dim:#2E2415; --unfixed:#E0736F; --unfixed-dim:#2E1917;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8); }
+
+  * { box-sizing:border-box; }
+  body { background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.6; margin:0; padding:0 1.25rem 6rem;
+    -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:62rem; margin:0 auto; }
+  .prose { max-width:40rem; }
+  .prose p + p { margin-top:1rem; }
+  h1,h2,h3 { font-family:var(--serif); font-weight:600; text-wrap:balance; margin:0; }
+  h1 { font-size:clamp(2rem,5vw,3rem); line-height:1.08; letter-spacing:-.015em; }
+  h2 { font-size:clamp(1.4rem,3vw,1.85rem); line-height:1.2; letter-spacing:-.01em; }
+  h3 { font-size:1.06rem; line-height:1.3; }
+  p { margin:0; }
+  a { color:var(--accent); text-underline-offset:2px; }
+  a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+  code { font-family:var(--mono); font-size:.88em; }
+  .eyebrow { font-family:var(--mono); font-size:.7rem; text-transform:uppercase;
+    letter-spacing:.13em; color:var(--ink-3); margin:0; }
+  .num { font-family:var(--mono); font-variant-numeric:tabular-nums; }
+
+  header { padding:4rem 0 2.5rem; border-bottom:1px solid var(--rule); }
+  .lede { font-size:1.12rem; color:var(--ink-2); margin-top:1.25rem; }
+  .meta { margin-top:2rem; display:flex; flex-wrap:wrap; gap:.5rem 1.5rem;
+    font-family:var(--mono); font-size:.76rem; color:var(--ink-3); }
+  section { padding:3.5rem 0 0; }
+  .sec-head { display:flex; flex-direction:column; gap:.6rem; margin-bottom:1.75rem; }
+
+  .callout { margin-top:2rem; padding:1.5rem 1.6rem; background:var(--raised);
+    border:1px solid var(--rule); border-left:3px solid var(--accent);
+    border-radius:3px; box-shadow:var(--shadow); max-width:44rem; }
+  .callout p + p { margin-top:.85rem; }
+  .callout.warn { border-left-color:var(--fixed); }
+  blockquote { margin:1rem 0 0; padding-left:1rem;
+    border-left:2px solid var(--rule); color:var(--ink-2);
+    font-family:var(--serif); font-size:1.02rem; }
+
+  /* migration ledger — the spine of the week */
+  .ledger { margin-top:2rem; display:grid;
+    grid-template-columns:1fr auto 1fr; gap:0; border:1px solid var(--rule);
+    border-radius:3px; background:var(--raised); box-shadow:var(--shadow);
+    overflow:hidden; }
+  .ledger-side { padding:1.5rem 1.6rem; min-width:0; }
+  .ledger-arrow { display:flex; align-items:center; padding:0 .4rem;
+    color:var(--ink-3); background:var(--rule-soft);
+    font-family:var(--mono); font-size:1.1rem; }
+  .ledger-repo { font-family:var(--mono); font-size:.76rem; color:var(--ink-3);
+    text-transform:uppercase; letter-spacing:.1em; }
+  .ledger-count { font-family:var(--serif); font-size:2.2rem; font-weight:600;
+    line-height:1.15; margin-top:.5rem; font-variant-numeric:tabular-nums; }
+  .ledger-count .from { color:var(--ink-3); font-size:1.4rem; }
+  .ledger-count .dir { color:var(--ink-3); font-size:1.2rem; padding:0 .15rem; }
+  .ledger-note { font-size:.86rem; color:var(--ink-2); margin-top:.5rem; }
+  .ledger ul { margin:.9rem 0 0; padding-left:1.1rem; font-size:.86rem;
+    color:var(--ink-2); }
+  .ledger li { margin-top:.3rem; }
+  .ledger li::marker { color:var(--ink-3); }
+  @media (max-width:640px) {
+    .ledger { grid-template-columns:1fr; }
+    .ledger-arrow { padding:.3rem 1.6rem; justify-content:flex-start; }
+    .ledger-arrow span { transform:rotate(90deg); display:inline-block; }
+  }
+
+  .scroll { overflow-x:auto; border:1px solid var(--rule); border-radius:3px;
+    background:var(--raised); margin-top:1.5rem; }
+  table { border-collapse:collapse; width:100%; font-size:.86rem; }
+  th,td { text-align:left; padding:.6rem .8rem;
+    border-bottom:1px solid var(--rule-soft); vertical-align:top; }
+  thead th { font-family:var(--mono); font-size:.68rem; text-transform:uppercase;
+    letter-spacing:.09em; color:var(--ink-3); font-weight:500;
+    border-bottom:1px solid var(--rule); white-space:nowrap; }
+  tbody tr:last-child td { border-bottom:0; }
+  td.mono { font-family:var(--mono); font-size:.8rem; white-space:nowrap; }
+  td.tnum { font-family:var(--mono); font-variant-numeric:tabular-nums;
+    white-space:nowrap; }
+
+  .pill { display:inline-block; font-family:var(--mono); font-size:.68rem;
+    padding:.15rem .55rem; border-radius:999px; letter-spacing:.04em;
+    white-space:nowrap; }
+  .pill.ok { background:var(--pass-dim); color:var(--pass); }
+  .pill.warn { background:var(--fixed-dim); color:var(--fixed); }
+  .pill.bad { background:var(--unfixed-dim); color:var(--unfixed); }
+
+  pre.code { margin:1.5rem 0 0; padding:1.1rem 1.3rem; background:var(--raised);
+    border:1px solid var(--rule); border-radius:3px; overflow-x:auto;
+    font-family:var(--mono); font-size:.8rem; line-height:1.65; }
+  pre.code .del { color:var(--unfixed); }
+  pre.code .add { color:var(--pass); }
+  pre.code .dim { color:var(--ink-3); }
+
+  .commits { margin-top:1.5rem; display:flex; flex-direction:column; gap:1px;
+    background:var(--rule); border:1px solid var(--rule); border-radius:3px;
+    overflow:hidden; }
+  .commit { background:var(--raised); padding:1.1rem 1.4rem; display:grid;
+    grid-template-columns:5.2rem 1fr; gap:.15rem 1rem; align-items:start; }
+  .commit-sha { font-family:var(--mono); font-size:.78rem; color:var(--accent);
+    padding-top:.15rem; }
+  .commit-t { font-weight:600; font-size:.94rem; }
+  .commit-b { grid-column:2; font-size:.86rem; color:var(--ink-2);
+    margin-top:.25rem; }
+  @media (max-width:520px) {
+    .commit { grid-template-columns:1fr; }
+    .commit-b { grid-column:1; }
+  }
+
+  .open-items { margin-top:1.5rem; display:flex; flex-direction:column; gap:1px;
+    background:var(--rule); border:1px solid var(--rule); border-radius:3px;
+    overflow:hidden; }
+  .open-item { background:var(--raised); padding:1rem 1.4rem; display:grid;
+    grid-template-columns:auto 1fr; gap:1rem; align-items:baseline;
+    font-size:.9rem; }
+  .open-item .who { font-family:var(--mono); font-size:.7rem;
+    text-transform:uppercase; letter-spacing:.09em; color:var(--ink-3);
+    min-width:5.5rem; }
+
+  footer { margin-top:4.5rem; padding-top:1.5rem; border-top:1px solid var(--rule);
+    font-family:var(--mono); font-size:.74rem; color:var(--ink-3); }
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">HEPTAPOD · GSoC · Week 11</p>
+  <h1 style="margin-top:1rem;">The exoplanet tools move to ASTER</h1>
+  <p class="lede prose">A fair question — <em>“but does it explain why?”</em> — set
+    the week's direction. Answering it honestly led to the people who own that
+    question: the ASTER exoplanet toolkit. By the end of the week the measurement
+    tools had migrated into ASTER with a pull request open, the toolbase pipeline
+    was field-tested (two real bugs found) — and the “why” gap itself was closed:
+    the bundle now follows disagreeing references to their papers and states how
+    the analyses differ, and fetches archive transmission spectra ready for
+    TauREx.</p>
+  <div class="meta">
+    <span>2026-08-20 → 2026-08-26</span>
+    <span>repos: heptapod · aster · agent-bench</span>
+    <span><a href="https://github.com/emipanek/aster/pull/3">emipanek/aster PR #3</a></span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head prose">
+    <p class="eyebrow">01 · The honest answer</p>
+    <h2>Does the disagreement tool explain <em>why</em>?</h2>
+  </div>
+  <div class="prose">
+    <p>No — and saying so precisely is what made the rest of the week possible.
+      The tool finds every published parameter set for a planet, computes the
+      worst pairwise tension in sigma, and attributes each value to its
+      reference. For HD&nbsp;189733&nbsp;b that means 21 published sets and this
+      pair:</p>
+  </div>
+  <div class="scroll" style="max-width:44rem;">
+    <table>
+      <thead><tr><th>reference</th><th>period (days)</th><th>σ</th><th>bibcode</th></tr></thead>
+      <tbody>
+        <tr><td>Kokori et al. 2023</td><td class="tnum">2.218574944</td><td class="tnum">3.0e−08</td><td class="mono">2023ApJS..265....4K</td></tr>
+        <tr><td>Stassun et al. 2017</td><td class="tnum">2.218575670</td><td class="tnum">1.5e−07</td><td class="mono">2017AJ....153..136S</td></tr>
+        <tr><td colspan="2"><strong>tension</strong></td><td class="tnum"><strong>4.7σ</strong></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <p><strong>What it does:</strong> quantifies <em>that</em> measurements
+      disagree, <em>by how much</em>, and <em>who</em> published each value.</p>
+    <p><strong>What it cannot do, as built:</strong> say <em>why</em>. The
+      archive's <code>ps</code> table stores no per-measurement instrument and no
+      observation epoch — the reason a paper got a different number lives in
+      that paper's methods section. The tool already returns bibcodes, so the
+      missing piece is a fetch-the-paper-and-read-the-methods step. That was the
+      state at the start of the week; section 05 is the fix, built, verified
+      live, and worked through step by step below.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head prose">
+    <p class="eyebrow">02 · The right home</p>
+    <h2>ASTER, and why the tools belong there</h2>
+  </div>
+  <div class="prose">
+    <p>The astrophysicists connected this work to Emilie Panek, who maintains
+      <a href="https://github.com/emipanek/aster">ASTER</a> — the Agentic Science
+      Toolkit for Exoplanet Research
+      (<a href="https://arxiv.org/abs/2603.26953">arXiv:2603.26953</a>), built on
+      the same orchestral framework as heptapod. Her toolkit already queries the
+      NASA Exoplanet Archive, but reads <code>pscomppars</code>: one composite
+      row per planet. The measurement tools read <code>ps</code>: one row per
+      published reference, which is the only table that can say two papers
+      disagree. Complementary, not duplicate — and clearly ASTER's domain, not
+      a particle-physics toolkit's.</p>
+    <p>Decision: migrate the whole bundle out of heptapod and into ASTER. A hard
+      cutover — after the move, ASTER is the only home of these tools.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head prose">
+    <p class="eyebrow">03 · Field test</p>
+    <h2>Do <code>tb validate</code> and <code>tb publish</code> actually work?</h2>
+  </div>
+  <div class="prose">
+    <p>Emilie asked directly, so the answer is empirical: toolbase 0.15.0,
+      run against both toolkits, today.</p>
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>check</th><th>result</th><th>detail</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="mono">tb validate (heptapod)</td>
+          <td><span class="pill ok">PASS</span></td>
+          <td>66 tools before migration, 62 after; runs fully offline</td>
+        </tr>
+        <tr>
+          <td class="mono">tb validate (aster)</td>
+          <td><span class="pill bad">FAIL → PASS</span></td>
+          <td>failed: no <code>toolkit.yaml</code> — the README's <code>tb install .</code> path could not work; passes with the PR's generated manifest (16 tools by week's end)</td>
+        </tr>
+        <tr>
+          <td class="mono">tb ingest (aster)</td>
+          <td><span class="pill warn">BUG FOUND</span></td>
+          <td>found only 8 of 10 tools — both TauREx forward-model tools silently dropped (see below)</td>
+        </tr>
+        <tr>
+          <td class="mono">tb publish</td>
+          <td><span class="pill bad">BLOCKED</span></td>
+          <td>registry API <code>api.toolbase-ai.com</code> returns HTTP 530 (website itself is up); not testable end to end</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="prose" style="margin-top:1.75rem;">
+    <p>The ingest bug is one import path. toolbase's static scanner only
+      recognises <code>BaseTool</code> from its canonical modules, and one ASTER
+      file imported it through a re-export — so the toolkit's two headline
+      tools vanished from the manifest with no warning:</p>
+  </div>
+  <pre class="code"><span class="dim"># aster_toolkit/taurex/forward_model.py</span>
+<span class="del">- from orchestral.tools.filesystem.filesystem_tools import BaseTool</span>
+<span class="add">+ from orchestral.tools.base.tool import BaseTool</span>
+
+<span class="dim"># tb ingest: 8 of 10 tools found  →  all 10 found</span></pre>
+</section>
+
+<section>
+  <div class="sec-head prose">
+    <p class="eyebrow">04 · The migration</p>
+    <h2>One bundle, three repos, verified at each step</h2>
+  </div>
+
+  <div class="ledger">
+    <div class="ledger-side">
+      <p class="ledger-repo">heptapod</p>
+      <p class="ledger-count"><span class="from">66</span><span class="dir">→</span>62 <span style="font-size:1rem;color:var(--ink-3);">tools</span></p>
+      <p class="ledger-note"><code>tools/exoplanet/</code> deleted; 22 lines out of
+        <code>toolkit.yaml</code>. That was the only reference site — the MCP
+        server is manifest-driven, so nothing else changed. All 62 remaining
+        tools import cleanly and <code>tb validate</code> passes.</p>
+    </div>
+    <div class="ledger-arrow"><span>→</span></div>
+    <div class="ledger-side">
+      <p class="ledger-repo">aster</p>
+      <p class="ledger-count"><span class="from">10</span><span class="dir">→</span>16 <span style="font-size:1rem;color:var(--ink-3);">tools</span></p>
+      <p class="ledger-note">New package <code>aster_toolkit/measurements/</code>,
+        wired into the package exports and <code>run_aster.py</code>:</p>
+      <ul>
+        <li><code>ResolvePlanetNameTool</code> — paper spelling → archive <code>pl_name</code></li>
+        <li><code>PublishedMeasurementsTool</code> — every published set (<code>ps</code>)</li>
+        <li><code>MeasurementDisagreementTool</code> — tension in σ, per reference</li>
+        <li><code>ExoplanetArchiveQueryTool</code> — raw ADQL escape hatch</li>
+        <li><code>ExplainDisagreementTool</code> — <em>why</em> the worst pair
+          differs, from the papers themselves (§05)</li>
+        <li><code>TransmissionSpectrumTool</code> — the published spectrum over
+          TAP, TauREx-ready (§05)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="scroll" style="max-width:44rem;">
+    <table>
+      <thead><tr><th>verification</th><th>result</th></tr></thead>
+      <tbody>
+        <tr><td>test suite, run from the new location (no network)</td>
+            <td class="tnum">71/71 pass — 45 migrated + 26 covering the week's new tools</td></tr>
+        <tr><td>live smoke: <code>MeasurementDisagreementTool("HD 189733 b")</code></td>
+            <td>21 parameter sets, period contested — identical to pre-move behaviour</td></tr>
+        <tr><td><code>tb validate</code>, both repos, after the move</td>
+            <td>both pass</td></tr>
+        <tr><td>agent-bench scorer, repointed to the aster tree, run live</td>
+            <td class="mono">passed: True, expected: 21</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout warn">
+    <p><strong>One structural trap, documented rather than papered over:</strong>
+      <code>aster_toolkit/__init__.py</code> eagerly imports the full TauREx
+      stack, so importing <em>any</em> subpackage needs every heavy dependency
+      installed. The migrated tests import through a synthetic parent package,
+      and the benchmark scorer loads the archive client by file path. Both
+      bypasses carry comments explaining the constraint — it is ASTER's design
+      decision to revisit, not silently work around.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head prose">
+    <p class="eyebrow">05 · The gap, closed</p>
+    <h2>From “who disagrees” to “why they disagree”</h2>
+  </div>
+  <div class="prose">
+    <p>The one handle a <code>ps</code> row gives is its bibcode, and it turns
+      out to be enough — keyless end to end. ADS's public link gateway answers
+      a bibcode with a redirect to the paper's arXiv page; arXiv's export API
+      serves the title and abstract; a deterministic method taxonomy
+      fingerprints what kind of analysis the abstract describes; and the tool
+      states the difference between the two sides.</p>
+  </div>
+
+  <h3 style="margin-top:2.25rem;">Worked example: one question, four tool calls</h3>
+  <div class="prose" style="margin-top:.75rem;">
+    <p>The question a referee would actually ask: <em>“Papers quote different
+      orbital periods for HD 189733 b — why?”</em> Every value below is the
+      live output of the migrated tools, recorded this week.</p>
+  </div>
+
+  <div class="commits" style="margin-top:1.5rem;">
+    <div class="commit">
+      <span class="commit-sha">step 1</span>
+      <span class="commit-t"><code>resolve_planet_name("HD189733b")</code></span>
+      <span class="commit-b">Papers write the name without spaces; the archive
+        does not. One candidate comes back — <code>HD 189733 b</code> — so the
+        agent may proceed without asking.</span>
+    </div>
+    <div class="commit">
+      <span class="commit-sha">step 2</span>
+      <span class="commit-t"><code>measurement_disagreement("HD 189733 b")</code></span>
+      <span class="commit-b">21 published parameter sets. Worst tension:
+        <span class="num">4.7σ</span> on <code>pl_orbper</code>, between
+        Kokori et al. 2023 (2.218574944 ± 3.0×10⁻⁸ d) and Stassun et al. 2017
+        (2.218575670 ± 1.5×10⁻⁷ d). This tool stops here — <em>that</em>,
+        <em>how much</em>, <em>who</em> — and its output now points to
+        step 3 for the why.</span>
+    </div>
+    <div class="commit">
+      <span class="commit-sha">step 3</span>
+      <span class="commit-t"><code>explain_measurement_disagreement("HD 189733 b")</code></span>
+      <span class="commit-b">Follows both bibcodes through the ADS link gateway
+        to arXiv 2209.09673 and 1609.04389, fingerprints the abstracts, and
+        answers — see the output below.</span>
+    </div>
+    <div class="commit">
+      <span class="commit-sha">step 4</span>
+      <span class="commit-t"><code>transmission_spectrum("HD 189733 b")</code></span>
+      <span class="commit-b">If the follow-up is atmospheric work rather than
+        ephemerides: the published spectrum, ready for a TauREx retrieval —
+        summarized below.</span>
+    </div>
+  </div>
+
+  <pre class="code"><span class="dim"># step 3 — explain_measurement_disagreement, live output</span>
+parameter: pl_orbper   tension: 4.7σ
+
+low   Kokori et al. 2023   arXiv 2209.09673  “ExoClock Project III”
+      methods: transit timing / ephemeris monitoring, transit photometry
+      facilities: ExoClock, Ariel
+high  Stassun et al. 2017  arXiv 1609.04389  “Accurate, Empirical Radii…”
+      methods: astrometry / parallax, radial velocity
+      facilities: Gaia
+
+<span class="add">“The two values come from different kinds of analysis. …When the
+ method families differ, the disagreement usually traces to the data
+ and technique each paper chose, not to an error either made.”</span></pre>
+
+  <div class="prose" style="margin-top:1.75rem;">
+    <p>So the 4.7σ tension is not a mystery: one side is a dedicated multi-year
+      transit-timing campaign, the other an empirical Gaia-parallax
+      re-analysis. Two honesty rules are built in: when both abstracts describe
+      the <em>same</em> kind of analysis, the tool says the difference lives in
+      details abstracts do not carry and hands back the arXiv ids to read; when
+      a paper has no arXiv eprint, it returns a reason and the ADS link — never
+      a guess.</p>
+  </div>
+
+  <pre class="code"><span class="dim"># step 4 — transmission_spectrum, live output (per-instrument summary)</span>
+201 points · 0.33–24 µm · depth propagated from Rp/R★ (depth = r², σ = 2rσᵣ)
+
+instrument                              pts   range (µm)   e.g. reference
+wide field camera 3 (HST)                65   1.11–1.64    Gibson 2012, McCullough 2014
+nicmos (HST)                             42   1.48–2.47    Pont 2013, Sing 2016
+stis (HST)                               41   0.33–1.09    Pont 2013, Sing 2011
+harps echelle spectrograph               30   0.39–0.68    Barnes 2016, Borsa 2016
+irac (Spitzer)                           10   3.55–7.85    Desert 2011, Pont 2013
+acs (HST)                                10   0.58–1.03    Pont 2013
+hipo                                      2   0.44–0.92    Angerhausen 2015
+mips (Spitzer)                            1   24.0         Pont 2013</pre>
+  <div class="prose" style="margin-top:1.75rem;">
+    <p>Until now this fetch needed a human: ASTER's <code>DownloadDataset</code>
+      asks the user to click through the archive's Firefly page and paste wget
+      commands. This tool reads <code>transitspec</code> over keyless TAP, so
+      the agent gets the spectrum — with every point attributed to its
+      instrument and paper — on its own.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head prose">
+    <p class="eyebrow">06 · Shipped</p>
+    <h2>Pull request #3 on emipanek/aster</h2>
+  </div>
+  <div class="prose">
+    <p>Opened from a fork, so review can start before any contributor-access
+      decision. Four separable commits:</p>
+  </div>
+  <div class="commits" style="max-width:44rem;">
+    <div class="commit">
+      <span class="commit-sha">5370c81</span>
+      <span class="commit-t">Add the measurements bundle</span>
+      <span class="commit-b">The four tools, their two library modules, and the
+        45-check no-network test suite. HEPTAPOD license headers restyled to
+        ASTER's house style; <code>exoplanet_tools.py</code> renamed
+        <code>measurement_tools.py</code> — inside ASTER, “exoplanet tools”
+        describes the whole repository.</span>
+    </div>
+    <div class="commit">
+      <span class="commit-sha">f984f98</span>
+      <span class="commit-t">Fix the BaseTool import path</span>
+      <span class="commit-b">The one-line change that lets <code>tb ingest</code>
+        find all ten of ASTER's own tools instead of eight.</span>
+    </div>
+    <div class="commit">
+      <span class="commit-sha">01a1e78</span>
+      <span class="commit-t">Add toolkit.yaml</span>
+      <span class="commit-b">Generated with <code>tb ingest</code>, metadata
+        filled in; <code>tb validate</code> passes with 14 tools and the
+        README's <code>tb install .</code> path works. The commit message flags
+        the one decision that is Emilie's: the repo has no LICENSE file, and the
+        manifest's <code>license:</code> line is a scaffold default she must
+        set.</span>
+    </div>
+    <div class="commit">
+      <span class="commit-sha">175cb8f</span>
+      <span class="commit-t">Explain why, and fetch transmission spectra</span>
+      <span class="commit-b">The two section-05 tools, with 26 new no-network
+        checks (stubbed link gateway and Atom feed) and a PR comment walking
+        the reviewer through the live results.</span>
+    </div>
+  </div>
+  <div class="prose" style="margin-top:1.75rem;">
+    <p>A reply to Emilie's email is drafted alongside the PR: it answers her
+      three questions (how the tools integrate, contributor vs toolbase, whether
+      <code>tb validate</code>/<code>publish</code> work) with tested claims
+      only, and points her at the PR.</p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head prose">
+    <p class="eyebrow">07 · Open</p>
+    <h2>What this week leaves on the table</h2>
+  </div>
+  <div class="open-items" style="max-width:44rem;">
+    <div class="open-item"><span class="who">Emilie</span>
+      <span>Review PR #3; decide ASTER's license (the manifest carries a
+        scaffold-default MIT that is hers to change).</span></div>
+    <div class="open-item"><span class="who">upstream</span>
+      <span>toolbase registry API is down (HTTP 530) — <code>tb publish</code>
+        untestable until it returns. The ingest scanner should warn when it
+        drops a <code>BaseTool</code> subclass it cannot attribute.</span></div>
+    <div class="open-item"><span class="who">next</span>
+      <span>Go deeper than abstracts when fingerprints match: the
+        abstract-level taxonomy told the HD&nbsp;189733&nbsp;b pair apart, but a
+        same-method pair needs the papers' methods sections — fetch the arXiv
+        source and extract them.</span></div>
+    <div class="open-item"><span class="who">next</span>
+      <span>Serve the aster toolkit to the agent benchmark (e.g.
+        <code>tb serve</code>): the exoplanet benchmark case is marked
+        <code>needs_external=["aster-toolkit"]</code> and cannot pass
+        required-tool coverage until then.</span></div>
+  </div>
+</section>
+
+<footer>
+  <p>Week 11 · Agentic Lagrangian Extraction · all numbers on this page were
+    measured this week, not recalled.</p>
+</footer>
+
+</div>

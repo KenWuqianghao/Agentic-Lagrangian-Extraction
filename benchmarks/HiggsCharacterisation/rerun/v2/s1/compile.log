@@ -1,0 +1,280 @@
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+Merging model-files...
+This model implementation was created by
+N. D. Christensen
+C. Duhr
+B. Fuks
+J. Reuter
+C. Speckner
+Model Version: 1.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+Model CHEIDI_gen loaded.
+[INFO] Total Lagrangian: LSM + LTot
+[INFO] Running FeynRules consistency checks.
+HEPTAPOD-CHECK-BEGIN: hermiticity
+Checking for hermiticity by calculating the Feynman rules contained in L-HC[L].
+If the lagrangian is hermitian, then the number of vertices should be zero.
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+No vertices found.
+0 vertices obtained.
+The lagrangian is hermitian.
+HEPTAPOD-CHECK-END: hermiticity
+HEPTAPOD-CHECK-BEGIN: kinetic_terms
+Neglecting all terms with more than 2 particles.
+All kinetic terms are diagonal.
+HEPTAPOD-CHECK-END: kinetic_terms
+HEPTAPOD-CHECK-BEGIN: mass_spectrum
+Neglecting all terms with more than 2 particles.
+All mass terms are diagonal.
+Getting mass spectrum.
+Checking for less then 0.1% agreement with model file values.
+HEPTAPOD-CHECK-END: mass_spectrum
+[INFO] UFO output: /tmp/rerun_bench/v2_s1/CHEIDI_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+426 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 426.
+421 vertices obtained.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 421
+   - Saved vertices in InterfaceRun[ 1 ].
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number Y not conserved in vertex {GpP, cPbar, sP}.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number Y not conserved in vertex {GpP, tPbar, bP}.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+General::stop: Further output of QN::NonConserv will be suppressed during this calculation.
+Quantum number Y not conserved in vertex {GpP, uPbar, dP}.
+Quantum number Y not conserved in vertex {GpP, vePbar, eP}.
+Quantum number Y not conserved in vertex {GpP, vmPbar, muP}.
+Quantum number Y not conserved in vertex {GpP, vtPbar, taP}.
+Quantum number Y not conserved in vertex {GpPbar, sPbar, cP}.
+Quantum number Y not conserved in vertex {GpPbar, bPbar, tP}.
+Quantum number Y not conserved in vertex {GpPbar, dPbar, uP}.
+Quantum number Y not conserved in vertex {GpPbar, ePbar, veP}.
+Quantum number Y not conserved in vertex {GpPbar, muPbar, vmP}.
+Quantum number Y not conserved in vertex {GpPbar, taPbar, vtP}.
+Quantum number Y not conserved in vertex {GpPbar, dbar, uP}.
+Quantum number Y not conserved in vertex {GpPbar, sbar, cP}.
+Quantum number Y not conserved in vertex {GpPbar, bbar, tP}.
+Quantum number Y not conserved in vertex {GpP, ubar, dP}.
+Quantum number Y not conserved in vertex {GpP, cbar, sP}.
+Quantum number Y not conserved in vertex {GpP, tbar, bP}.
+Quantum number Y not conserved in vertex {GpPbar, bPbar, t}.
+Quantum number Y not conserved in vertex {GpPbar, dPbar, u}.
+Quantum number Y not conserved in vertex {GpPbar, sPbar, c}.
+Quantum number Y not conserved in vertex {Gp0, bPbar, b}.
+Quantum number Y not conserved in vertex {Gp0, bPbar, d}.
+Quantum number Y not conserved in vertex {Gp0, bPbar, s}.
+Quantum number Y not conserved in vertex {Gp0, dPbar, b}.
+Quantum number Y not conserved in vertex {Gp0, dPbar, d}.
+Quantum number Y not conserved in vertex {Gp0, dPbar, s}.
+Quantum number Y not conserved in vertex {Gp0, sPbar, b}.
+Quantum number Y not conserved in vertex {Gp0, sPbar, d}.
+Quantum number Y not conserved in vertex {Gp0, sPbar, s}.
+Quantum number Y not conserved in vertex {GpPbar, ePbar, ve}.
+Quantum number Y not conserved in vertex {GpPbar, muPbar, vm}.
+Quantum number Y not conserved in vertex {GpPbar, taPbar, vt}.
+Quantum number Y not conserved in vertex {Gp0, ePbar, e}.
+Quantum number Y not conserved in vertex {Gp0, muPbar, mu}.
+Quantum number Y not conserved in vertex {Gp0, taPbar, ta}.
+Quantum number Y not conserved in vertex {Gp0, cPbar, c}.
+Quantum number Y not conserved in vertex {Gp0, tPbar, t}.
+Quantum number Y not conserved in vertex {Gp0, uPbar, u}.
+Quantum number Y not conserved in vertex {GpP, cPbar, b}.
+Quantum number Y not conserved in vertex {GpP, cPbar, d}.
+Quantum number Y not conserved in vertex {GpP, cPbar, s}.
+Quantum number Y not conserved in vertex {GpP, tPbar, b}.
+Quantum number Y not conserved in vertex {GpP, tPbar, d}.
+Quantum number Y not conserved in vertex {GpP, tPbar, s}.
+Quantum number Y not conserved in vertex {GpP, uPbar, b}.
+Quantum number Y not conserved in vertex {GpP, uPbar, d}.
+Quantum number Y not conserved in vertex {GpP, uPbar, s}.
+Quantum number Y not conserved in vertex {Gp0, bbar, bP}.
+Quantum number Y not conserved in vertex {Gp0, dbar, bP}.
+Quantum number Y not conserved in vertex {Gp0, sbar, bP}.
+Quantum number Y not conserved in vertex {Gp0, bbar, dP}.
+Quantum number Y not conserved in vertex {Gp0, dbar, dP}.
+Quantum number Y not conserved in vertex {Gp0, sbar, dP}.
+Quantum number Y not conserved in vertex {Gp0, bbar, sP}.
+Quantum number Y not conserved in vertex {Gp0, dbar, sP}.
+Quantum number Y not conserved in vertex {Gp0, sbar, sP}.
+Quantum number Y not conserved in vertex {GpP, vebar, eP}.
+Quantum number Y not conserved in vertex {GpP, vmbar, muP}.
+Quantum number Y not conserved in vertex {GpP, vtbar, taP}.
+Quantum number Y not conserved in vertex {Gp0, ebar, eP}.
+Quantum number Y not conserved in vertex {Gp0, mubar, muP}.
+Quantum number Y not conserved in vertex {Gp0, tabar, taP}.
+Quantum number Y not conserved in vertex {Gp0, cbar, cP}.
+Quantum number Y not conserved in vertex {Gp0, tbar, tP}.
+Quantum number Y not conserved in vertex {Gp0, ubar, uP}.
+Quantum number Y not conserved in vertex {GpPbar, bbar, cP}.
+Quantum number Y not conserved in vertex {GpPbar, dbar, cP}.
+Quantum number Y not conserved in vertex {GpPbar, dbar, tP}.
+Quantum number Y not conserved in vertex {GpPbar, sbar, tP}.
+Quantum number Y not conserved in vertex {GpPbar, bbar, uP}.
+Quantum number Y not conserved in vertex {GpPbar, sbar, uP}.
+Quantum number Y not conserved in vertex {Wp, cPbar, sP}.
+Quantum number Y not conserved in vertex {Wp, tPbar, bP}.
+Quantum number Y not conserved in vertex {Wp, uPbar, dP}.
+Quantum number Y not conserved in vertex {Wp, vePbar, eP}.
+Quantum number Y not conserved in vertex {Wp, vmPbar, muP}.
+Quantum number Y not conserved in vertex {Wp, vtPbar, taP}.
+Quantum number Y not conserved in vertex {Wpbar, sPbar, cP}.
+Quantum number Y not conserved in vertex {Wpbar, bPbar, tP}.
+Quantum number Y not conserved in vertex {Wpbar, dPbar, uP}.
+Quantum number Y not conserved in vertex {Wpbar, ePbar, veP}.
+Quantum number Y not conserved in vertex {Wpbar, muPbar, vmP}.
+Quantum number Y not conserved in vertex {Wpbar, taPbar, vtP}.
+Quantum number Y not conserved in vertex {Wbar, bbar, cP}.
+Quantum number Y not conserved in vertex {Wbar, dbar, cP}.
+Quantum number Y not conserved in vertex {Wbar, sbar, cP}.
+Quantum number Y not conserved in vertex {Wbar, bbar, tP}.
+Quantum number Y not conserved in vertex {Wbar, dbar, tP}.
+Quantum number Y not conserved in vertex {Wbar, sbar, tP}.
+Quantum number Y not conserved in vertex {Wbar, bbar, uP}.
+Quantum number Y not conserved in vertex {Wbar, dbar, uP}.
+Quantum number Y not conserved in vertex {Wbar, sbar, uP}.
+Quantum number Y not conserved in vertex {Wpbar, bbar, cP}.
+Quantum number Y not conserved in vertex {Wpbar, dbar, cP}.
+Quantum number Y not conserved in vertex {Wpbar, sbar, cP}.
+Quantum number Y not conserved in vertex {Wpbar, bbar, tP}.
+Quantum number Y not conserved in vertex {Wpbar, dbar, tP}.
+Quantum number Y not conserved in vertex {Wpbar, sbar, tP}.
+Quantum number Y not conserved in vertex {Wpbar, bbar, uP}.
+Quantum number Y not conserved in vertex {Wpbar, dbar, uP}.
+Quantum number Y not conserved in vertex {Wpbar, sbar, uP}.
+Quantum number Y not conserved in vertex {Wbar, ePbar, ve}.
+Quantum number Y not conserved in vertex {Wbar, muPbar, vm}.
+Quantum number Y not conserved in vertex {Wbar, taPbar, vt}.
+Quantum number Y not conserved in vertex {Wbar, sPbar, c}.
+Quantum number Y not conserved in vertex {Wbar, bPbar, t}.
+Quantum number Y not conserved in vertex {Wbar, dPbar, u}.
+Quantum number Y not conserved in vertex {Wpbar, ePbar, ve}.
+Quantum number Y not conserved in vertex {Wpbar, muPbar, vm}.
+Quantum number Y not conserved in vertex {Wpbar, taPbar, vt}.
+Quantum number Y not conserved in vertex {Wpbar, sPbar, c}.
+Quantum number Y not conserved in vertex {Wpbar, bPbar, t}.
+Quantum number Y not conserved in vertex {Wpbar, dPbar, u}.
+Quantum number Y not conserved in vertex {Z, bbar, bP}.
+Quantum number Y not conserved in vertex {Z, dbar, bP}.
+Quantum number Y not conserved in vertex {Z, sbar, bP}.
+Quantum number Y not conserved in vertex {Z, bbar, dP}.
+Quantum number Y not conserved in vertex {Z, dbar, dP}.
+Quantum number Y not conserved in vertex {Z, sbar, dP}.
+Quantum number Y not conserved in vertex {Z, bbar, sP}.
+Quantum number Y not conserved in vertex {Z, dbar, sP}.
+Quantum number Y not conserved in vertex {Z, sbar, sP}.
+Quantum number Y not conserved in vertex {Z, ebar, eP}.
+Quantum number Y not conserved in vertex {Z, mubar, muP}.
+Quantum number Y not conserved in vertex {Z, tabar, taP}.
+Quantum number Y not conserved in vertex {Z, cbar, cP}.
+Quantum number Y not conserved in vertex {Z, tbar, tP}.
+Quantum number Y not conserved in vertex {Z, ubar, uP}.
+Quantum number Y not conserved in vertex {Zp, bbar, bP}.
+Quantum number Y not conserved in vertex {Zp, dbar, bP}.
+Quantum number Y not conserved in vertex {Zp, sbar, bP}.
+Quantum number Y not conserved in vertex {Zp, bbar, dP}.
+Quantum number Y not conserved in vertex {Zp, dbar, dP}.
+Quantum number Y not conserved in vertex {Zp, sbar, dP}.
+Quantum number Y not conserved in vertex {Zp, bbar, sP}.
+Quantum number Y not conserved in vertex {Zp, dbar, sP}.
+Quantum number Y not conserved in vertex {Zp, sbar, sP}.
+Quantum number Y not conserved in vertex {Zp, ebar, eP}.
+Quantum number Y not conserved in vertex {Zp, mubar, muP}.
+Quantum number Y not conserved in vertex {Zp, tabar, taP}.
+Quantum number Y not conserved in vertex {Zp, cbar, cP}.
+Quantum number Y not conserved in vertex {Zp, tbar, tP}.
+Quantum number Y not conserved in vertex {Zp, ubar, uP}.
+Quantum number Y not conserved in vertex {W, cPbar, b}.
+Quantum number Y not conserved in vertex {W, cPbar, d}.
+Quantum number Y not conserved in vertex {W, cPbar, s}.
+Quantum number Y not conserved in vertex {W, tPbar, b}.
+Quantum number Y not conserved in vertex {W, tPbar, d}.
+Quantum number Y not conserved in vertex {W, tPbar, s}.
+Quantum number Y not conserved in vertex {W, uPbar, b}.
+Quantum number Y not conserved in vertex {W, uPbar, d}.
+Quantum number Y not conserved in vertex {W, uPbar, s}.
+Quantum number Y not conserved in vertex {Wp, cPbar, b}.
+Quantum number Y not conserved in vertex {Wp, cPbar, d}.
+Quantum number Y not conserved in vertex {Wp, cPbar, s}.
+Quantum number Y not conserved in vertex {Wp, tPbar, b}.
+Quantum number Y not conserved in vertex {Wp, tPbar, d}.
+Quantum number Y not conserved in vertex {Wp, tPbar, s}.
+Quantum number Y not conserved in vertex {Wp, uPbar, b}.
+Quantum number Y not conserved in vertex {Wp, uPbar, d}.
+Quantum number Y not conserved in vertex {Wp, uPbar, s}.
+Quantum number Y not conserved in vertex {Z, bPbar, b}.
+Quantum number Y not conserved in vertex {Z, bPbar, d}.
+Quantum number Y not conserved in vertex {Z, bPbar, s}.
+Quantum number Y not conserved in vertex {Z, dPbar, b}.
+Quantum number Y not conserved in vertex {Z, dPbar, d}.
+Quantum number Y not conserved in vertex {Z, dPbar, s}.
+Quantum number Y not conserved in vertex {Z, sPbar, b}.
+Quantum number Y not conserved in vertex {Z, sPbar, d}.
+Quantum number Y not conserved in vertex {Z, sPbar, s}.
+Quantum number Y not conserved in vertex {Z, ePbar, e}.
+Quantum number Y not conserved in vertex {Z, muPbar, mu}.
+Quantum number Y not conserved in vertex {Z, taPbar, ta}.
+Quantum number Y not conserved in vertex {Z, cPbar, c}.
+Quantum number Y not conserved in vertex {Z, tPbar, t}.
+Quantum number Y not conserved in vertex {Z, uPbar, u}.
+Quantum number Y not conserved in vertex {Zp, bPbar, b}.
+Quantum number Y not conserved in vertex {Zp, bPbar, d}.
+Quantum number Y not conserved in vertex {Zp, bPbar, s}.
+Quantum number Y not conserved in vertex {Zp, dPbar, b}.
+Quantum number Y not conserved in vertex {Zp, dPbar, d}.
+Quantum number Y not conserved in vertex {Zp, dPbar, s}.
+Quantum number Y not conserved in vertex {Zp, sPbar, b}.
+Quantum number Y not conserved in vertex {Zp, sPbar, d}.
+Quantum number Y not conserved in vertex {Zp, sPbar, s}.
+Quantum number Y not conserved in vertex {Zp, ePbar, e}.
+Quantum number Y not conserved in vertex {Zp, muPbar, mu}.
+Quantum number Y not conserved in vertex {Zp, taPbar, ta}.
+Quantum number Y not conserved in vertex {Zp, cPbar, c}.
+Quantum number Y not conserved in vertex {Zp, tPbar, t}.
+Quantum number Y not conserved in vertex {Zp, uPbar, u}.
+Quantum number Y not conserved in vertex {W, vebar, eP}.
+Quantum number Y not conserved in vertex {W, vmbar, muP}.
+Quantum number Y not conserved in vertex {W, vtbar, taP}.
+Quantum number Y not conserved in vertex {W, cbar, sP}.
+Quantum number Y not conserved in vertex {W, tbar, bP}.
+Quantum number Y not conserved in vertex {W, ubar, dP}.
+Quantum number Y not conserved in vertex {Wp, vebar, eP}.
+Quantum number Y not conserved in vertex {Wp, vmbar, muP}.
+Quantum number Y not conserved in vertex {Wp, vtbar, taP}.
+Quantum number Y not conserved in vertex {Wp, cbar, sP}.
+Quantum number Y not conserved in vertex {Wp, tbar, bP}.
+Quantum number Y not conserved in vertex {Wp, ubar, dP}.
+Preparing Python output.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/491 .
+    - Writing files.
+Done!
+[INFO] Done.

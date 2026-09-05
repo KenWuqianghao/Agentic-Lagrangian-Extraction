@@ -1,0 +1,379 @@
+<title>Ian's Four Findings</title>
+<style>
+  :root {
+    --paper:#F6F8F9; --raised:#FFFFFF; --ink:#131A21; --ink-2:#46555F; --ink-3:#75858F;
+    --rule:#DDE4E7; --accent:#0B7A87; --accent-dim:#E2F0F1;
+    --pass:#2F7A55; --pass-dim:#E0EFE6; --fixed:#B0761F; --fixed-dim:#F7EEDC;
+    --unfixed:#A63A38; --unfixed-dim:#F6E3E2;
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+    --sans:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --paper:#0E1418; --raised:#161E24; --ink:#E6EDF0;
+      --ink-2:#A5B4BC; --ink-3:#74848D; --rule:#26323A; --accent:#52CFD6; --accent-dim:#122E33;
+      --pass:#5FBF8C; --pass-dim:#132C21; --fixed:#D9A253; --fixed-dim:#2E2415;
+      --unfixed:#E0736F; --unfixed-dim:#2E1917; }
+  }
+  :root[data-theme="dark"] { --paper:#0E1418; --raised:#161E24; --ink:#E6EDF0;
+    --ink-2:#A5B4BC; --ink-3:#74848D; --rule:#26323A; --accent:#52CFD6; --accent-dim:#122E33;
+    --pass:#5FBF8C; --pass-dim:#132C21; --fixed:#D9A253; --fixed-dim:#2E2415;
+    --unfixed:#E0736F; --unfixed-dim:#2E1917; }
+
+  * { box-sizing:border-box; }
+  html { scroll-snap-type:y proximity; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:18px; line-height:1.45; -webkit-font-smoothing:antialiased; }
+  h1,h2 { font-family:var(--serif); font-weight:600; margin:0; text-wrap:balance; letter-spacing:-.01em; }
+  h1 { font-size:clamp(2.2rem,5vw,3.6rem); line-height:1.08; }
+  h2 { font-size:clamp(1.7rem,3.6vw,2.5rem); line-height:1.12; }
+  p { margin:0; }
+  code { font-family:var(--mono); font-size:.86em; background:var(--accent-dim); padding:.04em .3em; border-radius:2px; }
+  a { color:var(--accent); }
+
+  .slide { min-height:100vh; scroll-snap-align:start; display:flex; flex-direction:column;
+    justify-content:center; gap:1.6rem; padding:3.5rem 6vw; max-width:68rem; margin:0 auto;
+    border-bottom:1px solid var(--rule); }
+  .eyebrow { font-family:var(--mono); font-size:.78rem; text-transform:uppercase; letter-spacing:.14em; color:var(--accent); }
+  .sub { font-size:1.2rem; color:var(--ink-2); max-width:44rem; }
+
+  ul.pts { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.7rem; font-size:1.3rem; max-width:50rem; }
+  ul.pts li { padding-left:1.4rem; position:relative; }
+  ul.pts li::before { content:""; position:absolute; left:0; top:.66em; width:.55rem; height:.55rem; background:var(--accent); border-radius:1px; }
+
+  .par { display:grid; grid-template-columns:repeat(3, 1fr); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:4px; overflow:hidden; }
+  .par > div { background:var(--raised); padding:1.3rem 1.4rem; display:flex; flex-direction:column; gap:.8rem; }
+  .par .k { font-family:var(--mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.12em; color:var(--ink-3); }
+  .par ul { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.55rem; font-size:1.05rem; }
+  .par li { padding-left:1rem; position:relative; }
+  .par li::before { content:""; position:absolute; left:0; top:.6em; width:.4rem; height:.4rem; border-radius:1px; background:var(--ink-3); }
+  .par > div.p li::before { background:var(--unfixed); }
+  .par > div.a li::before { background:var(--accent); }
+  .par > div.r li::before { background:var(--pass); }
+  @media (max-width:52rem) { .par { grid-template-columns:1fr; } }
+
+  .nums { display:grid; grid-template-columns:repeat(auto-fit, minmax(13rem,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:4px; overflow:hidden; }
+  .nums > div { background:var(--raised); padding:1.3rem 1.4rem; }
+  .nums .n { font-family:var(--serif); font-size:3rem; font-weight:600; line-height:1; font-variant-numeric:tabular-nums; }
+  .nums .l { font-size:.95rem; color:var(--ink-2); margin-top:.5rem; }
+  .nums .ok .n { color:var(--pass); } .nums .bad .n { color:var(--unfixed); } .nums .warn .n { color:var(--fixed); }
+
+  .pill { display:inline-block; font-family:var(--mono); font-size:.72rem; padding:.18rem .6rem; border-radius:999px; letter-spacing:.04em; white-space:nowrap; vertical-align:middle; }
+  .pill.ok { background:var(--pass-dim); color:var(--pass); } .pill.warn { background:var(--fixed-dim); color:var(--fixed); }
+  .pill.bad { background:var(--unfixed-dim); color:var(--unfixed); } .pill.info { background:var(--accent-dim); color:var(--accent); }
+
+  .scroll { overflow-x:auto; border:1px solid var(--rule); border-radius:4px; background:var(--raised); }
+  table { border-collapse:collapse; width:100%; font-size:1.02rem; }
+  th,td { text-align:left; padding:.7rem .9rem; border-bottom:1px solid var(--rule); vertical-align:top; }
+  thead th { font-family:var(--mono); font-size:.72rem; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-3); font-weight:500; white-space:nowrap; }
+  tbody tr:last-child td { border-bottom:0; }
+  td.c { text-align:center; }
+
+  .foot { font-family:var(--mono); font-size:.8rem; color:var(--ink-3); }
+  #ctr { position:fixed; right:1.2rem; bottom:1rem; font-family:var(--mono); font-size:.78rem; color:var(--ink-3);
+    background:var(--raised); border:1px solid var(--rule); border-radius:999px; padding:.3rem .8rem; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior:smooth; } }
+</style>
+
+<!-- 1 -->
+<section class="slide" id="s1">
+  <p class="eyebrow">HEPTAPOD · week of 2026-09-02</p>
+  <h1>Ian's four findings, and what they turned up</h1>
+  <p class="sub">Four reviewed models → one misread, three confirmed → a contaminated benchmark →
+    sandboxed reruns → the compile chain. Arrow keys to advance.</p>
+  <div class="nums">
+    <div class="bad"><p class="n">3 / 4</p><p class="l">findings confirmed</p></div>
+    <div class="bad"><p class="n">18 / 28</p><p class="l">original runs had read their own reference</p></div>
+    <div class="ok"><p class="n">15 / 16</p><p class="l">sandboxed reruns resolve the finding</p></div>
+    <div class="warn"><p class="n">11 / 28</p><p class="l">of the sandboxed fleet pass FeynRules → UFO → MadGraph</p></div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <p class="eyebrow">The four findings</p>
+  <h2>One misread, three confirmed</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>model</th><th>Ian's finding</th><th>verdict</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Top-Philic Z′</strong></td><td>no kinetic or mass term for V1</td><td><span class="pill ok">misread</span> the file has both; a crosscheck label misled</td></tr>
+      <tr><td><strong>EffLRSM</strong></td><td>light-neutrino W<sub>R</sub> current lacks ν<sup>c</sup></td><td><span class="pill bad">confirmed</span> inert at X = 0, wrong as written</td></tr>
+      <tr><td><strong>General U(1)</strong></td><td>no SU(2) Eps; Higgs charge sign flipped</td><td><span class="pill bad">confirmed</span> both parts; the tool's crosscheck had said "agree"</td></tr>
+      <tr><td><strong>368 sextets</strong></td><td>no 1/Λ, 1/Λ², 1/Λ³</td><td><span class="pill bad">confirmed</span> vs the paper — and the run had copied the reference</td></tr>
+    </tbody></table></div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <p class="eyebrow">Finding 1 · Top-Philic Z′</p>
+  <h2>The model was right; the label was wrong</h2>
+  <div class="par">
+    <div class="p"><p class="k">Problem</p><ul>
+      <li>Crosscheck row said <code>extra-in-reconstruction</code></li>
+      <li>It meant "the paper omits it"; it read as "the model lacks it"</li></ul></div>
+    <div class="a"><p class="k">Approach</p><ul>
+      <li>Rename verdicts: <code>in-paper-not-in-model</code> / <code>in-model-not-in-paper</code></li>
+      <li>Tag standard free-field completions as such</li>
+      <li>Prompt rule: named kinetic + mass term for every new field</li></ul></div>
+    <div class="r"><p class="k">Result</p><ul>
+      <li>Shipped in heptapod-dev #16</li>
+      <li>4 / 4 reruns carry the terms; all 4 pass the full compile chain</li></ul></div>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <p class="eyebrow">Finding 2 · EffLRSM</p>
+  <h2>ψ<sup>c</sup> was dropped on the W<sub>R</sub> current</h2>
+  <div class="par">
+    <div class="p"><p class="k">Problem</p><ul>
+      <li><code>bar[ve].Ga[mu].ProjP.l WR</code> conserves lepton number</li>
+      <li>Eq. (5) has ν̄<sup>c</sup>: ΔL = 2, as a Majorana ν requires</li></ul></div>
+    <div class="a"><p class="k">Approach</p><ul>
+      <li>Prompt rule: <code>CC[]</code> wherever the paper writes ψ<sup>c</sup></li>
+      <li>Accept the reference's choice too: drop the term (X = 0)</li></ul></div>
+    <div class="r"><p class="k">Result</p><ul>
+      <li>4 / 4 reruns resolve it (<code>bar[CC[vl]]</code> or dropped)</li>
+      <li><code>CC[]</code> compiles: proven in 368 sextets v2/s1</li></ul></div>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <p class="eyebrow">Finding 3 · General U(1)</p>
+  <h2>A missing Eps and a copied sign</h2>
+  <div class="par">
+    <div class="p"><p class="k">Problem</p><ul>
+      <li><code>LLbar[..,ii] Phibar[ii]</code> is not an SU(2) singlet</li>
+      <li><code>-xH/2</code> copied from Table I; Eq. (1) uses another Y(H) convention</li>
+      <li>Only <code>+xH/2</code> keeps all five Yukawas invariant</li></ul></div>
+    <div class="a"><p class="k">Approach</p><ul>
+      <li>Rule: <code>Eps[ii,jj]</code> for any two same-type doublets</li>
+      <li>Rule: derive every U(1) charge from Yukawa invariance; never copy a table</li>
+      <li>Mandatory self-audit: Q, Y, X sums per term</li></ul></div>
+    <div class="r"><p class="k">Result</p><ul>
+      <li>Eps: 4 / 4 reruns</li>
+      <li>Sign: original prompt 1 / 2 → addendum 2 / 2, derivation written in the file</li></ul></div>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <p class="eyebrow">Finding 4 · 368 sextets</p>
+  <h2>No 1/Λ — because the run copied the reference</h2>
+  <div class="par">
+    <div class="p"><p class="k">Problem</p><ul>
+      <li>No Λ anywhere in the file</li>
+      <li>Term-for-term identical to the reference, which absorbs Λ into dimensionful couplings</li>
+      <li>Event log: the agent opened the reference mid-run</li></ul></div>
+    <div class="a"><p class="k">Approach</p><ul>
+      <li>Sandbox the agent (next slide)</li>
+      <li>Rule: explicit <code>1/Lam^(d-4)</code> with External cutoffs at the paper's benchmark</li></ul></div>
+    <div class="r"><p class="k">Result</p><ul>
+      <li>4 / 4 reruns: six cutoffs, powers 1 · 2 · 3</li>
+      <li>v2/s1 passes the full compile chain</li></ul></div>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <p class="eyebrow">What the tracing turned up</p>
+  <h2>Most of the original benchmark had read the answer key</h2>
+  <div class="nums">
+    <div class="bad"><p class="n">18</p><p class="l">runs read their own reference file</p></div>
+    <div class="warn"><p class="n">1</p><p class="l">read another model's reference</p></div>
+    <div class="ok"><p class="n">9</p><p class="l">clean</p></div>
+  </div>
+  <div class="par">
+    <div class="p"><p class="k">Problem</p><ul>
+      <li>Fleet ran with the whole repo visible</li>
+      <li><code>**/*.fr</code> reaches the reference</li>
+      <li>25/28 pass rate measured copying</li></ul></div>
+    <div class="a"><p class="k">Approach</p><ul>
+      <li>Temp-dir sandbox: paper text, schema, renderer, SM.fr — nothing else</li>
+      <li>Every run logs: paper read? anything outside touched?</li></ul></div>
+    <div class="r"><p class="k">Result</p><ul>
+      <li>44 sandboxed runs: all read the paper, none touched a reference</li>
+      <li>Old pass rates retired</li></ul></div>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <p class="eyebrow">Sandboxed reruns · 4 models × {original prompt, addendum} × 2 seeds</p>
+  <h2>Without the key, three of four defects mostly do not recur</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>finding</th><th class="c">v1 · s1</th><th class="c">v1 · s2</th><th class="c">v2 · s1</th><th class="c">v2 · s2</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Z′</strong> kinetic + mass</td><td class="c"><span class="pill ok">✓</span></td><td class="c"><span class="pill ok">✓</span></td><td class="c"><span class="pill ok">✓</span></td><td class="c"><span class="pill ok">✓</span></td></tr>
+      <tr><td><strong>Sextets</strong> explicit 1/Λ</td><td class="c"><span class="pill ok">✓</span></td><td class="c"><span class="pill ok">✓</span></td><td class="c"><span class="pill ok">✓</span></td><td class="c"><span class="pill ok">✓</span></td></tr>
+      <tr><td><strong>EffLRSM</strong> ν<sup>c</sup></td><td class="c"><span class="pill ok">✓</span></td><td class="c"><span class="pill ok">✓</span></td><td class="c"><span class="pill ok">✓</span></td><td class="c"><span class="pill ok">✓</span></td></tr>
+      <tr><td><strong>U(1)</strong> Eps + sign</td><td class="c"><span class="pill bad">✗ sign</span></td><td class="c"><span class="pill ok">✓</span></td><td class="c"><span class="pill ok">✓</span></td><td class="c"><span class="pill ok">✓</span></td></tr>
+    </tbody></table></div>
+  <ul class="pts">
+    <li>The one that recurs — copying a charge table — is what the addendum's charge rule targets</li>
+    <li>Two seeds is a small sample; v1 = original prompt, v2 = prompt + addendum</li>
+  </ul>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <p class="eyebrow">The prompt addendum</p>
+  <h2>Six rules and a self-audit</h2>
+  <ul class="pts">
+    <li>Kinetic + mass term for every new field, named and summed</li>
+    <li>Every operator of dimension d carries <code>1/Lam^(d-4)</code>, cutoffs External</li>
+    <li><code>CC[]</code> wherever the paper writes ψ<sup>c</sup></li>
+    <li><code>Eps[i,j]</code> for any two same-type doublets</li>
+    <li>U(1) charges re-derived from Yukawa invariance, never copied</li>
+    <li>Read only the paper</li>
+    <li>Then a table per term: mass dimension, coupling dimension, Q / Y / X sums</li>
+  </ul>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <p class="eyebrow">The 28-model rerun, sandboxed, with the addendum</p>
+  <h2>The first honest benchmark number</h2>
+  <div class="nums">
+    <div class="ok"><p class="n">0.77</p><p class="l">field F1 on the 9 clean models · was 0.65</p></div>
+    <div class="bad"><p class="n">0.56</p><p class="l">on the 18 contaminated models · was 0.79 — that was the key</p></div>
+    <div><p class="n">0.63</p><p class="l">all 26 scorable · was 0.73</p></div>
+  </div>
+  <ul class="pts">
+    <li>28 / 28 read the paper, 0 tainted, 27 rendered (HNLs: schema)</li>
+    <li>Two benchmark data bugs: topBSM paired with the wrong reference (fixed: <code>thu.fr</code>); MSSMD paired with a CMS search (open)</li>
+    <li>Big honest drops to look at by hand: Triplets, CHEIDI, ChernSimonsPortal</li>
+  </ul>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <p class="eyebrow">Compile chain · 16 files · FeynRules → UFO → MadGraph</p>
+  <h2>Every failure is a convention, not physics</h2>
+  <div class="nums">
+    <div class="ok"><p class="n">5 / 16</p><p class="l">full chain (all four Z′, sextets v2/s1)</p></div>
+    <div class="warn"><p class="n">13 / 16</p><p class="l">compile in FeynRules</p></div>
+    <div class="bad"><p class="n">3</p><p class="l">stall — two sextet files even at 60 minutes</p></div>
+  </div>
+  <div class="scroll"><table>
+    <thead><tr><th>what fails</th><th>where</th><th>fix</th></tr></thead>
+    <tbody>
+      <tr><td>New coupling without <code>InteractionOrder</code> → MadGraph refuses order '1'</td><td>U(1) ×2</td><td>renderer default <code>{NP,1}</code></td></tr>
+      <tr><td>Pattern <code>Definitions</code> → UFO parameter named <code>YN1x1 /. YN</code></td><td>EffLRSM, U(1), original EffLRSM</td><td>renderer rejects patterns</td></tr>
+      <tr><td>Explicit indices in <code>DC[]</code> / flavour matrices → UFO writer leaks internals</td><td>sextets, EffLRSM ×2</td><td>rule: matrix form; lint</td></tr>
+      <tr><td>Explicit sextet index in <code>DC[]</code> with no gauge rep → garbage gluon–sextet vertices, non-Hermitian, FeynRules stalls</td><td>sextets ×2</td><td>gauge-rep check; <code>DC[]</code> lint</td></tr>
+      <tr><td>Nested generation index → FeynRules stalls</td><td>U(1)</td><td>stall detection</td></tr>
+    </tbody></table></div>
+  <p class="foot">Settled on the way: FS[] on a singlet vector compiles; CC[] compiles; the file with class N loads but is broken.</p>
+</section>
+
+<!-- 11b -->
+<section class="slide">
+  <p class="eyebrow">Compile chain · the 28-model sandboxed fleet</p>
+  <h2>Eleven pass end to end; the rest fail on conventions</h2>
+  <div class="nums">
+    <div class="ok"><p class="n">11 / 28</p><p class="l">full chain, first shot, no repair loop</p></div>
+    <div class="warn"><p class="n">21 / 28</p><p class="l">compile in FeynRules</p></div>
+    <div class="bad"><p class="n">15 / 28</p><p class="l">the old fleet's number — on files that had copied a reference that compiles</p></div>
+  </div>
+  <div class="scroll"><table>
+    <thead><tr><th>why it fails</th><th class="c">models</th><th>fix</th></tr></thead>
+    <tbody>
+      <tr><td>UFO writer leaks internals (explicit indices)</td><td class="c">3</td><td>matrix form; renderer lint</td></tr>
+      <tr><td>Two total-Lagrangian symbols; harness refuses to guess</td><td class="c">3</td><td>schema: one declared total</td></tr>
+      <tr><td>Particle named <code>W'</code> — not valid Python</td><td class="c">2</td><td>renderer: identifier names only</td></tr>
+      <tr><td>Field-free constant term → vertex with no particles</td><td class="c">2</td><td>renderer drops constants</td></tr>
+      <tr><td>FeynRules recursion-limit crash</td><td class="c">2</td><td>to diagnose</td></tr>
+      <tr><td>Pattern <code>Definitions</code> · no <code>InteractionOrder</code> · stall · non-Hermitian · not rendered</td><td class="c">1 each</td><td>as before</td></tr>
+    </tbody></table></div>
+  <p class="foot">Passing: 331, topBSM, ChernSimonsPortal, MDMmodel, pNG, Sextets, 368sextets, Top-Philic Z′, LeptoQuark, NJLComposite, VLC_LN.</p>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <p class="eyebrow">Beyond the findings · two independent readers per file</p>
+  <h2>What the regenerated files still get wrong</h2>
+  <ul class="pts">
+    <li>Sextets never couple to gluons: no <code>AddGaugeRepresentation</code> — a schema gap, all 4 runs; with an explicit index in <code>DC[]</code> it stalls FeynRules</li>
+    <li>A class named <code>N</code> (Protected symbol)</li>
+    <li>Class keys colliding with SM.fr (<code>F[11]</code>, <code>S[11]</code>)</li>
+    <li>Extra ½ on Z<sub>R</sub>–N–N in the original-prompt runs; gone with the addendum</li>
+    <li>No run diagonalises Z–Z′ mixing — a modelling decision, not a rule</li>
+  </ul>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+  <p class="eyebrow">Next: fixes in the tooling, not the prompt</p>
+  <h2>Renderer checks so the rules cannot be forgotten</h2>
+  <div class="par">
+    <div class="a"><p class="k">Renderer lints</p><ul>
+      <li>Reject Protected names</li>
+      <li>Number classes from 100</li>
+      <li>Reject pattern <code>Definitions</code></li>
+      <li>Default <code>InteractionOrder</code></li>
+      <li>Identifier-only particle names; drop field-free constants</li>
+      <li>Require a gauge representation for non-fundamental reps</li></ul></div>
+    <div class="a"><p class="k">Addendum v3</p><ul>
+      <li>Matrix form for flavour matrices</li>
+      <li>No index on a field inside <code>DC[]</code></li>
+      <li>No <code>InteractionOrder</code> on cutoffs</li></ul></div>
+    <div class="r"><p class="k">Harness</p><ul>
+      <li>Stall detection in the compile step</li>
+      <li>Logs kept per run</li>
+      <li>One declared total Lagrangian per model</li>
+      <li>Wall-clock compile budget (a sleeping laptop stretched 60 min to 4.9 h)</li></ul></div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+  <p class="eyebrow">Also this week</p>
+  <h2>The 63-file PR is now four reviewable ones</h2>
+  <ul class="pts">
+    <li>#11 tool bundle → #14 frgen extract → #15 validate, jobs, logging → #16 reverse + verdict labels</li>
+    <li>Each slice verified to build and test on its own; merge in order</li>
+    <li>Exoplanet tools left heptapod for ASTER (separate PR, Emilie)</li>
+  </ul>
+</section>
+
+<!-- 15 -->
+<section class="slide">
+  <p class="eyebrow">For Ian and Konstantin</p>
+  <h2>Five questions</h2>
+  <ul class="pts">
+    <li><strong>MSSMD</strong> — which paper defines the model?</li>
+    <li><strong>EffLRSM</strong> — keep the light-ν W<sub>R</sub> term with <code>CC[]</code> (paper), or drop it (reference)?</li>
+    <li><strong>Sextets</strong> — explicit Λ (paper) or absorbed couplings (reference) as the target?</li>
+    <li><strong>General U(1)</strong> — diagonalise Z–Z′, or stop at the gauge basis and say so?</li>
+    <li><strong>The metric</strong> — reference-file F1 rewards copying. A per-model manifest from the paper?</li>
+  </ul>
+  <p class="foot">Long-form page with every quoted line: benchmarks/ian_four_findings_longform.html</p>
+</section>
+
+<div id="ctr" aria-live="polite">1 / 16</div>
+<script>
+  (function () {
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+    var ctr = document.getElementById('ctr');
+    function current() {
+      var y = window.scrollY + window.innerHeight / 2, i = 0;
+      for (var k = 0; k < slides.length; k++) if (slides[k].offsetTop <= y) i = k;
+      return i;
+    }
+    function update() { ctr.textContent = (current() + 1) + ' / ' + slides.length; }
+    function go(d) {
+      var i = Math.min(slides.length - 1, Math.max(0, current() + d));
+      slides[i].scrollIntoView({ block: 'start' });
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(1); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); go(-1); }
+      else if (e.key === 'Home') { e.preventDefault(); slides[0].scrollIntoView(); }
+      else if (e.key === 'End') { e.preventDefault(); slides[slides.length - 1].scrollIntoView(); }
+    });
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>

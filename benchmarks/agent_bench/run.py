@@ -38,6 +38,7 @@ from benchmarks.agent_bench.drivers import (  # noqa: E402
 )
 
 HEPTAPOD = Path("/Users/kenwu/Documents/Github/heptapod")
+ASTER = Path("/Users/kenwu/Documents/Github/aster")
 OUT_ROOT = HERE.parent / "agent_bench_runs"
 
 
@@ -100,6 +101,7 @@ def run_one(case: Case, driver_name: str, model: str,
     final_text = " ".join(e.text or "" for e in trace.events
                           if e.kind == "message")[-4000:]
     score = case.score(workdir, {"heptapod": str(HEPTAPOD),
+                                 "aster": str(ASTER),
                                  "final_text": final_text})
     coverage = required_tool_coverage(trace, case)
 
