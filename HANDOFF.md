@@ -257,10 +257,12 @@ Verified before the push was attempted:
   `extract`, `validate`, `jobs`, `reverse`) survive.
 - `main` and the stack each added a way to detect pytest-style suites and
   neither subsumes the other, so both are kept and the merged code says why.
-- Suites pass on the rebased tip: literature, frgen, extract, validate, jobs,
-  logging, reverse, inspire, plus the worked example. `feynrules` was not
-  cleanly measured — every attempt so far ran beside a benchmark compile, and
-  the two contend for the Wolfram kernel. Run it on an idle machine.
+- All nine suites pass on the rebased tip: literature, frgen, extract,
+  validate, jobs, logging, reverse, inspire and feynrules, plus the worked
+  example. `feynrules` needs `config.py`, which is gitignored and so absent
+  from a fresh worktree; without it the suite falls back to `/usr/local/
+  FeynRules` and fails. Copy `config.py` into the worktree before running it.
+  It fails the same way on the pre-rebase tip, so it is not a regression.
 - No secrets and no stray artifacts in the stack's 58 files.
 
 To finish, from a checkout with the `dev` remote:
