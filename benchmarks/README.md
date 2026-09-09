@@ -93,6 +93,26 @@ repair and reverse stages.
 python collect_disagreements.py     # no external software needed
 ```
 
+### Sandboxed reruns and the no-tools ablation (2026-09)
+
+`FINDINGS_2026-09.md` is the entry point: what the physicists reported, what
+caused each defect, what changed, and how it was measured.
+
+| file | what it does |
+|---|---|
+| `rerun_extract.py` | runs one arm: sandboxed agent, `tools` or `notools` engine mode, LaTeX or PDF-text paper source, then render, validate, score |
+| `prompt_addendum_v3.txt` | the physics and FeynRules-construct rules appended to the extraction prompt |
+| `rerun_predicates.py` | one deterministic check per reported finding, written against the construct rather than symbol names |
+| `test_rerun_predicates.py` | 21 unit tests for those checks, including the reference file and the reviewed file |
+| `single_model_select.py` | turns the paper classification into `single_model_papers.{json,md}`: which papers define exactly one model, and which reference pairings are broken |
+| `subagent_bench.py` | drives the agent stage from an interactive Claude Code session when the headless CLI is not logged in |
+| `ablation_report.py` | the per-finding, per-run and per-variant comparison across arms |
+| `run_ablation.sh` | runs every arm end to end and writes the report |
+
+They run from the heptapod checkout, where the tools and paper texts live;
+this directory mirrors the scripts and the results.
+`ablation_report_v1v2.md` is the v1-vs-v2 baseline on the four reviewed models.
+
 ## Caveats
 
 - The repair agent is isolated, but the underlying model may have seen these

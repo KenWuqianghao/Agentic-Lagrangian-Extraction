@@ -183,3 +183,59 @@ results under `benchmarks/<model>/rerun/`.
   ground-truth override values — it is intentionally all-null right now.
   Do not populate it programmatically; that decision belongs to a
   physicist, not an agent.
+
+## Update 2026-09-09 — physicist round 2, v3 harness, no-tools ablation
+
+Ian and Konstantin sent one more finding on EffLRSM: the overall Z_R
+coupling (paper arXiv:1610.08985 Eq. 8) is `-kappa g / sqrt(1 - tan^2/kappa^2)`;
+the reviewed file (and the crosscheck that graded it "agree") put the root in
+the numerator, so every Z_R rate is low by a factor 0.49. Root cause: the
+PDF-extracted paper text flattens `\frac{num}{\sqrt{den}}` into three lines.
+One sandboxed rerun (v1/s1) repeated the slip; v2/s1 noticed the split
+fraction and recovered it from the width formula.
+
+What changed (heptapod `eval/benchmark_runs/`, mirrored here in `benchmarks/`):
+
+- Every benchmark paper now has its LaTeX source at
+  `<page>/text/<id>_source.tex` (fetched with heptapod's ArxivSourceTool;
+  manifest `latex_sources.json`). `rerun_extract.py --paper-source tex|txt`.
+- `rerun_extract.py --engine-mode tools|notools`. `notools` is the ablation
+  arm: `claude -p --tools ''`, SM.fr and the paper inlined in the prompt, the
+  agent writes the whole `.fr` in one fenced block, no schema, no renderer.
+  Both arms run with `--setting-sources ''` so the operator's CLAUDE.md and
+  settings never reach the benchmarked agent.
+- `prompt_addendum_v3.txt`: v2 rules plus fraction/root reading (LaTeX
+  first, else cross-check a width or cross-section equation), mass mixing,
+  and the FeynRules/UFO construct rules every earlier compile failure traced
+  to (AddGaugeRepresentation for sextets, no Protected/SM names, class index
+  >= 100, InteractionOrder on every coupling, explicit tensor values,
+  matrix-form flavour couplings, one LTotal, no field-free terms).
+- `rerun_predicates.py`: two new predicates, `efflrsm_zr_normalisation`
+  (root must divide) and `sextets_gauge_representation` (all four earlier
+  sextet reruns fail it: no gluon coupling).
+- `ablation_report.py`: per-finding x variant table, per-run chain table,
+  aggregate per variant, field-F1 against the DB reference. Baseline on the
+  four Ian models, v1 vs v2 (txt, tools): `ablation_report_v1v2.md`.
+- `run_ablation.sh`: runs arms `v3_tools`, `v3_notools`, `v3txt_tools`
+  (the last isolates the paper-source effect), scores and reports.
+  `PAGES=single` selects the papers that define exactly one model
+  (`single_model_papers.json`, classified by reader + two adversarial
+  refuters per paper) plus Ian's four.
+- `validation_benchmark.compile_to_ufo` has the wall-clock watchdog the
+  earlier handoff asked for.
+
+Blocked: the headless `claude` CLI on this Mac is logged out
+(`claude auth status` -> `loggedIn: false`, "OAuth session expired"). Every
+real agent run fails in 0 s until a human runs `claude login` in a terminal.
+The harness was dry-run end to end with a stub engine (both modes render,
+predicates and the full FeynRules -> UFO -> MadGraph chain pass on a
+known-good file). Then:
+
+```bash
+cd ~/Documents/Github/heptapod
+PAGES=single SEEDS=2 eval/benchmark_runs/run_ablation.sh
+```
+
+Never call `timeout` (or any missing binary) from a shell on this Mac: the
+zsh `command_not_found_handler` recurses into `pacman` and fork-storms the
+per-user process limit.

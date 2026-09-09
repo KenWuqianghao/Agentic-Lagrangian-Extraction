@@ -6,34 +6,56 @@
 # Please respect the MCnet Guidelines, see GUIDELINES for details.
 
 Re-run the extraction agent on chosen benchmark models under a different
-engine and/or prompt variant, then render, validate and score the result.
+engine mode, paper source and/or prompt variant, then render, validate and
+score the result.
 
-    python eval/benchmark_runs/rerun_extract.py --pages A,B --variant v1 --seeds 2
-    python eval/benchmark_runs/rerun_extract.py --pages A,B --variant v2 \
-        --addendum eval/benchmark_runs/prompt_addendum_v2.txt
+    python eval/benchmark_runs/rerun_extract.py --pages A,B --variant v3_tools \
+        --engine-mode tools --paper-source tex \
+        --addendum eval/benchmark_runs/prompt_addendum_v3.txt --seeds 2
+    python eval/benchmark_runs/rerun_extract.py --pages A,B --variant v3_notools \
+        --engine-mode notools --paper-source tex \
+        --addendum eval/benchmark_runs/prompt_addendum_v3.txt --seeds 2
 
-Same architecture as the original fleet (db_launch.sh + db_collect.py): the
-agent only EXTRACTS — it reads the local paper text and emits a fenced
-model_json — and the deterministic GenerateFeynRulesModelTool renders the .fr
-afterwards, so schema validation genuinely executes. The agent runs read-only:
-file reading tools only, no shell, no network, no MCP servers.
+Two engine modes, so the same model, paper and physics rules can be compared
+with and without tool support:
+
+  * ``tools`` — the fleet architecture. The agent has file-reading tools only
+    (Read/Grep/Glob; no shell, no network, no MCP servers), reads the paper
+    and the schema (frmodel.py) inside a sandbox, and emits a fenced
+    model_json; the deterministic GenerateFeynRulesModelTool renders the .fr
+    afterwards, so schema validation genuinely executes.
+  * ``notools`` — the ablation arm. Every built-in tool is disabled
+    (``--tools ""``); the paper and SM.fr are inlined into the prompt; the
+    agent writes the complete .fr file itself in one fenced block. No schema,
+    no renderer, nothing to read.
+
+Two paper sources:
+
+  * ``tex`` — the paper's LaTeX source (``text/<id>_source.tex``, fetched with
+    ArxivSourceTool). Fractions, roots and sub/superscripts are exact. The
+    EffLRSM Z_R normalisation error (root multiplied instead of divided) came
+    from the PDF text flattening ``\\frac{-\\kappa g}{\\sqrt{...}}`` into three
+    lines.
+  * ``txt`` — the PDF-extracted text the original fleet and the v1/v2 reruns
+    used. Kept so the effect of the source can be isolated.
 
 The agent runs inside a per-run SANDBOX directory that mirrors the repo
-layout but contains only the paper text, the schema (frmodel.py), the
+layout but contains only the chosen paper file, the schema (frmodel.py), the
 renderer (render.py) and SM.fr. The original fleet ran with the whole repo
 visible, and the physicist reference files under eval/reference_cache/ were
-one Glob away: the 368sextets run opened its own reference and copied it,
-and two unsandboxed reruns grepped `**/*.fr` across the repo. A benchmark of
-"extract the model from the paper" is void if the answer key is readable.
+one Glob away: the 368sextets run opened its own reference and copied it. A
+benchmark of "extract the model from the paper" is void if the answer key is
+readable. ``--setting-sources ""`` keeps the operator's own CLAUDE.md and
+settings out of the agent as well.
 
 Three things are recorded that the original fleet did not, because each
 decides whether a result means anything:
 
-  * did the agent actually READ the paper (a Read of the text file in the
-    tool stream)? A correct-looking model produced without reading the paper
-    was recalled, not extracted.
+  * did the agent actually READ the paper (a Read of the paper file in the
+    tool stream; in notools mode the paper is inlined, recorded as such)?
   * did it reach OUTSIDE the sandbox (an absolute path elsewhere, or anything
     naming reference_cache)? Flagged as contaminated, never silently kept.
+    In notools mode ANY tool call is an anomaly and is recorded.
   * per-finding predicates (rerun_predicates.py, optional): deterministic
     checks on the .fr text for the specific defects a physicist reported.
 
@@ -55,6 +77,7 @@ import shlex
 import signal
 import subprocess
 import sys
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -74,13 +97,15 @@ from tools.frgen.frgen_tool import GenerateFeynRulesModelTool  # noqa: E402
 AGENT_TIMEOUT = int(os.environ.get("RERUN_AGENT_TIMEOUT", "1800"))
 AGENT_MODEL = os.environ.get("RERUN_AGENT_MODEL", "claude-opus-5")
 # Prompt goes on stdin: --disallowedTools is variadic and swallows a trailing
-# positional as another tool name.
-DEFAULT_AGENT_CMD = (
-    "claude -p --output-format stream-json --verbose --model {model} "
-    "--mcp-config {mcp} --strict-mcp-config "
-    "--allowedTools Read,Grep,Glob "
-    "--disallowedTools Bash,WebFetch,WebSearch,Edit,Write,MultiEdit,NotebookEdit,Agent,TodoWrite"
-)
+# positional as another tool name. --setting-sources "" keeps the operator's
+# CLAUDE.md, settings and hooks out of the benchmarked agent.
+_COMMON = ("claude -p --output-format stream-json --verbose --model {model} "
+           "--mcp-config {mcp} --strict-mcp-config --setting-sources '' ")
+AGENT_CMDS = {
+    "tools": _COMMON + "--allowedTools Read,Grep,Glob "
+             "--disallowedTools Bash,WebFetch,WebSearch,Edit,Write,MultiEdit,NotebookEdit,Agent,TodoWrite",
+    "notools": _COMMON + "--tools ''",
+}
 OUTROOT = Path(os.environ["VBENCH_OUT"])
 
 # Everything the agent may see, as repo-relative paths mirrored into the sandbox.
@@ -89,27 +114,101 @@ SANDBOX_SHARED = [
     "tools/frgen/render.py",
     "tools/feynrules/test_files/models/SM.fr",
 ]
+SM_FR = REPO / "tools/feynrules/test_files/models/SM.fr"
 SANDBOX_NOTE = """\
-SANDBOX: your working directory contains ONLY the paper text, tools/frgen/frmodel.py
+SANDBOX: your working directory contains ONLY the paper, tools/frgen/frmodel.py
 (the schema), tools/frgen/render.py (the renderer), and
 tools/feynrules/test_files/models/SM.fr (the Standard Model file this add-on is loaded
 on top of: take field names, index conventions and hypercharges from it). Nothing else
 exists here and nothing outside this directory may be read."""
+NOTOOLS_NOTE = """\
+NO TOOLS: this run has no file, shell, network or code tools. Everything you need is in
+this message: the Standard Model file SM.fr (the file this add-on is loaded on top of:
+take field names, index conventions and hypercharges from it) and the paper. Do not ask
+for anything; do the extraction and write the model."""
+
+
+# ------------------------------------------------------------------ paper
+def paper_file(page: str, source: str) -> tuple[Path, str]:
+    """(absolute path, source actually used). ``tex`` falls back to ``txt``
+    when no LaTeX source was fetched for the page, and says so."""
+    text_dir = HERE / page / "text"
+    if source == "tex":
+        texs = sorted(text_dir.glob("*_source.tex"))
+        if texs:
+            return texs[0], "tex"
+        source = "txt"
+    txts = sorted(text_dir.glob("*.txt"))
+    if not txts:
+        raise FileNotFoundError(f"no paper text under {text_dir}")
+    return txts[0], "txt"
+
+
+def _sub_once(text: str, pattern: str, repl: str, what: str) -> str:
+    new, n = re.subn(pattern, lambda _m: repl, text, count=1, flags=re.M)
+    if n != 1:
+        raise ValueError(f"prompt template: could not find the {what} line to rewrite")
+    return new
 
 
 # ------------------------------------------------------------------ prompt
-def build_prompt(page: str, addendum: str | None) -> str:
-    """The fleet prompt, adapted to a shell-less engine, plus the variant's addendum."""
+def build_prompt(page: str, addendum: str | None, mode: str,
+                 paper_abs: Path, paper_src: str) -> str:
+    """The fleet prompt, adapted to the engine mode and paper source, plus the
+    variant's addendum."""
     base = (HERE / page / "prompt.txt").read_text()
-    base = base.replace("(read it with sed/cat; it is authoritative)",
-                        "(read it with your file-reading tool; it is authoritative)")
-    base = base.rstrip() + "\n\n" + SANDBOX_NOTE + "\n"
+    paper_rel = f"eval/benchmark_runs/{page}/text/{paper_abs.name}"
+    src_note = ("the paper's LaTeX source: equations, fractions and roots are exact"
+                if paper_src == "tex" else "text extracted from the PDF")
+
+    if mode == "tools":
+        base = _sub_once(base, r"^PAPER: .*$",
+                         f'PAPER: full text at "{paper_rel}" (read it with your '
+                         f"file-reading tool; it is {src_note}; it is authoritative).",
+                         "PAPER")
+        base = base.rstrip() + "\n\n" + SANDBOX_NOTE + "\n"
+        if addendum:
+            base = base.rstrip() + "\n\n" + addendum.strip() + "\n"
+        return base
+
+    # notools: same task, no schema, the .fr written directly, documents first.
+    base = _sub_once(base, r"^PAPER: .*$",
+                     f"PAPER: {src_note}, included verbatim above between the PAPER "
+                     "markers; it is authoritative.", "PAPER")
+    base = _sub_once(base, r"^SCHEMA: .*$",
+                     "FORMAT: write a complete FeynRules .fr add-on model file yourself "
+                     "(M$ModelName, M$Information, M$InteractionOrderHierarchy, IndexRange "
+                     "declarations for new indices, M$Parameters, M$ClassesDescription, the "
+                     "Lagrangian terms and one LTotal). It is loaded on top of SM.fr, included "
+                     "verbatim above between the SM.fr markers.", "SCHEMA")
+    base = _sub_once(base, r"^3\. Include the main new-physics lagrangian_terms .*$",
+                     "3. Write the main new-physics Lagrangian terms (FeynRules/Mathematica "
+                     "syntax and idioms).", "TASK item 3")
+    base = _sub_once(base, r"^SCHEMA RULES: .*$",
+                     "FILE RULES: use FeynRules syntax for every value (rationals -1/3, decimals "
+                     "1500.); SM add-on => no M$GaugeGroups block; the indices Colour, Gluon, "
+                     "Generation, SU2D and SU2W are declared by SM.fr; any OTHER index (a "
+                     "colour-sextet index, a new-generation index) needs "
+                     "`IndexRange[Index[X]] = NoUnfold[Range[n]];` with the correct size; every "
+                     "class gets a unique label S[n]/F[n]/V[n] with n >= 100; "
+                     "SelfConjugate -> False for complex fields (distinct antiparticle), True for "
+                     "real/Majorana fields.", "SCHEMA RULES")
+    base = _sub_once(base, r"^OUTPUT: .*$",
+                     "OUTPUT: your FINAL message must contain exactly one fenced code block "
+                     "tagged mathematica containing ONLY the complete .fr file (no commentary "
+                     f'inside the fences). Set M$ModelName = "{page}_gen".', "OUTPUT")
+    base = base.rstrip() + "\n\n" + NOTOOLS_NOTE + "\n"
     if addendum:
         base = base.rstrip() + "\n\n" + addendum.strip() + "\n"
-    return base
+
+    docs = (f"===== BEGIN SM.fr (tools/feynrules/test_files/models/SM.fr) =====\n"
+            f"{SM_FR.read_text()}\n===== END SM.fr =====\n\n"
+            f"===== BEGIN PAPER ({paper_abs.name}; {src_note}) =====\n"
+            f"{paper_abs.read_text(errors='replace')}\n===== END PAPER =====\n\n")
+    return docs + base
 
 
-def make_sandbox(page: str, rundir: Path) -> Path:
+def make_sandbox(page: str, rundir: Path, paper_abs: Path) -> Path:
     """A fresh directory mirroring the repo layout, holding only the allowed files.
 
     Lives under the system temp dir, NOT inside the repo: a sandbox at
@@ -120,11 +219,9 @@ def make_sandbox(page: str, rundir: Path) -> Path:
     import tempfile
     sb = Path(tempfile.mkdtemp(prefix=f"rerun-{page}-"))
     (rundir / "sandbox_path.txt").write_text(str(sb))
-    text_dir = HERE / page / "text"
-    for src in sorted(text_dir.glob("*.txt")):
-        dst = sb / "eval" / "benchmark_runs" / page / "text" / src.name
-        dst.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(src, dst)
+    dst = sb / "eval" / "benchmark_runs" / page / "text" / paper_abs.name
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(paper_abs, dst)
     for rel in SANDBOX_SHARED:
         src, dst = REPO / rel, sb / rel
         dst.parent.mkdir(parents=True, exist_ok=True)
@@ -139,7 +236,11 @@ def _parse_stream(lines: list[str], paper_rel: str, sandbox: Path) -> dict:
     reads: list[str] = []
     outside: list[str] = []
     n_tools = 0
-    sb = str(sandbox.resolve())
+    # Both spellings of the sandbox root: macOS resolves /var to /private/var,
+    # so an agent handed the /var path reads files that startswith() the raw
+    # prefix but not the resolved one. Comparing against one of them alone
+    # marks every legitimate read as an escape.
+    sb_prefixes = tuple({str(sandbox), str(sandbox.resolve())})
     for line in lines:
         line = line.strip()
         if not line:
@@ -164,20 +265,22 @@ def _parse_stream(lines: list[str], paper_rel: str, sandbox: Path) -> dict:
                 if block.get("name") == "Read":
                     reads.append(str(inp.get("file_path", "")))
                 # Any path-like argument that escapes the sandbox is recorded.
-                # Reaching the SAME paper text through its real repo path is
+                # Reaching the SAME paper file through its real repo path is
                 # benign (identical bytes); anything else outside — above all
                 # the answer key under reference_cache — taints the run.
                 for key in ("file_path", "path", "pattern"):
                     v = str(inp.get(key, "") or "")
                     if not v:
                         continue
-                    if "reference_cache" in v or (v.startswith("/") and not v.startswith(sb)):
+                    if "reference_cache" in v or (v.startswith("/")
+                                                  and not v.startswith(sb_prefixes)):
                         outside.append(f"{block.get('name')}:{v[:120]}")
             elif block.get("type") == "text" and block.get("text"):
                 texts.append(block["text"])
     read_paper = any(paper_rel in r for r in reads)
     benign = [o for o in outside
-              if "reference_cache" not in o and paper_rel in o and o.endswith(".txt")]
+              if "reference_cache" not in o and paper_rel in o
+              and (o.endswith(".txt") or o.endswith(".tex"))]
     tainted = [o for o in outside if o not in benign]
     return {"final_text": "\n".join(texts), "n_tool_calls": n_tools,
             "files_read": reads, "read_paper": read_paper,
@@ -185,13 +288,13 @@ def _parse_stream(lines: list[str], paper_rel: str, sandbox: Path) -> dict:
             "benign_outside": benign}
 
 
-def run_agent(page: str, prompt: str, rundir: Path) -> dict:
+def run_agent(page: str, prompt: str, rundir: Path, mode: str, paper_abs: Path) -> dict:
     rundir.mkdir(parents=True, exist_ok=True)
     (rundir / "prompt.txt").write_text(prompt)
-    sandbox = make_sandbox(page, rundir)
+    sandbox = make_sandbox(page, rundir, paper_abs)
     mcp = rundir / "mcp_empty.json"
     mcp.write_text('{"mcpServers": {}}')
-    cmd = shlex.split(os.environ.get("RERUN_AGENT_CMD", DEFAULT_AGENT_CMD)
+    cmd = shlex.split(os.environ.get("RERUN_AGENT_CMD", AGENT_CMDS[mode])
                       .format(model=AGENT_MODEL, mcp=str(mcp)))
     t0 = time.time()
     timed_out = False
@@ -203,7 +306,6 @@ def run_agent(page: str, prompt: str, rundir: Path) -> dict:
         # latter counts monotonic time, which stops while the machine sleeps,
         # so a laptop that dozed off mid-run let an agent stalled on HTTP 429
         # live for three hours. time.time() jumps across sleep; this does not.
-        import threading
         killed = {"by_watchdog": False}
 
         def _watchdog():
@@ -233,19 +335,59 @@ def run_agent(page: str, prompt: str, rundir: Path) -> dict:
     (rundir / "agent_stderr.txt").write_text(err or "")
     paper_rel = f"eval/benchmark_runs/{page}/text/"
     parsed = _parse_stream((out or "").splitlines(), paper_rel, sandbox)
-    (rundir / "agent_out.md").write_text(parsed["final_text"])
-    return {"ok": rc == 0 and not timed_out and bool(parsed["final_text"]),
-            "exit": rc, "timed_out": timed_out, "seconds": dt,
-            "n_tool_calls": parsed["n_tool_calls"],
-            "read_paper": parsed["read_paper"],
-            "contaminated": parsed["contaminated"],
-            "outside_sandbox": parsed["outside_sandbox"],
-            "benign_outside": parsed["benign_outside"],
-            "files_read": parsed["files_read"][:40]}
+    if parsed["final_text"].strip():
+        (rundir / "agent_out.md").write_text(parsed["final_text"])
+    else:
+        # A logged-out CLI, a usage limit or a transport error leaves no text.
+        # Writing an empty agent_out.md would make --skip-existing treat the
+        # failure as a finished run for ever.
+        (rundir / "agent_out.md").unlink(missing_ok=True)
+    facts = {"ok": rc == 0 and not timed_out and bool(parsed["final_text"]),
+             "exit": rc, "timed_out": timed_out, "seconds": dt, "mode": mode,
+             "n_tool_calls": parsed["n_tool_calls"],
+             "read_paper": parsed["read_paper"],
+             "contaminated": parsed["contaminated"],
+             "outside_sandbox": parsed["outside_sandbox"],
+             "benign_outside": parsed["benign_outside"],
+             "files_read": parsed["files_read"][:40],
+             "prompt_chars": len(prompt)}
+    if mode == "notools":
+        # The paper is in the prompt; a tool call of any kind is an anomaly.
+        facts["paper_inlined"] = True
+        facts["read_paper"] = True
+        facts["anomalous_tool_calls"] = parsed["n_tool_calls"]
+    err_tail = (err or "").strip()[-400:]
+    if err_tail and not facts["ok"]:
+        facts["stderr_tail"] = err_tail
+    if rc == 0 and not parsed["final_text"]:
+        facts["error"] = "empty final text"
+    return facts
 
 
 # ------------------------------------------------------- render + validate
-def render(page: str, rundir: Path) -> dict:
+_FENCE_RE = re.compile(r"```[ \t]*([A-Za-z0-9_+-]*)[ \t]*\n(.*?)```", re.S)
+
+
+def _fr_block(md: str) -> str | None:
+    """The last fenced block that looks like a FeynRules model file."""
+    blocks = [(tag.lower(), body) for tag, body in _FENCE_RE.findall(md)]
+    cands = [b for _t, b in blocks if "M$ModelName" in b or "M$ClassesDescription" in b]
+    if not cands:
+        cands = [b for t, b in blocks if t in ("mathematica", "wolfram", "fr", "feynrules")]
+    return cands[-1] if cands else None
+
+
+def render(page: str, rundir: Path, mode: str) -> dict:
+    if mode == "notools":
+        md = (rundir / "agent_out.md").read_text(errors="replace")
+        body = _fr_block(md)
+        if body is None:
+            return {"rendered": False, "reason": "no_fr_block"}
+        fr = rundir / "model" / f"{page}_gen.fr"
+        fr.parent.mkdir(parents=True, exist_ok=True)
+        fr.write_text(body.rstrip() + "\n")
+        return {"rendered": True, "fr": str(fr), "agent_written": True,
+                "has_model_name": "M$ModelName" in body}
     mj, err = recover_json(rundir / "agent_out.md")
     if mj is None:
         return {"rendered": False, "reason": err}
@@ -303,7 +445,14 @@ def predicates(page: str, fr_text: str) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--pages", required=True, help="comma-separated pages")
-    ap.add_argument("--variant", required=True, help="v1, v2, ...")
+    ap.add_argument("--variant", required=True,
+                    help="run label, e.g. v3_tools, v3_notools, v3txt_tools")
+    ap.add_argument("--engine-mode", choices=sorted(AGENT_CMDS), default="tools",
+                    help="tools: Read/Grep/Glob + schema + renderer (fleet architecture); "
+                         "notools: no tools at all, paper and SM.fr inlined, agent writes the .fr")
+    ap.add_argument("--paper-source", choices=("tex", "txt"), default="tex",
+                    help="tex: LaTeX source (text/<id>_source.tex, falls back to txt if absent); "
+                         "txt: PDF-extracted text")
     ap.add_argument("--addendum", default="", help="file appended to the prompt")
     ap.add_argument("--seeds", type=int, default=1)
     ap.add_argument("--parallel", type=int, default=4, help="concurrent agents")
@@ -318,6 +467,10 @@ def main() -> int:
     pages = [p for p in args.pages.split(",") if p]
     addendum = Path(args.addendum).read_text() if args.addendum else None
     jobs = [(page, k) for page in pages for k in range(1, args.seeds + 1)]
+    papers = {page: paper_file(page, args.paper_source) for page in pages}
+    for page, (pf, used) in papers.items():
+        if used != args.paper_source:
+            print(f"[rerun] {page}: no LaTeX source, falling back to {pf.name}", flush=True)
 
     def agent_job(job):
         page, k = job
@@ -335,8 +488,11 @@ def main() -> int:
                 except (OSError, json.JSONDecodeError):
                     pass
             return job, {"ok": True, "skipped": True}
-        print(f"[rerun] agent {page} {args.variant} s{k} ...", flush=True)
-        res = run_agent(page, build_prompt(page, addendum), rundir)
+        paper_abs, paper_src = papers[page]
+        print(f"[rerun] agent {page} {args.variant} s{k} [{args.engine_mode}/{paper_src}] ...",
+              flush=True)
+        prompt = build_prompt(page, addendum, args.engine_mode, paper_abs, paper_src)
+        res = run_agent(page, prompt, rundir, args.engine_mode, paper_abs)
         print(f"[rerun]   {page} s{k}: ok={res.get('ok')} "
               f"read_paper={res.get('read_paper')} "
               f"contaminated={res.get('contaminated')} "
@@ -350,8 +506,10 @@ def main() -> int:
     for page, k in jobs:                       # validation is serial: Wolfram
         rundir = HERE / page / "rerun" / args.variant / f"s{k}"
         row = {"page": page, "variant": args.variant, "seed": k,
+               "mode": args.engine_mode, "paper_source": papers[page][1],
+               "paper_file": papers[page][0].name,
                "agent": agent_results[(page, k)]}
-        rend = render(page, rundir)
+        rend = render(page, rundir, args.engine_mode)
         row["render"] = rend
         if rend.get("rendered"):
             fr = Path(rend["fr"])
@@ -382,6 +540,8 @@ def main() -> int:
             if (r["page"], r["seed"]) not in {(p, k) for p, k in jobs}]
     report.write_text(json.dumps({"variant": args.variant,
                                   "agent_model": AGENT_MODEL,
+                                  "engine_mode": args.engine_mode,
+                                  "paper_source": args.paper_source,
                                   "rows": keep + rows}, indent=1, default=str))
     print(f"[rerun] wrote {report}")
     return 0

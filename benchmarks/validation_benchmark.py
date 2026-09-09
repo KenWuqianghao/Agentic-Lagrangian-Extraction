@@ -38,6 +38,7 @@ import re
 import signal
 import subprocess
 import sys
+import threading
 import time
 from pathlib import Path
 
@@ -226,9 +227,35 @@ def _lag_override(fr_path: Path) -> str | None:
     return val if isinstance(val, str) and val else None
 
 
-def _kill_stale_kernels() -> None:
-    subprocess.run(["pkill", "-9", "-f", "Wolfram Player.app/Contents/MacOS/WolframKernel"],
-                   capture_output=True)
+_KERNEL_PATTERN = "Wolfram Player.app/Contents/MacOS/WolframKernel"
+
+
+def _kernel_pids() -> set:
+    """PIDs of the Wolfram Engine kernels running right now."""
+    p = subprocess.run(["pgrep", "-f", _KERNEL_PATTERN], capture_output=True, text=True)
+    return {int(x) for x in p.stdout.split() if x.strip().isdigit()}
+
+
+def _kill_stale_kernels(spawned_after: set | None = None) -> None:
+    """Kill kernels this compile orphaned — never every kernel on the machine.
+
+    wolframscript leaves its kernel behind when the driver is killed, and an
+    orphan holds the licence slot and the output pipe, so they must go. The
+    first version of this did a bare ``pkill -9 -f WolframKernel``, which
+    killed every Wolfram kernel on the machine: a concurrent test suite, a
+    parallel compile, or the operator's own Mathematica session. That cost a
+    false ``feynrules`` suite failure on 2026-09-09 when the suite ran beside
+    a benchmark compile.
+
+    ``spawned_after`` is the set of kernel PIDs that existed *before* this
+    compile started; only kernels absent from it are ours to kill.
+    """
+    victims = _kernel_pids() - (spawned_after or set())
+    for pid in victims:
+        try:
+            os.kill(pid, signal.SIGKILL)
+        except (ProcessLookupError, PermissionError):
+            pass
 
 
 def compile_to_ufo(page: str, fr: Path, lag: str, outdir: Path) -> dict:
@@ -241,15 +268,35 @@ def compile_to_ufo(page: str, fr: Path, lag: str, outdir: Path) -> dict:
         f"OutputDir={outdir}", "Checks=true", "AddDecays=false", f"LagName={lag}",
     ]
     t0 = time.time()
+    pre_existing_kernels = _kernel_pids()   # not ours; must survive this compile
     # Popen + process-group kill: subprocess.run(timeout=) only kills
     # wolframscript, then blocks in communicate() until the orphaned
     # WolframKernel children release the output pipe (observed 85 min hang).
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                          text=True, stdin=subprocess.DEVNULL, start_new_session=True)
+    # Wall-clock watchdog beside communicate()'s own timeout: the latter
+    # counts monotonic time, which stops while the machine sleeps, so a
+    # laptop that dozed off stretched a 3600 s budget to 17471 s. time.time()
+    # jumps across sleep; this does not.
+    killed = {"by_watchdog": False}
+
+    def _watchdog():
+        while p.poll() is None:
+            if time.time() - t0 > COMPILE_TIMEOUT:
+                killed["by_watchdog"] = True
+                try:
+                    os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+                except (ProcessLookupError, PermissionError):
+                    pass
+                return
+            time.sleep(15)
+    threading.Thread(target=_watchdog, daemon=True).start()
     try:
         out, _ = p.communicate(timeout=COMPILE_TIMEOUT)
         rc = p.returncode
-        timed_out = False
+        timed_out = killed["by_watchdog"]
+        if timed_out:
+            rc = -1
     except subprocess.TimeoutExpired:
         os.killpg(os.getpgid(p.pid), signal.SIGKILL)
         try:
@@ -259,7 +306,7 @@ def compile_to_ufo(page: str, fr: Path, lag: str, outdir: Path) -> dict:
         rc = -1
         timed_out = True
     finally:
-        _kill_stale_kernels()
+        _kill_stale_kernels(pre_existing_kernels)
     out = out or ""
     dt = round(time.time() - t0, 1)
     (outdir.parent / "compile.log").write_text(out)
