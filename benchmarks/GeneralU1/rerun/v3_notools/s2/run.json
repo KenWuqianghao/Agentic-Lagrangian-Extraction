@@ -1,0 +1,94 @@
+{
+ "page": "GeneralU1",
+ "variant": "v3_notools",
+ "seed": 2,
+ "mode": "notools",
+ "paper_source": "tex",
+ "paper_file": "2104.10902_source.tex",
+ "agent": {
+  "ok": true,
+  "error": null,
+  "exit": 0,
+  "timed_out": false,
+  "seconds": null,
+  "engine": "claude-code-subagent",
+  "model": "claude-opus-5",
+  "mode": "notools",
+  "tool_policy": "instructed+audited",
+  "audit_ok": true,
+  "audit_problems": [],
+  "n_tool_calls": 6,
+  "tool_names": [
+   "Read"
+  ],
+  "bundle_reads": 6,
+  "read_paper": true,
+  "contaminated": false,
+  "outside_sandbox": [],
+  "files_read": [
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-cls7km3f/PROMPT.md",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-cls7km3f/PROMPT.md",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-cls7km3f/PROMPT.md",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-cls7km3f/PROMPT.md",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-cls7km3f/PROMPT.md",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-cls7km3f/PROMPT.md"
+  ],
+  "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/workflows/wf_e9a072fd-8da/agent-a170984cba1d4c0e4.jsonl",
+  "paper_inlined": true,
+  "anomalous_tool_calls": 0,
+  "skipped": true
+ },
+ "render": {
+  "rendered": true,
+  "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/GeneralU1/rerun/v3_notools/s2/model/GeneralU1_gen.fr",
+  "agent_written": true,
+  "has_model_name": true
+ },
+ "predicates": {
+  "available": true,
+  "results": {
+   "generalu1_eps_and_higgs_charge": {
+    "resolved": false,
+    "detail": "cannot locate the Higgs doublet's U(1)X charge parameter"
+   }
+  },
+  "all_resolved": false
+ },
+ "validation": {
+  "lag_symbol": "LTotal",
+  "lag_resolution": {
+   "roots": [
+    "LTotal"
+   ],
+   "legacy_symbol": "LTotal",
+   "n_terms_defined": 10,
+   "ambiguous": false,
+   "changed_from_legacy": false
+  },
+  "compile_ok": true,
+  "timed_out": false,
+  "exit": 0,
+  "seconds": 51.7,
+  "ufo_files": [
+   "particles.py",
+   "parameters.py",
+   "couplings.py",
+   "vertices.py",
+   "lorentz.py"
+  ],
+  "checks": {
+   "hermiticity": true,
+   "kinetic_terms": true,
+   "mass_spectrum": true
+  },
+  "protected_symbol_errors": 0,
+  "log_tail": "",
+  "n_particles_ufo": 29,
+  "madgraph_import_ok": true,
+  "mg5_particles": 22,
+  "lepton_number_violation": false,
+  "mg5_tail": "",
+  "status": "compiled",
+  "full_chain_pass": true
+ }
+}

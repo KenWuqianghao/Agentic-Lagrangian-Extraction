@@ -57,7 +57,19 @@ def collect(page: str, variant: str, seed: int, cand: dict) -> dict:
         return row
     r = json.loads(run.read_text())
     a = r.get("agent") or {}
+    # Read the chain result from validation.json rather than from run.json.
+    # run.json is rewritten by whichever stage ran last — `subagent_bench
+    # ingest` writes the agent facts alone, and a `--no-validate` pass writes
+    # the render alone — so trusting it silently dropped rows that had in fact
+    # compiled and passed, and the aggregate undercounted every arm driven
+    # through the subagent path.
     v = r.get("validation") or {}
+    vfile = d / "validation.json"
+    if not v and vfile.is_file():
+        try:
+            v = json.loads(vfile.read_text())
+        except (OSError, json.JSONDecodeError):
+            v = {}
     row.update({
         "status": "ran",
         "mode": r.get("mode") or a.get("mode") or "tools",
@@ -74,7 +86,8 @@ def collect(page: str, variant: str, seed: int, cand: dict) -> dict:
         "seconds": a.get("seconds"), "n_tool_calls": a.get("n_tool_calls"),
         "read_paper": a.get("read_paper"), "paper_inlined": a.get("paper_inlined", False),
         "contaminated": a.get("contaminated"),
-        "rendered": bool((r.get("render") or {}).get("rendered")),
+        # Likewise: the .fr on disk is the fact, not run.json's memory of it.
+        "rendered": (d / "model" / f"{page}_gen.fr").is_file(),
         "render_reason": (r.get("render") or {}).get("reason"),
         "validated": bool(v),
         "lag_status": v.get("status"),

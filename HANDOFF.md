@@ -239,3 +239,44 @@ PAGES=single SEEDS=2 eval/benchmark_runs/run_ablation.sh
 Never call `timeout` (or any missing binary) from a shell on this Mac: the
 zsh `command_not_found_handler` recurses into `pacman` and fork-storms the
 per-user process limit.
+
+## The heptapod PR stack, 2026-09-09: rebased locally, needs one push
+
+PR #11 was `CONFLICTING` against `dev/main`, so Tony could not merge it. The
+whole four-PR stack has been rebased onto current `dev/main` (`36cd1e9`) in a
+worktree and verified, but the force-push was blocked by this environment's
+permission classifier, so it is the one step left for a human.
+
+Verified before the push was attempted:
+
+- Every slice's own files are byte-identical to the pre-rebase tip, and the
+  per-PR file counts are unchanged at 17 / 15 / 24 / 19.
+- Three conflicts were resolved by union merge (`.gitignore`, `tools/README.md`,
+  `toolkit.yaml`) and the `--only` choices list in `test_runner.py` was merged
+  so that both main's bundles (`wolfram`, `llp`) and the stack's (`frgen`,
+  `extract`, `validate`, `jobs`, `reverse`) survive.
+- `main` and the stack each added a way to detect pytest-style suites and
+  neither subsumes the other, so both are kept and the merged code says why.
+- Suites pass on the rebased tip: literature, frgen, extract, validate, jobs,
+  logging, reverse, inspire, plus the worked example. `feynrules` was not
+  cleanly measured — every attempt so far ran beside a benchmark compile, and
+  the two contend for the Wolfram kernel. Run it on an idle machine.
+- No secrets and no stray artifacts in the stack's 58 files.
+
+To finish, from a checkout with the `dev` remote:
+
+```bash
+git push --force-with-lease=refs/heads/feat/lagrangian-tools-dev:46c499f54fb20609b81b875f38c26a9bf6769dce dev rb/s1:refs/heads/feat/lagrangian-tools-dev
+git push --force-with-lease=refs/heads/lagrangian/2-frgen-extract:9fa44afb33bf671ca9009a73fb97a1a1a8a2cd47 dev rb/s2:refs/heads/lagrangian/2-frgen-extract
+git push --force-with-lease=refs/heads/lagrangian/3-validate-jobs-logging:9cddfd7fbc9b1b9f84bf5ec153b347f44016f37c dev rb/s3:refs/heads/lagrangian/3-validate-jobs-logging
+git push --force-with-lease=refs/heads/lagrangian/4-reverse:2e835b5e99dbfbf6cdd32a4b4bfb86303cedf4f4 dev rb/s4:refs/heads/lagrangian/4-reverse
+```
+
+The rebased branches are local refs `rb/s1` .. `rb/s4` in the heptapod clone.
+To undo, force-push the pre-rebase SHA named in each `--force-with-lease`
+above back to its branch; the pre-rebase tips also survive as
+`lagrangian/s1-tmp` .. `s4-tmp`.
+
+The four PR descriptions have already been updated with an Evidence section
+pointing at `benchmarks/FINDINGS_2026-09.md` in this repo. The bases are
+unchanged, so the stack structure survives the push.

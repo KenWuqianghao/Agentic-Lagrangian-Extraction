@@ -236,26 +236,52 @@ def _kernel_pids() -> set:
     return {int(x) for x in p.stdout.split() if x.strip().isdigit()}
 
 
-def _kill_stale_kernels(spawned_after: set | None = None) -> None:
-    """Kill kernels this compile orphaned — never every kernel on the machine.
+def _kill_stale_kernels(pgid: int | None = None) -> None:
+    """Kill the kernels of THIS compile — never another process's.
 
     wolframscript leaves its kernel behind when the driver is killed, and an
-    orphan holds the licence slot and the output pipe, so they must go. The
-    first version of this did a bare ``pkill -9 -f WolframKernel``, which
-    killed every Wolfram kernel on the machine: a concurrent test suite, a
-    parallel compile, or the operator's own Mathematica session. That cost a
-    false ``feynrules`` suite failure on 2026-09-09 when the suite ran beside
-    a benchmark compile.
+    orphan holds the licence slot and the output pipe, so they must go. Two
+    earlier versions of this were both too broad:
 
-    ``spawned_after`` is the set of kernel PIDs that existed *before* this
-    compile started; only kernels absent from it are ours to kill.
+      1. ``pkill -9 -f WolframKernel`` killed every Wolfram kernel on the
+         machine — a concurrent test suite, a parallel compile, or the
+         operator's own Mathematica session.
+      2. "every kernel that appeared since I started" is no better when two
+         compiles overlap: the first to finish kills the second's kernel,
+         and the second reports a compile failure that never happened.
+
+    The compile's own children are identified by process group: the driver is
+    started with ``start_new_session=True``, so its kernels inherit its pgid
+    and nothing else on the machine shares it.
     """
-    victims = _kernel_pids() - (spawned_after or set())
-    for pid in victims:
+    if pgid is None:
+        return
+    p = subprocess.run(["ps", "-A", "-o", "pid=,pgid=,command="],
+                       capture_output=True, text=True)
+    for line in p.stdout.splitlines():
+        parts = line.split(None, 2)
+        if len(parts) < 3 or _KERNEL_PATTERN not in parts[2]:
+            continue
+        try:
+            pid, gid = int(parts[0]), int(parts[1])
+        except ValueError:
+            continue
+        if gid != pgid:
+            continue
         try:
             os.kill(pid, signal.SIGKILL)
         except (ProcessLookupError, PermissionError):
             pass
+
+
+def _pgid_of(proc) -> int | None:
+    """The process group the driver was started in (start_new_session=True)."""
+    try:
+        return os.getpgid(proc.pid)
+    except (ProcessLookupError, PermissionError, AttributeError):
+        # The driver has already been reaped; with start_new_session the pgid
+        # equals its pid, which is still the right group to sweep.
+        return getattr(proc, "pid", None)
 
 
 def compile_to_ufo(page: str, fr: Path, lag: str, outdir: Path) -> dict:
@@ -268,7 +294,6 @@ def compile_to_ufo(page: str, fr: Path, lag: str, outdir: Path) -> dict:
         f"OutputDir={outdir}", "Checks=true", "AddDecays=false", f"LagName={lag}",
     ]
     t0 = time.time()
-    pre_existing_kernels = _kernel_pids()   # not ours; must survive this compile
     # Popen + process-group kill: subprocess.run(timeout=) only kills
     # wolframscript, then blocks in communicate() until the orphaned
     # WolframKernel children release the output pipe (observed 85 min hang).
@@ -306,7 +331,7 @@ def compile_to_ufo(page: str, fr: Path, lag: str, outdir: Path) -> dict:
         rc = -1
         timed_out = True
     finally:
-        _kill_stale_kernels(pre_existing_kernels)
+        _kill_stale_kernels(_pgid_of(p))
     out = out or ""
     dt = round(time.time() - t0, 1)
     (outdir.parent / "compile.log").write_text(out)

@@ -1,0 +1,58 @@
+{
+ "page": "EffLRSM",
+ "variant": "v3txt_tools",
+ "seed": 1,
+ "mode": "tools",
+ "paper_source": "txt",
+ "paper_file": "1610.08985.txt",
+ "agent": {
+  "ok": true,
+  "error": null,
+  "exit": 0,
+  "timed_out": false,
+  "seconds": null,
+  "engine": "claude-code-subagent",
+  "model": "claude-opus-5",
+  "mode": "tools",
+  "tool_policy": "instructed+audited",
+  "audit_ok": true,
+  "audit_problems": [],
+  "n_tool_calls": 7,
+  "tool_names": [
+   "Glob",
+   "Read"
+  ],
+  "bundle_reads": 1,
+  "read_paper": true,
+  "contaminated": false,
+  "outside_sandbox": [],
+  "files_read": [
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-7mt3n29r/PROMPT.md",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-7mt3n29r/eval/benchmark_runs/EffLRSM/text/1610.08985.txt",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-7mt3n29r/tools/frgen/frmodel.py",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-7mt3n29r/eval/benchmark_runs/EffLRSM/text/1610.08985.txt",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-7mt3n29r/tools/frgen/render.py",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-7mt3n29r/tools/feynrules/test_files/models/SM.fr"
+  ],
+  "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/workflows/wf_977f4416-940/agent-aa4279304537cdf36.jsonl",
+  "skipped": true
+ },
+ "render": {
+  "rendered": true,
+  "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/EffLRSM/rerun/v3txt_tools/s1/model/EffLRSM_gen.fr"
+ },
+ "predicates": {
+  "available": true,
+  "results": {
+   "efflrsm_charge_conjugation": {
+    "resolved": true,
+    "detail": "no bare light-neutrino field on any W_R line (CC[...] used or X term dropped)"
+   },
+   "efflrsm_zr_normalisation": {
+    "resolved": false,
+    "detail": "Z_R normalisation multiplies by Sqrt[1 - tan^2(thetaW)/kappa^q_R^2]; paper Eq.(8) divides by it (root in the denominator)"
+   }
+  },
+  "all_resolved": false
+ }
+}

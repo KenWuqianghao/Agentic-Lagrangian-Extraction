@@ -33,7 +33,16 @@ from typing import Dict, List, Tuple
 # the first form silently fails the second, which would mark the no-tools
 # ablation arm wrong for a difference in whitespace.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
-from tools.frgen.fr_parser import parse_fr  # noqa: E402
+try:
+    from tools.frgen.fr_parser import parse_fr
+except ImportError:                                         # noqa: BLE001
+    # This module is mirrored into the results repo, where the toolkit is not
+    # checked out. Import must still succeed there so the file can be read and
+    # diffed; only the checks that need the parser fail, and they say why.
+    def parse_fr(_text):                                    # type: ignore[misc]
+        raise RuntimeError(
+            "tools.frgen.fr_parser is not importable here. These predicates run "
+            "from the heptapod checkout, where the toolkit lives.")
 
 _LIGHT_NU = r"(?:ve|vm|vt|vl)"
 

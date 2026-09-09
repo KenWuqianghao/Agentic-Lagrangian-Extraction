@@ -1,0 +1,60 @@
+{
+ "page": "368sextets",
+ "variant": "v3txt_tools",
+ "seed": 2,
+ "mode": "tools",
+ "paper_source": "txt",
+ "paper_file": "2110.11359.txt",
+ "agent": {
+  "ok": true,
+  "error": null,
+  "exit": 0,
+  "timed_out": false,
+  "seconds": null,
+  "engine": "claude-code-subagent",
+  "model": "claude-opus-5",
+  "mode": "tools",
+  "tool_policy": "instructed+audited",
+  "audit_ok": true,
+  "audit_problems": [],
+  "n_tool_calls": 9,
+  "tool_names": [
+   "Glob",
+   "Grep",
+   "Read"
+  ],
+  "bundle_reads": 1,
+  "read_paper": true,
+  "contaminated": false,
+  "outside_sandbox": [],
+  "files_read": [
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-2w6qw2lb/PROMPT.md",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-2w6qw2lb/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-2w6qw2lb/tools/frgen/frmodel.py",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-2w6qw2lb/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-2w6qw2lb/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-2w6qw2lb/tools/frgen/render.py",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-2w6qw2lb/tools/feynrules/test_files/models/SM.fr"
+  ],
+  "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/workflows/wf_977f4416-940/agent-ac9bafcb29d220204.jsonl",
+  "skipped": true
+ },
+ "render": {
+  "rendered": true,
+  "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/368sextets/rerun/v3txt_tools/s2/model/368sextets_gen.fr"
+ },
+ "predicates": {
+  "available": true,
+  "results": {
+   "sextets_explicit_cutoffs": {
+    "resolved": true,
+    "detail": "External cutoffs ['CutFXd', 'CutFXdB', 'CutFXu', 'CutFXuB', 'CutSXd', 'CutSXu'] with powers [1, 2, 3] on every field-strength operator"
+   },
+   "sextets_gauge_representation": {
+    "resolved": true,
+    "detail": "AddGaugeRepresentation[SU3C -> {T6, Sextet}]"
+   }
+  },
+  "all_resolved": true
+ }
+}

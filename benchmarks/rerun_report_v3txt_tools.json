@@ -1,0 +1,464 @@
+{
+ "variant": "v3txt_tools",
+ "agent_model": "claude-opus-5",
+ "engine_mode": "tools",
+ "paper_source": "txt",
+ "rows": [
+  {
+   "page": "Top-Philic-Zprime",
+   "variant": "v3txt_tools",
+   "seed": 1,
+   "mode": "tools",
+   "paper_source": "txt",
+   "paper_file": "1604.07421.txt",
+   "agent": {
+    "ok": true,
+    "error": null,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": null,
+    "engine": "claude-code-subagent",
+    "model": "claude-opus-5",
+    "mode": "tools",
+    "tool_policy": "instructed+audited",
+    "audit_ok": true,
+    "audit_problems": [],
+    "n_tool_calls": 8,
+    "tool_names": [
+     "Grep",
+     "Read"
+    ],
+    "bundle_reads": 1,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "files_read": [
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-z2n4l1ia/PROMPT.md",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-z2n4l1ia/eval/benchmark_runs/Top-Philic-Zprime/text/1604.07421.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-z2n4l1ia/tools/frgen/frmodel.py",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-z2n4l1ia/eval/benchmark_runs/Top-Philic-Zprime/text/1604.07421.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-z2n4l1ia/tools/feynrules/test_files/models/SM.fr",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-z2n4l1ia/tools/frgen/render.py"
+    ],
+    "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/workflows/wf_977f4416-940/agent-ae2c794002dcb7f4e.jsonl",
+    "skipped": true
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/Top-Philic-Zprime/rerun/v3txt_tools/s1/model/Top-Philic-Zprime_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "zprime_free_field_terms": {
+      "resolved": true,
+      "detail": "kinetic + mass term for V1, summed into the total"
+     }
+    },
+    "all_resolved": true
+   }
+  },
+  {
+   "page": "Top-Philic-Zprime",
+   "variant": "v3txt_tools",
+   "seed": 2,
+   "mode": "tools",
+   "paper_source": "txt",
+   "paper_file": "1604.07421.txt",
+   "agent": {
+    "ok": true,
+    "error": null,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": null,
+    "engine": "claude-code-subagent",
+    "model": "claude-opus-5",
+    "mode": "tools",
+    "tool_policy": "instructed+audited",
+    "audit_ok": true,
+    "audit_problems": [],
+    "n_tool_calls": 8,
+    "tool_names": [
+     "Grep",
+     "Read"
+    ],
+    "bundle_reads": 1,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "files_read": [
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-txkx4uf0/PROMPT.md",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-txkx4uf0/eval/benchmark_runs/Top-Philic-Zprime/text/1604.07421.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-txkx4uf0/tools/frgen/frmodel.py",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-txkx4uf0/eval/benchmark_runs/Top-Philic-Zprime/text/1604.07421.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-txkx4uf0/eval/benchmark_runs/Top-Philic-Zprime/text/1604.07421.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-txkx4uf0/tools/feynrules/test_files/models/SM.fr",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-txkx4uf0/tools/frgen/render.py"
+    ],
+    "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/workflows/wf_977f4416-940/agent-af8609e708cd3e09c.jsonl",
+    "skipped": true
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/Top-Philic-Zprime/rerun/v3txt_tools/s2/model/Top-Philic-Zprime_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "zprime_free_field_terms": {
+      "resolved": true,
+      "detail": "kinetic + mass term for V1, summed into the total"
+     }
+    },
+    "all_resolved": true
+   }
+  },
+  {
+   "page": "368sextets",
+   "variant": "v3txt_tools",
+   "seed": 1,
+   "mode": "tools",
+   "paper_source": "txt",
+   "paper_file": "2110.11359.txt",
+   "agent": {
+    "ok": true,
+    "error": null,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": null,
+    "engine": "claude-code-subagent",
+    "model": "claude-opus-5",
+    "mode": "tools",
+    "tool_policy": "instructed+audited",
+    "audit_ok": true,
+    "audit_problems": [],
+    "n_tool_calls": 9,
+    "tool_names": [
+     "Glob",
+     "Grep",
+     "Read"
+    ],
+    "bundle_reads": 1,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "files_read": [
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-__sl7zst/PROMPT.md",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-__sl7zst/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-__sl7zst/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-__sl7zst/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-__sl7zst/tools/frgen/frmodel.py",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-__sl7zst/tools/frgen/render.py",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-__sl7zst/tools/feynrules/test_files/models/SM.fr"
+    ],
+    "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/workflows/wf_977f4416-940/agent-a2636d468aa4030e2.jsonl",
+    "skipped": true
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/368sextets/rerun/v3txt_tools/s1/model/368sextets_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "sextets_explicit_cutoffs": {
+      "resolved": true,
+      "detail": "External cutoffs ['LamPhiD', 'LamPhiU', 'LamPsiD', 'LamPsiDB', 'LamPsiU', 'LamPsiUB'] with powers [1, 2, 3] on every field-strength operator"
+     },
+     "sextets_gauge_representation": {
+      "resolved": true,
+      "detail": "AddGaugeRepresentation[SU3C -> {T6, Sextet}]"
+     }
+    },
+    "all_resolved": true
+   }
+  },
+  {
+   "page": "368sextets",
+   "variant": "v3txt_tools",
+   "seed": 2,
+   "mode": "tools",
+   "paper_source": "txt",
+   "paper_file": "2110.11359.txt",
+   "agent": {
+    "ok": true,
+    "error": null,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": null,
+    "engine": "claude-code-subagent",
+    "model": "claude-opus-5",
+    "mode": "tools",
+    "tool_policy": "instructed+audited",
+    "audit_ok": true,
+    "audit_problems": [],
+    "n_tool_calls": 9,
+    "tool_names": [
+     "Glob",
+     "Grep",
+     "Read"
+    ],
+    "bundle_reads": 1,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "files_read": [
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-2w6qw2lb/PROMPT.md",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-2w6qw2lb/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-2w6qw2lb/tools/frgen/frmodel.py",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-2w6qw2lb/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-2w6qw2lb/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-2w6qw2lb/tools/frgen/render.py",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-2w6qw2lb/tools/feynrules/test_files/models/SM.fr"
+    ],
+    "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/workflows/wf_977f4416-940/agent-ac9bafcb29d220204.jsonl",
+    "skipped": true
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/368sextets/rerun/v3txt_tools/s2/model/368sextets_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "sextets_explicit_cutoffs": {
+      "resolved": true,
+      "detail": "External cutoffs ['CutFXd', 'CutFXdB', 'CutFXu', 'CutFXuB', 'CutSXd', 'CutSXu'] with powers [1, 2, 3] on every field-strength operator"
+     },
+     "sextets_gauge_representation": {
+      "resolved": true,
+      "detail": "AddGaugeRepresentation[SU3C -> {T6, Sextet}]"
+     }
+    },
+    "all_resolved": true
+   }
+  },
+  {
+   "page": "EffLRSM",
+   "variant": "v3txt_tools",
+   "seed": 1,
+   "mode": "tools",
+   "paper_source": "txt",
+   "paper_file": "1610.08985.txt",
+   "agent": {
+    "ok": true,
+    "error": null,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": null,
+    "engine": "claude-code-subagent",
+    "model": "claude-opus-5",
+    "mode": "tools",
+    "tool_policy": "instructed+audited",
+    "audit_ok": true,
+    "audit_problems": [],
+    "n_tool_calls": 7,
+    "tool_names": [
+     "Glob",
+     "Read"
+    ],
+    "bundle_reads": 1,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "files_read": [
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-7mt3n29r/PROMPT.md",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-7mt3n29r/eval/benchmark_runs/EffLRSM/text/1610.08985.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-7mt3n29r/tools/frgen/frmodel.py",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-7mt3n29r/eval/benchmark_runs/EffLRSM/text/1610.08985.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-7mt3n29r/tools/frgen/render.py",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-7mt3n29r/tools/feynrules/test_files/models/SM.fr"
+    ],
+    "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/workflows/wf_977f4416-940/agent-aa4279304537cdf36.jsonl",
+    "skipped": true
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/EffLRSM/rerun/v3txt_tools/s1/model/EffLRSM_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "efflrsm_charge_conjugation": {
+      "resolved": true,
+      "detail": "no bare light-neutrino field on any W_R line (CC[...] used or X term dropped)"
+     },
+     "efflrsm_zr_normalisation": {
+      "resolved": false,
+      "detail": "Z_R normalisation multiplies by Sqrt[1 - tan^2(thetaW)/kappa^q_R^2]; paper Eq.(8) divides by it (root in the denominator)"
+     }
+    },
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "EffLRSM",
+   "variant": "v3txt_tools",
+   "seed": 2,
+   "mode": "tools",
+   "paper_source": "txt",
+   "paper_file": "1610.08985.txt",
+   "agent": {
+    "ok": true,
+    "error": null,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": null,
+    "engine": "claude-code-subagent",
+    "model": "claude-opus-5",
+    "mode": "tools",
+    "tool_policy": "instructed+audited",
+    "audit_ok": true,
+    "audit_problems": [],
+    "n_tool_calls": 7,
+    "tool_names": [
+     "Glob",
+     "Read"
+    ],
+    "bundle_reads": 1,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "files_read": [
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-8tui2rut/PROMPT.md",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-8tui2rut/eval/benchmark_runs/EffLRSM/text/1610.08985.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-8tui2rut/tools/frgen/frmodel.py",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-8tui2rut/eval/benchmark_runs/EffLRSM/text/1610.08985.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-8tui2rut/tools/frgen/render.py",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-8tui2rut/tools/feynrules/test_files/models/SM.fr"
+    ],
+    "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/workflows/wf_977f4416-940/agent-ab86806e1ae89d972.jsonl",
+    "skipped": true
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/EffLRSM/rerun/v3txt_tools/s2/model/EffLRSM_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "efflrsm_charge_conjugation": {
+      "resolved": true,
+      "detail": "no bare light-neutrino field on any W_R line (CC[...] used or X term dropped)"
+     },
+     "efflrsm_zr_normalisation": {
+      "resolved": true,
+      "detail": "Z_R normalisation divides by Sqrt[1 - tw2/kqR^2] (4 occurrence(s))"
+     }
+    },
+    "all_resolved": true
+   }
+  },
+  {
+   "page": "GeneralU1",
+   "variant": "v3txt_tools",
+   "seed": 1,
+   "mode": "tools",
+   "paper_source": "txt",
+   "paper_file": "2104.10902.txt",
+   "agent": {
+    "ok": true,
+    "error": null,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": null,
+    "engine": "claude-code-subagent",
+    "model": "claude-opus-5",
+    "mode": "tools",
+    "tool_policy": "instructed+audited",
+    "audit_ok": true,
+    "audit_problems": [],
+    "n_tool_calls": 7,
+    "tool_names": [
+     "Grep",
+     "Read"
+    ],
+    "bundle_reads": 1,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "files_read": [
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-r9u1wblq/PROMPT.md",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-r9u1wblq/eval/benchmark_runs/GeneralU1/text/2104.10902.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-r9u1wblq/tools/frgen/frmodel.py",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-r9u1wblq/tools/frgen/render.py",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-r9u1wblq/tools/feynrules/test_files/models/SM.fr",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-r9u1wblq/eval/benchmark_runs/GeneralU1/text/2104.10902.txt"
+    ],
+    "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/workflows/wf_977f4416-940/agent-adf27aab485819aea.jsonl",
+    "skipped": true
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/GeneralU1/rerun/v3txt_tools/s1/model/GeneralU1_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "generalu1_eps_and_higgs_charge": {
+      "resolved": false,
+      "detail": "no Dirac neutrino Yukawa term (LLbar ... N ... Phibar) found"
+     }
+    },
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "GeneralU1",
+   "variant": "v3txt_tools",
+   "seed": 2,
+   "mode": "tools",
+   "paper_source": "txt",
+   "paper_file": "2104.10902.txt",
+   "agent": {
+    "ok": true,
+    "error": null,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": null,
+    "engine": "claude-code-subagent",
+    "model": "claude-opus-5",
+    "mode": "tools",
+    "tool_policy": "instructed+audited",
+    "audit_ok": true,
+    "audit_problems": [],
+    "n_tool_calls": 10,
+    "tool_names": [
+     "Glob",
+     "Grep",
+     "Read"
+    ],
+    "bundle_reads": 1,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "files_read": [
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-b53ishee/PROMPT.md",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-b53ishee/eval/benchmark_runs/GeneralU1/text/2104.10902.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-b53ishee/tools/frgen/frmodel.py",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-b53ishee/tools/feynrules/test_files/models/SM.fr",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-b53ishee/tools/frgen/render.py",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-b53ishee/eval/benchmark_runs/GeneralU1/text/2104.10902.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-b53ishee/eval/benchmark_runs/GeneralU1/text/2104.10902.txt",
+     "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-b53ishee/eval/benchmark_runs/GeneralU1/text/2104.10902.txt"
+    ],
+    "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/workflows/wf_977f4416-940/agent-a1f013b9c4c668cf6.jsonl",
+    "skipped": true
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/GeneralU1/rerun/v3txt_tools/s2/model/GeneralU1_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "generalu1_eps_and_higgs_charge": {
+      "resolved": false,
+      "detail": "no Dirac neutrino Yukawa term (LLbar ... N ... Phibar) found"
+     }
+    },
+    "all_resolved": false
+   }
+  }
+ ]
+}

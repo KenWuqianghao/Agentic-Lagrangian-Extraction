@@ -86,6 +86,14 @@ framework did *not* render, and both would have understated the no-tools arm:
 Both are covered by tests, because a measurement instrument that flatters or
 penalises one arm is worse than no measurement.
 
+A fourth bug was in the chain harness rather than the checks. Its cleanup step
+killed Wolfram kernels by name, so two compiles running at once killed each
+other and the survivor reported a compile failure that never happened — some
+"failures" came back in two or three seconds, which is less than FeynRules
+takes to load. Cleanup is now scoped to the compile's own process group, and
+every failing row was re-verified with nothing else on the machine. Rows that
+passed were never at risk: a killed kernel cannot produce a passing compile.
+
 **Only papers that define one model.** Ian asked that the eval run only where
 the paper cannot be confused for a different model. Each of the 28 papers was
 classified by one reader and two adversarial refuters (a physics-content lens
@@ -139,36 +147,88 @@ typed by hand. Two seeds per model per arm.
 **The findings.** Five of the six checks pass in every v3 seed, in both the
 tools arm and the no-tools arm:
 
-| finding | v1 | v2 | v3 tools | v3 no-tools |
-|---|---|---|---|---|
-| Z' kinetic + mass term | 2/2 | 2/2 | 2/2 | 2/2 |
-| sextet explicit 1/Λⁿ cutoffs | 2/2 | 2/2 | 2/2 | 2/2 |
-| sextet `AddGaugeRepresentation` | 0/2 | 0/2 | **2/2** | **2/2** |
-| EffLRSM ν^c on the W_R current | 2/2 | 2/2 | 2/2 | 2/2 |
-| EffLRSM Z_R root in the denominator | 1/2 | 2/2 | **2/2** | **2/2** |
-| General U(1) ε contraction + Higgs charge | 1/2 | 2/2 | 1/2 | 1/1 |
+| finding | v1 | v2 | v3 PDF text | v3 LaTeX | v3 LaTeX, no tools |
+|---|---|---|---|---|---|
+| Z' kinetic + mass term | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 |
+| sextet explicit 1/Λⁿ cutoffs | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 |
+| sextet `AddGaugeRepresentation` | 0/2 | 0/2 | **2/2** | **2/2** | **2/2** |
+| EffLRSM ν^c on the W_R current | 2/2 | 2/2 | 2/2 | 2/2 | 2/2 |
+| EffLRSM Z_R root in the denominator | 1/2 | 2/2 | 1/2 | **2/2** | **2/2** |
+| General U(1) ε contraction + Higgs charge | 1/2 | 2/2 | 0/2 | 1/2 | 1/2 |
 
-The two that were still failing are now fixed by the v3 rules: the sextet
-gauge representation, which no earlier run had ever emitted, and the Z_R
-normalisation, which the LaTeX source settles.
+**The third column is the point.** It runs the *same* v3 rules on the *old*
+PDF-extracted text, so the only thing that differs from the fourth column is
+what the agent read. The two remaining findings separate cleanly:
 
-**The one that did not.** One General U(1) seed writes its Dirac neutrino
-Yukawa after electroweak symmetry breaking — `H vlbar.ynu.ProjP.NR` — instead
-of the doublet form `LLbar[..,i,..] Phibar[j] Eps[i,j]`. With no doublet there
-is no ε contraction to get right, and the charged-lepton partner of the vertex
-is silently dropped. It is the same class of defect Ian reported, in a new
-disguise, and it is a rule the addendum does not yet state: *write Yukawas in
-the symmetric phase, with the doublet, not with the physical Higgs*. That
-belongs in a v4 addendum.
+- The sextet gauge representation is fixed by the **prompt**: 2/2 in all three
+  v3 arms, whatever the paper source, and 0/2 in every arm before them.
+- The Z_R normalisation is fixed by the **paper source**: 1/2 on PDF text and
+  2/2 on the LaTeX, with the rules held constant. That is the hypothesis
+  stated at the top of this document, measured rather than argued.
 
-**What the ablation says so far.** On physics content the two arms are level:
-the same five findings resolved, and field-content F1 against the
-FeynRules-DB reference of 0.92 without tools against 0.83 with them, driven by
-one General U(1) seed. Whatever the structured path is worth, it is not
-showing up as better physics on these four models. The place it should show is
-the tool chain — a hand-written `.fr` has to be syntactically valid FeynRules
-with no renderer to guarantee it — and those numbers are in the report's
-validation columns.
+**The one that did not,** and it fails two different ways — both new disguises
+of the defect Ian reported.
+
+- One seed writes the Dirac neutrino Yukawa after electroweak symmetry
+  breaking, `H vlbar.ynu.ProjP.NR`, instead of the doublet form
+  `LLbar[..,i,..] Phibar[j] Eps[i,j]`. With no doublet there is no ε
+  contraction to get right, and the charged-lepton partner of the vertex is
+  silently dropped.
+- Another derives the Higgs U(1)_X charge correctly — its header comment says
+  "invariance of the three SM.fr Yukawas fixes X(Phi) = +xH/2" — and then never
+  declares it or uses it. The reasoning is right and the model does not carry
+  it, so the Z' does not couple to the Higgs at all.
+
+Two rules follow, and neither is in the addendum yet: write Yukawas in the
+symmetric phase with the doublet, never with the physical Higgs; and every
+charge you derive must appear in the model, not only in a comment.
+
+**The sextets are still the hard case.** `AddGaugeRepresentation` is present
+now, so the sextets do couple to gluons, and both sextet checks pass in every
+v3 seed. The chain is another matter: three of the four seeds run 15 minutes
+without finishing. The fourth is the informative one — it compiles in 8.6
+minutes, MadGraph imports the UFO, and it fails the **Hermiticity** check while
+the kinetic-term and mass-spectrum checks pass. So the model does get through,
+and what is left is a real non-Hermitian term rather than a stall. Adding the
+gauge representation was necessary and not sufficient. The colour-sextet
+algebra is expensive whichever way the `.fr` was written, and the remaining
+defect is one for a physicist to read, not a harness problem.
+
+**What the ablation says, including the part that does not flatter us.**
+
+| arm | every finding resolved | full chain | field F1 |
+|---|---|---|---|
+| v1 — PDF text, original prompt | 4/8 | 2/8 | 0.90 |
+| v2 — PDF text, physics rules | 6/8 | 3/8 | 0.88 |
+| v3 — PDF text, v3 rules | 5/8 | not run | 0.84 |
+| v3 — LaTeX, v3 rules, framework | 7/8 | 5/8 | 0.83 |
+| v3 — LaTeX, v3 rules, **no tools** | 7/8 | **6/8** | 0.86 |
+
+The reruns are a clear improvement on where we started: runs with every check
+passing go from 4/8 to 7/8, and full-chain passes from 2/8 to 5–6/8.
+
+But the gain does not come from the toolkit. Taking every tool away — no
+schema, no renderer, the agent writing the `.fr` by hand from the paper and
+`SM.fr` pasted into its prompt — matched the framework on the findings and
+came out marginally *ahead* on the chain, 6/8 against 5/8, and on field
+content, 0.86 against 0.83. On these four models the improvement is
+attributable to the paper source and the prompt rules, both of which the
+no-tools arm also had.
+
+That is a small sample and one seed swings any of these numbers, so it is not
+evidence the schema and renderer are worthless — the same rules produced the
+same physics either way, which is itself a reason to trust the rules. It is
+evidence that the *next* thing worth measuring is not the prompt. The
+framework's one clear loss is instructive: the single tools-arm run MadGraph
+rejected compiled cleanly and passed all three FeynRules checks, and its UFO
+carries LaTeX-typeset parameter names (`name = '\\theta _c'`) that are not
+valid Python — a renderer-side serialization leak of exactly the class the
+repair-loop analysis catalogued. The hand-written files had no such failure.
+
+**Not run:** the PDF-text arm was scored on the findings and the reference
+but not put through the compile chain. Its purpose was to isolate the paper
+source, which the findings column already does; the chain would have cost
+another hour of Wolfram time without changing that comparison.
 
 ## Reproducing
 

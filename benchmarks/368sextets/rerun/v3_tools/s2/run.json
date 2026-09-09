@@ -1,0 +1,83 @@
+{
+ "page": "368sextets",
+ "variant": "v3_tools",
+ "seed": 2,
+ "mode": "tools",
+ "paper_source": "tex",
+ "paper_file": "2110.11359_source.tex",
+ "agent": {
+  "ok": true,
+  "error": null,
+  "exit": 0,
+  "timed_out": false,
+  "seconds": null,
+  "engine": "claude-code-subagent",
+  "model": "claude-opus-5",
+  "mode": "tools",
+  "tool_policy": "instructed+audited",
+  "audit_ok": true,
+  "audit_problems": [],
+  "n_tool_calls": 10,
+  "tool_names": [
+   "Grep",
+   "Read"
+  ],
+  "bundle_reads": 1,
+  "read_paper": true,
+  "contaminated": false,
+  "outside_sandbox": [],
+  "files_read": [
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-nzuh9eh2/PROMPT.md",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-nzuh9eh2/eval/benchmark_runs/368sextets/text/2110.11359_source.tex",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-nzuh9eh2/eval/benchmark_runs/368sextets/text/2110.11359_source.tex",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-nzuh9eh2/eval/benchmark_runs/368sextets/text/2110.11359_source.tex",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-nzuh9eh2/eval/benchmark_runs/368sextets/text/2110.11359_source.tex",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-nzuh9eh2/eval/benchmark_runs/368sextets/text/2110.11359_source.tex",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-nzuh9eh2/tools/frgen/frmodel.py",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-nzuh9eh2/tools/frgen/render.py",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-nzuh9eh2/tools/feynrules/test_files/models/SM.fr"
+  ],
+  "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/workflows/wf_e9a072fd-8da/agent-a93f3d6815f4a48f2.jsonl",
+  "skipped": true
+ },
+ "render": {
+  "rendered": true,
+  "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/368sextets/rerun/v3_tools/s2/model/368sextets_gen.fr"
+ },
+ "predicates": {
+  "available": true,
+  "results": {
+   "sextets_explicit_cutoffs": {
+    "resolved": true,
+    "detail": "External cutoffs ['LamPhid', 'LamPhiu', 'LamPsid', 'LamPsidB', 'LamPsiu', 'LamPsiuB'] with powers [1, 2, 3] on every field-strength operator"
+   },
+   "sextets_gauge_representation": {
+    "resolved": true,
+    "detail": "AddGaugeRepresentation[SU3C -> {T6, Sextet}]"
+   }
+  },
+  "all_resolved": true
+ },
+ "validation": {
+  "lag_symbol": "LTotal",
+  "lag_resolution": {
+   "roots": [
+    "LTotal"
+   ],
+   "legacy_symbol": "LTotal",
+   "n_terms_defined": 11,
+   "ambiguous": false,
+   "changed_from_legacy": false
+  },
+  "compile_ok": false,
+  "timed_out": true,
+  "exit": -1,
+  "seconds": 900.1,
+  "ufo_files": [],
+  "checks": {},
+  "protected_symbol_errors": 0,
+  "log_tail": "r not conserved in vertex {G, G, PhiD}.\nQuantum number Y not conserved in vertex {G, G, PhiD}.\nQuantum number Q not conserved in vertex {G, G, PhiDbar}.\nQuantum number LeptonNumber not conserved in vertex {G, G, PhiDbar}.\nQuantum number Y not conserved in vertex {G, G, PhiDbar}.\nQuantum number Q not conserved in vertex {G, PhiU}.\nQuantum number LeptonNumber not conserved in vertex {G, PhiU}.\nQuantum number Y not conserved in vertex {G, PhiU}.\nQuantum number Q not conserved in vertex {G, G, PhiU}.\nQuantum number LeptonNumber not conserved in vertex {G, G, PhiU}.\nQuantum number Y not conserved in vertex {G, G, PhiU}.\nQuantum number Q not conserved in vertex {G, G, PhiUbar}.\nQuantum number LeptonNumber not conserved in vertex {G, G, PhiUbar}.\nQuantum number Y not conserved in vertex {G, G, PhiUbar}.\nQuantum number Q not conserved in vertex {G, PhiDbar, Z}.\nQuantum number LeptonNumber not conserved in vertex {G, PhiDbar, Z}.\nQuantum number Y not conserved in vertex {G, PhiDbar, Z}.\nQuantum number Q not conserved in vertex {G, PhiUbar, Z}.\nQuantum number LeptonNumber not conserved in vertex {G, PhiUbar, Z}.\nQuantum number Y not conserved in vertex {G, PhiUbar, Z}.\n18 vertices obtained.\n",
+  "status": "compile_timeout",
+  "full_chain_pass": false
+ }
+}

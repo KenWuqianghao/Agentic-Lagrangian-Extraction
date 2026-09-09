@@ -1,0 +1,54 @@
+{
+ "page": "Top-Philic-Zprime",
+ "variant": "v3_tools",
+ "seed": 1,
+ "mode": "tools",
+ "paper_source": "tex",
+ "paper_file": "1604.07421_source.tex",
+ "agent": {
+  "ok": true,
+  "error": null,
+  "exit": 0,
+  "timed_out": false,
+  "seconds": null,
+  "engine": "claude-code-subagent",
+  "model": "claude-opus-5",
+  "mode": "tools",
+  "tool_policy": "instructed+audited",
+  "audit_ok": true,
+  "audit_problems": [],
+  "n_tool_calls": 7,
+  "tool_names": [
+   "Grep",
+   "Read"
+  ],
+  "bundle_reads": 1,
+  "read_paper": true,
+  "contaminated": false,
+  "outside_sandbox": [],
+  "files_read": [
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-2i_zl3of/PROMPT.md",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-2i_zl3of/eval/benchmark_runs/Top-Philic-Zprime/text/1604.07421_source.tex",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-2i_zl3of/tools/frgen/frmodel.py",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-2i_zl3of/tools/frgen/render.py",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-2i_zl3of/eval/benchmark_runs/Top-Philic-Zprime/text/1604.07421_source.tex",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-2i_zl3of/tools/feynrules/test_files/models/SM.fr"
+  ],
+  "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/workflows/wf_a702dafc-0da/agent-aaf0756deb1415592.jsonl",
+  "skipped": true
+ },
+ "render": {
+  "rendered": true,
+  "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/Top-Philic-Zprime/rerun/v3_tools/s1/model/Top-Philic-Zprime_gen.fr"
+ },
+ "predicates": {
+  "available": true,
+  "results": {
+   "zprime_free_field_terms": {
+    "resolved": true,
+    "detail": "kinetic + mass term for V1, summed into the total"
+   }
+  },
+  "all_resolved": true
+ }
+}

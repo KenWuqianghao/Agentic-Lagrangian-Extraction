@@ -1,0 +1,54 @@
+{
+ "page": "GeneralU1",
+ "variant": "v3txt_tools",
+ "seed": 1,
+ "mode": "tools",
+ "paper_source": "txt",
+ "paper_file": "2104.10902.txt",
+ "agent": {
+  "ok": true,
+  "error": null,
+  "exit": 0,
+  "timed_out": false,
+  "seconds": null,
+  "engine": "claude-code-subagent",
+  "model": "claude-opus-5",
+  "mode": "tools",
+  "tool_policy": "instructed+audited",
+  "audit_ok": true,
+  "audit_problems": [],
+  "n_tool_calls": 7,
+  "tool_names": [
+   "Grep",
+   "Read"
+  ],
+  "bundle_reads": 1,
+  "read_paper": true,
+  "contaminated": false,
+  "outside_sandbox": [],
+  "files_read": [
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-r9u1wblq/PROMPT.md",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-r9u1wblq/eval/benchmark_runs/GeneralU1/text/2104.10902.txt",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-r9u1wblq/tools/frgen/frmodel.py",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-r9u1wblq/tools/frgen/render.py",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-r9u1wblq/tools/feynrules/test_files/models/SM.fr",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-r9u1wblq/eval/benchmark_runs/GeneralU1/text/2104.10902.txt"
+  ],
+  "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/workflows/wf_977f4416-940/agent-adf27aab485819aea.jsonl",
+  "skipped": true
+ },
+ "render": {
+  "rendered": true,
+  "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/GeneralU1/rerun/v3txt_tools/s1/model/GeneralU1_gen.fr"
+ },
+ "predicates": {
+  "available": true,
+  "results": {
+   "generalu1_eps_and_higgs_charge": {
+    "resolved": false,
+    "detail": "no Dirac neutrino Yukawa term (LLbar ... N ... Phibar) found"
+   }
+  },
+  "all_resolved": false
+ }
+}

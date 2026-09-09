@@ -1,0 +1,134 @@
+(* ****************************************************************************** *)
+(* *****  Top-philic colour-singlet vector resonance V1  (FeynRules add-on)  **** *)
+(* *****  Loaded on top of SM.fr; field names, indices and hypercharge      ***** *)
+(* *****  conventions are those of SM.fr.                                  ***** *)
+(* *****                                                                   ***** *)
+(* *****  Extracted from:                                                  ***** *)
+(* *****    J. H. Kim, K. Kong, S. J. Lee, G. Mohlabeng, arXiv:1604.07421   ***** *)
+(* *****    "Probing TeV scale Top-Philic Resonances with Boosted           ***** *)
+(* *****     Top-Tagging at the High Luminosity LHC"                        ***** *)
+(* *****                                                                   ***** *)
+(* *****  Eq.(1):  L_int = ct tbar Ga[mu] (Cos[th] ProjM + Sin[th] ProjP) t V1[mu] *)
+(* *****  Eq.(2):  Gamma(V1 -> t tbar) =                                    ***** *)
+(* *****      ct^2 MV1/(8 Pi) Sqrt[1 - 4 MT^2/MV1^2]                        ***** *)
+(* *****        (1 - MT^2/MV1^2 (1 - 3 Sin[2 th]))                          ***** *)
+(* *****  Benchmark of the paper: MV1 = 1500 GeV, ct = 2.0, th = Pi/2.      ***** *)
+(* *****  At that point Eq.(2) gives Gamma = 229.31 GeV, used as the        ***** *)
+(* *****  default width below (Gamma/MV1 = 0.153 ~ ct^2/(8 Pi)).            ***** *)
+(* ****************************************************************************** *)
+
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+
+M$ModelName = "Top-Philic-Zprime_gen";
+
+M$Information = {
+  Authors      -> {"Automated extraction from arXiv:1604.07421"},
+  Version      -> "1.0",
+  Date         -> "09. 09. 2026",
+  Institutions -> {"n/a"},
+  Emails       -> {"n/a"},
+  References   -> {"J. H. Kim, K. Kong, S. J. Lee and G. Mohlabeng, arXiv:1604.07421 [hep-ph]"},
+  URLs         -> "https://arxiv.org/abs/1604.07421"
+};
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP,  1}
+};
+
+(* ************************** *)
+(* *****    Indices     ***** *)
+(* ************************** *)
+
+(* No new index is needed: V1 is a colour singlet and an SU(2) singlet.     *)
+(* Colour, Gluon, Generation, SU2D and SU2W are already declared by SM.fr.  *)
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+
+M$ClassesDescription = {
+
+(* Colour-singlet, electrically neutral, real (self-conjugate) vector resonance *)
+  V[100] == {
+    ClassName       -> V1,
+    SelfConjugate   -> True,
+    Mass            -> {MV1, 1500.},
+    Width           -> {WV1, 229.31},
+    ParticleName    -> "V1",
+    PDG             -> 32,
+    PropagatorLabel -> "V1",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "Top-philic vector resonance"
+  }
+};
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+
+M$Parameters = {
+
+  (* External parameters *)
+  ct == {
+    ParameterType    -> External,
+    BlockName        -> TOPPHILIC,
+    OrderBlock       -> 1,
+    Value            -> 2.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[c, t],
+    Description      -> "Overall coupling strength of V1 to the top quark, ct = Sqrt[cL^2+cR^2], Eq.(1)"
+  },
+  thV1 == {
+    ParameterType -> External,
+    BlockName     -> TOPPHILIC,
+    OrderBlock    -> 2,
+    Value         -> 1.5707963267948966,
+    TeX           -> Subscript[\[Theta], t],
+    Description   -> "Chirality angle theta with Tan[theta] = cR/cL, Eq.(1); benchmark theta = Pi/2 (purely right-handed)"
+  },
+
+  (* Internal parameters *)
+  ctL == {
+    ParameterType    -> Internal,
+    Value            -> ct Cos[thV1],
+    InteractionOrder -> {NP, 1},
+    ParameterName    -> ctL,
+    TeX              -> Subscript[c, L],
+    Description      -> "Left-handed top coupling cL = ct Cos[theta], Eq.(1)"
+  },
+  ctR == {
+    ParameterType    -> Internal,
+    Value            -> ct Sin[thV1],
+    InteractionOrder -> {NP, 1},
+    ParameterName    -> ctR,
+    TeX              -> Subscript[c, R],
+    Description      -> "Right-handed top coupling cR = ct Sin[theta], Eq.(1)"
+  }
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+(* Free field terms of the real vector resonance *)
+LV1Kin := Block[{mu, nu},
+  ExpandIndices[-1/4 FS[V1, mu, nu] FS[V1, mu, nu] + 1/2 MV1^2 V1[mu] V1[mu]]
+];
+
+(* Top-philic interaction, Eq.(1). The current tbar.Ga[mu].ProjM(P).t is        *)
+(* Hermitian and V1 is real, so the term is self-conjugate: no HC[...] is added. *)
+LV1Top := Block[{mu},
+  ExpandIndices[(ctL tbar.Ga[mu].ProjM.t + ctR tbar.Ga[mu].ProjP.t) V1[mu]]
+];
+
+(* Single total Lagrangian of the add-on *)
+LTotal := LV1Kin + LV1Top;
