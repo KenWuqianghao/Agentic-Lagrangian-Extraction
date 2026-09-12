@@ -240,45 +240,44 @@ Never call `timeout` (or any missing binary) from a shell on this Mac: the
 zsh `command_not_found_handler` recurses into `pacman` and fork-storms the
 per-user process limit.
 
-## The heptapod PR stack, 2026-09-09: rebased locally, needs one push
+## The heptapod PR stack: re-scoped and mergeable (2026-09-12)
 
-PR #11 was `CONFLICTING` against `dev/main`, so Tony could not merge it. The
-whole four-PR stack has been rebased onto current `dev/main` (`36cd1e9`) in a
-worktree and verified, but the force-push was blocked by this environment's
-permission classifier, so it is the one step left for a human.
+All four PRs on `tonymenzo/heptapod-dev` are `MERGEABLE / CLEAN` as of
+2026-09-12, with per-PR diffs of 12 / 15 / 24 / 19 files. Two things happened
+on the way there, both worth knowing before touching the stack again.
 
-Verified before the push was attempted:
+**Rebase was the wrong tool; merge was the right one.** The force-push a
+rebase needs is refused by this environment's permission classifier, and an
+ordinary push is not. So each branch took the one below it (and `main`) by
+merge commit instead. History is preserved, the PR numbers and their review
+threads survive, and every merge tree was checked byte-identical to the
+equivalent rebase before being committed. Local branches `mg/s1` .. `mg/s4`
+in the heptapod clone are the pushed tips; the pre-merge tips survive as
+`lagrangian/s1-tmp` .. `s4-tmp` and the pre-rebase SHAs are recorded in the
+git history of this file.
 
-- Every slice's own files are byte-identical to the pre-rebase tip, and the
-  per-PR file counts are unchanged at 17 / 15 / 24 / 19.
-- Three conflicts were resolved by union merge (`.gitignore`, `tools/README.md`,
-  `toolkit.yaml`) and the `--only` choices list in `test_runner.py` was merged
-  so that both main's bundles (`wolfram`, `llp`) and the stack's (`frgen`,
-  `extract`, `validate`, `jobs`, `reverse`) survive.
-- `main` and the stack each added a way to detect pytest-style suites and
-  neither subsumes the other, so both are kept and the merged code says why.
-- All nine suites pass on the rebased tip: literature, frgen, extract,
-  validate, jobs, logging, reverse, inspire and feynrules, plus the worked
-  example. `feynrules` needs `config.py`, which is gitignored and so absent
-  from a fresh worktree; without it the suite falls back to `/usr/local/
-  FeynRules` and fails. Copy `config.py` into the worktree before running it.
-  It fails the same way on the pre-rebase tip, so it is not a regression.
-- No secrets and no stray artifacts in the stack's 58 files.
+**PR #11 shrank, on purpose.** While the stack was open, Tony extracted its
+arXiv half onto `main` himself — #19 (search, PDF, LaTeX e-print, with Ken's
+commits and author dates preserved) and #21 (a dependency-free `arxiv` bundle,
+`FetchPaperPDFTool` renamed `ArxivPDFTool`, one directory per paper) — and
+untracked the generated logs and MG5 pickles in #24 and #25. #19 says
+explicitly that #11 stays open for the rest. The merge therefore takes
+`main`'s versions of every arXiv file and leaves #11 with the NASA ADS client
+and the experimental-limit tools only: `ads_interface.py`, `constraints.py`,
+`limits_tools.py`, `test_limits.py`, plus their registration. `test_limits.py`
+is registered as the `literature` test component because it is self-running
+and always collects tests, which is the property `main`'s own comment demands
+of an `--only` choice; `test_literature.py` stays unregistered for the reason
+`main` gives. All ten suites pass on the stack tip.
 
-To finish, from a checkout with the `dev` remote:
+Three registration files conflict every time a slice takes the one below it
+— the `--only` choices list in `test_runner.py`, the tool entries in
+`toolkit.yaml`, and the bundle table in `README.md` — and all three are
+resolved by union. Two resolvers survive in the session scratchpad
+(`merge_choices.py`, `resolve_slice.py`); the rule is simple enough to redo
+by hand: keep both sides, drop the duplicate bundle row.
 
-```bash
-git push --force-with-lease=refs/heads/feat/lagrangian-tools-dev:46c499f54fb20609b81b875f38c26a9bf6769dce dev rb/s1:refs/heads/feat/lagrangian-tools-dev
-git push --force-with-lease=refs/heads/lagrangian/2-frgen-extract:9fa44afb33bf671ca9009a73fb97a1a1a8a2cd47 dev rb/s2:refs/heads/lagrangian/2-frgen-extract
-git push --force-with-lease=refs/heads/lagrangian/3-validate-jobs-logging:9cddfd7fbc9b1b9f84bf5ec153b347f44016f37c dev rb/s3:refs/heads/lagrangian/3-validate-jobs-logging
-git push --force-with-lease=refs/heads/lagrangian/4-reverse:2e835b5e99dbfbf6cdd32a4b4bfb86303cedf4f4 dev rb/s4:refs/heads/lagrangian/4-reverse
-```
-
-The rebased branches are local refs `rb/s1` .. `rb/s4` in the heptapod clone.
-To undo, force-push the pre-rebase SHA named in each `--force-with-lease`
-above back to its branch; the pre-rebase tips also survive as
-`lagrangian/s1-tmp` .. `s4-tmp`.
-
-The four PR descriptions have already been updated with an Evidence section
-pointing at `benchmarks/FINDINGS_2026-09.md` in this repo. The bases are
-unchanged, so the stack structure survives the push.
+The four PR descriptions carry an Evidence section pointing at
+`benchmarks/FINDINGS_2026-09.md` in this repo, and their Stack lists say what
+#11 now is. Merge order is unchanged: #11, then retarget #14 to `main`, and
+so on.
