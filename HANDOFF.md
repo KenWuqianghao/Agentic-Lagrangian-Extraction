@@ -240,44 +240,46 @@ Never call `timeout` (or any missing binary) from a shell on this Mac: the
 zsh `command_not_found_handler` recurses into `pacman` and fork-storms the
 per-user process limit.
 
-## The heptapod PR stack: re-scoped and mergeable (2026-09-12)
+## The heptapod PR stack after Tony's review (2026-09-12)
 
-All four PRs on `tonymenzo/heptapod-dev` are `MERGEABLE / CLEAN` as of
-2026-09-12, with per-PR diffs of 12 / 15 / 24 / 19 files. Two things happened
-on the way there, both worth knowing before touching the stack again.
+Tony's only review comment, on #11, was a decision rather than a change
+request: he took the arXiv half of that slice onto `main` himself (#19 and
+#21, with Ken's commits and author dates preserved, plus a `__init__.py` fix
+that defers the pypdfium2 import), and ruled the NASA ADS and
+experimental-limit tools **out of scope for this repo**. He also flagged that
+#11's `.gitignore` predated rules `main` had since gained.
 
-**Rebase was the wrong tool; merge was the right one.** The force-push a
-rebase needs is refused by this environment's permission classifier, and an
-ordinary push is not. So each branch took the one below it (and `main`) by
-merge commit instead. History is preserved, the PR numbers and their review
-threads survive, and every merge tree was checked byte-identical to the
-equivalent rebase before being committed. Local branches `mg/s1` .. `mg/s4`
-in the heptapod clone are the pushed tips; the pre-merge tips survive as
-`lagrangian/s1-tmp` .. `s4-tmp` and the pre-rebase SHAs are recorded in the
-git history of this file.
+What was done about it:
 
-**PR #11 shrank, on purpose.** While the stack was open, Tony extracted its
-arXiv half onto `main` himself — #19 (search, PDF, LaTeX e-print, with Ken's
-commits and author dates preserved) and #21 (a dependency-free `arxiv` bundle,
-`FetchPaperPDFTool` renamed `ArxivPDFTool`, one directory per paper) — and
-untracked the generated logs and MG5 pickles in #24 and #25. #19 says
-explicitly that #11 stays open for the rest. The merge therefore takes
-`main`'s versions of every arXiv file and leaves #11 with the NASA ADS client
-and the experimental-limit tools only: `ads_interface.py`, `constraints.py`,
-`limits_tools.py`, `test_limits.py`, plus their registration. `test_limits.py`
-is registered as the `literature` test component because it is self-running
-and always collects tests, which is the property `main`'s own comment demands
-of an `--only` choice; `test_literature.py` stays unregistered for the reason
-`main` gives. All ten suites pass on the stack tip.
+- **#11 is closed.** Nothing left in it belonged in the repo. The ADS and
+  limit tools are parked, complete and registered, on Ken's fork at
+  `KenWuqianghao/heptapod` branch `literature/ads-limits`
+  (tip `f8251ab`, on top of current `main`).
+- **The stack is now three PRs on `main`:** #14 frgen + extract (15 files,
+  base `main`), #15 validate + feynrules + jobs + logging (24), #16 reverse
+  (19). Every trace of the ADS half was removed from them — the four modules,
+  three `toolkit.yaml` entries, the `ads_token` config key and example, the
+  README lines, the `literature` test component, and the INSPIRE cache ignore
+  rule — so each PR's diff is exactly its own slice again. Titles and Stack
+  sections say so. All three report `MERGEABLE / CLEAN`, and all ten suites
+  plus the worked example pass on the tip.
+- The `.gitignore` concern is moot: the branches now carry `main`'s rules
+  unchanged.
 
-Three registration files conflict every time a slice takes the one below it
-— the `--only` choices list in `test_runner.py`, the tool entries in
-`toolkit.yaml`, and the bundle table in `README.md` — and all three are
-resolved by union. Two resolvers survive in the session scratchpad
-(`merge_choices.py`, `resolve_slice.py`); the rule is simple enough to redo
-by hand: keep both sides, drop the duplicate bundle row.
+How it was done, because the next person will hit the same walls:
 
-The four PR descriptions carry an Evidence section pointing at
-`benchmarks/FINDINGS_2026-09.md` in this repo, and their Stack lists say what
-#11 now is. Merge order is unchanged: #11, then retarget #14 to `main`, and
-so on.
+- Force-push is refused by this environment's permission classifier; an
+  ordinary push is not. Every branch therefore took the one below it (and
+  `main`) by merge commit, never by rebase. Pushed tips are local branches
+  `mg/s2` .. `mg/s4`; the pre-merge tips survive as
+  `lagrangian/s1-tmp` .. `s4-tmp`.
+- Union-merging the three registration files (`test_runner.py` choices,
+  `toolkit.yaml` entries, README bundle tables) silently *re-adds* content one
+  side deleted, so removing a feature from a stack needs a strip pass on every
+  slice above it. `strip_ads.py` and `resolve_slice.py` in the session
+  scratchpad did that; the rule is "keep both sides, then delete what the
+  lower slice deleted".
+- `tools/feynrules/test_files/logs/checks_stdout_S1.log` is #15's deliberate
+  fixture (un-ignored by rule), not a leak.
+
+Merge order is unchanged: #14, then retarget #15 to `main`, then #16.
