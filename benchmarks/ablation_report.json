@@ -2,9 +2,9 @@
  "variants": [
   "v1",
   "v2",
-  "v3txt_tools",
   "v3_tools",
-  "v3_notools"
+  "v3_notools",
+  "v3txt_tools"
  ],
  "pages": [
   "Top-Philic-Zprime",
@@ -23,7 +23,7 @@
    "predicates_all": 4,
    "n_validated": 8,
    "compiled": 6,
-   "checks_all": 5,
+   "checks_all": 3,
    "madgraph": 2,
    "full_chain": 2,
    "mean_field_f1": 0.901,
@@ -54,7 +54,7 @@
    "predicates_all": 6,
    "n_validated": 8,
    "compiled": 7,
-   "checks_all": 5,
+   "checks_all": 4,
    "madgraph": 3,
    "full_chain": 3,
    "mean_field_f1": 0.884,
@@ -73,6 +73,68 @@
    ],
    "tool_policy": [
     "enforced"
+   ],
+   "audit_failures": 0
+  },
+  "v3_tools": {
+   "n_runs": 8,
+   "agent_ok": 8,
+   "read_paper": 8,
+   "contaminated": 0,
+   "rendered": 8,
+   "predicates_all": 7,
+   "n_validated": 8,
+   "compiled": 6,
+   "checks_all": 2,
+   "madgraph": 5,
+   "full_chain": 2,
+   "mean_field_f1": 0.833,
+   "mean_qn_f1": 0.833,
+   "n_scored": 8,
+   "mean_agent_seconds": null,
+   "mean_tool_calls": 8.5,
+   "mode": [
+    "tools"
+   ],
+   "paper_source": [
+    "tex"
+   ],
+   "engine": [
+    "claude-code-subagent"
+   ],
+   "tool_policy": [
+    "instructed+audited"
+   ],
+   "audit_failures": 0
+  },
+  "v3_notools": {
+   "n_runs": 8,
+   "agent_ok": 8,
+   "read_paper": 8,
+   "contaminated": 0,
+   "rendered": 8,
+   "predicates_all": 7,
+   "n_validated": 8,
+   "compiled": 7,
+   "checks_all": 4,
+   "madgraph": 7,
+   "full_chain": 4,
+   "mean_field_f1": 0.855,
+   "mean_qn_f1": 0.855,
+   "n_scored": 8,
+   "mean_agent_seconds": null,
+   "mean_tool_calls": 7.0,
+   "mode": [
+    "notools"
+   ],
+   "paper_source": [
+    "tex"
+   ],
+   "engine": [
+    "claude-code-subagent"
+   ],
+   "tool_policy": [
+    "instructed+audited"
    ],
    "audit_failures": 0
   },
@@ -106,68 +168,6 @@
     "instructed+audited"
    ],
    "audit_failures": 0
-  },
-  "v3_tools": {
-   "n_runs": 8,
-   "agent_ok": 8,
-   "read_paper": 8,
-   "contaminated": 0,
-   "rendered": 8,
-   "predicates_all": 7,
-   "n_validated": 8,
-   "compiled": 6,
-   "checks_all": 6,
-   "madgraph": 5,
-   "full_chain": 5,
-   "mean_field_f1": 0.833,
-   "mean_qn_f1": 0.833,
-   "n_scored": 8,
-   "mean_agent_seconds": null,
-   "mean_tool_calls": 8.5,
-   "mode": [
-    "tools"
-   ],
-   "paper_source": [
-    "tex"
-   ],
-   "engine": [
-    "claude-code-subagent"
-   ],
-   "tool_policy": [
-    "instructed+audited"
-   ],
-   "audit_failures": 0
-  },
-  "v3_notools": {
-   "n_runs": 8,
-   "agent_ok": 8,
-   "read_paper": 8,
-   "contaminated": 0,
-   "rendered": 8,
-   "predicates_all": 7,
-   "n_validated": 8,
-   "compiled": 7,
-   "checks_all": 6,
-   "madgraph": 7,
-   "full_chain": 6,
-   "mean_field_f1": 0.855,
-   "mean_qn_f1": 0.855,
-   "n_scored": 8,
-   "mean_agent_seconds": null,
-   "mean_tool_calls": 7.0,
-   "mode": [
-    "notools"
-   ],
-   "paper_source": [
-    "tex"
-   ],
-   "engine": [
-    "claude-code-subagent"
-   ],
-   "tool_policy": [
-    "instructed+audited"
-   ],
-   "audit_failures": 0
   }
  },
  "findings": [
@@ -176,54 +176,54 @@
    "finding": "zprime_free_field_terms",
    "v1": "2/2",
    "v2": "2/2",
-   "v3txt_tools": "2/2",
    "v3_tools": "2/2",
-   "v3_notools": "2/2"
+   "v3_notools": "2/2",
+   "v3txt_tools": "2/2"
   },
   {
    "page": "368sextets",
    "finding": "sextets_explicit_cutoffs",
    "v1": "2/2",
    "v2": "2/2",
-   "v3txt_tools": "2/2",
    "v3_tools": "2/2",
-   "v3_notools": "2/2"
+   "v3_notools": "2/2",
+   "v3txt_tools": "2/2"
   },
   {
    "page": "368sextets",
    "finding": "sextets_gauge_representation",
    "v1": "0/2",
    "v2": "0/2",
-   "v3txt_tools": "2/2",
    "v3_tools": "2/2",
-   "v3_notools": "2/2"
+   "v3_notools": "2/2",
+   "v3txt_tools": "2/2"
   },
   {
    "page": "EffLRSM",
    "finding": "efflrsm_charge_conjugation",
    "v1": "2/2",
    "v2": "2/2",
-   "v3txt_tools": "2/2",
    "v3_tools": "2/2",
-   "v3_notools": "2/2"
+   "v3_notools": "2/2",
+   "v3txt_tools": "2/2"
   },
   {
    "page": "EffLRSM",
    "finding": "efflrsm_zr_normalisation",
    "v1": "1/2",
    "v2": "2/2",
-   "v3txt_tools": "1/2",
    "v3_tools": "2/2",
-   "v3_notools": "2/2"
+   "v3_notools": "2/2",
+   "v3txt_tools": "1/2"
   },
   {
    "page": "GeneralU1",
    "finding": "generalu1_eps_and_higgs_charge",
    "v1": "1/2",
    "v2": "2/2",
-   "v3txt_tools": "0/2",
    "v3_tools": "1/2",
-   "v3_notools": "1/2"
+   "v3_notools": "1/2",
+   "v3txt_tools": "0/2"
   }
  ],
  "rows": [
@@ -252,9 +252,10 @@
    "compile_ok": true,
    "compile_seconds": 63.6,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
    "checks_all": true,
    "madgraph_import_ok": true,
@@ -297,9 +298,10 @@
    "compile_ok": true,
    "compile_seconds": 53.4,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
    "checks_all": true,
    "madgraph_import_ok": true,
@@ -342,11 +344,12 @@
    "compile_ok": true,
    "compile_seconds": 773.4,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "fail",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
-   "checks_all": true,
+   "checks_all": false,
    "madgraph_import_ok": false,
    "full_chain_pass": false,
    "predicates": {
@@ -436,9 +439,10 @@
    "compile_ok": true,
    "compile_seconds": 428.2,
    "checks": {
-    "hermiticity": false,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "fail",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "fail"
    },
    "checks_all": false,
    "madgraph_import_ok": false,
@@ -485,9 +489,10 @@
    "compile_ok": true,
    "compile_seconds": 58.1,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
    "checks_all": true,
    "madgraph_import_ok": false,
@@ -575,11 +580,12 @@
    "compile_ok": true,
    "compile_seconds": 55.0,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "fail",
+    "mass_spectrum": "inconclusive"
    },
-   "checks_all": true,
+   "checks_all": false,
    "madgraph_import_ok": false,
    "full_chain_pass": false,
    "predicates": {
@@ -620,9 +626,10 @@
    "compile_ok": true,
    "compile_seconds": 41.2,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
    "checks_all": true,
    "madgraph_import_ok": true,
@@ -665,9 +672,10 @@
    "compile_ok": true,
    "compile_seconds": 40.7,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
    "checks_all": true,
    "madgraph_import_ok": true,
@@ -710,9 +718,10 @@
    "compile_ok": true,
    "compile_seconds": 319.2,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
    "checks_all": true,
    "madgraph_import_ok": true,
@@ -804,11 +813,12 @@
    "compile_ok": true,
    "compile_seconds": 87.7,
    "checks": {
-    "hermiticity": false,
-    "kinetic_terms": false,
-    "mass_spectrum": false
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
-   "checks_all": false,
+   "checks_all": true,
    "madgraph_import_ok": false,
    "full_chain_pass": false,
    "predicates": {
@@ -853,9 +863,10 @@
    "compile_ok": true,
    "compile_seconds": 625.2,
    "checks": {
-    "hermiticity": false,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "fail",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "fail"
    },
    "checks_all": false,
    "madgraph_import_ok": false,
@@ -902,11 +913,12 @@
    "compile_ok": true,
    "compile_seconds": 60.7,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "fail",
+    "mass_spectrum": "inconclusive"
    },
-   "checks_all": true,
+   "checks_all": false,
    "madgraph_import_ok": false,
    "full_chain_pass": false,
    "predicates": {
@@ -947,11 +959,12 @@
    "compile_ok": true,
    "compile_seconds": 105.2,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "fail",
+    "mass_spectrum": "inconclusive"
    },
-   "checks_all": true,
+   "checks_all": false,
    "madgraph_import_ok": false,
    "full_chain_pass": false,
    "predicates": {
@@ -966,6 +979,759 @@
    "n_fields": 6,
    "n_ref_fields": 15,
    "param_jaccard": 0.025
+  },
+  {
+   "page": "Top-Philic-Zprime",
+   "variant": "v3_tools",
+   "seed": 1,
+   "status": "ran",
+   "mode": "tools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 7,
+   "read_paper": true,
+   "paper_inlined": false,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compiled",
+   "compile_ok": true,
+   "compile_seconds": 40.1,
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "checks_all": true,
+   "madgraph_import_ok": true,
+   "full_chain_pass": true,
+   "predicates": {
+    "zprime_free_field_terms": {
+     "resolved": true,
+     "detail": "kinetic + mass term for V1, summed into the total"
+    }
+   },
+   "predicates_all": true,
+   "field_f1": 1.0,
+   "qn_f1": 1.0,
+   "n_fields": 1,
+   "n_ref_fields": 1,
+   "param_jaccard": 0.0
+  },
+  {
+   "page": "Top-Philic-Zprime",
+   "variant": "v3_tools",
+   "seed": 2,
+   "status": "ran",
+   "mode": "tools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 6,
+   "read_paper": true,
+   "paper_inlined": false,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compiled",
+   "compile_ok": true,
+   "compile_seconds": 39.9,
+   "checks": {
+    "hermiticity": "fail",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "checks_all": false,
+   "madgraph_import_ok": true,
+   "full_chain_pass": false,
+   "predicates": {
+    "zprime_free_field_terms": {
+     "resolved": true,
+     "detail": "kinetic + mass term for Zp, summed into the total"
+    }
+   },
+   "predicates_all": true,
+   "field_f1": 1.0,
+   "qn_f1": 1.0,
+   "n_fields": 1,
+   "n_ref_fields": 1,
+   "param_jaccard": 0.0
+  },
+  {
+   "page": "368sextets",
+   "variant": "v3_tools",
+   "seed": 1,
+   "status": "ran",
+   "mode": "tools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 13,
+   "read_paper": true,
+   "paper_inlined": false,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compile_timeout",
+   "compile_ok": false,
+   "compile_seconds": 900.1,
+   "checks": {},
+   "checks_all": false,
+   "madgraph_import_ok": null,
+   "full_chain_pass": false,
+   "predicates": {
+    "sextets_explicit_cutoffs": {
+     "resolved": true,
+     "detail": "External cutoffs ['LamFXd', 'LamFXdB', 'LamFXu', 'LamFXuB', 'LamSXd', 'LamSXu'] with powers [1, 2, 3] on every field-strength operator"
+    },
+    "sextets_gauge_representation": {
+     "resolved": true,
+     "detail": "AddGaugeRepresentation[SU3C -> {T6, Sextet}]"
+    }
+   },
+   "predicates_all": true,
+   "field_f1": 1.0,
+   "qn_f1": 1.0,
+   "n_fields": 4,
+   "n_ref_fields": 4,
+   "param_jaccard": 0.0
+  },
+  {
+   "page": "368sextets",
+   "variant": "v3_tools",
+   "seed": 2,
+   "status": "ran",
+   "mode": "tools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 10,
+   "read_paper": true,
+   "paper_inlined": false,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compile_timeout",
+   "compile_ok": false,
+   "compile_seconds": 900.1,
+   "checks": {},
+   "checks_all": false,
+   "madgraph_import_ok": null,
+   "full_chain_pass": false,
+   "predicates": {
+    "sextets_explicit_cutoffs": {
+     "resolved": true,
+     "detail": "External cutoffs ['LamPhid', 'LamPhiu', 'LamPsid', 'LamPsidB', 'LamPsiu', 'LamPsiuB'] with powers [1, 2, 3] on every field-strength operator"
+    },
+    "sextets_gauge_representation": {
+     "resolved": true,
+     "detail": "AddGaugeRepresentation[SU3C -> {T6, Sextet}]"
+    }
+   },
+   "predicates_all": true,
+   "field_f1": 1.0,
+   "qn_f1": 1.0,
+   "n_fields": 4,
+   "n_ref_fields": 4,
+   "param_jaccard": 0.0
+  },
+  {
+   "page": "EffLRSM",
+   "variant": "v3_tools",
+   "seed": 1,
+   "status": "ran",
+   "mode": "tools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 6,
+   "read_paper": true,
+   "paper_inlined": false,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compiled",
+   "compile_ok": true,
+   "compile_seconds": 51.6,
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "fail",
+    "mass_spectrum": "inconclusive"
+   },
+   "checks_all": false,
+   "madgraph_import_ok": true,
+   "full_chain_pass": false,
+   "predicates": {
+    "efflrsm_charge_conjugation": {
+     "resolved": true,
+     "detail": "no bare light-neutrino field on any W_R line (CC[...] used or X term dropped)"
+    },
+    "efflrsm_zr_normalisation": {
+     "resolved": true,
+     "detail": "Z_R normalisation divides by Sqrt[1 - tw2/kapRq^2] (4 occurrence(s))"
+    }
+   },
+   "predicates_all": true,
+   "field_f1": 1.0,
+   "qn_f1": 1.0,
+   "n_fields": 3,
+   "n_ref_fields": 3,
+   "param_jaccard": 0.065
+  },
+  {
+   "page": "EffLRSM",
+   "variant": "v3_tools",
+   "seed": 2,
+   "status": "ran",
+   "mode": "tools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 8,
+   "read_paper": true,
+   "paper_inlined": false,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compiled",
+   "compile_ok": true,
+   "compile_seconds": 51.5,
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "checks_all": true,
+   "madgraph_import_ok": true,
+   "full_chain_pass": true,
+   "predicates": {
+    "efflrsm_charge_conjugation": {
+     "resolved": true,
+     "detail": "no bare light-neutrino field on any W_R line (CC[...] used or X term dropped)"
+    },
+    "efflrsm_zr_normalisation": {
+     "resolved": true,
+     "detail": "Z_R normalisation divides by Sqrt[1 - tanW2/kapRq^2] (8 occurrence(s))"
+    }
+   },
+   "predicates_all": true,
+   "field_f1": 1.0,
+   "qn_f1": 1.0,
+   "n_fields": 3,
+   "n_ref_fields": 3,
+   "param_jaccard": 0.03
+  },
+  {
+   "page": "GeneralU1",
+   "variant": "v3_tools",
+   "seed": 1,
+   "status": "ran",
+   "mode": "tools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 9,
+   "read_paper": true,
+   "paper_inlined": false,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compiled",
+   "compile_ok": true,
+   "compile_seconds": 63.7,
+   "checks": {
+    "hermiticity": "fail",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "checks_all": false,
+   "madgraph_import_ok": false,
+   "full_chain_pass": false,
+   "predicates": {
+    "generalu1_eps_and_higgs_charge": {
+     "resolved": false,
+     "detail": "LNuYuk: the Dirac neutrino Yukawa is written in the broken phase with the physical H and a light-neutrino field, not as LLbar[..,i,..] Phibar[j] Eps[i,j]; the SU(2) partner vertices are lost"
+    }
+   },
+   "predicates_all": false,
+   "field_f1": 0.333,
+   "qn_f1": 0.333,
+   "n_fields": 3,
+   "n_ref_fields": 15,
+   "param_jaccard": 0.026
+  },
+  {
+   "page": "GeneralU1",
+   "variant": "v3_tools",
+   "seed": 2,
+   "status": "ran",
+   "mode": "tools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 9,
+   "read_paper": true,
+   "paper_inlined": false,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compiled",
+   "compile_ok": true,
+   "compile_seconds": 45.1,
+   "checks": {
+    "hermiticity": "fail",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "fail",
+    "mass_spectrum": "inconclusive"
+   },
+   "checks_all": false,
+   "madgraph_import_ok": true,
+   "full_chain_pass": false,
+   "predicates": {
+    "generalu1_eps_and_higgs_charge": {
+     "resolved": true,
+     "detail": "Eps-contracted Dirac Yukawa; Higgs U(1)X charge qXH = xH/2"
+    }
+   },
+   "predicates_all": true,
+   "field_f1": 0.333,
+   "qn_f1": 0.333,
+   "n_fields": 3,
+   "n_ref_fields": 15,
+   "param_jaccard": 0.027
+  },
+  {
+   "page": "Top-Philic-Zprime",
+   "variant": "v3_notools",
+   "seed": 1,
+   "status": "ran",
+   "mode": "notools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 6,
+   "read_paper": true,
+   "paper_inlined": true,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compiled",
+   "compile_ok": true,
+   "compile_seconds": 38.6,
+   "checks": {
+    "hermiticity": "fail",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "checks_all": false,
+   "madgraph_import_ok": true,
+   "full_chain_pass": false,
+   "predicates": {
+    "zprime_free_field_terms": {
+     "resolved": true,
+     "detail": "kinetic + mass term for V1, summed into the total"
+    }
+   },
+   "predicates_all": true,
+   "field_f1": 1.0,
+   "qn_f1": 1.0,
+   "n_fields": 1,
+   "n_ref_fields": 1,
+   "param_jaccard": 0.0
+  },
+  {
+   "page": "Top-Philic-Zprime",
+   "variant": "v3_notools",
+   "seed": 2,
+   "status": "ran",
+   "mode": "notools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 5,
+   "read_paper": true,
+   "paper_inlined": true,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compiled",
+   "compile_ok": true,
+   "compile_seconds": 35.2,
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "checks_all": true,
+   "madgraph_import_ok": true,
+   "full_chain_pass": true,
+   "predicates": {
+    "zprime_free_field_terms": {
+     "resolved": true,
+     "detail": "kinetic + mass term for V1, summed into the total"
+    }
+   },
+   "predicates_all": true,
+   "field_f1": 1.0,
+   "qn_f1": 1.0,
+   "n_fields": 1,
+   "n_ref_fields": 1,
+   "param_jaccard": 0.0
+  },
+  {
+   "page": "368sextets",
+   "variant": "v3_notools",
+   "seed": 1,
+   "status": "ran",
+   "mode": "notools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 10,
+   "read_paper": true,
+   "paper_inlined": true,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compile_timeout",
+   "compile_ok": false,
+   "compile_seconds": 900.1,
+   "checks": {},
+   "checks_all": false,
+   "madgraph_import_ok": null,
+   "full_chain_pass": false,
+   "predicates": {
+    "sextets_explicit_cutoffs": {
+     "resolved": true,
+     "detail": "External cutoffs ['LamPhi6d', 'LamPhi6u', 'LamPsi6d', 'LamPsi6dB', 'LamPsi6u', 'LamPsi6uB'] with powers [1, 2, 3] on every field-strength operator"
+    },
+    "sextets_gauge_representation": {
+     "resolved": true,
+     "detail": "AddGaugeRepresentation[SU3C -> {T6, Sextet}]"
+    }
+   },
+   "predicates_all": true,
+   "field_f1": 1.0,
+   "qn_f1": 1.0,
+   "n_fields": 4,
+   "n_ref_fields": 4,
+   "param_jaccard": 0.0
+  },
+  {
+   "page": "368sextets",
+   "variant": "v3_notools",
+   "seed": 2,
+   "status": "ran",
+   "mode": "notools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 9,
+   "read_paper": true,
+   "paper_inlined": true,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compiled",
+   "compile_ok": true,
+   "compile_seconds": 516.6,
+   "checks": {
+    "hermiticity": "fail",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "checks_all": false,
+   "madgraph_import_ok": true,
+   "full_chain_pass": false,
+   "predicates": {
+    "sextets_explicit_cutoffs": {
+     "resolved": true,
+     "detail": "External cutoffs ['LamPhd', 'LamPhu', 'LamPsd', 'LamPsdB', 'LamPsu', 'LamPsuB'] with powers [1, 2, 3] on every field-strength operator"
+    },
+    "sextets_gauge_representation": {
+     "resolved": true,
+     "detail": "AddGaugeRepresentation[SU3C -> {T6, Sextet}]"
+    }
+   },
+   "predicates_all": true,
+   "field_f1": 1.0,
+   "qn_f1": 1.0,
+   "n_fields": 4,
+   "n_ref_fields": 4,
+   "param_jaccard": 0.0
+  },
+  {
+   "page": "EffLRSM",
+   "variant": "v3_notools",
+   "seed": 1,
+   "status": "ran",
+   "mode": "notools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 6,
+   "read_paper": true,
+   "paper_inlined": true,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compiled",
+   "compile_ok": true,
+   "compile_seconds": 165.5,
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "checks_all": true,
+   "madgraph_import_ok": true,
+   "full_chain_pass": true,
+   "predicates": {
+    "efflrsm_charge_conjugation": {
+     "resolved": true,
+     "detail": "no bare light-neutrino field on any W_R line (CC[...] used or X term dropped)"
+    },
+    "efflrsm_zr_normalisation": {
+     "resolved": true,
+     "detail": "Z_R normalisation divides by Sqrt[1 - tw2/kapRq^2] (2 occurrence(s))"
+    }
+   },
+   "predicates_all": true,
+   "field_f1": 1.0,
+   "qn_f1": 1.0,
+   "n_fields": 3,
+   "n_ref_fields": 3,
+   "param_jaccard": 0.065
+  },
+  {
+   "page": "EffLRSM",
+   "variant": "v3_notools",
+   "seed": 2,
+   "status": "ran",
+   "mode": "notools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 7,
+   "read_paper": true,
+   "paper_inlined": true,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compiled",
+   "compile_ok": true,
+   "compile_seconds": 137.3,
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "checks_all": true,
+   "madgraph_import_ok": true,
+   "full_chain_pass": true,
+   "predicates": {
+    "efflrsm_charge_conjugation": {
+     "resolved": true,
+     "detail": "no bare light-neutrino field on any W_R line (CC[...] used or X term dropped)"
+    },
+    "efflrsm_zr_normalisation": {
+     "resolved": true,
+     "detail": "Z_R normalisation divides by Sqrt[1 - tw2/kapRq^2] (2 occurrence(s))"
+    }
+   },
+   "predicates_all": true,
+   "field_f1": 1.0,
+   "qn_f1": 1.0,
+   "n_fields": 3,
+   "n_ref_fields": 3,
+   "param_jaccard": 0.059
+  },
+  {
+   "page": "GeneralU1",
+   "variant": "v3_notools",
+   "seed": 1,
+   "status": "ran",
+   "mode": "notools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 7,
+   "read_paper": true,
+   "paper_inlined": true,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compiled",
+   "compile_ok": true,
+   "compile_seconds": 92.0,
+   "checks": {
+    "hermiticity": "fail",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "fail",
+    "mass_spectrum": "inconclusive"
+   },
+   "checks_all": false,
+   "madgraph_import_ok": true,
+   "full_chain_pass": false,
+   "predicates": {
+    "generalu1_eps_and_higgs_charge": {
+     "resolved": true,
+     "detail": "Eps-contracted Dirac Yukawa; Higgs U(1)X charge xHd = xH/2"
+    }
+   },
+   "predicates_all": true,
+   "field_f1": 0.421,
+   "qn_f1": 0.421,
+   "n_fields": 4,
+   "n_ref_fields": 15,
+   "param_jaccard": 0.026
+  },
+  {
+   "page": "GeneralU1",
+   "variant": "v3_notools",
+   "seed": 2,
+   "status": "ran",
+   "mode": "notools",
+   "paper_source": "tex",
+   "engine": "claude-code-subagent",
+   "tool_policy": "instructed+audited",
+   "audit_ok": true,
+   "audit_problems": [],
+   "agent_ok": true,
+   "timed_out": false,
+   "seconds": null,
+   "n_tool_calls": 6,
+   "read_paper": true,
+   "paper_inlined": true,
+   "contaminated": false,
+   "rendered": true,
+   "render_reason": null,
+   "validated": true,
+   "lag_status": "compiled",
+   "compile_ok": true,
+   "compile_seconds": 51.7,
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "checks_all": true,
+   "madgraph_import_ok": true,
+   "full_chain_pass": true,
+   "predicates": {
+    "generalu1_eps_and_higgs_charge": {
+     "resolved": false,
+     "detail": "cannot locate the Higgs doublet's U(1)X charge parameter"
+    }
+   },
+   "predicates_all": false,
+   "field_f1": 0.421,
+   "qn_f1": 0.421,
+   "n_fields": 4,
+   "n_ref_fields": 15,
+   "param_jaccard": 0.013
   },
   {
    "page": "Top-Philic-Zprime",
@@ -1310,746 +2076,6 @@
    "n_fields": 3,
    "n_ref_fields": 15,
    "param_jaccard": 0.025
-  },
-  {
-   "page": "Top-Philic-Zprime",
-   "variant": "v3_tools",
-   "seed": 1,
-   "status": "ran",
-   "mode": "tools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 7,
-   "read_paper": true,
-   "paper_inlined": false,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compiled",
-   "compile_ok": true,
-   "compile_seconds": 40.1,
-   "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
-   },
-   "checks_all": true,
-   "madgraph_import_ok": true,
-   "full_chain_pass": true,
-   "predicates": {
-    "zprime_free_field_terms": {
-     "resolved": true,
-     "detail": "kinetic + mass term for V1, summed into the total"
-    }
-   },
-   "predicates_all": true,
-   "field_f1": 1.0,
-   "qn_f1": 1.0,
-   "n_fields": 1,
-   "n_ref_fields": 1,
-   "param_jaccard": 0.0
-  },
-  {
-   "page": "Top-Philic-Zprime",
-   "variant": "v3_tools",
-   "seed": 2,
-   "status": "ran",
-   "mode": "tools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 6,
-   "read_paper": true,
-   "paper_inlined": false,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compiled",
-   "compile_ok": true,
-   "compile_seconds": 39.9,
-   "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
-   },
-   "checks_all": true,
-   "madgraph_import_ok": true,
-   "full_chain_pass": true,
-   "predicates": {
-    "zprime_free_field_terms": {
-     "resolved": true,
-     "detail": "kinetic + mass term for Zp, summed into the total"
-    }
-   },
-   "predicates_all": true,
-   "field_f1": 1.0,
-   "qn_f1": 1.0,
-   "n_fields": 1,
-   "n_ref_fields": 1,
-   "param_jaccard": 0.0
-  },
-  {
-   "page": "368sextets",
-   "variant": "v3_tools",
-   "seed": 1,
-   "status": "ran",
-   "mode": "tools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 13,
-   "read_paper": true,
-   "paper_inlined": false,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compile_timeout",
-   "compile_ok": false,
-   "compile_seconds": 900.1,
-   "checks": {},
-   "checks_all": false,
-   "madgraph_import_ok": null,
-   "full_chain_pass": false,
-   "predicates": {
-    "sextets_explicit_cutoffs": {
-     "resolved": true,
-     "detail": "External cutoffs ['LamFXd', 'LamFXdB', 'LamFXu', 'LamFXuB', 'LamSXd', 'LamSXu'] with powers [1, 2, 3] on every field-strength operator"
-    },
-    "sextets_gauge_representation": {
-     "resolved": true,
-     "detail": "AddGaugeRepresentation[SU3C -> {T6, Sextet}]"
-    }
-   },
-   "predicates_all": true,
-   "field_f1": 1.0,
-   "qn_f1": 1.0,
-   "n_fields": 4,
-   "n_ref_fields": 4,
-   "param_jaccard": 0.0
-  },
-  {
-   "page": "368sextets",
-   "variant": "v3_tools",
-   "seed": 2,
-   "status": "ran",
-   "mode": "tools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 10,
-   "read_paper": true,
-   "paper_inlined": false,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compile_timeout",
-   "compile_ok": false,
-   "compile_seconds": 900.1,
-   "checks": {},
-   "checks_all": false,
-   "madgraph_import_ok": null,
-   "full_chain_pass": false,
-   "predicates": {
-    "sextets_explicit_cutoffs": {
-     "resolved": true,
-     "detail": "External cutoffs ['LamPhid', 'LamPhiu', 'LamPsid', 'LamPsidB', 'LamPsiu', 'LamPsiuB'] with powers [1, 2, 3] on every field-strength operator"
-    },
-    "sextets_gauge_representation": {
-     "resolved": true,
-     "detail": "AddGaugeRepresentation[SU3C -> {T6, Sextet}]"
-    }
-   },
-   "predicates_all": true,
-   "field_f1": 1.0,
-   "qn_f1": 1.0,
-   "n_fields": 4,
-   "n_ref_fields": 4,
-   "param_jaccard": 0.0
-  },
-  {
-   "page": "EffLRSM",
-   "variant": "v3_tools",
-   "seed": 1,
-   "status": "ran",
-   "mode": "tools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 6,
-   "read_paper": true,
-   "paper_inlined": false,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compiled",
-   "compile_ok": true,
-   "compile_seconds": 51.6,
-   "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
-   },
-   "checks_all": true,
-   "madgraph_import_ok": true,
-   "full_chain_pass": true,
-   "predicates": {
-    "efflrsm_charge_conjugation": {
-     "resolved": true,
-     "detail": "no bare light-neutrino field on any W_R line (CC[...] used or X term dropped)"
-    },
-    "efflrsm_zr_normalisation": {
-     "resolved": true,
-     "detail": "Z_R normalisation divides by Sqrt[1 - tw2/kapRq^2] (4 occurrence(s))"
-    }
-   },
-   "predicates_all": true,
-   "field_f1": 1.0,
-   "qn_f1": 1.0,
-   "n_fields": 3,
-   "n_ref_fields": 3,
-   "param_jaccard": 0.065
-  },
-  {
-   "page": "EffLRSM",
-   "variant": "v3_tools",
-   "seed": 2,
-   "status": "ran",
-   "mode": "tools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 8,
-   "read_paper": true,
-   "paper_inlined": false,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compiled",
-   "compile_ok": true,
-   "compile_seconds": 51.5,
-   "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
-   },
-   "checks_all": true,
-   "madgraph_import_ok": true,
-   "full_chain_pass": true,
-   "predicates": {
-    "efflrsm_charge_conjugation": {
-     "resolved": true,
-     "detail": "no bare light-neutrino field on any W_R line (CC[...] used or X term dropped)"
-    },
-    "efflrsm_zr_normalisation": {
-     "resolved": true,
-     "detail": "Z_R normalisation divides by Sqrt[1 - tanW2/kapRq^2] (8 occurrence(s))"
-    }
-   },
-   "predicates_all": true,
-   "field_f1": 1.0,
-   "qn_f1": 1.0,
-   "n_fields": 3,
-   "n_ref_fields": 3,
-   "param_jaccard": 0.03
-  },
-  {
-   "page": "GeneralU1",
-   "variant": "v3_tools",
-   "seed": 1,
-   "status": "ran",
-   "mode": "tools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 9,
-   "read_paper": true,
-   "paper_inlined": false,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compiled",
-   "compile_ok": true,
-   "compile_seconds": 63.7,
-   "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
-   },
-   "checks_all": true,
-   "madgraph_import_ok": false,
-   "full_chain_pass": false,
-   "predicates": {
-    "generalu1_eps_and_higgs_charge": {
-     "resolved": false,
-     "detail": "LNuYuk: the Dirac neutrino Yukawa is written in the broken phase with the physical H and a light-neutrino field, not as LLbar[..,i,..] Phibar[j] Eps[i,j]; the SU(2) partner vertices are lost"
-    }
-   },
-   "predicates_all": false,
-   "field_f1": 0.333,
-   "qn_f1": 0.333,
-   "n_fields": 3,
-   "n_ref_fields": 15,
-   "param_jaccard": 0.026
-  },
-  {
-   "page": "GeneralU1",
-   "variant": "v3_tools",
-   "seed": 2,
-   "status": "ran",
-   "mode": "tools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 9,
-   "read_paper": true,
-   "paper_inlined": false,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compiled",
-   "compile_ok": true,
-   "compile_seconds": 45.1,
-   "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
-   },
-   "checks_all": true,
-   "madgraph_import_ok": true,
-   "full_chain_pass": true,
-   "predicates": {
-    "generalu1_eps_and_higgs_charge": {
-     "resolved": true,
-     "detail": "Eps-contracted Dirac Yukawa; Higgs U(1)X charge qXH = xH/2"
-    }
-   },
-   "predicates_all": true,
-   "field_f1": 0.333,
-   "qn_f1": 0.333,
-   "n_fields": 3,
-   "n_ref_fields": 15,
-   "param_jaccard": 0.027
-  },
-  {
-   "page": "Top-Philic-Zprime",
-   "variant": "v3_notools",
-   "seed": 1,
-   "status": "ran",
-   "mode": "notools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 6,
-   "read_paper": true,
-   "paper_inlined": true,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compiled",
-   "compile_ok": true,
-   "compile_seconds": 38.6,
-   "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
-   },
-   "checks_all": true,
-   "madgraph_import_ok": true,
-   "full_chain_pass": true,
-   "predicates": {
-    "zprime_free_field_terms": {
-     "resolved": true,
-     "detail": "kinetic + mass term for V1, summed into the total"
-    }
-   },
-   "predicates_all": true,
-   "field_f1": 1.0,
-   "qn_f1": 1.0,
-   "n_fields": 1,
-   "n_ref_fields": 1,
-   "param_jaccard": 0.0
-  },
-  {
-   "page": "Top-Philic-Zprime",
-   "variant": "v3_notools",
-   "seed": 2,
-   "status": "ran",
-   "mode": "notools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 5,
-   "read_paper": true,
-   "paper_inlined": true,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compiled",
-   "compile_ok": true,
-   "compile_seconds": 35.2,
-   "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
-   },
-   "checks_all": true,
-   "madgraph_import_ok": true,
-   "full_chain_pass": true,
-   "predicates": {
-    "zprime_free_field_terms": {
-     "resolved": true,
-     "detail": "kinetic + mass term for V1, summed into the total"
-    }
-   },
-   "predicates_all": true,
-   "field_f1": 1.0,
-   "qn_f1": 1.0,
-   "n_fields": 1,
-   "n_ref_fields": 1,
-   "param_jaccard": 0.0
-  },
-  {
-   "page": "368sextets",
-   "variant": "v3_notools",
-   "seed": 1,
-   "status": "ran",
-   "mode": "notools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 10,
-   "read_paper": true,
-   "paper_inlined": true,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compile_timeout",
-   "compile_ok": false,
-   "compile_seconds": 900.1,
-   "checks": {},
-   "checks_all": false,
-   "madgraph_import_ok": null,
-   "full_chain_pass": false,
-   "predicates": {
-    "sextets_explicit_cutoffs": {
-     "resolved": true,
-     "detail": "External cutoffs ['LamPhi6d', 'LamPhi6u', 'LamPsi6d', 'LamPsi6dB', 'LamPsi6u', 'LamPsi6uB'] with powers [1, 2, 3] on every field-strength operator"
-    },
-    "sextets_gauge_representation": {
-     "resolved": true,
-     "detail": "AddGaugeRepresentation[SU3C -> {T6, Sextet}]"
-    }
-   },
-   "predicates_all": true,
-   "field_f1": 1.0,
-   "qn_f1": 1.0,
-   "n_fields": 4,
-   "n_ref_fields": 4,
-   "param_jaccard": 0.0
-  },
-  {
-   "page": "368sextets",
-   "variant": "v3_notools",
-   "seed": 2,
-   "status": "ran",
-   "mode": "notools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 9,
-   "read_paper": true,
-   "paper_inlined": true,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compiled",
-   "compile_ok": true,
-   "compile_seconds": 516.6,
-   "checks": {
-    "hermiticity": false,
-    "kinetic_terms": true,
-    "mass_spectrum": true
-   },
-   "checks_all": false,
-   "madgraph_import_ok": true,
-   "full_chain_pass": false,
-   "predicates": {
-    "sextets_explicit_cutoffs": {
-     "resolved": true,
-     "detail": "External cutoffs ['LamPhd', 'LamPhu', 'LamPsd', 'LamPsdB', 'LamPsu', 'LamPsuB'] with powers [1, 2, 3] on every field-strength operator"
-    },
-    "sextets_gauge_representation": {
-     "resolved": true,
-     "detail": "AddGaugeRepresentation[SU3C -> {T6, Sextet}]"
-    }
-   },
-   "predicates_all": true,
-   "field_f1": 1.0,
-   "qn_f1": 1.0,
-   "n_fields": 4,
-   "n_ref_fields": 4,
-   "param_jaccard": 0.0
-  },
-  {
-   "page": "EffLRSM",
-   "variant": "v3_notools",
-   "seed": 1,
-   "status": "ran",
-   "mode": "notools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 6,
-   "read_paper": true,
-   "paper_inlined": true,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compiled",
-   "compile_ok": true,
-   "compile_seconds": 165.5,
-   "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
-   },
-   "checks_all": true,
-   "madgraph_import_ok": true,
-   "full_chain_pass": true,
-   "predicates": {
-    "efflrsm_charge_conjugation": {
-     "resolved": true,
-     "detail": "no bare light-neutrino field on any W_R line (CC[...] used or X term dropped)"
-    },
-    "efflrsm_zr_normalisation": {
-     "resolved": true,
-     "detail": "Z_R normalisation divides by Sqrt[1 - tw2/kapRq^2] (2 occurrence(s))"
-    }
-   },
-   "predicates_all": true,
-   "field_f1": 1.0,
-   "qn_f1": 1.0,
-   "n_fields": 3,
-   "n_ref_fields": 3,
-   "param_jaccard": 0.065
-  },
-  {
-   "page": "EffLRSM",
-   "variant": "v3_notools",
-   "seed": 2,
-   "status": "ran",
-   "mode": "notools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 7,
-   "read_paper": true,
-   "paper_inlined": true,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compiled",
-   "compile_ok": true,
-   "compile_seconds": 137.3,
-   "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
-   },
-   "checks_all": true,
-   "madgraph_import_ok": true,
-   "full_chain_pass": true,
-   "predicates": {
-    "efflrsm_charge_conjugation": {
-     "resolved": true,
-     "detail": "no bare light-neutrino field on any W_R line (CC[...] used or X term dropped)"
-    },
-    "efflrsm_zr_normalisation": {
-     "resolved": true,
-     "detail": "Z_R normalisation divides by Sqrt[1 - tw2/kapRq^2] (2 occurrence(s))"
-    }
-   },
-   "predicates_all": true,
-   "field_f1": 1.0,
-   "qn_f1": 1.0,
-   "n_fields": 3,
-   "n_ref_fields": 3,
-   "param_jaccard": 0.059
-  },
-  {
-   "page": "GeneralU1",
-   "variant": "v3_notools",
-   "seed": 1,
-   "status": "ran",
-   "mode": "notools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 7,
-   "read_paper": true,
-   "paper_inlined": true,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compiled",
-   "compile_ok": true,
-   "compile_seconds": 92.0,
-   "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
-   },
-   "checks_all": true,
-   "madgraph_import_ok": true,
-   "full_chain_pass": true,
-   "predicates": {
-    "generalu1_eps_and_higgs_charge": {
-     "resolved": true,
-     "detail": "Eps-contracted Dirac Yukawa; Higgs U(1)X charge xHd = xH/2"
-    }
-   },
-   "predicates_all": true,
-   "field_f1": 0.421,
-   "qn_f1": 0.421,
-   "n_fields": 4,
-   "n_ref_fields": 15,
-   "param_jaccard": 0.026
-  },
-  {
-   "page": "GeneralU1",
-   "variant": "v3_notools",
-   "seed": 2,
-   "status": "ran",
-   "mode": "notools",
-   "paper_source": "tex",
-   "engine": "claude-code-subagent",
-   "tool_policy": "instructed+audited",
-   "audit_ok": true,
-   "audit_problems": [],
-   "agent_ok": true,
-   "timed_out": false,
-   "seconds": null,
-   "n_tool_calls": 6,
-   "read_paper": true,
-   "paper_inlined": true,
-   "contaminated": false,
-   "rendered": true,
-   "render_reason": null,
-   "validated": true,
-   "lag_status": "compiled",
-   "compile_ok": true,
-   "compile_seconds": 51.7,
-   "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
-   },
-   "checks_all": true,
-   "madgraph_import_ok": true,
-   "full_chain_pass": true,
-   "predicates": {
-    "generalu1_eps_and_higgs_charge": {
-     "resolved": false,
-     "detail": "cannot locate the Higgs doublet's U(1)X charge parameter"
-    }
-   },
-   "predicates_all": false,
-   "field_f1": 0.421,
-   "qn_f1": 0.421,
-   "n_fields": 4,
-   "n_ref_fields": 15,
-   "param_jaccard": 0.013
   }
  ]
 }

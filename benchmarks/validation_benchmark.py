@@ -17,7 +17,8 @@ MadGraph are available:
 
 and reports, per model and in aggregate:
   * compile_ok            : did FeynRules WriteUFO produce a UFO?
-  * hermiticity/kinetic/mass : FeynRules symmetry checks (parsed from the log)
+  * checks                : FeynRules consistency-check verdicts, read from each
+                            check's return value (pass / fail / inconclusive)
   * n_new_particles       : new (BSM) particle classes that reached the UFO
   * madgraph_import_ok    : does MadGraph load the generated UFO?
 
@@ -47,7 +48,7 @@ REPO = HERE.parent.parent
 sys.path.insert(0, str(REPO))
 
 import config  # noqa: E402
-from tools.feynrules.wl_checks import parse_check_blocks  # noqa: E402
+from tools.feynrules.lagrangian_checks import PASS, parse_check_verdicts  # noqa: E402
 from tools.frgen.fr_parser import parse_lagrangian_terms  # noqa: E402
 
 DRIVER = REPO / "tools" / "feynrules" / "UFO_generator.wl"
@@ -57,6 +58,21 @@ OUTROOT = Path(os.environ.get("VBENCH_OUT", "/tmp/vbench"))
 
 COMPILE_TIMEOUT = int(os.environ.get("VBENCH_COMPILE_TIMEOUT", "420"))
 MG5_TIMEOUT = int(os.environ.get("VBENCH_MG5_TIMEOUT", "240"))
+
+# The four checks UFO_generator.wl runs by default. Each passes for the
+# Standard Model alone, so a failure is about the model under test.
+CHECK_KEYS = ("hermiticity", "kinetic_diagonal", "mass_diagonal", "mass_spectrum")
+
+
+def all_checks_pass(checks: dict | None) -> bool:
+    """True only when every default check returned an affirmative verdict.
+
+    Inconclusive is not a pass, and a check that did not run is not a pass.
+    Verdicts stored before 2026-09-13 came from a prose classifier that could
+    not report a failure, which is why this is the only definition used.
+    """
+    checks = checks or {}
+    return all(checks.get(k) == PASS for k in CHECK_KEYS)
 
 # A diverse default subset spanning colour reps, spins, and gauge extensions.
 DEFAULT_SUBSET = [
@@ -284,19 +300,34 @@ def _pgid_of(proc) -> int | None:
         return getattr(proc, "pid", None)
 
 
-def compile_to_ufo(page: str, fr: Path, lag: str, outdir: Path) -> dict:
-    outdir.parent.mkdir(parents=True, exist_ok=True)
-    if outdir.exists():
-        subprocess.run(["rm", "-rf", str(outdir)], capture_output=True)
-    cmd = [
-        config.wolframscript_path, "-f", str(DRIVER),
-        f"ModelPath={fr}", f"FeynRulesPath={config.feynrules_path}",
-        f"OutputDir={outdir}", "Checks=true", "AddDecays=false", f"LagName={lag}",
-    ]
+def lagrangian_expression(fr: Path, lag: str) -> str:
+    """The expression handed to FeynRules for a model whose total is ``lag``.
+
+    FeynRules' Standard Model Lagrangian is ``LSM``. Most benchmark models
+    define a BSM-only total, so the SM must be added. Some totals already
+    include ``LSM``, directly or through a sub-term; adding it again counts
+    every SM term twice, which breaks the mass spectrum and every SM vertex.
+    The earlier generator added ``LSM`` unconditionally, so runs whose total
+    already included it were checked and compiled with the SM counted twice.
+    """
+    terms = {t["name"]: t["expression"]
+             for t in parse_lagrangian_terms(fr.read_text(errors="replace"))}
+    reached: set = set()
+    for name in _reach(lag, terms):
+        reached.update(_IDENT_RE.findall(terms.get(name, "")))
+    return lag if "LSM" in reached else f"LSM + {lag}"
+
+
+def _run_driver(args: list, timeout: int) -> tuple[str, int, bool, float]:
+    """Run UFO_generator.wl; return ``(stdout, exit, timed_out, seconds)``.
+
+    Popen + process-group kill: subprocess.run(timeout=) only kills
+    wolframscript, then blocks in communicate() until the orphaned
+    WolframKernel children release the output pipe (observed 85 min hang).
+    """
+    cmd = [config.wolframscript_path, "-f", str(DRIVER),
+           f"FeynRulesPath={config.feynrules_path}", *args]
     t0 = time.time()
-    # Popen + process-group kill: subprocess.run(timeout=) only kills
-    # wolframscript, then blocks in communicate() until the orphaned
-    # WolframKernel children release the output pipe (observed 85 min hang).
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                          text=True, stdin=subprocess.DEVNULL, start_new_session=True)
     # Wall-clock watchdog beside communicate()'s own timeout: the latter
@@ -307,7 +338,7 @@ def compile_to_ufo(page: str, fr: Path, lag: str, outdir: Path) -> dict:
 
     def _watchdog():
         while p.poll() is None:
-            if time.time() - t0 > COMPILE_TIMEOUT:
+            if time.time() - t0 > timeout:
                 killed["by_watchdog"] = True
                 try:
                     os.killpg(os.getpgid(p.pid), signal.SIGKILL)
@@ -317,7 +348,7 @@ def compile_to_ufo(page: str, fr: Path, lag: str, outdir: Path) -> dict:
             time.sleep(15)
     threading.Thread(target=_watchdog, daemon=True).start()
     try:
-        out, _ = p.communicate(timeout=COMPILE_TIMEOUT)
+        out, _ = p.communicate(timeout=timeout)
         rc = p.returncode
         timed_out = killed["by_watchdog"]
         if timed_out:
@@ -332,25 +363,60 @@ def compile_to_ufo(page: str, fr: Path, lag: str, outdir: Path) -> dict:
         timed_out = True
     finally:
         _kill_stale_kernels(_pgid_of(p))
-    out = out or ""
-    dt = round(time.time() - t0, 1)
+    return out or "", rc, timed_out, round(time.time() - t0, 1)
+
+
+def _verdicts(out: str) -> dict:
+    """``{check name: "pass" | "fail" | "inconclusive"}`` from generator stdout."""
+    return {c["name"]: c["verdict"] for c in parse_check_verdicts(out)}
+
+
+def compile_to_ufo(page: str, fr: Path, lag: str, outdir: Path) -> dict:
+    outdir.parent.mkdir(parents=True, exist_ok=True)
+    if outdir.exists():
+        subprocess.run(["rm", "-rf", str(outdir)], capture_output=True)
+    expr = lagrangian_expression(fr, lag)
+    out, rc, timed_out, dt = _run_driver(
+        [f"ModelPath={fr}", f"OutputDir={outdir}", "Checks=true", "AddDecays=false",
+         "LoadSM=true", f"Lagrangian={expr}"],
+        COMPILE_TIMEOUT)
     (outdir.parent / "compile.log").write_text(out)
     ufo_files = [f for f in ("particles.py", "parameters.py", "couplings.py",
                              "vertices.py", "lorentz.py")
                  if (outdir / f).is_file()]
-    compile_ok = ("[INFO] Done." in out) and (outdir / "particles.py").is_file()
-    checks = {c["name"]: c["passed"] for c in parse_check_blocks(out)}
+    # Exit 2 is the generator's own verdict that WriteUFO left an incomplete UFO.
+    compile_ok = rc == 0 and "[INFO] Done." in out and (outdir / "particles.py").is_file()
     protected_errs = len(re.findall(r"ISUMObject|IndexRange\[Index\[Spin\]\]", out))
     return {
         "compile_ok": compile_ok,
+        "lagrangian_expression": expr,
         "timed_out": timed_out,
         "exit": rc,
         "seconds": dt,
         "ufo_files": ufo_files,
-        "checks": checks,
+        "checks": _verdicts(out),
         "protected_symbol_errors": protected_errs,
         "log_tail": out[-1200:] if not compile_ok else "",
     }
+
+
+def run_lagrangian_checks(fr: Path, lag: str, log_path: Path,
+                          timeout: int = COMPILE_TIMEOUT) -> dict:
+    """FeynRules' consistency checks alone, without writing a UFO.
+
+    Returns ``{"checks", "lagrangian_expression", "exit", "timed_out",
+    "seconds"}``; stdout goes to ``log_path`` so every verdict has its
+    evidence on disk.
+    """
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    expr = lagrangian_expression(fr, lag)
+    out, rc, timed_out, dt = _run_driver(
+        [f"ModelPath={fr}", f"OutputDir={log_path.parent / 'checks_only_UFO'}",
+         "Checks=true", "ChecksOnly=true", "LoadSM=true", f"Lagrangian={expr}"],
+        timeout)
+    log_path.write_text(out)
+    return {"checks": _verdicts(out), "lagrangian_expression": expr,
+            "exit": rc, "timed_out": timed_out, "seconds": dt}
 
 
 def count_new_particles(outdir: Path) -> int:
@@ -451,13 +517,15 @@ def main() -> int:
     def _rate(pred):
         m = [r for r in compiled if pred(r)]
         return (len(m), len(compiled))
-    herm = _rate(lambda r: r.get("checks", {}).get("hermiticity"))
+    herm = _rate(lambda r: (r.get("checks") or {}).get("hermiticity") == PASS)
+    allchk = _rate(lambda r: all_checks_pass(r.get("checks")))
     mg5ok = _rate(lambda r: r.get("madgraph_import_ok"))
     agg = {
         "n_models": n,
         "n_compiled": len(compiled),
         "compile_rate": round(len(compiled) / n, 3) if n else 0,
         "hermiticity_pass": herm[0],
+        "all_checks_pass": allchk[0],
         "madgraph_import_ok": mg5ok[0],
         "n_compile_failed": sum(1 for r in rows if r.get("status") == "compile_failed"),
         "n_compile_timeout": sum(1 for r in rows if r.get("status") == "compile_timeout"),
@@ -476,28 +544,33 @@ def main() -> int:
         "",
         f"**Aggregate over {n} models:** compiled **{agg['n_compiled']}/{n}** "
         f"({agg['compile_rate']:.0%}); Hermiticity-pass {herm[0]}/{herm[1]}; "
+        f"all-checks-pass {allchk[0]}/{allchk[1]}; "
         f"MadGraph-import-ok {mg5ok[0]}/{mg5ok[1]}; "
         f"compile-failed {agg['n_compile_failed']}, timeout {agg['n_compile_timeout']}.",
         "",
-        "| Model | Lag symbol | Compile | Herm | Kin | Mass | UFO parts | MG5 load | LNV | secs | Status |",
-        "|---|---|---|---|---|---|---|---|---|---|---|",
+        "| Model | Lag symbol | Compile | Herm | Kin diag | Mass diag | Spectrum | UFO parts | MG5 load | LNV | secs | Status |",
+        "|---|---|---|---|---|---|---|---|---|---|---|---|",
     ]
     def _b(v):
         return "✓" if v is True else ("✗" if v is False else "—")
+
+    def _v(v):
+        return {"pass": "✓", "fail": "✗", "inconclusive": "?"}.get(v, "—")
     for r in rows:
-        c = r.get("checks", {})
+        c = r.get("checks") or {}
         lines.append(
             f"| {r['page']} | {r.get('lag_symbol','—')} | {_b(r.get('compile_ok'))} | "
-            f"{_b(c.get('hermiticity'))} | {_b(c.get('kinetic_terms'))} | "
-            f"{_b(c.get('mass_spectrum'))} | {r.get('n_particles_ufo','—')} | "
+            + " | ".join(_v(c.get(k)) for k in CHECK_KEYS) + " | "
+            f"{r.get('n_particles_ufo','—')} | "
             f"{_b(r.get('madgraph_import_ok'))} | {_b(r.get('lepton_number_violation'))} | "
             f"{r.get('seconds','—')} | {r.get('status')} |")
     lines += [
         "",
         "## Notes",
         "- `Compile` = FeynRules `WriteUFO` produced `particles.py` and printed Done.",
-        "- Physics checks (Herm/Kin/Mass) are FeynRules' own consistency routines, "
-        "parsed from the run log; `—` means the check did not emit a verdict.",
+        "- Checks are FeynRules' own consistency routines. Each verdict is read "
+        "from the routine's return value (`tools/feynrules/lagrangian_checks.py`), "
+        "not its printed prose. `?` means inconclusive; `—` means the check did not run.",
         "- `MG5 load` = MadGraph `import model` succeeded (UFO auto-converted to "
         "Python3 as needed) and reported a particle count with no fatal error.",
         "- `LNV` = MadGraph flagged a lepton-number-violating interaction "

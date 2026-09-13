@@ -418,7 +418,7 @@ def validate(page: str, fr: Path, tag: str) -> dict:
     else:
         row["status"] = "compile_timeout" if comp["timed_out"] else "compile_failed"
     row["full_chain_pass"] = bool(comp["compile_ok"]
-                                  and all(comp["checks"].values())
+                                  and vb.all_checks_pass(comp["checks"])
                                   and row.get("madgraph_import_ok"))
     return row
 

@@ -36,6 +36,7 @@ sys.path.insert(0, str(HERE))
 
 from eval.reference_bench import score  # noqa: E402
 import rerun_predicates  # noqa: E402
+import validation_benchmark as vb  # noqa: E402
 
 SM_FR = str(REPO / "tools" / "feynrules" / "test_files" / "models" / "SM.fr")
 
@@ -63,13 +64,18 @@ def collect(page: str, variant: str, seed: int, cand: dict) -> dict:
     # the render alone — so trusting it silently dropped rows that had in fact
     # compiled and passed, and the aggregate undercounted every arm driven
     # through the subagent path.
-    v = r.get("validation") or {}
+    # validation.json wins whenever it exists: rescore_checks.py rewrites that
+    # file alone, so run.json's embedded copy can carry verdicts that were
+    # corrected afterwards.
+    v = {}
     vfile = d / "validation.json"
-    if not v and vfile.is_file():
+    if vfile.is_file():
         try:
             v = json.loads(vfile.read_text())
         except (OSError, json.JSONDecodeError):
             v = {}
+    if not v:
+        v = r.get("validation") or {}
     row.update({
         "status": "ran",
         "mode": r.get("mode") or a.get("mode") or "tools",
@@ -93,7 +99,7 @@ def collect(page: str, variant: str, seed: int, cand: dict) -> dict:
         "lag_status": v.get("status"),
         "compile_ok": v.get("compile_ok"), "compile_seconds": v.get("seconds"),
         "checks": v.get("checks"),
-        "checks_all": bool(v.get("checks")) and all((v.get("checks") or {}).values()),
+        "checks_all": vb.all_checks_pass(v.get("checks")),
         "madgraph_import_ok": v.get("madgraph_import_ok"),
         "full_chain_pass": v.get("full_chain_pass"),
     })
@@ -203,7 +209,7 @@ def main() -> int:
         head.append("| " + " | ".join(cells) + " |")
     head.append("\n*findings resolved* counts runs where every predicate for that model passed; "
                 f"there are {n_findings} predicates across {len(pages)} models. *full chain* is "
-                "FeynRules compile + all three consistency checks + MadGraph import, over the runs "
+                "FeynRules compile + all four consistency checks + MadGraph import, over the runs "
                 "that reached validation.\n")
 
     md = head + [
@@ -214,7 +220,7 @@ def main() -> int:
         md.append(f"| {f['page']} | {f['finding']} | " + " | ".join(f[v] for v in variants) + " |")
 
     md += ["\n## Validation chain and reference score, per run\n",
-           "| model | seed | variant | mode/source | agent | tools | paper read | tainted | rendered | predicates | lag | compile | checks H/K/M | MG5 | full chain | field F1 | QN F1 | fields gen/ref |",
+           "| model | seed | variant | mode/source | agent | tools | paper read | tainted | rendered | predicates | lag | compile | checks H/Kd/Md/S | MG5 | full chain | field F1 | QN F1 | fields gen/ref |",
            "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     def _num(x):
         return f"{x:.2f}" if isinstance(x, (int, float)) else "—"
@@ -228,8 +234,8 @@ def main() -> int:
                       + " |" * 13)
             continue
         ch = r.get("checks") or {}
-        chs = "".join("✓" if ch.get(k) else ("✗" if k in ch else "·")
-                      for k in ("hermiticity", "kinetic_terms", "mass_spectrum")) if ch else "—"
+        chs = "".join({"pass": "✓", "fail": "✗", "inconclusive": "?"}.get(ch.get(k), "·")
+                      for k in vb.CHECK_KEYS) if ch else "—"
         preds = r.get("predicates") or {}
         ps = ("—" if not preds else
               f"{sum(1 for p in preds.values() if p['resolved'])}/{len(preds)}")

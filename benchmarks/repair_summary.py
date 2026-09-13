@@ -14,9 +14,13 @@ Usage: python eval/benchmark_runs/repair_summary.py
 
 from __future__ import annotations
 
+import sys
+
 import json
 import re
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import validation_benchmark as vb  # noqa: E402
 
 HERE = Path(__file__).parent
 
@@ -91,8 +95,7 @@ def main() -> int:
     n_all = oneshot["aggregate"]["n_models"]
     oneshot_pass = [r["page"] for r in oneshot["rows"]
                     if r.get("status") == "compiled" and r.get("madgraph_import_ok")
-                    and all(r.get("checks", {}).get(k) is True
-                            for k in ("hermiticity", "kinetic_terms", "mass_spectrum"))]
+                    and vb.all_checks_pass(r.get("checks"))]
 
     # Per-page progression over phases.
     prog: dict[str, dict] = {}
@@ -162,10 +165,9 @@ def main() -> int:
     oneshot_by_page = {r["page"]: r for r in oneshot["rows"]}
     for page in prog:
         r0 = oneshot_by_page.get(page, {})
-        c = r0.get("checks", {})
         if r0.get("status") != "compiled":
             fail = r0.get("status", "?")
-        elif not all(c.get(k) is True for k in ("hermiticity", "kinetic_terms", "mass_spectrum")):
+        elif not vb.all_checks_pass(r0.get("checks")):
             fail = "checks"
         else:
             fail = "mg5 import"

@@ -35,6 +35,8 @@ sys.path.insert(0, str(REPO))
 
 import config  # noqa: E402
 from tools.reverse.reverse_tool import ReverseLagrangianTool  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import validation_benchmark as vb  # noqa: E402
 
 BUNDLE = HERE / "ian_review_bundle"
 DEFAULT_AGENT = ("codex exec --sandbox read-only --skip-git-repo-check "
@@ -47,10 +49,8 @@ def passing_models() -> list[tuple[str, Path, str]]:
     out: list[tuple[str, Path, str]] = []
     rep = json.loads((HERE / "validation_benchmark_report.json").read_text())
     for r in rep["rows"]:
-        c = r.get("checks", {})
         if (r.get("status") == "compiled" and r.get("madgraph_import_ok")
-                and all(c.get(k) is True for k in ("hermiticity", "kinetic_terms",
-                                                   "mass_spectrum"))):
+                and vb.all_checks_pass(r.get("checks"))):
             out.append((r["page"], HERE / r["page"] / "model" / f"{r['page']}_gen.fr",
                         "passed one-shot"))
     for fn, sub, tag in (("repair_benchmark_report.json", "repair", "repaired (phase 1)"),

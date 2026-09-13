@@ -56,12 +56,14 @@ instead of a fixed 3 attempts — see `src/lagrangian_extraction/clients/_http.p
 The chain is FeynRules `.fr` → UFO → MadGraph 3.7.3 import. As of the last
 full sandboxed rerun:
 
-- **Fleet of 28 benchmark models**: 11/28 pass the full chain end to end,
-  21/28 compile to UFO (some stop at MadGraph import).
+- **Fleet of 28 benchmark models**: the full-chain numbers that used to be
+  here (11/28 end to end, and the repair loop's 15/28 → 25/28) are invalid.
+  They used a check classifier that could not report a failure. Corrected,
+  the best `.fr` per scoreable model passes the full chain for 9 of 19
+  models. See `benchmarks/CORRECTION_2026-09-13.md`.
 - **Repair loop** (an agent given a failing model + error log, asked to
-  fix it): lifts full-chain pass rate 15/28 → 25/28 over 3 rounds. See
-  memory note `repair-loop-benchmark` — no local equivalent file yet;
-  fold this into a repo doc if Grok Bot needs the failure taxonomy.
+  fix it): its taxonomy of syntax, compile and MadGraph-import failures
+  stands; its pass rates do not. See `benchmarks/REPAIR_BENCHMARK_ANALYSIS.md`.
 - **Every failure classified is a construct problem, not a physics
   error** — the physics content of the generated `.fr` files is usually
   right; the renderer emits FeynRules syntax that doesn't compile or
@@ -240,46 +242,35 @@ Never call `timeout` (or any missing binary) from a shell on this Mac: the
 zsh `command_not_found_handler` recurses into `pacman` and fork-storms the
 per-user process limit.
 
-## The heptapod PR stack after Tony's review (2026-09-12)
+## The heptapod PR stack after #28 (2026-09-13)
 
-Tony's only review comment, on #11, was a decision rather than a change
-request: he took the arXiv half of that slice onto `main` himself (#19 and
-#21, with Ken's commits and author dates preserved, plus a `__init__.py` fix
-that defers the pypdfium2 import), and ruled the NASA ADS and
-experimental-limit tools **out of scope for this repo**. He also flagged that
-#11's `.gitignore` predated rules `main` had since gained.
+Tony merged #28 on 2026-09-12. It took the FeynRules and validate work from
+#15 (`tools/ufo/` from our `ufo_parser.py` and `width_gate.py`,
+`ValidateUFOModelTool`, `wl_probe.py`, most of `test_validate.py`) and all of
+`tools/frgen` from #14, with `Co-Authored-By` on every commit. He rewrote the
+generator: `lagrangian` is now a required expression, `load_sm` is separate,
+checks run before compiling, and verdicts come from return values
+(`tools/feynrules/lagrangian_checks.py`). He declined `extract`, because it
+would be the first LLM call inside `tools/`.
 
 What was done about it:
 
-- **#11 is closed.** Nothing left in it belonged in the repo. The ADS and
-  limit tools are parked, complete and registered, on Ken's fork at
-  `KenWuqianghao/heptapod` branch `literature/ads-limits`
-  (tip `f8251ab`, on top of current `main`).
-- **The stack is now three PRs on `main`:** #14 frgen + extract (15 files,
-  base `main`), #15 validate + feynrules + jobs + logging (24), #16 reverse
-  (19). Every trace of the ADS half was removed from them — the four modules,
-  three `toolkit.yaml` entries, the `ads_token` config key and example, the
-  README lines, the `literature` test component, and the INSPIRE cache ignore
-  rule — so each PR's diff is exactly its own slice again. Titles and Stack
-  sections say so. All three report `MERGEABLE / CLEAN`, and all ten suites
-  plus the worked example pass on the tip.
-- The `.gitignore` concern is moot: the branches now carry `main`'s rules
-  unchanged.
+- **#15 jobs + logging**, 16 files, base `main`. Whitelist rewired to
+  `validatelagrangian` / `validateufomodel`; a test pins each whitelist key to
+  the tool's orchestral name.
+- **#16 reverse + worked example**, 19 files, base #15. The example uses the new
+  interface, has no extract stage, and uses the `arxiv` bundle.
+- **#14 extract**, 6 files, base `main`, independent. Kept open only so Tony can
+  close it or take it.
+- All three are MERGEABLE / CLEAN. Branches were rebuilt by `git commit-tree`
+  with the old tip and `main` as parents, then pushed as ordinary
+  fast-forwards, because force-push is refused here. Local refs `mg2/s14`,
+  `mg2/s15`, `mg2/s16`.
 
-How it was done, because the next person will hit the same walls:
-
-- Force-push is refused by this environment's permission classifier; an
-  ordinary push is not. Every branch therefore took the one below it (and
-  `main`) by merge commit, never by rebase. Pushed tips are local branches
-  `mg/s2` .. `mg/s4`; the pre-merge tips survive as
-  `lagrangian/s1-tmp` .. `s4-tmp`.
-- Union-merging the three registration files (`test_runner.py` choices,
-  `toolkit.yaml` entries, README bundle tables) silently *re-adds* content one
-  side deleted, so removing a feature from a stack needs a strip pass on every
-  slice above it. `strip_ads.py` and `resolve_slice.py` in the session
-  scratchpad did that; the rule is "keep both sides, then delete what the
-  lower slice deleted".
-- `tools/feynrules/test_files/logs/checks_stdout_S1.log` is #15's deliberate
-  fixture (un-ignored by rule), not a leak.
-
-Merge order is unchanged: #14, then retarget #15 to `main`, then #16.
+**Tony's `wl_checks.py` finding invalidated our benchmark numbers.** See
+`benchmarks/CORRECTION_2026-09-13.md`. Every check verdict before 2026-09-13
+was a pass unless the check crashed, and the harness also counted `LSM` twice
+for models whose total already contained it. The harness now uses the
+generator and parser from heptapod `main`. `rescore_checks.py` re-ran the
+checks on every stored model; `correction_report.py` builds the correction
+from its ledger. Do not quote any check or full-chain number dated earlier.

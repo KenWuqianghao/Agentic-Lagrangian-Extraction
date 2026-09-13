@@ -1,5 +1,7 @@
 # Repair-loop benchmark — full analysis
 
+> **Correction, 2026-09-13.** Every FeynRules check verdict and every full-chain number in this document was measured with a classifier that could not report a failure, and some runs counted the Standard Model Lagrangian twice. [CORRECTION_2026-09-13.md](CORRECTION_2026-09-13.md) has the re-scored numbers. Field-content scores and the physicist-finding checks read the `.fr` text and are not affected.
+
 One-shot agent-generated FeynRules models from the 28-model FeynRules-DB benchmark are pushed through the closed repair loop: full validation (FeynRules/Wolfram UFO compile → Hermiticity/kinetic/mass checks → MadGraph import) → isolated repair agent (codex exec, workspace-write sandbox, **network off, no reference files, no model name**) → re-validate, up to 3 rounds per phase. Later phases restart from the best earlier state with strictly better diagnostics:
 
 - **Phase 1** — raw validation log tail + repair history.
@@ -14,6 +16,14 @@ One-shot agent-generated FeynRules models from the 28-model FeynRules-DB benchma
 | phase1 | 20/28 | 71% |
 | phase2 | 24/28 | 86% |
 | phase3 | 25/28 | 89% |
+
+**This funnel is invalid.** Its check verdicts came from a classifier that
+could not report a failure, so the loop never saw a Hermiticity, kinetic-term
+or mass-spectrum failure unless the check crashed. Re-scored with the
+corrected checks, the best `.fr` per scoreable model passes the full chain
+for 9 of 19 models, not 18. See `CORRECTION_2026-09-13.md`. The error
+taxonomy for FeynRules syntax, compile and MadGraph-import failures below
+does not depend on the checks and stands.
 
 ## Per-model progression (the 13 one-shot failures)
 

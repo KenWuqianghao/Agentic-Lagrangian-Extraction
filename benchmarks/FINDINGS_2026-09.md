@@ -1,5 +1,7 @@
 # The September 2026 physicist findings, and what the reruns show
 
+> **Correction, 2026-09-13.** Every FeynRules check verdict and every full-chain number in this document was measured with a classifier that could not report a failure, and some runs counted the Standard Model Lagrangian twice. [CORRECTION_2026-09-13.md](CORRECTION_2026-09-13.md) has the re-scored numbers. Field-content scores and the physicist-finding checks read the `.fr` text and are not affected.
+
 Ian and Konstantin reviewed the agent-generated FeynRules models and reported
 five defects across four benchmark models. This document states what each one
 was, what caused it, what changed, and what the reruns measured.
@@ -188,7 +190,8 @@ now, so the sextets do couple to gluons, and both sextet checks pass in every
 v3 seed. The chain is another matter: three of the four seeds run 15 minutes
 without finishing. The fourth is the informative one — it compiles in 8.6
 minutes, MadGraph imports the UFO, and it fails the **Hermiticity** check while
-the kinetic-term and mass-spectrum checks pass. So the model does get through,
+the kinetic-term, mass-term and mass-spectrum checks pass. The corrected check
+parser confirms this verdict. So the model does get through,
 and what is left is a real non-Hermitian term rather than a stall. Adding the
 gauge representation was necessary and not sufficient. The colour-sextet
 algebra is expensive whichever way the `.fr` was written, and the remaining
@@ -201,16 +204,19 @@ defect is one for a physicist to read, not a harness problem.
 | v1 — PDF text, original prompt | 4/8 | 2/8 | 0.90 |
 | v2 — PDF text, physics rules | 6/8 | 3/8 | 0.88 |
 | v3 — PDF text, v3 rules | 5/8 | not run | 0.84 |
-| v3 — LaTeX, v3 rules, framework | 7/8 | 5/8 | 0.83 |
-| v3 — LaTeX, v3 rules, **no tools** | 7/8 | **6/8** | 0.86 |
+| v3 — LaTeX, v3 rules, framework | 7/8 | 2/8 | 0.83 |
+| v3 — LaTeX, v3 rules, **no tools** | 7/8 | **4/8** | 0.86 |
 
-The reruns are a clear improvement on where we started: runs with every check
-passing go from 4/8 to 7/8, and full-chain passes from 2/8 to 5–6/8.
+The reruns are a clear improvement on the physics: runs with every reported
+finding resolved go from 4/8 to 7/8. They are not an improvement on the chain.
+With the corrected checks, full-chain passes are 2/8 before and 2/8 and 4/8
+after. Most v3 failures are real Hermiticity or mass-mixing failures that the
+old classifier hid (see `CORRECTION_2026-09-13.md`).
 
 But the gain does not come from the toolkit. Taking every tool away — no
 schema, no renderer, the agent writing the `.fr` by hand from the paper and
 `SM.fr` pasted into its prompt — matched the framework on the findings and
-came out marginally *ahead* on the chain, 6/8 against 5/8, and on field
+came out *ahead* on the chain, 4/8 against 2/8, and on field
 content, 0.86 against 0.83. On these four models the improvement is
 attributable to the paper source and the prompt rules, both of which the
 no-tools arm also had.
@@ -220,7 +226,7 @@ evidence the schema and renderer are worthless — the same rules produced the
 same physics either way, which is itself a reason to trust the rules. It is
 evidence that the *next* thing worth measuring is not the prompt. The
 framework's one clear loss is instructive: the single tools-arm run MadGraph
-rejected compiled cleanly and passed all three FeynRules checks, and its UFO
+rejected compiled cleanly (it also fails the Hermiticity check), and its UFO
 carries LaTeX-typeset parameter names (`name = '\\theta _c'`) that are not
 valid Python — a renderer-side serialization leak of exactly the class the
 repair-loop analysis catalogued. The hand-written files had no such failure.

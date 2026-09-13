@@ -95,12 +95,10 @@ def run_one(page: str) -> dict:
 
 
 def full_chain_ok(row: dict) -> bool:
-    c = row.get("checks", {}) or {}
     return bool(
         row.get("status") == "compiled"
         and row.get("madgraph_import_ok")
-        and all(c.get(k) is True for k in
-                ("hermiticity", "kinetic_terms", "mass_spectrum"))
+        and vb.all_checks_pass(row.get("checks"))
     )
 
 
@@ -126,10 +124,8 @@ def main() -> int:
         row = run_one(page)
         row["full_chain_ok"] = full_chain_ok(row)
         rows.append(row)
-        c = row.get("checks", {}) or {}
         print(f"[revalidate]   -> {row.get('status')} "
-              f"herm={c.get('hermiticity')} kin={c.get('kinetic_terms')} "
-              f"mass={c.get('mass_spectrum')} "
+              f"checks={row.get('checks')} "
               f"mg5={row.get('madgraph_import_ok')} "
               f"FULL={row['full_chain_ok']} ({round(time.time()-t1,1)}s)",
               flush=True)

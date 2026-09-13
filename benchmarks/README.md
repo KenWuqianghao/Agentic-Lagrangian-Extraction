@@ -1,5 +1,7 @@
 # Loop benchmark results — 28 FeynRules-DB models
 
+> **Correction, 2026-09-13.** Every FeynRules check verdict and every full-chain number in this document was measured with a classifier that could not report a failure, and some runs counted the Standard Model Lagrangian twice. [CORRECTION_2026-09-13.md](CORRECTION_2026-09-13.md) has the re-scored numbers. Field-content scores and the physicist-finding checks read the `.fr` text and are not affected.
+
 Evidence for the heptapod PR
 [tonymenzo/heptapod#23](https://github.com/tonymenzo/heptapod/pull/23). The
 tools live in that PR. The measurements live here, because 577 files of
@@ -26,16 +28,28 @@ adding better diagnostics rather than a better agent.
 
 ## Headline
 
-| stage | passing | rate |
+With the corrected checks, **9 of the 19 scoreable models** pass the full
+chain with their best `.fr`, repaired or one-shot. Before the correction this
+set was reported as 18 of 19. Full chain means the model compiles, all four
+default FeynRules checks pass, and MadGraph imports the UFO. The ten new
+failures are Hermiticity, kinetic-term, mass-term or mass-spectrum failures
+that the old classifier could not report. `CORRECTION_2026-09-13.md` lists
+each one.
+
+The repair-loop funnel below is kept as history. Its numbers are **invalid**,
+because the loop only saw a check fail when the check crashed.
+
+| stage | passing, as reported | rate |
 |---|---:|---:|
 | one-shot | 15/28 | 54% |
 | + repair phase 1 | 20/28 | 71% |
 | + repair phase 2 | 24/28 | 86% |
-| + repair phase 3 | **25/28** | **89%** |
+| + repair phase 3 | 25/28 | 89% |
 
-The binding constraint was **diagnostic signal, not agent intelligence**. On
-UFO-serialization defects the agent scored 0/5 while blind; once the harness
-pinpointed the offending file and line, the same class became routine.
+One conclusion survives, because it does not depend on the checks. On
+UFO-serialization defects, which MadGraph reports, the agent scored 0/5
+while blind; once the harness pinpointed the offending file and line, the
+same class became routine.
 
 Full analysis: [`REPAIR_BENCHMARK_ANALYSIS.md`](REPAIR_BENCHMARK_ANALYSIS.md).
 
@@ -103,7 +117,7 @@ caused each defect, what changed, and how it was measured.
 | `rerun_extract.py` | runs one arm: sandboxed agent, `tools` or `notools` engine mode, LaTeX or PDF-text paper source, then render, validate, score |
 | `prompt_addendum_v3.txt` | the physics and FeynRules-construct rules appended to the extraction prompt |
 | `rerun_predicates.py` | one deterministic check per reported finding, written against the construct rather than symbol names |
-| `test_rerun_predicates.py` | 21 unit tests for those checks, including the reference file and the reviewed file |
+| `test_rerun_predicates.py` | 29 unit test cases for those checks, including the reference file and the reviewed file |
 | `single_model_select.py` | turns the paper classification into `single_model_papers.{json,md}`: which papers define exactly one model, and which reference pairings are broken |
 | `subagent_bench.py` | drives the agent stage from an interactive Claude Code session when the headless CLI is not logged in |
 | `ablation_report.py` | the per-finding, per-run and per-variant comparison across arms |
@@ -112,6 +126,25 @@ caused each defect, what changed, and how it was measured.
 They run from the heptapod checkout, where the tools and paper texts live;
 this directory mirrors the scripts and the results.
 `ablation_report_v1v2.md` is the v1-vs-v2 baseline on the four reviewed models.
+
+### Check-verdict correction (2026-09-13)
+
+Every FeynRules check verdict before 2026-09-13 came from a classifier that
+could not report a failure, and some runs counted the Standard Model
+Lagrangian twice. `CORRECTION_2026-09-13.md` is the entry point. The harness
+now reads verdicts from each check's return value, through the generator and
+`tools/feynrules/lagrangian_checks.py` on heptapod `main`.
+
+| file | what it does |
+|---|---|
+| `rescore_checks.py` | re-runs only the consistency checks (`ChecksOnly=true`) on each stored run's `.fr`, rewrites its verdicts and full-chain result, and logs the old values to a ledger; resumable |
+| `correction_report.py` | builds `CORRECTION_2026-09-13.{md,json}` from the ledger alone |
+| `rescore_ledger_2026-09-13.jsonl` | one line per re-scored run: old verdicts, new verdicts, the Lagrangian expression used |
+| `test_validation_benchmark.py` | unit tests for when the checks count as passing and when `LSM` is added |
+
+```bash
+python correction_report.py --ledger rescore_ledger_2026-09-13.jsonl
+```
 
 ## Caveats
 

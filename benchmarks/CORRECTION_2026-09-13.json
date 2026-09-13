@@ -1,0 +1,79 @@
+{
+  "arms": {
+    "v3_tools": {
+      "runs": 8,
+      "rescored": 6,
+      "old_full": 5,
+      "new_full": 2
+    },
+    "v3_notools": {
+      "runs": 8,
+      "rescored": 7,
+      "old_full": 6,
+      "new_full": 4
+    },
+    "v2": {
+      "runs": 31,
+      "rescored": 24,
+      "old_full": 12,
+      "new_full": 6
+    },
+    "v1": {
+      "runs": 8,
+      "rescored": 6,
+      "old_full": 2,
+      "new_full": 2
+    }
+  },
+  "verdict_tally": {
+    "hermiticity=fail": 16,
+    "hermiticity=pass": 27,
+    "kinetic_diagonal=fail": 1,
+    "kinetic_diagonal=pass": 42,
+    "mass_diagonal=fail": 13,
+    "mass_diagonal=pass": 30,
+    "mass_spectrum=fail": 2,
+    "mass_spectrum=inconclusive": 13,
+    "mass_spectrum=pass": 28
+  },
+  "full_chain_flips": [
+    "EffLRSM/rerun/v3_tools/s1",
+    "GeneralU1/rerun/v3_tools/s2",
+    "Top-Philic-Zprime/rerun/v3_tools/s2",
+    "GeneralU1/rerun/v3_notools/s1",
+    "Top-Philic-Zprime/rerun/v3_notools/s1",
+    "ChernSimonsPortal/rerun/v2/s1",
+    "LeptoQuark/rerun/v2/s1",
+    "MDMmodel/rerun/v2/s1",
+    "Sextets/rerun/v2/s1",
+    "VLC_LN/rerun/v2/s1",
+    "pNG/rerun/v2/s1"
+  ],
+  "lsm_counted_twice_before": [
+    "EffLRSM/rerun/v3_notools/s1",
+    "EffLRSM/rerun/v3_notools/s2",
+    "GeneralU1/rerun/v3_notools/s1",
+    "331/rerun/v2/s1",
+    "B-L-SM/rerun/v2/s1",
+    "CHEIDI/rerun/v2/s1",
+    "ChernSimonsPortal/rerun/v2/s1",
+    "EffLRSM/rerun/v2/s2",
+    "GeneralU1/rerun/v2/s1",
+    "GeneralU1/rerun/v2/s2",
+    "HeavyN/rerun/v2/s1",
+    "LeptoQuark/rerun/v2/s1",
+    "MDMmodel/rerun/v2/s1",
+    "SMWeinberg/rerun/v2/s1",
+    "Triplets/rerun/v2/s1",
+    "pNG/rerun/v2/s1",
+    "pSPSS/rerun/v2/s1",
+    "topBSM/rerun/v2/s1",
+    "revalidation_report.json:HeavyN",
+    "revalidation_report.json:SMWeinberg"
+  ],
+  "revalidation_report": {
+    "rows": 19,
+    "old_pass": 18,
+    "new_pass": 9
+  }
+}

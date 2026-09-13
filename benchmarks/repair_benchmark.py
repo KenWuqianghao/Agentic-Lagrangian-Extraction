@@ -57,7 +57,7 @@ sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(HERE))
 
 import validation_benchmark as vb  # noqa: E402
-from tools.feynrules.wl_checks import _BLOCK_RE  # noqa: E402
+from tools.feynrules.lagrangian_checks import FAIL, PASS, parse_check_verdicts  # noqa: E402
 
 MAX_ROUNDS = int(os.environ.get("REPAIR_MAX_ROUNDS", "3"))
 AGENT_TIMEOUT = int(os.environ.get("REPAIR_AGENT_TIMEOUT", "1200"))
@@ -121,9 +121,8 @@ final message.
 # ---------------------------------------------------------------- validation
 
 def full_pass(row: dict) -> bool:
-    c = row.get("checks", {})
     return bool(row.get("compile_ok")) and bool(row.get("madgraph_import_ok")) \
-        and all(c.get(k) is True for k in ("hermiticity", "kinetic_terms", "mass_spectrum"))
+        and vb.all_checks_pass(row.get("checks"))
 
 
 def validate(page: str, fr: Path, round_no: int) -> dict:
@@ -208,12 +207,12 @@ def classify(row: dict) -> list[str]:
     lp = row.get("compile_log")
     if lp and Path(lp).is_file():
         log = Path(lp).read_text(errors="replace")
-    c = row.get("checks", {})
+    c = row.get("checks") or {}
     if row.get("status") == "no_lagrangian_symbol":
         tags.append("no_lagrangian_symbol")
     if row.get("timed_out"):
         tags.append("compile_timeout")
-    if "is undefined in the model" in log:
+    if "undefined symbol(s) in Lagrangian" in log:
         tags.append("lag_symbol_undefined")
     if re.search(r"\bSyntax::|\(line \d+ of ", log):
         tags.append("fr_syntax_error")
@@ -227,13 +226,10 @@ def classify(row: dict) -> list[str]:
         tags.append("selfconjugate_quantum_numbers")
     if "$Aborted" in log:
         tags.append("wolfram_aborted")
+    if "UFO is incomplete" in log:
+        tags.append("ufo_incomplete")
     if row.get("compile_ok"):
-        if c.get("hermiticity") is False:
-            tags.append("hermiticity_fail")
-        if c.get("kinetic_terms") is False:
-            tags.append("kinetic_terms_fail")
-        if c.get("mass_spectrum") is False:
-            tags.append("mass_spectrum_fail")
+        tags += [f"{k}_fail" for k in vb.CHECK_KEYS if c.get(k) == FAIL]
         if not row.get("madgraph_import_ok"):
             tags.append("mg5_import_fail")
             if row.get("ufo_syntax_errors"):
@@ -251,7 +247,7 @@ def classify(row: dict) -> list[str]:
 # ------------------------------------------------------------- repair agent
 
 def build_report_md(row: dict, workdir: Path) -> str:
-    c = row.get("checks", {})
+    c = row.get("checks") or {}
     log = ""
     lp = row.get("compile_log")
     if lp and Path(lp).is_file():
@@ -263,18 +259,14 @@ def build_report_md(row: dict, workdir: Path) -> str:
         + (" (TIMED OUT — the compile exceeded the time limit; the model may need "
            "simplification of redundant/expanded terms, without changing the physics)"
            if row.get("timed_out") else ""),
-        f"- Hermiticity check: {c.get('hermiticity', 'not reached')}",
-        f"- Kinetic-terms check: {c.get('kinetic_terms', 'not reached')}",
-        f"- Mass-spectrum check: {c.get('mass_spectrum', 'not reached')}",
+        *[f"- FeynRules check `{k}`: {c.get(k, 'not reached')}" for k in vb.CHECK_KEYS],
         f"- MadGraph import: {row.get('madgraph_import_ok', 'not reached')}",
         f"- Heuristic error tags: {', '.join(row.get('error_tags') or []) or 'none'}",
     ]
-    # Each consistency-check block, head-first: FeynRules prints the offending
-    # vertices/terms at the START of a block, so a blind tail loses the signal.
-    for m in _BLOCK_RE.finditer(log):
-        body = m.group("body").strip()
-        clipped = body[:3500] + ("\n[... block truncated ...]" if len(body) > 3500 else "")
-        parts += ["", f"## FeynRules check `{m.group('name')}` output", "```", clipped, "```"]
+    # Every check that did not pass, with its remedy and FeynRules' own detail.
+    for r in parse_check_verdicts(log):
+        if r["verdict"] != PASS:
+            parts += ["", f"## FeynRules check `{r['name']}`: {r['verdict']}", r["message"]]
     parts += ["", "## FeynRules / Wolfram Engine output (tail)", "```",
               log[-5000:] or "(no compile log)", "```"]
     if row.get("compile_ok") and not row.get("madgraph_import_ok"):
@@ -401,10 +393,10 @@ def run_page(page: str, seed: Path | None = None, subdir: str = "repair") -> dic
 
 
 def _round_summary(row: dict) -> str:
-    c = row.get("checks", {})
-    return (f"status={row.get('status')}, hermiticity={c.get('hermiticity')}, "
-            f"kinetic={c.get('kinetic_terms')}, mass={c.get('mass_spectrum')}, "
-            f"madgraph_import={row.get('madgraph_import_ok')}, "
+    c = row.get("checks") or {}
+    return (f"status={row.get('status')}, "
+            + "".join(f"{k}={c.get(k)}, " for k in vb.CHECK_KEYS)
+            + f"madgraph_import={row.get('madgraph_import_ok')}, "
             f"tags={', '.join(row.get('error_tags') or []) or 'none'}, "
             f"compile_seconds={row.get('seconds')}")
 
@@ -429,10 +421,9 @@ def _write_history(result: dict, wd: Path) -> None:
 
 
 def _score(row: dict) -> tuple:
-    c = row.get("checks", {})
+    c = row.get("checks") or {}
     return (int(bool(row.get("compile_ok"))),
-            sum(1 for k in ("hermiticity", "kinetic_terms", "mass_spectrum")
-                if c.get(k) is True),
+            sum(1 for k in vb.CHECK_KEYS if c.get(k) == PASS),
             int(bool(row.get("madgraph_import_ok"))))
 
 
@@ -452,10 +443,8 @@ def failing_pages() -> list[str]:
     rep = json.loads((HERE / "validation_benchmark_report.json").read_text())
     bad = []
     for r in rep["rows"]:
-        c = r.get("checks", {})
         ok = (r.get("status") == "compiled" and r.get("madgraph_import_ok")
-              and all(c.get(k) is True for k in ("hermiticity", "kinetic_terms",
-                                                 "mass_spectrum")))
+              and vb.all_checks_pass(r.get("checks")))
         if not ok:
             bad.append(r["page"])
     return bad
@@ -508,10 +497,10 @@ def write_reports(results: list[dict],
         prog = " → ".join(
             ("PASS" if rr["full_pass"] else (rr.get("status") or "?")
              + ("" if rr.get("status") != "compiled" else
-                f"[H{_b(rr.get('checks', {}).get('hermiticity'))}"
-                f"K{_b(rr.get('checks', {}).get('kinetic_terms'))}"
-                f"M{_b(rr.get('checks', {}).get('mass_spectrum'))}"
-                f"G{_b(rr.get('madgraph_import_ok'))}]"))
+                "[" + "".join(
+                    lab + {"pass": "✓", "fail": "✗", "inconclusive": "?"}.get((rr.get("checks") or {}).get(k), "—")
+                    for lab, k in zip(("H", "Kd", "Md", "S"), vb.CHECK_KEYS))
+                + f"G{_b(rr.get('madgraph_import_ok'))}]"))
             for rr in r["rounds"])
         lines.append(f"| {r['page']} | {', '.join(r0.get('error_tags', []) or ['—'])} | "
                      f"{r.get('rounds_used', '—')} | {r['final_status']} | {prog} |")

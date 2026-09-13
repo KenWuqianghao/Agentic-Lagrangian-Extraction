@@ -20,7 +20,7 @@
    "predicates_all": 4,
    "n_validated": 8,
    "compiled": 6,
-   "checks_all": 5,
+   "checks_all": 3,
    "madgraph": 2,
    "full_chain": 2,
    "mean_field_f1": 0.901,
@@ -51,7 +51,7 @@
    "predicates_all": 6,
    "n_validated": 8,
    "compiled": 7,
-   "checks_all": 5,
+   "checks_all": 4,
    "madgraph": 3,
    "full_chain": 3,
    "mean_field_f1": 0.884,
@@ -138,9 +138,10 @@
    "compile_ok": true,
    "compile_seconds": 63.6,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
    "checks_all": true,
    "madgraph_import_ok": true,
@@ -183,9 +184,10 @@
    "compile_ok": true,
    "compile_seconds": 53.4,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
    "checks_all": true,
    "madgraph_import_ok": true,
@@ -228,11 +230,12 @@
    "compile_ok": true,
    "compile_seconds": 773.4,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "fail",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
-   "checks_all": true,
+   "checks_all": false,
    "madgraph_import_ok": false,
    "full_chain_pass": false,
    "predicates": {
@@ -322,9 +325,10 @@
    "compile_ok": true,
    "compile_seconds": 428.2,
    "checks": {
-    "hermiticity": false,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "fail",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "fail"
    },
    "checks_all": false,
    "madgraph_import_ok": false,
@@ -371,9 +375,10 @@
    "compile_ok": true,
    "compile_seconds": 58.1,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
    "checks_all": true,
    "madgraph_import_ok": false,
@@ -461,11 +466,12 @@
    "compile_ok": true,
    "compile_seconds": 55.0,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "fail",
+    "mass_spectrum": "inconclusive"
    },
-   "checks_all": true,
+   "checks_all": false,
    "madgraph_import_ok": false,
    "full_chain_pass": false,
    "predicates": {
@@ -506,9 +512,10 @@
    "compile_ok": true,
    "compile_seconds": 41.2,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
    "checks_all": true,
    "madgraph_import_ok": true,
@@ -551,9 +558,10 @@
    "compile_ok": true,
    "compile_seconds": 40.7,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
    "checks_all": true,
    "madgraph_import_ok": true,
@@ -596,9 +604,10 @@
    "compile_ok": true,
    "compile_seconds": 319.2,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
    "checks_all": true,
    "madgraph_import_ok": true,
@@ -690,11 +699,12 @@
    "compile_ok": true,
    "compile_seconds": 87.7,
    "checks": {
-    "hermiticity": false,
-    "kinetic_terms": false,
-    "mass_spectrum": false
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
    },
-   "checks_all": false,
+   "checks_all": true,
    "madgraph_import_ok": false,
    "full_chain_pass": false,
    "predicates": {
@@ -739,9 +749,10 @@
    "compile_ok": true,
    "compile_seconds": 625.2,
    "checks": {
-    "hermiticity": false,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "fail",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "fail"
    },
    "checks_all": false,
    "madgraph_import_ok": false,
@@ -788,11 +799,12 @@
    "compile_ok": true,
    "compile_seconds": 60.7,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "fail",
+    "mass_spectrum": "inconclusive"
    },
-   "checks_all": true,
+   "checks_all": false,
    "madgraph_import_ok": false,
    "full_chain_pass": false,
    "predicates": {
@@ -833,11 +845,12 @@
    "compile_ok": true,
    "compile_seconds": 105.2,
    "checks": {
-    "hermiticity": true,
-    "kinetic_terms": true,
-    "mass_spectrum": true
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "fail",
+    "mass_spectrum": "inconclusive"
    },
-   "checks_all": true,
+   "checks_all": false,
    "madgraph_import_ok": false,
    "full_chain_pass": false,
    "predicates": {
