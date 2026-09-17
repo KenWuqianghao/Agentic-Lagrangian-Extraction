@@ -1,0 +1,111 @@
+(* ****************************************************************** *)
+(* FeynRules SM add-on: HeavyN_gen                                    *)
+(* One heavy Majorana neutrino n1, from arXiv:1602.06957              *)
+(* (Degrande, Mattelaer, Ruiz, Turner). Loaded on top of SM.fr.       *)
+(* No reference or cached HeavyN model file was read; this extraction *)
+(* uses only the paper's LaTeX source and the SM.fr provided.         *)
+(* ****************************************************************** *)
+
+M$ModelName = "HeavyN_gen";
+
+M$Information = {
+  Authors      -> {"Automated extraction"},
+  Version      -> "1.0",
+  Date         -> "2026",
+  References   -> {"arXiv:1602.06957 (C. Degrande, O. Mattelaer, R. Ruiz, J. Turner)"},
+  Description  -> "SM add-on: one heavy Majorana neutrino n1 mixing with SM leptons via V_lN; W/Z/h currents from the interaction Lagrangian of arXiv:1602.06957."
+};
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP,  1}
+};
+
+(* No new index ranges are needed: n1 carries no indices, and the *)
+(* mixing parameter uses the existing SM.fr Index[Generation].     *)
+
+M$Parameters = {
+
+  MN1 == {
+    ParameterType -> External,
+    BlockName     -> HEAVYN,
+    OrderBlock    -> 1,
+    Value         -> 500.,
+    TeX           -> Subscript[m,N],
+    Description   -> "Heavy Majorana neutrino mass m_N [GeV] (Eq. Lagrangian; Table I benchmark)"
+  },
+
+  WN1 == {
+    ParameterType -> External,
+    BlockName     -> HEAVYN,
+    OrderBlock    -> 2,
+    Value         -> 1.,
+    TeX           -> Subscript[\[CapitalGamma],N],
+    Description   -> "n1 total decay width [GeV]; not given numerically in the paper, representative placeholder"
+  },
+
+  VlN == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Indices          -> {Index[Generation]},
+    BlockName        -> NPINPUTS,
+    Value            -> {VlN[1] -> 1., VlN[2] -> 1., VlN[3] -> 1.},
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[V,lN],
+    Description      -> "Active-heavy mixing V_lN for l = e, mu, tau (Eq. Lagrangian). The paper normalizes all rates by |V_lN|^2 and sets |V_lN|=1 for the model-independent \"bare\" cross section; default set to 1 accordingly."
+  }
+};
+
+M$ClassesDescription = {
+
+  F[100] == {
+    ClassName       -> n1,
+    SelfConjugate   -> True,
+    Indices         -> {},
+    Mass            -> {MN1, 500.},
+    Width           -> {WN1, 1.},
+    ParticleName    -> "n1",
+    PDG             -> 9900012,
+    PropagatorLabel -> "n1",
+    PropagatorType  -> S,
+    PropagatorArrow -> None,
+    FullName        -> "Heavy Majorana neutrino"
+  }
+
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+(* Free kinetic + Majorana mass term for the new heavy neutrino. *)
+LN1Kin := Block[{mu},
+  ExpandIndices[ I/2 n1bar.Ga[mu].del[n1,mu] - 1/2 MN1 n1bar.n1 ]
+];
+
+(* Charged current: -g/Sqrt[2] W^+_mu Nbar^c V_{lN}^* gamma^mu P_L l^- + H.c. *)
+LNCC := Block[{mu, ff, cc},
+  cc = ExpandIndices[
+    -(gw/Sqrt[2]) W[mu] bar[CC[n1]].Ga[mu].ProjM.l[ff] Conjugate[VlN[ff]],
+    FlavorExpand -> Generation];
+  cc + HC[cc]
+];
+
+(* Neutral current: -g/(2 cos(theta_W)) Z_mu Nbar^c V_{lN}^* gamma^mu P_L nu_l + H.c. *)
+LNZ := Block[{mu, ff, cc},
+  cc = ExpandIndices[
+    -(gw/(2 cw)) Z[mu] bar[CC[n1]].Ga[mu].ProjM.vl[ff] Conjugate[VlN[ff]],
+    FlavorExpand -> Generation];
+  cc + HC[cc]
+];
+
+(* Higgs coupling: -(g m_N)/(2 M_W) h Nbar^c V_{lN}^* P_L nu_l + H.c. *)
+LNH := Block[{ff, cc},
+  cc = ExpandIndices[
+    -(gw*MN1/(2 MW)) H bar[CC[n1]].ProjM.vl[ff] Conjugate[VlN[ff]],
+    FlavorExpand -> Generation];
+  cc + HC[cc]
+];
+
+LTotal := LN1Kin + LNCC + LNZ + LNH;

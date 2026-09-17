@@ -269,7 +269,10 @@ def ingest(args) -> int:
             "bundle_reads": bundle_reads,
             "read_paper": (parsed["read_paper"] or bundle_reads > 0) if run["mode"] == "tools"
                           else bundle_reads > 0,
-            "contaminated": parsed["contaminated"] or not audit_ok,
+            # A disallowed tool used on sandbox files is a policy slip, reported
+            # through audit_ok. Contamination means the agent read something
+            # outside the sandbox, whichever tool it used.
+            "contaminated": parsed["contaminated"] or any("outside" in p for p in problems),
             "outside_sandbox": parsed["outside_sandbox"],
             "files_read": parsed["files_read"][:40],
             "transcript": str(t),

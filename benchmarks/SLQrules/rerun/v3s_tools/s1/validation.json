@@ -1,0 +1,27 @@
+{
+ "lag_symbol": "LTotal",
+ "lag_resolution": {
+  "roots": [
+   "LTotal"
+  ],
+  "legacy_symbol": "LTotal",
+  "n_terms_defined": 16,
+  "ambiguous": false,
+  "changed_from_legacy": false
+ },
+ "compile_ok": false,
+ "lagrangian_expression": "LSM + LTotal",
+ "timed_out": true,
+ "exit": -1,
+ "seconds": 900.1,
+ "ufo_files": [],
+ "checks": {
+  "hermiticity": "fail",
+  "kinetic_diagonal": "pass",
+  "mass_diagonal": "fail"
+ },
+ "protected_symbol_errors": 0,
+ "log_tail": "ving vertex encountered!\n\nGeneral::stop: Further output of QN::NonConserv will be suppressed during this calculation.\nHEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=fail|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. 182 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$\nHEPTAPOD-CHECK|scope=model|name=kinetic_diagonal|verdict=pass|detail=Neglecting all terms with more than 2 particles. All kinetic terms are diagonal.\nHEPTAPOD-CHECK|scope=model|name=mass_diagonal|verdict=fail|detail=Non diagonal mass term found:   c2pA1t2 vev Phi1bar[Index[Colour, cc]] Phi2td[Index[Colour, cc]] -(----------------------------------------------------------------)                               Sqrt[2] Non diagonal mass term found:   c2pA1t2 vev Phi1[Index[Colour, cc]] Phi2tdbar[Index[Colour, cc]] -(----------------------------------------------------------------)                               Sq\n",
+ "status": "compile_timeout",
+ "full_chain_pass": false
+}

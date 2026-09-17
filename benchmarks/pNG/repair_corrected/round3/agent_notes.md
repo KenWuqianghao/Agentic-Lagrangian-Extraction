@@ -1,0 +1,9 @@
+The file now has the class-index swap applied cleanly: `Phi` (the file's override of the Standard Model's own unphysical Higgs-doublet class) is at `S[2]`, and the new physical scalar `h2` is at `S[3]`, with `X` at `S[13]` and `S` (the singlet) at `S[12]` unchanged.
+
+## Summary of the fix
+
+Root cause: in the default FeynRules SM model file that the tool chain merges in as `LSM`, the unphysical Higgs-doublet class `Phi` is declared at index `S[2]` (with `S[1]` being the physical Higgs `H`). This model's `h2` — a brand-new, unrelated physical scalar — was declared at that same index `S[2]`, while `Phi` (whose `Definitions` clearly show it is meant to *override* the SM's own doublet, since it reuses the SM's own Goldstone symbols `G0`/`GP`) was instead placed at `S[3]`. `MergeModels` then saw two different classes (`Phi` from the SM and `h2` from this file) both claiming index `S[2]`, producing the persistent "Doubly defined particle classes" / "particles should have different names" warnings and corrupting the merged Higgs-sector definitions — which is what made the otherwise-correct (hand-verifiable) Hermiticity and mass-diagonalization algebra fail in FeynRules' automatic checks. Two prior repair rounds addressed other symptoms (`~X` naming, `Phi`'s index) but never noticed `h2` was the one squatting on the SM's reserved `S[2]` slot, so the identical three-check failure recurred both times.
+
+Fix: swapped the class indices only — `Phi` now correctly occupies `S[2]` (matching the SM's own `Phi` class name and index, so it properly overrides rather than duplicates it), and `h2` moved to the now-free `S[3]`. No field content, quantum numbers, operator structure, parameter values, or Lagrangian terms were changed.
+
+File modified: `/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/scratchpad/hmain/eval/benchmark_runs/pNG/repair_corrected/round3/model.fr`

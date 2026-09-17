@@ -1,0 +1,13 @@
+This confirms the file end structure is intact (`LTot` remains the correct final assignment, unchanged). The changes are complete.
+
+## Summary
+
+I made two targeted technical corrections to `model.fr`, leaving every field, quantum number, operator, and parameter value untouched.
+
+**Fix 1 — missing index range for `Index[SU2D]`.** The FeynRules/Wolfram log shows `Inner::incom: Length 1 of dimension 1 in {Index[SU2D]} is incommensurate with length 2 of dimension 1 in {2, 2}`, triggered while processing the bidoublet scalar `Phi` (used as a 2x2 object throughout, e.g. `M$vevs -> {Phi[2,2], ...}` and `phihat = sig2.Phi.sig2`). The file already declares `IndexRange` for its two other custom index types (`Scalar4`, `Scalar2`) but was missing the equivalent declaration for `SU2D`, so FeynRules treated that index as length 1 instead of 2, producing a dimension mismatch that plausibly forced expensive, unresolved symbolic branches during the Lagrangian processing that led to the compile timeout. I added `IndexRange[Index[SU2D]] = NoUnfold[Range[2]];` next to the existing two declarations, following the same established pattern.
+
+**Fix 2 — self-conjugate fields declared with quantum numbers.** The log also reports the recurring warning `LoadModel::QN: Selfconjugated fields should not carry quantumnumbers`, matching the harness's `selfconjugate_quantum_numbers` tag. Three classes are declared `SelfConjugate -> True` but still carried a `QuantumNumbers -> {Q -> 0}` entry: `Zp` (V[31]), `h0` (S[31]), and `A0` (S[32]). Per the hard rules ("self-conjugate (Majorana/real) fields declared with quantum numbers" is an explicitly listed defect), I removed the `QuantumNumbers -> {Q -> 0}` line from all three declarations; charge neutrality is already implicit for a self-conjugate field, so no physics content is lost. `Wp` and `Hp` were left untouched since they are correctly declared `SelfConjugate -> False` with nonzero charge.
+
+I left the `Value -> Internal` placeholders on `lam1`, `MH02`, `MH03` alone: they already existed before round 1's fix (which reached the same `compile_timeout` outcome), so they aren't implicated in the current failure mode, and guessing at the closed-form mass-matrix formulas from the cited appendix equations without the source paper risked introducing wrong physics rather than fixing a technical defect.
+
+File edited: `/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/scratchpad/hmain/eval/benchmark_runs/ALRM_general/repair_corrected/round2/model.fr`

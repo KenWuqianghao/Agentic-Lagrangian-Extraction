@@ -59,8 +59,9 @@ full sandboxed rerun:
 - **Fleet of 28 benchmark models**: the full-chain numbers that used to be
   here (11/28 end to end, and the repair loop's 15/28 → 25/28) are invalid.
   They used a check classifier that could not report a failure. Corrected,
-  the best `.fr` per scoreable model passes the full chain for 9 of 19
-  models. See `benchmarks/CORRECTION_2026-09-13.md`.
+  the repair loop re-run on 2026-09-17 goes from 5/16 to 7/16 on the
+  single-model papers. See `benchmarks/ABLATION_2026-09-17.md` and
+  `benchmarks/CORRECTION_2026-09-13.md`.
 - **Repair loop** (an agent given a failing model + error log, asked to
   fix it): its taxonomy of syntax, compile and MadGraph-import failures
   stands; its pass rates do not. See `benchmarks/REPAIR_BENCHMARK_ANALYSIS.md`.

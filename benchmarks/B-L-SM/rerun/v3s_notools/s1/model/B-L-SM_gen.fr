@@ -1,0 +1,242 @@
+(* ======================================================================= *)
+(*  B-L-SM_gen — FeynRules add-on for a gauged, spontaneously broken       *)
+(*  U(1)_{B-L} extension of the Standard Model, extracted from             *)
+(*  arXiv:1811.11452 ("LHC Constraints on a B-L Gauge Model using Contur"). *)
+(*  Loaded ON TOP OF SM.fr (unmodified). g~ (U(1)_Y - U(1)_BL kinetic      *)
+(*  mixing) is set to zero per the paper (Sec. 2) and is not included.     *)
+(* ======================================================================= *)
+
+M$ModelName = "B-L-SM_gen";
+
+M$Information = {
+  Authors      -> {"AutoExtract"},
+  Version      -> "1.0",
+  Date         -> "2026",
+  References   -> "arXiv:1811.11452",
+  Description  -> "Gauged U(1)_{B-L} extension of the SM: Z', extra Higgs h2, three Majorana RH neutrinos"
+};
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP,  1}
+};
+
+(* No M$GaugeGroups block: SM add-on. No new index ranges needed;         *)
+(* Generation, SU2D, SU2W, Colour, Gluon all reused from SM.fr.           *)
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+M$ClassesDescription = {
+
+(* New neutral massive gauge boson of U(1)_{B-L} *)
+  V[100] == {
+    ClassName       -> Zp,
+    SelfConjugate   -> True,
+    Mass            -> {MZp, 1000.},
+    Width           -> {WZp, 10.},
+    ParticleName    -> "zp",
+    PDG             -> 9900032,
+    PropagatorLabel -> "Zp",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "Z-prime (B-L gauge boson)"
+  },
+
+(* Extra physical Higgs h2, mostly-chi mass eigenstate *)
+  S[100] == {
+    ClassName       -> HP,
+    SelfConjugate   -> True,
+    Mass            -> {MHH, 200.},
+    Width           -> {WHH, 5.},
+    ParticleName    -> "hp",
+    PDG             -> 9900025,
+    PropagatorLabel -> "HP",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    FullName        -> "Extra Higgs h2"
+  },
+
+(* B-L breaking singlet scalar chi: unphysical, decomposes into HP + Goldstone *)
+  S[101] == {
+    ClassName      -> chi,
+    Unphysical     -> True,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {YB -> 2},
+    Definitions    -> { chi -> (xBL + HP + I GBp)/Sqrt[2] }
+  },
+
+(* Goldstone eaten by Zp *)
+  S[102] == {
+    ClassName       -> GBp,
+    SelfConjugate   -> True,
+    Goldstone       -> Zp,
+    Mass            -> {MZp, 1000.},
+    Width           -> {WZp, 10.},
+    PropagatorLabel -> "GBp",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    PDG             -> 9900251,
+    ParticleName    -> "GBp",
+    FullName        -> "B-L Goldstone"
+  },
+
+(* Three generations of Majorana right-handed (sterile) neutrinos *)
+  F[100] == {
+    ClassName        -> HN,
+    ClassMembers     -> {HN1, HN2, HN3},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> True,
+    Mass             -> {MNR, {MNR1, 200.}, {MNR2, 200.}, {MNR3, 200.}},
+    Width            -> {WNR, {WNR1, 1.}, {WNR2, 1.}, {WNR3, 1.}},
+    PropagatorLabel  -> {"HN", "HN1", "HN2", "HN3"},
+    PropagatorType   -> S,
+    PropagatorArrow  -> None,
+    PDG              -> {9900012, 9900014, 9900016},
+    ParticleName     -> {"hn1", "hn2", "hn3"},
+    FullName         -> {"Heavy Neutrino 1", "Heavy Neutrino 2", "Heavy Neutrino 3"}
+  }
+};
+
+(* ************************** *)
+(* *****     Gauge      ***** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+GaugeXi[ V[100] ] = GaugeXi[Zp];
+GaugeXi[ S[100] ] = 1;
+GaugeXi[ S[102] ] = GaugeXi[Zp];
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+M$Parameters = {
+
+  (* External parameters *)
+  gp == {
+    ParameterType    -> External,
+    BlockName        -> BLINPUTS,
+    OrderBlock       -> 1,
+    Value            -> 0.1,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[g,1]^\[Prime],
+    Description      -> "U(1)_{B-L} gauge coupling, Eq. (2.3)"
+  },
+  SA == {
+    ParameterType -> External,
+    BlockName     -> BLINPUTS,
+    OrderBlock    -> 2,
+    Value         -> 0.,
+    TeX           -> Subscript[s,\[Alpha]],
+    Description   -> "Higgs mixing angle sin(alpha), Eq. (2.11)"
+  },
+  mnuLight == {
+    ParameterType -> External,
+    BlockName     -> BLINPUTS,
+    OrderBlock    -> 3,
+    Value         -> 1.*^-10,
+    Description   -> "Light neutrino mass scale m_nu = 0.1 eV [GeV], Sec. 3.4"
+  },
+
+  (* Internal parameters *)
+  xBL == {
+    ParameterType    -> Internal,
+    Value            -> MZp/(2*gp),
+    InteractionOrder -> {NP, -1},
+    TeX              -> x,
+    Description      -> "B-L breaking vev, x = MZp/(2 gp), Sec. 2 text"
+  },
+  CA == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[1-SA^2],
+    TeX           -> Subscript[c,\[Alpha]],
+    Description   -> "cos(alpha), Higgs mixing angle"
+  },
+  lam2 == {
+    ParameterType    -> Internal,
+    Value            -> (1/(4*xBL^2))*((MH^2+MHH^2)+(1-2*SA^2)*(MHH^2-MH^2)),
+    InteractionOrder -> {NP, 2},
+    Description      -> "chi quartic self-coupling, Eq. (3.1) lambda2 (cos2a=1-2 SA^2)"
+  },
+  lam3 == {
+    ParameterType    -> Internal,
+    Value            -> (SA*CA/(vev*xBL))*(MHH^2-MH^2),
+    InteractionOrder -> {NP, 2},
+    Description      -> "Higgs portal quartic coupling, Eq. (3.1) lambda3 (sin2a=2 SA CA)"
+  },
+  muChiSq == {
+    ParameterType -> Internal,
+    Value         -> -2*lam2*xBL^2 - lam3*vev^2,
+    TeX           -> Subscript[\[Mu],\[Chi]]^2,
+    Description   -> "chi potential mass-squared, from d V/d x = 0, Eq. (2.2)"
+  },
+  VlN == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation]},
+    Value         -> { VlN[1] -> Sqrt[mnuLight/MNR1],
+                        VlN[2] -> Sqrt[mnuLight/MNR2],
+                        VlN[3] -> Sqrt[mnuLight/MNR3] },
+    TeX           -> Subscript[V,lN],
+    Description   -> "Active-sterile mixing, V_lN = Sqrt[m_nu/M_NR], Sec. 3.4"
+  },
+  yN == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> { yN[1,1] -> Sqrt[2]*MNR1*VlN[1]/vev, yN[1,2] -> 0, yN[1,3] -> 0,
+                           yN[2,1] -> 0, yN[2,2] -> Sqrt[2]*MNR2*VlN[2]/vev, yN[2,3] -> 0,
+                           yN[3,1] -> 0, yN[3,2] -> 0, yN[3,3] -> Sqrt[2]*MNR3*VlN[3]/vev },
+    InteractionOrder -> {NP, 1},
+    TeX              -> Superscript[y,\[Nu]],
+    Description      -> "Dirac neutrino Yukawa, y^nu_ii = Sqrt[2] M_Ni V_iN / v (Sec. 2/3.4)"
+  },
+  yM == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> { yM[1,1] -> MNR1/(Sqrt[2]*xBL), yM[1,2] -> 0, yM[1,3] -> 0,
+                           yM[2,1] -> 0, yM[2,2] -> MNR2/(Sqrt[2]*xBL), yM[2,3] -> 0,
+                           yM[3,1] -> 0, yM[3,2] -> 0, yM[3,3] -> MNR3/(Sqrt[2]*xBL) },
+    InteractionOrder -> {NP, 1},
+    TeX              -> Superscript[y,M],
+    Description      -> "Majorana Yukawa, from M_R = Sqrt[2] y^M x (Eq. below 2.5), solved for y^M"
+  }
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+LZpGauge := Block[{mu,nu},
+  ExpandIndices[-1/4 FS[Zp,mu,nu] FS[Zp,mu,nu]]
+];
+
+LBLHiggs := Block[{mu,ii},
+  ExpandIndices[
+    (del[chibar,mu] - I*gp*2*chibar*Zp[mu])*(del[chi,mu] + I*gp*2*chi*Zp[mu])
+    - muChiSq*chibar*chi - lam2*(chibar*chi)^2 - lam3*Phibar[ii]*Phi[ii]*chibar*chi,
+  FlavorExpand -> SU2D]
+];
+
+LBLCurrent := Block[{mu},
+  ExpandIndices[
+    -gp*Zp[mu]*( (1/3)*QLbar.Ga[mu].QL + (1/3)*uRbar.Ga[mu].uR + (1/3)*dRbar.Ga[mu].dR
+                 + (-1)*LLbar.Ga[mu].LL + (-1)*lRbar.Ga[mu].lR
+                 + (-1)*HNbar.Ga[mu].ProjP.HN ),
+  FlavorExpand -> {SU2W,SU2D}]
+];
+
+LHNKin := Block[{mu},
+  ExpandIndices[ I/2 HNbar.Ga[mu].del[HN,mu] ]
+];
+
+LNuYuk := Block[{sp1,sp2,ii,jj,ff1,ff2},
+  ExpandIndices[
+   -yN[ff1,ff2] LLbar[sp1,ii,ff1].ProjP[sp1,sp2].HN[sp2,ff2] Phibar[jj] Eps[ii,jj],
+  FlavorExpand -> SU2D]
+];
+
+LMajYuk := Block[{ff1,ff2},
+  ExpandIndices[ -1/2 yM[ff1,ff2] bar[CC[HN[ff1]]].HN[ff2] chi ]
+];
+
+LTotal := LZpGauge + LBLHiggs + LBLCurrent + LHNKin + LNuYuk + HC[LNuYuk] + LMajYuk + HC[LMajYuk];

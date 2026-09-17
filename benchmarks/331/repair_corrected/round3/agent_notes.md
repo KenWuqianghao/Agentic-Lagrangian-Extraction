@@ -1,0 +1,15 @@
+The syntax looks well-formed — braces and commas balance correctly across the new block.
+
+## Summary of the fix
+
+The tool chain failure traced to the same root cause both prior repair attempts had identified but deferred: the scalar triplets `rho`, `eta`, `chi` — and every one of the 12 gauge-basis scalar fields named in `M$MixingsDescription` (`xirho`, `xieta`, `xichi`, `zetarho`, `zetaeta`, `zetachi`, `etaP`, `rhoP`, `chiQY`, `etaQY`, `chiQV`, `rhoQV`) — were used throughout the Lagrangian and mixing block but never declared as FeynRules classes anywhere in `model.fr`. Because FeynRules could not resolve any member of any `GaugeBasis`/`MassBasis` list, all five `Mix[...]` entries degenerated identically, producing the repeated `MassDiag::OneMassOneGaugeBases` warning and the `$Aborted` during parameter-class loading.
+
+The fix adds the missing declarations to `M$ClassesDescription`, all built only from symbols already defined in the file (`QY331`, `QV331`, `Zp`, `Yp`, `Vp`):
+
+- The 12 gauge-basis component fields as `Unphysical -> True` scalar classes with the correct electric charge (0 for the CP-even/CP-odd neutral fluctuations, 1 for `rhoP`/`etaP`, `QY331` for `chiQY`/`etaQY`, `QV331` for `chiQV`/`rhoQV`).
+- Three new physical Goldstone classes, `G0p` (eaten by `Zp`), `GY` (eaten by `Yp`), `GV` (eaten by `Vp`) — these are genuinely new degrees of freedom the 331 model needs beyond the SM Goldstones (`G0`, `GP`) already supplied by the base SM file, since the paper's `Aneutral331`/`HQY331`/`HQV331` mixings referenced them but they were never declared.
+- `rho`, `eta`, `chi` themselves as `Unphysical`, `Indices -> {Index[SU3L]}` triplet classes, with `Definitions` mapping each component to the correct gauge-basis field (matching the model's own comment describing `rho={rhoP,rho0,rhoQV}`, `eta={eta0,etaP,etaQY}`, `chi={chiQY,chiQV,chi0}`). The vev shift for the neutral components (`rho[2]`, `eta[1]`, `chi[3]`) is deliberately left out of these `Definitions` because `M$vevs` (already present, unedited) supplies it automatically — writing it in both places would double-count the vev.
+
+This declares no new physics (masses, couplings, charges, or operator structure are untouched) and only supplies the missing structural scaffolding that the existing `M$vevs` and `M$MixingsDescription` blocks already assumed was there.
+
+One caveat carried forward: `LFermionGauge331`, `LZpFermions331`, `LYukawaQuark331`/`LYukawaLepton331`, and `LGaugeSelf331` still reference symbols never declared in this file (`qL`, `JR`, `TR`, `ER`, generic `psi`, generic `f`, `GHZpL`/`GHZpR`, `VVV`). Unlike the scalar sector, fixing these would require guessing at the base SM library's exact fermion-field naming convention, which isn't visible from this file alone, so per the "minimal technical correction" scope I left them untouched. If the chain still fails after this round, that is the next place to look — most likely as an "undefined Lagrangian symbol" error surfacing only now that the mixing/parameter-loading stage can complete.

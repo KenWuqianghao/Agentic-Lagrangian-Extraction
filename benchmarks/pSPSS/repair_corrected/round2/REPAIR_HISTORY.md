@@ -1,0 +1,14 @@
+# Repair history — previous attempts on this model
+
+## Attempt 1
+What was changed (the agent's own summary):
+article class (the `F[100]` block holding `n4` and `n5`). This class is declared `SelfConjugate -> True`, meaning `n4` and `n5` are Majorana fields. A Majorana field must not carry a declared `QuantumNumbers` entry: self-conjugacy already forces neutral charge, and giving it an explicit `QuantumNumbers` list conflicts with FeynRules' own bookkeeping for self-conjugate fields. This exact defect was named directly by the validation report's heuristic tag `selfconjugate_quantum_numbers` and matches a defect type the task explicitly calls out for repair. I judge this to be the root technical fault: it corrupts FeynRules' internal treatment of the Majorana condition on `n4`/`n5`, which explains why `CheckHermiticity`, `CheckDiagonalKineticTerms`, `CheckDiagonalMassTerms`, and `CheckMassSpectrum` all failed together, and why the generated UFO was corrupted across unrelated Standard Model vertices too (a single broken internal state during Feynman-rule generation poisons the rest of the same Mathematica session's UFO-writing pass, matching the garbled `ConvertSpinToString`/`PartNameMG` calls and the stray `NameError: name 'e' is not defined` seen in the old UFO output). I traced the mixing-matrix (`Un`, `UnCL`) construction by hand and confirmed it is unitary to the needed order in `theta`, so the pseudo-Dirac kinetic and mass terms are physically correct as written; no change to the physics content, field content, or operator structure was needed there.
+
+I also renamed the final Lagrangian assignment from `LpSPSS = RemoveHigherOrder[LSM + LKineticSterile + LNP];` to the required `LTot := RemoveHigherOrder[LSM + LKineticSterile + LNP];`, matching the mandated `LTot := Lterm1 + Lterm2 + ...;` format for the last top-level statement, with no change to its content.
+
+File modified: `/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/scratchpad/hmain/eval/benchmark_runs/pSPSS/repair_corrected/round1/model.fr`
+
+Validation outcome AFTER that change: status=compiled, hermiticity=fail, kinetic_diagonal=fail, mass_diagonal=fail, mass_spectrum=inconclusive, madgraph_import=False, tags=hermiticity_fail, kinetic_diagonal_fail, mass_diagonal_fail, mg5_import_fail, ufo_python_syntax_error, mg5_python_traceback, mg5_invalid_cmd, compile_seconds=74.2
+
+## For reference — the ORIGINAL model's outcome before any repair:
+status=compiled, hermiticity=fail, kinetic_diagonal=fail, mass_diagonal=fail, mass_spectrum=inconclusive, madgraph_import=False, tags=selfconjugate_quantum_numbers, hermiticity_fail, kinetic_diagonal_fail, mass_diagonal_fail, mg5_import_fail, ufo_python_syntax_error, mg5_python_traceback, mg5_invalid_cmd, compile_seconds=129.8

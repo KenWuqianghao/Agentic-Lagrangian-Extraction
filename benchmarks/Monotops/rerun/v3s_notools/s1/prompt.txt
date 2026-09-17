@@ -1,0 +1,1227 @@
+===== BEGIN SM.fr (tools/feynrules/test_files/models/SM.fr) =====
+(***************************************************************************************************************)
+(******                       This is the FeynRules mod-file for the Standard model                       ******)
+(******                                                                                                   ******)
+(******     Authors: N. Christensen, C. Duhr, B. Fuks                                                     ******)
+(******                                                                                                   ******)
+(****** Choose whether Feynman gauge is desired.                                                          ******)
+(****** If set to False, unitary gauge is assumed.                                                          ****)
+(****** Feynman gauge is especially useful for CalcHEP/CompHEP where the calculation is 10-100 times faster. ***)
+(****** Feynman gauge is not supported in MadGraph and Sherpa.                                              ****)
+(***************************************************************************************************************)
+
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+M$ModelName = "Standard Model";
+
+M$Information = {
+  Authors      -> {"N. Christensen", "C. Duhr", "B. Fuks"}, 
+  Version      -> "1.4.7",
+  Date         -> "28. 09. 2016",
+  Institutions -> {"Michigan State University", "Universite catholique de Louvain (CP3)", "IPHC Strasbourg / University of Strasbourg"},
+  Emails       -> {"neil@pa.msu.edu", "claude.duhr@uclouvain.be", "benjamin.fuks@cnrs.in2p3.fr"},
+  URLs         -> "http://feynrules.phys.ucl.ac.be/view/Main/StandardModel"
+};
+
+FeynmanGauge = True;
+
+(* ************************** *)
+(* ***** NLO Variables ****** *)
+(******************************)
+
+FR$LoopSwitches = {{Gf, MW}};
+FR$RmDblExt = { ymb -> MB, ymc -> MC, ymdo -> MD, yme -> Me, 
+   ymm -> MMU, yms -> MS, ymt -> MT, ymtau -> MTA, ymup -> MU};
+
+(* ************************** *)
+(* *****  Change  log   ***** *)
+(* ************************** *)
+
+(* v1.4.7: Index issue with the ghost Lagrangian (special thanks to S. Iwamoto *)
+(* v1.4.6: NLO variable added.                                               *)
+(* v1.4.5: Added widths for ghosts.                                          *)
+(* v1.4.4: Changed widths of goldstone bosons to be the same as for the W and Z bosons *)
+(* v1.4.3: Updated conventions for the symmetric structure constants of SU3. *)
+(* v1.4.2: Set FeynmanGauge=True as default again.                           *)
+(* v1.4: Added SU(2) representation.                                         *)
+(*       -> Modification in the field declarations (doublets are added)      *)
+(*       -> Modification in the Lagrangian (much simpler).                   *)
+(* v1.3: Added yukawa couplings for all fermions for gauge invariance.       *)
+(*       Added yukawa couplings for 1st generation fermions to Massless.rst. *)
+(*       Updated parameters to PDG 2010.                                     *)
+(* v1.2: Set FeynmanGauge=True as default.                                   *)
+(*       Set Gluonic ghosts to be included in both gauges.                   *)
+(* v1.1: Fixed yukawa couplings in Feynman gauge.                            *)
+(*       Changed yd[n] CKM[n,m] to yd[m] CKM[n,m].                           *)
+(*       Changed yu[n] Conjugate[CKM[m,n]] to yu[m] Conjugate[CKM[m,n]].     *)
+
+(* ************************** *)
+(* *****      vevs      ***** *)
+(* ************************** *)
+M$vevs = { {Phi[2],vev} };
+
+(* ************************** *)
+(* *****  Gauge groups  ***** *)
+(* ************************** *)
+M$GaugeGroups = {
+  U1Y  == { 
+    Abelian          -> True,  
+    CouplingConstant -> g1, 
+    GaugeBoson       -> B, 
+    Charge           -> Y
+  },
+  SU2L == { 
+    Abelian           -> False, 
+    CouplingConstant  -> gw, 
+    GaugeBoson        -> Wi, 
+    StructureConstant -> Eps, 
+    Representations   -> {Ta,SU2D}, 
+    Definitions       -> {Ta[a_,b_,c_]->PauliSigma[a,b,c]/2, FSU2L[i_,j_,k_]:> I Eps[i,j,k]}
+  },
+  SU3C == { 
+    Abelian           -> False, 
+    CouplingConstant  -> gs, 
+    GaugeBoson        -> G,
+    StructureConstant -> f, 
+    Representations   -> {T,Colour}, 
+    SymmetricTensor   -> dSUN
+  } 
+};
+
+
+(* ************************** *)
+(* *****    Indices     ***** *)
+(* ************************** *)
+
+IndexRange[Index[SU2W      ]] = Unfold[Range[3]]; 
+IndexRange[Index[SU2D      ]] = Unfold[Range[2]];
+IndexRange[Index[Gluon     ]] = NoUnfold[Range[8]];
+IndexRange[Index[Colour    ]] = NoUnfold[Range[3]]; 
+IndexRange[Index[Generation]] = Range[3];
+
+IndexStyle[SU2W,       j];
+IndexStyle[SU2D,       k];
+IndexStyle[Gluon,      a];
+IndexStyle[Colour,     m];
+IndexStyle[Generation, f];
+
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ***  (as used by mg5)  *** *)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2}
+};
+
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+M$ClassesDescription = {
+
+(* Gauge bosons: physical vector fields *)
+  V[1] == { 
+    ClassName       -> A, 
+    SelfConjugate   -> True,  
+    Mass            -> 0,  
+    Width           -> 0,  
+    ParticleName    -> "a", 
+    PDG             -> 22, 
+    PropagatorLabel -> "a", 
+    PropagatorType  -> W, 
+    PropagatorArrow -> None,
+    FullName        -> "Photon"
+  },
+  V[2] == { 
+    ClassName       -> Z, 
+    SelfConjugate   -> True,
+    Mass            -> {MZ, 91.1876},
+    Width           -> {WZ, 2.4952},
+    ParticleName    -> "Z", 
+    PDG             -> 23, 
+    PropagatorLabel -> "Z",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "Z"
+  },
+  V[3] == {
+    ClassName        -> W,
+    SelfConjugate    -> False,
+    Mass             -> {MW, Internal},
+    Width            -> {WW, 2.085},
+    ParticleName     -> "W+",
+    AntiParticleName -> "W-",
+    QuantumNumbers   -> {Q -> 1},
+    PDG              -> 24, 
+    PropagatorLabel  -> "W",
+    PropagatorType   -> Sine,
+    PropagatorArrow  -> Forward,
+    FullName         -> "W"
+  },
+  V[4] == {
+    ClassName        -> G,
+    SelfConjugate    -> True,
+    Indices          -> {Index[Gluon]},
+    Mass             -> 0,
+    Width            -> 0,
+    ParticleName     -> "g", 
+    PDG              -> 21,
+    PropagatorLabel  -> "G",
+    PropagatorType   -> C,
+    PropagatorArrow  -> None,
+    FullName         -> "G"
+  },
+
+(* Ghosts: related to physical gauge bosons *)
+  U[1] == { 
+    ClassName       -> ghA, 
+    SelfConjugate   -> False,
+    Ghost           -> A,
+    QuantumNumbers  -> {GhostNumber -> 1},
+    Mass            -> 0,
+    Width	    -> 0,
+    PropagatorLabel -> "uA",
+    PropagatorType  -> GhostDash,
+    PropagatorArrow -> Forward
+  },
+  U[2] == {
+    ClassName       -> ghZ,
+    SelfConjugate   -> False,
+    Ghost           -> Z,
+    QuantumNumbers  -> {GhostNumber -> 1},
+    Mass            -> {MZ,91.1876},  
+    Width	    -> {WZ, 2.4952},
+    PropagatorLabel -> "uZ",
+    PropagatorType  -> GhostDash,
+    PropagatorArrow -> Forward
+  },
+  U[31] == { 
+    ClassName       -> ghWp,
+    SelfConjugate   -> False, 
+    Ghost           -> W,
+    QuantumNumbers  -> {GhostNumber -> 1, Q -> 1},
+    Mass            -> {MW,Internal}, 
+    Width           -> {WW, 2.085}, 
+    PropagatorLabel -> "uWp",
+    PropagatorType  -> GhostDash, 
+    PropagatorArrow -> Forward
+  },
+  U[32] == { 
+    ClassName       -> ghWm,
+    SelfConjugate   -> False, 
+    Ghost           -> Wbar,
+    QuantumNumbers  -> {GhostNumber -> 1, Q -> -1},
+    Mass            -> {MW,Internal}, 
+    Width           -> {WW, 2.085},
+    PropagatorLabel -> "uWm",
+    PropagatorType  -> GhostDash, 
+    PropagatorArrow -> Forward
+  },
+  U[4] == { 
+    ClassName       -> ghG, 
+    SelfConjugate   -> False,
+    Indices         -> {Index[Gluon]},
+    Ghost           -> G,
+    PDG             -> 82,
+    QuantumNumbers  ->{GhostNumber -> 1}, 
+    Mass            -> 0,
+    Width	    -> 0,
+    PropagatorLabel -> "uG",
+    PropagatorType  -> GhostDash,
+    PropagatorArrow -> Forward
+  },
+
+(* Gauge bosons: unphysical vector fields *)
+  V[11] == { 
+    ClassName     -> B, 
+    Unphysical    -> True, 
+    SelfConjugate -> True, 
+    Definitions   -> { B[mu_] -> -sw Z[mu]+cw A[mu]} 
+  },
+  V[12] == { 
+    ClassName     -> Wi,
+    Unphysical    -> True,
+    SelfConjugate -> True, 
+    Indices       -> {Index[SU2W]},
+    FlavorIndex   -> SU2W,
+    Definitions   -> { Wi[mu_,1] -> (Wbar[mu]+W[mu])/Sqrt[2], Wi[mu_,2] -> (Wbar[mu]-W[mu])/(I*Sqrt[2]), Wi[mu_,3] -> cw Z[mu] + sw A[mu]}
+  },
+
+(* Ghosts: related to unphysical gauge bosons *)
+  U[11] == {
+    ClassName     -> ghB, 
+    Unphysical    -> True,
+    SelfConjugate -> False,
+    Ghost         -> B, 
+    Definitions   -> { ghB -> -sw ghZ + cw ghA}
+  },
+  U[12] == {
+    ClassName     -> ghWi,
+    Unphysical    -> True,
+    SelfConjugate -> False,
+    Ghost         -> Wi,
+    Indices       -> {Index[SU2W]},
+    FlavorIndex   -> SU2W,
+    Definitions   -> { ghWi[1] -> (ghWp+ghWm)/Sqrt[2], ghWi[2] -> (ghWm-ghWp)/(I*Sqrt[2]), ghWi[3] -> cw ghZ+sw ghA}
+  } ,
+
+(* Fermions: physical fields *)
+  F[1] == {
+    ClassName        -> vl,
+    ClassMembers     -> {ve,vm,vt},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> 0,
+    Width            -> 0,
+    QuantumNumbers   -> {LeptonNumber -> 1},
+    PropagatorLabel  -> {"v", "ve", "vm", "vt"} ,
+    PropagatorType   -> S,
+    PropagatorArrow  -> Forward,
+    PDG              -> {12,14,16},
+    ParticleName     -> {"ve","vm","vt"},
+    AntiParticleName -> {"ve~","vm~","vt~"},
+    FullName         -> {"Electron-neutrino", "Mu-neutrino", "Tau-neutrino"}
+  },
+  F[2] == {
+    ClassName        -> l,
+    ClassMembers     -> {e, mu, ta},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {Ml, {Me,5.11*^-4}, {MMU,0.10566}, {MTA,1.777}},
+    Width            -> 0,
+    QuantumNumbers   -> {Q -> -1, LeptonNumber -> 1},
+    PropagatorLabel  -> {"l", "e", "mu", "ta"},
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    PDG              -> {11, 13, 15},
+    ParticleName     -> {"e-", "mu-", "ta-"},
+    AntiParticleName -> {"e+", "mu+", "ta+"},
+    FullName         -> {"Electron", "Muon", "Tau"} 
+  },
+  F[3] == {
+    ClassName        -> uq,
+    ClassMembers     -> {u, c, t},
+    Indices          -> {Index[Generation], Index[Colour]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {Mu, {MU, 2.55*^-3}, {MC,1.27}, {MT,172}},
+    Width            -> {0, 0, {WT,1.50833649}},
+    QuantumNumbers   -> {Q -> 2/3},
+    PropagatorLabel  -> {"uq", "u", "c", "t"},
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    PDG              -> {2, 4, 6}, 
+    ParticleName     -> {"u",  "c",  "t" },
+    AntiParticleName -> {"u~", "c~", "t~"},
+    FullName         -> {"u-quark", "c-quark", "t-quark"}
+  },
+  F[4] == {
+    ClassName        -> dq,
+    ClassMembers     -> {d, s, b},
+    Indices          -> {Index[Generation], Index[Colour]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {Md, {MD,5.04*^-3}, {MS,0.101}, {MB,4.7}},
+    Width            -> 0,
+    QuantumNumbers   -> {Q -> -1/3},
+    PropagatorLabel  -> {"dq", "d", "s", "b"},
+    PropagatorType   -> Straight, 
+    PropagatorArrow  -> Forward,
+    PDG              -> {1,3,5},
+    ParticleName     -> {"d",  "s",  "b" },
+    AntiParticleName -> {"d~", "s~", "b~"},
+    FullName         -> {"d-quark", "s-quark", "b-quark"}
+  },
+
+(* Fermions: unphysical fields *)
+  F[11] == { 
+    ClassName      -> LL, 
+    Unphysical     -> True, 
+    Indices        -> {Index[SU2D], Index[Generation]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1/2},
+    Definitions    -> { LL[sp1_,1,ff_] :> Module[{sp2}, ProjM[sp1,sp2] vl[sp2,ff]], LL[sp1_,2,ff_] :> Module[{sp2}, ProjM[sp1,sp2] l[sp2,ff]] }
+  },
+  F[12] == { 
+    ClassName      -> lR, 
+    Unphysical     -> True, 
+    Indices        -> {Index[Generation]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1},
+    Definitions    -> { lR[sp1_,ff_] :> Module[{sp2}, ProjP[sp1,sp2] l[sp2,ff]] }
+  },
+  F[13] == { 
+    ClassName      -> QL, 
+    Unphysical     -> True, 
+    Indices        -> {Index[SU2D], Index[Generation], Index[Colour]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 1/6},
+    Definitions    -> { 
+      QL[sp1_,1,ff_,cc_] :> Module[{sp2}, ProjM[sp1,sp2] uq[sp2,ff,cc]], 
+      QL[sp1_,2,ff_,cc_] :> Module[{sp2,ff2}, CKM[ff,ff2] ProjM[sp1,sp2] dq[sp2,ff2,cc]] }
+  },
+  F[14] == { 
+    ClassName      -> uR, 
+    Unphysical     -> True, 
+    Indices        -> {Index[Generation], Index[Colour]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 2/3},
+    Definitions    -> { uR[sp1_,ff_,cc_] :> Module[{sp2}, ProjP[sp1,sp2] uq[sp2,ff,cc]] }
+  },
+  F[15] == { 
+    ClassName      -> dR, 
+    Unphysical     -> True, 
+    Indices        -> {Index[Generation], Index[Colour]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1/3},
+    Definitions    -> { dR[sp1_,ff_,cc_] :> Module[{sp2}, ProjP[sp1,sp2] dq[sp2,ff,cc]] }
+  },
+
+(* Higgs: physical scalars  *)
+  S[1] == {
+    ClassName       -> H,
+    SelfConjugate   -> True,
+    Mass            -> {MH,125},
+    Width           -> {WH,0.00407},
+    PropagatorLabel -> "H",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    PDG             -> 25,
+    ParticleName    -> "H",
+    FullName        -> "H"
+  },
+
+(* Higgs: physical scalars  *)
+  S[2] == {
+    ClassName       -> G0,
+    SelfConjugate   -> True,
+    Goldstone       -> Z,
+    Mass            -> {MZ, 91.1876},
+    Width           -> {WZ, 2.4952},
+    PropagatorLabel -> "Go",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    PDG             -> 250,
+    ParticleName    -> "G0",
+    FullName        -> "G0"
+  },
+  S[3] == {
+    ClassName        -> GP,
+    SelfConjugate    -> False,
+    Goldstone        -> W,
+    Mass             -> {MW, Internal},
+    QuantumNumbers   -> {Q -> 1},
+    Width            -> {WW, 2.085},
+    PropagatorLabel  -> "GP",
+    PropagatorType   -> D,
+    PropagatorArrow  -> None,
+    PDG              -> 251,
+    ParticleName     -> "G+",
+    AntiParticleName -> "G-",
+    FullName         -> "GP"
+  },
+
+(* Higgs: unphysical scalars  *)
+  S[11] == { 
+    ClassName      -> Phi, 
+    Unphysical     -> True, 
+    Indices        -> {Index[SU2D]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 1/2},
+    Definitions    -> { Phi[1] -> -I GP, Phi[2] -> (vev + H + I G0)/Sqrt[2]  }
+  }
+};
+
+
+(* ************************** *)
+(* *****     Gauge      ***** *)
+(* *****   Parameters   ***** *)
+(* *****   (FeynArts)   ***** *)
+(* ************************** *)
+
+GaugeXi[ V[1]  ] = GaugeXi[A];
+GaugeXi[ V[2]  ] = GaugeXi[Z];
+GaugeXi[ V[3]  ] = GaugeXi[W];
+GaugeXi[ V[4]  ] = GaugeXi[G];
+GaugeXi[ S[1]  ] = 1;
+GaugeXi[ S[2]  ] = GaugeXi[Z];
+GaugeXi[ S[3]  ] = GaugeXi[W];
+GaugeXi[ U[1]  ] = GaugeXi[A];
+GaugeXi[ U[2]  ] = GaugeXi[Z];
+GaugeXi[ U[31] ] = GaugeXi[W];
+GaugeXi[ U[32] ] = GaugeXi[W];
+GaugeXi[ U[4]  ] = GaugeXi[G];
+
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+M$Parameters = {
+
+  (* External parameters *)
+  aEWM1 == { 
+    ParameterType    -> External, 
+    BlockName        -> SMINPUTS, 
+    OrderBlock       -> 1, 
+    Value            -> 127.9,
+    InteractionOrder -> {QED,-2},
+    Description      -> "Inverse of the EW coupling constant at the Z pole"
+  },
+  Gf == {
+    ParameterType    -> External,
+    BlockName        -> SMINPUTS,
+    OrderBlock       -> 2,
+    Value            -> 1.16637*^-5, 
+    InteractionOrder -> {QED,2},
+    TeX              -> Subscript[G,f],
+    Description      -> "Fermi constant"
+  },
+  aS    == { 
+    ParameterType    -> External,
+    BlockName        -> SMINPUTS,
+    OrderBlock       -> 3,
+    Value            -> 0.1184, 
+    InteractionOrder -> {QCD,2},
+    TeX              -> Subscript[\[Alpha],s],
+    Description      -> "Strong coupling constant at the Z pole"
+  },
+  ymdo == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 1,
+    Value         -> 5.04*^-3,
+    Description   -> "Down Yukawa mass"
+  },
+  ymup == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 2,
+    Value         -> 2.55*^-3,
+    Description   -> "Up Yukawa mass"
+  },
+  yms == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 3,
+    Value         -> 0.101,
+    Description   -> "Strange Yukawa mass"
+  },
+  ymc == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 4,
+    Value         -> 1.27,
+    Description   -> "Charm Yukawa mass"
+  },
+  ymb == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 5,
+    Value         -> 4.7,
+    Description   -> "Bottom Yukawa mass"
+  },
+  ymt == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 6,
+    Value         -> 172,
+    Description   -> "Top Yukawa mass"
+  },
+  yme == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 11,
+    Value         -> 5.11*^-4,
+    Description   -> "Electron Yukawa mass"
+  },
+  ymm == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 13,
+    Value         -> 0.10566,
+    Description   -> "Muon Yukawa mass"
+  },
+  ymtau == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 15,
+    Value         -> 1.777,
+    Description   -> "Tau Yukawa mass"
+  },
+  cabi == {
+    ParameterType -> External,
+    BlockName     -> CKMBLOCK,
+    OrderBlock    -> 1,
+    Value         -> 0.227736,
+    TeX           -> Subscript[\[Theta], c],
+    Description   -> "Cabibbo angle"
+  },
+
+  (* Internal Parameters *)
+  aEW == {
+    ParameterType    -> Internal,
+    Value            -> 1/aEWM1,
+    InteractionOrder -> {QED,2},
+    TeX              -> Subscript[\[Alpha], EW],
+    Description      -> "Electroweak coupling contant"
+  },
+  MW == { 
+    ParameterType -> Internal, 
+    Value         -> Sqrt[MZ^2/2+Sqrt[MZ^4/4-Pi/Sqrt[2]*aEW/Gf*MZ^2]], 
+    TeX           -> Subscript[M,W], 
+    Description   -> "W mass"
+  },
+  sw2 == { 
+    ParameterType -> Internal, 
+    Value         -> 1-(MW/MZ)^2, 
+    Description   -> "Squared Sin of the Weinberg angle"
+  },
+  ee == { 
+    ParameterType    -> Internal, 
+    Value            -> Sqrt[4 Pi aEW], 
+    InteractionOrder -> {QED,1}, 
+    TeX              -> e,  
+    Description      -> "Electric coupling constant"
+  },
+  cw == { 
+    ParameterType -> Internal, 
+    Value         -> Sqrt[1-sw2], 
+    TeX           -> Subscript[c,w], 
+    Description   -> "Cosine of the Weinberg angle"
+  },
+  sw == { 
+    ParameterType -> Internal, 
+    Value         -> Sqrt[sw2], 
+    TeX           -> Subscript[s,w], 
+    Description   -> "Sine of the Weinberg angle"
+  },
+  gw == { 
+    ParameterType    -> Internal, 
+    Definitions      -> {gw->ee/sw}, 
+    InteractionOrder -> {QED,1},  
+    TeX              -> Subscript[g,w], 
+    Description      -> "Weak coupling constant at the Z pole"
+  },
+  g1 == { 
+    ParameterType    -> Internal, 
+    Definitions      -> {g1->ee/cw}, 
+    InteractionOrder -> {QED,1},  
+    TeX              -> Subscript[g,1], 
+    Description      -> "U(1)Y coupling constant at the Z pole"
+  },
+  gs == { 
+    ParameterType    -> Internal, 
+    Value            -> Sqrt[4 Pi aS],
+    InteractionOrder -> {QCD,1},  
+    TeX              -> Subscript[g,s], 
+    ParameterName    -> G,
+    Description      -> "Strong coupling constant at the Z pole"
+  },
+  vev == {
+    ParameterType    -> Internal,
+    Value            -> 2*MW*sw/ee, 
+    InteractionOrder -> {QED,-1},
+    Description      -> "Higgs vacuum expectation value"
+  },
+  lam == {
+    ParameterType    -> Internal,
+    Value            -> MH^2/(2*vev^2),
+    InteractionOrder -> {QED, 2},
+    Description      -> "Higgs quartic coupling"
+  },
+  muH == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[vev^2 lam],
+    TeX           -> \[Mu],
+    Description   -> "Coefficient of the quadratic piece of the Higgs potential"
+  },
+  yl == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Definitions      -> {yl[i_?NumericQ, j_?NumericQ] :> 0  /; (i =!= j)},
+    Value            -> {yl[1,1] -> Sqrt[2] yme / vev, yl[2,2] -> Sqrt[2] ymm / vev, yl[3,3] -> Sqrt[2] ymtau / vev},
+    InteractionOrder -> {QED, 1},
+    ParameterName    -> {yl[1,1] -> ye, yl[2,2] -> ym, yl[3,3] -> ytau},
+    TeX              -> Superscript[y, l],
+    Description      -> "Lepton Yukawa couplings"
+  },
+  yu == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Definitions      -> {yu[i_?NumericQ, j_?NumericQ] :> 0  /; (i =!= j)},
+    Value            -> {yu[1,1] -> Sqrt[2] ymup/vev, yu[2,2] -> Sqrt[2] ymc/vev, yu[3,3] -> Sqrt[2] ymt/vev},
+    InteractionOrder -> {QED, 1},
+    ParameterName    -> {yu[1,1] -> yup, yu[2,2] -> yc, yu[3,3] -> yt},
+    TeX              -> Superscript[y, u],
+    Description      -> "Up-type Yukawa couplings"
+  },
+  yd == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Definitions      -> {yd[i_?NumericQ, j_?NumericQ] :> 0  /; (i =!= j)},
+    Value            -> {yd[1,1] -> Sqrt[2] ymdo/vev, yd[2,2] -> Sqrt[2] yms/vev, yd[3,3] -> Sqrt[2] ymb/vev},
+    InteractionOrder -> {QED, 1},
+    ParameterName    -> {yd[1,1] -> ydo, yd[2,2] -> ys, yd[3,3] -> yb},
+    TeX              -> Superscript[y, d],
+    Description      -> "Down-type Yukawa couplings"
+  },
+(* N. B. : only Cabibbo mixing! *)
+  CKM == { 
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Unitary       -> True,
+    Value         -> {CKM[1,1] -> Cos[cabi],  CKM[1,2] -> Sin[cabi], CKM[1,3] -> 0,
+                      CKM[2,1] -> -Sin[cabi], CKM[2,2] -> Cos[cabi], CKM[2,3] -> 0,
+                      CKM[3,1] -> 0,          CKM[3,2] -> 0,         CKM[3,3] -> 1},
+    TeX         -> Superscript[V,CKM],
+    Description -> "CKM-Matrix"}
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+LGauge := Block[{mu,nu,ii,aa}, 
+  ExpandIndices[-1/4 FS[B,mu,nu] FS[B,mu,nu] - 1/4 FS[Wi,mu,nu,ii] FS[Wi,mu,nu,ii] - 1/4 FS[G,mu,nu,aa] FS[G,mu,nu,aa], FlavorExpand->SU2W]];
+
+LFermions := Block[{mu}, 
+  ExpandIndices[I*(
+    QLbar.Ga[mu].DC[QL, mu] + LLbar.Ga[mu].DC[LL, mu] + uRbar.Ga[mu].DC[uR, mu] + dRbar.Ga[mu].DC[dR, mu] + lRbar.Ga[mu].DC[lR, mu]), 
+  FlavorExpand->{SU2W,SU2D}]/.{CKM[a_,b_] Conjugate[CKM[a_,c_]]->IndexDelta[b,c], CKM[b_,a_] Conjugate[CKM[c_,a_]]->IndexDelta[b,c]}];
+
+LHiggs := Block[{ii,mu, feynmangaugerules},
+  feynmangaugerules = If[Not[FeynmanGauge], {G0|GP|GPbar ->0}, {}];
+ 
+  ExpandIndices[DC[Phibar[ii],mu] DC[Phi[ii],mu] + muH^2 Phibar[ii] Phi[ii] - lam Phibar[ii] Phi[ii] Phibar[jj] Phi[jj], FlavorExpand->{SU2D,SU2W}]/.feynmangaugerules
+ ];
+
+LYukawa := Block[{sp,ii,jj,cc,ff1,ff2,ff3,yuk,feynmangaugerules},
+  feynmangaugerules = If[Not[FeynmanGauge], {G0|GP|GPbar ->0}, {}];
+ 
+  yuk = ExpandIndices[
+   -yd[ff2, ff3] CKM[ff1, ff2] QLbar[sp, ii, ff1, cc].dR [sp, ff3, cc] Phi[ii] - 
+    yl[ff1, ff3] LLbar[sp, ii, ff1].lR [sp, ff3] Phi[ii] - 
+    yu[ff1, ff2] QLbar[sp, ii, ff1, cc].uR [sp, ff2, cc] Phibar[jj] Eps[ii, jj], FlavorExpand -> SU2D];
+  yuk = yuk /. { CKM[a_, b_] Conjugate[CKM[a_, c_]] -> IndexDelta[b, c], CKM[b_, a_] Conjugate[CKM[c_, a_]] -> IndexDelta[b, c]};
+  yuk+HC[yuk]/.feynmangaugerules
+ ];
+
+LGhost := Block[{LGh1,LGhw,LGhs,LGhphi,mu, generators,gh,ghbar,Vectorize,phi1,phi2,togoldstones,doublet,doublet0},
+  (* Pure gauge piece *) 	
+  LGh1 = -ghBbar.del[DC[ghB,mu],mu];
+  LGhw = -ghWibar[ii].del[DC[ghWi[ii],mu],mu];
+  LGhs = -ghGbar[ii].del[DC[ghG[ii],mu],mu];
+
+  (* Scalar pieces: see Peskin pages 739-742 *)
+  (* phi1 and phi2 are the real degrees of freedom of GP *)
+  (* Vectorize transforms a doublet in a vector in the phi-basis, i.e. the basis of real degrees of freedom *)
+  gh    = {ghB, ghWi[1], ghWi[2], ghWi[3]};
+  ghbar = {ghBbar, ghWibar[1], ghWibar[2], ghWibar[3]};
+  generators = {-I/2 g1 IdentityMatrix[2], -I/2 gw PauliSigma[1], -I/2 gw PauliSigma[2], -I/2 gw PauliSigma[3]};
+  doublet = Expand[{(-I phi1 - phi2)/Sqrt[2], Phi[2]} /. MR$Definitions /. vev -> 0]; 
+  doublet0 = {0, vev/Sqrt[2]};
+  Vectorize[{a_, b_}]:= Simplify[{Sqrt[2] Re[Expand[a]], Sqrt[2] Im[Expand[a]], Sqrt[2] Re[Expand[b]], Sqrt[2] Im[Expand[b]]}/.{Im[_]->0, Re[num_]->num}];
+  togoldstones := {phi1 -> (GP + GPbar)/Sqrt[2], phi2 -> (-GP + GPbar)/(I Sqrt[2])};
+  LGhphi=Plus@@Flatten[Table[-ghbar[[kkk]].gh[[lll]] Vectorize[generators[[kkk]].doublet0].Vectorize[generators[[lll]].(doublet+doublet0)],{kkk,4},{lll,4}]] /.togoldstones;
+
+ExpandIndices[ LGhs + If[FeynmanGauge, LGh1 + LGhw + LGhphi,0], FlavorExpand->SU2W]];
+
+LSM:= LGauge + LFermions + LHiggs + LYukawa + LGhost;
+
+===== END SM.fr =====
+
+===== BEGIN PAPER (1106.6199_source.tex; the paper's LaTeX source: equations, fractions and roots are exact) =====
+\documentclass[showpacs,aps,prl,twocolumn,nofootinbib]{revtex4}
+\usepackage{amsmath}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{verbatim} 
+\usepackage{pstricks}
+\usepackage{color}
+\usepackage{slashed}
+\usepackage{multirow}
+
+
+\newcommand{\gmu}{\gamma^\mu}
+\newcommand{\ie}{{\it i.e.}}
+\newcommand{\eg}{{\it e.g.}}
+\newcommand{\lag}{{\cal L}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\nn}{\nonumber}
+\def\bsp#1\esp{\begin{split}#1\end{split}}
+
+
+\begin{document}
+
+\leftline{}
+\rightline{CP3-11-21; IPHC-PHENO-11-03}
+
+\title{Monotops at the LHC}
+
+\author{J.~Andrea$^{a}$, B.~Fuks$^{a}$, F.~Maltoni$^{b}$}
+\affiliation{
+$^{(a)}$Institut Pluridisciplinaire Hubert Curien/D\'epartement Recherches
+  Subatomiques, Universit\'e de Strasbourg/CNRS-IN2P3, 23 Rue du Loess, F-67037 Strasbourg, France\\
+$^{(b)}$Center for Cosmology, Particle Physics and Phenomenology (CP3), 
+Universit\'e Catholique de Louvain, B-1348 Louvain-la-Neuve, Belgium 
+}
+
+\begin{abstract}
+We explore scenarios where top quarks may be produced singly in association
+with missing energy, a very distinctive signature, which, in analogy with
+monojets, we dub {\it monotops}. We find that monotops can be produced in a
+variety of modes, typically characterized by baryon number-violating  or flavor-changing neutral interactions. We 
+build a simplified  model that encompasses all the possible (tree-level) 
+production mechanisms and  study the LHC sensitiveness to a few representative scenarios by considering
+fully hadronic top decays. We find that constraints on such exotic models can already be set with 
+1 fb$^{-1}$ of integrated luminosity collected at $\sqrt{s}=$7 TeV.
+\end{abstract}
+
+
+\pacs{12.38.Bx,12.60.-i,14.65.Ha}
+
+\maketitle
+
+\section{Introduction}
+
+With the LHC running, the TeV scale has just begun to be explored. 
+The search, in particular, of new phenomena, interactions and/or particles,
+motivated by several theoretical arguments as well as current precision data, 
+moves in several directions. The most beaten path is a top-down approach:
+a theory is conceived so that it extends the standard model (SM), addresses one
+or more open issues (such as the hierarchy problem or neutrino mass generation),
+and predictions can be made through perturbation theory or symmetries. 
+In general, some or many new parameters enter, they cannot be fixed 
+by the present constraints and yet determine the expected signatures at
+colliders.
+
+The most famous example is supersymmetry (SUSY), and more especially its minimal
+version \cite{Nilles:1983ge, Haber:1984rc}, which, in its general form at
+TeV energies, might feature up to a hundred of free parameters.
+Benchmark choices are then made that simplify the analyses and typical signatures
+can be identified. For example, in SUSY, same sign leptons are typically
+connected to the Majorana nature of some of new states, multijets with missing
+energy to heavy colored states decaying to partons and to a stable neutral weakly
+interacting state (possibly a dark matter candidate), and multiphotons with
+missing energy to gravitinos.
+
+While widely used, this theory-driven approach has notable limitations.
+The first is that signatures are neither typical of a given benchmark nor
+of a model itself. Universal extra dimensions \cite{Appelquist:2000nn} and SUSY can have, for instance, 
+very similar signatures. The second and most important limitation is that the
+top-down approach can lead to strong biases in the final state signatures 
+ studied in the experimental analyses. 
+
+In this paper, we follow an alternative approach, \ie, 
+we propose a final state signature, a top quark in association with 
+missing transverse energy, dubbed \textit{monotop}, that no process
+in the standard model can lead to at tree-level, the dominant
+production mode being suppressed both by a loop factor and by two
+powers of nondiagonal Cabibbo-Kobayashi-Maskawa matrix elements.
+We are inspired by the monojet and missing energy final state
+used to probe gravitons, where the missing energy can be related to weakly
+interacting states leaving no visible traces in the detectors.
+Having a top quark in the final state, however, gives a signature much clearer
+and easier to discriminate than just a light jet. From the theoretical
+point of view, asking for a top gives a further advantage in that it 
+fixes the flavor of the final state and restricts the possibilities
+for partons in the initial state. As a result, we find that there are only two 
+classes of processes leading to such a final state signature,
+through baryon number-violating and flavor-changing neutral interactions.
+In both cases the key assumption  is the existence of an enhanced coupling between the first and third
+generation. Interestingly enough, both these phenomena are not very much
+constrained for the top quark~\cite{Nakamura:2010zzi} and room appears for the LHC 
+to make a discovery or set bounds.
+
+\section{Beyond the Standard Model Explorations}
+
+At the tree level, monotop production can occur via two main mechanisms. 
+Either the top quark is produced (resonantly or not) in association with
+missing energy of a fermionic nature or through a flavor-changing interaction with an
+invisible bosonic state, as illustrated on the left and right panels of Fig.\
+\ref{fig:01}, respectively.
+\begin{figure}[t]
+  \includegraphics[width=.49\columnwidth]{diag2.eps}
+  \includegraphics[width=.49\columnwidth]{diag1.eps}
+  \caption{\label{fig:01} Representative Feynman diagrams leading to monotop
+    signatures, through the resonant exchange of a colored
+    scalar field $S$ (left) and via a flavor-changing 
+    interaction with a vector field $V$ (right). In these two examples, the
+    missing energy is carried by the $V$ and $\chi$ particles. More diagrams
+    with, for example, $t$-channel and $s$-channel exchanges for the two
+    type of processes respectively, are possible.}
+\end{figure}
+
+In the first class of models, the top quark is produced in association
+with an undetected fermionic particle $\chi$ via $s,t,u$-channel exchanges of a scalar ($S$) or vector ($V$) field lying in the
+(anti-) fundamental representation of $SU(3)_c$.  As an example, consider 
+the $s$-channel resonant case
+\be 
+  \bar d_i \bar d_j  \to  S\ \text{or}\ V  \to  t \chi\ ,
+\nn\ee
+where $d_k$ denotes a down-type quark of generation $k$. 
+Such processes occur in $R$-parity-violating SUSY \cite{Barbier:2004ez} where,
+similarly to the case discussed in Ref.\ \cite{Desai:2010sq}, the intermediate
+particle is a (possibly on shell) squark and $\chi$ the lightest neutralino ($\bar
+d \bar s \to \tilde u_i \to t \tilde \chi_1^0 $, where $\tilde u_i$ are any of the up squarks), or in $SU(5)$ theories
+where a vector leptoquark $V$ decays into a top quark and a neutrino ($\bar d
+\bar d \to V \to t \bar \nu$). The key difference between these two examples is the
+mass of the invisible fermionic state inducing different 
+transverse-momentum ($p_T$) spectrum for the top quark. In the limit of a
+very heavy resonance, monotops can be seen as being produced through a baryon
+number-violating
+effective interaction ($\bar d \bar s \to
+t \bar \chi$), after having included the possible $t$- and $u$-channel exchanges of
+a heavy field \cite{Morrissey:2005uza, Dong:2011rh}. Let us note that the fermionic particle could also be a Rarita-Schwinger field,
+as in SUSY theories containing a spin-$3/2$ gravitino field, or a multiparticle
+state (with a global half-integer spin), as in hylogenesis scenarios for dark
+matter \cite{Davoudiasl:2011fj}.
+ 
+In the second class of models, the top quark is produced in association with a
+neutral bosonic state, either long-lived or decaying invisibly, from
+quark-gluon initial states undergoing a flavor-changing
+interaction, as discussed, \eg, in Ref.\ \cite{delAguila:1999ac}. Missing energy consists either in a two-fermion continuous state,
+as in $R$-parity conserving SUSY \cite{Allanach:2010pp}, or in a spin-0 ($S$),
+spin-1 ($V$) or spin-2 ($G$) particle,
+\be
+ u g \to \tilde u_i \tilde\chi_1^0 \to t \tilde \chi_1^0 \tilde \chi_1^0 \ , \quad
+ u g \to t S \ , \ t V \  \text{ or }\   t G \,.
+\nn\ee
+
+
+\section{Effective theory for monotops}
+
+The top quark kinematic distributions depend both on the partonic
+initial state and on the nature of the undetected recoiling object
+(scalar, massive or massless fermion, vector or tensor), as well as on the
+possible presence of an intermediate resonant state. This suggests a 
+model-independent analysis where we account for all cases within a single
+simplified theory, in the same spirit as Ref.~\cite{Alves:2011wf}. 
+Assuming QCD interactions to be  flavor-conserving, as in the SM, the flavor-changing neutral interactions are
+coming from the weak sector. We denote by $\phi$, $\chi$ and $V$ the possible scalar, fermionic and vectorial
+missing energy particles, respectively and by  $\varphi$ and $X$ scalar and
+vector fields lying in the fundamental representation of $SU(3)_c$ which could
+lead to resonant monotop production.\footnote{For simplicity, we neglect
+spin-2 gravitons, as their flavor-changing couplings are
+loop-induced and thus very small \cite{Degrassi:2008mw}, as well as any of their
+excitations, which, even if they have, on the one hand, typically
+flavor-violating couplings at tree level, do not lead, on the other hand, to a
+missing energy signature.
+On the same footing, we do not consider spin-$3/2$ fields since their couplings
+are, at least in SUSY theories, in general suppressed by the SUSY-breaking scale.}
+In addition, we obtain a simplified modeling of four-fermion interactions through
+possible $s,t,u$ exchanges of heavy scalar fields $\varphi$ and $\tilde \varphi$. The corresponding
+effective Lagrangian in terms of mass eigenstates reads
+\be\label{eq:lag}\bsp
+ \lag &=\ \lag_{SM} \\
+
+  &+ \phi \bar u \Big[a^0_{FC}\!+\!b^0_{FC} \gamma_5 \Big] u \!+\!
+     V_\mu \bar u \Big[a^1_{FC} \gmu \!+\! b^1_{FC} \gmu \gamma_5 \Big] u  \\
+
+  &+\! \epsilon^{ijk} \varphi_i \bar d^c_j 
+       \Big[a^q_{SR} \!+\! b^q_{SR} \gamma_5 \Big] d_k \!+\!
+     \varphi_i \bar u^i \Big[a^{1/2}_{SR} \!+\! b^{1/2}_{SR} \gamma_5 \Big] \chi \\
+
+  &+ \! \epsilon^{ijk} \tilde\varphi_i \bar d^c_j 
+       \Big[\tilde a^q_{SR} \!+\! \tilde b^q_{SR} \gamma_5 \Big] u_k \!+\!
+     \tilde \varphi_i \bar d^i \Big[\tilde a^{1/2}_{SR} \!+\! \tilde b^{1/2}_{SR} \gamma_5 \Big] \chi \\
+
+   &+ \epsilon^{ijk} X_{\mu,i}\ \bar d^c_j 
+       \Big[a^q_{VR}\gmu + b^q_{VR} \gmu\gamma_5 \Big] d_k  \\
+
+   &+ X_{\mu,i}\ \bar u^i 
+       \Big[a^{1/2}_{VR} \gmu + b^{1/2}_{VR} \gmu \gamma_5 \Big] \chi + 
+       {\rm h.c.}  ,
+\esp\ee
+where the superscript $c$ stands for charge
+conjugation, $i,j,k$ are color indices in the fundamental representation and 
+flavor indices are understood. The matrices (in flavor space) $a^{\{0,1\}}_{FC}$
+and $b^{\{0,1\}}_{FC}$ contain quark interactions with the bosonic
+missing-energy particles $\phi$ and $V$, while $a^{1/2}_{\{S,V\}R}$ and
+$b^{1/2}_{\{S,V\}R}$ are the interactions between up-type quarks,
+the invisible fermion $\chi$ and the new colored states $\varphi$ and $X$. The
+latter also couple to down-type quarks with a strength given by $a^q_{\{S,V\}R}$
+and $b^q_{\{S,V\}R}$. Because of the symmetry properties of the $\epsilon^{ijk}$
+tensor, identical quark couplings to the scalar field $\varphi$ vanish and so do
+their axial couplings to the vector field $X$. In the case of
+four-fermion interactions, we also need to introduce additional $\tilde
+a^q_{SR}$, $\tilde b^q_{SR}$, $\tilde a^{1/2}_{SR}$ and $\tilde b^{1/2}_{SR}$
+interaction matrices, assuming heavy masses for the $\varphi$ and
+$\tilde\varphi$ fields.
+
+\section{Model-independent searches}
+
+The main signatures associated with monotop production can be classified according
+to the top quark decays,
+\be
+  p p \to t + \slashed{E}_T \to b W + \slashed{E}_T \to b j j + \slashed{E}_T
+    \quad \text{or} \quad b \ell + \slashed{E}_T \ ,
+\nn \ee
+where $j$ and $b$ denote (parton-level) light/$c$- and $b$-jets, respectively, $\ell$
+a charged lepton and $\slashed{E}_T$ missing transverse energy. In this paper,
+we  consider the simpler hadronic signatures of one $b$-jet and two light
+jets, typically lying in the same hemisphere. While monotop signatures with
+leptonically decaying top quarks are expected to be more challenging, they have
+been widely investigated in the
+past in the context of $R$-parity-violating SUSY \cite{Berger:1999zt, Berger:2000zk}. Top quark mass reconstruction is a 
+powerful tool to reject electroweak or QCD backgrounds at low as well as at high transverse momentum. In the latter case, boosted top reconstruction techniques could be also exploited to reconstruct fully hadronic top candidates with a good purity \cite{Plehn1}. 
+
+
+The only source of irreducible SM background to hadronic monotop production
+consists in the associated production of an invisibly decaying $Z$-boson with
+three jets (one being a $b$ jet). Other sources of background, related to
+detector effects, consist, first, in QCD multijet events where misreconstructed jets
+produce large (fake) $\slashed{E}_T$, then in $W$ plus jets, $t\bar{t}$ and
+diboson events where the $W$ and $Z$ bosons decay to nonreconstructed leptons,
+and finally in single top events including non- or misrecontructed jets. A proper
+investigation of those instrumental backgrounds requires not only parton showering,
+hadronization, and realistic detector simulation, but also data-driven methods. 
+It is therefore preferable to resort to the available experimental studies, \eg, \cite{CMSpaper,daCosta:2011qk}. 
+In a recent analysis performed by the CMS collaboration with the 7 TeV data~\cite{CMSpaper}, 
+it has been shown that simple selection cuts on the missing transverse momentum  $(>150$ GeV) and 
+on the $p_T$ $(>50$ GeV) of the three jets reconstructed with a high quality as
+well as on their scalar sum ($> 300$ GeV) allow to keep a good control of the backgrounds.
+This leads to comparable amounts of selected QCD, $Z$, $W$ and
+$t\bar{t}$ events, while the contamination from diboson and single top
+backgrounds is further reduced by about one order of magnitude. In addition, 
+the presence of a top quark can be exploited by
+demanding two non-$b$-jets  with an invariant mass  compatible with the
+$W$-boson mass, one $b$-tagged jet, and a three-jet invariant mass compatible
+with the top quark mass. Hence, all instrumental backgrounds are expected to
+be strongly suppressed after selection. We therefore base our estimate of the monotop sensitivity at the LHC
+taking into account the  irreducible background related to the production of an invisibly decaying 
+$Z$-boson in association with three jets.
+
+Event simulation is performed for the LHC at $\sqrt{s} = 7$ TeV and for a
+luminosity of 1 fb$^{-1}$ using the Monte Carlo generator {\sc MadGraph} 5~\cite{Alwall:2011uj}. 
+We employ the CTEQ6L1 set of parton densities~\cite{Pumplin:2002vw}
+and identify renormalization and factorization scales to the value of
+the top quark mass, $M_t = 172$ GeV for the signal (as well as for the background). 
+We have implemented the Lagrangian of Eq.~\eqref{eq:lag} into {\sc MadGraph} via  
+{\sc FeynRules}  \cite{Christensen:2008py}.   In this prospective
+study, we present results based on a parton-level simulation for the signal 
+as well as for the main irreducible background, $Z+3$ jets,  computed at the tree level in the five-flavor scheme.
+
+To illustrate  the main features of the monotop production, we consider
+simplified scenarios where all axial couplings involving new particles vanish
+($b \!=\! \tilde b \!=\! 0$). Furthermore, we
+only retain  the interactions that can be enhanced by parton density functions, 
+and set $(a^0_{FC})_{13} = (a^0_{FC})_{31} = 
+    (a^1_{FC})_{13} = (a^1_{FC})_{31} =
+    (a^q_{SR})_{12} = \ -(a^q_{SR})_{21} = (a^{1/2}_{SR})_3 =
+    (a^q_{VR})_{11} = (a^{1/2}_{VR})_3 = a = 0.1$.
+In the four-fermion interaction limit, the heavy mass
+is set to $M_\varphi \!=\! M_{\tilde\varphi} \!=\! 3$ TeV and the corresponding
+nonvanishing interaction are $(a^q_{SR})_{12} = -(a^q_{SR})_{21} =  (\tilde a^q_{SR})_{\{1,2\}3} = (\tilde
+ a^{1/2}_{SR})_{\{1,2\}} = a =0.1$\ .
+Within the above settings, we define five scenarios:  a scalar (vector) resonant monotop
+production with $m_\chi \!=\! 50$ (300) GeV,  flavor changing neutral production 
+with a 300 GeV scalar (50 GeV vector) invisible state and, finally, a scenario including
+four-fermion interactions with a massless invisible state $\chi$. 
+The values for the masses of the invisible states are inspired by present collider 
+data and lie right above the lower bound on the mass of the lightest neutralino in typical
+SUSY scenarios  and of the lightest Kaluza-Klein
+excitation in extra-dimensional scenarios, respectively~\cite{Nakamura:2010zzi}. In the case of resonant monotop production, we
+assume the branching ratio $X,\varphi \to t \chi$  equal to one, our
+analysis being thus insensitive to $a^q_{\{SR,VR\}}$, and we fix
+the resonance mass to 500 GeV. 
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics[width=\columnwidth]{fig03_7TeV.eps}
+  \caption{Missing transverse-momentum spectrum for monotop
+     production ($t + \bar t$) at the LHC (7 TeV) for the five considered scenarios
+     and for the $Z\!+\!3$ jet background. Selection cuts are given in the text. 
+     The distributions are normalized to unity. }
+  \label{fig:03}
+\end{figure}
+
+In Fig.\ \ref{fig:03}, we present the missing transverse-momentum
+($\slashed{p}_T$) spectrum associated with the five monotop scenarios
+presented above and with the irreducible $Z\!+\!3$ jet background. 
+We require three jets with $p_T>50$ GeV, rapidity $|\eta|<2.5$, and relative distance $\Delta R>0.5$. 
+All event samples being normalized to one, we compare
+the shapes of the distributions. As expected, we observe a typical resonant behavior for the first two
+scenarios, the spectrum showing an edge at a value depending on the masses of
+the resonance and of the invisible produced fermion.
+On the other hand, the distributions related to flavor-changing monotop production
+are flatter, peaking at higher $\slashed{p}_T$ values with respect to the background. 
+Finally, monotop production through four-fermion interactions leads to a $\slashed{p}_T$-distribution
+monotonically growing with the energy, thus fully distinguishable from the SM
+background if the number of signal events is large enough.
+
+\begin{table}[t]
+ \caption{\label{tab:01}Signal cross sections in the five selected scenarios 
+ corresponding to the choice $a=0.1$.  In scenarios I  and II the  branching ratios of intermediate resonances is set to unity. In the last column the minimal values of the effective couplings   $a_{min}$ leading to sensitivities $s=S/\sqrt{S+B}\ge 5$, 
+ assuming 1 fb$^{-1}$ of collected luminosity at LHC ($\sqrt{s}=7$ TeV) are given.}
+ \begin{tabular}{|c | c c  c | c |}
+  \hline Scenario & $\slashed{p}_T$ cut [GeV] & $\sigma(t +\bar t)$ [pb]&  $\ $ $a_{min}$ \\
+  \hline
+   I & 150 & 3.99  & 0.042\\ 
+   II & 65  & 32.1 & 0.043\\
+   III & 150 & 0.322& 0.14\\
+   IV & 150 & 24.3& 0.017\\
+   V & 250 & 1.08$\cdot 10^{-4}$& 4.9\\
+   \hline
+ \end{tabular} 
+\end{table}
+
+In summary, $\slashed{p}_T$ distributions are characteristic of  the 
+monotop production mode. However, in all cases, simple cuts on the missing transverse momentum
+allow us to get rid of the major background contributions and keep a good
+fraction of the signal. We define three basic possible cuts on the required
+$\slashed{p}_T$: ``loose'', ``standard'' and ``tight'' cut corresponding to $\slashed{p}_T > 65, 150, 250$ GeV
+respectively. The first is suitable for resonant monotop production when the resonance mass is close to the
+monotop production threshold. The latter leaves an almost background-free sample, useful 
+in the production via four-fermion interactions. For all intermediate cases we employ the standard cut.
+ Our leading-order estimate of  the cross section for the $Z$ (invisible) + 3 jet background within the jet cuts mentioned above and the additional $\slashed{p}_T>65$ GeV cut  gives 4.9 pb.
+ In the context of an analysis including parton showering, hadronization and detector simulation, as well as all
+instrumental backgrounds,  events containing isolated leptons should be rejected and exactly three jets
+required. In so doing, background from single top and $t\bar t$ events becomes negligible and  combinatorial issues for the top candidate reconstruction are minimized, at a price of a  lower signal selection efficiency. 
+In more refined analysis, the $p_T$-threshold could be further tuned
+to optimize over extra radiation possibly present in the events. We only retain events with a 
+single $b$-tagged jet, estimating a $b$-tagging efficiency of about 60\% for a charm/light flavor 
+mistagging rate of 10\%/1\%. In addition,  the two non-$b$-tagged jets invariant-mass is required 
+to lie in a  $M_W \pm 20$ GeV range while the three-jet invariant-mass is required to be in a $M_t \pm 30$ GeV interval. 
+In order to include resolution effects, the (parton-level) invariant-mass
+distributions have been smeared using Gaussian functions with a width of 15 GeV in
+the dijet and 20 GeV in the three-jet cases. 
+
+In Table \ref{tab:01} the signal cross sections and the corresponding sensitivities at LHC $\sqrt{s}=7$ TeV with 
+1 fb$^{-1}$ accumulated luminosity are shown for the five representative scenarios. 
+In Fig.\ \ref{fig:04}, we estimate the sensitivity of the LHC to  monotop discovery. 
+Starting from the five scenarios presented above, we
+vary the mass of the missing energy particle and calculate in each case the
+significance, using the standard $\slashed{p}_T$ cut of 150
+GeV. The benchmark scenarios I' and II' are variations of the two first
+scenarios where the mass of the resonant particle is taken at 1 TeV.
+Flavor changing monotop production appears to be the most optimistic case,
+especially in the low mass region, due to the enhancement  given by the parton
+densities. On the other hand, in the case
+of resonant monotop production, the accessible mass region depends strongly on
+the resonance mass, with heavier resonances allowing to probe a larger invisible
+mass.
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics[width=\columnwidth]{fig04_7TeV.eps}
+  \caption{Significance in the five selected scenarios as a function of the invisible state mass, assuming 1 fb$^{-1}$ of collected luminosity at LHC ($\sqrt{s}=7$ TeV). Selection cuts are described in the text.}
+  \label{fig:04}
+\end{figure}
+
+\section{Conclusions}
+In this paper, we have proposed a novel signature, which we dubbed monotop, involving the 
+production of a top in association with missing energy. We have analyzed it 
+through a simplified theory approach and argued that couplings of order one or smaller 
+can be strongly constrained at the LHC  for the different production modes, just by using a basic set of cuts. 
+Our results motivate further studies, possibly including more complete simulations and advanced analysis techniques, \eg, the use of boosted top reconstruction algorithms, as well as  a thorough analysis of the indirect constraints coming
+from lower energy experiments and flavor physics. 
+
+\section*{Acknowledgments}
+The authors are grateful to J.~M.~G\'erard for valuable discussions and a careful
+reading of the manuscript. B.~F.\ acknowledges support by the Theory-LHC
+France-initiative of the CNRS/IN2P3. F.~M.\ is supported by the Belgian IAP
+Program, BELSPO P6/11-P and the IISN convention 4.4511.10.
+
+
+\bibliography{review}
+
+\end{document}
+
+
+
+===== END PAPER =====
+
+You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.
+
+MODEL: Monotops (SimpleExtensions) — FeynRules DB entry based on arXiv:1106.6199.
+PAPER: the paper's LaTeX source: equations, fractions and roots are exact, included verbatim above between the PAPER markers; it is authoritative.
+FORMAT: write a complete FeynRules .fr add-on model file yourself (M$ModelName, M$Information, M$InteractionOrderHierarchy, IndexRange declarations for new indices, M$Parameters, M$ClassesDescription, the Lagrangian terms and one LTotal). It is loaded on top of SM.fr, included verbatim above between the SM.fr markers.
+
+TASK — extract the COMPLETE new-physics content:
+1. Read the paper. Identify EVERY new particle beyond the Standard Model: spin (S/F/V), colour rep (singlet/triplet/sextet/octet), SU(2) rep, electric charge Q and/or hypercharge Y, mass parameter. COMPLETENESS IS SCORED — a model with several new states (multiplets, mass eigenstates, generations) must include all of them as separate ParticleClass entries (or class_members).
+2. Identify the new coupling/mass/mixing parameters (External unless clearly derived).
+3. Write the main new-physics Lagrangian terms (FeynRules/Mathematica syntax and idioms).
+
+FILE RULES: use FeynRules syntax for every value (rationals -1/3, decimals 1500.); SM add-on => no M$GaugeGroups block; the indices Colour, Gluon, Generation, SU2D and SU2W are declared by SM.fr; any OTHER index (a colour-sextet index, a new-generation index) needs `IndexRange[Index[X]] = NoUnfold[Range[n]];` with the correct size; every class gets a unique label S[n]/F[n]/V[n] with n >= 100; SelfConjugate -> False for complex fields (distinct antiparticle), True for real/Majorana fields.
+
+OUTPUT: your FINAL message must contain exactly one fenced code block tagged mathematica containing ONLY the complete .fr file (no commentary inside the fences). Set M$ModelName = "Monotops_gen".
+
+NO TOOLS: this run has no file, shell, network or code tools. Everything you need is in
+this message: the Standard Model file SM.fr (the file this add-on is loaded on top of:
+take field names, index conventions and hypercharges from it) and the paper. Do not ask
+for anything; do the extraction and write the model.
+
+## Physics-completeness rules (apply to every model)
+
+1. Free-field terms for every new particle class. Write a named kinetic + mass term for each new field even when the paper shows only L_int. Use the mass symbol declared in the class `Mass -> {M, value}`. Add the term to the total Lagrangian sum.
+   - Real vector (gauge singlet): `LXkin := -1/4 FS[X, mu, nu] FS[X, mu, nu] + 1/2 MX^2 X[mu] X[mu];` (the explicit form `-1/4 (del[X[nu], mu] - del[X[mu], nu])^2` is equivalent).
+   - Complex vector: `-1/2 FS[Xbar, mu, nu] FS[X, mu, nu] + MX^2 Xbar[mu] X[mu]`.
+   - Complex scalar: `DC[phibar, mu] DC[phi, mu] - Mphi^2 phibar phi`. Real scalar: `1/2 del[phi, mu] del[phi, mu] - 1/2 Mphi^2 phi^2`.
+   - Dirac fermion: `I psibar.Ga[mu].DC[psi, mu] - Mpsi psibar.psi`. Majorana fermion (`SelfConjugate -> True`): `I/2 psibar.Ga[mu].del[psi, mu] - 1/2 Mpsi psibar.psi`.
+
+2. Explicit EFT cutoffs. When the paper writes an operator with `1/Lambda^n` (or `1/M^n`, `1/f^n`), declare each distinct cutoff as an External parameter in GeV with the paper's benchmark value, e.g. `Lam == { ParameterType -> External, Value -> 1000., BlockName -> CUTOFF, InteractionOrder -> {QED, -1}, Description -> "EFT cutoff [GeV], Eq.(N)" }`. Write the factor `1/Lam^(d-4)` verbatim in the term, with `d` the operator mass dimension you computed in the self-audit. Keep the paper's dimensionless couplings (kappa, lambda, c_i) dimensionless with the paper's benchmark defaults. Do this for the term and for its `HC[...]` partner. Only if the paper's own implementation absorbs `kappa/Lambda^n` into one coefficient may you do the same; then the parameter Description must say "= kappa/Lambda^n, mass dimension -n, units GeV^-n" and the default must equal the paper's numeric `kappa/Lambda^n`. Never leave a dimensionful coefficient with an unexplained O(0.1) default.
+
+3. Charge conjugation. When the paper writes a fermion with a charge-conjugation superscript (`psi^c`, `\bar{psi^c}`, `psi^T C`, or a Majorana mass eigenstate that enters a chiral current with the opposite chirality), write it as `CC[psi]` (and `bar[CC[psi]]` for the conjugated bar). Never write the bare field. If the paper's benchmark sets that term's coefficient to zero, either drop the term or write it with `CC[...]`; never keep the term with the conjugation dropped. Use the class field with its Generation index (for example the SM class `vl[ff]`), not a class member like `ve[nn]`, because FeynRules reads an index on a class member as a spin index.
+
+4. SU(2) doublet contractions. Use the SM.fr conventions the add-on loads on: `Phi` has Y = +1/2, `LL` has Y = -1/2, `QL` has Y = +1/6, `Phi[1] = -I GP`, `Phi[2] = (vev + H + I G0)/Sqrt[2]`. Contract a doublet with an anti-doublet on a shared index: `LLbar[sp, ii, ff] ... Phi[ii]`. Contract two objects of the same conjugation type (`LLbar` with `Phibar`, `QLbar` with `Phibar`, i.e. any term the paper writes with `Htilde = i tau2 H*`) with `Eps[ii, jj]` on two distinct indices: `LLbar[sp, ii, ff] ... Phibar[jj] Eps[ii, jj]`. Never contract `LLbar[ii]` with `Phibar[ii]`. Model the SM Yukawas: `QLbar.dR Phi[ii]`, `LLbar.lR Phi[ii]`, `QLbar.uR Phibar[jj] Eps[ii, jj]`.
+
+5. New U(1) charges. Do not copy a paper's charge table literally when the paper's Yukawa equation and its table use different hypercharge conventions (for example the paper effectively uses Y(H) = -1/2). Re-derive the new-U(1) charge of every SM field, including the Higgs, from the requirement that all SM Yukawas and all new Yukawas are invariant under SM.fr conventions. Report which sign you chose and why. Do not put quantum numbers on a `SelfConjugate -> True` class; put a chiral charge on an Unphysical chiral class instead.
+
+6. Read only the paper. Do not open any cached or reference `.fr` file for the same model. If you see one, say so in the output and do not use it.
+
+7. Fractions and roots in extracted equations. The paper text is machine-extracted. A displayed fraction or radical can arrive flattened: the numerator, the fraction bar and the denominator become separate lines, so `A / Sqrt[B]` and `A Sqrt[B]` look identical. For every coefficient that contains a fraction, a square root or a power:
+   - If a LaTeX source file (`*_source.tex`) is available, read the `\frac{...}{...}` and `\sqrt{...}` there and take it literally. The LaTeX is authoritative over the flattened text.
+   - Otherwise cross-check the placement against a second equation of the paper that depends on the same coefficient (a partial width, a cross section, a limit, or a small-parameter expansion) and name that equation in the self-audit. A coupling `g/Sqrt[1-x]` gives a width proportional to `1/(1-x)`; a coupling `g Sqrt[1-x]` gives a width proportional to `(1-x)`.
+   - If neither resolves it, choose the form that reproduces a numerical value the paper states, and say so.
+   Never silently pick one placement.
+
+8. Mass mixing. When the paper diagonalises a mass mixing between a new state and an SM state (Z-Z', h-S, W-W_R, nu-N), write the mass eigenstates the paper uses: declare the mixing angle (External, or Internal with the paper's formula) and express the gauge eigenstates through it in `Definitions` of Unphysical classes. Do not leave the mixing in a comment.
+
+## FeynRules and UFO construct rules (each one broke a compile or a MadGraph import in earlier runs)
+
+9. Non-fundamental colour representations. If a field carries a colour index other than the triplet `Colour` or the adjoint `Gluon` (for example a sextet), declare the index range AND add the representation line FeynRules needs, before the field declarations: `AddGaugeRepresentation[SU3C -> {T6, Sextet}];` for a sextet (schema: put both lines in `raw_preamble`; also keep the `index_decls` entry). Write covariant derivatives on the whole field, `DC[Phi, mu]`, never with an explicit colour index inside `DC[...]`.
+
+10. Names. Class names, parameter names and index names must not be Mathematica built-ins or FeynRules symbols: never `N`, `C`, `D`, `E`, `I`, `K`, `O`, `HC`, `CC`, `FS`, `DC`, `del`, `Eps`, `Ga`, `ProjP`, `ProjM`, and never a name SM.fr already declares (`H`, `Phi`, `Z`, `W`, `A`, `G`, `ee`, `gs`, `gw`, `sw`, `cw`, `vev`, `MZ`, `MW`, ...). No primes or punctuation in `ParticleName`/`AntiParticleName` (`W'` is not a valid UFO name; write `Wp`, `Wpbar`). Use class indices of 100 or more for new classes.
+
+11. Interaction orders. Every new coupling parameter (Yukawa, portal, quartic, new gauge coupling, dimensionless EFT coefficient) carries an `InteractionOrder`: `{NP, 1}` for a new-physics coupling, `{QED, 1}` or `{QCD, 1}` only when it is literally that coupling. Declare `M$InteractionOrderHierarchy` with every order you use (for example `{{QCD, 1}, {QED, 2}, {NP, 1}}`). A coupling with no order makes MadGraph reject the UFO ("Some couplings have '1' order").
+
+12. Tensor parameters. Give every indexed parameter explicit per-component values (`yN[1,1] -> 0.1, yN[1,2] -> 0, ...`; schema: `value_rules`). Never use a pattern rule such as `X[i_?NumericQ, j_?NumericQ] :> ...` in `Definitions`: FeynRules exports the pattern verbatim as a UFO parameter name and MadGraph fails with an unrelated "invalid syntax" error.
+
+13. Flavour structure in matrix form. Write generation-space couplings as matrix products between class fields, `uqbar.VCKMR.Ga[mu].ProjP.dq`, `LLbar.yN.NR`, `ISbar.Ga[mu].ProjM.IS`, not as explicit index sums `VCKMR[ff1, ff2] uqbar[ff1, cc]...dq[ff2, cc]`, and never nest one generation index inside another. Explicit-index forms leak FeynRules internals (`ConvertSpinToString`, `MakeIdenticalFermions`) into the UFO.
+
+14. One declared total. Define exactly one Lagrangian term named `LTotal` that sums every other term you define, and make sure every other term appears in that sum. Do not define two alternative totals. Do not emit a term that contains no field (a pure constant): FeynRules exports it as a vertex with no particles.
+
+15. Declarations. Every field used in a term is declared; every parameter used in a term is declared with a numeric default; every `SelfConjugate -> True` class has no `QuantumNumbers`; a Majorana mass term is `-1/2 M psibar.psi`.
+
+## Mandatory self-audit table (produce it BEFORE the model)
+
+For every Lagrangian term you emit, output one row of this table. Then fix any row that fails before you write the model.
+
+| term name | fields in the monomial | operator mass dimension d | coupling symbol | coupling mass dimension (must be 4 - d) | 1/Lambda power present (must be d - 4, or "n/a" if d <= 4) | Q sum | Y sum | SU(2) contraction (singlet? which Eps or shared index) | SU(3) contraction | sum of each new U(1) charge (one column per U(1), must be 0) | lepton/baryon number sum (if the paper assigns them) | CC[] used where paper writes psi^c (yes/no/n/a) | fraction/root placement checked against (equation, LaTeX line, or "n/a") | Hermitian partner (HC[] or self-conjugate) |
+
+Rules for the table:
+- Field mass dimensions: scalar 1, vector 1, fermion 3/2, `FS[...]` 2, `del`/`DC` 1.
+- Every Q sum, Y sum, and new-U(1) sum must equal 0. Use the charges you declared in `QuantumNumbers` and the SM.fr charges for SM fields. If a sum is not 0, the term is wrong; fix the contraction or the charge before you continue.
+- If d > 4, the row must show `1/Lambda^(d-4)` and an External cutoff parameter, or a Description that states the absorbed dimension and units.
+- Add one row per new particle class that confirms its kinetic + mass term exists and is in the total Lagrangian sum.
+- Add one row per non-fundamental colour representation that confirms the `AddGaugeRepresentation[...]` line is present.
+- Add one line under the table that lists every `SelfConjugate -> True` class and confirms it carries no `QuantumNumbers`.
+- Add one line that lists every class, parameter and index name you chose and confirms none is a Mathematica built-in, a FeynRules symbol, or an SM.fr name.
+- Add one line that names the single total Lagrangian and lists the terms it sums.
+- Add one line that states whether any reference or cached model file was read (must be "none").

@@ -1,0 +1,1953 @@
+===== BEGIN SM.fr (tools/feynrules/test_files/models/SM.fr) =====
+(***************************************************************************************************************)
+(******                       This is the FeynRules mod-file for the Standard model                       ******)
+(******                                                                                                   ******)
+(******     Authors: N. Christensen, C. Duhr, B. Fuks                                                     ******)
+(******                                                                                                   ******)
+(****** Choose whether Feynman gauge is desired.                                                          ******)
+(****** If set to False, unitary gauge is assumed.                                                          ****)
+(****** Feynman gauge is especially useful for CalcHEP/CompHEP where the calculation is 10-100 times faster. ***)
+(****** Feynman gauge is not supported in MadGraph and Sherpa.                                              ****)
+(***************************************************************************************************************)
+
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+M$ModelName = "Standard Model";
+
+M$Information = {
+  Authors      -> {"N. Christensen", "C. Duhr", "B. Fuks"}, 
+  Version      -> "1.4.7",
+  Date         -> "28. 09. 2016",
+  Institutions -> {"Michigan State University", "Universite catholique de Louvain (CP3)", "IPHC Strasbourg / University of Strasbourg"},
+  Emails       -> {"neil@pa.msu.edu", "claude.duhr@uclouvain.be", "benjamin.fuks@cnrs.in2p3.fr"},
+  URLs         -> "http://feynrules.phys.ucl.ac.be/view/Main/StandardModel"
+};
+
+FeynmanGauge = True;
+
+(* ************************** *)
+(* ***** NLO Variables ****** *)
+(******************************)
+
+FR$LoopSwitches = {{Gf, MW}};
+FR$RmDblExt = { ymb -> MB, ymc -> MC, ymdo -> MD, yme -> Me, 
+   ymm -> MMU, yms -> MS, ymt -> MT, ymtau -> MTA, ymup -> MU};
+
+(* ************************** *)
+(* *****  Change  log   ***** *)
+(* ************************** *)
+
+(* v1.4.7: Index issue with the ghost Lagrangian (special thanks to S. Iwamoto *)
+(* v1.4.6: NLO variable added.                                               *)
+(* v1.4.5: Added widths for ghosts.                                          *)
+(* v1.4.4: Changed widths of goldstone bosons to be the same as for the W and Z bosons *)
+(* v1.4.3: Updated conventions for the symmetric structure constants of SU3. *)
+(* v1.4.2: Set FeynmanGauge=True as default again.                           *)
+(* v1.4: Added SU(2) representation.                                         *)
+(*       -> Modification in the field declarations (doublets are added)      *)
+(*       -> Modification in the Lagrangian (much simpler).                   *)
+(* v1.3: Added yukawa couplings for all fermions for gauge invariance.       *)
+(*       Added yukawa couplings for 1st generation fermions to Massless.rst. *)
+(*       Updated parameters to PDG 2010.                                     *)
+(* v1.2: Set FeynmanGauge=True as default.                                   *)
+(*       Set Gluonic ghosts to be included in both gauges.                   *)
+(* v1.1: Fixed yukawa couplings in Feynman gauge.                            *)
+(*       Changed yd[n] CKM[n,m] to yd[m] CKM[n,m].                           *)
+(*       Changed yu[n] Conjugate[CKM[m,n]] to yu[m] Conjugate[CKM[m,n]].     *)
+
+(* ************************** *)
+(* *****      vevs      ***** *)
+(* ************************** *)
+M$vevs = { {Phi[2],vev} };
+
+(* ************************** *)
+(* *****  Gauge groups  ***** *)
+(* ************************** *)
+M$GaugeGroups = {
+  U1Y  == { 
+    Abelian          -> True,  
+    CouplingConstant -> g1, 
+    GaugeBoson       -> B, 
+    Charge           -> Y
+  },
+  SU2L == { 
+    Abelian           -> False, 
+    CouplingConstant  -> gw, 
+    GaugeBoson        -> Wi, 
+    StructureConstant -> Eps, 
+    Representations   -> {Ta,SU2D}, 
+    Definitions       -> {Ta[a_,b_,c_]->PauliSigma[a,b,c]/2, FSU2L[i_,j_,k_]:> I Eps[i,j,k]}
+  },
+  SU3C == { 
+    Abelian           -> False, 
+    CouplingConstant  -> gs, 
+    GaugeBoson        -> G,
+    StructureConstant -> f, 
+    Representations   -> {T,Colour}, 
+    SymmetricTensor   -> dSUN
+  } 
+};
+
+
+(* ************************** *)
+(* *****    Indices     ***** *)
+(* ************************** *)
+
+IndexRange[Index[SU2W      ]] = Unfold[Range[3]]; 
+IndexRange[Index[SU2D      ]] = Unfold[Range[2]];
+IndexRange[Index[Gluon     ]] = NoUnfold[Range[8]];
+IndexRange[Index[Colour    ]] = NoUnfold[Range[3]]; 
+IndexRange[Index[Generation]] = Range[3];
+
+IndexStyle[SU2W,       j];
+IndexStyle[SU2D,       k];
+IndexStyle[Gluon,      a];
+IndexStyle[Colour,     m];
+IndexStyle[Generation, f];
+
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ***  (as used by mg5)  *** *)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2}
+};
+
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+M$ClassesDescription = {
+
+(* Gauge bosons: physical vector fields *)
+  V[1] == { 
+    ClassName       -> A, 
+    SelfConjugate   -> True,  
+    Mass            -> 0,  
+    Width           -> 0,  
+    ParticleName    -> "a", 
+    PDG             -> 22, 
+    PropagatorLabel -> "a", 
+    PropagatorType  -> W, 
+    PropagatorArrow -> None,
+    FullName        -> "Photon"
+  },
+  V[2] == { 
+    ClassName       -> Z, 
+    SelfConjugate   -> True,
+    Mass            -> {MZ, 91.1876},
+    Width           -> {WZ, 2.4952},
+    ParticleName    -> "Z", 
+    PDG             -> 23, 
+    PropagatorLabel -> "Z",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "Z"
+  },
+  V[3] == {
+    ClassName        -> W,
+    SelfConjugate    -> False,
+    Mass             -> {MW, Internal},
+    Width            -> {WW, 2.085},
+    ParticleName     -> "W+",
+    AntiParticleName -> "W-",
+    QuantumNumbers   -> {Q -> 1},
+    PDG              -> 24, 
+    PropagatorLabel  -> "W",
+    PropagatorType   -> Sine,
+    PropagatorArrow  -> Forward,
+    FullName         -> "W"
+  },
+  V[4] == {
+    ClassName        -> G,
+    SelfConjugate    -> True,
+    Indices          -> {Index[Gluon]},
+    Mass             -> 0,
+    Width            -> 0,
+    ParticleName     -> "g", 
+    PDG              -> 21,
+    PropagatorLabel  -> "G",
+    PropagatorType   -> C,
+    PropagatorArrow  -> None,
+    FullName         -> "G"
+  },
+
+(* Ghosts: related to physical gauge bosons *)
+  U[1] == { 
+    ClassName       -> ghA, 
+    SelfConjugate   -> False,
+    Ghost           -> A,
+    QuantumNumbers  -> {GhostNumber -> 1},
+    Mass            -> 0,
+    Width	    -> 0,
+    PropagatorLabel -> "uA",
+    PropagatorType  -> GhostDash,
+    PropagatorArrow -> Forward
+  },
+  U[2] == {
+    ClassName       -> ghZ,
+    SelfConjugate   -> False,
+    Ghost           -> Z,
+    QuantumNumbers  -> {GhostNumber -> 1},
+    Mass            -> {MZ,91.1876},  
+    Width	    -> {WZ, 2.4952},
+    PropagatorLabel -> "uZ",
+    PropagatorType  -> GhostDash,
+    PropagatorArrow -> Forward
+  },
+  U[31] == { 
+    ClassName       -> ghWp,
+    SelfConjugate   -> False, 
+    Ghost           -> W,
+    QuantumNumbers  -> {GhostNumber -> 1, Q -> 1},
+    Mass            -> {MW,Internal}, 
+    Width           -> {WW, 2.085}, 
+    PropagatorLabel -> "uWp",
+    PropagatorType  -> GhostDash, 
+    PropagatorArrow -> Forward
+  },
+  U[32] == { 
+    ClassName       -> ghWm,
+    SelfConjugate   -> False, 
+    Ghost           -> Wbar,
+    QuantumNumbers  -> {GhostNumber -> 1, Q -> -1},
+    Mass            -> {MW,Internal}, 
+    Width           -> {WW, 2.085},
+    PropagatorLabel -> "uWm",
+    PropagatorType  -> GhostDash, 
+    PropagatorArrow -> Forward
+  },
+  U[4] == { 
+    ClassName       -> ghG, 
+    SelfConjugate   -> False,
+    Indices         -> {Index[Gluon]},
+    Ghost           -> G,
+    PDG             -> 82,
+    QuantumNumbers  ->{GhostNumber -> 1}, 
+    Mass            -> 0,
+    Width	    -> 0,
+    PropagatorLabel -> "uG",
+    PropagatorType  -> GhostDash,
+    PropagatorArrow -> Forward
+  },
+
+(* Gauge bosons: unphysical vector fields *)
+  V[11] == { 
+    ClassName     -> B, 
+    Unphysical    -> True, 
+    SelfConjugate -> True, 
+    Definitions   -> { B[mu_] -> -sw Z[mu]+cw A[mu]} 
+  },
+  V[12] == { 
+    ClassName     -> Wi,
+    Unphysical    -> True,
+    SelfConjugate -> True, 
+    Indices       -> {Index[SU2W]},
+    FlavorIndex   -> SU2W,
+    Definitions   -> { Wi[mu_,1] -> (Wbar[mu]+W[mu])/Sqrt[2], Wi[mu_,2] -> (Wbar[mu]-W[mu])/(I*Sqrt[2]), Wi[mu_,3] -> cw Z[mu] + sw A[mu]}
+  },
+
+(* Ghosts: related to unphysical gauge bosons *)
+  U[11] == {
+    ClassName     -> ghB, 
+    Unphysical    -> True,
+    SelfConjugate -> False,
+    Ghost         -> B, 
+    Definitions   -> { ghB -> -sw ghZ + cw ghA}
+  },
+  U[12] == {
+    ClassName     -> ghWi,
+    Unphysical    -> True,
+    SelfConjugate -> False,
+    Ghost         -> Wi,
+    Indices       -> {Index[SU2W]},
+    FlavorIndex   -> SU2W,
+    Definitions   -> { ghWi[1] -> (ghWp+ghWm)/Sqrt[2], ghWi[2] -> (ghWm-ghWp)/(I*Sqrt[2]), ghWi[3] -> cw ghZ+sw ghA}
+  } ,
+
+(* Fermions: physical fields *)
+  F[1] == {
+    ClassName        -> vl,
+    ClassMembers     -> {ve,vm,vt},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> 0,
+    Width            -> 0,
+    QuantumNumbers   -> {LeptonNumber -> 1},
+    PropagatorLabel  -> {"v", "ve", "vm", "vt"} ,
+    PropagatorType   -> S,
+    PropagatorArrow  -> Forward,
+    PDG              -> {12,14,16},
+    ParticleName     -> {"ve","vm","vt"},
+    AntiParticleName -> {"ve~","vm~","vt~"},
+    FullName         -> {"Electron-neutrino", "Mu-neutrino", "Tau-neutrino"}
+  },
+  F[2] == {
+    ClassName        -> l,
+    ClassMembers     -> {e, mu, ta},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {Ml, {Me,5.11*^-4}, {MMU,0.10566}, {MTA,1.777}},
+    Width            -> 0,
+    QuantumNumbers   -> {Q -> -1, LeptonNumber -> 1},
+    PropagatorLabel  -> {"l", "e", "mu", "ta"},
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    PDG              -> {11, 13, 15},
+    ParticleName     -> {"e-", "mu-", "ta-"},
+    AntiParticleName -> {"e+", "mu+", "ta+"},
+    FullName         -> {"Electron", "Muon", "Tau"} 
+  },
+  F[3] == {
+    ClassName        -> uq,
+    ClassMembers     -> {u, c, t},
+    Indices          -> {Index[Generation], Index[Colour]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {Mu, {MU, 2.55*^-3}, {MC,1.27}, {MT,172}},
+    Width            -> {0, 0, {WT,1.50833649}},
+    QuantumNumbers   -> {Q -> 2/3},
+    PropagatorLabel  -> {"uq", "u", "c", "t"},
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    PDG              -> {2, 4, 6}, 
+    ParticleName     -> {"u",  "c",  "t" },
+    AntiParticleName -> {"u~", "c~", "t~"},
+    FullName         -> {"u-quark", "c-quark", "t-quark"}
+  },
+  F[4] == {
+    ClassName        -> dq,
+    ClassMembers     -> {d, s, b},
+    Indices          -> {Index[Generation], Index[Colour]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {Md, {MD,5.04*^-3}, {MS,0.101}, {MB,4.7}},
+    Width            -> 0,
+    QuantumNumbers   -> {Q -> -1/3},
+    PropagatorLabel  -> {"dq", "d", "s", "b"},
+    PropagatorType   -> Straight, 
+    PropagatorArrow  -> Forward,
+    PDG              -> {1,3,5},
+    ParticleName     -> {"d",  "s",  "b" },
+    AntiParticleName -> {"d~", "s~", "b~"},
+    FullName         -> {"d-quark", "s-quark", "b-quark"}
+  },
+
+(* Fermions: unphysical fields *)
+  F[11] == { 
+    ClassName      -> LL, 
+    Unphysical     -> True, 
+    Indices        -> {Index[SU2D], Index[Generation]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1/2},
+    Definitions    -> { LL[sp1_,1,ff_] :> Module[{sp2}, ProjM[sp1,sp2] vl[sp2,ff]], LL[sp1_,2,ff_] :> Module[{sp2}, ProjM[sp1,sp2] l[sp2,ff]] }
+  },
+  F[12] == { 
+    ClassName      -> lR, 
+    Unphysical     -> True, 
+    Indices        -> {Index[Generation]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1},
+    Definitions    -> { lR[sp1_,ff_] :> Module[{sp2}, ProjP[sp1,sp2] l[sp2,ff]] }
+  },
+  F[13] == { 
+    ClassName      -> QL, 
+    Unphysical     -> True, 
+    Indices        -> {Index[SU2D], Index[Generation], Index[Colour]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 1/6},
+    Definitions    -> { 
+      QL[sp1_,1,ff_,cc_] :> Module[{sp2}, ProjM[sp1,sp2] uq[sp2,ff,cc]], 
+      QL[sp1_,2,ff_,cc_] :> Module[{sp2,ff2}, CKM[ff,ff2] ProjM[sp1,sp2] dq[sp2,ff2,cc]] }
+  },
+  F[14] == { 
+    ClassName      -> uR, 
+    Unphysical     -> True, 
+    Indices        -> {Index[Generation], Index[Colour]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 2/3},
+    Definitions    -> { uR[sp1_,ff_,cc_] :> Module[{sp2}, ProjP[sp1,sp2] uq[sp2,ff,cc]] }
+  },
+  F[15] == { 
+    ClassName      -> dR, 
+    Unphysical     -> True, 
+    Indices        -> {Index[Generation], Index[Colour]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1/3},
+    Definitions    -> { dR[sp1_,ff_,cc_] :> Module[{sp2}, ProjP[sp1,sp2] dq[sp2,ff,cc]] }
+  },
+
+(* Higgs: physical scalars  *)
+  S[1] == {
+    ClassName       -> H,
+    SelfConjugate   -> True,
+    Mass            -> {MH,125},
+    Width           -> {WH,0.00407},
+    PropagatorLabel -> "H",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    PDG             -> 25,
+    ParticleName    -> "H",
+    FullName        -> "H"
+  },
+
+(* Higgs: physical scalars  *)
+  S[2] == {
+    ClassName       -> G0,
+    SelfConjugate   -> True,
+    Goldstone       -> Z,
+    Mass            -> {MZ, 91.1876},
+    Width           -> {WZ, 2.4952},
+    PropagatorLabel -> "Go",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    PDG             -> 250,
+    ParticleName    -> "G0",
+    FullName        -> "G0"
+  },
+  S[3] == {
+    ClassName        -> GP,
+    SelfConjugate    -> False,
+    Goldstone        -> W,
+    Mass             -> {MW, Internal},
+    QuantumNumbers   -> {Q -> 1},
+    Width            -> {WW, 2.085},
+    PropagatorLabel  -> "GP",
+    PropagatorType   -> D,
+    PropagatorArrow  -> None,
+    PDG              -> 251,
+    ParticleName     -> "G+",
+    AntiParticleName -> "G-",
+    FullName         -> "GP"
+  },
+
+(* Higgs: unphysical scalars  *)
+  S[11] == { 
+    ClassName      -> Phi, 
+    Unphysical     -> True, 
+    Indices        -> {Index[SU2D]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 1/2},
+    Definitions    -> { Phi[1] -> -I GP, Phi[2] -> (vev + H + I G0)/Sqrt[2]  }
+  }
+};
+
+
+(* ************************** *)
+(* *****     Gauge      ***** *)
+(* *****   Parameters   ***** *)
+(* *****   (FeynArts)   ***** *)
+(* ************************** *)
+
+GaugeXi[ V[1]  ] = GaugeXi[A];
+GaugeXi[ V[2]  ] = GaugeXi[Z];
+GaugeXi[ V[3]  ] = GaugeXi[W];
+GaugeXi[ V[4]  ] = GaugeXi[G];
+GaugeXi[ S[1]  ] = 1;
+GaugeXi[ S[2]  ] = GaugeXi[Z];
+GaugeXi[ S[3]  ] = GaugeXi[W];
+GaugeXi[ U[1]  ] = GaugeXi[A];
+GaugeXi[ U[2]  ] = GaugeXi[Z];
+GaugeXi[ U[31] ] = GaugeXi[W];
+GaugeXi[ U[32] ] = GaugeXi[W];
+GaugeXi[ U[4]  ] = GaugeXi[G];
+
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+M$Parameters = {
+
+  (* External parameters *)
+  aEWM1 == { 
+    ParameterType    -> External, 
+    BlockName        -> SMINPUTS, 
+    OrderBlock       -> 1, 
+    Value            -> 127.9,
+    InteractionOrder -> {QED,-2},
+    Description      -> "Inverse of the EW coupling constant at the Z pole"
+  },
+  Gf == {
+    ParameterType    -> External,
+    BlockName        -> SMINPUTS,
+    OrderBlock       -> 2,
+    Value            -> 1.16637*^-5, 
+    InteractionOrder -> {QED,2},
+    TeX              -> Subscript[G,f],
+    Description      -> "Fermi constant"
+  },
+  aS    == { 
+    ParameterType    -> External,
+    BlockName        -> SMINPUTS,
+    OrderBlock       -> 3,
+    Value            -> 0.1184, 
+    InteractionOrder -> {QCD,2},
+    TeX              -> Subscript[\[Alpha],s],
+    Description      -> "Strong coupling constant at the Z pole"
+  },
+  ymdo == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 1,
+    Value         -> 5.04*^-3,
+    Description   -> "Down Yukawa mass"
+  },
+  ymup == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 2,
+    Value         -> 2.55*^-3,
+    Description   -> "Up Yukawa mass"
+  },
+  yms == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 3,
+    Value         -> 0.101,
+    Description   -> "Strange Yukawa mass"
+  },
+  ymc == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 4,
+    Value         -> 1.27,
+    Description   -> "Charm Yukawa mass"
+  },
+  ymb == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 5,
+    Value         -> 4.7,
+    Description   -> "Bottom Yukawa mass"
+  },
+  ymt == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 6,
+    Value         -> 172,
+    Description   -> "Top Yukawa mass"
+  },
+  yme == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 11,
+    Value         -> 5.11*^-4,
+    Description   -> "Electron Yukawa mass"
+  },
+  ymm == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 13,
+    Value         -> 0.10566,
+    Description   -> "Muon Yukawa mass"
+  },
+  ymtau == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 15,
+    Value         -> 1.777,
+    Description   -> "Tau Yukawa mass"
+  },
+  cabi == {
+    ParameterType -> External,
+    BlockName     -> CKMBLOCK,
+    OrderBlock    -> 1,
+    Value         -> 0.227736,
+    TeX           -> Subscript[\[Theta], c],
+    Description   -> "Cabibbo angle"
+  },
+
+  (* Internal Parameters *)
+  aEW == {
+    ParameterType    -> Internal,
+    Value            -> 1/aEWM1,
+    InteractionOrder -> {QED,2},
+    TeX              -> Subscript[\[Alpha], EW],
+    Description      -> "Electroweak coupling contant"
+  },
+  MW == { 
+    ParameterType -> Internal, 
+    Value         -> Sqrt[MZ^2/2+Sqrt[MZ^4/4-Pi/Sqrt[2]*aEW/Gf*MZ^2]], 
+    TeX           -> Subscript[M,W], 
+    Description   -> "W mass"
+  },
+  sw2 == { 
+    ParameterType -> Internal, 
+    Value         -> 1-(MW/MZ)^2, 
+    Description   -> "Squared Sin of the Weinberg angle"
+  },
+  ee == { 
+    ParameterType    -> Internal, 
+    Value            -> Sqrt[4 Pi aEW], 
+    InteractionOrder -> {QED,1}, 
+    TeX              -> e,  
+    Description      -> "Electric coupling constant"
+  },
+  cw == { 
+    ParameterType -> Internal, 
+    Value         -> Sqrt[1-sw2], 
+    TeX           -> Subscript[c,w], 
+    Description   -> "Cosine of the Weinberg angle"
+  },
+  sw == { 
+    ParameterType -> Internal, 
+    Value         -> Sqrt[sw2], 
+    TeX           -> Subscript[s,w], 
+    Description   -> "Sine of the Weinberg angle"
+  },
+  gw == { 
+    ParameterType    -> Internal, 
+    Definitions      -> {gw->ee/sw}, 
+    InteractionOrder -> {QED,1},  
+    TeX              -> Subscript[g,w], 
+    Description      -> "Weak coupling constant at the Z pole"
+  },
+  g1 == { 
+    ParameterType    -> Internal, 
+    Definitions      -> {g1->ee/cw}, 
+    InteractionOrder -> {QED,1},  
+    TeX              -> Subscript[g,1], 
+    Description      -> "U(1)Y coupling constant at the Z pole"
+  },
+  gs == { 
+    ParameterType    -> Internal, 
+    Value            -> Sqrt[4 Pi aS],
+    InteractionOrder -> {QCD,1},  
+    TeX              -> Subscript[g,s], 
+    ParameterName    -> G,
+    Description      -> "Strong coupling constant at the Z pole"
+  },
+  vev == {
+    ParameterType    -> Internal,
+    Value            -> 2*MW*sw/ee, 
+    InteractionOrder -> {QED,-1},
+    Description      -> "Higgs vacuum expectation value"
+  },
+  lam == {
+    ParameterType    -> Internal,
+    Value            -> MH^2/(2*vev^2),
+    InteractionOrder -> {QED, 2},
+    Description      -> "Higgs quartic coupling"
+  },
+  muH == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[vev^2 lam],
+    TeX           -> \[Mu],
+    Description   -> "Coefficient of the quadratic piece of the Higgs potential"
+  },
+  yl == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Definitions      -> {yl[i_?NumericQ, j_?NumericQ] :> 0  /; (i =!= j)},
+    Value            -> {yl[1,1] -> Sqrt[2] yme / vev, yl[2,2] -> Sqrt[2] ymm / vev, yl[3,3] -> Sqrt[2] ymtau / vev},
+    InteractionOrder -> {QED, 1},
+    ParameterName    -> {yl[1,1] -> ye, yl[2,2] -> ym, yl[3,3] -> ytau},
+    TeX              -> Superscript[y, l],
+    Description      -> "Lepton Yukawa couplings"
+  },
+  yu == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Definitions      -> {yu[i_?NumericQ, j_?NumericQ] :> 0  /; (i =!= j)},
+    Value            -> {yu[1,1] -> Sqrt[2] ymup/vev, yu[2,2] -> Sqrt[2] ymc/vev, yu[3,3] -> Sqrt[2] ymt/vev},
+    InteractionOrder -> {QED, 1},
+    ParameterName    -> {yu[1,1] -> yup, yu[2,2] -> yc, yu[3,3] -> yt},
+    TeX              -> Superscript[y, u],
+    Description      -> "Up-type Yukawa couplings"
+  },
+  yd == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Definitions      -> {yd[i_?NumericQ, j_?NumericQ] :> 0  /; (i =!= j)},
+    Value            -> {yd[1,1] -> Sqrt[2] ymdo/vev, yd[2,2] -> Sqrt[2] yms/vev, yd[3,3] -> Sqrt[2] ymb/vev},
+    InteractionOrder -> {QED, 1},
+    ParameterName    -> {yd[1,1] -> ydo, yd[2,2] -> ys, yd[3,3] -> yb},
+    TeX              -> Superscript[y, d],
+    Description      -> "Down-type Yukawa couplings"
+  },
+(* N. B. : only Cabibbo mixing! *)
+  CKM == { 
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Unitary       -> True,
+    Value         -> {CKM[1,1] -> Cos[cabi],  CKM[1,2] -> Sin[cabi], CKM[1,3] -> 0,
+                      CKM[2,1] -> -Sin[cabi], CKM[2,2] -> Cos[cabi], CKM[2,3] -> 0,
+                      CKM[3,1] -> 0,          CKM[3,2] -> 0,         CKM[3,3] -> 1},
+    TeX         -> Superscript[V,CKM],
+    Description -> "CKM-Matrix"}
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+LGauge := Block[{mu,nu,ii,aa}, 
+  ExpandIndices[-1/4 FS[B,mu,nu] FS[B,mu,nu] - 1/4 FS[Wi,mu,nu,ii] FS[Wi,mu,nu,ii] - 1/4 FS[G,mu,nu,aa] FS[G,mu,nu,aa], FlavorExpand->SU2W]];
+
+LFermions := Block[{mu}, 
+  ExpandIndices[I*(
+    QLbar.Ga[mu].DC[QL, mu] + LLbar.Ga[mu].DC[LL, mu] + uRbar.Ga[mu].DC[uR, mu] + dRbar.Ga[mu].DC[dR, mu] + lRbar.Ga[mu].DC[lR, mu]), 
+  FlavorExpand->{SU2W,SU2D}]/.{CKM[a_,b_] Conjugate[CKM[a_,c_]]->IndexDelta[b,c], CKM[b_,a_] Conjugate[CKM[c_,a_]]->IndexDelta[b,c]}];
+
+LHiggs := Block[{ii,mu, feynmangaugerules},
+  feynmangaugerules = If[Not[FeynmanGauge], {G0|GP|GPbar ->0}, {}];
+ 
+  ExpandIndices[DC[Phibar[ii],mu] DC[Phi[ii],mu] + muH^2 Phibar[ii] Phi[ii] - lam Phibar[ii] Phi[ii] Phibar[jj] Phi[jj], FlavorExpand->{SU2D,SU2W}]/.feynmangaugerules
+ ];
+
+LYukawa := Block[{sp,ii,jj,cc,ff1,ff2,ff3,yuk,feynmangaugerules},
+  feynmangaugerules = If[Not[FeynmanGauge], {G0|GP|GPbar ->0}, {}];
+ 
+  yuk = ExpandIndices[
+   -yd[ff2, ff3] CKM[ff1, ff2] QLbar[sp, ii, ff1, cc].dR [sp, ff3, cc] Phi[ii] - 
+    yl[ff1, ff3] LLbar[sp, ii, ff1].lR [sp, ff3] Phi[ii] - 
+    yu[ff1, ff2] QLbar[sp, ii, ff1, cc].uR [sp, ff2, cc] Phibar[jj] Eps[ii, jj], FlavorExpand -> SU2D];
+  yuk = yuk /. { CKM[a_, b_] Conjugate[CKM[a_, c_]] -> IndexDelta[b, c], CKM[b_, a_] Conjugate[CKM[c_, a_]] -> IndexDelta[b, c]};
+  yuk+HC[yuk]/.feynmangaugerules
+ ];
+
+LGhost := Block[{LGh1,LGhw,LGhs,LGhphi,mu, generators,gh,ghbar,Vectorize,phi1,phi2,togoldstones,doublet,doublet0},
+  (* Pure gauge piece *) 	
+  LGh1 = -ghBbar.del[DC[ghB,mu],mu];
+  LGhw = -ghWibar[ii].del[DC[ghWi[ii],mu],mu];
+  LGhs = -ghGbar[ii].del[DC[ghG[ii],mu],mu];
+
+  (* Scalar pieces: see Peskin pages 739-742 *)
+  (* phi1 and phi2 are the real degrees of freedom of GP *)
+  (* Vectorize transforms a doublet in a vector in the phi-basis, i.e. the basis of real degrees of freedom *)
+  gh    = {ghB, ghWi[1], ghWi[2], ghWi[3]};
+  ghbar = {ghBbar, ghWibar[1], ghWibar[2], ghWibar[3]};
+  generators = {-I/2 g1 IdentityMatrix[2], -I/2 gw PauliSigma[1], -I/2 gw PauliSigma[2], -I/2 gw PauliSigma[3]};
+  doublet = Expand[{(-I phi1 - phi2)/Sqrt[2], Phi[2]} /. MR$Definitions /. vev -> 0]; 
+  doublet0 = {0, vev/Sqrt[2]};
+  Vectorize[{a_, b_}]:= Simplify[{Sqrt[2] Re[Expand[a]], Sqrt[2] Im[Expand[a]], Sqrt[2] Re[Expand[b]], Sqrt[2] Im[Expand[b]]}/.{Im[_]->0, Re[num_]->num}];
+  togoldstones := {phi1 -> (GP + GPbar)/Sqrt[2], phi2 -> (-GP + GPbar)/(I Sqrt[2])};
+  LGhphi=Plus@@Flatten[Table[-ghbar[[kkk]].gh[[lll]] Vectorize[generators[[kkk]].doublet0].Vectorize[generators[[lll]].(doublet+doublet0)],{kkk,4},{lll,4}]] /.togoldstones;
+
+ExpandIndices[ LGhs + If[FeynmanGauge, LGh1 + LGhw + LGhphi,0], FlavorExpand->SU2W]];
+
+LSM:= LGauge + LFermions + LHiggs + LYukawa + LGhost;
+
+===== END SM.fr =====
+
+===== BEGIN PAPER (1602.06957_source.tex; the paper's LaTeX source: equations, fractions and roots are exact) =====
+\documentclass[aps,prl,twocolumn,showpacs,superscriptaddress,groupedaddress,nofootinbib]{revtex4}
+\usepackage{amsmath,amsfonts,amssymb,array}
+\usepackage{bm,bbm,bbm,bbold}
+\usepackage{enumerate}
+\usepackage{dsfont}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{slashed,subfigure}
+\usepackage{xcolor}
+\usepackage[colorlinks = true,linkcolor = blue]{hyperref} 
+\bibliographystyle{arxiv}
+
+\providecommand{\tabularnewline}{\\}
+
+
+\def\DY{{\rm DY}}
+\def\DYCC{{\rm CC~DY}}
+\def\DYNC{{\rm NC~DY}}
+\def\DYj{{\rm DY}+1j}
+\def\DYjj{{\rm DY}+2j}
+\def\VBF{{\rm VBF}}
+\def\GF{{\rm GF}}
+\def\ab{{\rm ~ab}}
+\def\fb{{\rm ~fb}}
+\def\pb{{\rm ~pb}}
+\def\KeV{{\rm ~KeV}}
+\def\MeV{{\rm ~MeV}}
+\def\GeV{{\rm ~GeV}}
+\def\TeV{{\rm ~TeV}}
+\def\mStar{M_{V^*}}
+
+\newcommand{\mgamc}{MadGraph5\_aMC@NLO}
+\newcommand{\nloct}{N{\small LO}CT}
+
+
+\begin{document}
+\leftline{}
+\rightline{IPPP-16-13, MCnet-16-05}
+
+\title{Fully Automated Precision Predictions for\\ Heavy Neutrino Production Mechanisms at Hadron Colliders}
+
+\author{C\'eline Degrande}  
+\email{celine.degrande@durham.ac.uk}
+\affiliation{Institute for Particle Physics Phenomenology, Department of Physics, Durham University, Durham DH1 3LE, U.K.}
+
+\author{Olivier Mattelaer}  
+\email{o.p.c.mattelaer@durham.ac.uk}
+\affiliation{Institute for Particle Physics Phenomenology, Department of Physics, Durham University, Durham DH1 3LE, U.K.}
+
+\author{Richard Ruiz}  
+\email{richard.ruiz@durham.ac.uk}
+\affiliation{Institute for Particle Physics Phenomenology, Department of Physics, Durham University, Durham DH1 3LE, U.K.}
+
+\author{Jessica Turner}  
+\email{jessica.turner@durham.ac.uk}
+\affiliation{Institute for Particle Physics Phenomenology, Department of Physics, Durham University, Durham DH1 3LE, U.K.}
+
+\date{\today}
+
+
+\begin{abstract}
+Motivated by TeV-scale neutrino mass models, we propose a systematic treatment of heavy neutrino $(N)$ production at hadron colliders.
+
+Our simple and efficient modeling of the vector boson fusion (VBF) $W^\pm\gamma\rightarrow N\ell^\pm$ and $N\ell^\pm+nj$ signal definitions
+resolve collinear and soft divergences that have plagued past studies, and is applicable to other color-singlet processes, 
+e.g., associated Higgs $(W^\pm h)$,  sparticle $(\tilde{\ell}^\pm\tilde{\nu_\ell})$, and charged Higgs $(h^{\pm\pm}h^{\mp})$ production.
+
+We present, for the first time, a comparison of all leading $N$ production modes, 
+including both gluon fusion (GF) $gg\rightarrow Z^*/h^*\rightarrow N\overset{(-)}{\nu_\ell}$ and VBF.
+
+We obtain fully differential results up to next-to-leading order (NLO) in QCD accuracy 
+using a Monte Carlo tool chain linking FeynRules, N{\small LO}CT, and MadGraph5\_aMC@NLO.
+Associated model files are publicly available.
+At the 14 TeV LHC, the leading order GF rate is small and comparable to the NLO $N\ell^\pm+1j$ rate;
+at a future 100 TeV Very Large Hadron Collider, GF dominates for $m_N={300-1500}$ GeV, beyond which VBF takes lead.
+\end{abstract}
+
+\pacs{14.60.St, 12.38.-t}
+
+\maketitle
+
+
+
+
+\section{Introduction}\label{sec:Intro}
+
+The origin of neutrino masses $m_\nu$ that are tiny compared to all other fermion masses is a broad issue
+in particle physics, cosmology, and astrophysics.
+Nonzero $m_\nu$ imply the existence of new particles~\cite{Ma:1998dn},
+but more generally, physics beyond the Standard Model (BSM) that may be observable at current and future experiments.
+Extended neutrino mass 
+models~\cite{Pilaftsis:1991ug,Kersten:2007vk,Gu:2008yj,Dev:2009aw,Zhang:2009ac,Adhikari:2010yt,Chen:2013fna,Dev:2013oxa,Dev:2015vra} based on the
+Type I~\cite{Minkowski:1977sc,Yanagida:1979as,VanNieuwenhuizen:1979hm,Ramond:1979py,Glashow:1979nm,Mohapatra:1979ia,
+GellMann:1980vs,Schechter:1980gr,Shrock:1980ct,Schechter:1981cv}, 
+Inverse~\cite{Mohapatra:1986aw,Mohapatra:1986bd,Bernabeu:1987gr}, and 
+Linear Seesaw Mechanisms~\cite{Akhmedov:1995ip,Akhmedov:1995vm}, 
+feature heavy mass eigenstates $N_{i}$ that couple to electroweak (EW) bosons via mixing with left-handed (LH) neutrinos $\nu_{L}$.
+In these TeV-scale scenarios, active-sterile mixing can be as large as  $\vert V_{\ell N_i}\vert\sim10^{-3}-10^{-2}$, 
+and consistent with oscillation and EW data~\cite{Atre:2009rg,Antusch:2014woa,deGouvea:2015euy},
+as well as direct searches by the Large Hadron Collider (LHC) experiments~\cite{Aaij:2014aba,Aad:2015xaa,Khachatryan:2016olu}.
+Thus, if kinematically accessible, 
+hadron colliders can produce heavy neutrinos that
+decay to lepton number- and/or flavor-violating final states with observable rates.
+
+
+
+For heavy $N$ masses $m_N$ above the EW scale, a systematic comparison of all leading single $N$ production modes cataloged 
+in~\cite{Keung:1983uu,Datta:1993nm} has never been performed.
+Most investigations focus on the charge current (CC) Drell-Yan (DY) 
+process~\cite{Keung:1983uu,Pilaftsis:1991ug,Han:2006ip,delAguila:2006bda,delAguila:2007qnc,Atre:2009rg},
+as shown in Fig.~\ref{fig:diagrams}(a),
+\begin{equation}
+ q ~\overline{q'} \rightarrow W^* \rightarrow N ~\ell^\pm, ~\quad q \in \{u,c,d,s,b\},
+ \label{eq:DYCC}
+\end{equation}
+and has recently been found to be subleading in parts of this mass regime~\cite{Hessler:2014ssa,Alva:2014gxa}.
+Missing in most analyses is the gluon fusion (GF) channel~\cite{Hessler:2014ssa},
+which proceeds at leading order (LO) through quark triangles in Fig.~\ref{fig:diagrams}(b),
+\begin{equation}
+ g ~g \rightarrow h^*/Z^* \rightarrow N ~ \overset{(-)}{\nu_\ell}.
+ \label{eq:GF}
+\end{equation}
+Variants of Eq.~(\ref{eq:GF}) have been studied elsewhere~\cite{BhupalDev:2012zg,Batell:2015aha}.
+Formally, GF is a finite next-to-next-to-leading order in QCD correction to the neutral current (NC) DY process
+\begin{eqnarray}
+ q ~\overline{q} \rightarrow Z^* \rightarrow N ~\overset{(-)}{\nu_\ell}.
+ \label{eq:DYNC}
+\end{eqnarray}
+
+Recent analyses have investigated the sizable EW vector boson fusion (VBF) 
+process~\cite{Dev:2013wba,Bambhaniya:2014hla,Alva:2014gxa,Deppisch:2015qwa,Ng:2015hba,Arganda:2015ija,Das:2015toa}:
+\begin{equation}
+ q_{1} ~q_{2} ~\overset{W\gamma+WZ~\text{Fusion}}{\longrightarrow} ~N ~\ell^\pm ~q_{1}' ~q_{2}',
+ \label{eq:VBF}
+\end{equation}
+and subleading CC DY with $n\geq1$ QCD jets~\cite{Dev:2013wba,Das:2014jxa,Das:2015toa}:
+\begin{equation}
+ p ~p \rightarrow W^{*}+ nj \rightarrow N\ell^\pm+  nj, \quad p,j\in\{\overset{(-)}{q},g\},
+ \label{eq:DYnj}
+\end{equation}
+but with conflicting results.
+The last two processes are plagued by soft and collinear poles in $s$- and $t$-channel exchanges of massless gauge bosons, 
+issues usually associated with perturbative QCD, and require care~\cite{Alva:2014gxa,Ruiz:2015zca}.
+E.g., inadequately regulated diverges are responsible for the overestimated 
+cross sections claimed in~\cite{Dev:2013wba,Das:2014jxa,Deppisch:2015qwa,Das:2015toa}
+
+
+We introduce a treatment that resolves all these issues.
+Our results have widespread implications for SM and BSM physics:
+the prescriptions for Eqs.~(\ref{eq:VBF}) and (\ref{eq:DYnj}) are applicable to, among other processes,
+associated Higgs $(W^\pm h)$,  sparticle $(\tilde{\ell}^\pm\tilde{\nu_\ell})$, and charged Higgs $(h^{\pm\pm}h^{\mp})$ production.
+
+To date, our study is the most accurate and comprehensive presentation of heavy $N$ production mechanisms at colliders.
+It represents the first time properties of infrared and collinear (IRC) safety have been so rigorously imposed in this context, particularly to VBF.
+
+Furthermore, we obtain modest next-to-leading order (NLO) in QCD corrections, demonstrating the stability of our approach.
+
+\begin{figure*}[!th]
+\includegraphics[width=0.90\textwidth]{feynmanDiagrams.eps}
+\caption{Heavy neutrino production via (a) charge (neutral) current Drell-Yan, (b) gluon fusion, and (c) $W\gamma$ fusion.}
+\label{fig:diagrams}
+\end{figure*}
+
+We guarantee the perturbativity of the VBF process by factorizing and resumming the $t$-channel $\gamma$
+into a DGLAP-evolved parton distribution function (PDF).
+Using a $\gamma$-PDF, one considers instead, as shown in Fig.~\ref{fig:diagrams}(c),
+\begin{equation}
+ q ~\gamma \rightarrow N ~\ell^\pm ~q'.
+\end{equation}
+$WZ$ fusion is subleading and can be neglected~\cite{Alva:2014gxa}.
+
+We regularize Eq.~(\ref{eq:DYnj}) by imposing transverse momentum $(p_T)$ cuts consistent with Collins-Soper-Sterman (CSS) 
+$p_T$-resummation~\cite{Collins:1984kg}.
+
+Our Monte Carlo (MC) framework allows us to compute fully differential Feynman diagrams up to one loop, 
+and therefore GF at LO and the remaining processes at NLO;
+only Eq.~(\ref{eq:DYCC}) has been evaluated before at NLO~\cite{Ruiz:2015gsa,Das:2016hof}.
+
+
+
+At the 14 TeV LHC, the CC DY channel prevails for $N$ masses $m_N=150-850\GeV$; above this, the VBF cross section is larger.
+However, due to the $gg$ luminosity increase, GF is the leading mechanism at a hypothetical future 100 TeV Very Large Hadron Collider (VLHC)
+for $m_N = {300-1500}\GeV$; at higher $m_N$, VBF dominates.
+
+
+We now introduce our theoretical model, computation procedure,
+and signal definition prescription.
+After presenting and discussing results, we conclude.
+
+
+
+
+
+
+\section{Heavy Neutrino Model}\label{sec:Theory}
+
+For  
+$i~(m) =1,\dots,3$, LH (light) states and 
+$j~(m')=1,\dots,n$, right-handed (heavy) states,
+chiral neutrinos can be expanded into mass eigenstates by the rotation
+\begin{eqnarray}
+\begin{pmatrix} \nu_{Li} \\  N_{Rj}^c \end{pmatrix}
+=
+\begin{pmatrix} 
+U_{3\times3} && V_{3\times n} \\
+X_{n\times3} && Y_{n\times n}
+\end{pmatrix}
+\begin{pmatrix} \nu_{m} \\ N_{m'}^c \end{pmatrix}.
+\end{eqnarray}
+After rotating the charged leptons into the mass basis, 
+which we take to be the identity matrix for simplicity,
+$U_{3 \times3}$ is the observed light neutrino mixing matrix and
+$V_{3 \times n}$ parameterizes active-heavy mixing. 
+In the notation of~\cite{Atre:2009rg}, the flavor state $\nu_{\ell}$ in the mass basis is
+\begin{equation}
+ \nu_{\ell} = \sum_{m=1}^{3} U_{\ell m}\nu_{m} + \sum_{m'=1}^{n}V_{\ell m'} N^{c}_{m'}.
+\end{equation}
+For simplicity, we consider only one heavy mass eigenstate, labeled by $N$. This does not affect our conclusions.
+The interaction Lagrangian with EW bosons is then
+\begin{eqnarray}
+  \mathcal{L}_{\rm Int.} = 
+  &-& \frac{g}{\sqrt{2}}W^+_\mu		\sum_{\ell=e}^\tau \sum_{m=1}^3 ~\overline{\nu_m} ~U_{\ell m}^*	~\gamma^\mu P_L\ell^-\nonumber\\
+  &-& \frac{g}{\sqrt{2}}W^+_\mu		\sum_{\ell=e}^\tau 		~\overline{N^c} ~V_{\ell N}^* 	~\gamma^\mu P_L\ell^-\nonumber\\
+  &-& \frac{g}{2\cos\theta_W}Z_\mu	\sum_{\ell=e}^\tau \sum_{m=1}^3	~\overline{\nu_m} ~U_{\ell m}^*	~\gamma^\mu P_L\nu_\ell\nonumber\\
+  &-& \frac{g}{2\cos\theta_W}Z_\mu	\sum_{\ell=e}^\tau 		~\overline{N^c} ~V_{\ell N}^*	~\gamma^\mu P_L\nu_\ell\nonumber\\
+  &-& \frac{g m_N}{2M_W} h	\sum_{\ell=e}^\tau 		~\overline{N^c} ~V_{\ell N}^*	 P_L\nu_\ell + \text{H.c.}
+  \label{eq:Lagrangian}
+\end{eqnarray}
+
+
+Precise values of $V_{\ell N}$ are model-dependent and are constrained by oscillation and collider experiments, 
+tests of lepton universality, and $0\nu\beta\beta$-decay~\cite{Atre:2009rg,Antusch:2014woa,deGouvea:2015euy}.
+However, $V_{\ell N}$ factorize in $N$ production cross sections such that
+\begin{equation}
+ \sigma(pp\rightarrow N~X) = \vert V_{N\ell}\vert^2 ~\times~ \sigma_{0}(pp\rightarrow N~X),
+\end{equation}
+where $\sigma_{0}$ is a model-independent ``bare'' cross section in which one sets $\vert V_{N\ell}\vert=1$.
+Hence, our results are applicable to various heavy neutrino models.
+
+
+
+\section{Computational Setup}\label{sec:MC}
+
+We implement the above Lagrangian with Goldstone boson couplings in the Feynman gauge into FeynRules (FR) 2.3.10~\cite{Alloul:2013bka,Christensen:2008py}.
+QCD renormalization and $R_2$ rational counterterms are calculated with \nloct~1.02 (prepackaged in FR)~\cite{Degrande:2014vpa} 
+and FeynArts 3.8~\cite{Hahn:2000kx}.
+Feynman rules are collected into a universal output file (UFO)~\cite{Degrande:2011ua} and is available publicly~\cite{nloFRModel}.
+We obtain fully differential results using MadGraph5$\_$aMC$@$NLO  2.3.3~\cite{Alwall:2014hca}.
+SM inputs are taken from the 2014 Particle Data Group~\cite{Agashe:2014kda}:
+\begin{eqnarray}
+ \alpha^{\rm \overline{MS}}(M_{Z})		&=& 1/127.940, \quad M_{Z}=91.1876\GeV, \nonumber\\ 
+ \sin^{2}_{\rm \overline{MS}}(\theta_{W}) 	&=& 0.23126.
+ \label{eq:smInputs}
+\end{eqnarray}
+We assume five massless quarks, take the Cabbibo-Kobayashi-Masakawa (CKM) matrix to be diagonal with unit entries,
+and use the NLO NNPDF2.3 QED PDF (\texttt{lhaid:244600}) ~\cite{Ball:2013hta},
+which features a $\gamma$-PDF with both elastic and inelastic components,
+at collider energies of $\sqrt{s}=14$ and $100$ TeV. 
+We extract $\alpha_s(\mu_r^2)$ from the PDFs.
+
+
+
+
+\section{Infrared- and Collinear-Safe Hadron Collider Signal Definitions}\label{sec:SigDef}
+
+To consistently compare channels and colliders, 
+we follow the 2013 Snowmass recommendations~\cite{Avetisyan:2013onh}
+and evaluate cross sections assuming the same fiducial acceptance.
+In practice, however, one tunes cuts to specific colliders and final states.
+Jet and charged lepton pseudorapidities $(\eta^{j,\ell})$ and charged lepton $p_T$ are required to satisfy~\cite{Avetisyan:2013onh}:
+\begin{equation}
+ \vert\eta^{j,\ell}\vert < 2.5, \quad p_T^\ell > 20\GeV.
+ \label{eq:LepCuts}
+\end{equation}
+QCD radiation in Eq.~(\ref{eq:DYnj}) gives rise to fixed order (FO) cross sections that scale as powers of $\log(Q^2/q_T^2)$:
+\begin{equation}
+ \sigma(pp\rightarrow N\ell^\pm+nj) \sim \sum^n_k \alpha_s^k(Q^2)\log^{(2k-1)}\left(\frac{Q^2}{q_T^2}\right).
+ \label{eq:qcdPowerSeries}
+\end{equation}
+$Q\sim m_N$ is the scale of the hard scattering process
+and $q_T \equiv \sum_k^n p_{T,k}^{j}$ is the $(N\ell)$-system's transverse momentum,
+which equals the sum of all jet $p_T$.
+
+The perturbativity of these logarithms for TeV-scale leptons was studied in~\cite{Ruiz:2015zca}.
+In the CSS $p_T$-resummation formalism~\cite{Collins:1984kg}, FO results are trustworthy when
+$\alpha_s(Q^2)$ is perturbative, with $\Lambda_{\rm QCD} = 0.2\GeV$, and $q_T$ is comparable to $Q$:
+\begin{equation}
+ \log\frac{Q}{\Lambda_{\rm QCD}}\gg1 \quad\text{and}\quad \log^2\frac{Q}{q_T}\lesssim\log\frac{Q}{\Lambda_{\rm QCD}}.
+\end{equation}
+
+Imposing $Q = m_N$, jets in Eq.~(\ref{eq:qcdPowerSeries}) must satisfy
+\begin{equation}
+ \sum_k^n p_{T,k}^{j} \gtrsim m_N \times e^{-\sqrt{\log(m_N/\Lambda_{\rm QCD})}}.
+ \label{eq:cssPTBound}
+\end{equation}
+Taking for example $n=1$ and $m_N$ up to $1~(1.5)\TeV$, the mass range of interest at 14 (100) TeV, this translates to
+\begin{equation}
+ p_T^j \gtrsim 55~(80)\GeV.
+\end{equation}
+Weaker $p_T^j$ cuts lead to artificially large logarithms and overestimated cross sections in Eq.~(\ref{eq:qcdPowerSeries}).
+
+We cluster jets with FastJet~\cite{Cacciari:2005hq,Cacciari:2011ma} 
+using the anti-$k_T$ algorithm~\cite{Cacciari:2008gp} with a separation parameter of $ \Delta R = 0.4$.
+For differential events, we parton shower (PS) with Pythia 8.212~\cite{Sjostrand:2014zea}.
+
+
+We equate the factorization and renormalization scales
+to half the sum over final-state transverse masses (\texttt{dynamical\_scale\_choice=3} in \mgamc):
+\begin{eqnarray}
+ \mu_f, \mu_r, \mu_0 = \sum_{k=N,\ell,\text{jets}}\cfrac{m_{T,k}}{2} = \frac12\sum_{k} \sqrt{m_k^2 + p_{T,k}^2}.
+\end{eqnarray}
+
+
+
+
+
+
+We quantify the scale dependence by varying it over
+\begin{equation}
+ 0.5  \leq \mu/ \mu_0 \leq2.
+\end{equation}
+
+
+In our framework, the CC DY rate at NLO can be calculated via the \mgamc~commands:
+\begin{verbatim}
+> import model HeavyN_NLO
+> define p  = u c d s b u~ c~ d~ s~ b~ g
+> define j  = p
+> define mu = mu+ mu-
+> generate p p > n2 mu [QCD]
+> output PP_Nl_NLO; launch;
+\end{verbatim}
+Similarly, the inclusive NC DY at NLO is calculated by
+\begin{verbatim}
+> define vv = vm vm~
+> generate p p > n2 vv [QCD]
+> output PP_Nv_NLO; launch;
+\end{verbatim}
+and the inclusive CC $\DYj$ NLO rate by
+\begin{verbatim}
+> generate p p > n2 mu j QED=2 QCD=1 [QCD]
+> output PP_Nl1j_NLO; launch;
+\end{verbatim}
+
+
+GF is a loop-induced process, which are only recently~\cite{Hirschi:2015iia} supported by \mgamc.
+Such fully automated computations at NLO are unavailable since the two-loop technology does not currently exist.
+We therefore perform the LO calculation matched and merged with up to one additional jet via the MLM scheme \cite{Mangano:2006rw}.
+We discard loops that are actually virtual corrections to the DY process
+and keep only diagrams where gluons do not appears in the loop.
+The inclusive, unmatched LO GF rate can be calculated with
+ \begin{verbatim}
+> generate g g > n2 vv [QCD]
+> output GGF_Nv_LO; launch;
+\end{verbatim}
+{Note that the $h^*/Z^*$ interference vanishes due to $C$-invariance/Fury's theorem
+and the (anti-) symmetric nature of the residual $h~(Z)$ coupling~\cite{Willenbrock:1985tj,Hessler:2014ssa}.}
+
+
+
+\begin{figure*}[!th]
+  \subfigure[]{	\includegraphics[width=0.47\textwidth]{heavyN_xsec_vs_mN_14TeV.eps}	\label{fig:xsec14TeV_mN}	}
+  \subfigure[]{	\includegraphics[width=0.47\textwidth]{heavyN_xsec_vs_mN_100TeV.eps}	\label{fig:xsec100TeV_mN}	}
+\caption{
+Heavy $N$ NLO production rate in (a) 14 and (b) 100 TeV $pp$ collisions as a function of $m_N$, 
+divided by active-heavy mixing $\vert V_{\ell N}\vert^2$,
+for the inclusive CC (circle) and NC (triangle) DY, $N\ell^\pm+1j$ (diamond), and VBF (upside-down triangle) processes, 
+as well as the LO GF process matched up to $1j$ (star). Lower: Ratio of NLO and LO rates.}
+\label{fig:xSec}
+\end{figure*}
+
+
+The difficulty in modeling $W\gamma$ fusion stems from the $t$-channel photon propagator, 
+which, like Eq.~(\ref{eq:qcdPowerSeries}) for $N\ell^\pm+nj$, gives rise to logarithms of the form~\cite{Alva:2014gxa}
+\begin{equation}
+d\sigma(q_{1}q_{2}\rightarrow N \ell^\pm q_{1}' q_{2}') \sim 
+\log\left(\cfrac{m_N^2}{M_W^2}\right)\log\left(\cfrac{m_N^2}{p_T^{j_\gamma 2}}\right).
+\label{eq:VBFLogs}
+\end{equation}
+Here, $p_T^{j_\gamma}$ is the $p_T$ of the jet associated with the photon exchange.
+However, consistent treatment of Eq.~(\ref{eq:VBFLogs}) dictates $p_T^j$ cuts excessive for $\gamma$-initiated processes. 
+A resolution is to collinearly factorize and resum the photon piece into a DGLAP-evolved $\gamma$-PDF, consider instead
+\begin{equation}
+ q ~\gamma \rightarrow N ~\ell^\pm ~q',
+ \label{eq:qaScattering}
+\end{equation}
+and evolve the PDF to the hard scattering scale.
+One loses the ability to efficiently tag a second forward/backward jet but gains a large (logarithmic) total rate enhancement~\cite{Alva:2014gxa}.
+Eq.~(\ref{eq:qaScattering}) is realization of the structure function approach to VBF~\cite{Han:1992hr}.
+Formally, the $N\ell^\pm qq'$ channel can be recovered by performing the ACOT-like jet matching explicitly as in~\cite{Alva:2014gxa}
+or evaluating the NLO in QED corrections to Eq.~(\ref{eq:qaScattering}).
+For VBF, we impose the $\eta^{j},p_T^{j}$ cuts of~\cite{Alva:2014gxa}:
+\begin{equation}
+ \vert\eta^{j_\VBF}\vert < 4.5, \quad p_T^{j_\VBF} > 30\GeV.
+\end{equation}
+Collinear poles associated with $t$-channel $\ell$ exchange emerge in Eq.~(\ref{eq:qaScattering}) but are regulated by cuts in Eq.~(\ref{eq:LepCuts}).
+The process at NLO in QCD is simulated by
+\begin{verbatim}
+> define q = u c d s b u~ c~ d~ s~ b~
+> generate    q a > n2 mu q QED=3 QCD=0 [QCD]
+> add process a q > n2 mu q QED=3 QCD=0 [QCD]
+> output PP_VBF_NLO; launch;
+\end{verbatim}
+
+
+
+
+
+
+
+
+
+
+\section{Results}
+
+\begin{table*}[!t]
+\begin{tabular}{ c | c | c | c | c | c | c | c | c | c | c | c | c}
+\hline \hline
+$\sqrt{s}$ & \multicolumn{6}{c}{14 TeV} &\multicolumn{6}{c}{100 TeV} \tabularnewline\hline
+\cline{2-9}
+$m_N$ &\multicolumn{3}{c|}{500\GeV}&\multicolumn{3}{c|}{1 TeV}&\multicolumn{3}{c|}{500 GeV}&\multicolumn{3}{c}{1 TeV} \tabularnewline\hline
+$\sigma ~/~ \vert V_{\ell N}\vert^2 ~$ [fb]  & ~LO~  & ~NLO~ & ~$K$~  & ~LO~  & ~NLO~ & ~$K$~   & ~LO~  & ~NLO~ & ~$K$~  & ~LO~  & ~NLO~ & ~$K$   
+\tabularnewline\hline 
+
+CC DY		& 52.8	& 61.1$^{+1.9\%}_{-1.6\%}$	& $1.16 $ & 2.96 & 3.40$^{+2.2\%}_{-2.4\%}$	& $1.15 $	
+		& 674	& 804$^{+2.4\%}_{-3.4\%}$	& $1.19 $ & 80.8 & 93.5$^{+1.4\%}_{-1.6\%}$ 	& $1.16 $
+\tabularnewline\hline
+NC DY		& 30.4	& 35.2$^{+1.8\%}_{-1.5\%}$ 	& $1.16 $ & 1.56 & 1.81$^{+2.4\%}_{-2.5\%}$ 	& $1.16 $	
+		& 537	& 638$^{+2.5\%}_{-3.6\%}$	& $1.19 $ & 55.9 & 64.4$^{+1.5\%}_{-1.7\%}$  	& $1.15 $     
+\tabularnewline\hline
+CC DY$+1j$	& 14.5	& 17.0$^{+3.2\%}_{-4.5\%}$ 	& $1.17 $ & 0.970 & 1.17$^{+4.0\%}_{-5.6\%}$ 	& $1.21 $	
+		& 238	& 280$^{+2.1\%}_{-3.0\%}$ 	& $1.18 $ & 35.8 & 40.3$^{+2.0\%}_{-2.4\%}$	& $1.13 $
+\tabularnewline\hline
+GF$+0,1j$	& ~17.9~ & $\dots$ & $\dots$	& ~0.967~	& $\dots$ & $\dots$ & ~1,260~	& $\dots$ & $\dots$	& ~200~	&  $\dots$ & $\dots$     
+\tabularnewline\hline
+VBF		& 15.0	& 15.0$^{+7.8\%}_{-7.3\%}$ 	& $0.998 $ & 4.97 & 5.28$^{+6.3\%}_{-5.4\%}$ 	& $1.06 $	
+		& 139	& 128$^{+12.3\%}_{-11.7\%}$ 	& $0.918 $ & 78.4 &  73.2$^{+10.0\%}_{-9.7\%}$	& $0.932 $
+\tabularnewline\hline
+\hline
+\end{tabular}
+\caption{LO and NLO heavy neutrino production rates, divided by active-heavy mixing $\vert V_{\ell N}\vert^2$, 
+and scale dependence (\%) in $\sqrt{s} = 14$ and 100 TeV $pp$ collisions for representative heavy neutrino masses $m_N$.}
+\label{tb:xSec}
+\end{table*}
+
+
+As a function of $m_N$, we present in Fig.~\ref{fig:xSec} the (a) 14 and (b) 100 TeV heavy $N$ production rates, divided by active-heavy mixing.
+At NLO are the CC DY  (circle), NC DY (triangle), $N\ell^\pm+1j$ (diamond), and VBF (upside-down triangle) processes; at LO is GF (star).
+The lower panel shows the NLO-to-LO ratio,
+the so-called NLO $K$-factor:
+\begin{equation}
+ K^{NLO} \equiv \sigma^{\rm NLO} / \sigma^{\rm LO}.
+\end{equation}
+For select $m_N$, we summarize our results in Tb.~\ref{tb:xSec}.
+
+For $m_N = 100-1000~(100-1500)\GeV$, NLO production rates for the DY channels at 14 (100) TeV span:
+\begin{eqnarray}
+ \DYCC	&:& {3.4\fb-16\pb	~\quad(25\fb-94\pb)},\\
+ +1j	&:& {1.2\fb-2.1\pb	~\quad(12\fb-15\pb)},\\
+ \DYNC	&:& {1.8\fb-23\pb	~\quad(16\fb-180\pb)},
+\end{eqnarray}
+with corresponding scale uncertainties:
+\begin{eqnarray}
+ \DYCC	&:& {\pm 1-5\%	~\quad(\pm1-11\%)},\\
+ +1j	&:& {\pm 2-6\%	~\quad(\pm1-7\%)},\\
+ \DYNC	&:& {\pm 1-5\%	~\quad(\pm1-13\%)},
+\end{eqnarray}
+and nearly identical $K$-factors:
+\begin{eqnarray}
+\DYCC, ~+1j, ~\text{NC} :\quad {1.15-1.25~(1.11-1.37)}.
+\end{eqnarray}
+The increase over LO rates is due to the opening of the $g\overset{(-)}{q}$  and $gg$ channels for the DY and $+1j$ processes, respectively.
+Since the gluon PDF is largest at Bjorken-$x\sim m_N/\sqrt{s}\ll1$, the biggest change is at low $m_N$.
+We find the that DY$+2j$ $K$-factors are consistent with high-mass SM DY in SHERPA~\cite{Gleisberg:2008ta}.
+The modest size of these corrections validates our approach.
+
+The VBF rate, uncertainty, and $K$-factor span
+\begin{eqnarray}
+ \sigma_{\VBF}			&:& {5.3-52\fb	~\quad(46-280\fb)},\\
+ \delta\sigma_{\VBF}/\sigma	&:& {\pm5-11\%	~\quad(\pm9-14\%)},\\
+ K_{\VBF} 			&:& {0.98-1.06	~\quad(0.90-0.96)}.
+\end{eqnarray}
+Due to collinear logarithmic enhancements, the VBF rate falls slower with $m_N$ than $s$-channel mechanisms.
+At 14 (100) TeV, the VBF rate surpasses the CC DY rate at $m_N\approx {850~(1100)\GeV}.$
+This somewhat differs from~\cite{Alva:2014gxa} and can be traced to the different $\gamma$-PDFs used:
+at large (small) scales of $\tau = m_N^2/s$, the $q\gamma$ luminosity here is larger (smaller) than in~\cite{Alva:2014gxa},
+leading to VBF overtaking the DY CC at smaller (larger) values of $m_N$.
+However, present-day $\gamma$-PDF uncertainties are sizable~\cite{Ball:2013hta,Ababekri:2016kkj}. 
+
+For all NLO processes, our scale dependence peaks at ${m_N = 100-200\GeV}$; 
+it is attributed, in part, to the large gluon PDF uncertainty at small $x$.
+
+For $m_N\geq 200\GeV$, the matched LO GF rate spans
+\begin{eqnarray}
+ \sigma_{\GF}	&:& {1.0\fb-0.1\pb	~\quad(55\fb-4.7\pb)}.
+\end{eqnarray}
+At 14 TeV, the rate is comparable to $N\ell+1j$ at NLO.
+Though both obey $s$-channel scaling, the similarities are accidental and due to phase space cuts.
+GF is roughly ${0.1-0.3\times}$ the CC DY rate.
+At 100 TeV, the situation is qualitatively different:
+Due to $gg$ luminosity increase at 100 TeV, which grows $\sim10\times$ more than the DY luminosity~\cite{Arkani-Hamed:2015vfh},
+GF jumps to ${0.4-2\times}$ the CC DY rate, becoming the dominant  production mode for $m_N = {300-1500\GeV}$.
+Beyond this $m_N$, VBF is largest. 
+We observe that Higgs and $Z$ diagrams contribute about equally at large $m_N$.
+Our matched results are consistent with the unmatched calculation of~\cite{Hessler:2014ssa}.
+
+
+
+\subsection{NLO+PS Kinematics at 14 TeV}
+We now consider the differential distribution for the processes in Fig.~\ref{fig:diagrams} but focus largely on the VBF channel.
+
+The kinematics of heavy lepton production from DY currents at NLO and NLO+Leading Log(recoil) was studied in~\cite{Ruiz:2015zca}.
+There, the differential NLO $K$-factors, defined as
+\begin{equation}
+ K_{\mathcal{O}}^{\rm NLO} \equiv \cfrac{d\sigma^{\rm NLO}/d\mathcal{O}}{d\sigma^{\rm LO}/d\mathcal{O}}
+\end{equation}
+for observable $\mathcal{O}$, were analytically shown to be flat in the leading regions of phase space.
+In these regions, NLO contributions are dominated by soft initial-state radiation, which generically factorize for DY processes.
+We confirm the flatness of $K_{\mathcal{O}}^{\rm NLOPS}$ for the DY channels, 
+including for complex observables such as cluster mass in the $N\ell\rightarrow 3\ell \nu$ final state.
+
+
+The phenomenology of the GF channel has not been previously studied.
+It is beyond the scope of this investigation to do so here and will be presented elsewhere.
+
+
+At $\sqrt{s} = 14$ TeV and representative  neutrino mass $m_N = 500\GeV$,
+the LO distributions for the $W\gamma$ fusion process was studied in Ref.~\cite{Alva:2014gxa}.
+
+For the first time, we show in Fig.~\ref{fig:vbfDifferential} the NLO+PS (dash) and LO+PS (solid)-accurate distributions with respect to 
+(a,c) $p_T$ and (b,d) rapidity $(y)$ of the (a,b) $N$- and (c,d) $(N\ell)$-systems. $K_{\mathcal{O}}^{\rm NLOPS}$ is shown in the lower panel.
+
+For the two system, but particularly the $(N\ell)$-system, we observe a net migration at NLOPS of events from the lowest $p_T$ bins
+resulting in $K^{\rm NLOPS}_{p_T}<1$ for these bins. At high $p_T$, $K^{\rm NLOPS}_{p_T}$ quickly converges to unity from above.
+
+In the rapidity distributions, we observe a similar, but more pronounced, migration of events from large $y$ to smaller values,
+consistent with shifts to larger $p_T$.
+
+The charged lepton $p_T$ and $\eta$ distributions (not shown) demonstrate little sensitivity to $\mathcal{O}(\alpha_s)$ corrections.
+However, as VBF is dominated by $\gamma\rightarrow \ell$ splittings~\cite{Alva:2014gxa}, 
+one does not expect such sensitivity to QCD radiation until $\mathcal{O}(\alpha^2 \alpha_s)$.
+
+Though numerically less significant, we find that the NLO corrections to the VBF distributions are qualitatively different than those of DY-like systems:
+whereas differential $K$-factors for DY processes tend to remain flat and above unity,
+QCD corrections for $W\gamma$ fusion tend to depopulate low-$p_T$/forward regions of phase space and populate high-$p_T$/central regions.
+This results in $K$-factors both above and below unity.
+
+
+
+\begin{figure*}[!th]
+  \subfigure[]{	\includegraphics[width=0.47\textwidth]{heavyN_VBF_pTN.eps}	\label{fig:vbf_pTN}	}
+  \subfigure[]{	\includegraphics[width=0.47\textwidth]{heavyN_VBF_yN.eps}	\label{fig:vbf_yN}	}
+  \\
+  \subfigure[]{	\includegraphics[width=0.47\textwidth]{heavyN_VBF_pTNlsys.eps}	\label{fig:vbf_pTNlsys}	}
+  \subfigure[]{	\includegraphics[width=0.47\textwidth]{heavyN_VBF_yNlsys.eps}	\label{fig:vbf_yNlsys}	}
+\caption{
+Differential distributions with respect to (a,c) $p_T$ and (b,d) $y$ of (a,b) $N$ and (c,d) the $(N\ell)$ system at NLOPS (dash) and LOPS (solid) accuracy
+in VBF at 14 TeV LHC for representative $m_N$ 500 GeV. Lower: Ratio of NLOPS and LOPS rates.
+}
+\label{fig:vbfDifferential}
+\end{figure*}
+
+
+
+
+\section{Summary and Conclusion}\label{sec:Conclusions}
+
+The origin of light neutrino masses remains elusive.
+Extended neutrino mass models predict the existence TeV-scale heavy neutrinos $N_i$ that may be discovered at current or future collider experiments.
+
+We propose a systematic treatment of $N$ production mechanisms at hadron colliders, 
+and provide instructions for building IRC-safe VBF and $N\ell^\pm+nj$ signal definitions.
+The prescription remedies issues that have plagued past analyses,
+and is applicable to a number of other SM and BSM processes.
+We report modest NLO corrections, demonstrating the perturbative stability of our approach.
+
+We present also the first NLOPS-accurate differential distributions for the $W\gamma$ VBF process.
+We observe nontrivial differential $K$-factors below and above unity.
+
+In a model-independent fashion,
+we present for the first time a comparison of all leading single $N$ production modes at $\sqrt{s} = 14$ and $100$ TeV.
+Fully differential results up to NLO in QCD accuracy are obtained through a MC tool chain linking FeynRules, \nloct, and \mgamc.
+
+Associated model files are publicly available~\cite{nloFRModel}.
+\\
+
+
+
+\noindent 
+\acknowledgements{
+\textit{
+Acknowledgements: D.~Alva, L.~Brenner, B.~Fuks, T.~Han, V.~Hirschi, J.~Rojo, S.~Pascoli, C.~Tamarit, C.~W\'eiland 
+are thanked for discussions and readings of the manuscript.
+S.~Kuttimalai and T.~Morgan are thanked for their numerical checks.
+
+This work has been supported by Science and Technology Facilities Council (STFC),
+the European Union’s Horizon 2020 research, and  innovation programme under the Marie Skłodowska-Curie grant agreements No 690575 and 674896.
+
+OM and CD are Durham International Junior Research Fellow.
+}}
+
+
+\begin{thebibliography}{99}
+
+
+\bibitem{Ma:1998dn} 
+  E.~Ma,
+  
+  Phys.\ Rev.\ Lett.\  {\bf 81}, 1171 (1998)
+  
+  
+
+  
+
+  \bibitem{Pilaftsis:1991ug} 
+  A.~Pilaftsis,
+  
+  Z.\ Phys.\ C {\bf 55}, 275 (1992)
+  doi:10.1007/BF01482590
+  
+  
+  \bibitem{Kersten:2007vk} 
+  J.~Kersten and A.~Y.~Smirnov,
+  
+  Phys.\ Rev.\ D {\bf 76}, 073005 (2007)
+  doi:10.1103/PhysRevD.76.073005
+  
+  
+  \bibitem{Gu:2008yj} 
+  P.~H.~Gu, M.~Hirsch, U.~Sarkar and J.~W.~F.~Valle,
+  
+  Phys.\ Rev.\ D {\bf 79}, 033010 (2009)
+  doi:10.1103/PhysRevD.79.033010
+  
+  
+  \bibitem{Dev:2009aw} 
+  P.~S.~B.~Dev and R.~N.~Mohapatra,
+  
+  Phys.\ Rev.\ D {\bf 81}, 013001 (2010)
+  doi:10.1103/PhysRevD.81.013001
+  
+  
+  \bibitem{Zhang:2009ac} 
+  H.~Zhang and S.~Zhou,
+  
+  Phys.\ Lett.\ B {\bf 685}, 297 (2010)
+  doi:10.1016/j.physletb.2010.02.015
+  
+     
+  \bibitem{Adhikari:2010yt} 
+  R.~Adhikari and A.~Raychaudhuri,
+  
+  Phys.\ Rev.\ D {\bf 84}, 033002 (2011)
+  doi:10.1103/PhysRevD.84.033002
+  
+     
+  \bibitem{Chen:2013fna} 
+  C.~Y.~Chen, P.~S.~B.~Dev and R.~N.~Mohapatra,
+  
+  Phys.\ Rev.\ D {\bf 88}, 033014 (2013)
+  doi:10.1103/PhysRevD.88.033014
+  
+  
+  \bibitem{Dev:2013oxa}
+  C.~H.~Lee, P.~S.~Bhupal Dev and R.~N.~Mohapatra,
+  
+  Phys.\ Rev.\ D {\bf 88} (2013) no.9,  093010
+  doi:10.1103/PhysRevD.88.093010
+  
+  
+  \bibitem{Dev:2015vra} 
+  P.~S.~Bhupal Dev, C.~H.~Lee and R.~N.~Mohapatra,
+  
+  J.\ Phys.\ Conf.\ Ser.\  {\bf 631}, no. 1, 012007 (2015)
+  doi:10.1088/1742-6596/631/1/012007
+  
+  
+  
+  
+
+
+\bibitem{Minkowski:1977sc} 
+  P.~Minkowski,
+  
+  Phys.\ Lett.\ B {\bf 67}, 421 (1977).
+  
+
+  
+\bibitem{Yanagida:1979as} 
+  T.~Yanagida,
+  
+  Conf.\ Proc.\ C {\bf 7902131}, 95 (1979).
+  
+
+\bibitem{VanNieuwenhuizen:1979hm} 
+  P.~Van Nieuwenhuizen and D.~Z.~Freedman,
+  
+  Amsterdam, Netherlands: North-holland (1979) 341p
+  
+  
+\bibitem{Ramond:1979py} 
+  P.~Ramond,
+  
+  hep-ph/9809459.
+  
+   
+    
+\bibitem{Glashow:1979nm} 
+  S.~L.~Glashow,
+  
+  NATO Sci.\ Ser.\ B {\bf 59}, 687 (1980).
+ 
+
+\bibitem{Mohapatra:1979ia} 
+  R.~N.~Mohapatra and G.~Senjanovic,
+  
+  Phys.\ Rev.\ Lett.\  {\bf 44}, 912 (1980).
+  
+
+   
+  
+\bibitem{GellMann:1980vs} 
+  M.~Gell-Mann, P.~Ramond and R.~Slansky,
+  
+  Conf.\ Proc.\ C {\bf 790927}, 315 (1979)
+  
+  
+  
+  
+\bibitem{Schechter:1980gr} 
+  J.~Schechter and J.~W.~F.~Valle,
+  
+  Phys.\ Rev.\ D {\bf 22}, 2227 (1980).
+  
+  
+  
+\bibitem{Shrock:1980ct} 
+  R.~E.~Shrock,
+ 
+  Phys.\ Rev.\ D {\bf 24}, 1232 (1981).
+  
+  
+  
+\bibitem{Schechter:1981cv} 
+  J.~Schechter and J.~W.~F.~Valle,
+  
+  Phys.\ Rev.\ D {\bf 25}, 774 (1982).
+  
+  
+
+  
+
+  \bibitem{Mohapatra:1986aw} 
+  R.~N.~Mohapatra,
+  
+  Phys.\ Rev.\ Lett.\  {\bf 56}, 561 (1986).
+  doi:10.1103/PhysRevLett.56.561
+  
+  
+\bibitem{Mohapatra:1986bd} 
+  R.~N.~Mohapatra and J.~W.~F.~Valle,
+  
+  Phys.\ Rev.\ D {\bf 34}, 1642 (1986).
+  doi:10.1103/PhysRevD.34.1642
+  
+  \bibitem{Bernabeu:1987gr} 
+  J.~Bernabeu, A.~Santamaria, J.~Vidal, A.~Mendez and J.~W.~F.~Valle,
+  
+  Phys.\ Lett.\ B {\bf 187}, 303 (1987).
+  doi:10.1016/0370-2693(87)91100-2
+  
+  
+  
+
+\bibitem{Akhmedov:1995ip} 
+  E.~K.~Akhmedov, M.~Lindner, E.~Schnapka and J.~W.~F.~Valle,
+  
+  Phys.\ Lett.\ B {\bf 368}, 270 (1996)
+  doi:10.1016/0370-2693(95)01504-3
+  
+  
+  \bibitem{Akhmedov:1995vm} 
+  E.~K.~Akhmedov, M.~Lindner, E.~Schnapka and J.~W.~F.~Valle,
+  
+  Phys.\ Rev.\ D {\bf 53}, 2752 (1996)
+  doi:10.1103/PhysRevD.53.2752
+  
+
+    \bibitem{Atre:2009rg} 
+  A.~Atre, T.~Han, S.~Pascoli and B.~Zhang,
+  
+  JHEP {\bf 0905}, 030 (2009)
+  
+  
+   \bibitem{Antusch:2014woa} 
+  S.~Antusch and O.~Fischer,
+  
+  JHEP {\bf 1410}, 094 (2014)
+  doi:10.1007/JHEP10(2014)094
+  
+  
+  \bibitem{deGouvea:2015euy} 
+  A.~de Gouvêa and A.~Kobach,
+  
+  Phys.\ Rev.\ D {\bf 93}, no. 3, 033005 (2016)
+  doi:10.1103/PhysRevD.93.033005
+  
+
+  \bibitem{Aaij:2014aba} 
+  R.~Aaij {\it et al.} [LHCb Collaboration],
+  
+  Phys.\ Rev.\ Lett.\  {\bf 112}, no. 13, 131802 (2014)
+  doi:10.1103/PhysRevLett.112.131802
+  [arXiv:1401.5361 [hep-ex]].
+  
+  \bibitem{Aad:2015xaa} 
+  G.~Aad {\it et al.} [ATLAS Collaboration],
+  
+  JHEP {\bf 1507}, 162 (2015)
+  doi:10.1007/JHEP07(2015)162
+  [arXiv:1506.06020 [hep-ex]].
+  
+  \bibitem{Khachatryan:2016olu} 
+  V.~Khachatryan {\it et al.} [CMS Collaboration],
+  
+  JHEP {\bf 1604}, 169 (2016)
+  doi:10.1007/JHEP04(2016)169
+  [arXiv:1603.02248 [hep-ex]].
+  
+  
+
+  \bibitem{Keung:1983uu} 
+  W.~Y.~Keung and G.~Senjanovic,
+  
+  Phys.\ Rev.\ Lett.\  {\bf 50}, 1427 (1983).
+  doi:10.1103/PhysRevLett.50.1427
+  
+  
+  \bibitem{Datta:1993nm} 
+  A.~Datta, M.~Guchait and A.~Pilaftsis,
+  
+  Phys.\ Rev.\ D {\bf 50}, 3195 (1994)
+  doi:10.1103/PhysRevD.50.3195
+  
+  
+    \bibitem{Han:2006ip} 
+  T.~Han and B.~Zhang,
+  
+  Phys.\ Rev.\ Lett.\  {\bf 97}, 171804 (2006)
+  doi:10.1103/PhysRevLett.97.171804
+  
+  
+  \bibitem{delAguila:2006bda} 
+  F.~del Aguila, J.~A.~Aguilar-Saavedra and R.~Pittau,
+  
+  J.\ Phys.\ Conf.\ Ser.\  {\bf 53}, 506 (2006)
+  doi:10.1088/1742-6596/53/1/032
+  
+  
+  \bibitem{delAguila:2007qnc} 
+  F.~del Aguila, J.~A.~Aguilar-Saavedra and R.~Pittau,
+  
+  JHEP {\bf 0710}, 047 (2007)
+  doi:10.1088/1126-6708/2007/10/047
+  
+  
+  \bibitem{Hessler:2014ssa} 
+  A.~G.~Hessler, A.~Ibarra, E.~Molinaro and S.~Vogl,
+  
+  Phys.\ Rev.\ D {\bf 91}, no. 11, 115004 (2015)
+  doi:10.1103/PhysRevD.91.115004
+  
+  
+   \bibitem{Alva:2014gxa} 
+  D.~Alva, T.~Han and R.~Ruiz,
+  
+  JHEP {\bf 1502}, 072 (2015)
+  
+ 
+  \bibitem{Batell:2015aha} 
+  B.~Batell and M.~McCullough,
+  
+  Phys.\ Rev.\ D {\bf 92}, no. 7, 073018 (2015)
+  doi:10.1103/PhysRevD.92.073018
+  
+  
+  \bibitem{BhupalDev:2012zg} 
+  P.~S.~Bhupal Dev, R.~Franceschini and R.~N.~Mohapatra,
+  
+  Phys.\ Rev.\ D {\bf 86}, 093010 (2012)
+  doi:10.1103/PhysRevD.86.093010
+  
+   
+
+  
+ 
+  \bibitem{Dev:2013wba} 
+  P.~S.~B.~Dev, A.~Pilaftsis and U.~k.~Yang,
+  
+  Phys.\ Rev.\ Lett.\  {\bf 112}, no. 8, 081801 (2014)
+  doi:10.1103/PhysRevLett.112.081801
+  
+  
+  
+  \bibitem{Bambhaniya:2014hla} 
+  G.~Bambhaniya, S.~Khan, P.~Konar and T.~Mondal,
+  
+  Phys.\ Rev.\ D {\bf 91}, no. 9, 095007 (2015)
+  doi:10.1103/PhysRevD.91.095007
+  
+  
+  
+
+  
+  \bibitem{Deppisch:2015qwa} 
+  F.~F.~Deppisch, P.~S.~Bhupal Dev and A.~Pilaftsis,
+  
+  New J.\ Phys.\  {\bf 17}, no. 7, 075019 (2015)
+  doi:10.1088/1367-2630/17/7/075019
+  
+  
+  \bibitem{Ng:2015hba} 
+  J.~N.~Ng, A.~de la Puente and B.~W.~P.~Pan,
+  
+  JHEP {\bf 1512}, 172 (2015)
+  doi:10.1007/JHEP12(2015)172
+  
+  
+  \bibitem{Arganda:2015ija} 
+  E.~Arganda, M.~J.~Herrero, X.~Marcano and C.~Weiland,
+  
+  Phys.\ Lett.\ B {\bf 752}, 46 (2016)
+  doi:10.1016/j.physletb.2015.11.013
+  
+  
+  \bibitem{Das:2015toa} 
+  A.~Das and N.~Okada,
+  
+  Phys.\ Rev.\ D {\bf 93}, no. 3, 033003 (2016)
+  doi:10.1103/PhysRevD.93.033003
+  
+  
+  \bibitem{Das:2014jxa} 
+  A.~Das, P.~S.~Bhupal Dev and N.~Okada,
+  
+  Phys.\ Lett.\ B {\bf 735}, 364 (2014)
+  doi:10.1016/j.physletb.2014.06.058
+  
+  
+  \bibitem{Ruiz:2015zca} 
+  R.~Ruiz,
+  
+  JHEP {\bf 1512}, 165 (2015)
+  doi:10.1007/JHEP12(2015)165
+  
+ 
+   \bibitem{Collins:1984kg} 
+  J.~C.~Collins, D.~E.~Soper and G.~F.~Sterman,
+  
+  Nucl.\ Phys.\ B {\bf 250}, 199 (1985).
+  doi:10.1016/0550-3213(85)90479-1
+ 
+  \bibitem{Ruiz:2015gsa} 
+  R.~E.~Ruiz,
+  \textit{Hadron Collider Tests of Neutrino Mass-Generating Mechanisms},  Ph.D. thesis, University of Pittsburgh (2015)
+  
+   
+   
+ \bibitem{Das:2016hof} 
+  A.~Das, P.~Konar and S.~Majhi,
+  
+ arXiv:1604.00608 [hep-ph].
+  
+
+  
+  \bibitem{Alloul:2013bka} 
+  A.~Alloul, N.~D.~Christensen, C.~Degrande, C.~Duhr and B.~Fuks,
+  
+  Comput.\ Phys.\ Commun.\  {\bf 185}, 2250 (2014)
+  
+  
+  \bibitem{Christensen:2008py} 
+  N.~D.~Christensen and C.~Duhr,
+  
+  Comput.\ Phys.\ Commun.\  {\bf 180}, 1614 (2009)
+  
+  
+  \bibitem{Degrande:2014vpa} 
+  C.~Degrande,
+  
+  Comput.\ Phys.\ Commun.\  {\bf 197}, 239 (2015)
+  doi:10.1016/j.cpc.2015.08.015
+  
+  
+  \bibitem{Hahn:2000kx} 
+  T.~Hahn,
+  
+  Comput.\ Phys.\ Commun.\  {\bf 140}, 418 (2001)
+  doi:10.1016/S0010-4655(01)00290-9
+  
+     
+  
+  \bibitem{Degrande:2011ua} 
+  C.~Degrande, C.~Duhr, B.~Fuks, D.~Grellscheid, O.~Mattelaer and T.~Reiter,
+  
+  Comput.\ Phys.\ Commun.\  {\bf 183}, 1201 (2012)
+  doi:10.1016/j.cpc.2012.01.022
+  
+  
+    \bibitem{nloFRModel}
+  R.~Ruiz, ``SM + Heavy N at NLO in QCD'', \href{http://feynrules.irmp.ucl.ac.be/wiki/HeavyN}{http://feynrules.irmp.ucl.ac.be/wiki/HeavyN}
+  
+    \bibitem{Alwall:2014hca} 
+  J.~Alwall, R.~Frederix, S.~Frixione, V.~Hirschi, F.~Maltoni, O.~Mattelaer, H.-S.~Shao and T.~Stelzer {\it et al.},
+  
+  JHEP {\bf 1407}, 079 (2014)
+  
+  
+  \bibitem{Agashe:2014kda} 
+  K.~A.~Olive {\it et al.} [Particle Data Group Collaboration],
+  
+  Chin.\ Phys.\ C {\bf 38}, 090001 (2014).
+  doi:10.1088/1674-1137/38/9/090001
+  
+  \bibitem{Ball:2013hta} 
+  R.~D.~Ball {\it et al.} [NNPDF Collaboration],
+  
+  Nucl.\ Phys.\ B {\bf 877}, 290 (2013)
+  doi:10.1016/j.nuclphysb.2013.10.010
+  
+  
+  \bibitem{Avetisyan:2013onh} 
+  A.~Avetisyan {\it et al.},
+  
+  arXiv:1308.1636 [hep-ex].
+  
+  \bibitem{Cacciari:2005hq} 
+  M.~Cacciari and G.~P.~Salam,
+  
+  Phys.\ Lett.\ B {\bf 641}, 57 (2006)
+  doi:10.1016/j.physletb.2006.08.037
+  
+  
+  
+  \bibitem{Cacciari:2011ma} 
+  M.~Cacciari, G.~P.~Salam and G.~Soyez,
+  
+  Eur.\ Phys.\ J.\ C {\bf 72}, 1896 (2012)
+  doi:10.1140/epjc/s10052-012-1896-2
+  
+  
+  
+  \bibitem{Cacciari:2008gp} 
+  M.~Cacciari, G.~P.~Salam and G.~Soyez,
+  
+  JHEP {\bf 0804}, 063 (2008)
+  doi:10.1088/1126-6708/2008/04/063
+  
+  
+  
+  \bibitem{Sjostrand:2014zea} 
+  T.~Sjöstrand {\it et al.},
+  
+  Comput.\ Phys.\ Commun.\  {\bf 191}, 159 (2015)
+  doi:10.1016/j.cpc.2015.01.024
+  [arXiv:1410.3012 [hep-ph]].
+      
+  \bibitem{Hirschi:2015iia} 
+  V.~Hirschi and O.~Mattelaer,
+  
+  JHEP {\bf 1510}, 146 (2015)
+  doi:10.1007/JHEP10(2015)146
+  
+  
+  \bibitem{Mangano:2006rw} 
+  M.~L.~Mangano, M.~Moretti, F.~Piccinini and M.~Treccani,
+  
+  JHEP {\bf 0701}, 013 (2007)
+  doi:10.1088/1126-6708/2007/01/013
+  
+  
+  \bibitem{Willenbrock:1985tj} 
+  S.~S.~D.~Willenbrock and D.~A.~Dicus,
+  
+  Phys.\ Lett.\ B {\bf 156}, 429 (1985).
+  doi:10.1016/0370-2693(85)91638-7
+  
+  
+  \bibitem{Han:1992hr} 
+  T.~Han, G.~Valencia and S.~Willenbrock,
+  
+  Phys.\ Rev.\ Lett.\  {\bf 69}, 3274 (1992)
+  doi:10.1103/PhysRevLett.69.3274
+  
+  
+  \bibitem{Gleisberg:2008ta} 
+  T.~Gleisberg, S.~Hoeche, F.~Krauss, M.~Schonherr, S.~Schumann, F.~Siegert and J.~Winter,
+  
+  JHEP {\bf 0902}, 007 (2009)
+  doi:10.1088/1126-6708/2009/02/007
+  
+  
+  \bibitem{Ababekri:2016kkj} 
+  M.~Ababekri, S.~Dulat, J.~Isaacson, C.~Schmidt and C.-P.~Yuan,
+  
+  arXiv:1603.04874 [hep-ph].
+  
+  \bibitem{Arkani-Hamed:2015vfh} 
+  N.~Arkani-Hamed, T.~Han, M.~Mangano and L.~T.~Wang,
+  
+  arXiv:1511.06495 [hep-ph].
+    
+
+
+  
+  
+  
+  
+\end{thebibliography}
+
+\end{document}
+
+
+
+
+
+===== END PAPER =====
+
+You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.
+
+MODEL: HeavyN (SimpleExtensions) — FeynRules DB entry based on arXiv:1602.06957.
+PAPER: the paper's LaTeX source: equations, fractions and roots are exact, included verbatim above between the PAPER markers; it is authoritative.
+FORMAT: write a complete FeynRules .fr add-on model file yourself (M$ModelName, M$Information, M$InteractionOrderHierarchy, IndexRange declarations for new indices, M$Parameters, M$ClassesDescription, the Lagrangian terms and one LTotal). It is loaded on top of SM.fr, included verbatim above between the SM.fr markers.
+
+TASK — extract the COMPLETE new-physics content:
+1. Read the paper. Identify EVERY new particle beyond the Standard Model: spin (S/F/V), colour rep (singlet/triplet/sextet/octet), SU(2) rep, electric charge Q and/or hypercharge Y, mass parameter. COMPLETENESS IS SCORED — a model with several new states (multiplets, mass eigenstates, generations) must include all of them as separate ParticleClass entries (or class_members).
+2. Identify the new coupling/mass/mixing parameters (External unless clearly derived).
+3. Write the main new-physics Lagrangian terms (FeynRules/Mathematica syntax and idioms).
+
+FILE RULES: use FeynRules syntax for every value (rationals -1/3, decimals 1500.); SM add-on => no M$GaugeGroups block; the indices Colour, Gluon, Generation, SU2D and SU2W are declared by SM.fr; any OTHER index (a colour-sextet index, a new-generation index) needs `IndexRange[Index[X]] = NoUnfold[Range[n]];` with the correct size; every class gets a unique label S[n]/F[n]/V[n] with n >= 100; SelfConjugate -> False for complex fields (distinct antiparticle), True for real/Majorana fields.
+
+OUTPUT: your FINAL message must contain exactly one fenced code block tagged mathematica containing ONLY the complete .fr file (no commentary inside the fences). Set M$ModelName = "HeavyN_gen".
+
+NO TOOLS: this run has no file, shell, network or code tools. Everything you need is in
+this message: the Standard Model file SM.fr (the file this add-on is loaded on top of:
+take field names, index conventions and hypercharges from it) and the paper. Do not ask
+for anything; do the extraction and write the model.
+
+## Physics-completeness rules (apply to every model)
+
+1. Free-field terms for every new particle class. Write a named kinetic + mass term for each new field even when the paper shows only L_int. Use the mass symbol declared in the class `Mass -> {M, value}`. Add the term to the total Lagrangian sum.
+   - Real vector (gauge singlet): `LXkin := -1/4 FS[X, mu, nu] FS[X, mu, nu] + 1/2 MX^2 X[mu] X[mu];` (the explicit form `-1/4 (del[X[nu], mu] - del[X[mu], nu])^2` is equivalent).
+   - Complex vector: `-1/2 FS[Xbar, mu, nu] FS[X, mu, nu] + MX^2 Xbar[mu] X[mu]`.
+   - Complex scalar: `DC[phibar, mu] DC[phi, mu] - Mphi^2 phibar phi`. Real scalar: `1/2 del[phi, mu] del[phi, mu] - 1/2 Mphi^2 phi^2`.
+   - Dirac fermion: `I psibar.Ga[mu].DC[psi, mu] - Mpsi psibar.psi`. Majorana fermion (`SelfConjugate -> True`): `I/2 psibar.Ga[mu].del[psi, mu] - 1/2 Mpsi psibar.psi`.
+
+2. Explicit EFT cutoffs. When the paper writes an operator with `1/Lambda^n` (or `1/M^n`, `1/f^n`), declare each distinct cutoff as an External parameter in GeV with the paper's benchmark value, e.g. `Lam == { ParameterType -> External, Value -> 1000., BlockName -> CUTOFF, InteractionOrder -> {QED, -1}, Description -> "EFT cutoff [GeV], Eq.(N)" }`. Write the factor `1/Lam^(d-4)` verbatim in the term, with `d` the operator mass dimension you computed in the self-audit. Keep the paper's dimensionless couplings (kappa, lambda, c_i) dimensionless with the paper's benchmark defaults. Do this for the term and for its `HC[...]` partner. Only if the paper's own implementation absorbs `kappa/Lambda^n` into one coefficient may you do the same; then the parameter Description must say "= kappa/Lambda^n, mass dimension -n, units GeV^-n" and the default must equal the paper's numeric `kappa/Lambda^n`. Never leave a dimensionful coefficient with an unexplained O(0.1) default.
+
+3. Charge conjugation. When the paper writes a fermion with a charge-conjugation superscript (`psi^c`, `\bar{psi^c}`, `psi^T C`, or a Majorana mass eigenstate that enters a chiral current with the opposite chirality), write it as `CC[psi]` (and `bar[CC[psi]]` for the conjugated bar). Never write the bare field. If the paper's benchmark sets that term's coefficient to zero, either drop the term or write it with `CC[...]`; never keep the term with the conjugation dropped. Use the class field with its Generation index (for example the SM class `vl[ff]`), not a class member like `ve[nn]`, because FeynRules reads an index on a class member as a spin index.
+
+4. SU(2) doublet contractions. Use the SM.fr conventions the add-on loads on: `Phi` has Y = +1/2, `LL` has Y = -1/2, `QL` has Y = +1/6, `Phi[1] = -I GP`, `Phi[2] = (vev + H + I G0)/Sqrt[2]`. Contract a doublet with an anti-doublet on a shared index: `LLbar[sp, ii, ff] ... Phi[ii]`. Contract two objects of the same conjugation type (`LLbar` with `Phibar`, `QLbar` with `Phibar`, i.e. any term the paper writes with `Htilde = i tau2 H*`) with `Eps[ii, jj]` on two distinct indices: `LLbar[sp, ii, ff] ... Phibar[jj] Eps[ii, jj]`. Never contract `LLbar[ii]` with `Phibar[ii]`. Model the SM Yukawas: `QLbar.dR Phi[ii]`, `LLbar.lR Phi[ii]`, `QLbar.uR Phibar[jj] Eps[ii, jj]`.
+
+5. New U(1) charges. Do not copy a paper's charge table literally when the paper's Yukawa equation and its table use different hypercharge conventions (for example the paper effectively uses Y(H) = -1/2). Re-derive the new-U(1) charge of every SM field, including the Higgs, from the requirement that all SM Yukawas and all new Yukawas are invariant under SM.fr conventions. Report which sign you chose and why. Do not put quantum numbers on a `SelfConjugate -> True` class; put a chiral charge on an Unphysical chiral class instead.
+
+6. Read only the paper. Do not open any cached or reference `.fr` file for the same model. If you see one, say so in the output and do not use it.
+
+7. Fractions and roots in extracted equations. The paper text is machine-extracted. A displayed fraction or radical can arrive flattened: the numerator, the fraction bar and the denominator become separate lines, so `A / Sqrt[B]` and `A Sqrt[B]` look identical. For every coefficient that contains a fraction, a square root or a power:
+   - If a LaTeX source file (`*_source.tex`) is available, read the `\frac{...}{...}` and `\sqrt{...}` there and take it literally. The LaTeX is authoritative over the flattened text.
+   - Otherwise cross-check the placement against a second equation of the paper that depends on the same coefficient (a partial width, a cross section, a limit, or a small-parameter expansion) and name that equation in the self-audit. A coupling `g/Sqrt[1-x]` gives a width proportional to `1/(1-x)`; a coupling `g Sqrt[1-x]` gives a width proportional to `(1-x)`.
+   - If neither resolves it, choose the form that reproduces a numerical value the paper states, and say so.
+   Never silently pick one placement.
+
+8. Mass mixing. When the paper diagonalises a mass mixing between a new state and an SM state (Z-Z', h-S, W-W_R, nu-N), write the mass eigenstates the paper uses: declare the mixing angle (External, or Internal with the paper's formula) and express the gauge eigenstates through it in `Definitions` of Unphysical classes. Do not leave the mixing in a comment.
+
+## FeynRules and UFO construct rules (each one broke a compile or a MadGraph import in earlier runs)
+
+9. Non-fundamental colour representations. If a field carries a colour index other than the triplet `Colour` or the adjoint `Gluon` (for example a sextet), declare the index range AND add the representation line FeynRules needs, before the field declarations: `AddGaugeRepresentation[SU3C -> {T6, Sextet}];` for a sextet (schema: put both lines in `raw_preamble`; also keep the `index_decls` entry). Write covariant derivatives on the whole field, `DC[Phi, mu]`, never with an explicit colour index inside `DC[...]`.
+
+10. Names. Class names, parameter names and index names must not be Mathematica built-ins or FeynRules symbols: never `N`, `C`, `D`, `E`, `I`, `K`, `O`, `HC`, `CC`, `FS`, `DC`, `del`, `Eps`, `Ga`, `ProjP`, `ProjM`, and never a name SM.fr already declares (`H`, `Phi`, `Z`, `W`, `A`, `G`, `ee`, `gs`, `gw`, `sw`, `cw`, `vev`, `MZ`, `MW`, ...). No primes or punctuation in `ParticleName`/`AntiParticleName` (`W'` is not a valid UFO name; write `Wp`, `Wpbar`). Use class indices of 100 or more for new classes.
+
+11. Interaction orders. Every new coupling parameter (Yukawa, portal, quartic, new gauge coupling, dimensionless EFT coefficient) carries an `InteractionOrder`: `{NP, 1}` for a new-physics coupling, `{QED, 1}` or `{QCD, 1}` only when it is literally that coupling. Declare `M$InteractionOrderHierarchy` with every order you use (for example `{{QCD, 1}, {QED, 2}, {NP, 1}}`). A coupling with no order makes MadGraph reject the UFO ("Some couplings have '1' order").
+
+12. Tensor parameters. Give every indexed parameter explicit per-component values (`yN[1,1] -> 0.1, yN[1,2] -> 0, ...`; schema: `value_rules`). Never use a pattern rule such as `X[i_?NumericQ, j_?NumericQ] :> ...` in `Definitions`: FeynRules exports the pattern verbatim as a UFO parameter name and MadGraph fails with an unrelated "invalid syntax" error.
+
+13. Flavour structure in matrix form. Write generation-space couplings as matrix products between class fields, `uqbar.VCKMR.Ga[mu].ProjP.dq`, `LLbar.yN.NR`, `ISbar.Ga[mu].ProjM.IS`, not as explicit index sums `VCKMR[ff1, ff2] uqbar[ff1, cc]...dq[ff2, cc]`, and never nest one generation index inside another. Explicit-index forms leak FeynRules internals (`ConvertSpinToString`, `MakeIdenticalFermions`) into the UFO.
+
+14. One declared total. Define exactly one Lagrangian term named `LTotal` that sums every other term you define, and make sure every other term appears in that sum. Do not define two alternative totals. Do not emit a term that contains no field (a pure constant): FeynRules exports it as a vertex with no particles.
+
+15. Declarations. Every field used in a term is declared; every parameter used in a term is declared with a numeric default; every `SelfConjugate -> True` class has no `QuantumNumbers`; a Majorana mass term is `-1/2 M psibar.psi`.
+
+## Mandatory self-audit table (produce it BEFORE the model)
+
+For every Lagrangian term you emit, output one row of this table. Then fix any row that fails before you write the model.
+
+| term name | fields in the monomial | operator mass dimension d | coupling symbol | coupling mass dimension (must be 4 - d) | 1/Lambda power present (must be d - 4, or "n/a" if d <= 4) | Q sum | Y sum | SU(2) contraction (singlet? which Eps or shared index) | SU(3) contraction | sum of each new U(1) charge (one column per U(1), must be 0) | lepton/baryon number sum (if the paper assigns them) | CC[] used where paper writes psi^c (yes/no/n/a) | fraction/root placement checked against (equation, LaTeX line, or "n/a") | Hermitian partner (HC[] or self-conjugate) |
+
+Rules for the table:
+- Field mass dimensions: scalar 1, vector 1, fermion 3/2, `FS[...]` 2, `del`/`DC` 1.
+- Every Q sum, Y sum, and new-U(1) sum must equal 0. Use the charges you declared in `QuantumNumbers` and the SM.fr charges for SM fields. If a sum is not 0, the term is wrong; fix the contraction or the charge before you continue.
+- If d > 4, the row must show `1/Lambda^(d-4)` and an External cutoff parameter, or a Description that states the absorbed dimension and units.
+- Add one row per new particle class that confirms its kinetic + mass term exists and is in the total Lagrangian sum.
+- Add one row per non-fundamental colour representation that confirms the `AddGaugeRepresentation[...]` line is present.
+- Add one line under the table that lists every `SelfConjugate -> True` class and confirms it carries no `QuantumNumbers`.
+- Add one line that lists every class, parameter and index name you chose and confirms none is a Mathematica built-in, a FeynRules symbol, or an SM.fr name.
+- Add one line that names the single total Lagrangian and lists the terms it sums.
+- Add one line that states whether any reference or cached model file was read (must be "none").

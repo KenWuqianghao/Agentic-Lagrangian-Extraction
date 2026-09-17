@@ -50,6 +50,21 @@ def _frac(n, d):
     return f"{n}/{d}" if d else "—"
 
 
+_REPORT_MODEL: dict = {}
+
+
+def _report_model(variant: str):
+    """The agent model of a CLI-harness arm, which rerun_extract records once
+    per report rather than in each run's agent facts."""
+    if variant not in _REPORT_MODEL:
+        rep = HERE / f"rerun_report_{variant}.json"
+        try:
+            _REPORT_MODEL[variant] = json.loads(rep.read_text()).get("agent_model")
+        except (OSError, json.JSONDecodeError):
+            _REPORT_MODEL[variant] = None
+    return _REPORT_MODEL[variant]
+
+
 def collect(page: str, variant: str, seed: int, cand: dict) -> dict:
     d = HERE / page / "rerun" / variant / f"s{seed}"
     row = {"page": page, "variant": variant, "seed": seed, "status": "no_run"}
@@ -85,6 +100,7 @@ def collect(page: str, variant: str, seed: int, cand: dict) -> dict:
         # arm passes --allowedTools/--tools ''; the subagent arm cannot, so it
         # is told the policy and the transcript is checked afterwards.
         "engine": a.get("engine", "claude-cli"),
+        "model": a.get("model") or _report_model(variant),
         "tool_policy": a.get("tool_policy", "enforced"),
         "audit_ok": a.get("audit_ok"),
         "audit_problems": a.get("audit_problems") or [],
@@ -154,6 +170,7 @@ def aggregate(rows: list) -> dict:
         "mean_agent_seconds": _mean([r.get("seconds") for r in ran]),
         "mean_tool_calls": _mean([r.get("n_tool_calls") for r in ran]),
         "mode": sorted({r.get("mode") for r in ran}),
+        "model": sorted({str(r.get("model")) for r in ran}),
         "paper_source": sorted({r.get("paper_source") for r in ran}),
         "engine": sorted({r.get("engine") for r in ran if r.get("engine")}),
         "tool_policy": sorted({r.get("tool_policy") for r in ran if r.get("tool_policy")}),
@@ -251,13 +268,14 @@ def main() -> int:
         md.append("| " + " | ".join(cells) + " |")
 
     md += ["\n## Aggregate per variant\n",
-           "| variant | mode | source | engine | tool policy | runs | agent ok | paper read | tainted | audit fail | rendered | all findings resolved | validated | compiled | all checks | MG5 | full chain | mean field F1 (n) | mean QN F1 | mean tool calls |",
-           "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+           "| variant | mode | source | engine | model | tool policy | runs | agent ok | paper read | tainted | audit fail | rendered | all findings resolved | validated | compiled | all checks | MG5 | full chain | mean field F1 (n) | mean QN F1 | mean tool calls |",
+           "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for v in variants:
         a = agg[v]
         n = a["n_runs"]
         md.append(f"| {v} | {'/'.join(a['mode'])} | {'/'.join(a['paper_source'])} | "
-                  f"{'/'.join(a['engine']) or '—'} | {'/'.join(a['tool_policy']) or '—'} | {n} | "
+                  f"{'/'.join(a['engine']) or '—'} | {'/'.join(a['model']) or '—'} | "
+                  f"{'/'.join(a['tool_policy']) or '—'} | {n} | "
                   f"{_frac(a['agent_ok'], n)} | {_frac(a['read_paper'], n)} | {a['contaminated']} | "
                   f"{a['audit_failures']} | "
                   f"{_frac(a['rendered'], n)} | {_frac(a['predicates_all'], n)} | {a['n_validated']} | "

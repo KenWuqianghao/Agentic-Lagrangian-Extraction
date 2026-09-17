@@ -28,13 +28,13 @@ adding better diagnostics rather than a better agent.
 
 ## Headline
 
-With the corrected checks, **9 of the 19 scoreable models** pass the full
-chain with their best `.fr`, repaired or one-shot. Before the correction this
-set was reported as 18 of 19. Full chain means the model compiles, all four
-default FeynRules checks pass, and MadGraph imports the UFO. The ten new
-failures are Hermiticity, kinetic-term, mass-term or mass-spectrum failures
-that the old classifier could not report. `CORRECTION_2026-09-13.md` lists
-each one.
+With the corrected checks, the repair loop re-run on 2026-09-17 takes the 16
+single-model papers from **5 of 16** one-shot passes to **7 of 16** after
+three rounds. Full chain means the model compiles, all four default
+FeynRules checks pass, and MadGraph imports the UFO. Seven of the nine open
+models fail on non-diagonal mass terms. `ABLATION_2026-09-17.md` has the
+ablation and the loop; `CORRECTION_2026-09-13.md` explains why the older
+numbers were withdrawn.
 
 The repair-loop funnel below is kept as history. Its numbers are **invalid**,
 because the loop only saw a check fail when the check crashed.
@@ -141,6 +141,10 @@ now reads verdicts from each check's return value, through the generator and
 | `correction_report.py` | builds `CORRECTION_2026-09-13.{md,json}` from the ledger alone |
 | `rescore_ledger_2026-09-13.jsonl` | one line per re-scored run: old verdicts, new verdicts, the Lagrangian expression used |
 | `test_validation_benchmark.py` | unit tests for when the checks count as passing and when `LSM` is added |
+| `repair_subagent.py` | the repair loop by rounds, driven through Claude Code subagents when the headless CLIs are logged out |
+| `ABLATION_2026-09-17.md` | the corrected ablation on the four reviewed models, the 16-paper Sonnet arms, and the re-run repair loop |
+| `repair_repair_corrected_report.md` | the re-run repair loop, round by round |
+| `ablation_report_single_model.md` | the 16-paper tools-versus-no-tools arms |
 
 ```bash
 python correction_report.py --ledger rescore_ledger_2026-09-13.jsonl

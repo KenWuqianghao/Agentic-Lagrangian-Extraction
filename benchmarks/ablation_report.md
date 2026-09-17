@@ -10,7 +10,7 @@ Variants: v1, v2, v3_tools, v3_notools, v3txt_tools. Models: Top-Philic-Zprime, 
 | v2 | 6/8 | 3/8 | 0.884 |
 | v3_tools | 7/8 | 2/8 | 0.833 |
 | v3_notools | 7/8 | 4/8 | 0.855 |
-| v3txt_tools | 5/8 | — | 0.842 |
+| v3txt_tools | 5/8 | 5/8 | 0.842 |
 
 *findings resolved* counts runs where every predicate for that model passed; there are 6 predicates across 4 models. *full chain* is FeynRules compile + all four consistency checks + MadGraph import, over the runs that reached validation.
 
@@ -61,23 +61,23 @@ Variants: v1, v2, v3_tools, v3_notools, v3txt_tools. Models: Top-Philic-Zprime, 
 | EffLRSM | 2 | v3_notools | notools/tex | ok | 7 | inlined | False | True | 2/2 | compiled | True | ✓✓✓✓ | True | True | 1.00 | 1.00 | 3/3 |
 | GeneralU1 | 1 | v3_notools | notools/tex | ok | 7 | inlined | False | True | 1/1 | compiled | True | ✗✓✗? | True | False | 0.42 | 0.42 | 4/15 |
 | GeneralU1 | 2 | v3_notools | notools/tex | ok | 6 | inlined | False | True | 0/1 | compiled | True | ✓✓✓✓ | True | True | 0.42 | 0.42 | 4/15 |
-| Top-Philic-Zprime | 1 | v3txt_tools | tools/txt | ok | 8 | True | False | True | 1/1 | — | — | — | — | — | 1.00 | 1.00 | 1/1 |
-| Top-Philic-Zprime | 2 | v3txt_tools | tools/txt | ok | 8 | True | False | True | 1/1 | — | — | — | — | — | 1.00 | 1.00 | 1/1 |
-| 368sextets | 1 | v3txt_tools | tools/txt | ok | 9 | True | False | True | 2/2 | — | — | — | — | — | 1.00 | 1.00 | 4/4 |
-| 368sextets | 2 | v3txt_tools | tools/txt | ok | 9 | True | False | True | 2/2 | — | — | — | — | — | 1.00 | 1.00 | 4/4 |
-| EffLRSM | 1 | v3txt_tools | tools/txt | ok | 7 | True | False | True | 1/2 | — | — | — | — | — | 1.00 | 1.00 | 3/3 |
-| EffLRSM | 2 | v3txt_tools | tools/txt | ok | 7 | True | False | True | 2/2 | — | — | — | — | — | 1.00 | 1.00 | 3/3 |
-| GeneralU1 | 1 | v3txt_tools | tools/txt | ok | 7 | True | False | True | 0/1 | — | — | — | — | — | 0.40 | 0.40 | 5/15 |
-| GeneralU1 | 2 | v3txt_tools | tools/txt | ok | 10 | True | False | True | 0/1 | — | — | — | — | — | 0.33 | 0.33 | 3/15 |
+| Top-Philic-Zprime | 1 | v3txt_tools | tools/txt | ok | 8 | True | False | True | 1/1 | compiled | True | ✓✓✓✓ | True | True | 1.00 | 1.00 | 1/1 |
+| Top-Philic-Zprime | 2 | v3txt_tools | tools/txt | ok | 8 | True | False | True | 1/1 | compiled | True | ✓✓✓✓ | True | True | 1.00 | 1.00 | 1/1 |
+| 368sextets | 1 | v3txt_tools | tools/txt | ok | 9 | True | False | True | 2/2 | compile_timeout | False | — | None | False | 1.00 | 1.00 | 4/4 |
+| 368sextets | 2 | v3txt_tools | tools/txt | ok | 9 | True | False | True | 2/2 | compile_timeout | False | — | None | False | 1.00 | 1.00 | 4/4 |
+| EffLRSM | 1 | v3txt_tools | tools/txt | ok | 7 | True | False | True | 1/2 | compiled | True | ✓✓✓✓ | True | True | 1.00 | 1.00 | 3/3 |
+| EffLRSM | 2 | v3txt_tools | tools/txt | ok | 7 | True | False | True | 2/2 | compiled | True | ✓✓✓✓ | True | True | 1.00 | 1.00 | 3/3 |
+| GeneralU1 | 1 | v3txt_tools | tools/txt | ok | 7 | True | False | True | 0/1 | compiled | True | ✓✓✓✓ | True | True | 0.40 | 0.40 | 5/15 |
+| GeneralU1 | 2 | v3txt_tools | tools/txt | ok | 10 | True | False | True | 0/1 | compiled | True | ✗✓✗? | True | False | 0.33 | 0.33 | 3/15 |
 
 ## Aggregate per variant
 
-| variant | mode | source | engine | tool policy | runs | agent ok | paper read | tainted | audit fail | rendered | all findings resolved | validated | compiled | all checks | MG5 | full chain | mean field F1 (n) | mean QN F1 | mean tool calls |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| v1 | tools | txt | claude-cli | enforced | 8 | 8/8 | 8/8 | 0 | 0 | 8/8 | 4/8 | 8 | 6/8 | 3/8 | 2/8 | 2/8 | 0.901 (8) | 0.901 | 5.75 |
-| v2 | tools | txt | claude-cli | enforced | 8 | 8/8 | 8/8 | 0 | 0 | 8/8 | 6/8 | 8 | 7/8 | 4/8 | 3/8 | 3/8 | 0.884 (8) | 0.884 | 5.0 |
-| v3_tools | tools | tex | claude-code-subagent | instructed+audited | 8 | 8/8 | 8/8 | 0 | 0 | 8/8 | 7/8 | 8 | 6/8 | 2/8 | 5/8 | 2/8 | 0.833 (8) | 0.833 | 8.5 |
-| v3_notools | notools | tex | claude-code-subagent | instructed+audited | 8 | 8/8 | 8/8 | 0 | 0 | 8/8 | 7/8 | 8 | 7/8 | 4/8 | 7/8 | 4/8 | 0.855 (8) | 0.855 | 7.0 |
-| v3txt_tools | tools | txt | claude-code-subagent | instructed+audited | 8 | 8/8 | 8/8 | 0 | 0 | 8/8 | 5/8 | 0 | — | — | — | — | 0.842 (8) | 0.842 | 8.125 |
+| variant | mode | source | engine | model | tool policy | runs | agent ok | paper read | tainted | audit fail | rendered | all findings resolved | validated | compiled | all checks | MG5 | full chain | mean field F1 (n) | mean QN F1 | mean tool calls |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| v1 | tools | txt | claude-cli | claude-opus-5 | enforced | 8 | 8/8 | 8/8 | 0 | 0 | 8/8 | 4/8 | 8 | 6/8 | 3/8 | 2/8 | 2/8 | 0.901 (8) | 0.901 | 5.75 |
+| v2 | tools | txt | claude-cli | claude-opus-5 | enforced | 8 | 8/8 | 8/8 | 0 | 0 | 8/8 | 6/8 | 8 | 7/8 | 4/8 | 3/8 | 3/8 | 0.884 (8) | 0.884 | 5.0 |
+| v3_tools | tools | tex | claude-code-subagent | claude-opus-5 | instructed+audited | 8 | 8/8 | 8/8 | 0 | 0 | 8/8 | 7/8 | 8 | 6/8 | 2/8 | 5/8 | 2/8 | 0.833 (8) | 0.833 | 8.5 |
+| v3_notools | notools | tex | claude-code-subagent | claude-opus-5 | instructed+audited | 8 | 8/8 | 8/8 | 0 | 0 | 8/8 | 7/8 | 8 | 7/8 | 4/8 | 7/8 | 4/8 | 0.855 (8) | 0.855 | 7.0 |
+| v3txt_tools | tools | txt | claude-code-subagent | claude-opus-5 | instructed+audited | 8 | 8/8 | 8/8 | 0 | 0 | 8/8 | 5/8 | 8 | 6/8 | 5/8 | 6/8 | 5/8 | 0.842 (8) | 0.842 | 8.125 |
 
 `tool policy` says how the agent's tool restriction was imposed: `enforced` when the engine was started with `--allowedTools` / `--tools ''`, `instructed+audited` when the policy was given in the prompt and the transcript checked afterwards (`audit fail` counts runs that broke it). Predicates are evidence, not verdicts: a physicist reading the file decides. Field F1 compares new-field signatures with the FeynRules-DB reference; it is undefined for references with no new fields.

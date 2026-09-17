@@ -21,7 +21,9 @@ The v1 and v2 numbers on these four models do not change. The new failures are r
 
 The sextet statement also stands. The seed that compiles fails the Hermiticity check and passes the others, and the corrected parser confirms it.
 
-The full correction, with every run's verdicts and log, is `benchmarks/CORRECTION_2026-09-13.md` on the `benchmarks/loop-results` branch.
+**The repair loop, re-run.** The loop we described earlier only stopped repairing when it saw a pass, and those passes were fake, so its numbers are withdrawn. Re-run on the 16 papers that define one model, with the real checks driving each round, it goes from 5 of 16 one-shot passes to 7 of 16 after three rounds. Seven of the nine models still open fail because the agent mixed fields it had declared as separate mass eigenstates. The repair agent sees that and does not rotate the fields, because a repair must not change the physics.
+
+The full correction, with every run's verdicts and log, is `benchmarks/CORRECTION_2026-09-13.md` on the `benchmarks/loop-results` branch, and the ablation and repair loop are in `benchmarks/ABLATION_2026-09-17.md`.
 
 Best,
 Ken

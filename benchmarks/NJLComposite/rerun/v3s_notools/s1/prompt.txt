@@ -1,0 +1,3252 @@
+===== BEGIN SM.fr (tools/feynrules/test_files/models/SM.fr) =====
+(***************************************************************************************************************)
+(******                       This is the FeynRules mod-file for the Standard model                       ******)
+(******                                                                                                   ******)
+(******     Authors: N. Christensen, C. Duhr, B. Fuks                                                     ******)
+(******                                                                                                   ******)
+(****** Choose whether Feynman gauge is desired.                                                          ******)
+(****** If set to False, unitary gauge is assumed.                                                          ****)
+(****** Feynman gauge is especially useful for CalcHEP/CompHEP where the calculation is 10-100 times faster. ***)
+(****** Feynman gauge is not supported in MadGraph and Sherpa.                                              ****)
+(***************************************************************************************************************)
+
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+M$ModelName = "Standard Model";
+
+M$Information = {
+  Authors      -> {"N. Christensen", "C. Duhr", "B. Fuks"}, 
+  Version      -> "1.4.7",
+  Date         -> "28. 09. 2016",
+  Institutions -> {"Michigan State University", "Universite catholique de Louvain (CP3)", "IPHC Strasbourg / University of Strasbourg"},
+  Emails       -> {"neil@pa.msu.edu", "claude.duhr@uclouvain.be", "benjamin.fuks@cnrs.in2p3.fr"},
+  URLs         -> "http://feynrules.phys.ucl.ac.be/view/Main/StandardModel"
+};
+
+FeynmanGauge = True;
+
+(* ************************** *)
+(* ***** NLO Variables ****** *)
+(******************************)
+
+FR$LoopSwitches = {{Gf, MW}};
+FR$RmDblExt = { ymb -> MB, ymc -> MC, ymdo -> MD, yme -> Me, 
+   ymm -> MMU, yms -> MS, ymt -> MT, ymtau -> MTA, ymup -> MU};
+
+(* ************************** *)
+(* *****  Change  log   ***** *)
+(* ************************** *)
+
+(* v1.4.7: Index issue with the ghost Lagrangian (special thanks to S. Iwamoto *)
+(* v1.4.6: NLO variable added.                                               *)
+(* v1.4.5: Added widths for ghosts.                                          *)
+(* v1.4.4: Changed widths of goldstone bosons to be the same as for the W and Z bosons *)
+(* v1.4.3: Updated conventions for the symmetric structure constants of SU3. *)
+(* v1.4.2: Set FeynmanGauge=True as default again.                           *)
+(* v1.4: Added SU(2) representation.                                         *)
+(*       -> Modification in the field declarations (doublets are added)      *)
+(*       -> Modification in the Lagrangian (much simpler).                   *)
+(* v1.3: Added yukawa couplings for all fermions for gauge invariance.       *)
+(*       Added yukawa couplings for 1st generation fermions to Massless.rst. *)
+(*       Updated parameters to PDG 2010.                                     *)
+(* v1.2: Set FeynmanGauge=True as default.                                   *)
+(*       Set Gluonic ghosts to be included in both gauges.                   *)
+(* v1.1: Fixed yukawa couplings in Feynman gauge.                            *)
+(*       Changed yd[n] CKM[n,m] to yd[m] CKM[n,m].                           *)
+(*       Changed yu[n] Conjugate[CKM[m,n]] to yu[m] Conjugate[CKM[m,n]].     *)
+
+(* ************************** *)
+(* *****      vevs      ***** *)
+(* ************************** *)
+M$vevs = { {Phi[2],vev} };
+
+(* ************************** *)
+(* *****  Gauge groups  ***** *)
+(* ************************** *)
+M$GaugeGroups = {
+  U1Y  == { 
+    Abelian          -> True,  
+    CouplingConstant -> g1, 
+    GaugeBoson       -> B, 
+    Charge           -> Y
+  },
+  SU2L == { 
+    Abelian           -> False, 
+    CouplingConstant  -> gw, 
+    GaugeBoson        -> Wi, 
+    StructureConstant -> Eps, 
+    Representations   -> {Ta,SU2D}, 
+    Definitions       -> {Ta[a_,b_,c_]->PauliSigma[a,b,c]/2, FSU2L[i_,j_,k_]:> I Eps[i,j,k]}
+  },
+  SU3C == { 
+    Abelian           -> False, 
+    CouplingConstant  -> gs, 
+    GaugeBoson        -> G,
+    StructureConstant -> f, 
+    Representations   -> {T,Colour}, 
+    SymmetricTensor   -> dSUN
+  } 
+};
+
+
+(* ************************** *)
+(* *****    Indices     ***** *)
+(* ************************** *)
+
+IndexRange[Index[SU2W      ]] = Unfold[Range[3]]; 
+IndexRange[Index[SU2D      ]] = Unfold[Range[2]];
+IndexRange[Index[Gluon     ]] = NoUnfold[Range[8]];
+IndexRange[Index[Colour    ]] = NoUnfold[Range[3]]; 
+IndexRange[Index[Generation]] = Range[3];
+
+IndexStyle[SU2W,       j];
+IndexStyle[SU2D,       k];
+IndexStyle[Gluon,      a];
+IndexStyle[Colour,     m];
+IndexStyle[Generation, f];
+
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ***  (as used by mg5)  *** *)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2}
+};
+
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+M$ClassesDescription = {
+
+(* Gauge bosons: physical vector fields *)
+  V[1] == { 
+    ClassName       -> A, 
+    SelfConjugate   -> True,  
+    Mass            -> 0,  
+    Width           -> 0,  
+    ParticleName    -> "a", 
+    PDG             -> 22, 
+    PropagatorLabel -> "a", 
+    PropagatorType  -> W, 
+    PropagatorArrow -> None,
+    FullName        -> "Photon"
+  },
+  V[2] == { 
+    ClassName       -> Z, 
+    SelfConjugate   -> True,
+    Mass            -> {MZ, 91.1876},
+    Width           -> {WZ, 2.4952},
+    ParticleName    -> "Z", 
+    PDG             -> 23, 
+    PropagatorLabel -> "Z",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "Z"
+  },
+  V[3] == {
+    ClassName        -> W,
+    SelfConjugate    -> False,
+    Mass             -> {MW, Internal},
+    Width            -> {WW, 2.085},
+    ParticleName     -> "W+",
+    AntiParticleName -> "W-",
+    QuantumNumbers   -> {Q -> 1},
+    PDG              -> 24, 
+    PropagatorLabel  -> "W",
+    PropagatorType   -> Sine,
+    PropagatorArrow  -> Forward,
+    FullName         -> "W"
+  },
+  V[4] == {
+    ClassName        -> G,
+    SelfConjugate    -> True,
+    Indices          -> {Index[Gluon]},
+    Mass             -> 0,
+    Width            -> 0,
+    ParticleName     -> "g", 
+    PDG              -> 21,
+    PropagatorLabel  -> "G",
+    PropagatorType   -> C,
+    PropagatorArrow  -> None,
+    FullName         -> "G"
+  },
+
+(* Ghosts: related to physical gauge bosons *)
+  U[1] == { 
+    ClassName       -> ghA, 
+    SelfConjugate   -> False,
+    Ghost           -> A,
+    QuantumNumbers  -> {GhostNumber -> 1},
+    Mass            -> 0,
+    Width	    -> 0,
+    PropagatorLabel -> "uA",
+    PropagatorType  -> GhostDash,
+    PropagatorArrow -> Forward
+  },
+  U[2] == {
+    ClassName       -> ghZ,
+    SelfConjugate   -> False,
+    Ghost           -> Z,
+    QuantumNumbers  -> {GhostNumber -> 1},
+    Mass            -> {MZ,91.1876},  
+    Width	    -> {WZ, 2.4952},
+    PropagatorLabel -> "uZ",
+    PropagatorType  -> GhostDash,
+    PropagatorArrow -> Forward
+  },
+  U[31] == { 
+    ClassName       -> ghWp,
+    SelfConjugate   -> False, 
+    Ghost           -> W,
+    QuantumNumbers  -> {GhostNumber -> 1, Q -> 1},
+    Mass            -> {MW,Internal}, 
+    Width           -> {WW, 2.085}, 
+    PropagatorLabel -> "uWp",
+    PropagatorType  -> GhostDash, 
+    PropagatorArrow -> Forward
+  },
+  U[32] == { 
+    ClassName       -> ghWm,
+    SelfConjugate   -> False, 
+    Ghost           -> Wbar,
+    QuantumNumbers  -> {GhostNumber -> 1, Q -> -1},
+    Mass            -> {MW,Internal}, 
+    Width           -> {WW, 2.085},
+    PropagatorLabel -> "uWm",
+    PropagatorType  -> GhostDash, 
+    PropagatorArrow -> Forward
+  },
+  U[4] == { 
+    ClassName       -> ghG, 
+    SelfConjugate   -> False,
+    Indices         -> {Index[Gluon]},
+    Ghost           -> G,
+    PDG             -> 82,
+    QuantumNumbers  ->{GhostNumber -> 1}, 
+    Mass            -> 0,
+    Width	    -> 0,
+    PropagatorLabel -> "uG",
+    PropagatorType  -> GhostDash,
+    PropagatorArrow -> Forward
+  },
+
+(* Gauge bosons: unphysical vector fields *)
+  V[11] == { 
+    ClassName     -> B, 
+    Unphysical    -> True, 
+    SelfConjugate -> True, 
+    Definitions   -> { B[mu_] -> -sw Z[mu]+cw A[mu]} 
+  },
+  V[12] == { 
+    ClassName     -> Wi,
+    Unphysical    -> True,
+    SelfConjugate -> True, 
+    Indices       -> {Index[SU2W]},
+    FlavorIndex   -> SU2W,
+    Definitions   -> { Wi[mu_,1] -> (Wbar[mu]+W[mu])/Sqrt[2], Wi[mu_,2] -> (Wbar[mu]-W[mu])/(I*Sqrt[2]), Wi[mu_,3] -> cw Z[mu] + sw A[mu]}
+  },
+
+(* Ghosts: related to unphysical gauge bosons *)
+  U[11] == {
+    ClassName     -> ghB, 
+    Unphysical    -> True,
+    SelfConjugate -> False,
+    Ghost         -> B, 
+    Definitions   -> { ghB -> -sw ghZ + cw ghA}
+  },
+  U[12] == {
+    ClassName     -> ghWi,
+    Unphysical    -> True,
+    SelfConjugate -> False,
+    Ghost         -> Wi,
+    Indices       -> {Index[SU2W]},
+    FlavorIndex   -> SU2W,
+    Definitions   -> { ghWi[1] -> (ghWp+ghWm)/Sqrt[2], ghWi[2] -> (ghWm-ghWp)/(I*Sqrt[2]), ghWi[3] -> cw ghZ+sw ghA}
+  } ,
+
+(* Fermions: physical fields *)
+  F[1] == {
+    ClassName        -> vl,
+    ClassMembers     -> {ve,vm,vt},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> 0,
+    Width            -> 0,
+    QuantumNumbers   -> {LeptonNumber -> 1},
+    PropagatorLabel  -> {"v", "ve", "vm", "vt"} ,
+    PropagatorType   -> S,
+    PropagatorArrow  -> Forward,
+    PDG              -> {12,14,16},
+    ParticleName     -> {"ve","vm","vt"},
+    AntiParticleName -> {"ve~","vm~","vt~"},
+    FullName         -> {"Electron-neutrino", "Mu-neutrino", "Tau-neutrino"}
+  },
+  F[2] == {
+    ClassName        -> l,
+    ClassMembers     -> {e, mu, ta},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {Ml, {Me,5.11*^-4}, {MMU,0.10566}, {MTA,1.777}},
+    Width            -> 0,
+    QuantumNumbers   -> {Q -> -1, LeptonNumber -> 1},
+    PropagatorLabel  -> {"l", "e", "mu", "ta"},
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    PDG              -> {11, 13, 15},
+    ParticleName     -> {"e-", "mu-", "ta-"},
+    AntiParticleName -> {"e+", "mu+", "ta+"},
+    FullName         -> {"Electron", "Muon", "Tau"} 
+  },
+  F[3] == {
+    ClassName        -> uq,
+    ClassMembers     -> {u, c, t},
+    Indices          -> {Index[Generation], Index[Colour]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {Mu, {MU, 2.55*^-3}, {MC,1.27}, {MT,172}},
+    Width            -> {0, 0, {WT,1.50833649}},
+    QuantumNumbers   -> {Q -> 2/3},
+    PropagatorLabel  -> {"uq", "u", "c", "t"},
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    PDG              -> {2, 4, 6}, 
+    ParticleName     -> {"u",  "c",  "t" },
+    AntiParticleName -> {"u~", "c~", "t~"},
+    FullName         -> {"u-quark", "c-quark", "t-quark"}
+  },
+  F[4] == {
+    ClassName        -> dq,
+    ClassMembers     -> {d, s, b},
+    Indices          -> {Index[Generation], Index[Colour]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {Md, {MD,5.04*^-3}, {MS,0.101}, {MB,4.7}},
+    Width            -> 0,
+    QuantumNumbers   -> {Q -> -1/3},
+    PropagatorLabel  -> {"dq", "d", "s", "b"},
+    PropagatorType   -> Straight, 
+    PropagatorArrow  -> Forward,
+    PDG              -> {1,3,5},
+    ParticleName     -> {"d",  "s",  "b" },
+    AntiParticleName -> {"d~", "s~", "b~"},
+    FullName         -> {"d-quark", "s-quark", "b-quark"}
+  },
+
+(* Fermions: unphysical fields *)
+  F[11] == { 
+    ClassName      -> LL, 
+    Unphysical     -> True, 
+    Indices        -> {Index[SU2D], Index[Generation]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1/2},
+    Definitions    -> { LL[sp1_,1,ff_] :> Module[{sp2}, ProjM[sp1,sp2] vl[sp2,ff]], LL[sp1_,2,ff_] :> Module[{sp2}, ProjM[sp1,sp2] l[sp2,ff]] }
+  },
+  F[12] == { 
+    ClassName      -> lR, 
+    Unphysical     -> True, 
+    Indices        -> {Index[Generation]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1},
+    Definitions    -> { lR[sp1_,ff_] :> Module[{sp2}, ProjP[sp1,sp2] l[sp2,ff]] }
+  },
+  F[13] == { 
+    ClassName      -> QL, 
+    Unphysical     -> True, 
+    Indices        -> {Index[SU2D], Index[Generation], Index[Colour]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 1/6},
+    Definitions    -> { 
+      QL[sp1_,1,ff_,cc_] :> Module[{sp2}, ProjM[sp1,sp2] uq[sp2,ff,cc]], 
+      QL[sp1_,2,ff_,cc_] :> Module[{sp2,ff2}, CKM[ff,ff2] ProjM[sp1,sp2] dq[sp2,ff2,cc]] }
+  },
+  F[14] == { 
+    ClassName      -> uR, 
+    Unphysical     -> True, 
+    Indices        -> {Index[Generation], Index[Colour]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 2/3},
+    Definitions    -> { uR[sp1_,ff_,cc_] :> Module[{sp2}, ProjP[sp1,sp2] uq[sp2,ff,cc]] }
+  },
+  F[15] == { 
+    ClassName      -> dR, 
+    Unphysical     -> True, 
+    Indices        -> {Index[Generation], Index[Colour]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1/3},
+    Definitions    -> { dR[sp1_,ff_,cc_] :> Module[{sp2}, ProjP[sp1,sp2] dq[sp2,ff,cc]] }
+  },
+
+(* Higgs: physical scalars  *)
+  S[1] == {
+    ClassName       -> H,
+    SelfConjugate   -> True,
+    Mass            -> {MH,125},
+    Width           -> {WH,0.00407},
+    PropagatorLabel -> "H",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    PDG             -> 25,
+    ParticleName    -> "H",
+    FullName        -> "H"
+  },
+
+(* Higgs: physical scalars  *)
+  S[2] == {
+    ClassName       -> G0,
+    SelfConjugate   -> True,
+    Goldstone       -> Z,
+    Mass            -> {MZ, 91.1876},
+    Width           -> {WZ, 2.4952},
+    PropagatorLabel -> "Go",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    PDG             -> 250,
+    ParticleName    -> "G0",
+    FullName        -> "G0"
+  },
+  S[3] == {
+    ClassName        -> GP,
+    SelfConjugate    -> False,
+    Goldstone        -> W,
+    Mass             -> {MW, Internal},
+    QuantumNumbers   -> {Q -> 1},
+    Width            -> {WW, 2.085},
+    PropagatorLabel  -> "GP",
+    PropagatorType   -> D,
+    PropagatorArrow  -> None,
+    PDG              -> 251,
+    ParticleName     -> "G+",
+    AntiParticleName -> "G-",
+    FullName         -> "GP"
+  },
+
+(* Higgs: unphysical scalars  *)
+  S[11] == { 
+    ClassName      -> Phi, 
+    Unphysical     -> True, 
+    Indices        -> {Index[SU2D]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 1/2},
+    Definitions    -> { Phi[1] -> -I GP, Phi[2] -> (vev + H + I G0)/Sqrt[2]  }
+  }
+};
+
+
+(* ************************** *)
+(* *****     Gauge      ***** *)
+(* *****   Parameters   ***** *)
+(* *****   (FeynArts)   ***** *)
+(* ************************** *)
+
+GaugeXi[ V[1]  ] = GaugeXi[A];
+GaugeXi[ V[2]  ] = GaugeXi[Z];
+GaugeXi[ V[3]  ] = GaugeXi[W];
+GaugeXi[ V[4]  ] = GaugeXi[G];
+GaugeXi[ S[1]  ] = 1;
+GaugeXi[ S[2]  ] = GaugeXi[Z];
+GaugeXi[ S[3]  ] = GaugeXi[W];
+GaugeXi[ U[1]  ] = GaugeXi[A];
+GaugeXi[ U[2]  ] = GaugeXi[Z];
+GaugeXi[ U[31] ] = GaugeXi[W];
+GaugeXi[ U[32] ] = GaugeXi[W];
+GaugeXi[ U[4]  ] = GaugeXi[G];
+
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+M$Parameters = {
+
+  (* External parameters *)
+  aEWM1 == { 
+    ParameterType    -> External, 
+    BlockName        -> SMINPUTS, 
+    OrderBlock       -> 1, 
+    Value            -> 127.9,
+    InteractionOrder -> {QED,-2},
+    Description      -> "Inverse of the EW coupling constant at the Z pole"
+  },
+  Gf == {
+    ParameterType    -> External,
+    BlockName        -> SMINPUTS,
+    OrderBlock       -> 2,
+    Value            -> 1.16637*^-5, 
+    InteractionOrder -> {QED,2},
+    TeX              -> Subscript[G,f],
+    Description      -> "Fermi constant"
+  },
+  aS    == { 
+    ParameterType    -> External,
+    BlockName        -> SMINPUTS,
+    OrderBlock       -> 3,
+    Value            -> 0.1184, 
+    InteractionOrder -> {QCD,2},
+    TeX              -> Subscript[\[Alpha],s],
+    Description      -> "Strong coupling constant at the Z pole"
+  },
+  ymdo == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 1,
+    Value         -> 5.04*^-3,
+    Description   -> "Down Yukawa mass"
+  },
+  ymup == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 2,
+    Value         -> 2.55*^-3,
+    Description   -> "Up Yukawa mass"
+  },
+  yms == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 3,
+    Value         -> 0.101,
+    Description   -> "Strange Yukawa mass"
+  },
+  ymc == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 4,
+    Value         -> 1.27,
+    Description   -> "Charm Yukawa mass"
+  },
+  ymb == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 5,
+    Value         -> 4.7,
+    Description   -> "Bottom Yukawa mass"
+  },
+  ymt == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 6,
+    Value         -> 172,
+    Description   -> "Top Yukawa mass"
+  },
+  yme == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 11,
+    Value         -> 5.11*^-4,
+    Description   -> "Electron Yukawa mass"
+  },
+  ymm == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 13,
+    Value         -> 0.10566,
+    Description   -> "Muon Yukawa mass"
+  },
+  ymtau == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 15,
+    Value         -> 1.777,
+    Description   -> "Tau Yukawa mass"
+  },
+  cabi == {
+    ParameterType -> External,
+    BlockName     -> CKMBLOCK,
+    OrderBlock    -> 1,
+    Value         -> 0.227736,
+    TeX           -> Subscript[\[Theta], c],
+    Description   -> "Cabibbo angle"
+  },
+
+  (* Internal Parameters *)
+  aEW == {
+    ParameterType    -> Internal,
+    Value            -> 1/aEWM1,
+    InteractionOrder -> {QED,2},
+    TeX              -> Subscript[\[Alpha], EW],
+    Description      -> "Electroweak coupling contant"
+  },
+  MW == { 
+    ParameterType -> Internal, 
+    Value         -> Sqrt[MZ^2/2+Sqrt[MZ^4/4-Pi/Sqrt[2]*aEW/Gf*MZ^2]], 
+    TeX           -> Subscript[M,W], 
+    Description   -> "W mass"
+  },
+  sw2 == { 
+    ParameterType -> Internal, 
+    Value         -> 1-(MW/MZ)^2, 
+    Description   -> "Squared Sin of the Weinberg angle"
+  },
+  ee == { 
+    ParameterType    -> Internal, 
+    Value            -> Sqrt[4 Pi aEW], 
+    InteractionOrder -> {QED,1}, 
+    TeX              -> e,  
+    Description      -> "Electric coupling constant"
+  },
+  cw == { 
+    ParameterType -> Internal, 
+    Value         -> Sqrt[1-sw2], 
+    TeX           -> Subscript[c,w], 
+    Description   -> "Cosine of the Weinberg angle"
+  },
+  sw == { 
+    ParameterType -> Internal, 
+    Value         -> Sqrt[sw2], 
+    TeX           -> Subscript[s,w], 
+    Description   -> "Sine of the Weinberg angle"
+  },
+  gw == { 
+    ParameterType    -> Internal, 
+    Definitions      -> {gw->ee/sw}, 
+    InteractionOrder -> {QED,1},  
+    TeX              -> Subscript[g,w], 
+    Description      -> "Weak coupling constant at the Z pole"
+  },
+  g1 == { 
+    ParameterType    -> Internal, 
+    Definitions      -> {g1->ee/cw}, 
+    InteractionOrder -> {QED,1},  
+    TeX              -> Subscript[g,1], 
+    Description      -> "U(1)Y coupling constant at the Z pole"
+  },
+  gs == { 
+    ParameterType    -> Internal, 
+    Value            -> Sqrt[4 Pi aS],
+    InteractionOrder -> {QCD,1},  
+    TeX              -> Subscript[g,s], 
+    ParameterName    -> G,
+    Description      -> "Strong coupling constant at the Z pole"
+  },
+  vev == {
+    ParameterType    -> Internal,
+    Value            -> 2*MW*sw/ee, 
+    InteractionOrder -> {QED,-1},
+    Description      -> "Higgs vacuum expectation value"
+  },
+  lam == {
+    ParameterType    -> Internal,
+    Value            -> MH^2/(2*vev^2),
+    InteractionOrder -> {QED, 2},
+    Description      -> "Higgs quartic coupling"
+  },
+  muH == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[vev^2 lam],
+    TeX           -> \[Mu],
+    Description   -> "Coefficient of the quadratic piece of the Higgs potential"
+  },
+  yl == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Definitions      -> {yl[i_?NumericQ, j_?NumericQ] :> 0  /; (i =!= j)},
+    Value            -> {yl[1,1] -> Sqrt[2] yme / vev, yl[2,2] -> Sqrt[2] ymm / vev, yl[3,3] -> Sqrt[2] ymtau / vev},
+    InteractionOrder -> {QED, 1},
+    ParameterName    -> {yl[1,1] -> ye, yl[2,2] -> ym, yl[3,3] -> ytau},
+    TeX              -> Superscript[y, l],
+    Description      -> "Lepton Yukawa couplings"
+  },
+  yu == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Definitions      -> {yu[i_?NumericQ, j_?NumericQ] :> 0  /; (i =!= j)},
+    Value            -> {yu[1,1] -> Sqrt[2] ymup/vev, yu[2,2] -> Sqrt[2] ymc/vev, yu[3,3] -> Sqrt[2] ymt/vev},
+    InteractionOrder -> {QED, 1},
+    ParameterName    -> {yu[1,1] -> yup, yu[2,2] -> yc, yu[3,3] -> yt},
+    TeX              -> Superscript[y, u],
+    Description      -> "Up-type Yukawa couplings"
+  },
+  yd == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Definitions      -> {yd[i_?NumericQ, j_?NumericQ] :> 0  /; (i =!= j)},
+    Value            -> {yd[1,1] -> Sqrt[2] ymdo/vev, yd[2,2] -> Sqrt[2] yms/vev, yd[3,3] -> Sqrt[2] ymb/vev},
+    InteractionOrder -> {QED, 1},
+    ParameterName    -> {yd[1,1] -> ydo, yd[2,2] -> ys, yd[3,3] -> yb},
+    TeX              -> Superscript[y, d],
+    Description      -> "Down-type Yukawa couplings"
+  },
+(* N. B. : only Cabibbo mixing! *)
+  CKM == { 
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Unitary       -> True,
+    Value         -> {CKM[1,1] -> Cos[cabi],  CKM[1,2] -> Sin[cabi], CKM[1,3] -> 0,
+                      CKM[2,1] -> -Sin[cabi], CKM[2,2] -> Cos[cabi], CKM[2,3] -> 0,
+                      CKM[3,1] -> 0,          CKM[3,2] -> 0,         CKM[3,3] -> 1},
+    TeX         -> Superscript[V,CKM],
+    Description -> "CKM-Matrix"}
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+LGauge := Block[{mu,nu,ii,aa}, 
+  ExpandIndices[-1/4 FS[B,mu,nu] FS[B,mu,nu] - 1/4 FS[Wi,mu,nu,ii] FS[Wi,mu,nu,ii] - 1/4 FS[G,mu,nu,aa] FS[G,mu,nu,aa], FlavorExpand->SU2W]];
+
+LFermions := Block[{mu}, 
+  ExpandIndices[I*(
+    QLbar.Ga[mu].DC[QL, mu] + LLbar.Ga[mu].DC[LL, mu] + uRbar.Ga[mu].DC[uR, mu] + dRbar.Ga[mu].DC[dR, mu] + lRbar.Ga[mu].DC[lR, mu]), 
+  FlavorExpand->{SU2W,SU2D}]/.{CKM[a_,b_] Conjugate[CKM[a_,c_]]->IndexDelta[b,c], CKM[b_,a_] Conjugate[CKM[c_,a_]]->IndexDelta[b,c]}];
+
+LHiggs := Block[{ii,mu, feynmangaugerules},
+  feynmangaugerules = If[Not[FeynmanGauge], {G0|GP|GPbar ->0}, {}];
+ 
+  ExpandIndices[DC[Phibar[ii],mu] DC[Phi[ii],mu] + muH^2 Phibar[ii] Phi[ii] - lam Phibar[ii] Phi[ii] Phibar[jj] Phi[jj], FlavorExpand->{SU2D,SU2W}]/.feynmangaugerules
+ ];
+
+LYukawa := Block[{sp,ii,jj,cc,ff1,ff2,ff3,yuk,feynmangaugerules},
+  feynmangaugerules = If[Not[FeynmanGauge], {G0|GP|GPbar ->0}, {}];
+ 
+  yuk = ExpandIndices[
+   -yd[ff2, ff3] CKM[ff1, ff2] QLbar[sp, ii, ff1, cc].dR [sp, ff3, cc] Phi[ii] - 
+    yl[ff1, ff3] LLbar[sp, ii, ff1].lR [sp, ff3] Phi[ii] - 
+    yu[ff1, ff2] QLbar[sp, ii, ff1, cc].uR [sp, ff2, cc] Phibar[jj] Eps[ii, jj], FlavorExpand -> SU2D];
+  yuk = yuk /. { CKM[a_, b_] Conjugate[CKM[a_, c_]] -> IndexDelta[b, c], CKM[b_, a_] Conjugate[CKM[c_, a_]] -> IndexDelta[b, c]};
+  yuk+HC[yuk]/.feynmangaugerules
+ ];
+
+LGhost := Block[{LGh1,LGhw,LGhs,LGhphi,mu, generators,gh,ghbar,Vectorize,phi1,phi2,togoldstones,doublet,doublet0},
+  (* Pure gauge piece *) 	
+  LGh1 = -ghBbar.del[DC[ghB,mu],mu];
+  LGhw = -ghWibar[ii].del[DC[ghWi[ii],mu],mu];
+  LGhs = -ghGbar[ii].del[DC[ghG[ii],mu],mu];
+
+  (* Scalar pieces: see Peskin pages 739-742 *)
+  (* phi1 and phi2 are the real degrees of freedom of GP *)
+  (* Vectorize transforms a doublet in a vector in the phi-basis, i.e. the basis of real degrees of freedom *)
+  gh    = {ghB, ghWi[1], ghWi[2], ghWi[3]};
+  ghbar = {ghBbar, ghWibar[1], ghWibar[2], ghWibar[3]};
+  generators = {-I/2 g1 IdentityMatrix[2], -I/2 gw PauliSigma[1], -I/2 gw PauliSigma[2], -I/2 gw PauliSigma[3]};
+  doublet = Expand[{(-I phi1 - phi2)/Sqrt[2], Phi[2]} /. MR$Definitions /. vev -> 0]; 
+  doublet0 = {0, vev/Sqrt[2]};
+  Vectorize[{a_, b_}]:= Simplify[{Sqrt[2] Re[Expand[a]], Sqrt[2] Im[Expand[a]], Sqrt[2] Re[Expand[b]], Sqrt[2] Im[Expand[b]]}/.{Im[_]->0, Re[num_]->num}];
+  togoldstones := {phi1 -> (GP + GPbar)/Sqrt[2], phi2 -> (-GP + GPbar)/(I Sqrt[2])};
+  LGhphi=Plus@@Flatten[Table[-ghbar[[kkk]].gh[[lll]] Vectorize[generators[[kkk]].doublet0].Vectorize[generators[[lll]].(doublet+doublet0)],{kkk,4},{lll,4}]] /.togoldstones;
+
+ExpandIndices[ LGhs + If[FeynmanGauge, LGh1 + LGhw + LGhphi,0], FlavorExpand->SU2W]];
+
+LSM:= LGauge + LFermions + LHiggs + LYukawa + LGhost;
+
+===== END SM.fr =====
+
+===== BEGIN PAPER (2311.18472_source.tex; the paper's LaTeX source: equations, fractions and roots are exact) =====
+
+
+
+
+\documentclass[11pt,superscriptaddress,showpacs]{revtex4-2}
+
+
+
+
+
+
+\usepackage{epsf}
+\usepackage{slashed}
+\usepackage{ulem}
+\usepackage{cancel}
+\usepackage{color,bm}
+\usepackage[colorinlistoftodos]{todonotes}
+
+\usepackage{graphicx}
+
+
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{rotating}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{soul}
+
+\usepackage{upgreek}
+\usepackage{amssymb}
+\usepackage{enumerate}
+
+
+\usepackage{changes}
+\definechangesauthor[name={HaoSun}, color=purple]{SH} 
+
+
+
+
+
+\usepackage[colorlinks=true,citecolor=cyan,urlcolor=violet,bookmarks=true,bookmarks=true,bookmarksopen=true,bookmarksnumbered=true,bookmarksopenlevel=3]{hyperref}
+
+
+
+
+
+\definecolor{airforceviolet}{rgb}{0.36, 0.54, 0.66}
+\definecolor{steelviolet}{rgb}{0.27, 0.51, 0.71}
+\definecolor{amber}{rgb}{1.0, 0.49, 0.0}
+
+\pdfstringdefDisableCommands{
+    \renewcommand*{\bm}[1]{#1}
+    
+}
+
+\def\red#1{\textcolor{red}{#1}}
+\def\violet#1{\textcolor{violet}{#1}}
+\def\green#1{\textcolor{green}{#1}}
+\def\violet#1{\textcolor{violet}{#1}}
+\def\rb#1{\textcolor{black}{#1}}
+\def\rs#1{\textcolor{red}{\cancel{#1}}}
+\def\mn#1{\marginpar[\tiny{\rr{#1}}]{\tiny{\rr{#1}}}}
+\def\xo#1{\rr{{\xout{{#1}}}}}
+\def\xc#1{\rr{{\cancel{#1}}}}
+\def\comment#1{}
+\def\aut#1{#1}
+\def\yy{\zeta}
+\def\tr{\hbox{tr}}
+\newcommand{\sfrac}[2]{\raisebox{0.095ex}{\scriptsize${\frac{#1}{#2}}$}}
+\newcommand{\sbf}[1]{\mbox{{\scriptsize$\bf{#1}$}}}
+\def\mn#1{*\marginpar{*\tiny{#1}}}
+
+\def\E{{\mathcal E}}
+\def\A{{\mathcal A}}
+\def\A{{A}}
+\def\Ab{{\bf A}}
+\def\Ds{D_s}
+
+
+
+
+
+
+
+
+\font\twelvembsy=cmbsy10 scaled1200
+\font\tenmbsy=cmbsy10 scaled1000
+\font\eightmbsy=cmbsy10 scaled800
+\font\sixmbsy=cmbsy10 scaled600
+
+\def\nablab{{\mbox{\twelvembsy\symbol{'162}}}}
+\def\nablabf{{\mbox{\tenmbsy\symbol{'162}}}}
+\def\nablabs{{\mbox{\eightmbsy\symbol{'162}}}}
+\def\nablabss{{\mbox{\sixmbsy\symbol{'162}}}}
+
+\usepackage{showlabels}
+
+\def\lfrac#1#2{{#1/#2}}
+\usepackage{graphicx}
+
+\begin{document}
+\title{Phenomenology at the LHC of composite bosons from strongly interacting Standard Model fermions  
+via four-fermion operators of NJL type}
+
+\date{\today}
+
+\author{\textsc{S. Ajmal}}
+\affiliation{Dipartimento di Fisica e Geologia, Univerist\`{a} degli Studi di Perugia, Italy}
+\affiliation{INFN, Sezione di Perugia, Via A. Pascoli, I-06123, Perugia,  
+Italy}
+\author{\textsc{J. T. Gaglione}}
+\affiliation{Department of Physics and Astronomy, Vanderbilt University, Nashville, TN, 37235, USA}
+\author{\textsc{A. Gurrola}}
+
+\affiliation{Department of Physics and Astronomy, Vanderbilt University, Nashville, TN, 37235, USA}
+\author{\textsc{R. Leonardi}}
+
+
+\affiliation{INFN, Sezione di Perugia, Via A. Pascoli, I-06123, Perugia,  
+Italy}
+\author{\textsc{O. 
+~Panella}}
+
+
+
+\affiliation{INFN, Sezione di Perugia, Via A. Pascoli, I-06123, Perugia,  
+Italy}
+
+
+
+
+\author{\textsc{M. Presilla}}
+\affiliation{INFN, Sezione di Perugia, Via A. Pascoli, I-06123, Perugia,  
+Italy}
+
+\author{\textsc{F. Romeo}}
+
+\affiliation{Department of Physics and Astronomy, Vanderbilt University, Nashville, TN, 37235, USA}
+\author{\textsc{H. Sun}}
+
+\affiliation{Institute of Theoretical Physics, School of Physics, Dalian University of Technology, No.2 Linggong Road, Dalian, Liaoning, 116024, P.R.China}
+
+\author{\textsc{S. S. Xue}}
+\email{xue@icra.it ({\bf Corresponding author})}
+
+\affiliation{ICRANet, Piazzale della Repubblica, 10-65122, Pescara, Italy}
+\affiliation{Physics Department, Sapienza University of Rome, Piazzale Aldo Moro 5, 00185 Roma, Italy}
+\affiliation{INFN, Sezione di Perugia, Via A. Pascoli, I-06123, Perugia,  
+Italy}
+
+\begin{abstract}
+abstract...............................
+\end{abstract}
+\pacs{12.60.-i,12.60.Rc,14.80.-j
+
+
+
+}
+
+
+\maketitle
+
+
+
+
+
+\setcounter{footnote}{0}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\begin{itemize}
+    \item Theory motivation: Importance of LQ in general
+    \item Experimental motivation
+    \begin{itemize}
+        \item B-physics anomalies
+        \item recent CMS results
+    \end{itemize}
+    \item NJL-SheSheng model
+    \item Highlight of this work
+    \begin{itemize}
+        \item New mechanisms 
+        \item Lepton pdf signatures investigating the origin of the lepton and the second lepton in the event
+        \item physics reach (to be done)
+        \item final states with tau (to be done)
+    \end{itemize}
+    \item Impact to LHC physics 
+\end{itemize}
+
+\section{LQ from four-fermion operators and contact interactions}
+\begin{itemize}
+    \item Composite bosons
+    \item How LQ arise in the model
+    \item Comment from SheSheng "SheSheng made a nice observation about the coupling to mixed fermion generation, in analogy to the Standard Model, that lead to define more appropriately the coupling g’ instead of g. We think this part deserves to be reported in the paper, even though it is very advanced for its implementation in an experimental search." 
+    \item Comment from SheSheng "parameter space of Yukawa coupling $g_Y$ and mass $M\_pi$  for investigating for Pi0,+/- is the same as that of composite boson with fraction charge (leptoquark). Also the theoretical calculations are the same, what is changing is only the PDF, and final states. For Pi0,+/-, there are channels of  Pi0,+/- decaying to (produced by 
+) SM gauge bosons W,Z and photon. While  LQ states can decay to or produced by gluons.  
+"
+    \item Types of LQ and couplings to lepton-quark pair
+    \begin{itemize}
+        \item Comparison with other schemes used to classify LQ
+    \end{itemize}
+\end{itemize}
+
+
+
+
+\section{Signal implementation and generation}
+\begin{itemize}
+    \item Signal implementation in madgraph
+    \begin{itemize}
+        \item choice of couplings and relationship with lambda used in CMS/LHC 
+    \end{itemize}
+    \item Signal generation in madgraph
+    \item $\sigma$ comparison with other CMS models
+    \begin{itemize}
+        \item Highlight of the main mechanisms used at LHC
+        \item Do they have gauge interactions implemented?
+        \item comparison with the new mechanisms and why $\sigma$ is higher
+        \item kinematic limits for resonant production, not present in t-channel (importance of t-channel) (Pair production exceeds the kinematic limit, 	probably because of the bwcutoff. This should happen also for single LQ, above ~12/13 TeV)
+    \end{itemize}
+    \item Comparison with lepton PDF results 
+    \begin{itemize}
+        \item Reproducing $\sigma$
+        \item Investigating lepton origin inside the proton
+        \item LUX, MRS pdf discussion and results (discussion on leptons from Z and neutrinos PDF) (see \href{https://docs.google.com/presentation/d/1wfWGpGzIPKfzHUsVLALQatEjsA8FSvkBmtlVZVAiOoM/edit#slide=id.p}{Sehar, 5 October})
+        \item New mechanisms with lepton PDF
+        \begin{itemize}
+            \item all new mechanisms in \href{https://docs.google.com/presentation/d/1UyNnLO6SGtqUInS9pAMJLQjlUrXrn4LnYXcumGVlsoQ/edit#slide=id.gec8aaf9548_0_20}{link}
+            \item t-channel tau-top
+        \end{itemize}
+        \item Further considerations. Comment "from the point of view of the diagram, you can also have neutrinos in the proton from QED and EW processes, so one can in principle also consider the case of nu q -> LQ"
+    \end{itemize}
+\end{itemize}
+
+\section{Phenomenology of LQ at the LHC}
+\begin{itemize}
+    \item Production mechanisms and decays
+    \item Cross-section and decay widths
+    \item Comparison with current LHC processes
+    \item For the photon-induced processes, 
+    \begin{itemize}
+        \item we consider only inelastic case
+        \item we will compare the sensitivity to LQ with and without requiring the extra jet that emitted the photon, expecting the latter case to be higher
+Of course, we will add a section to compare the xSec for elastic and inelastic and comparing to lepton-PDF
+    \end{itemize}
+    \item Search strategy at LHC
+\end{itemize}
+
+\section{Sensitivity at LHC and HL-LHC}
+\begin{itemize}
+    \item Background production
+    \item Signal selection
+    \item Sensitivity plots
+\end{itemize}
+
+\section{Summary and remarks}
+
+
+
+\newpage
+\section{Four-fermion operators and contact interactions}\label{contact}
+
+The SM parity-violating (chiral) gauge symmetries and spontaneous/explicit breaking of these symmetries for the $W$ and $Z$ gauge boson 
+masses and the hierarchy pattern of fermion masses have been at the 
+centre of conceptual elaboration for possible scenarios beyond. The No-Go theorem \cite{Nielsen:1981xu, 1981PhLB..105..219N} shows that as a renormalizable quantum field theory at infrared (IR) low energies, the SM {\it bilinear} fermion Lagrangian at ultraviolet (UV) cutoff $\Lambda_{\rm cut}$ suffers theoretical inconsistencies with SM chiral gauge symmetries and fermion spectra at low energies. 
+It implies that the BSM Lagrangian at $\Lambda_{\rm cut}$ should have {\it quadrilinear} operators \cite{Xue:2016dpl, Xue2017}
+\begin{eqnarray}
+\sum_{f=1,2,3}G_{\rm cut}\, \Big[\bar\psi^{f}_{_L}\psi^{f}_{_R}\bar\psi^{f}_{_R} \psi^{f}_{_L}\Big]_{q=0,-1,2/3,-1/3},\quad G_{\rm cut}\propto \Lambda^{-2}_{\rm cut},
+\label{q1}
+\end{eqnarray}
+which is SM gauge symmetric four-fermion interactions of left- and right-handed fermions ($\psi^f_L,\psi^f_R$) in the SM charge sector ``$q$'' and flavour family ``$f$''. They are four-fermion operators of Nambu-Jona-Lasinio (NJL) or Einstein-Cartan type. Their origins at the scale $\Lambda_{\rm cut}$ are due to unknown grand unified interaction or quantum gravity dynamics.  
+
+The strong four-fermion coupling $g_{\rm cut }\propto G_{\rm cut}\Lambda^2_{\rm cut}$ dynamics leads to composite bosons $\Pi^{f}\sim (\bar\psi^{f}_{_R} \psi^{f}_{_L})$ and fermions $F^{f}_R\sim \psi^{f}_{_R} (\bar\psi^{f}_{_R} \psi^{f}_{_L})\sim \psi^{f}_{_R}\Pi^{f}$ \cite{Xue1996, Xue2000, Xue2000a}. They 
+are represented by the
+mass (pole) and form factor (residue) of propagators, behaving as elementary particles after form-factor renormalisation. These composite particles carry SM quantum numbers and couple to massless SM gauge bosons. Their massive spectra preserve SM gauge symmetries, and constituents can 
+be leptons, quarks or leptoquarks. There exists a UV fixed point $g^*_{\rm cut}$ and scaling domain, which realises an SM gauge symmetric, renormalizable {\it bilinear and dimensional-4} Lagrangian of composite bosons and fermions at the composite scale $\Lambda\ll \Lambda_{\rm cut}$ \cite{Xue2014, Xue2017}. 
+As the energy scale decreases below $\Lambda$, the effective theory undergoes \cite{Xue2023} a phase transition of composite particles decay into constituents and spontaneous SM symmetries breaking via the top-quark channel $(\bar t_Lt_R\bar t_R t_L)$, realising the $\bar tt$-composite Higgs boson  
+at the electroweak scale $v\approx 246$ GeV \cite{Bardeen1990}. The scale $\Lambda\approx 5.1$ TeV is estimated by using the top quark and Higgs boson masses and extrapolating the renormalization-group solution to the high-energy regime \cite{Xue2013}.
+
+In this section we describe the four-fermion operators and contact interactions that are relevant for the study of the phenomenology of the composite bosons at $pp$ or $ep$  collisions, 
+including the LHC, which will be detailed in Sec.~\ref{PhenomenologyCompositeFermions}.
+
+We consider, among four-fermion operators (\ref{q1}) in introduction, the following SM gauge-symmetric and fermion-number conserving four-fermion operators, 
+\begin{eqnarray}
+&&G\left[(\bar\ell^{i}_Le_{R})(\bar d^a_{R}\psi_{Lia})
++(\bar\ell^{i}_L\nu^e_{R})(\bar u^a_{R}\psi_{Lia})\right] + {\rm h.c.},
+\label{bhlql}
+\end{eqnarray}
+and
+\begin{eqnarray}
+&&G\left[(\bar\ell^{i}_L\nu^e_{R})(\bar \nu^e_{R}\ell_{Li})
++(\bar\ell^{i}_Le_{R})(\bar e_{R}\ell_{Li})\right]+ {\rm h.c.}\nonumber\\
+&&G\left[(\bar\ell^{i}_Lu^a_{R})(\bar u^a_{R}\ell_{Li})
++(\bar\ell^{i}_Ld^a_{R})(\bar d^a_{R}\ell_{Li})\right]+ {\rm h.c.}
+\label{bhlql1}
+\end{eqnarray}
+and
+\begin{eqnarray}
+&&G\left[(\bar\psi_{Lia}\nu^e_{R})(\bar \nu^e_{R}\psi_{Lia})
++(\bar\psi_{Lia}e_{R})(\bar e_{R}\psi_{Lia})\right] + {\rm h.c.},
+\label{bhlql2}\\
+&&G\left[(\bar\psi^{bi}_Lu_{Rb})(\bar u^a_{R}\psi_{Lia})+(\bar\psi^{bi}_Ld_{Rb})(\bar d^a_{R}\psi_{Lia})\right] + {\rm h.c.},
+\label{qbhlql}
+\end{eqnarray}
+being the SM doublet $\ell^i_L=(\nu^e_L,e_L)$ and singlet $e_{R}$ with an additional right-handed neutrino $\nu^e_{R}$ for leptons;
+$\psi_{Lia}=(u_{La},d_{La})$ and $u^a_{R}, d^a_{R}$ for quarks, 
+where the color $a,b$ and $SU_L(2)$-isospin $i$ indexes are summed over.
+Eqs. (\ref{bhlql})-(\ref{qbhlql}) 
+are for the first family only, as a representative of the three fermion families.
+The SM left- and right-handed fermions are mass eigenstates, their masses are negligible 
+in TeV-energy regime and small mixing among three families encoded 
+in $G$ is also neglected \cite{xue2016_2}.
+
+From Eqs. (\ref{bhlql}), (\ref{bhlql1}) and (\ref{bhlql2}), we give explicitly quark-lepton interactions of three types,
+\begin{eqnarray}
+&&G\left[(\bar e_Le_{R})(\bar d^a_{R}d_{La})
++(\bar\nu^{e}_L\nu^e_{R})(\bar u^a_{R}u_{La})+ (\bar\nu^{e}_Le_{R})(\bar d^a_{R}u_{La})\right] + {\rm h.c.},
+\label{bhlqlex}\\
+&&G\left[(\bar\nu^e_Lu^a_{R})(\bar u^a_{R}\nu^e_{L})+
+(\bar e_Lu^a_{R})(\bar u^a_{R}e_{L})
++(\bar\nu^e_Ld^a_{R})(\bar d^a_{R}\nu^e_{L})+
+(\bar e_Ld^a_{R})(\bar d^a_{R}e_{L})\right] + {\rm h.c.},\nonumber\\
+&&G\left[(\bar u^a_L\nu^e_{R})(\bar \nu^e_{R}u^a_{L})
++(\bar d^a_L\nu^e_{R})(\bar \nu^e_{R}d^a_{L})+ (\bar u^a_L e_{R})(\bar e_{R}u^a_{L})
++(\bar d^a_L e_{R})(\bar e_{R}d^a_{L})\right] + {\rm h.c.},\nonumber
+\end{eqnarray}
+for the first generation. $\nu^e,e,u,d \rightarrow \nu^\mu,\mu,c,s$ for the second generation, and $\nu^e,e,u,d \rightarrow \nu^\tau,\tau,t,b$ for the third generation.  
+
+
+\begin{figure}   
+\begin{center}
+
+
+\includegraphics[height=4.8cm,width=6.4cm]{fig2a}
+
+
+
+
+
+\vspace{-1em}
+\caption{We show the Feynman diagrammatic representation for the contact interaction between the composite boson and its constituent quarks, where the thin solid line represents an SM elementary fermion, double wave line represents a composite boson, and the blob represents an interacting 
+vertex $(F_\Pi/\Lambda)^2P_{L,R}$, where $P_{L,R}=(1\mp\gamma_5)/2$.}
+\label{compositeBv}
+\end{center}
+\vspace{-2em}
+\end{figure} 
+
+
+\subsection{Composite bosons $\Pi^{0,\pm}$}
+
+\begin{table*}
+
+\begin{tabular}{ccccc}
+Composite bosons $\Pi$ & constituents&  charge $Q_i=Y+t^i_{3L}$ & $SU_L(2)$ 
+3-isospin $t^i_{3L}$& $U_Y(1)$-hypercharge $Y$\cr
+\hline
+$\Pi^+ $& $(\bar d^a_{R}u_{La})$ & $+1$& $~~1/2$ &$1/2$\cr
+
+$\Pi^-$ & $  (\bar u^a_{R}d_{La})$ &$-1$& $-1/2$& $-1/2$\cr
+
+$\Pi^0_u$ & $(\bar u^a_{R}u_{La})$&$ 0$ &$~~1/2$ &$-1/2$\cr
+
+$\Pi^0_d$ & $(\bar d^a_{R}d_{La})$ & $0$ &$-1/2$ &$1/2$\\
+\hline
+\end{tabular}
+
+\caption{Composite bosons $\Pi^{0,\pm}$, 
+their constituents and SM quantum numbers. The color $a$ index is summed.}\label{qnuP0}
+\end{table*}
+
+From the four-fermion interaction in Eq. (\ref{bhlql}) or (\ref{qbhlql}),  it is possible to form charged 
+composite bosons
+
+\begin{eqnarray}
+
+\Pi^+ &=& (g^*/F_\Pi)^2(\bar d^a_{R}u_{La}), 
+ 
+\label{nB0}\\
+\Pi^- &=& (g^*/F_\Pi)^2(\bar u^a_{R}d_{La}),
+\label{nB0-}
+\end{eqnarray}
+$\Pi^-= (\Pi^+)^\dagger$, and neutral composite bosons
+\begin{eqnarray}
+&&
+\Pi^0_u=(g^*/F_\Pi)^2(\bar u^a_{R}u_{La}),\\
+&&
+\Pi^0_d=(g^*/F_\Pi)^2(\bar d^a_{R}d_{La}),\label{dB0}
+\label{uB0}
+\end{eqnarray}
+and their Hermitian conjugates. 
+Such normalized composite boson field has the same dimension 
+$[energy]$ of elementary boson field. The composite boson carries the quantum numbers 
+that are the sum over SM quantum numbers of its two constituents, 
+see Table \ref{qnuP0}. Composite bosons $(\Pi^+,\Pi^-)$ and $(\Pi^0_u,\Pi^0_d)$ form $SU_L(2)$ isoposin doublets, and $SU_c(3)$ 
+colour singlets. Their wavefunctions are $S$-wave of antiparallel spin arrangement
+ $(\uparrow\downarrow+\downarrow\uparrow)$ and zero orbital angular momentum.
+These are pseudo composite bosons $\Pi^{0,\pm}$, analogous to charged and neutral pions $\pi^{0,\pm}$ in the low-energy QCD. 
+
+
+\subsection{Quark-lepton composite bosons $\Pi^{5/3}_a$, $\Pi^{-1/3}_a$ and $\Pi^{2/3}_{u_a}$, $\Pi^{2/3}_{d_a}$}
+
+\begin{table*}
+
+\begin{tabular}{ccccc}
+LQ Composite bosons $\Pi_a^Q$ & constituents&  charge $Q_i=Y+t^i_{3L}$ & $SU_L(2)$ 
+3-isospin $t^i_{3L}$& $U_Y(1)$-hypercharge $Y$\cr
+\hline
+$\Pi^{+5/3}_a $& $(\bar e_{R}u_{La})$ & $+5/3$& $~~1/2$ &$7/6$\cr
+
+$\Pi^{-1/3}_a$ & $  (\bar \nu^e_{R}d_{La})$ &$-1/3$& $-1/2$& $1/6$\cr
+
+$\Pi^{2/3}_{u_a}$ & $(\bar \nu^e_{R}u_{La})$&$ 2/3$ &$~~1/2$ &$1/6$\cr
+
+$\Pi^{2/3}_{d_a}$ & $(\bar e_{R}d_{La})$ & $2/3$ &$-1/2$ &$7/6$\\
+\hline
+\end{tabular}
+\caption{Quark-lepton composite bosons $\Pi^{5/3}_a$, $\Pi^{-1/3}_a$, $\Pi^{2/3}_{u_a}$ and 
+$\Pi^{2/3}_{d_a}$ 
+their constituents and SM quantum numbers. They are colour states and the colour $a$ index is not summed.}\label{qnuP0ql}
+\end{table*}
+
+\begin{table*}
+
+\begin{tabular}{ccccc}
+LQ Composite bosons $\Pi_a^Q$ & constituents&  charge $Q_i=Y+t^i_{3L}$ & $SU_L(2)$ 
+3-isospin $t^i_{3L}$& $U_Y(1)$-hypercharge $Y$\cr
+\hline
+$\Pi^{-5/3}_a $& $(\bar u_{Ra}e_{L})$ & $-5/3$& $~~-1/2$ &$-7/6$\cr
+
+$\Pi^{+1/3}_a$ & $  (\bar d_{Ra}\nu^e_{L})$ &$1/3$& $1/2$& $-1/6$\cr
+
+$\Pi^{-2/3}_{u_a}$ & $(\bar u_{Ra}\nu^e_{L})$&$- 2/3$ &$~~1/2$ &$-7/6$\cr
+
+$\Pi^{-2/3}_{d_a}$ & $(\bar d_{Ra}e_{L})$ & $-2/3$ &$-1/2$ &$-1/6$\\
+\hline
+\end{tabular}
+\caption{Quark-lepton composite bosons $\Pi^{-5/3}_a$, $\Pi^{1/3}_a$, $\Pi^{-2/3}_{u_a}$ and 
+$\Pi^{-2/3}_{d_a}$ 
+their constituents and SM quantum numbers. They are colour states and the colour $a$ index is not summed. $(\Pi^{5/3}_a)^\dagger=\Pi^{-5/3}_a$, $(\Pi^{-1/3}_a)^\dagger=\Pi^{1/3}_a$ and $(\Pi^{2/3}_{u_a})^\dagger=\Pi^{-2/3}_{d_a}$, $(\Pi^{2/3}_{d_a})^\dagger=\Pi^{-2/3}_{u_a}$. They are conjugated fields of those in Table \ref{qnuP0ql+}. We will indicate these four LQ composite bosons by $\Pi_a^Q$.}\label{qnuP0ql+}
+\end{table*}
+
+From the four-fermion interaction in Eq.~(\ref{bhlql}),  it is also possible to form the following charged 
+quark-lepton composite bosons of four kinds 
+
+\begin{eqnarray}
+
+\Pi^{+5/3}_a &=& (g^*/F_\Pi)^2(\bar e_{R}u_{La}),\quad \Pi^{-5/3}_a = (g^*/F_\Pi)^2(\bar u_{Ra}e_{L}), 
+ 
+\label{nB5/3}\\
+\Pi^{-1/3}_a &=& (g^*/F_\Pi)^2(\bar \nu^e_{R}d_{La}),\quad \Pi^{+1/3}_a = (g^*/F_\Pi)^2(\bar d_{Ra} 
+\nu^e_{L}),
+\label{nB1/3}
+\end{eqnarray}
+and
+\begin{eqnarray}
+&&
+\Pi^{2/3}_{u_a}=(g^*/F_\Pi)^2(\bar \nu^e_{R}u_{La}),\quad \Pi^{-2/3}_{u_a}=(g^*/F_\Pi)^2(\bar u_{Ra}\nu^e_{L}),\label{uB2/3}\\
+&&
+\Pi^{2/3}_{d_a}=(g^*/F_\Pi)^2(\bar e_{R}d_{La}),\quad \Pi^{-2/3}_{d_a}=(g^*/F_\Pi)^2(\bar d_{Ra}e_{L}),
+\label{dB2/3}
+\end{eqnarray}
+and their Hermitian conjugates in the right. 
+Such normalized composite boson field has the same dimension 
+$[energy]$ of elementary boson field. The quark-lepton composite bosons carry the quantum numbers 
+that are the sum over SM quantum numbers of its two constituents, 
+see Table \ref{qnuP0ql}. Quark-lepton composite bosons ($\Pi^{5/3}_a$, $\Pi^{-1/3}_a$) and ($\Pi^{2/3}_{u_a}, \Pi^{2/3}_{d_a})$ form $SU_L(2)$ isopospin doublets, and $SU_c(3)$ 
+colour states. Their wave functions are $S$-wave of antiparallel spin arrangement
+ $\uparrow\downarrow$ or $\downarrow\uparrow$ and zero orbital angular momentum. 
+These pseudo quark-lepton composite bosons have no counterparts in meson spectra 
+in the low-energy QCD. 
+
+The quark-lepton composite bosons (\ref{nB5/3}-\ref{dB2/3}) and composite bosons (\ref{nB0}-\ref{uB0}) are 
+related by 
+\begin{eqnarray}
+e_R\iff d_R,\quad \nu^e_R\iff u_R .
+\label{quarklepton}
+\end{eqnarray}
+Quarl-lepton composite bosons can be diagrammatically represented by Fig.~\ref{compositeBv} by \red{replacing one of quarks $q$ to a lepton $\ell$ and replacing $\Pi$ to $\Pi_a$.}  
+
+\subsection{Contact interaction of composite bosons, quarks and leptons}\label{spqq}
+
+As shown in Fig.~\ref{compositeBv}, 
+the effective coupling between composite boson 
+and its two constituents can be written as an effective contact interaction, 
+\begin{eqnarray}
+{\mathcal L}^{\rm \Pi^\pm}_{\rm CI} &=& g_{_{\rm Y}}(\bar d^a_{R}u_{La})\Pi^- + {\rm h.c.},\label{ciqlB}\\
+{\mathcal L}^{\rm \Pi^0_d}_{\rm CI} &=& g_{_{\rm Y}} (\bar d^a_{R} d_{La})\Pi^0_d + {\rm h.c.},
+\label{iqlBd}\\
+{\mathcal L}^{\rm \Pi^0_u}_{\rm CI} &=& g_{_{\rm Y}}(\bar u^a_{R} u_{La})\Pi^0_u + {\rm h.c.},
+\label{iqlBu}
+\end{eqnarray}
+and 
+\begin{eqnarray}
+{\mathcal L}^{\rm \Pi^{+5/3}_a}_{\rm CI} &=& g_{_{\rm Y}}(\bar e_{R}u_{La})\Pi^{+5/3}_a + {\rm h.c.},\label{ciqlBql}\\
+{\mathcal L}^{\rm \Pi^{-1/3}_a}_{\rm CI} &=& g_{_{\rm Y}}(\bar\nu^e_{R}d_{La})\Pi^{-1/3}_a + {\rm h.c.},\label{ciqlBql1}\\
+{\mathcal L}^{\rm \Pi^{2/3}_{u_a}}_{\rm CI} &=& g_{_{\rm Y}} (\bar \nu^e_{R}u_{La}) \Pi^{2/3}_{u_a} + {\rm h.c.},
+\label{iqlBuql}\\
+{\mathcal L}^{\rm \Pi^{2/3}_{d_a}}_{\rm CI} &=& g_{_{\rm Y}}(\bar e_{R} d_{La})\Pi^{2/3}_{d_a} + {\rm h.c.},
+\label{iqlBdql}
+\end{eqnarray}
+where $g_{_{\rm Y}}=(F_\Pi/\Lambda)^2$.
+Appropriate normalizing the composite boson $\Pi$ with the 
+form factor $(g^*/F_\Pi)^2$ in Eqs. (\ref{nB0}-\ref{uB0}),  
+the effective contact interaction in Eqs. (\ref{ciqlB}-\ref{iqlBu}) and (\ref{ciqlBql}-\ref{iqlBdql}) can be expressed as a dimensionless Yukawa coupling $g_{_{\rm Y}}$, 
+whose value, corresponding to $F_\Pi$ value, 
+can be different for composite bosons in Eqs.~(\ref{nB0}-\ref{uB0}) and (\ref{nB5/3}-\ref{uB2/3}), but we do not consider such difference here.
+These are relevant contact interactions for phenomenological studies of possible inelastic channels of composite-fermion production and decay in  $pp$ or $ep$ collisions.
+
+\red{We discuss the issue of generation mixing for four different charged types of LQ states: $\Pi^{5/3}_{a}$, $\Pi^{-1/3}_{a}$  $\Pi^{2/3}_{u_a}$ and $\Pi^{2/3}_{d_a}$ in Table \ref{qnuP0ql}. Each type has three copies due to generations, taking as example $\Pi^{5/3}_{a}\sim (\bar e_{R}u_{La})$, $\Pi^{5/3}_{a}\sim (\bar \mu_{R}c_{La})$ and $\Pi^{5/3}_{a}\sim (\bar \tau_{R}t_{La})$. If the LQ $\Pi^{5/3}_{a}$ is produced by, then decay to its constituents in the same generation, the Yukawa coupling $g_Y\sim {\mathcal O}(1)$ as given in Eqs.(\ref{ciqlBql}-\ref{iqlBdql}). Now we consider $\Pi^{5/3}_{a}$ is produced by $e$ and $u$ of the first family, and the branching ratio of decaying to $\tau$ and $t$ of the third family. The Yukawa coupling $g_Y\sim {\mathcal O}(1)$ for $e$ and $u$ production, and another Yukawa coupling $g'_Y$ for decaying to $\tau$ and $t$. The Yukawa coupling $g'_Y$ is a new parameter and $g'_Y < g_Y$, possibly $g'_Y\ll g_Y$ for the following reasons. The left- and right-handed fields of leptons and quarks, which make composite bosons and fermions, are the SM gauge eigenstates in each generation. They are the same as the mass eigenstates without considering generation mixing. If we need to consider the mixing, see the unitary flavour transformations eqs (15,16) for quarks and eqs (23, 24) for leptons in my article JHEP 2016 ref. https://arxiv.org/pdf/1605.01266.pdf. Using these unitary transformations $U^{\nu,\ell, u,d}_{L,R}$, we can rewrite the Yukawa couplings (\ref{ciqlB})-(\ref{iqlBdql}) by associating two unitary matrices $(U)^\dagger U$ which are unknown. As example,  by interacting (\ref{ciqlBql}) the $e$ and $u$ produced $\Pi_a^{5/3}$ will decay to $\tau$ and $t$ by interacting
+\begin{eqnarray}
+{\mathcal L}^{\rm \Pi^{+5/3}_a}_{\rm CI} &=& g_{_{\rm Y}}(U^\dagger_R U_L) (\bar \tau_{R}t_{La})\Pi^{+5/3}_a + {\rm h.c.} = g'_{_{\rm Y}} (\bar \tau_{R}t_{La})\Pi^{+5/3}_a + {\rm h.c.} ,\label{ciqlBqlmix}
+\end{eqnarray}
+where $g'_{_{\rm Y}} = g_{_{\rm Y}}(U^\dagger_R U_L)$, 
+and the notation $(U^\dagger_R U_L)$ stands for relevant unitary transformations between generations considered. The general mixing matrix $(U^\dagger_R U_L)$ of leptoquark sector, see eq (35) of my JHEP 2016, has its analogies CKM matrix in quark sector, PMNS matrix in lepton sector. In conclusion, the general mixing matrix $(U^\dagger_R U_L)$ is totally unknown, the effective way for dealing with composite states of different generations but the same SM quantum numbers is to introduce a new Yukawa coupling. These discussions also apply to the three nonLQ composite bosons $\Pi^-$, $\Pi^0_u$ and $\Pi^0_d$ see eqs. (\ref{ciqlB})-(\ref{iqlBd}). It can be considered as a general rule for considering the initial and final states are not in the same family.} 
+
+
+\newpage
+
+
+
+\section{LQ Composite fermions $F_a$}
+
+There are three types operators (\ref{bhlql}), (\ref{bhlql1}) and (\ref{bhlql2}) that can form LQ composite fermion states.
+
+\subsection{The type 1 of $G\left[(\bar\ell^{i}_Le_{R})(\bar d^a_{R}\psi_{Lia})
++(\bar\ell^{i}_L\nu^e_{R})(\bar u^a_{R}\psi_{Lia})\right] + {\rm h.c.}$ (\ref{bhlql}) }
+
+In Eqs.~(\ref{bhlql}), each four-fermion operator has the two possibilities to form composite fermions, listed in Tables \ref{NQF0+} and \ref{NqQF0+}.
+Up to a form factor, $E$ ($N$) indicate a composite fermion composed by an electron (a neutrino) and a colorless quark pair $\Pi^{0,\pm}$, and its superscript for electric charge. In Eq.~(\ref{bhlql}), there are four independent composite fields $F$: 
+$N_{R}^{0}$, $N_{R}^{-}$, $E^{0}_{R}$,  $E^{-}_{R}$, and
+their Hermitian conjugates: $\bar N^{0}_{L}=(N_{R}^{0})^\dagger\gamma_0$,
+$\bar N^{+}_{La}=(N_{Ra}^{-})^\dagger\gamma_0$, $\bar E^{0}_{La}=(E^{0}_{Ra})^\dagger\gamma_0$, $\bar E^{+}_{L}=(E^{-}_{R})^\dagger\gamma_0$. See tables \ref{NQF0+} and \ref{NqQF0+}. 
+
+
+
+
+They carry SM quantum numbers $t^i_{3L},Y$, and 
+$Q_i=Y+t^i_{3L}$, which are the sum of SM quantum numbers ($t^i_{3L}, Y, Q_i$) of their constituents, i.e., the elementary leptons and quarks in the same SM family \cite{xue2017}, listed in Tables \ref{NQF0+} and \ref{NqQF0+}, so that the contact interactions in Eq. (\ref{ciqlBql1}) are SM gauge symmetric. 
+
+The four composite fields $F$ (colorless): 
+$N_{R}^{0}$, $N_{R}^{-}$, $E^{0}_{R}$, $E^{-}_{R}$,  are two-component right-handed Wely fermions. 
+
+They form two right-handed SU(2) doublets (colorless): (i) $N_R=(N_R^0,N_R^-) = \Pi_{-1/2}\nu^e_R$ of u channel hypercharge -1/2 +0= -1/2, (ii) $E_R=(E_R^0,E_R^-) = \Pi_{1/2}e_R$ of d channel hypercharge 1/2 -1= -1/2, where the 
+SU(2) composite boson doublets: $\Pi_{-1/2}=(\Pi^0_u,\Pi^-)$  of u channel the hypercharge -1/2, and $\Pi_{1/2}=(\Pi^+,\Pi^0_d)$ of d channel,the hypercharge 1/2.
+
+The SU(2) doublet massive Dirac fermions (four spinor components) are: (i)  $N_D=(N_R^0+\nu^e_L,N_R^-+e_L)$ of hypercharge -1/2 and Dirac mass term $M_F\bar N_D N_D$; (ii)  $E_D=(E_R^0+\nu^e_L,E_R^-+e_L)$ of hypercharge -1/2 and Dirac mass term $M_F\bar E_D E_D$.
+
+There are two left-handed SU(2) singlets: (i) $N^s_L = \Pi^\dagger_{-1/2}(\nu^e_L,e_L)$ of u channel of hypercharge 1/2-1/2=0, (ii) $E^s_L=\Pi^\dagger_{1/2}(\nu^e_L,e_L)$ of d channel of hypercharge -1/2-1/2=-1, where the 
+SU(2) composite boson doublets: $\Pi^\dagger_{-1/2}=(\Pi^0_u,\Pi^-)^\dagger$  of u channel the hypercharge 1/2, and $\Pi^\dagger_{1/2}=(\Pi^+,\Pi^0_d)^\dagger$ of d channel,the hypercharge -1/2.
+
+The SU(2) singlet massive Dirac fermions (four spinor components) are: (i)  $N^s_D=(N^s_L+\nu^e_R)$ of hypercharge 0, electrically neutral,  and Dirac mass term 
+$M_F\bar N_D N_D$; (ii)  $E^s_D=(E^s_L+e_R)$ of hypercharge -1, charge -1 and Dirac mass term $M_F\bar E_D E_D$.
+
+\begin{table*}
+\begin{ruledtabular}\begin{tabular}{cccc}
+Operator & LQ Composite fermion $F_R$&  LQ Composite fermion $\bar F_L$ & Composite boson $\Pi$\cr
+\hline
+$(\bar \nu^e_{L}\nu^e_{R})(\bar u_{Ra}u_{La})$&$ N^{0}_{R}\sim \nu^e_{R}(\bar u_{Ra}u_{La})$ &
+$\bar N^{0}_{L}\sim \bar\nu^e_{L}(\bar u^a_{R}u_{La})$
+& $\Pi^{0}_{u}\sim (\bar u_{Ra}u_{La})$\cr 
+$(\bar e_{L}\nu^e_{R})(\bar u_{Ra}d_{La})$ & 
+$N^{-}_{R}\sim \nu^e_{R}(\bar u_{Ra}d_{La})$ 
+& $\bar N^{+}_{L}\sim \bar\nu^e_{L}(\bar d^a_{R}u_{La})$ & 
+$\Pi^{-}_a\sim (\bar u_{Ra}d_{La})$\cr
+$(\bar \nu^e_{L}e_{R})(\bar d_{Ra}u_{La})$&
+$  E^{0}_{R}\sim e_{R}(\bar d_{Ra}u_{La})$ &
+$\quad \bar E^{0}_{L}\sim \bar e_{L}(\bar u^a_{R}d_{aL})$ & 
+$\Pi^{+}\sim (\bar d_{Ra}u_{La})$ \cr
+$(\bar e_{L}e_{R})(\bar d_{Ra}d_{La})$& $E^{-}_{R}\sim e_{R}(\bar d_{Ra}d_{La})$ & $  \bar E^{+}_{L}\sim \bar e_{L}(\bar d^a_{R}d_{La})$
+& $\Pi^{0}_{d}\sim (\bar d_{Ra}d_{La})$
+\end{tabular}
+\end{ruledtabular}
+\caption{Four-fermion operators (\ref{bhlql}) and possible colorless LQ composite fermions $F$. The color $a$ index is summed, these composite fermions are colorless, final states are two quarks and one lepton. We consider them as LQ composite fermions.
+These composite fermions are the same as $N (neutrino)$ and $E(electron)$ sector table I and III in previous Roberto article.}\label{NQF0+}
+\end{table*}
+
+\begin{table*}
+\begin{ruledtabular}\begin{tabular}{ccccc}
+LQ composite fermions $F_R$ & constituents&  charge $Q_i=Y+t^i_{3L}$ & $SU_L(2)$ 
+3-isospin $t^i_{3L}$& $U_Y(1)$-hypercharge $Y$\cr
+\hline
+$N^{0}_{R}$ & $\nu^e_{R}(\bar u_{Ra}u_{La})$&$ 0$ &$~~1/2$ &$ -1/2$\cr
+
+$N^{-}_{R}$ & $  \nu^e_{R}(\bar u_{Ra}d_{La})$ &$-1$& $-1/2$& $-1/2$\cr
+
+$E^{0}_{R} $& $e_{R}(\bar d_{Ra}u_{La})$ & $0$& $~~1/2$ &$-1/2$\cr
+
+$E^{-}_{R}$ & $e_{R}(\bar d_{Ra}d_{La})$ & $-1$ &$-1/2$ &$-1/2$
+\end{tabular}
+\end{ruledtabular}
+\caption{LQ Composite fermions $F_R$ are colorless, their constituents and SM quantum numbers, corresponding to Table \ref{NQF0+}. These composite fermions are the same as $N$ and $E$ sector table I and III in previous Roberto article.}\label{NqQF0+}
+\end{table*}
+
+
+
+
+
+\subsection{The type 3 of $G\left[(\bar\psi_{Lia}\nu^e_{R})(\bar \nu^e_{R}\psi_{Lia})
++(\bar\psi_{Lia}e_{R})(\bar e_{R}\psi_{Lia})\right] + {\rm h.c.}$ (\ref{bhlql2}) }
+
+
+\begin{table*}
+\begin{ruledtabular}\begin{tabular}{cccc}
+Operator & LQ Composite fermion $F_R$&  LQ Composite fermion $\bar F_L$ & Composite boson $\Pi$\cr
+\hline
+$(\bar u_{La}\nu^e_{R})(\bar\nu^e_{R}u_{La})$&$ N^{2/3}_{Ra}\sim \nu^e_{R}(\bar\nu^e_{R}u_{La})$ &
+$\bar N^{-2/3}_{La}\sim \bar\nu^e_{L}(\bar u^a_{R}\nu^e_{L})$
+& $\Pi^{2/3}_{u_a}\sim (\bar\nu^e_{R}u_{La})$
+\cr
+$(\bar d_{La}\nu^e_{R})(\bar \nu^e_{R}d_{La})$ & 
+$N^{-1/3}_{Ra}\sim \nu^e_{R}(\bar \nu^e_{R}d_{La})$ 
+& $\bar N^{1/3}_{La}\sim \bar\nu^e_{L}(\bar d^a_{R}\nu^e_{L})$ & 
+$\Pi^{-1/3}_a\sim (\bar\nu^e_{R}d_{La})$\cr
+$(\bar u_{La}e_{R})(\bar e_{R}u_{La})$&
+$  E^{2/3}_{Ra}\sim e_{R}(\bar e_{R}u_{La})$ &
+$\quad \bar E^{-2/3}_{La}\sim \bar e_{L}(\bar u^a_{R}e_{L})$ & 
+$\Pi^{5/3}_a\sim (\bar e_{R}u_{La})$ \cr 
+$(\bar d_{La}e_{R})(\bar e_{R}d_{La})$& $E^{-1/3}_{Ra}\sim e_{R}(\bar e_{R}d_{La})$ & $  \bar E^{1/3}_{La}\sim \bar e_{L}(\bar d^a_{R}e_{L})$
+& $\Pi^{2/3}_{d_a}\sim (\bar e_{R}d_{La})$
+\end{tabular}
+\end{ruledtabular}
+\caption{Four-fermion operators (\ref{bhlql2}) and possible LQ composite fermions $F$. The color $a$ index is not summed, these composite fermions carry color, couple to gluons and can be created by two gluons collisions, final states are two leptons and one quark. 
+This property is the same as $U$ and $D$ sector in previous article, however the final state is three quarks.}\label{QF0+}
+\end{table*}
+
+In Eqs.~(\ref{bhlql2}), each four-fermion operator has the two possibilities to form composite fermions, listed in Tables \ref{QF0+} and \ref{qQF0+}.
+Up to a form factor, $E$ ($N$) indicate a composite fermion composed by an electron (a neutrino) and a color lepton quark pair $\Pi_a$, and its superscript for electric charge. In Eq.~(\ref{bhlql2}), there are four independent composite fields $F$: $N_{Ra}^{2/3}$, $N_{Ra}^{-1/3}$, $E^{2/3}_{Ra}$, $E^{-1/3}_{Ra}$
+and
+their Hermitian conjugates:
+$\bar N^{-2/3}_{La}=(N_{Ra}^{2/3})^\dagger\gamma_0$,  
+$\bar N^{1/3}_{La}=(N_{Ra}^{-1/3})^\dagger\gamma_0$, $\bar E^{-2/3}_{La}=(E^{2/3}_{Ra})^\dagger\gamma_0$, $\bar E^{1/3}_{La}=(E^{-1/3}_{Ra})^\dagger\gamma_0$. See tables \ref{QF0+} and \ref{qQF0+}. 
+
+
+
+
+They carry SM quantum numbers $t^i_{3L},Y$, and 
+$Q_i=Y+t^i_{3L}$, which are the sum of SM quantum numbers ($t^i_{3L}, Y, Q_i$) of their constituents, i.e., the elementary leptons and quarks in the same SM family \cite{xue2017}, listed in Table \ref{qnuF0+} and \ref{qQF0+}, so that the contact interactions in Eq. (\ref{c1}) are SM gauge symmetric. 
+
+The four composite fields $F$: 
+$N_{Ra}^{2/3}$, $N_{Ra}^{-1/3}$, $E^{2/3}_{Ra}$, $E^{-1/3}_{Ra}$ are two-component right-handed Wely fermions. 
+
+They form two right-handed SU(2) doublets: (i) $N_{Ra}=(N^{2/3}_{Ra},N^{-1/3}_{Ra}) = \Pi^a_{1/6}\nu^e_R$ of u channel hypercharge 1/6 +0= 1/6, (ii) $E_{Ra}=(E^{2/3}_{Ra},E^{-1/3}_{Ra}) = \Pi_{7/6}e_R$ of d channel hypercharge 7/6 -1= 1/6, where the 
+SU(2) LQ composite boson doublets: $\Pi^a_{1/6}=(\Pi^{2/3}_{u_a},\Pi^{-1/3}_a)$  of u channel the hypercharge 1/6, and $\Pi^a_{7/6}=(\Pi^{5/3}_a,\Pi^{2/3}_{d_a})$  of d channel the hypercharge 7/6.
+
+The SU(2) doublet massive Dirac fermions (four spinor components) are: (i)  $N^a_D=(N^{2/3}_{Ra}+u_{La},N^{-1/3}_{Ra}+d_{La})$ of hypercharge 1/6 and Dirac mass term $M_F\bar N_D N_D$; (ii)  $E^a_D=(E^{2/3}_{Ra}+u_{La},E^{-1/3}_{Ra}+d_{La})$ of hypercharge 1/6 and Dirac mass term $M_F\bar E_D E_D$.
+
+There are two left-handed SU(2) singlets: (i) $N^s_{La} = (\nu^e_L,e_L)\Pi^{a}_{1/6}$ of u channel of hypercharge 1/6-1/2=-1/3= charge, (ii) $E^s_{La}=(\nu^e_L,e_L)\Pi^a_{7/6}$ of d channel of hypercharge 7/6-1/2=2/3= charge, where the 
+SU(2) LQ composite boson doublets: $\Pi^{a}_{1/6}=(\Pi^{2/3}_{u_a},\Pi^{-1/3}_a)$  of u channel the hypercharge 1/6, and $\Pi^{a}_{7/6}=(\Pi^{5/3}_a,\Pi^{2/3}_{d_a})$  of d channel the hypercharge 7/6.
+
+The SU(2) singlet massive Dirac fermions (four spinor components) are: (i)  $N^s_{Da}=(N^s_{La}+d_{Ra})$ of hypercharge -1/3, charge e=Y=-1/3 and Dirac mass term 
+$M_F\bar N_{Da} N_{Da}$; (ii)  $E^s_{Da}=(E^s_{La}+u_{Ra})$ of hypercharge 2/3,  charge e=Y=2/3 and Dirac mass term 
+$M_F\bar E_{Da} E_{Da}$.
+
+\begin{table*}
+\begin{ruledtabular}\begin{tabular}{ccccc}
+LQ composite fermions $F_R$ & constituents&  charge $Q_i=Y+t^i_{3L}$ & $SU_L(2)$ 
+3-isospin $t^i_{3L}$& $U_Y(1)$-hypercharge $Y$\cr
+\hline
+$N^{2/3}_{Ra}$ & $\nu^e_{R}(\bar\nu^e_{R}u_{La})$&$ 2/3$ &$~~1/2$ &$ 1/6$\cr
+
+$N^{-1/3}_{Ra}$ & $  \nu^e_{R}(\bar\nu^e_{R}d_{La})$ &$-1/3$& $-1/2$& $1/6$\cr
+
+$E^{2/3}_{Ra} $& $e_{R}(\bar e_{R}u_{La})$ & $2/3$& $~~1/2$ &$1/6$\cr
+
+$E^{-1/3}_{Ra}$ & $e_{R}(\bar e_{R}d_{La})$ & $-1/3$ &$-1/2$ &$1/6$
+\end{tabular}
+\end{ruledtabular}
+\caption{LQ Composite fermions $F_R$, coupling to gluons, their constituents and SM quantum numbers, corresponding to Table \ref{QF0+}}\label{qQF0+}
+\end{table*}
+
+
+
+\begin{table*}
+\begin{ruledtabular}\begin{tabular}{cccc}
+Operator & Composite fermion $F_R$&  Composite fermion $\bar F_L$ &  Composite boson $\Pi$\cr
+\hline
+$(\bar\nu^e_Lu^a_{R})(\bar u^a_{R}\nu^e_{L})$&
+$  U^0_R\sim u^a_{R}(\bar u^a_{R}\nu^e_{L})$ &
+$\quad \bar U^0_L\sim\bar u^a_{L}(\bar \nu^e_{R}u_{La})$& $\Pi^{-2/3}_{u_a}\sim (\bar u^a_{R}\nu^e_{L})$\cr 
+$(\bar e_Lu^a_{R})(\bar u^a_{R}e_{L})$ & 
+$U^-_R\sim u^a_{R}(\bar u^a_{R}e_{L})$ & 
+$\bar U^+_L\sim\bar u^a_{L}(\bar e_{R}u_{La})$& $\Pi^{-5/3}_a\sim (\bar u^a_{R}e_{L})$\cr
+$(\bar\nu^e_Ld^a_{R})(\bar d^a_{R}\nu^e_{L})$&$ D^0_R\sim d^a_{R}(\bar d^a_{R}\nu^e_{L})$ &
+$\bar D^0_L\sim\bar d^a_{L}(\bar \nu^e_{L}d^a_{R})$& $\Pi^{+1/3}_{a}\sim (\bar d^a_{R}\nu^e_{L})$\cr
+$(\bar e_Ld^a_{R})(\bar d^a_{R}e_{L})$& $D^-_R\sim d^a_{R}(\bar d^a_{R}e_{L})$ & $  \bar D^+_L\sim \bar d^a_{L}(\bar e_{R}d_{La})$& $\Pi^{-2/3}_{d_a}\sim (\bar d^a_{R}e_{L})$
+\end{tabular}
+\end{ruledtabular}
+\caption{Four-fermion operators in Eq. (\ref{bhlql1}) and possible composite fermions $F$ and composite bosons $\Pi_a$. The repeat color $a$ index is summed, these $F$ do not couple to gluons at leading order.}\label{nuF0+}
+\end{table*}
+
+\begin{table*}
+\begin{ruledtabular}\begin{tabular}{ccccc}
+LQ composite fermions $F_R$ & constituents&  charge $Q_i=Y+t^i_{3L}$ & $SU_L(2)$ 
+3-isospin $t^i_{3L}$& $U_Y(1)$-hypercharge $Y$\cr
+\hline
+$U^0_R $& $u^a_{R}(\bar u^a_{R}\nu^e_{L})$ & $0$& $~~1/2$ &$-1/2$\cr
+
+$U^-_R$ & $  u^a_{R}(\bar u^a_{R}e_{L})$ &$-1$& $-1/2$& $-1/2$\cr
+
+$D^0_R$ & $d^a_{R}(\bar d^a_{R}\nu^e_{L})$&$ 0$ &$~~1/2$ &$ -1/2$\cr
+
+$D^-_R$ & $d^a_{R}(\bar d^a_{R}e_{L})$ & $-1$ &$-1/2$ &$-1/2$
+\end{tabular}
+\end{ruledtabular}
+\caption{LQ Composite fermions $F_R$, their constituents and SM quantum numbers. They come from strong four-fermion interaction (\ref{bhlql1}). These have the same SM quantum numbers as the $E,N$ sector in previous article, however, different final states.
+There are two constituent quarks, and the repeat color index is summed, these composite fermions have no color, and do not couple to gluons at leading order. The $E,N$ sector in previous article also does not couple to gluons }\label{qnuF0+}
+\end{table*}
+
+\subsection{The type 2 of $G\left[(\bar\ell^{i}_Lu^a_{R})(\bar u^a_{R}\ell_{Li})
++(\bar\ell^{i}_Ld^a_{R})(\bar d^a_{R}\ell_{Li})\right]+ {\rm h.c.}$ (\ref{bhlql1}) }
+
+In Eqs.~(\ref{bhlql1}), each four-fermion operator has the two possibilities to form composite fermions, listed in Tables \ref{nuF0+} and \ref{qnuF0+}.
+Up to a form factor, $D$ ($U$) indicate a composite fermion composed by a down quark $d$ (an up quark $u$) and a color lepton quark pair $\Pi_a$, and its superscript for electric charge.
+In Eq.~(\ref{bhlql1}), there are four independent composite fields $F$: 
+$U^0_R$, $U_R^-$, $D_R^0$, $D^-_R$ and their Hermitian conjugates:
+$\bar U^0_L=(U^0_R)^\dagger\gamma_0$, $\bar U^+_L=(U^-_R)^\dagger\gamma_0$, $\bar D^0_L=(D^0_R)^\dagger\gamma_0$,$\bar D^+_L=(D^-_R)^\dagger\gamma_0$, . 
+See tables \ref{nuF0+} and \ref{qnuF0+}.  
+
+
+
+
+They carry SM quantum numbers $t^i_{3L},Y$, and 
+$Q_i=Y+t^i_{3L}$, which are the sum of SM quantum numbers ($t^i_{3L}, Y, Q_i$) of their constituents, i.e., the elementary leptons and quarks in the same SM family \cite{xue2017}, so that the contact interactions in Eq. (\ref{c1}) are SM gauge symmetric. 
+
+The four composite fields $F$: 
+$U^0_R$, $U_R^-$, $D_R^0$, $D^-_R$ are two-component right-handed Wely fermions.  (To recall: N (neutrino) corresponds to U (up-quark). E (electron) corresponds to D (down-quark). 
+
+They form two right-handed SU(2) doublets: (i) $U_{R}=(U^{0}_{R},U^{-}_{R}) = \Pi^{a\dagger}_{7/6}u_{Ra}$ of u channel hypercharge -7/6 +2/3= -1/2, (ii) $D_{R}=(D^{0}_{R},D^{-}_{R}) = \Pi^{a\dagger}_{1/6}d_{Ra}$ of d channel hypercharge -1/6 -1/3= -1/2, where the 
+SU(2) LQ composite boson doublets: $\Pi^{a\dagger}_{1/6}=(\Pi^{-2/3}_{u_a},\Pi^{1/3}_a)$  of u channel the hypercharge -1/6, and $\Pi^{a\dagger}_{7/6}=(\Pi^{-5/3}_a,\Pi^{-2/3}_{d_a})$  of d channel the hypercharge -7/6.
+
+The SU(2) doublet massive Dirac fermions (four spinor components) are: (i)  $U_D=(U^{0}_{R}+\nu^e_{L},U^{-}_{R}+e_{L})$ of hypercharge -1/2 and Dirac mass term $M_F\bar U_D U_D$; (ii)  $D_D=(D^{0}_{R}+\nu^e_{L}, D^{-}_{R}+e_{L})$ of hypercharge -1/2 and Dirac mass term $M_F\bar D_D D_D$.
+
+There are two left-handed SU(2) singlets: (i) $U^s_{La} = (\nu^e_L,e_L)\Pi^{a}_{1/6}$ of u channel of hypercharge 1/6-1/2=-1/3, (ii) $D^s_{La}=(\nu^e_L,e_L)\Pi^a_{7/6}$ of d channel of hypercharge 7/6-1/2=2/3, where the 
+SU(2) LQ composite boson doublets: $\Pi^{a}_{1/6}=(\Pi^{2/3}_{u_a},\Pi^{-1/3}_a)$  of u channel the hypercharge 1/6, and $\Pi^{a}_{7/6}=(\Pi^{5/3}_a,\Pi^{2/3}_{d_a})$  of d channel the hypercharge 7/6.
+
+The SU(2) singlet massive Dirac fermions (four spinor components) are: (i)  $U^s_{Da}=(U^s_{La}+d_{Ra})$ of hypercharge -1/3, charge e=Y=-1/3 and Dirac mass term 
+$M_F\bar U^s_{Da} U^s_{Da}$; (ii)  $D^s_{Da}=(D^s_{La}+u_{Ra})$ of hypercharge 2/3,  charge e=Y=2/3 and Dirac mass term 
+$M_F\bar D^s_{Da} D^s_{Da}$.
+
+\newpage
+
+\begin{figure}[t]   
+\begin{center}
+
+
+
+\includegraphics[height=3.5cm,width=6.9cm]{fig1.pdf}
+
+
+
+
+
+\caption{A lepton $\ell$, two quarks $q$ ($u$-type) and $\bar q$ ($d$-type) form a composite fermion $F$ via the contact interaction (dark blob) 
+$P_{L,R}(g_*^2/\Lambda^2)$, where $P_{L,R}=(1\mp\gamma_5)/2$.
+The thin solid line represents an SM elementary fermion, and the thick double line represents a composite fermion $F$. By a crossing symmetry applied to the lepton line $\ell\rightarrow \ell^\dagger$ (dashed line)  the same diagram describes a $2\to2 $ production process $q\bar q \to 
+\ell^\dagger F$. 
+
+
+}
+\label{vF}
+\end{center}
+
+\end{figure}  
+
+\begin{figure}   
+\begin{center}
+
+
+\includegraphics[height=4.8cm,width=6.4cm]{fig2a}
+
+
+
+
+
+\vspace{-1em}
+\caption{We show the Feynman diagrammatic representation for the contact interaction between the composite boson and its constituent quarks, where the thin solid line represents an SM elementary fermion, double wave line represents a composite boson, and the blob represents an interacting 
+vertex $(F_\Pi/\Lambda)^2P_{L,R}$.}
+\label{compositeBv}
+\end{center}
+\vspace{-2em}
+\end{figure} 
+
+\begin{figure}   
+\begin{center}
+
+
+\includegraphics[height=4.8cm,width=6.4cm]{fig3a}
+
+
+
+
+
+
+
+
+\vspace{-1em}
+\caption{We show the Feynman diagrammatic representation for the contact interaction between the composite fermion and boson, 
+where the thin solid line represents a SM elementary fermion, the double solid line is a composite fermion and the double wave line represents a composite boson and the blob represents an interacting 
+vertex $(F_\Pi/\Lambda)^2P_{L,R}$.}
+\label{compositeFBf}
+\end{center}
+\vspace{-2em}
+\end{figure}
+
+
+\section{contact interaction of composite fermions}
+
+The contact interactions for the production and decay of a 
+composite fermions $F$ are:
+\begin{eqnarray}
+{\mathcal L}^{F}_{\rm CI} = {\mathcal V}_{F} +{\mathcal V}_{F}^\dagger. 
+\label{cieF}
+\end{eqnarray}
+In the case of Eq.~(\ref{bhlql1}) and Table \ref{nuF0+},
+\begin{eqnarray}
+{\mathcal V}_{\bar U^0} &=& \frac{g_*^2}{\Lambda^2}(\bar U^0_{L} u^a_{R})(\bar u^a_{R}\nu^e_{L}), \quad pp~\rightarrow \bar U^0_{L} \nu^e_{L};\quad p\nu_L~\rightarrow \bar U^0_{L} u^a_{R},
+\label{cieFf0+}\\ 
+{\mathcal V}_{\bar U^+}&=& \frac{g_*^2}{\Lambda^2}(\bar U^+_{L}u^a_{R})(\bar u^a_{R}e_{L}), \quad pp~\rightarrow \bar U^+_{L}e_{L};\quad ep~\rightarrow \bar U^+_{L}u^a_{R},
+\label{cinuFf0+}\\
+{\mathcal V}_{\bar D^+} &=& \frac{g_*^2}{\Lambda^2}(\bar D^+_{L}d^a_{R})(\bar d^a_{R}e_{L}),
+\quad pp~\rightarrow \bar D^+_{L}e_{L}; \quad ep~\rightarrow \bar D^+_{L}d^a_{R},
+\label{cieF0+}\\
+{\mathcal V}_{\bar D^0} &=& \frac{g_*^2}{\Lambda^2}(\bar D^0_{L}d^a_{R})(\bar d^a_{R}\nu^e_{L}), \quad pp\rightarrow \bar D^0_{L}\nu^e_{R};\quad p\nu_L\rightarrow \bar D^0_{L}d^a_{R},
+\label{cinuF0+}
+\end{eqnarray}
+and their Hermitian conjugates,
+\begin{eqnarray}
+{\mathcal V}^\dagger_{U^0} &=& \frac{g_*^2}{\Lambda^2}(\bar u^a_{L} U^0_{R})(\bar \nu^e_{R}u_{La}),\quad U^0_{R}\rightarrow \bar  u^a_{L}(\bar\nu^e_{R} u_{aL}),
+\label{dcieFf0+}\\
+{\mathcal V}^\dagger_{U^-}&=& \frac{g_*^2}{\Lambda^2}
+(\bar u^a_{L}U^-_{R})(\bar e_{R}u^a_{L}),\quad U^-_R\rightarrow\bar u^a_{L}(\bar e_{R}u_{aL}),
+\label{dcinuFf0+}\\
+{\mathcal V}^\dagger_{D^-} &=& \frac{g_*^2}{\Lambda^2}(\bar d^a_{L}D^-_{R})(\bar e_{R}d^a_{L}),\quad D^-_{R}\rightarrow \bar d^a_L(\bar e_{R}d_{La}),
+\label{dcieF0+}\\
+{\mathcal V}^\dagger_{D^0} &=& \frac{g_*^2}{\Lambda^2}(\bar d^a_{L}D^0_{R})(\bar \nu^e_{R}d^a_{L}),\quad D^0_{R}\rightarrow \bar d^a_{L}(\bar\nu^e_{R}d_{La}).
+\label{dcinuF0+}
+\end{eqnarray}
+In the case of Eq.~(\ref{bhlql2}) and Table \ref{QF0+},
+\begin{eqnarray}
+&&{\mathcal V}_{\bar E^{-2/3}_{Lb}} = \frac{g_*^2}{\Lambda^2}(\bar E^{-2/3}_{Lb} e_{R})(\bar e_{R}u_{Lb}); \!\!\!\quad\!\!\! ee~\rightarrow \bar E^{-2/3}_{La} u_{Rb};\!\!\!\quad\!\!\! ep~\rightarrow \bar E^{-2/3}_{La} e_{R};
+\label{cieQf0+}\\ 
+&&{\mathcal V}_{\bar N^{1/3}_{Lb}}= \frac{g_*^2}{\Lambda^2}(\bar N^{1/3}_{Lb}\nu^e_{R})(\bar \nu^e_{R}d_{Lb}); \quad \bar\nu_R\nu_R~\rightarrow \bar N^{1/3}_{La}d_{Ra}; \quad p\nu_R~\rightarrow \bar N^{1/3}_{La}\nu^e_{R},
+\label{cinuQf0+}\\
+&&{\mathcal V}_{\bar E^{1/3}_{Lb}} = \frac{g_*^2}{\Lambda^2}(\bar E^{1/3}_{Lb}e_{R})(\bar e_{R}d_{Lb});
+\quad ee~\rightarrow \bar E^{1/3}_{Lb}d_{Lb};
+\quad ep~\rightarrow \bar E^{1/3}_{Lb}e_{R},
+\label{cieQ0+}\\
+&&{\mathcal V}_{\bar N^{-2/3}_{Lb}} = \frac{g_*^2}{\Lambda^2}(\bar N^{-2/3}_{Lb}\nu^e_{R})(\bar \nu^e_{R}u_{Lb}); \!\!\!\quad\!\!\!
+\bar\nu_R\nu_R~\rightarrow \bar N^{-2/3}_{Lb}u_{Rb}; \!\!\!\quad\!\!\!
+\bar\nu_Rp~\rightarrow \bar N^{-2/3}_{Lb}\nu^e_{R},
+\label{cinuQ0+}
+\end{eqnarray}
+and their Hermitian conjugates,
+\begin{eqnarray}
+\!\!&&{\mathcal V}^\dagger_{E^{2/3}_{Rb}} \!=\! \frac{g_*^2}{\Lambda^2}(\bar e_LE^{2/3}_{Rb})(\bar u^b_{R} e_{L}); \!\!\quad\!\!
+E^{2/3}_{Rb}\rightarrow \bar  e_{L}(\bar u^b_{R} e_{L}),
+\label{dcieQf0+}\\
+\!\!\!&&{\mathcal V}^\dagger_{N^{-1/3}_{Rb}}\! = \!\frac{g_*^2}{\Lambda^2}
+(\bar\nu^e_{L}N^{-1/3}_{Rb})(\bar d^b_{R}\nu^e_{L});\!\!\!\quad\!\!\! N^{-1/3}_{Rb}\!\!\rightarrow\!\bar\nu^e_{L}(\bar d^b_{R}\nu^e_{L}),
+\label{dcinuQf0+}\\
+\!\!\!&&{\mathcal V}^\dagger_{E^{-1/3}_{Rb}}\! = \!\frac{g_*^2}{\Lambda^2}(\bar e_{L}E^{-1/3}_{Rb})(\bar d^b_{R}e_{L});
+\!\!\!\quad\!\!\! E^{-1/3}_{Rb}\!\!\rightarrow\! \bar e_{L}(\bar d^b_{R}e_{L}),
+\label{dcieQ0+}\\
+\!\!&&{\mathcal V}^\dagger_{N^{2/3}_{Rb}} \!=\! \frac{g_*^2}{\Lambda^2}(\bar\nu^e_{L}N^{2/3}_{Rb})(\bar u^b_{R}\nu^e_{L});\!\!\quad\!\!
+N^{2/3}_{Rb}\rightarrow \bar\nu^e_{L}(\bar u^b_{R}\nu^e_{L}).
+\label{dcinuQ0+}
+\end{eqnarray}
+These are relevant contact interactions for phenomenological studies of possible inelastic channels of composite-fermion production and decay in  $pp$ or $ep$ collisions.
+
+
+\subsection{Contact interaction of $\Pi^{0,\pm}$ composite boson and gauge bosons}\label{spgg}
+
+However, we shall consider other decay channels at the next leading order, such as neutral composite boson decay to two SM gauge bosons $\Pi^0_{u,d}\rightarrow \tilde G + \tilde G'$. We need a figure for $\Pi \rightarrow \tilde G + \tilde G'$. 
+Note that the discussions here in this section do not apply to LQ composite bosons $\Pi^Q_a$ at this leading order, because that SM gauge bosons are zero or integer electric charges and the fractionally charged LQ composite bosons cannot decay to SM gauge bosons. \red{
+The composite bosons $\Pi^{0,\pm}$ have two components: the pesudo scalar and scalar component. As example $\Pi^+=(g^*/F_\Pi)^2(\bar d^a_{R}u_{La})$ (\ref{nB0}) and $\Pi^0_u=(g^*/F_\Pi)^2(\bar u^a_{R}u_{La})$ (\ref{uB0}) are \cite{xue2017} 
+\begin{eqnarray}
+\Pi^+ &=&(g^*/F_\Pi)^2\bar d^a\frac{(1-\gamma_5)}{2}u_{a}= (1/2)(g^*/F_\Pi)^2\Big(\bar d^au_{a}-\bar d^a\gamma_5u_{a}\Big)\label{twocomp+}\\
+\Pi^0_u &=&(g^*/F_\Pi)^2\bar u^a\frac{(1-\gamma_5)}{2}u_{a}= (1/2)(g^*/F_\Pi)^2\Big(\bar u^au_{a}-\bar u^a\gamma_5u_{a}\Big),
+\label{twocomp0u}\\
+\Pi^0_d &=&(g^*/F_\Pi)^2\bar d^a\frac{(1-\gamma_5)}{2}d_{a}= (1/2)(g^*/F_\Pi)^2\Big(\bar d^ad_{a}-\bar d^a\gamma_5d_{a}\Big),
+\label{twocomp0d}
+\end{eqnarray}
+which can be generalized to the 2nd and 3rd generations. In the following studies of composite bosons decaying to two SM gauge bosons via a fermion loop,
+for the sake of notations, we use the $\Pi^{0,\pm}$ also for the pseudoscalar component with $\gamma_5$ presence, and introduce Higg-like ${\rm H}^{0,\pm}$ for  scalar component without $\gamma_5$ presence. Namely, henceforth, for pseudoscalar composite bosons
+\begin{eqnarray}
+\Pi^+ &=& (1/2)(g^*/F_\Pi)^2\Big(\bar d^a\gamma_5u_{a}\Big)\label{twocomp+}\\
+\Pi^0_u &=& (1/2)(g^*/F_\Pi)^2\Big(\bar u^a\gamma_5u_{a}\Big),
+\label{twocomp0u}\\
+\Pi^0_d &=& (1/2)(g^*/F_\Pi)^2\Big(\bar d^a\gamma_5d_{a}\Big),
+\label{twocomp0d}
+\end{eqnarray}
+and for scalar Higg-like ${\rm H}^{0,\pm}$ bosons
+\begin{eqnarray}
+{\rm H}^+ &=& (1/2)(g^*/F_\Pi)^2\Big(\bar d^au_{a}\Big)\label{htwocomp+}\\
+{\rm H}^0_u &=& (1/2)(g^*/F_\Pi)^2\Big(\bar u^au_{a}\Big),
+\label{htwocomp0u}\\
+{\rm H}^0_d &=& (1/2)(g^*/F_\Pi)^2\Big(\bar d^ad_{a}\Big).
+\label{htwocomp0d}
+\end{eqnarray}
+These can be generalized to the 2nd and 3rd families, ${\rm H}^0_t = (1/2)(g^*/F_\Pi)^2\Big(\bar t^at_{a}\Big)$ can be the candidate of the second Higgs particle, a massive and tightly bound state.}
+
+Analogously to $\pi^0\rightarrow \gamma\gamma$, the massive $\Pi^0_{u,d}$ composite boson (pesudo scalar component) can also decay into two gauge bosons \cite{xue2017} :
+\begin{eqnarray}
+\Pi^0_{u,d} &\rightarrow& \gamma +\gamma, \label{cpg}\\
+\Pi^0_{u,d} &\rightarrow& \gamma +Z^0,\label{cpgz} \\
+\Pi^0_{u,d} &\rightarrow& Z^0 + Z^0, \label{cpzz} \\
+\Pi^0_{u,d} &\rightarrow& W^+ + W^-,\label{cpww}
+\end{eqnarray}
+via the contact interaction
+\begin{eqnarray}
+{\mathcal L}^{\Pi^0}_{\tilde G\tilde G'} = \sum_{i=u,d}\frac{ gg^\prime N_c}{4\pi^2
+F_\Pi}\epsilon_{\mu\nu\rho\sigma}(\partial^\rho A^\mu)(\partial^\sigma A^{\prime\nu})\Pi^0_i,
+\label{PiGG} 
+\end{eqnarray}
+where $g$ and $g^\prime$ represent the 
+couplings of gauge bosons $A^\mu$ and $A^{\prime\nu}$ to the SM quarks $u$ 
+and $d$ with different $SU_L(2)$-isospin $i=u,d$. 
+Actually, this effective contact 
+interaction (\ref{PiGG})
+is an axial anomaly vertex, as a result of a triangle quark loop and standard renormalization procedure in SM. The color factor $N_c=3$ comes from the trace over color space of quarks in loop. The contact interaction (\ref{PiGG}) can be written as 
+\begin{eqnarray}
+{\mathcal L}^{\Pi^0}_{\tilde G\tilde G'} = \sum_{i=u,d}\frac{ gg^\prime N_c}{4\pi^2
+F_\Pi}\epsilon_{\mu\nu\rho\sigma}\frac{1}{4}(F^{\rho\mu})(F^{\prime\sigma\nu})\Pi^0_i.
+\label{PiGG1} 
+\end{eqnarray}
+\red{These amplitudes or effective interacting Lagrangians are the same, independent of quark types and masses in triangle loop. Therefore, it is the same and generalized for all generations. In addition, $\Pi^0_{u,d}$ decay to two gluons
+\begin{eqnarray}
+\Pi^0_{u,d} &\rightarrow& \tilde g
++ \tilde g,\label{cpgg}
+\end{eqnarray}
+via the contact interaction
+\begin{eqnarray}
+{\mathcal L}^{\Pi^0}_{\tilde g\tilde g'} &=& \sum_{i=u,d}\frac{ g_s^2/2}{4\pi^2
+F_\Pi}\epsilon_{\mu\nu\rho\sigma}(\partial^\rho A^\mu_a)(\partial^\sigma A^{\prime\nu}_a)\Pi^0_i\nonumber\\
+&=& \sum_{i=u,d}\frac{ g_s^2/2}{4\pi^2
+F_\Pi}\epsilon_{\mu\nu\rho\sigma}\frac{1}{4}(G^{\rho\mu}_a)(G^{\prime\sigma\nu}_a)\Pi^0_i,
+\label{PiGGg} 
+\end{eqnarray}
+where the strong coupling $g_s$ and $\alpha_s=g_s^2/(4\pi)$, the trace over color space gives $\tr(T^aT^b)=\delta^{ab}/2$, leading to $(G^{\rho\mu}_a)(G^{\prime\sigma\nu}_a)$ summed over color index $a$, see Ref.~\cite{anomalyS}.
+Here we note that the normal $\pi^0$ meson  $\pi^0=\bar u\gamma_5 u-\bar d\gamma_5 d$ in the $SU(3)$ quark model, the $u$ and $d$ color charges are the same. Thus their triangle diagram contributions to the anomaly, i.e., $\pi^0$ decays to two gluons, are the same, but opposite in sign, therefore exactly canceled each other. As a result, the total amplitude of the normal $\pi^0$ decay to two gluons is zero. This is not the case for its decay to two photons, since the $u$ and $d$ have different electric charges. In our case, $\Pi^0_u$ and $\Pi^0_d$ are different states, and both decay to two gluons and amplitudes are the same.}
+
+In addition, following the discussions and calculations of the neutral massive $\Pi^0_{u,d}$ composite boson (pesudo scalar component) decay into two gauge bosons (\ref{cpg}-\ref{cpww}) in Ref.~\cite{xue2017}, we can show the charged massive  composite boson $\Pi^+(u\bar d)$ and $\Pi^-(d\bar u)$ can decay. The neutral channels are
+\begin{eqnarray}
+\Pi^\pm &\rightarrow& \gamma + W^\pm,\label{cpgz+} \\
+\Pi^\pm &\rightarrow& Z^0 +W^\pm,\label{cpww+}
+
+
+\end{eqnarray}
+via the contact interaction
+\begin{eqnarray}
+{\mathcal L}^{\Pi^\pm}_{\tilde G\tilde G'} = \frac{ gg^\prime N_c}{4\pi^2
+F_\Pi}\epsilon_{\mu\nu\rho\sigma}(\partial^\rho A^\mu)(\partial^\sigma A^{\prime\nu})\Pi^\pm.
+\label{PiGG1+} 
+\end{eqnarray}
+The reason is that $\Pi^\pm$ masses are larger than the SM gauge bosons $W^\pm$ and $Z^0$.
+There are two possibilities in Eq. (\ref{PiGG1+}). (i) $\Pi^+AW^+$ interaction comes from the triangle loop made by quarks $uud$:
+\begin{eqnarray}
+{\mathcal L}^{\Pi^+}_{\tilde \gamma\tilde W^+} = \frac{ gg^\prime N_c}{4\pi^2
+F_\Pi}\epsilon_{\mu\nu\rho\sigma}(\partial^\rho A^\mu)(\partial^\sigma A^{\prime\nu})\Pi^+ +h.c.,
+\label{PiGG1+1} 
+\end{eqnarray}
+where fractional charge $g=(2/3)e$ and $SU_L(2)$ coupling $g^\prime=g_2/(2\sqrt{2})$, and $h.c.$ represents $\Pi^-$ channel. 
+(ii) $\Pi^+AW^+$ interaction comes from the triangle loop made by quarks $udd$:
+\begin{eqnarray}
+{\mathcal L}^{\Pi^+}_{\tilde \gamma\tilde W^+} = \frac{ gg^\prime N_c}{4\pi^2
+F_\Pi}\epsilon_{\mu\nu\rho\sigma}(\partial^\rho A^\mu)(\partial^\sigma A^{\prime\nu})\Pi^+ + h.c.,
+\label{PiGG1+2} 
+\end{eqnarray}
+where fractional charge $g=-(1/3)e$ and $SU_L(2)$ coupling $g^\prime=g_2/(2\sqrt{2})$, and $h.c.$ represents $\Pi^-$ channel. It is the same for the $Z^0$ boson channel (\ref{cpww+}), 
+replacing fractional charge $g$ by neutral gauge coupling $Z^0\bar u u$  or $Z^0\bar d d$. 
+
+\subsection{Contact interaction of Higgs-like ${\rm H}^{0,\pm}$ composite boson and gauge bosons}\label{spggh}
+
+\red{
+Analogously, we also consider the channels of  
+Higgs-like composite bosons decay into two gauge bosons:
+\begin{eqnarray}
+{\rm H}^0_{u,d} &\rightarrow& \gamma +\gamma, \label{hcpg}\\
+{\rm H}^0_{u,d} &\rightarrow& \gamma +Z^0,\label{hcpgz} \\
+{\rm H}^0_{u,d} &\rightarrow& Z^0 + Z^0, \label{hcpzz} \\
+{\rm H}^0_{u,d} &\rightarrow& W^+ + W^-,\label{hcpww} 
+\\
+{\rm H}^0_{u,d} &\rightarrow& \tilde g
++ \tilde g,\label{hcpgg}
+\end{eqnarray}
+For the electroweak decay channels (\ref{hcpg}-\ref{hcpww}), the contact interaction is 
+\begin{eqnarray}
+{\mathcal L}^{{\rm H}^0}_{\tilde G\tilde G'} &=& \sum_{i=u,d}\frac{ gg^\prime N_c}{4\pi^2
+F_\Pi}(g_{\mu\nu}g_{\rho\sigma}-g_{\mu\rho}g_{\nu\sigma} + g_{\mu\sigma}g_{\nu\rho} )(\partial^\rho A^\mu)(\partial^\sigma A^{\prime\nu}){\rm H}^0_i\nonumber\\
+
+&=& \sum_{i=u,d}\frac{ gg^\prime N_c}{4\pi^2
+F_\Pi}(g_{\mu\nu}g_{\rho\sigma} + g_{\mu\sigma}g_{\nu\rho} )(\partial^\rho A^\mu)(\partial^\sigma A^{\prime\nu}){\rm H}^0_i 
+\label{hPiGG} 
+\end{eqnarray}
+where the gauge invariant transverse condition $\partial_\mu A^\mu=0$ is used. For the QCD decay channels (\ref{hcpgg}) to two gluons, the contact interaction is
+\begin{eqnarray}
+{\mathcal L}^{{\rm H}^0}_{\tilde g\tilde g'} = \sum_{i=u,d}\frac{ g_s^2/2}{4\pi^2
+F_\Pi}(g_{\mu\nu}g_{\rho\sigma} + g_{\mu\sigma}g_{\nu\rho} )(\partial^\rho A^\mu_a)(\partial^\sigma A^{\prime\nu}_a){\rm H}^0_i ,
+\label{hPiGG1} 
+\end{eqnarray}
+where strong coupling $\alpha_s=g_s^2/4\pi$ and the trace over color space $\tr(T^aT^b)=\delta^{ab}/2$. We compare the pesudoscalar $\Pi^0$ channel contributions (\ref{PiGG1},\ref{hPiGG1}) and scalar ${\rm H}^0$ channel contributions (\ref{hPiGG},\ref{hPiGG1}), they are of the same order. Therefore, the total decay rate of a composite boson should be the sum of both pesudoscalar and scalar channels' contributions.  
+In the previous EPJC paper, there was a error (factor $3^2$ larger) in the rate of $\Pi^0$ decay to $W,Z,\gamma$, and the scalar channel ${\rm H}^0$ contributions have not been accounted. But these do not qualitatively change the conclusion/statement of the article, since the branching ratios of decaying to two gauge bosons channels are far smaller (a few order of mangnitudes) than the that of decaying to quarks channels. 
+Moreover, we did mention the composite boson decay to two gluons and can fuse to Higgs boson.}
+
+\comment{
+It should be mentioned that 
+two gauge bosons can be two gluons $\tilde g \tilde g$ (\ref{cpgg}) that possibly fuse to a Higgs particle ???, which become two photons ??? in the final states. 
+The effective vertex of Higgs and two gluons in the limit in which the top quark is heavy, $m_t\gg m_H$, the cross section can be computed via the following effective Lagrangian A. Vainshtein, M. Voloshin, V. Zakharov, and M. Shifman, Sov. J. Nucl. Phys. 30 (1979) 429 and Russel P. Kauffman, Satish V. Desai, Dipesh Risal Phys.Rev.D55:4005-4015,1997 arXiv:hep-ph/9610541v1
+\begin{eqnarray}
+L_{eff} = −(1/4)g_{Hgg}HG^a_{\mu\nu} G_a^{\mu\nu},
+\label{HGG} 
+\end{eqnarray}
+where $G^a_{\mu\nu}$ is the field strength of the $SU_c(3)$ color gluon field and H is the Higgs-boson field. 
+The effective coupling $g_{Hgg}= \alpha_s /(3\pi v)$, where $v$
+is the vacuum expectation value parameter, $v^2 \approx (G_F\sqrt{2})^{-1}$. After more thought, these two 
+gluons should fly apart and cannot fuse together to become a Higgs, since $\Pi^0$ is parity odd, while 
+gluon is parity even. Thus for the parity conservation $\Pi$ cannot go to a Higgs, two flying apart gluons 
+end up with two jets at final states. I still have to think about (\ref{ggrate}) and discuss with Orlando, process should be colourless, and two gluons fuse to a Higgs via a top quark loop, then Higgs decays to two photons, after more thought it seems this cannot be for parity conservation, so two gluons end up with two jets 
+}
+
+
+
+\red{
+The charged scalar ${\rm H}^\pm$ decay channels are
+\begin{eqnarray}
+{\rm H}^\pm &\rightarrow& \gamma + W^\pm,\label{hcpgz+} \\
+{\rm H}^\pm &\rightarrow&  Z^0 +W^\pm.\label{hcpww+}
+\end{eqnarray}
+via the contact interaction
+\begin{eqnarray}
+{\mathcal L}^{{\rm H}^\pm}_{\tilde G\tilde G'} = \frac{ gg^\prime N_c}{4\pi^2
+F_\Pi}(g_{\mu\nu}g_{\rho\sigma} + g_{\mu\sigma}g_{\nu\rho} )(\partial^\rho A^\mu)(\partial^\sigma A^{\prime\nu}){\rm H}^\pm.
+\label{hPiGG1+} 
+\end{eqnarray}
+The reason is that ${\rm H}^\pm$ masses are larger than the SM gauge bosons $W^\pm$ and $Z^0$.
+There are two possibilities in Eq. (\ref{hPiGG1+}). (i) ${\rm H}^+AW^+$ interaction comes from the triangle loop made by quarks $uud$:
+\begin{eqnarray}
+{\mathcal L}^{{\rm H}^+}_{\tilde \gamma\tilde W^+} = \frac{ gg^\prime N_c}{4\pi^2
+F_\Pi}(g_{\mu\nu}g_{\rho\sigma} + g_{\mu\sigma}g_{\nu\rho} )(\partial^\rho A^\mu)(\partial^\sigma A^{\prime\nu}){\rm H}^+ +h.c.,
+\label{hPiGG1+1} 
+\end{eqnarray}
+where fractional charge $g=(2/3)e$ and $SU_L(2)$ coupling $g^\prime=g_2/(2\sqrt{2})$, and $h.c.$ represents $\Pi^-$ channel. 
+(ii) ${\rm H}^+AW^+$ interaction comes from the triangle loop made by quarks $udd$:
+\begin{eqnarray}
+{\mathcal L}^{{\rm H}^+}_{\tilde \gamma\tilde W^+} = \frac{ gg^\prime N_c}{4\pi^2
+F_\Pi}(g_{\mu\nu}g_{\rho\sigma} + g_{\mu\sigma}g_{\nu\rho} )(\partial^\rho A^\mu)(\partial^\sigma A^{\prime\nu}){\rm H}^+ + h.c.,
+\label{PiGG1+2} 
+\end{eqnarray}
+where fractional charge $g=-(1/3)e$ and $SU_L(2)$ coupling $g^\prime=g_2/(2\sqrt{2})$, and $h.c.$ represents ${\rm H}^-$ channel. It is the same for the $Z^0$ boson channel (\ref{hcpww+}), replacing fractional charge $g$ by neutral gauge coupling $Z^0\bar u u$ or $Z^0\bar d d$.}
+
+\comment{It should be mentioned that 
+two gauge bosons can be two gluons $\tilde g \tilde g$ (\ref{cpgg}) that possibly fuse to a Higgs particle ???, which become two photons ??? in the final states. 
+The effective vertex of Higgs and two gluons in the limit in which the top quark is heavy, $m_t\gg m_H$, the cross section can be computed via the following effective Lagrangian A. Vainshtein, M. Voloshin, V. Zakharov, and M. Shifman, Sov. J. Nucl. Phys. 30 (1979) 429 and Russel P. Kauffman, Satish V. Desai, Dipesh Risal Phys.Rev.D55:4005-4015,1997 arXiv:hep-ph/9610541v1
+\begin{eqnarray}
+L_{eff} = −(1/4)g_{Hgg}HG^a_{\mu\nu} G_a^{\mu\nu},
+\label{HGG} 
+\end{eqnarray}
+where $G^a_{\mu\nu}$ is the field strength of the $SU_c(3)$ color gluon field and H is the Higgs-boson field. 
+The effective coupling $g_{Hgg}= \alpha_s /(3\pi v)$, where $v$
+is the vacuum expectation value parameter, $v^2 \approx (G_F\sqrt{2})^{-1}$. After more thought, these two 
+gluons should fly apart and cannot fuse together to become a Higgs, since $\Pi^0$ is parity odd, while 
+gluon is parity even. Thus for the parity conservation $\Pi$ cannot go to a Higgs, two flying apart gluons 
+end up with two jets at final states. I still have to think about (\ref{ggrate}) and discuss with Orlando, process should be colourless, and two gluons fuse to a Higss via a top quark loop, then Higgs decays to two photons, after more thought it seems this cannot be for parity conservation, so two gluons end up with two jets}
+
+
+\section{Phenomenology of the composite bosons in $pp$ and $ep$ collisions}\label{PhenomenologyCompositeFermions}
+
+In this section we study the phenomenology of the composite fermions in $pp$ collisions. We first outline its production and decay mode and then calculate its cross section and decay width. This study leads us to the discussion on the search for $\Pi$ that will be discussed in the next section.
+
+
+\subsection{Production and decay of composite bosons $\Pi^{0,\pm}$}
+
+As already specified in Sec.~\ref{contact}, 
+the composite bosons $\Pi$ can be 
+\begin{eqnarray}
+&&\Pi^+ ~(\bar du,\bar cs, \bar bt),\nonumber\\
+&&\Pi^- ~(\bar ud,\bar sc, \bar tb),\nonumber\\
+&&\Pi^0_u ~(\bar uu,\bar ss, \bar tt),\nonumber\\ 
+&&\Pi^0_d ~(\bar dd,\bar cc, \bar bb),
+\label{comSpecB}
+\end{eqnarray}
+for the charge sector $Q=+,-,0$ 
+respectively, and the corresponding composite bosons 
+of the higher generation of families in the SM.
+
+The kinematics of the processes is derived in the center of mass frame of $pp$ collisions and virtual processes 
+of $\Pi$ are not considered. If the energy $\sqrt{s}$ in the parton centre of mass frame is larger than composite boson masses, the following resonant process can occur:
+\begin{eqnarray}
+pp &\rightarrow&  ~\Pi
+\label{ppfFB}
+\end{eqnarray}
+where the composite bosons $\Pi$ (\ref{comSpecB}) formed by Standard Model fermions 
+of the higher generation of families. The kinematics of final states is simple in the centre of mass frame of $pp$ collisions.
+
+If we neglect the quark-family mixing, the previous process can manifest at parton level as:
+\begin{eqnarray}
+u~\bar{d} &\rightarrow& \Pi^+,\label{udB}\\
+d~\bar{u} &\rightarrow& \Pi^-,\label{udbarB}\\
+u~\bar{u} &\rightarrow&  \Pi^0_u \label{uuB},\\
+d~\bar{d} &\rightarrow& \Pi^0_d.\label{ddB}
+
+
+\end{eqnarray}
+
+The composite boson $\Pi$ can decay through the two different channels: two SM quarks $q q^\prime$, via the contact 
+interactions in Eqs.~(\ref{ciqlB}-\ref{iqlBu}), two SM gauge bosons $\tilde G\tilde G'$ 
+via the contact interactions in Eqs.~(\ref{cpg}-\ref{cpgg}). 
+Then the composite fermion $\Pi$ decays as:
+\begin{eqnarray}
+\Pi~&\rightarrow& ~ qq^\prime ,\label{FqqB} \\
+\Pi~ &\rightarrow& \tilde G\tilde G'.\label{FPB} 
+\end{eqnarray}
+The full decay chain is:
+\begin{eqnarray}
+pp &\rightarrow& \Pi  \rightarrow ~ qq^\prime ,\\
+pp &\rightarrow& \Pi  \rightarrow ~ \tilde G\tilde G'.
+\end{eqnarray}
+
+It appears clear, considering all the possible flavours of $\Pi$ (\ref{comSpecB}), that a large range 
+of final states is possible. 
+The cross section of the process $pp \rightarrow \Pi $, the decay branching ratios of $\Pi$, and the final states and their topologies are discussed below. 
+
+\begin{figure}[t]   
+\begin{center}
+\includegraphics[scale=1]{sigma_g0-5.pdf}
+\caption{(Color Online) On the left panel, we show the production cross section of 
+$pp\rightarrow \Pi$ as a function of $m_{_\Pi}$ for the case $g^2_{_{\rm Y}}=\left(\frac{F_\pi}{\Lambda}\right)=0.5$ and at a centre of mass energy  $\sqrt{s}=13$ TeV. The solid red line represents the results of an analytical and numerical calculation based on Eqs.~(\ref{csE0Pi}) and (\ref{csFb}) and the filled circles (black) represent the  results from our implementation of the model in CalcHEP. We find good agreement. 
+On the right panel, we plot the decay width of composite boson $	\Pi$ as a function of its mass $m_{_\Pi}$ for the case $g^2_{_{\rm Y}}=\left(\frac{F_\pi}{\Lambda}\right)=0.5$. Again, we observe a good agreement between the expectation from a CalcHEP simulation and the analytical result based on Eq.~(\ref{Gamma_pqq}). 
+\red{here 1. we need a plot for the decay rate; 2. we need to think the value $g^2_{_{\rm Y}}=\left(\frac{F_\pi}{\Lambda}\right)$, in connection with the previous fermion paper.}
+ 
+}
+\label{fig:crossSectionPi}
+\end{center}
+
+\end{figure}  
+
+\subsection{Production and decay of quark-lepton composite bosons $\Pi^{5/3,-1/3,2/3}_a$}
+
+As already specified in Sec.~\ref{contact}, 
+the quark-lepton composite bosons $\Pi$ can be 
+\begin{eqnarray}
+&&\Pi^{5/3}_a ~(\bar eu,\bar \mu c, \bar\tau \replaced[id=SH]{t}{b}),\nonumber\\
+&&\Pi^{-1/3}_a ~(\bar \nu^e d,\bar \nu^\mu s, \bar \nu^\mu \replaced[id=SH]{b}{t}),\nonumber\\
+&&\Pi^{2/3}_{u_a} ~(\bar \nu^e u,\bar \nu^\mu c, \bar \nu^\tau \replaced[id=SH]{t}{b}),\nonumber\\ 
+&&\Pi^{2/3}_{d_a} ~(\bar ed,\bar \mu s, \bar \tau b),
+\label{comSpecBql}
+\end{eqnarray}
+for the charge sector $Q=+5/3,-1/3,2/3$ 
+respectively, and the corresponding composite bosons 
+of the higher generation of families in the SM.
+
+The kinematics of the processes is derived in the center of mass frame of $pp$ collisions and virtual processes 
+of $\Pi$ are not considered. If the energy $\sqrt{s}$ in the parton centre of mass frame is larger than composite boson masses, the following resonant process can occur:
+\begin{eqnarray}
+p~e &\rightarrow&  ~\Pi_a
+\label{ppfFBql}
+\end{eqnarray}
+where the composite bosons $\Pi_a$ (\ref{comSpecB}) formed by Standard Model fermions 
+of the higher generation of families. The kinematics of final states is simple in the centre of mass frame of $ep$ collisions.
+
+If we neglect the quark-family mixing, the previous process can manifest at parton level as:
+\begin{eqnarray}
+u~\bar e &\rightarrow& \Pi^{5/3}_a,\label{udBql}\\
+d~\bar\nu^e &\rightarrow& \Pi^{-1/3}_a,\label{udbarBql}\\
+u~\bar\nu^e &\rightarrow&  \Pi^{2/3}_a, \label{uuBql}\\
+d~\bar{e} &\rightarrow& \Pi^{2/3}_a.\label{ddBql}
+
+
+\end{eqnarray}
+We find that the quark-lepton composite bosons $\Pi^{5/3}_a$ and $\Pi^{2/3}_a$ can be produced by $ep$ collisions.
+
+The composite boson $\Pi_a$ can decay through the different channels: 
+SM quark $q$ and lepton $\ell$, via the contact 
+interactions in Eqs.~(\ref{ciqlBql}-\ref{iqlBuql}). 
+Then the composite fermion $\Pi$ decays as:
+\begin{eqnarray}
+\Pi_a~&\rightarrow& ~ \ell ~q ,\label{FqqBql} 
+\end{eqnarray}
+the branching ratio of this decay is the approximately same as 
+the decay of the $\Pi^{0,\pm}(\bar q q)$, which has been calculated. 
+The full decay chain is:
+\begin{eqnarray}
+e~p &\rightarrow& \Pi_a  \rightarrow ~ \ell q.
+\end{eqnarray}
+
+It appears clear, considering all the possible flavours of $\Pi_a$ (\ref{comSpecBql}), that a large range 
+of final states is possible. 
+The cross section of the process $ep \rightarrow \Pi_a $, the decay branching ratios of $\Pi_a$, and the final states and their topologies are discussed below. Composite bosons and quark-lepton composite bosons have same cross sections and decay rates, by exchanging (\ref{quarklepton}).
+
+Note that Quark-lepton composite bosons do not possess contact interactions with SM gauge bosons like (\ref{cpg}-\ref{cpgg}).
+
+\subsection{Production and decay of quark-lepton composite bosons $\Pi^{5/3,-1/3,2/3}_a$ in $pp$ collisions}\label{qlpp}
+
+As shown in Figures \ref{gqscattering_PI} and \ref{leptoq_1}, the lepton-quark state 
+ca be also produced by gluon and quark scattering 
+\begin{eqnarray}
+g+q \rightarrow \ell + \Pi_a,\label{gqpil} 
+\end{eqnarray}
+where $\Pi_a=(g^*/F_\pi)^2(q_a\ell)$, see table \ref{qnuP0ql}, and the interaction strength is $g_{_Y}$, see integrating Lagrangian Eqs.~(\ref{ciqlB}-\ref{iqlBdql}) for the $\Pi q \ell$ vertex. The gluon and single quark interacting interacting Lagranian is the normal QCD one, with the strength $\sqrt{\alpha_s}=g_3$. This is the same for all three generations as show in Fig. \ref{gqscattering_PI}.
+
+For the reasons that composite bosons and fermions carry the quantum numbers of SM $SU_c(3)\times SU_L(2)\times U_Y(1)$, they gauge couplings $g_3,g_2,g_1$ to SM gauge bosons are well defined \cite{xue2017}. For the $SU_c(3)$ sector, $[(\partial_\mu +\cdot\cdot\cdot + ig_3T^aA_\mu^a)\Pi^Q]^2$ gives the interaction $g_3g_3\Pi_a^Q(\Pi_a^Q)^\dagger$ of two gluons and two 
+leptoquark composite bosons ($[T^a,T^b]=if^{abc}T^c$ and $\tr (T^aT^b)=\delta^{ab}/2$),
+\begin{eqnarray}
+g^2_3T^aT^b A^a_\mu A^b_\mu \Pi^Q(\Pi^Q)^\dagger ,\label{ggpp} 
+\end{eqnarray}
+where we drop the color index $a$ of leptoquark boson $\Pi_a^Q$ (table \ref{qnuP0ql}), 
+for the process 
+\begin{eqnarray}
+g+g~&\rightarrow& ~ \Pi^Q+(\Pi^Q)^\dagger,\label{FqqBql} 
+\end{eqnarray}
+as shown in Francesco slide \ref{leptoq_1}. This is the gluon-gluon collision producing two leptoquark bosons, kinematically, CM energy of two gluons should be larger than $2M_{\Pi}$.
+
+Analogously, the gluon and composite fermion interacting Lagrangian is from 
+$\bar F^Q_L(\partial_\mu +\cdot\cdot\cdot + ig_3T^a\gamma_\mu A_\mu^a)F^Q_L$ gives the interaction $g\bar F^Q F^Q$ of gluon and composite fermion 
+\begin{eqnarray}
+ + ig_3T^a A^a_\mu \bar F^Q_R \gamma^\mu F^Q_R + ig_3T^a A^a_\mu \bar F^Q_L \gamma^\mu F^Q_L,\label{ggpp} 
+\end{eqnarray}
+where the composite fermion $F^Q_R$ is $E_R,N_R,U_R$ or $D_R$ and their Hermitian conjugates of left-handed counterpart $F^Q_L$ that are bound states of a quark and composite boson $\Pi$, see the Table I and II of our previous article. This is the case for the composite Fermion made by three quarks. It needs study (table)  for the cases of the composite quarklepto Fermion states made by one lepton and two quarks or two leptons and one quark. This interaction (\ref{ggpp}) accounts for the gluon-gluon fusing to composite fermion pair
+\begin{eqnarray}
+g+g~&\rightarrow& ~~F + \bar F,\label{FqqBqlf} 
+\end{eqnarray}
+\red{The amplitude needs to be calculated, see Fig. \ref{gqscattering_PI}. Answering Francesco question: the composite fermion $F$ can be a bound state of a fermion $f$ and a leptoquark $\Pi_a$, $F$ decays to $f$ and $\Pi_a$ ... This needs to study in details. }   
+
+We consider the processes of $q\bar q$ collisions to produce leptoquark bosob states, 
+\begin{eqnarray}
+q\bar q \rightarrow \Pi + \Pi^\dagger,
+\end{eqnarray}
+where $\Pi$ stands for leptoquark states listed in Table \ref{qnuP0ql}.
+From Eqs.~(\ref{ciqlB})-(\ref{iqlBdql}), 
+we can obtain the effective contact Lagrangians
+\begin{eqnarray}
+&& \frac{g^2_{_{\rm Y}}}{M_\Pi}(\bar d^a_{R}u_{La})(\Pi^{2/3}_{u_a})^\dagger \Pi^{-1/3}_a + {\rm h.c.},\label{ciqlBql1}\\
+&&\frac{g^2_{_{\rm Y}}}{M_\Pi}(\bar d^a_{R}u_{La})(\Pi^{2/3}_{d_a})^\dagger (\Pi^{5/3}_a) + {\rm h.c.},
+\label{ciqlBql2}\\
+&& \frac{g^2_{_{\rm Y}}}{M_\Pi} (\bar d^a_{R} d_{La})(\Pi^{-1/3}_a)^\dagger \Pi^{-1/3}_a + {\rm h.c.},\label{iqlBdql1}\\
+&& \frac{g^2_{_{\rm Y}}}{M_\Pi} (\bar d^a_{R} d_{La})(\Pi^{2/3}_{d_a})^\dagger \Pi^{2/3}_{d_a} + {\rm h.c.},
+\label{iqlBdql2}\\
+&& \frac{g^2_{_{\rm Y}}}{M_\Pi}(\bar u^a_{R} u_{La})(\Pi^{5/3}_a)^\dagger\Pi^{5/3}_a + {\rm h.c.},
+\label{iqlBuql1}\\
+&& \frac{g^2_{_{\rm Y}}}{M_\Pi}(\bar u^a_{R} u_{La})(\Pi^{2/3}_{u_a})^\dagger\Pi^{2/3}_{u_a} + {\rm h.c.}.
+\label{iqlBuql2}
+\end{eqnarray}
+Compared with Eqs.~(\ref{ciqlB})-(\ref{iqlBdql}) with one leptoquark boson state, we have one more leptoquark Yukawa coupling $g_{_Y}\sin {\mathcal O}(1)$ comes from the two form factors for two composite leptoquark boson states.  
+
+Another possible effective contact Lagrangian comes comes from bar q q gluon slef-energy diagram that couples two $\Pi$ and $\Pi$ 
+\begin{eqnarray}
+\frac{\alpha_s^2}{F_\pi} (\bar q q)(\Pi^Q_a)^\dagger\Pi_a^Q
+\nonumber 
+\end{eqnarray}
+to be checked, and see what others have done something similarly. 
+
+\begin{figure}   
+\begin{center}
+
+
+\includegraphics[height=4.8cm,width=6.4cm]{gqscattering_PI}
+
+
+
+
+
+\vspace{-1em}
+\caption{We show the Feynman diagrammatic representation for the contact interaction between the composite boson and its constituent quarks, where the thin solid line represents an SM elementary fermion (quark and lepton), double wave line represents a composite boson, and the blob represents an interacting vertex $g_{_Y}\sim {\mathcal O}(1)$, see Eqs.~(\ref{ciqlB}-\ref{iqlBdql}).}
+\label{gqscattering_PI}
+\end{center}
+\vspace{-2em}
+\end{figure}
+
+\begin{figure}   
+\begin{center}
+
+\includegraphics[height=6.8cm,width=8.4cm]{leptoq_1.png}
+\vspace{-1em}
+\caption{Francesco slide 1}
+\label{leptoq_1}
+\end{center}
+\vspace{-2em}
+\end{figure}
+
+\begin{figure}   
+\begin{center}
+
+\includegraphics[height=6.8cm,width=8.4cm]{leptoq_4.png}
+\vspace{-1em}
+\caption{Francesco slide 4. \red{all are possible in our model,  replacing  Z' or W' by  a proper Pi composite boson, and interacting vertex is given by  Eqs.~(\ref{ciqlB}-\ref{iqlBdql}) for the leptoquark $\Pi q \ell$ vertex, they are the same as those for normal qq composite, given in our previous article.}}
+\label{leptoq_4}
+\end{center}
+\vspace{-2em}
+\end{figure}
+
+
+
+
+
+We turn to the pair production of composite particles (fermion and boson) by SM gauge bosons, in particularly by gluons. The composite particles are made of SM quarks and leptons. Therefore, they have SM quantum numbers to couple to SM gauge bosons. These couplings in principle are new parameters of the theory. However, If SM gauge bosons, here we particularly mean gluons,  have energies comparable to composite scale, namely the composite particle masses $M_{F,\Pi}\sim {\mathcal O}(TeV)$, then gluons interact with the quark constitute inside the composite particle. In this case, the strength of gluon coupling to composite particle can be approximately represented by QCD strong coupling $g_s=\sqrt{\alpha_s}$. This is the case for the pair productions of composite particle $\Pi, F$ and anti composite particle $\Pi^\dagger, F^\dagger$ by gluon and gluon collisions,
+\begin{eqnarray}
+g+g~&\rightarrow& ~ \Pi + \Pi^\dagger ~~{\rm or}~~F + F^\dagger,\label{FqqBql} 
+\end{eqnarray}
+The reason is that in center of mass frame, gluon and gluon collision energy must be larger than the energy threshold 
+$2 M_{F,\Pi}$ to produce two composte particles flying apart, back-to-back. The composite particle and anti composite particle have the same mass. Here, we may consider the lepton-quark composite states, since their decay modes (topologies) are distinct from the SM QCD background.  But the discussions are the same for the pair productions of other composite particles in general.
+
+This situation is very much like the Breit-Wheeler process of electron-positron pair production by light-light collision $\gamma+\gamma \rightarrow e^++e^-$. Thus, learning from the QED calculation as shown two tree-level Feynman diagrams in Fig.~\ref{ggpair}, we can write the cross-section as 
+\begin{eqnarray}
+\sigma_{gg\rightarrow FF^\dagger ~{\rm or}~ \Pi\Pi^\dagger}~&\approx& ~ \frac{\pi}{2}\left(\frac{\alpha_s}{M_{F,\Pi}}\right)^2(1-\hat\beta^2)
+\Big[2\hat\beta^2(\hat\beta^2-2)+(3-\hat\beta^4)\ln\Big(\frac{1+\hat\beta^2}{1-\hat\beta^2}\Big)\Big],\quad \hat\beta^2=\frac{|{\bf p}|}{{\mathcal E}_{gg}}\label{ggpaircross} 
+\end{eqnarray}
+where ${\mathcal E}_{gg}$ is the two gluons colision energy in CM. Here we use approximation $\sigma_{gg\rightarrow FF^\dagger ~{\rm or}~ \Pi\Pi^\dagger}~\approx ...$, because we approximate the coupling between gluon and composite particle to be the QCD coupling $g_s$. For the energy ${\mathcal E}_{gg}\gg M_{F,\Pi}$, the pair-production cross-section yields
+\begin{eqnarray}
+\sigma_{gg\rightarrow FF^\dagger ~{\rm or}~ \Pi\Pi^\dagger}~&\approx& ~ \pi \left(\frac{\alpha_s}{M_{F,\Pi}}\right)^2\left(\frac{M_{F,\Pi}}{{\mathcal E}_{gg}}\right)^2.
+\label{ggpaircrossa} 
+\end{eqnarray}
+Only the composite particle masses are involved, no other new parameters like $g_{_Y}$. This process should have the biggest cross section (absorption of gluons), if the gluons collision energy is over the energy threshold $M_{F,\Pi}$ of pair production of composite particles. The decay modes of back-to-back composite particles follow discussions before.  
+
+\begin{figure}   
+\begin{center}
+
+
+\includegraphics[height=4.8cm,width=6.4cm]{ggpair}
+
+
+
+
+
+\vspace{-1em}
+\caption{We show the Feynman diagrammatic representation for the pair production of composite partilces by gluon-gluon collisions. The gluon coupling to lepton-quark composite particles is approximated by the gluon QCD coupling $g_s, \alpha_s=g_s^2$ to a quark.}
+\label{ggpair}
+\end{center}
+\vspace{-2em}
+\end{figure}
+
+\subsection{Vector-boson scatterings in LHC}
+
+The massive vector bosons for instance $W^+W^-$ radiated from two quark lines can scatter and form the intermediate state $\Pi^0$, see Eqs. (\ref{cpww}-\ref{cpzz}) and 
+(\ref{cpgz+}-\ref{cpww+}-\ref{cpww+}). These should give contributions to the 
+Vector-boson scatterings (VBS) discussed in the articles linked below. The final states topology are two quark-jets and massive vector-bosons non-lepton, full-lepton, semi-lepton decays. In addition, the peculiar topology in final states we have from Eqs. (\ref{cpg})-(\ref{cpww}) is
+\begin{eqnarray}
+W^+W^- \rightarrow \Pi^0 \rightarrow \gamma\gamma,
+\label{vbsgg}
+\end{eqnarray}
+namely two jets and two photons with larger branching ratio. 
+In the SM, the massive vector-boson scatterings does not involve photons.   
+
+https://arxiv.org/pdf/1708.02812.pdf
+
+https://arxiv.org/pdf/2102.10991.pdf
+
+https://www.sciencedirect.com/science/article/pii/S2405428318300789
+
+$https://indico.cern.ch/event/253774/contributions/567168/attachments/443081/614598/talk_ceballos_vbs.pdf$
+
+
+\subsection{Cross sections, decay widths and branching ratios}\label{xsecB}
+
+\subsubsection{Cross sections}
+
+The partonic cross section of  $qq^\prime\rightarrow \Pi$ is calculated by standard methods via the contact interaction in Eqs.~(\ref{ciqlB}-\ref{iqlBu}), \red{check again this equation}
+\begin{eqnarray}
+\hat\sigma_{_\Pi}(\hat s,m_{_\Pi})= \frac{\pi}{12}\left(\frac{F_\Pi}{\Lambda} \right)^4\delta(\hat{s}-m_{_\Pi}^2), 
+\label{csE0Pi}
+\end{eqnarray}  
+where $\sqrt{\hat{s}}$ stands for the parton center-mass-energy of $pp$ collisions in LHC experiments. 
+These are the same for all channels:
+Composite bosons $\Pi^{0,\pm}$ (\ref{nB0}-\ref{uB0})
+are produced in $pp$ collisions, then decay to two jets, 
+\begin{eqnarray}
+pp(u\bar d) &\rightarrow& \Pi^+\rightarrow {\rm two~jets}~(u \bar d)\label{pud}\\
+pp(d\bar u) &\rightarrow& \Pi^-\rightarrow {\rm two~jets}~(d \bar u)\label{pdu}\\
+pp (u\bar u)&\rightarrow& \Pi^0_u\rightarrow {\rm two~jets}~(u \bar u\label{puu})\\
+pp (d\bar d)&\rightarrow& \Pi^0_d\rightarrow {\rm two~jets}~(d \bar d)\label{pdd}
+\end{eqnarray}
+as illustrated by Feynman diagram Figure \ref{compositeBv}. 
+The most favorable channels in $pp$ collisions should be the productions of charged composite bosons 
+$\Pi^\pm$ (\ref{nB0}). The final states are two back-to-back two standard jets (dijet). 
+
+The cross section (\ref{csE0Pi}) should be also the same for all channels: quark-lepton
+composite bosons $\Pi_a^{5/3,-1/3,2/3}$ (\ref{nB5/3}-\ref{dB2/3})
+are produced in $ep$ collisions, then decay to a lepton and a jet, 
+\begin{eqnarray}
+ep(u\bar e) &\rightarrow& \Pi_a^{5/3}\rightarrow {\rm lepton + jet}~(u \bar e)\label{pudql}\\
+ep(d\bar \nu) &\rightarrow& \Pi_a^{-1/3}\rightarrow {\rm lepton + jet}~(d \bar\nu)\label{pduql}\\
+ep (u\bar \nu)&\rightarrow& \Pi_{u_a}^{2/3}\rightarrow {\rm lepton + jet}~(u \bar\nu)\label{puuql}\\
+ep (d\bar e)&\rightarrow& \Pi_{d_a}^{2/3}\rightarrow  {\rm lepton + jet}~(d \bar e)\label{pddql}
+\end{eqnarray}
+as illustrated by Feynman diagram Figure \ref{compositeBv}. 
+\red{new figure}
+The most favorable channels in $ep$ collisions should be the productions of charged composite bosons 
+$\Pi_a^{5/3}$ (\ref{pudql}) and $\Pi_{d_a}^{2/3}$ (\ref{pddql}). The final states are back-to-back a lepton and a standard jet. 
+
+We consider the production cross sections for the composite fermions $F$ in $pp$ collisions expected at the LHC collider according to Feynman's parton model. 
+The QCD factorization theorem allows to obtain any hadronic cross section (e.g. in $pp$ collisions) in terms of a convolution of the hard partonic cross sections $\hat\sigma$,
+
+evaluated at the parton centre of mass energy $\sqrt{\hat s}=\sqrt{\tau s}$, with the universal parton distribution functions $f_a(x,{\hat{\cal Q}})$ which depend on the parton longitudinal momentum fractions $x$, and on the  factorization scale $\hat{\cal Q}$: \red{check again this equation}
+\begin{eqnarray}
+\sigma_{_\Pi}=
+
+\sum_{ij}\!\!\intop^1_{\frac{m_{_\Pi}^{2}}{s}}\!\!d\tau \!\!\intop_\tau^1 \!\!\frac{dx}{x} f_i(x,\hat {\cal Q}^2)f_j(\frac{\tau}{x},\hat {\cal Q}^2)\hat\sigma(\tau s,m_{_\Pi})\, .
+\label{csFb}
+\end{eqnarray}
+The factorization and renormalization scale ${\cal Q}$ is generally fixed at the value of the mass 
+that is being produced.  
+The parametrization of the parton distribution function is NNPDF3.0~\cite{Ball:2014uwa} and the 
+factorization scale has been chosen as $\hat{\cal Q}=m_{_\Pi}$. 
+The results for the four composite bosons at LHC are shown in figure (\ref{fig:crossSectionPi}), 
+where we used $g_{_{\rm Y}}=\left(\frac{F_\Pi}{\Lambda}\right)^2=0.5$. 
+
+
+
+The right panel of Fig.~\ref{fig:crossSectionPi} shows the agreement between analytical calculations based on Eqs.~(\ref{csE0Pi}) and (\ref{csFb}) 
+for the case of the composite fermion $F$, and the results of simulations with CalcHEP where the model with four-fermion interactions has been implemented. 
+We remark the quite good agreement that validates our model implementation in CalcHEP.
+
+
+\subsubsection{Decay widths}\label{xwidth}
+
+The decay width of the $\Pi$ boson to two quarks is simply calculated by using 
+the effective contact Lagrangian in Eq. (\ref{ciqlB}) and (\ref{iqlBd}),
+\begin{eqnarray}
+\Gamma(\Pi\to qq^\prime) = \frac{3}{16\pi}\, \left(\frac{F_\Pi}{\Lambda}\right)^4 \,m_{_\Pi}.
+\label{Gamma_pqq}
+\end{eqnarray} 
+For the case that $\Pi$ equals to $\Pi^+$ or $\Pi^-$ composite boson, $\Pi\rightarrow qq^\prime$  of Eq.~(\ref{Gamma_pqq})  
+is the only decay channel, see Eqs.~(\ref{nB0}) 
+and (\ref{ciqlB}).
+
+The $\Pi^0_{u,d}$ composite bosons (pesudo scalar component), instead, can also decay to two gauge bosons $\tilde G \tilde G'$ (\ref{cpg}-\ref{cpgg}), according to the contact interaction (\ref{PiGG}), the corresponding decay widths are \cite{xue2017} :
+\begin{eqnarray}
+\Gamma_{\Pi^0_{u}\rightarrow\gamma\gamma}&=&\left(\frac{4}{9}\right)^2\Gamma, \label{pg}\\
+\Gamma_{\Pi^0_{d}\rightarrow\gamma\gamma}&=&\left(\frac{1}{9}\right)^2\Gamma, \label{pg'}\\
+\Gamma_{\Pi^0_{u}\rightarrow\gamma Z^0}&=&\frac{1}{\sin^2 2\theta_W}\left(\frac{1}{3}-\frac{4}{9}\sin^2 \theta_W\right)^2\Gamma, \label{pgz}\\
+\Gamma_{\Pi^0_{d}\rightarrow\gamma Z^0}&=&\frac{1}{\sin^2 2\theta_W}\left(\frac{1}{6}-\frac{1}{9}\sin^2 \theta_W\right)^2\Gamma, \label{pgz'}\\
+\Gamma_{\Pi^0_{u}\rightarrow Z^0 Z^0}&\!=\!&\left(\frac{1/2\!-\!(2/3)\sin^2\theta_W}{\sin^2 2\theta_W}\right)^{\!2}\Gamma, \label{pzz}\\
+\Gamma_{\Pi^0_{d}\rightarrow Z^0 Z^0}&\!=\!&\left(\frac{-1/2\!+\!(1/3)\sin^2\theta_W}{\sin^2 2\theta_W}\right)^{\!2}\Gamma, \label{pzz'}\\
+\Gamma_{\Pi^0_{u,d}\rightarrow W^+ W^-}&=&\left(\frac{1}{8\sin^2\theta_W}\right)^2\Gamma,\label{pww}
+\end{eqnarray}
+\comment{and
+\begin{eqnarray}
+\Gamma_{\Pi^0_{u,d}\rightarrow \tilde g \tilde g}&=&\left(\frac{\alpha_s}{\alpha}\right)^2\Gamma,\label{pgugu}\\
+\Gamma_{\Pi^0_{u}\rightarrow \tilde g\gamma}&=&\left(\frac{2}{3}\right)^2\left(\frac{\alpha_s}{\alpha}\right) \Gamma,\label{pgug}\\
+\Gamma_{\Pi^0_{d}\rightarrow \tilde g\gamma}&=&\left(\frac{1}{3}\right)^2\left(\frac{\alpha_s}{\alpha}\right) \Gamma,\label{pgug'}\\
+\Gamma_{\Pi^0_{u}\rightarrow \tilde g Z^0}&=&\frac{1}{\sin^2 2\theta_W}\left(\frac{1}{3}-\frac{4}{9}\sin^2 \theta_W\right)^2\left(\frac{\alpha_s}{\alpha}\right)\Gamma,\label{pguz}\\
+\Gamma_{\Pi^0_{d}\rightarrow \tilde g Z^0}&=&\frac{1}{\sin^2 2\theta_W}\left(\frac{1}{6}-\frac{1}{9}\sin^2 \theta_W\right)^2\left(\frac{\alpha_s}{\alpha}\right)\Gamma,\label{pguz'}
+\end{eqnarray}
+}
+where $\theta_W$ is the Weinberg angle
+
+and fine structure constant 
+$\alpha=e^2\approx 1/137$, 
+\begin{equation}
+\Gamma=\left(\frac{\alpha N_c}{\pi F_\Pi}\right)^2\frac{m_{\Pi^0_{u,d}}^3}{64\pi}, 
+\label{ggrate}
+\end{equation}
+and the number of colors $N_c=3$.
+Total decay rate $\Gamma^{\rm tot}(\Pi^0_{u,d}\rightarrow \tilde G\tilde G')$ is the sum over 
+all contributions from  Eqs.~(\ref{pg}-\ref{pww}). 
+The total $\Pi^0_{u,d}$-decay rate reads
+\begin{equation}
+\Gamma_{\rm tot}(\Pi^0_{u,d})=\Gamma(\Pi^0_{u,d}\rightarrow qq') 
++\Gamma^{\rm tot}(\Pi^0_{u,d}\rightarrow \tilde G\tilde G'),
+\label{ptotal}
+\end{equation}
+where $\Gamma(\Pi^0_{u,d}\rightarrow qq')$ is given by 
+Eq.~(\ref{Gamma_pqq}).
+Based on these results, we calculate the exact branching ratios of different channels for 
+different parameters of the model. 
+
+Following the calculations of $\Pi^0$ decaying to two gauge bosons $GG^\prime$ \cite{xue2017}, we can obtain the rates of charged composite bosons decay to two gauge bosons (\ref{cpgz+}) and (\ref{cpww+}):
+\begin{eqnarray}
+\Gamma_{\Pi^+\rightarrow \gamma W^+ }&=&\left(\frac{1}{8\sin^2\theta_W}\right)\left(\frac{2}{3}\right)^2\Gamma,\label{pww+}\\
+\Gamma_{\Pi^-\rightarrow \gamma W^- }&=&\left(\frac{1}{8\sin^2\theta_W}\right) \left(\frac{1}{3}\right)^2\Gamma,\label{pww-}\\
+
+\Gamma_{\Pi^+\rightarrow W^+ Z^0}&=&\frac{1}{8\sin^2\theta_W\sin^2 2\theta_W}\left(\frac{1}{3}-\frac{4}{9}\sin^2 \theta_W\right)^2\Gamma,\label{pgz+}\\
+\Gamma_{\Pi^-\rightarrow W^-  Z^0}&=&\frac{1}{8\sin^2\theta_W\sin^2 2\theta_W}\left(-\frac{1}{6}-\frac{1}{9}\sin^2 \theta_W\right)^2\Gamma,\label{pgz-}
+\end{eqnarray}
+\red{
+\begin{eqnarray}
+\Gamma_{\Pi^+\rightarrow \gamma W^+ }&=&\left(\frac{1}{8\sin^2\theta_W}\right)\Big[\left(\frac{2}{3}\right)^2+\left(\frac{1}{3}\right)^2\Big]\Gamma,\label{pww+}\\
+\Gamma_{\Pi^-\rightarrow \gamma W^- }&=&\Gamma_{\Pi^+\rightarrow \gamma W^+ },\label{pww-}\\
+
+\Gamma_{\Pi^+\rightarrow W^+ Z^0}&=&\frac{1}{8\sin^2\theta_W\sin^2 2\theta_W}\left(\frac{1}{3}-\frac{4}{9}\sin^2 \theta_W\right)^2\Gamma\\
+&+&\frac{1}{8\sin^2\theta_W\sin^2 2\theta_W}\left(-\frac{1}{6}-\frac{1}{9}\sin^2 \theta_W\right)^2\Gamma,\label{pgz+},\label{pgz+}\\
+\Gamma_{\Pi^-\rightarrow W^-  Z^0}&=&\Gamma_{\Pi^+\rightarrow W^+  Z^0}. \label{pgz-}
+\end{eqnarray}}
+We have not considered these decay channels in previous article. 
+
+\comment{
+In the previous article we did not consider the gluon contributions (\ref{pgugu}), however even we consider it, 
+I have checked, their contributions are about $(\alpha_s/\alpha)^2 \sim 10^4$ larger than the contributions from
+(\ref{pg}-\ref{pww}), however they are still negligible compared with the contributions from the 
+channels of $\Pi \rightarrow qq'$. This can be seen from Figures 5 and 8 of previous published EPJC paper \cite{LPFGSX2020} https://arxiv.org/abs/1810.11420. Thus our conclusions  does not change 
+in the parameter range considered, namely the 
+second term in (\ref{ptotal}) is negligible. The question: in observations, any difference between gluon original jet and quark original jet? In general, due to the large color factor of gluons, gluon-initiated jets have higher particle multiplicity, a softer fragmentation function, and are less collimated than quark-initiated jets. These differences can be exploited to tag jets, and such a capability plays a fundamental role in several physics analyses. where the gluon component is predominant. See the reference: $https://cds.cern.ch/record/2254861/files/1512294_73-78.pdf$, see also some info from Francesco: http://cms-results.web.cern.ch/cms-results/public-results/preliminary-results/JME-16-003/index.html}
+
+Following these discussions and using Eqs.~(\ref{pg}-\ref{pww}),
+we can approximately estimate the decay-rate ratios
+\begin{eqnarray}
+\Gamma_{\Pi^0\rightarrow \gamma Z^0} /\Gamma_{\Pi^0\rightarrow \gamma\gamma}&= & 
+\frac{\left(9/10-\sin^2\theta_W\right)^2}{\sin^22\theta_W}\approx 0.63,\nonumber\\
+\Gamma_{\Pi^0\rightarrow W^+W^-} /\Gamma_{\Pi^0\rightarrow \gamma\gamma}&\approx & 
+\left(\frac{9}{40\sin^2 \theta_W}\right)^2\approx 0.96,\nonumber\\
+\Gamma_{\Pi^0\rightarrow Z^0 Z^0} /\Gamma_{\Pi^0\rightarrow \gamma\gamma}&= &\left(\frac{(9/10)- (9/5)\sin^2\theta_W+\sin^4\theta_W}{\sin^2 2\theta_W}\right)^2\approx 0.58,
+\label{br}
+\end{eqnarray} 
+where the value $\sin^2\theta_W\approx 0.23$ is approximately adopted to obtain numbers. 
+
+These relations provide 
+a possibility to verify the validity of such an effective theory of composite particles, if the resonance of diphoton channel and 
+other diboson channels are also observed and measured in high-energy experiments,  
+
+for instance the on-going ATLAS and CMS experiments 
+in the LHC $pp$ collisions.
+
+\subsubsection{Branching ratios}
+
+The branching ratios of the charged composite bosons $\Pi^\pm$ decay to two quarks
+$qq^\prime$, 
+\begin{eqnarray}
+{\mathcal B}(\Pi^\pm\rightarrow qq^\prime) = \frac{\Gamma(\Pi^\pm\rightarrow qq^\prime)}{\Gamma_{\rm tot}(\Pi^\pm)}\approx 1,
+\label{pqqc}
+\end{eqnarray}
+The branching ratios of the $\Pi^0_{u,d}$ decay to two quarks
+$qq^\prime$, 
+\begin{eqnarray}
+{\mathcal B}(\Pi^0_{u,d}\rightarrow qq^\prime) = \frac{\Gamma(\Pi^0_{u,d}\rightarrow qq^\prime)}{\Gamma_{\rm tot}(\Pi^0_{u,d})},
+\label{pqq}
+\end{eqnarray}
+and the $\Pi^0_{u,d}$ decay to two gauge bosons $\tilde G\tilde G^\prime$, 
+\begin{eqnarray}
+{\mathcal B}(\Pi^0_{u,d}\rightarrow \tilde G\tilde G^\prime)=\frac{\Gamma^{\rm tot}(\Pi^0_{u,d}\rightarrow \tilde G\tilde G')}{\Gamma_{\rm tot}(\Pi^0_{u,d})}.
+\label{pgg}
+\end{eqnarray}
+
+As a result, the cross sections of these processes are:
+\begin{eqnarray}
+\sigma(pp\rightarrow  \Pi \rightarrow qq^\prime)&=&\sigma(pp\rightarrow  \Pi)\nonumber\\
+&\times &\Big[{\mathcal B}(\Pi^\pm\rightarrow \bar qq^\prime)+{\mathcal B}(\Pi^0_{u,d}\rightarrow \bar qq^\prime)\Big],
+\label{xsecfqq}
+\end{eqnarray}
+and 
+\begin{eqnarray}
+\sigma(pp\rightarrow  \Pi  \rightarrow \tilde G\tilde G^\prime) &=&\sigma(pp\rightarrow  \Pi^0_{u,d}\rightarrow 
+\tilde G\tilde G^\prime)\nonumber\\
+&\times& {\mathcal B}(\Pi^0_{u,d}\rightarrow 
+\tilde G\tilde G^\prime).
+\label{xsecfgg}
+\end{eqnarray}
+which depend on composite boson mass $m_{_\Pi}$ and in particular on decay constant $F_\Pi$.  
+All channels of composite bosons $\Pi$ (\ref{comSpecB}) production and decay 
+give the same results at this level of approximation by using contact interactions only.  
+
+\begin{figure*}[t]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\caption{\label{AllBrB} (Color Online). \red{The branching ratios of $\Pi \rightarrow qq^\prime$ and $\Pi \rightarrow G\tilde G^\prime$ are plotted with respect to the ratio $m_{_\Pi}/F_\Pi$ for the values of $g^2_{_Y}=
+F_\Pi/\Lambda=0.5,0.1,0.02$ ???} 
+}
+
+
+\end{figure*}
+
+\subsection{Parameters are $m_{_\Pi}$ and $F_\Pi$}\label{parameterB}
+
+In order to present the branching ratios of different possible 
+channels in terms of parameters of the model, 
+we are bound to discuss physically sensible 
+parameters to explore. This model has four parameters that can be rearranged to three dimensionless parameters for a given $\Lambda$ value:
+$
+(\Lambda, m_F, F_\Pi, m_{_\Pi}) \rightarrow 
+( m_F/\Lambda, F_\Pi/m_{_\Pi}, m_{_\Pi}/m_F).
+$ 
+
+\red{In the cross section, decay rate and branching ratios of the composite boson case, $m_F$ is not relevant and we assume $m_F=0.8 \Lambda$ or $m_F=\Lambda$ as adopted in the previous article \cite{LPFGSX2020}. 
+The parameters reduces to $(F_\Pi/\Lambda, m_{_\Pi})$ or $(g_{_Y}^2, m_{_\Pi}/F_\Pi)$. In the plot for the cross section, We may consider the range 
+$m_{_\Pi}$ from $0.0$ TeV and $10$ TeV as Figure \ref{fig:crossSectionPi} and $g_{_Y}^2=0.02,0.1,0.5$. In the plot of branching ratios,  we consider to use $(g_{_Y}^2, m_{_\Pi}/F_\Pi)$, plotting $m_{_\Pi}/F_\Pi$ from $0.1$ to $1.5$ and $g_{_Y}^2=0.02,0.1,0.5$ ???.
+These cover the parameter space adopted in the previous article \cite{LPFGSX2020}. 
+Observe that as indicated in Eq. \ref{ggrate}, the $\Pi^0_{u,d}\rightarrow 	\tilde G\tilde G^\prime$ 
+dominates at larger values $m_{_\Pi}/F_\Pi$, as also shown in Fig. 5 (centre column) of 
+the previous article \cite{LPFGSX2020}.}
+ 
+The ratio $m_F/\Lambda < 1$ ($m_\Pi/\Lambda < 1$)
+of the composite fermion (boson) mass and the basic composite scale 
+$\Lambda$ gives us an insight into the dynamics of composite fermion (boson) 
+formation. 
+In addition, as the parameters $m_\Pi$  and $F_\Pi$ represent the same dynamics of composite boson formation we use the $F_\Pi/m_\Pi$ ratio.
+Finally, to take into account the feature that a composite fermion $F$ is composed by a composite boson $\Pi$ and an elementary SM fermion, we adopt the ratio  $m_\Pi/m_F < 1$ as a parameter.  
+As a result, for given $\sqrt{s}$ and $\Lambda$ values, we have three parameters 
+$m_F\approx \Lambda$, $F_\Pi/ \Lambda$, and $m_\Pi/m_F$ to represent the results of 
+the possible branching ratios.
+
+\subsection{Wide jets and photons from composite bosons 
+$\Pi^{0}_{u,d}$ production and decay}\label{bosongg}
+
+\red{I try to write some topologies here. Apart from $\Pi\rightarrow qq^\prime$ that ends with two single jets.}
+we discuss the channels of $\Pi^0_{u,d}$ 
+decay into two SM gauge bosons $\tilde G\tilde G'$ in Sec.~(\ref{spgg}). We have following three catalogs and we can calculate the branching ratios to see which channel is relevant and experimentally interesting 
+
+The processes with photon in final state are
+\begin{enumerate}[(i)]
+\item Two back-to-back photons (diphoton) for the channel (\ref{cpg}) ${\mathcal B}=\Gamma_{\Pi\rightarrow\gamma\gamma}/\Gamma_{\rm tot}$; 
+\item back-to-back photon and a wide jet 
+for the channel (\ref{cpgz}) are final states. 
+\end{enumerate}
+
+The processes with $W^\pm$ or $Z^0$ in final state are, two back-to-back boosted gauge 
+bosons  $Z^0$ (\ref{cpzz}) or $W^\pm$ (\ref{cpww})
+are high-energetic boosted intermediate
+states, most probably leading to: 
+\begin{enumerate}[(i)]
+\item a back-to-back
+wide dijet of four quarks for $W^\pm$ and $Z^0$ hadronic decays; 
+\item back-to-back lepton-pair beams of four leptons 
+for $W^\pm$ and $Z^0$ leptonic decay;
+\item a wide jet 
+and a lepton-pair beam in the combination of cases (i) and (ii). 
+
+Instead, two back-to-back photons (diphoton) for the channel (\ref{cpg}), and back-to-back photon and a wide jet 
+for the channel (\ref{cpgz}) are final states. 
+\end{enumerate}
+
+The processes (\ref{pgugu}) with  two gluons $\tilde g$ in final state are, 
+\begin{enumerate}[(i)]
+\item two gluons (\ref{pgugu}) back-to-back jets, does it fuse to a Higgs then decay to two photons in finite state ?;
+
+
+\end{enumerate}
+Which channel 
+is more relevant for detections, depending not only on theoretical 
+branching ratios in principle, but also on experimental measurements in practice. 
+
+The widths of these 
+$\Pi^0$-decay channels are $\Gamma_{\Pi^0\rightarrow \tilde G\tilde G'}$ (\ref{pg}-\ref{ggrate}), and the total 
+$\Pi^0$-decay  width is $\Gamma_{\rm tot}$ (\ref{ptotal}). 
+The branching ratios are Eqs.~(\ref{pqq}) and (\ref{pgg}).
+As a result, in $pp$ collision the cross section of the $\Pi^0$ production 
+and decay to two back-to-back standard jets and/or gauge bosons is (\ref{xsecfgg}).
+
+The neutral composite boson $\Pi^0$ mass can be inferred by the invariant mass of its resonance location ${\mathcal M}_{\rm all~ channels}=m_{\Pi^0}$. 
+The invariant mass ${\mathcal M}_{\gamma\gamma}$ of the diphoton 
+channel (\ref{cpg}) gives the constrain $m_{\Pi^{0}}\gtrsim {\mathcal M}_{\gamma\gamma}$. The invariant mass 
+${\mathcal M}_{\Pi^{\pm,0}\rightarrow jj}$ of the dijet even sets the constrain on the composite boson mass $m_{_{\Pi^{\pm,0}}}$.
+Due to the smallness of gauge interactions and quark-family mixing (off-diagonal elements of the CMK matrix), the branching ratios of $\Pi^\pm$ decay to other quark families are neglected, and $m_{\Pi^\pm} \approx m_{\Pi^0}$.
+ 
+
+
+\section{Search for $\Pi$ at the LHC}
+\label{SearchForBAtTheLHC}
+After having discussed the production and decay of $\Pi$ and its cross-section, width, and decay branching ratio, we now examine these results in terms of parameters of the model and derive the possible final states and their topologies, highlighting their impact to the current program of beyond SM searches at the LHC.
+
+
+\subsection{Branching ratios and topology of $\Pi$ with respect to model parameters}\label{bran}
+In order to present the branching ratios of different possible 
+channels in terms of parameters of the model, 
+we are bound to discuss physically sensible 
+parameters to explore. This model has four parameters that can be rearranged to three dimensionless parameters for a given $\Lambda$ value:
+$
+(\Lambda, m_F, F_\Pi, m_\Pi) \rightarrow 
+( m_F/\Lambda, F_\Pi/m_\Pi, m_\Pi/m_F).
+$
+
+The ratio $m_F/\Lambda < 1$ ($m_\Pi/\Lambda < 1$)
+of the composite fermion (boson) mass and the basic composite scale 
+$\Lambda$ gives us an insight into the dynamics of composite fermion (boson) 
+formation. 
+In addition, as the parameters $m_\Pi$  and $F_\Pi$ represent the same dynamics of composite boson formation we use the $F_\Pi/m_\Pi$ ratio.
+Finally, to take into account the feature that a composite fermion $F$ is composed by a composite boson and an elementary SM fermion, we adopt the ratio  $m_\Pi/m_F < 1$ as a parameter.  
+As a result, for given $\sqrt{s}$ and $\Lambda$ values, we have three parameters 
+$m_F/\Lambda$, $F_\Pi/ m_\Pi$, and $m_\Pi/m_F$ to represent the results of 
+the possible branching ratios. 
+
+Figure \ref{AllBr} shows three sets of plots for the branching ratios of $F \rightarrow \bar f qq^\prime$ and $F \rightarrow \bar f \Pi$ (left column), $\Pi \rightarrow qq^\prime$ and $\Pi \rightarrow G\tilde G^\prime$ (center column), and the full decay chains 
+$F \rightarrow \bar f qq^\prime$, $F \rightarrow \bar f \Pi \rightarrow \bar f qq^\prime$, and $F \rightarrow \bar f \Pi \rightarrow \bar f G\tilde G^\prime$ (right column). These branching ratios are plotted with respect to the $m_\Pi/m_F$ ratio and for the values of $F_\Pi/\,m_\Pi=0.8$, $F_\Pi/\,m_\Pi=5$, $F_\Pi/\,m_\Pi=15$. 
+Note that 
+the branching ratios of $F \rightarrow f qq^\prime$ and $F \rightarrow f \Pi$ (left column) do not depend on $m_F/\Lambda$, which can be seen from Eqs.~(\ref{decayE0},\ref{fep}) and (\ref{gtfeqq}). For the $\Pi^\pm$ decay, the channel (\ref{Gamma_pqq}) is unique, so the branching ratio is one, independent of $m_F/\Lambda$. Whereas the $\Pi^0_{u,d}$ decays also to $G^\prime G$, see Eqs.~(\ref{pqq}) and (\ref{pgg}), and the branching ratio depends on $m_F/\Lambda$. However, in the regime of $m_\Pi/m_F$ we consider, the branching ratio of $\Pi^0_{u,d}\rightarrow G^\prime G$ is very small and negligible, compared with the branching ratio of $\Pi^0_{u,d}\rightarrow q^\prime q$. Therefore, our results of branching ratio of $F$ decay presented in Fig.~\ref{AllBr} 
+are independent of the parameter $m_F/\Lambda$. As a result, regarding the branching ratio and topologies of $F$ decay, the model effectively depends only on two parameters $F_\Pi/m_\Pi$ and $m_\Pi/m_F$. However, the cross section of $F$ production depends on the parameter $m_F/\Lambda$, as indicated in Eq. \ref{csE0}.
+
+
+
+
+
+
+In Fig.~\ref{AllBr}, 
+it is shown that the branching ratios $F\rightarrow f q\bar q ~{\rm direct}$ (\ref{Eeqqdirect}) and $F\rightarrow f\Pi \rightarrow f q\bar q~{\rm indirect}$ (\ref{Eepqq}) 
+tend to swap each other for different values of $F_\Pi/m_\Pi$. 
+Increasing the coupling $F_\Pi$ (and the ratio $F_\Pi/m_\Pi$) of composite boson $\Pi$ to its two constituents  ($q\bar q$), see 
+contact interactions (\ref{ciqlB},\ref{iqlBd},\ref{iqlBu}), 
+the branching ratios $F\rightarrow f\Pi \rightarrow f q\bar q~{\rm indirect}$ (\ref{Eepqq}) 
+becomes dominant over 
+the branching ratios $F\rightarrow f q\bar q ~{\rm direct}$ (\ref{Eeqqdirect}). We thus consider two reference cases of $F_\Pi/m_\Pi$: 
+\begin{enumerate}[(i)]
+\item $F_\Pi/m_\Pi\lesssim 0.8$ where $F\rightarrow f q\bar q ~{\rm direct}$ dominates. We have verified that for the value 0.8 the direct production dominates by at least a factor 10 over the production with the $\Pi$ for all values of $m_\Pi/m_F$.
+\item $F_\Pi/m_\Pi\gtrsim 5$ where $F\rightarrow f\Pi \rightarrow f q\bar q~{\rm indirect}$ (\ref{Eepqq}) becomes relevant for all values of $m_\Pi/m_F$ and dominates above $m_\Pi/m_F>$0.2 over $F\rightarrow f q\bar q ~{\rm direct}$. We notice from Fig.~\ref{AllBr} 
+that as $F_\Pi/m_\Pi$ increases above 15, the decay $F\rightarrow f\Pi \rightarrow f q\bar q~{\rm indirect}$ dominates over all possible decays for all values of $m_\Pi/m_F$. 
+\end{enumerate}
+
+The expected topologies related to the phenomenology of $F$ are summarized in Table \ref{FinalStatesTopologiesF0}, considering the two complementary cases of $F_\Pi/m_\Pi\leq 0.8$ and $F_\Pi/m_\Pi\geq 15$. These cases are representative of the topology of $F$ in all the phase space, including the intermediate region $0.8 < F_\Pi/m_\Pi < 15$, in which the decay $F\rightarrow f q\bar q ~{\rm direct}$ or $F\rightarrow f\Pi \rightarrow f q\bar q~{\rm indirect}$ dominates depending on the specific value of $F_\Pi/m_\Pi$ considered. To this purpose we provide in Appendix~\ref{Br_Fpimpi_1_15_step1} the total decay branching ratios corresponding to Fig.~\ref{AllBr} (right column) for values of $F_\Pi/m_\Pi$ between 1 and 14, increasing in step of 1. We further outline that the value 0.2 for $m_\Pi/m_F$ that separates the boosted from the resolved topology when $F$ decays through a $\Pi$ is indicative and may vary based on the mass of $F$. We have verified, using CalcHEP, that for a mass of $F$ of 1 TeV, the two quarks decaying from the $\Pi$ originating from $F$ are indeed within a $\Delta R(q,\bar{q}')$ below 0.8, which determines the cone size of a large-radius jets suitable for boosted jet at the LHC experiments. For a mass of $F$ of 7 TeV instead, the value 0.2 is lowered to 0.15 to guarantee $\Delta R(q,\bar{q}')<0.8$, as for higher masses of $F$ its width increases.
+
+\begin{table*}[!]
+\addtolength{\tabcolsep}{2pt}
+
+\scalebox{0.95}{\begin{tabular}{ccccccc}
+\hline
+$F_\Pi/m_\Pi$ & $m_\Pi/m_F$ &  Channel & Resonances & Topology & Experimental features\\
+\hline
+
+
+
+15  & $[\sim 0.2, \sim 1]$ & $f F \rightarrow f (\bar f \Pi) \rightarrow f (\bar f (qq^\prime))$ & $F, \Pi$ & Resolved w/ $\Pi \rightarrow qq^\prime$ &  identification of $\Pi$ and $F$\\
+    
+    & $\leq 0.2$ & $f F \rightarrow f (\bar f \Pi) \rightarrow f (\bar f (qq^\prime))$ & $F$, $\Pi$ & Boosted & identification of $F$;   & \\
+    & & & & & $\Pi$ large-radius jet: \\
+    & & & & & 2-prong, no V boson tag  \\
+    
+    
+\hline
+$\leq$ 0.8 & [0,1] & $f F \rightarrow f (\bar f qq^\prime)$ & $F$ & Fully resolved &  same of $F_\Pi/m_\Pi$ = 10\\
+\hline
+\end{tabular}}
+
+\vskip-5pt
+\caption{Summary of the relevant channels where $F$ can decay considering two complementary values of $F_\Pi/ m_\Pi$ and the ranges of $m_\Pi/m_F$ that correspond to different topologies of $F$. Similar considerations on the channels where $F$ can decay and its topology apply to all values of $F_\Pi/ m_\Pi$, depending on the value of $F_\Pi/ m_\Pi$, the value of $m_\Pi/m_F$, and the branching ratios of $F\rightarrow f q\bar q ~{\rm direct}$ and $F\rightarrow f\Pi \rightarrow f q\bar q~{\rm indirect}$.}
+\label{FinalStatesTopologiesF0}
+\end{table*}
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{table*}[!]
+\addtolength{\tabcolsep}{5pt}
+
+\scalebox{0.925}{\begin{tabular}{ccccccc}
+\hline
+\hline
+ $f$    & $F$ & Topology &  Final state & LHC searches & Features not exploited in LHC searches\\
+\hline 
+ $e$    & $E$ 
+  & Fully resolved & $e^\pm (e^\mp qq^\prime)$ & \cite{LARFP2017,llqq_FR_ATLAS} & $E$ identification & \\ 
+& & Resolved w/ $\Pi \rightarrow qq^\prime$  & $e^\pm (e^\mp (qq^\prime))$ & \cite{llqq_Rpi_CMS,llqq_FR_ATLAS} & $E,\Pi$ identification & \\ 
+
+& & Boosted  & $e^\pm e^\mp J$ & \cite{LARFP2017} & 2-prong, no V boson tag,  boosted $\Pi$  decay & \\
+ \hline 
+ $\mu$  & $M$ 
+  & Fully resolved & $\mu^\pm (\mu^\mp qq^\prime)$ & \cite{LARFP2017,llqq_FR_ATLAS} & $M$ identification & \\ 
+& & Resolved w/ $\Pi \rightarrow qq^\prime$ & $\mu^\pm (\mu^\mp (qq^\prime))$ &   \cite{llqq_Rpi_CMS,llqq_FR_ATLAS} & $M, \Pi$ identification & \\ 
+
+& & Boosted  & $\mu^\pm \mu^\mp J$ & \cite{LARFP2017} & 2-prong, no V boson tag,  boosted $\Pi$  decay & \\
+ \hline 
+ $\tau$ & $\mathcal{T}$ 
+  & Fully resolved & $\tau^\pm (\tau^\mp qq^\prime)$ & \cite{tautauqq_FR_CMS} & $\mathcal{T}$ identification & \\ 
+& & Resolved w/ $\Pi \rightarrow qq^\prime$ & $\tau^\pm (\tau^\mp (qq^\prime))$ & \cite{tautauqq_FR_CMS} & $\mathcal{T},\Pi$ identification & \\ 
+
+& & Boosted  & $\tau^\pm \tau^\mp J$ & n/a & & \\
+ \hline 
+ $\nu$  & $N$ 
+  & Fully resolved & $\nu (\nu qq^\prime)$ & \cite{nunuqq_FR_CMS,nunuqq_FR_ATLAS} & $N$ identification & \\ 
+& & Resolved w/ $\Pi \rightarrow qq^\prime$ & $\nu (\nu (qq^\prime))$ & \cite{nunuqq_FR_CMS,nunuqq_FR_ATLAS} & $N,\Pi$ identification & \\ 
+
+& & Boosted  & $\nu \nu J$ & \cite{nunuJ_boost_ATLAS} & 2-prong, no V boson tag,  boosted $\Pi$ deacy & \\
+ \hline 
+ $j$    & $J$ 
+  & Fully resolved & $j (j qq^\prime)$ & n/a & & \\
+& & Resolved w/ $\Pi \rightarrow qq^\prime$ & $j (j (qq^\prime))$ & n/a & & \\
+
+& & Boosted  & $j j J$ & n/a & & \\
+ \hline 
+ $c$    & $C$ 
+  & Fully resolved & $c (c qq^\prime)$ & n/a & & \\
+& & Resolved w/ $\Pi \rightarrow qq^\prime$ & $c (c( qq^\prime))$ & n/a & & \\
+
+& & Boosted  & $c c J$ & n/a & & \\
+ \hline 
+ $b$    & $B$ 
+  & Fully resolved & $b (b qq^\prime)$ & n/a & & \\
+& & Resolved w/ $\Pi \rightarrow qq^\prime$ & $b (b( qq^\prime))$ & n/a & & \\
+
+& & Boosted  & $b b J$ & n/a & & \\
+ \hline 
+ $t$    & $T$ 
+  & Fully resolved & \textbf{$t (\bar{t} qq^\prime)$} & n/a & & \\
+& & Resolved w/ $\Pi \rightarrow qq^\prime$ & \textbf{$t (\bar{t} (qq^\prime))$} & n/a & & \\
+
+& & Boosted  & $t \bar{t} J$ & n/a & & \\
+\hline
+\end{tabular}}
+
+\vskip-5pt
+\caption{List of all the signatures foreseen by the model for the different flavours of $f$, $F$, their topology and final states. In the table ``$j$''  indicates any reconstructed jet that originates from a $u,d,s$ quark and ``$J$'' a large-radius (cone-size of 0.8) jet that is reconstructed from 2 quarks produced with low angular separation. The notation w$/\Pi$ indicates the decay of $F$ through a $\Pi$. The LHC searches for these signatures are reported along with some comments on the features that are typical of this model and have not been exploited in the referenced LHC searches. In the table, "n/a" indicates the case in which an LHC search interesting the corresponding final state has not been found.}
+\label{FinalStatesTopologiesF}
+\end{table*}
+
+So far we have presented the studies relying on the first SM generation, i.e. considering the electron flavour of $F$ ($F = E$). However, these discussions and calculations are straightforwardly generalized to the second and third SM generations, and in the text we keep the general notation $F$ instead of $E$. At the 
+leading order of only contact interactions being taken into account, the formulae of cross-sections, decay rates and 
+branching ratios of the second and third generations are the same as those of the first generation, however composite fermions $F$ and their productions, decay channels and rates are different, depending 
+on the values of their parameters $m_F$, $m_\Pi$ and $F_\Pi$, which
+vary from one SM generation to another.
+The reasons are that the effective couplings $\sim g_*^2/\Lambda^2$ and 
+$\sim g_{_Y}$ of contact interactions can be different, due to the 
+modifications from the flavor mixing and gauge interactions. 
+
+However, we neglect these modifications 
+in this article, and expect the variations of masses 
+$m_F$, $m_\Pi$, decay 
+constant $F_\Pi$ to be small. In this sense, there are two basic 
+parameters $F_\Pi/m_\Pi$ and $m_\Pi/m_F$ 
+for each SM generation to be determined by different channels and 
+their topologies in LHC experiments discussed in next sections.
+    
+
+\subsection{Signatures to search for $F$ at the LHC}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+We now summarize on the possible signatures with which $F$ can manifest at the LHC. We remark that $F$ can have the different flavours corresponding to the Standard Model flavours of $f$ and the fact that these particles are not necessarily mass degenerate. This implies that they can have different masses with which they can appear within the energy reach of the LHC, and thus they have to be searched for independently. Based on the flavours of $f$, we expect 8 different final states to be investigated for the pair $fF$ produced in the process $pp\rightarrow fF$, which are: $eE,\mu M,\tau\mathcal{T},\nu N,jJ,cC,bB,tT$. Here, we consider one single channel ($\nu N$) for all the $\nu$ neutrinos of the Standard Model and one single channel ($jJ$) for the $u,d,s$ quarks. We notice that the flavour $cC$ is taken separately, because of the improving performances in c-tagging algorithms at the LHC (\cite{cTagATLAS, cTagCMS}) and dedicated searches for new physics with $c$ quarks in the final state (\cite{cTagSearchATLAS, cTagSearchCMS}). Moreover, we distinguish the three topologies (resolved with and without $\Pi$ and boosted) explained in the previous paragraph, so that we have in total 24 different signatures that have to be considered in order to pursue a comprehensive search of $F$. 
+
+
+In Table ~\ref{FinalStatesTopologiesF} we outline these signatures based on the flavours $f$ and $F$, the possible topology, the corresponding final states, and the LHC search that, to the best of our knowledge, could be more sensitive to searching for $F$. In the last column, we further report on features of $F$ and its decay that have not been exploited directly in the cited LHC searches and could be used to improve possible future searches dedicated to $F$. We especially remark that the $F$ quark flavours appear to be completely unexplored yet and we urge on the importance of carrying out specific analyses at LHC to investigate it. This is certainly noteworthy and can have a relevant impact on the beyond the SM physics program of the LHC.
+
+
+We notice that, despite possible and with a peculiar signature, the channel $f F \rightarrow f (\bar f \Pi) \rightarrow f (\bar f (\tilde G\tilde G^\prime))$ is negligible since the decay $\Pi^0 \rightarrow (\tilde G\tilde G^\prime)$ is only relevant for $F_\Pi/\,m_\Pi=0.1$ when, however, the decay $F \rightarrow f (\Pi)$ has a branching ratio close to zero. Because of this we do not include this case in Table ~\ref{FinalStatesTopologiesF} and we point out that this case would become of interest in the case $F$ is found in one of the possible signatures mentioned above, to study the nature of the new particle. \comment{It should be mentioned that these gauge bosons $\tilde G\tilde G'$ in Eq.~(\ref{PiGG}) can be two gluons that possibly fuse to a Higgs particle in the final states. Do we keep this part? how is it related to BSM searches? should we mention about future studies on this case?} 
+
+We put emphasis on the case of the composite fermions 
+$F=N^0,\bar N^0, N^+,N^-$ for the final state $\nu\nu qq^\prime$, where $\nu\bar\nu$ stands for the pairs of the SM left-handed neutrino $\nu^e_L$ 
+and/or sterile right-handed neutrino $\nu^e_R$, as the latter is a candidate of dark-matter particles. 
+
+Finally, we acknowledge that the final state $f \bar f qq^\prime$ is relevant for a wide range of the parameter space of the model and thus will consider it in the next section and, in particular, the case of $f = e$ and $F = E$ to derive limits on the model parameters based on existing LHC results.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Bounds on the model parameters}
+\label{bound}
+\begin{figure}[ht]
+\centering
+
+
+\includegraphics[scale=1.35]{recast}
+
+\caption{\label{recast} (Color Online). \red{should we plot the cross section $\sigma$ in terms of $m_{_\Pi}$ for different values  $g^2_{Y}=F_\Pi/\Lambda$?} Recast of the experimental upper limit on $\sigma (pp \to eeqq^\prime)$ published in \cite{LARFP2017} against the model of composite fermions studied in this article. The dotted line (solid green line) 
+is the 95\% C.L. observed (expected) upper limit on $\sigma (pp \to eeqq^\prime)$ as reported in \cite{LARFP2017}. The solid line (red) is the theoretical expectation from the model described in this work as given by Eq.~(\ref{ppcs})  
+
+for the case $m_F/\Lambda=1$, the dashed lines (orange) are the theoretical expectation from the model for the cases $\Lambda=6,\,9,\,12$ TeV. If $m_F/\Lambda=1$ one obtains that the composite fermions of this model are excluded up to masses $m^{\rm ex}_F\approx 4.25$ TeV.}
+\label{1dimlimit}
+
+
+\end{figure} 
+
+\begin{figure}[ht] 
+\centering
+
+
+\includegraphics[scale=1.35]{bounds}
+
+\caption{\label{recast2dim} (Color Online). Recast of the experimental upper limit from \cite{LARFP2017} (dashed line) and the predicted contour curve at a 5-level statistical significance (solid line) in the 2-dimensional parameter space 
+$(\Lambda,m_F)$. 
+
+
+The  shaded region denotes unphysical values of the parameters ($\Lambda < m_F$). \red{should we have a plot like this  in terms of $m_{_\Pi}$ and $\Lambda$ or $F_\Pi$ ?} 
+
+}
+\label{2dimlimit}
+
+
+\end{figure}
+
+In this section we provide a discussion of the bounds of the model parameters taking as a reference the case $F = E$ and the final state $eeqq^\prime$ that has been shown to be sensitive to a wide portion of the parameter space of the model in the previous section. For this purpose, we
+recast the 95\% confidence level (C.L.) experimental upper limit on $\sigma(pp\rightarrow eeqq^\prime)$ using a recent analysis~\cite{LARFP2017} 
+of 2.3 fb$^{-1}$ data from the 2015 Run II of the LHC by the CMS collaboration with respect to the predictions of the  model of composite fermions discussed in this article. Note that both electrons and positrons are collected in the final states of $eeqq^\prime$, electrons and positrons are not distinguished  in the data analysis.
+For the case $m_F/\Lambda=1$ one obtains that the composite 
+fermions of this model are excluded up to masses 
+$m^{\rm ex }_F\approx 4.25$ TeV. 
+This result is shown in Figure \ref{recast}, together with the exclusion limits 
+$m^{\rm ex }_F\approx 3.3, 2.4,1.5$ TeV for $\Lambda$ fixed at 6, 9 and 12 TeV. 
+Figure \ref{2dimlimit} shows the exclusion curve, lower (dashed) line, in the 2-dimensional parameter space $(\Lambda,m_F)$ for the model obtained via  the recasting of the analysis~\cite{LARFP2017} 
+of 2.3 fb$^{-1}$ data from the 2015 Run II of the LHC by the CMS collaboration. Here the regions of the parameter space below the curves are excluded. 
+
+We also performed a study about the potential of a dedicated analysis in the High Luminosity LHC (HL-LHC) conditions (center of mass energy of 14 TeV and luminosity of 3 ab$^{-1}$). We used CalcHEP to generate the processes and DELPHES \cite{Delphes} to simulate the detector effects. In order to separate the signal from the background, we selected events with $pt_{e_1}\geq$ 180 GeV, $pt_{e_2}\geq$ 80 GeV, $pt_{j_1}\geq$ 210 GeV, $m_{ee}\geq$ 300 GeV ($pt$ is the transverse momentum, $e_1$ the leading electron, $e_2$ the subleading electron, $j_1$ the leading jet and $m_{ee}$ the invariant mass of the two electrons). Then we evaluated the reconstruction and selection efficiencies for signal ($\epsilon_s$) and background ($\epsilon_b$) as the ratio of the selected and the total generated events. From these efficiencies, the signal and  background cross sections ($\sigma_s$, $\sigma_b$) and the integrated luminosity ($L$), it is possible to evaluate the expected number of events for the signal ($N_s$) and the SM background ($N_b$) and finally the statistical significance ($S$):
+\begin{equation}
+N_s=L\sigma_s\epsilon_s, \quad N_b=L\sigma_b\epsilon_b, \quad S=\frac{N_s}{\sqrt{N_b}}\, .
+\end{equation}
+The $S=5$ contour curve is shown by the upper (solid) line in Figure \ref{2dimlimit}. It can be used to get indications about the potential for discovery or exclusion with the experiments at the HL-LHC, showing that there is a wide region of the model phase space where the existence of the composite fermions can be investigated;
+for the case $m_F/\Lambda=1$ we can reach masses up to $\approx 6.2$ TeV.
+We notice that, despite having considered the case of $F = E$ in this section, it could be inferred that the cross section for $F$, which should approximately be the same for all its flavours, is sufficient for the $F$ to appear at the LHC with the statistics already collected at the LHC experiments, and that is expected by the HL-LHC. Based on this result, we recommend that the physics program of the LHC consider the new particles foreseen by this model and their signatures in its investigations.
+
+\section{Summary and remarks}
+\label{SummaryAndRemarks}
+
+
+{\bfseries Appendix: Leptoquark four-fermion operators}\label{LQfourfermion}
+
+Based on the dynamics of strong four-fermion couplings (\ref{q1}),  
+the composite bosons 
+$\Pi^\pm$ and $\Pi^0_{u,d}$ in Table V of Ref.~\cite{Leonardi:2018jzn} are produced in the quark-quark channel, 
+\begin{eqnarray}
+&&G_{\rm cut}\,\left[(\bar\psi^{bi}_Lu_{Rb})(\bar u^a_{R}\psi_{Lia})+(\bar\psi^{bi}_Ld_{Rb})(\bar d^a_{R}\psi_{Lia})\right] + {\rm h.c.}.\label{qbhlql}
+\end{eqnarray}
+Whereas LQ particles produce in the leptoquark channels of three types, 
+\begin{eqnarray}
+&&G_{\rm cut}\, \Big[(\bar\ell^{i}_Le_{R})(\bar d^a_{R}\psi_{Lia})
++(\bar\ell^{i}_L\nu^e_{R})(\bar u^a_{R}\psi_{Lia})\Big] + {\rm h.c.},
+\nonumber\\
+
+&&G_{\rm cut}\, \Big[(\bar\ell^{i}_Lu^a_{R})(\bar u^a_{R}\ell_{Li})
++(\bar\ell^{i}_Ld^a_{R})(\bar d^a_{R}\ell_{Li})\Big]+ {\rm h.c.},
+\nonumber\\
+&&G_{\rm cut}\, \Big[(\bar\psi_{Lia}\nu^e_{R})(\bar \nu^e_{R}\psi_{Lia})
++(\bar\psi_{Lia}e_{R})(\bar e_{R}\psi_{Lia})\Big] + {\rm h.c.},
+\label{bhlql}
+
+\end{eqnarray}
+where the elementary fermion fields are the SM doublet $\ell^i_L=(\nu^e_L,e_L)$ and singlet $e_{R}$ with an additional right-handed neutrino $\nu^e_{R}$ for leptons;
+$\psi_{Lia}=(u_{La},d_{La})$ and $u^a_{R}, d^a_{R}$ for quarks, 
+where the color $a,b$ and $SU_L(2)$-isospin $i$ indexes are summed over. The four-fermion operators are SM gauge-symmetric and fermion-number conserving.
+We explicitly give quark-lepton channels,
+\begin{eqnarray}
+&&G_{\rm cut}\,\Big[(\bar e_Le_{R})(\bar d^a_{R}d_{La})
++(\bar\nu^{e}_L\nu^e_{R})(\bar u^a_{R}u_{La})+ (\bar\nu^{e}_Le_{R})(\bar d^a_{R}u_{La})\Big] + {\rm h.c.},
+\label{bhlqlex}\\
+&&G_{\rm cut}\,\left[(\bar\nu^e_Lu^a_{R})(\bar u^a_{R}\nu^e_{L})+
+(\bar e_Lu^a_{R})(\bar u^a_{R}e_{L})
++(\bar\nu^e_Ld^a_{R})(\bar d^a_{R}\nu^e_{L})+
+(\bar e_Ld^a_{R})(\bar d^a_{R}e_{L})\right] + {\rm h.c.},\nonumber\\
+&&G_{\rm cut}\,\left[(\bar u^a_L\nu^e_{R})(\bar \nu^e_{R}u^a_{L})
++(\bar d^a_L\nu^e_{R})(\bar \nu^e_{R}d^a_{L})+ (\bar u^a_L e_{R})(\bar e_{R}u^a_{L})
++(\bar d^a_L e_{R})(\bar e_{R}d^a_{L})\right] + {\rm h.c.}.\nonumber
+\end{eqnarray}
+Operators (\ref{bhlql}) or (\ref{bhlqlex})
+are for the first generation, 
+$\nu^e,e,u,d \rightarrow \nu^\mu,\mu,c,s$ for the second generation, and $\nu^e,e,u,d \rightarrow \nu^\tau,\tau,t,b$ for the third generation. 
+
+.......
+
+\begin{acknowledgments}
+
+
+The work of Alfredo Gurrola and Francesco Romeo is supported in part by NSF Award PHY-1806612. The work of Hao Sun is supported by the National Natural Science Foundation of China (Grant No.11675033).
+\end{acknowledgments}
+
+
+\begin{thebibliography}{99}
+\bibitem{njl} Y.~Nambu and G.~Jona-Lasinio, Phys.~Rev.~122 (1961) 345.
+
+
+\bibitem{higgs}
+F.~Englert, R.~Brout, Phys.~Rev.~Lett. 13 (1964) 321;\\
+P.~W.~Higgs, Phys. Lett. 12 (1964) 132;
+Phys.~Rev.~Lett.~13 (1964) 508; Phys.~Rev.~145 (1966) 1156;\\
+G.~S.~ Guralnik, C.~R.~Hagen, T.~W.~B.~Kibble, Phys.~Rev.~Lett. 13 (1964) 585;
+and T.~W.~B.~ Kibble, Phys.~Rev.~155 (1967) 1554.
+
+\bibitem{ATLASCollaboration}
+
+ATLAS Collaboration, JINST 3 (2008) S08003 
+
+\bibitem{CMSCollaboration}
+
+CMS Collaboration, JINST 3 (2008) S08004
+
+\bibitem{ATLAS} ATLAS Collaboration, Phys.~Lett.~B 716 (2012) 1, and 
+http://atlas.ch/.
+
+\bibitem{CMS} CMS Collaboration, Phys.~Lett.~B 716 (2012) 30-61.
+
+
+\bibitem{exp1} 
+  M.~Aaboud {\it et al.} [ATLAS Collaboration],
+  
+  JHEP {\bf 1609}, 001 (2016)
+  doi:10.1007/JHEP09(2016)001
+  [arXiv:1606.03833 [hep-ex]].
+  
+  
+  
+
+\bibitem{exp2} 
+  V.~Khachatryan {\it et al.} [CMS Collaboration],
+  
+  Phys.\ Rev.\ Lett.\  {\bf 117}, no. 5, 051802 (2016)
+  doi:10.1103/PhysRevLett.117.051802
+  [arXiv:1606.04093 [hep-ex]].
+  
+  
+\bibitem{exp3}
+G. Aad et al. (ATLAS Collaboration), Phys. Rev. D 87,
+015010 (2013).
+
+
+\bibitem{exp4} 
+  V.~Khachatryan {\it et al.} [CMS Collaboration],
+  
+  Eur.\ Phys.\ J.\ C {\bf 76}, no. 5, 237 (2016)
+  doi:10.1140/epjc/s10052-016-4067-z
+  [arXiv:1601.06431 [hep-ex]].
+  
+  
+  
+  
+\bibitem{exp5} 
+  G.~Aad {\it et al.} [ATLAS Collaboration],
+  
+  JHEP {\bf 1512}, 055 (2015)
+  doi:10.1007/JHEP12(2015)055
+  [arXiv:1506.00962 [hep-ex]].
+  
+  
+ 
+\bibitem{exp6} 
+  V.~Khachatryan {\it et al.} [CMS Collaboration],
+  
+  Phys.\ Rev.\ D {\bf 91}, no. 5, 052009 (2015)
+  doi:10.1103/PhysRevD.91.052009
+  [arXiv:1501.04198 [hep-ex]].
+  
+  
+  
+  
+\bibitem{exp7} 
+  V.~Khachatryan {\it et al.} [CMS Collaboration],
+  
+  JHEP {\bf 1408}, 173 (2014)
+  doi:10.1007/JHEP08(2014)173
+  [arXiv:1405.1994 [hep-ex]].
+  
+  
+  
+  
+\bibitem{exp8} 
+  G.~Aad {\it et al.} [ATLAS Collaboration],
+  
+  Phys.\ Rev.\ Lett.\  {\bf 115}, no. 13, 131801 (2015)
+  doi:10.1103/PhysRevLett.115.131801
+  [arXiv:1506.01081 [hep-ex]].
+  
+  
+  
+  
+\bibitem{exp9} 
+  V.~Khachatryan {\it et al.} [CMS Collaboration],
+  
+  JHEP {\bf 1506}, 121 (2015)
+  doi:10.1007/JHEP06(2015)121
+  [arXiv:1504.03198 [hep-ex]].
+  
+  
+\bibitem{cfmass}
+J.C. Pati, A. Salam, J.A. Strathdee, Are quarks composite?, Phys. Lett. B 59 (1975) 265, https://doi.org/10.1016/0370-2693(75)90042-8;\\
+H. Harari, Composite models for quarks and leptons, Phys. Rep. 104 (1984) 159, https://doi.org/10.1016/0370-1573(84)90207-2;\\
+O.W. Greenberg, C.A. Nelson, Composite models of leptons, Phys. Rev. D 10
+(1974) 2567, https://doi.org/10.1103/PhysRevD.10.2567.
+
+\bibitem{comp1}
+ P. A. M. Dirac, Scientific American 208, 45 (1963).
+\bibitem{comp2} H. Terazawa, K. Akama, and Y. Chikashige, Phys. Rev.
+D15, 480 (1977).
+\bibitem{comp3} H. Terazawa, Phys.Rev. D22, 184 (1980).
+\bibitem{comp4} E. Eichten and K. Lane, Physics Letters B 90, 125
+(1980).
+\bibitem{comp5} E. Eichten, K. D. Lane, and M. E. Peskin, Phys. Rev.
+Lett. 50, 811 (1983).
+\bibitem{comp6} H. Terazawa, in Europhysics Topical Conference: Flavor
+Mixing in Weak Interactions Erice, Italy, March 4-12,
+1984 (1984).
+
+\bibitem{comp7} N. Cabibbo, L. Maiani, and Y. Srivastava, Phys. Lett.
+B139, 459 (1984).
+
+\bibitem{comp8} U. Baur, M. Spira, and P. M. Zerwas, Phys. Rev. D 42,
+815 (1990).
+
+\bibitem{comp9} U. Baur, I. Hinchliffe, and D. Zeppenfeld, Int. J. Mod.
+Phys. A2, 1285 (1987).
+
+
+
+
+
+\bibitem{LPF2014} 
+R. Leonardi, O. Panella, and L. Fan\`o, ``Doubly charged heavy leptons at the LHC via contact interactions'', Phys. Rev. D 90, 035001, (2014).
+
+\bibitem{LARFP2016}
+R. Leonardi, L. Alunni, F. Romeo, L. Fan\`o, O. Panella, ``Hunting for heavy composite Majorana neutrinos at the LHC'' Eur. Phys. J. C76 (2016) no.11, 593,  arXiv:1510.07988 .
+
+\bibitem{LARFP2017}
+The CMS Collaboration, ``Search for a heavy composite Majorana neutrino in the final state with two leptons and two quarks at $\sqrt{s}=13$ TeV'', Phys. Lett. B 775, 315 (2017) arXiv:1706.08578.
+
+\bibitem{nogotheorem}
+H.~B.~ Nielsen and M.~ Ninomiya, Nucl.~Phys.~B 185 (1981) 20 [Erratum ibid. B 195 (1982) 541]; Phys.~ Lett.~ B 105 (1981) 219; Int.~ J.~ Mod.~ Phys.~ A 6 (1991) 2913.
+
+\bibitem{xueqgravity}
+S.-S. Xue, ``Quantum Regge calculus of Einstein-Cartan theory'', Phys. Lett. B 682 (2009) 300,[arXiv:0902.3407];\\
+``Detailed discussions and calculations of quantum Regge calculus of Einstein-Cartan theory'', Phys. Rev. D 82 (2010) 064039 [arXiv:0912.2435];\\
+``The phase structure of Einstein-Cartan theory'', Phys. Lett. B 665 (2008) 54 [arXiv:0804.4619];\\
+``The Phase and Critical Point of Quantum Einstein-Cartan Gravity'', Phys. Lett. B 711 (2012) 404 [arXiv:1112.1323].
+
+\bibitem{xue2016_2}
+S.-S.~Xue, JHEP  11 (2016) 072, arXiv:1605.01266. For more details, see Refs.~\cite{xuemass}.
+
+\bibitem{xue2017}
+S.-S.~Xue, JHEP 05(2017)146,  arXiv:1601.06845. For more details, see Refs.~\cite{xue3bound}.
+
+\bibitem{xuemass}
+S.-S.~Xue, Phys.~ Rev.~D93, 073001 (2016), arXiv:1506.05994; Phys.~Lett.~ B 721 (2013) 347, arXiv:1301.4254; Mod.~ Phys.~ Lett.~A, Vol.~14 (1999) 2701, {\it ibid} Vol.15 (2000) 1089; Phys.~ Lett.~ B 398 (1997) 177; 
+{\it ibid} B224, (1989) 309; B245, 
+(1990), 565; Z. Phys. C 50, (1991) 145; 
+
+Nucl.~Phys.~B (Proc.~Suppl.) 53 (1997) 688, {\it ibid} 63A-C (1998) 596, 
+{\it ibid} 94 (2001) 781;\\
+
+G. Preparata and S.-S. Xue, Phys. Lett. B 264 (1991) 35; 
+B 302 (1993) 442; B325 (1994) 161-165.
+
+\bibitem{bhl1990}
+W. A. Bardeen, C. T. Hill and M. Lindner,Phys. Rev.D41(1990) 1647.
+
+\bibitem{xue2013}
+G. Preparata and S.-S. Xue, Phys. Lett. B377 (1996) 124-128; 
+S.-S.~Xue, Phys.~ Lett.~B721 (2013) 347-352.
+
+\bibitem{xue3bound} 
+S.-S.~Xue, Phys.~Lett.~B {\bf 381}, 277 (1996), 
+Nucl.~Phys.~B {\bf 486}, 282 (1997), {\it ibid} 580, 365 (2000); 
+Phys.~Rev.~D 61, 054502 (2000), {\it ibid} 64, 094504 (2001); 
+J. Phys. G, Nucl. Part. Phys. 29 (2003) 2381; Phys. Lett. B 706 (2011) 213; {\it ibid} 665 (2008) 54.
+
+
+\bibitem{anomalyS} $https://virgilio.mib.infn.it/~oleari/public/complementi_QFT/lectures_anomalies_Shifman/2015_shifman_lecture_2.pdf$
+
+
+
+
+
+
+
+
+
+\bibitem{xuepheno}
+S.-S.~Xue, Phys.~ Lett.~B727 (2013) 308 (arXiv:1308.6486); {\it ibid}
+B737 (2014) 172 (arXiv:1405.1867); B744 (2015) 88 (arXiv:1501.06844). 
+
+
+\bibitem{Ball:2014uwa}
+  R.~D.~Ball {\it et al.} [NNPDF Collaboration],
+  
+  JHEP {\bf 1504} (2015) 040
+  doi:10.1007/JHEP04(2015)040
+  [arXiv:1410.8849 [hep-ph]].
+  
+  
+  
+\bibitem{Delphes} 
+J.~deFavereau et al., JHEP 1402, 057 (2014).
+
+\bibitem{changjin2008}
+See for example, J.~Chang, {\it et al.} Nature Vol 456|20 Nov.~2008; Y-Z. Fan, B. Zhang and J. Chang, IJMPD Vol. 19, (2010) 2011.
+
+\bibitem{dark2009}
+N. Arkani-Hamed, D. P. Finkbeiner, T. Slatyer, and N.
+Weiner, Phys. Rev. D 79, 015014 (2009);\\
+Dmitry Malyshev, Ilias Cholis, and Joseph Gelfand, Phys.~Rev.~D80, 063005 (2009).
+
+\bibitem{AMS2015}
+AMS collaboration,  Phys. Rev. Lett. 114, 171103 (2015).
+
+  
+\bibitem{pandaX} https://www.lngs.infn.it/en and http://pandax.physics.sjtu.edu.cn/.
+
+\bibitem{icecube} https://icecube.wisc.edu/.
+
+\bibitem{xueRcoupling} 
+S.-S. Xue,
+
+
+
+Phys. Lett. B 398 (1997) 177, [hep-ph/9610508];
+Mod. Phys. Lett. A 14 (1999) 2701, [hep-ph/9706301];
+
+\bibitem{Rcurrent2017}
+S. Alioli, V. Cirigliano, W. Dekens, J. de Vriesdan, E. Mereghetti
+
+JHEP05(2017)086; ArXiv ePrint:1703.04751
+
+\bibitem{KX2017} 
+H. Kleinert and S.-S. Xue, ``Composite Fermions and their pair states in a Strongly-Coupled Fermion Liquid'', Nuclear Physics B 936 (2018) 352–363, https://arxiv.org/abs/1708.04023.
+
+
+
+\bibitem{llqq_FR_ATLAS}
+ATLAS Collaboration, ``Searches for scalar leptoquarks and differential cross-section measurements in dilepton-dijet events in proton-proton collisions at a centre-of-mass energy of $\sqrt{s}$ = 13 TeV with the ATLAS experiment'',  Eur.Phys.J. C79 (2019) no.9, 733, DOI: 10.1140/epjc/s10052-019-7181-x, ArXiv e-Print1902.00377
+
+\bibitem{tautauqq_FR_CMS}
+CMS Collaboration, ``Search for heavy neutrinos and third-generation leptoquarks in hadronic states of two $\tau$ leptons and two jets in proton-proton collisions at $\sqrt{s}$ = 13 TeV'', JHEP 1903 (2019) 170, DOI: 10.1007/JHEP03(2019)170, 
+ArXiv ePrint:1811.00806
+
+\bibitem{nunuqq_FR_CMS}
+CMS Collaboration, ``Searches for physics beyond the standard model with the MT2
+variable in hadronic final states with and without disappearing tracks in proton-proton collisions at $\sqrt{s}$ = 13 TeV'', ArXiv e-Print:1909.03460
+\bibitem{nunuqq_FR_ATLAS}
+ATLAS Collabortion, ``Search for squarks and gluinos in final states with jets and missing transverse momentum using 36 fb$^{-1}$ of $\sqrt{s}$ = 13 TeV pp collision data with the ATLAS detector'', Phys.Rev. D97 (2018) no.11, DOI: 10.1103/PhysRevD.97.112001, ArXiv e-Print:1712.02332 
+
+
+\bibitem{llqq_Rpi_CMS} 	
+CMS Collaboration, ``Search for a heavy right-handed W boson and a heavy neutrino in events with two same-flavor leptons and two jets at $\sqrt{s}$ = 13 TeV'', JHEP 1805 (2018) no.05, 148, DOI: 10.1007/JHEP05(2018)148, ArXiv e-Print:1803.11116
+
+
+\bibitem{llqq_Compr_ATLAS}
+ATLAS Collaboration, ``Search for TeV-scale gravity signatures in high-mass final states with leptons and jets with the ATLAS detector at $\sqrt{s}$ =13 TeV'', Phys.Lett. B760 (2016) 520-537, DOI: 10.1016/j.physletb.2016.07.030, ArXiv e-Print: 1606.02265
+
+\bibitem{jjqq_Compr_CMS}
+CMS Collaboration, ``Search for dijet resonances in events with three jets from proton-proton collisions at $\sqrt{s}$ = 13 TeV'', CMS-PAS-EXO-19-004, http://cds.cern.ch/record/2684756?ln=en
+
+\bibitem{nunuJ_boost_ATLAS}
+ATLAS Collaboratin, ``Constraints on mediator-based dark matter and scalar dark energy models using $\sqrt{s}$ = 13 TeV pp collision data collected by the ATLAS detector'', JHEP 1905 (2019) 142 (2019-05-23), DOI: 10.1007/JHEP05(2019)142, ArXiv e-Print:1903.01400 
+
+\bibitem{cTagATLAS}
+ATLAS Collaboration, ``Optimisation of the ATLAS b-tagging performance for the 2016 LHC Run'', ATL-PHYS-PUB-2016-012, 2016, url: https://cds.cern.ch/record/2160731.
+\bibitem{cTagCMS}
+CMS Collaboration, ``Identification of heavy-flavour jets with the CMS detector in pp collisions at 13 TeV'', JINST 13 (2018) P05011, DOI: 10.1088/1748-0221/13/05/P05011, ArXiv e-Print:1712.07158. 
+\bibitem{cTagSearchATLAS}
+ATLAS Collaboration, ``Search for supersymmetry in final states with charm jets
+and missing transverse momentum in 13 TeV $pp$ collisions with the ATLAS detector'', JHEP 09 (2018) 050, DOI: 10.1007/JHEP09(2018)050, ArXiv e-Print:1805.01649. 
+\bibitem{cTagSearchCMS}
+CMS Collaboration, ``Search for the pair production of third-generation squarks with two-body decays to a bottom or charm quark and a neutralino in proton–proton collisions at $\sqrt{s}$ = 13 TeV'', Phys. Lett. B 778 (2018) 263, DOI: 10.1016/j.physletb.2018.01.012, ArXiv e-Print:1707.07274. 
+
+\bibitem{LPFGSX2020} R. Leonardi, O. Panella,
+F. Romeo, A. Gurrola, H. Sun, and S. S. Xue, EPJC 2020.
+
+\end{thebibliography}
+\end{document}
+
+\subsection{Scalar and pesudo scalar composite bosons}
+
+\comment{Associating to the global $SU_L(2)\times U_Y(1)$ chiral symmetries of the Lagrangian, 
+the massive composite boson ${\mathcal A}^i\sim (\bar u_R\psi^i_L)$ 
+or ${\mathcal A}^i\sim (\bar d_R\psi^i_L)$ is 
+the fundamental representation of 
+$SU_L(2)\times U_Y(1)$ chiral symmetric group of the $U_Y(1)$-hypercharge $Y=-1/2$ or $Y=1/2$. }
+
+We attempt to study 
+the decays of composite bosons. 
+For the sake of simplicity, we 
+adopt the first quark family $\psi^i_L=(u,d)_L$ and $\psi_R=u_R,d_R$ for illustrations. For the $u$-channel, the massive composite boson 
+$\Pi^i=(\bar u_R\psi^i_L)$, which is an $SU_L(2)$ 
+doublet and $U_Y(1)$ charged $Y=-1/2$, can expressed in terms of scalar 
+and pseudo scalar fields,
+\begin{eqnarray}
+\Pi^i=(g^*/F_\Pi)^2(\bar u_R\psi^i_L)=(1/2)(g^*/F_\Pi)^2\left[(\bar u\psi^i)
+-(\bar u\gamma_5\psi^i)\right].
+
+\label{sacomp}
+\end{eqnarray}
+There are four components    
+\begin{eqnarray}
+S^0&=&\bar uu,\quad S^{-} =\bar ud\,; \quad 
+\quad \Pi^0_u=\bar u\gamma_5u, 
+\quad \Pi^-=\bar u\gamma_5d 
+\label{4comp}
+\end{eqnarray} 
+where the isospin index $i=1,2$ are relabeled as $i'=0,\pm$ 
+indicating the neutral or charged component. The $S^{}$
+For the $d$-channel, by the substitution $u\rightarrow d$ in 
+Eqs.~(\ref{sacomp}) and (\ref{4comp}), we have
+\begin{eqnarray}
+\Pi^i&=&(g^*/F_\Pi)^2(\bar d_R\psi^i_L)=(1/2)(g^*/F_\Pi)^2\left[(\bar d\psi^i)
+-(\bar d\gamma_5\psi^i)\right],\nonumber\\
+
+S^0&=&\bar dd,\quad S^+ =\bar du\,; \quad 
+\quad \Pi^0_d =\bar d\gamma_5d, 
+\quad \Pi^+=\bar d\gamma_5u,
+\label{4compd}
+\end{eqnarray}
+where the factor $(g^*/F_\Pi)^2$ is not explicitly written in the second line of Eqs. (\ref{4comp}) and (\ref{4compd}). 
+The neutral state $\Pi^0$ has the contributions from Eqs.~(\ref{4comp}) and (\ref{4compd}) that can be mixed up, but is different from the normal pion $\pi^0=(\bar uu-\bar dd)/\sqrt{2}$ in the $SU(3)$ quark model where the minus sign comes from the isospin $\tau^3=(1,-1)$. 
+The discussions can be 
+generalised to other families. The second and third 
+families of composite bosons are simply replicated by the replacements 
+$u\rightarrow c, t$ and $d\rightarrow s, b$. There is no mixing among three
+families of composite bosons. 
+
+However, the massive pseudo scalar fields $\Pi^{0,\pm}$ 
+(\ref{4comp},\ref{4compd})  and 
+the QCD pion fields $\pi^{0,\pm}$ have the same quantum numbers of the SM symmetries. Moreover, we shall show the pseudo-scalar fields $\Pi^{0,\pm}$
+decay into SM elementray particles, in particular the $\Pi^{0}$-decay 
+into two SM gauge bosons, analogously to the decay $\pi^0\rightarrow \gamma\gamma$.
+
+\red{In Eqs. (\ref{4comp}) and (\ref{4compd}), $S^{0,\pm}$ represent the scalar components and 
+$\Pi^{0,\pm}$ represent the pesudo scalar component. In the following, we will in general use the 
+notation $\Pi$ to represent the composite boson, and specify its scalar or pseudo scaler components if necessary. Our previous calculations of the $\Pi\rightarrow q\bar q'$ has taken into account both components (\ref{4compd}). The channels of hadronic decay via gluons should be suppressed by the OZI rule, due to the strong coupling $\alpha_s(energy)$ become smaller at high energies. }
+
+\subsection{Contact interactions of scalar component of composite bosons}\label{scalarcomponent}
+
+\red{I need to think} Contact interactions of scalar component $S^{0,\pm}$ of composite bosons with Higgs and gauge bosons others ???
+
+In Eqs.~(\ref{4comp}) and (\ref{4compd}), the scalar component of the composite bosons form composite 
+quarkonium states $\bar uu$ and $\bar dd$ that carry the same quantum 
+numbers of QCD quarknium states, however, have much larger masses 
+$\sim M_{\Pi^{0}}$. It is expected that apart from different kinematic 
+threshold, these composite quarkonium states 
+in principle undergo all decay channels of QCD quarkonium states. However, These scalar component of 
+the composite bosons should decay predominately to two quarks as we calculated in the previous article, note that the effective contact interactions are not QCD-like interactions of confinement. The channels of hadronic decay via QCD gluons should be suppressed by the OZI rule, due to the strong coupling $\alpha_s(energy)$ become smaller at high energies.   
+
+
+===== END PAPER =====
+
+You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.
+
+MODEL: NJLComposite (EffectiveModels) — FeynRules DB entry based on arXiv:2311.18472.
+PAPER: the paper's LaTeX source: equations, fractions and roots are exact, included verbatim above between the PAPER markers; it is authoritative.
+FORMAT: write a complete FeynRules .fr add-on model file yourself (M$ModelName, M$Information, M$InteractionOrderHierarchy, IndexRange declarations for new indices, M$Parameters, M$ClassesDescription, the Lagrangian terms and one LTotal). It is loaded on top of SM.fr, included verbatim above between the SM.fr markers.
+
+TASK — extract the COMPLETE new-physics content:
+1. Read the paper. Identify EVERY new particle beyond the Standard Model: spin (S/F/V), colour rep (singlet/triplet/sextet/octet), SU(2) rep, electric charge Q and/or hypercharge Y, mass parameter. COMPLETENESS IS SCORED — a model with several new states (multiplets, mass eigenstates, generations) must include all of them as separate ParticleClass entries (or class_members).
+2. Identify the new coupling/mass/mixing parameters (External unless clearly derived).
+3. Write the main new-physics Lagrangian terms (FeynRules/Mathematica syntax and idioms).
+
+FILE RULES: use FeynRules syntax for every value (rationals -1/3, decimals 1500.); SM add-on => no M$GaugeGroups block; the indices Colour, Gluon, Generation, SU2D and SU2W are declared by SM.fr; any OTHER index (a colour-sextet index, a new-generation index) needs `IndexRange[Index[X]] = NoUnfold[Range[n]];` with the correct size; every class gets a unique label S[n]/F[n]/V[n] with n >= 100; SelfConjugate -> False for complex fields (distinct antiparticle), True for real/Majorana fields.
+
+OUTPUT: your FINAL message must contain exactly one fenced code block tagged mathematica containing ONLY the complete .fr file (no commentary inside the fences). Set M$ModelName = "NJLComposite_gen".
+
+NO TOOLS: this run has no file, shell, network or code tools. Everything you need is in
+this message: the Standard Model file SM.fr (the file this add-on is loaded on top of:
+take field names, index conventions and hypercharges from it) and the paper. Do not ask
+for anything; do the extraction and write the model.
+
+## Physics-completeness rules (apply to every model)
+
+1. Free-field terms for every new particle class. Write a named kinetic + mass term for each new field even when the paper shows only L_int. Use the mass symbol declared in the class `Mass -> {M, value}`. Add the term to the total Lagrangian sum.
+   - Real vector (gauge singlet): `LXkin := -1/4 FS[X, mu, nu] FS[X, mu, nu] + 1/2 MX^2 X[mu] X[mu];` (the explicit form `-1/4 (del[X[nu], mu] - del[X[mu], nu])^2` is equivalent).
+   - Complex vector: `-1/2 FS[Xbar, mu, nu] FS[X, mu, nu] + MX^2 Xbar[mu] X[mu]`.
+   - Complex scalar: `DC[phibar, mu] DC[phi, mu] - Mphi^2 phibar phi`. Real scalar: `1/2 del[phi, mu] del[phi, mu] - 1/2 Mphi^2 phi^2`.
+   - Dirac fermion: `I psibar.Ga[mu].DC[psi, mu] - Mpsi psibar.psi`. Majorana fermion (`SelfConjugate -> True`): `I/2 psibar.Ga[mu].del[psi, mu] - 1/2 Mpsi psibar.psi`.
+
+2. Explicit EFT cutoffs. When the paper writes an operator with `1/Lambda^n` (or `1/M^n`, `1/f^n`), declare each distinct cutoff as an External parameter in GeV with the paper's benchmark value, e.g. `Lam == { ParameterType -> External, Value -> 1000., BlockName -> CUTOFF, InteractionOrder -> {QED, -1}, Description -> "EFT cutoff [GeV], Eq.(N)" }`. Write the factor `1/Lam^(d-4)` verbatim in the term, with `d` the operator mass dimension you computed in the self-audit. Keep the paper's dimensionless couplings (kappa, lambda, c_i) dimensionless with the paper's benchmark defaults. Do this for the term and for its `HC[...]` partner. Only if the paper's own implementation absorbs `kappa/Lambda^n` into one coefficient may you do the same; then the parameter Description must say "= kappa/Lambda^n, mass dimension -n, units GeV^-n" and the default must equal the paper's numeric `kappa/Lambda^n`. Never leave a dimensionful coefficient with an unexplained O(0.1) default.
+
+3. Charge conjugation. When the paper writes a fermion with a charge-conjugation superscript (`psi^c`, `\bar{psi^c}`, `psi^T C`, or a Majorana mass eigenstate that enters a chiral current with the opposite chirality), write it as `CC[psi]` (and `bar[CC[psi]]` for the conjugated bar). Never write the bare field. If the paper's benchmark sets that term's coefficient to zero, either drop the term or write it with `CC[...]`; never keep the term with the conjugation dropped. Use the class field with its Generation index (for example the SM class `vl[ff]`), not a class member like `ve[nn]`, because FeynRules reads an index on a class member as a spin index.
+
+4. SU(2) doublet contractions. Use the SM.fr conventions the add-on loads on: `Phi` has Y = +1/2, `LL` has Y = -1/2, `QL` has Y = +1/6, `Phi[1] = -I GP`, `Phi[2] = (vev + H + I G0)/Sqrt[2]`. Contract a doublet with an anti-doublet on a shared index: `LLbar[sp, ii, ff] ... Phi[ii]`. Contract two objects of the same conjugation type (`LLbar` with `Phibar`, `QLbar` with `Phibar`, i.e. any term the paper writes with `Htilde = i tau2 H*`) with `Eps[ii, jj]` on two distinct indices: `LLbar[sp, ii, ff] ... Phibar[jj] Eps[ii, jj]`. Never contract `LLbar[ii]` with `Phibar[ii]`. Model the SM Yukawas: `QLbar.dR Phi[ii]`, `LLbar.lR Phi[ii]`, `QLbar.uR Phibar[jj] Eps[ii, jj]`.
+
+5. New U(1) charges. Do not copy a paper's charge table literally when the paper's Yukawa equation and its table use different hypercharge conventions (for example the paper effectively uses Y(H) = -1/2). Re-derive the new-U(1) charge of every SM field, including the Higgs, from the requirement that all SM Yukawas and all new Yukawas are invariant under SM.fr conventions. Report which sign you chose and why. Do not put quantum numbers on a `SelfConjugate -> True` class; put a chiral charge on an Unphysical chiral class instead.
+
+6. Read only the paper. Do not open any cached or reference `.fr` file for the same model. If you see one, say so in the output and do not use it.
+
+7. Fractions and roots in extracted equations. The paper text is machine-extracted. A displayed fraction or radical can arrive flattened: the numerator, the fraction bar and the denominator become separate lines, so `A / Sqrt[B]` and `A Sqrt[B]` look identical. For every coefficient that contains a fraction, a square root or a power:
+   - If a LaTeX source file (`*_source.tex`) is available, read the `\frac{...}{...}` and `\sqrt{...}` there and take it literally. The LaTeX is authoritative over the flattened text.
+   - Otherwise cross-check the placement against a second equation of the paper that depends on the same coefficient (a partial width, a cross section, a limit, or a small-parameter expansion) and name that equation in the self-audit. A coupling `g/Sqrt[1-x]` gives a width proportional to `1/(1-x)`; a coupling `g Sqrt[1-x]` gives a width proportional to `(1-x)`.
+   - If neither resolves it, choose the form that reproduces a numerical value the paper states, and say so.
+   Never silently pick one placement.
+
+8. Mass mixing. When the paper diagonalises a mass mixing between a new state and an SM state (Z-Z', h-S, W-W_R, nu-N), write the mass eigenstates the paper uses: declare the mixing angle (External, or Internal with the paper's formula) and express the gauge eigenstates through it in `Definitions` of Unphysical classes. Do not leave the mixing in a comment.
+
+## FeynRules and UFO construct rules (each one broke a compile or a MadGraph import in earlier runs)
+
+9. Non-fundamental colour representations. If a field carries a colour index other than the triplet `Colour` or the adjoint `Gluon` (for example a sextet), declare the index range AND add the representation line FeynRules needs, before the field declarations: `AddGaugeRepresentation[SU3C -> {T6, Sextet}];` for a sextet (schema: put both lines in `raw_preamble`; also keep the `index_decls` entry). Write covariant derivatives on the whole field, `DC[Phi, mu]`, never with an explicit colour index inside `DC[...]`.
+
+10. Names. Class names, parameter names and index names must not be Mathematica built-ins or FeynRules symbols: never `N`, `C`, `D`, `E`, `I`, `K`, `O`, `HC`, `CC`, `FS`, `DC`, `del`, `Eps`, `Ga`, `ProjP`, `ProjM`, and never a name SM.fr already declares (`H`, `Phi`, `Z`, `W`, `A`, `G`, `ee`, `gs`, `gw`, `sw`, `cw`, `vev`, `MZ`, `MW`, ...). No primes or punctuation in `ParticleName`/`AntiParticleName` (`W'` is not a valid UFO name; write `Wp`, `Wpbar`). Use class indices of 100 or more for new classes.
+
+11. Interaction orders. Every new coupling parameter (Yukawa, portal, quartic, new gauge coupling, dimensionless EFT coefficient) carries an `InteractionOrder`: `{NP, 1}` for a new-physics coupling, `{QED, 1}` or `{QCD, 1}` only when it is literally that coupling. Declare `M$InteractionOrderHierarchy` with every order you use (for example `{{QCD, 1}, {QED, 2}, {NP, 1}}`). A coupling with no order makes MadGraph reject the UFO ("Some couplings have '1' order").
+
+12. Tensor parameters. Give every indexed parameter explicit per-component values (`yN[1,1] -> 0.1, yN[1,2] -> 0, ...`; schema: `value_rules`). Never use a pattern rule such as `X[i_?NumericQ, j_?NumericQ] :> ...` in `Definitions`: FeynRules exports the pattern verbatim as a UFO parameter name and MadGraph fails with an unrelated "invalid syntax" error.
+
+13. Flavour structure in matrix form. Write generation-space couplings as matrix products between class fields, `uqbar.VCKMR.Ga[mu].ProjP.dq`, `LLbar.yN.NR`, `ISbar.Ga[mu].ProjM.IS`, not as explicit index sums `VCKMR[ff1, ff2] uqbar[ff1, cc]...dq[ff2, cc]`, and never nest one generation index inside another. Explicit-index forms leak FeynRules internals (`ConvertSpinToString`, `MakeIdenticalFermions`) into the UFO.
+
+14. One declared total. Define exactly one Lagrangian term named `LTotal` that sums every other term you define, and make sure every other term appears in that sum. Do not define two alternative totals. Do not emit a term that contains no field (a pure constant): FeynRules exports it as a vertex with no particles.
+
+15. Declarations. Every field used in a term is declared; every parameter used in a term is declared with a numeric default; every `SelfConjugate -> True` class has no `QuantumNumbers`; a Majorana mass term is `-1/2 M psibar.psi`.
+
+## Mandatory self-audit table (produce it BEFORE the model)
+
+For every Lagrangian term you emit, output one row of this table. Then fix any row that fails before you write the model.
+
+| term name | fields in the monomial | operator mass dimension d | coupling symbol | coupling mass dimension (must be 4 - d) | 1/Lambda power present (must be d - 4, or "n/a" if d <= 4) | Q sum | Y sum | SU(2) contraction (singlet? which Eps or shared index) | SU(3) contraction | sum of each new U(1) charge (one column per U(1), must be 0) | lepton/baryon number sum (if the paper assigns them) | CC[] used where paper writes psi^c (yes/no/n/a) | fraction/root placement checked against (equation, LaTeX line, or "n/a") | Hermitian partner (HC[] or self-conjugate) |
+
+Rules for the table:
+- Field mass dimensions: scalar 1, vector 1, fermion 3/2, `FS[...]` 2, `del`/`DC` 1.
+- Every Q sum, Y sum, and new-U(1) sum must equal 0. Use the charges you declared in `QuantumNumbers` and the SM.fr charges for SM fields. If a sum is not 0, the term is wrong; fix the contraction or the charge before you continue.
+- If d > 4, the row must show `1/Lambda^(d-4)` and an External cutoff parameter, or a Description that states the absorbed dimension and units.
+- Add one row per new particle class that confirms its kinetic + mass term exists and is in the total Lagrangian sum.
+- Add one row per non-fundamental colour representation that confirms the `AddGaugeRepresentation[...]` line is present.
+- Add one line under the table that lists every `SelfConjugate -> True` class and confirms it carries no `QuantumNumbers`.
+- Add one line that lists every class, parameter and index name you chose and confirms none is a Mathematica built-in, a FeynRules symbol, or an SM.fr name.
+- Add one line that names the single total Lagrangian and lists the terms it sums.
+- Add one line that states whether any reference or cached model file was read (must be "none").

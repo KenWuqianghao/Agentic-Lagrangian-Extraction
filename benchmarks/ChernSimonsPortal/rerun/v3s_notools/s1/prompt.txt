@@ -1,0 +1,2661 @@
+===== BEGIN SM.fr (tools/feynrules/test_files/models/SM.fr) =====
+(***************************************************************************************************************)
+(******                       This is the FeynRules mod-file for the Standard model                       ******)
+(******                                                                                                   ******)
+(******     Authors: N. Christensen, C. Duhr, B. Fuks                                                     ******)
+(******                                                                                                   ******)
+(****** Choose whether Feynman gauge is desired.                                                          ******)
+(****** If set to False, unitary gauge is assumed.                                                          ****)
+(****** Feynman gauge is especially useful for CalcHEP/CompHEP where the calculation is 10-100 times faster. ***)
+(****** Feynman gauge is not supported in MadGraph and Sherpa.                                              ****)
+(***************************************************************************************************************)
+
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+M$ModelName = "Standard Model";
+
+M$Information = {
+  Authors      -> {"N. Christensen", "C. Duhr", "B. Fuks"}, 
+  Version      -> "1.4.7",
+  Date         -> "28. 09. 2016",
+  Institutions -> {"Michigan State University", "Universite catholique de Louvain (CP3)", "IPHC Strasbourg / University of Strasbourg"},
+  Emails       -> {"neil@pa.msu.edu", "claude.duhr@uclouvain.be", "benjamin.fuks@cnrs.in2p3.fr"},
+  URLs         -> "http://feynrules.phys.ucl.ac.be/view/Main/StandardModel"
+};
+
+FeynmanGauge = True;
+
+(* ************************** *)
+(* ***** NLO Variables ****** *)
+(******************************)
+
+FR$LoopSwitches = {{Gf, MW}};
+FR$RmDblExt = { ymb -> MB, ymc -> MC, ymdo -> MD, yme -> Me, 
+   ymm -> MMU, yms -> MS, ymt -> MT, ymtau -> MTA, ymup -> MU};
+
+(* ************************** *)
+(* *****  Change  log   ***** *)
+(* ************************** *)
+
+(* v1.4.7: Index issue with the ghost Lagrangian (special thanks to S. Iwamoto *)
+(* v1.4.6: NLO variable added.                                               *)
+(* v1.4.5: Added widths for ghosts.                                          *)
+(* v1.4.4: Changed widths of goldstone bosons to be the same as for the W and Z bosons *)
+(* v1.4.3: Updated conventions for the symmetric structure constants of SU3. *)
+(* v1.4.2: Set FeynmanGauge=True as default again.                           *)
+(* v1.4: Added SU(2) representation.                                         *)
+(*       -> Modification in the field declarations (doublets are added)      *)
+(*       -> Modification in the Lagrangian (much simpler).                   *)
+(* v1.3: Added yukawa couplings for all fermions for gauge invariance.       *)
+(*       Added yukawa couplings for 1st generation fermions to Massless.rst. *)
+(*       Updated parameters to PDG 2010.                                     *)
+(* v1.2: Set FeynmanGauge=True as default.                                   *)
+(*       Set Gluonic ghosts to be included in both gauges.                   *)
+(* v1.1: Fixed yukawa couplings in Feynman gauge.                            *)
+(*       Changed yd[n] CKM[n,m] to yd[m] CKM[n,m].                           *)
+(*       Changed yu[n] Conjugate[CKM[m,n]] to yu[m] Conjugate[CKM[m,n]].     *)
+
+(* ************************** *)
+(* *****      vevs      ***** *)
+(* ************************** *)
+M$vevs = { {Phi[2],vev} };
+
+(* ************************** *)
+(* *****  Gauge groups  ***** *)
+(* ************************** *)
+M$GaugeGroups = {
+  U1Y  == { 
+    Abelian          -> True,  
+    CouplingConstant -> g1, 
+    GaugeBoson       -> B, 
+    Charge           -> Y
+  },
+  SU2L == { 
+    Abelian           -> False, 
+    CouplingConstant  -> gw, 
+    GaugeBoson        -> Wi, 
+    StructureConstant -> Eps, 
+    Representations   -> {Ta,SU2D}, 
+    Definitions       -> {Ta[a_,b_,c_]->PauliSigma[a,b,c]/2, FSU2L[i_,j_,k_]:> I Eps[i,j,k]}
+  },
+  SU3C == { 
+    Abelian           -> False, 
+    CouplingConstant  -> gs, 
+    GaugeBoson        -> G,
+    StructureConstant -> f, 
+    Representations   -> {T,Colour}, 
+    SymmetricTensor   -> dSUN
+  } 
+};
+
+
+(* ************************** *)
+(* *****    Indices     ***** *)
+(* ************************** *)
+
+IndexRange[Index[SU2W      ]] = Unfold[Range[3]]; 
+IndexRange[Index[SU2D      ]] = Unfold[Range[2]];
+IndexRange[Index[Gluon     ]] = NoUnfold[Range[8]];
+IndexRange[Index[Colour    ]] = NoUnfold[Range[3]]; 
+IndexRange[Index[Generation]] = Range[3];
+
+IndexStyle[SU2W,       j];
+IndexStyle[SU2D,       k];
+IndexStyle[Gluon,      a];
+IndexStyle[Colour,     m];
+IndexStyle[Generation, f];
+
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ***  (as used by mg5)  *** *)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2}
+};
+
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+M$ClassesDescription = {
+
+(* Gauge bosons: physical vector fields *)
+  V[1] == { 
+    ClassName       -> A, 
+    SelfConjugate   -> True,  
+    Mass            -> 0,  
+    Width           -> 0,  
+    ParticleName    -> "a", 
+    PDG             -> 22, 
+    PropagatorLabel -> "a", 
+    PropagatorType  -> W, 
+    PropagatorArrow -> None,
+    FullName        -> "Photon"
+  },
+  V[2] == { 
+    ClassName       -> Z, 
+    SelfConjugate   -> True,
+    Mass            -> {MZ, 91.1876},
+    Width           -> {WZ, 2.4952},
+    ParticleName    -> "Z", 
+    PDG             -> 23, 
+    PropagatorLabel -> "Z",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "Z"
+  },
+  V[3] == {
+    ClassName        -> W,
+    SelfConjugate    -> False,
+    Mass             -> {MW, Internal},
+    Width            -> {WW, 2.085},
+    ParticleName     -> "W+",
+    AntiParticleName -> "W-",
+    QuantumNumbers   -> {Q -> 1},
+    PDG              -> 24, 
+    PropagatorLabel  -> "W",
+    PropagatorType   -> Sine,
+    PropagatorArrow  -> Forward,
+    FullName         -> "W"
+  },
+  V[4] == {
+    ClassName        -> G,
+    SelfConjugate    -> True,
+    Indices          -> {Index[Gluon]},
+    Mass             -> 0,
+    Width            -> 0,
+    ParticleName     -> "g", 
+    PDG              -> 21,
+    PropagatorLabel  -> "G",
+    PropagatorType   -> C,
+    PropagatorArrow  -> None,
+    FullName         -> "G"
+  },
+
+(* Ghosts: related to physical gauge bosons *)
+  U[1] == { 
+    ClassName       -> ghA, 
+    SelfConjugate   -> False,
+    Ghost           -> A,
+    QuantumNumbers  -> {GhostNumber -> 1},
+    Mass            -> 0,
+    Width	    -> 0,
+    PropagatorLabel -> "uA",
+    PropagatorType  -> GhostDash,
+    PropagatorArrow -> Forward
+  },
+  U[2] == {
+    ClassName       -> ghZ,
+    SelfConjugate   -> False,
+    Ghost           -> Z,
+    QuantumNumbers  -> {GhostNumber -> 1},
+    Mass            -> {MZ,91.1876},  
+    Width	    -> {WZ, 2.4952},
+    PropagatorLabel -> "uZ",
+    PropagatorType  -> GhostDash,
+    PropagatorArrow -> Forward
+  },
+  U[31] == { 
+    ClassName       -> ghWp,
+    SelfConjugate   -> False, 
+    Ghost           -> W,
+    QuantumNumbers  -> {GhostNumber -> 1, Q -> 1},
+    Mass            -> {MW,Internal}, 
+    Width           -> {WW, 2.085}, 
+    PropagatorLabel -> "uWp",
+    PropagatorType  -> GhostDash, 
+    PropagatorArrow -> Forward
+  },
+  U[32] == { 
+    ClassName       -> ghWm,
+    SelfConjugate   -> False, 
+    Ghost           -> Wbar,
+    QuantumNumbers  -> {GhostNumber -> 1, Q -> -1},
+    Mass            -> {MW,Internal}, 
+    Width           -> {WW, 2.085},
+    PropagatorLabel -> "uWm",
+    PropagatorType  -> GhostDash, 
+    PropagatorArrow -> Forward
+  },
+  U[4] == { 
+    ClassName       -> ghG, 
+    SelfConjugate   -> False,
+    Indices         -> {Index[Gluon]},
+    Ghost           -> G,
+    PDG             -> 82,
+    QuantumNumbers  ->{GhostNumber -> 1}, 
+    Mass            -> 0,
+    Width	    -> 0,
+    PropagatorLabel -> "uG",
+    PropagatorType  -> GhostDash,
+    PropagatorArrow -> Forward
+  },
+
+(* Gauge bosons: unphysical vector fields *)
+  V[11] == { 
+    ClassName     -> B, 
+    Unphysical    -> True, 
+    SelfConjugate -> True, 
+    Definitions   -> { B[mu_] -> -sw Z[mu]+cw A[mu]} 
+  },
+  V[12] == { 
+    ClassName     -> Wi,
+    Unphysical    -> True,
+    SelfConjugate -> True, 
+    Indices       -> {Index[SU2W]},
+    FlavorIndex   -> SU2W,
+    Definitions   -> { Wi[mu_,1] -> (Wbar[mu]+W[mu])/Sqrt[2], Wi[mu_,2] -> (Wbar[mu]-W[mu])/(I*Sqrt[2]), Wi[mu_,3] -> cw Z[mu] + sw A[mu]}
+  },
+
+(* Ghosts: related to unphysical gauge bosons *)
+  U[11] == {
+    ClassName     -> ghB, 
+    Unphysical    -> True,
+    SelfConjugate -> False,
+    Ghost         -> B, 
+    Definitions   -> { ghB -> -sw ghZ + cw ghA}
+  },
+  U[12] == {
+    ClassName     -> ghWi,
+    Unphysical    -> True,
+    SelfConjugate -> False,
+    Ghost         -> Wi,
+    Indices       -> {Index[SU2W]},
+    FlavorIndex   -> SU2W,
+    Definitions   -> { ghWi[1] -> (ghWp+ghWm)/Sqrt[2], ghWi[2] -> (ghWm-ghWp)/(I*Sqrt[2]), ghWi[3] -> cw ghZ+sw ghA}
+  } ,
+
+(* Fermions: physical fields *)
+  F[1] == {
+    ClassName        -> vl,
+    ClassMembers     -> {ve,vm,vt},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> 0,
+    Width            -> 0,
+    QuantumNumbers   -> {LeptonNumber -> 1},
+    PropagatorLabel  -> {"v", "ve", "vm", "vt"} ,
+    PropagatorType   -> S,
+    PropagatorArrow  -> Forward,
+    PDG              -> {12,14,16},
+    ParticleName     -> {"ve","vm","vt"},
+    AntiParticleName -> {"ve~","vm~","vt~"},
+    FullName         -> {"Electron-neutrino", "Mu-neutrino", "Tau-neutrino"}
+  },
+  F[2] == {
+    ClassName        -> l,
+    ClassMembers     -> {e, mu, ta},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {Ml, {Me,5.11*^-4}, {MMU,0.10566}, {MTA,1.777}},
+    Width            -> 0,
+    QuantumNumbers   -> {Q -> -1, LeptonNumber -> 1},
+    PropagatorLabel  -> {"l", "e", "mu", "ta"},
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    PDG              -> {11, 13, 15},
+    ParticleName     -> {"e-", "mu-", "ta-"},
+    AntiParticleName -> {"e+", "mu+", "ta+"},
+    FullName         -> {"Electron", "Muon", "Tau"} 
+  },
+  F[3] == {
+    ClassName        -> uq,
+    ClassMembers     -> {u, c, t},
+    Indices          -> {Index[Generation], Index[Colour]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {Mu, {MU, 2.55*^-3}, {MC,1.27}, {MT,172}},
+    Width            -> {0, 0, {WT,1.50833649}},
+    QuantumNumbers   -> {Q -> 2/3},
+    PropagatorLabel  -> {"uq", "u", "c", "t"},
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    PDG              -> {2, 4, 6}, 
+    ParticleName     -> {"u",  "c",  "t" },
+    AntiParticleName -> {"u~", "c~", "t~"},
+    FullName         -> {"u-quark", "c-quark", "t-quark"}
+  },
+  F[4] == {
+    ClassName        -> dq,
+    ClassMembers     -> {d, s, b},
+    Indices          -> {Index[Generation], Index[Colour]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {Md, {MD,5.04*^-3}, {MS,0.101}, {MB,4.7}},
+    Width            -> 0,
+    QuantumNumbers   -> {Q -> -1/3},
+    PropagatorLabel  -> {"dq", "d", "s", "b"},
+    PropagatorType   -> Straight, 
+    PropagatorArrow  -> Forward,
+    PDG              -> {1,3,5},
+    ParticleName     -> {"d",  "s",  "b" },
+    AntiParticleName -> {"d~", "s~", "b~"},
+    FullName         -> {"d-quark", "s-quark", "b-quark"}
+  },
+
+(* Fermions: unphysical fields *)
+  F[11] == { 
+    ClassName      -> LL, 
+    Unphysical     -> True, 
+    Indices        -> {Index[SU2D], Index[Generation]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1/2},
+    Definitions    -> { LL[sp1_,1,ff_] :> Module[{sp2}, ProjM[sp1,sp2] vl[sp2,ff]], LL[sp1_,2,ff_] :> Module[{sp2}, ProjM[sp1,sp2] l[sp2,ff]] }
+  },
+  F[12] == { 
+    ClassName      -> lR, 
+    Unphysical     -> True, 
+    Indices        -> {Index[Generation]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1},
+    Definitions    -> { lR[sp1_,ff_] :> Module[{sp2}, ProjP[sp1,sp2] l[sp2,ff]] }
+  },
+  F[13] == { 
+    ClassName      -> QL, 
+    Unphysical     -> True, 
+    Indices        -> {Index[SU2D], Index[Generation], Index[Colour]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 1/6},
+    Definitions    -> { 
+      QL[sp1_,1,ff_,cc_] :> Module[{sp2}, ProjM[sp1,sp2] uq[sp2,ff,cc]], 
+      QL[sp1_,2,ff_,cc_] :> Module[{sp2,ff2}, CKM[ff,ff2] ProjM[sp1,sp2] dq[sp2,ff2,cc]] }
+  },
+  F[14] == { 
+    ClassName      -> uR, 
+    Unphysical     -> True, 
+    Indices        -> {Index[Generation], Index[Colour]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 2/3},
+    Definitions    -> { uR[sp1_,ff_,cc_] :> Module[{sp2}, ProjP[sp1,sp2] uq[sp2,ff,cc]] }
+  },
+  F[15] == { 
+    ClassName      -> dR, 
+    Unphysical     -> True, 
+    Indices        -> {Index[Generation], Index[Colour]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1/3},
+    Definitions    -> { dR[sp1_,ff_,cc_] :> Module[{sp2}, ProjP[sp1,sp2] dq[sp2,ff,cc]] }
+  },
+
+(* Higgs: physical scalars  *)
+  S[1] == {
+    ClassName       -> H,
+    SelfConjugate   -> True,
+    Mass            -> {MH,125},
+    Width           -> {WH,0.00407},
+    PropagatorLabel -> "H",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    PDG             -> 25,
+    ParticleName    -> "H",
+    FullName        -> "H"
+  },
+
+(* Higgs: physical scalars  *)
+  S[2] == {
+    ClassName       -> G0,
+    SelfConjugate   -> True,
+    Goldstone       -> Z,
+    Mass            -> {MZ, 91.1876},
+    Width           -> {WZ, 2.4952},
+    PropagatorLabel -> "Go",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    PDG             -> 250,
+    ParticleName    -> "G0",
+    FullName        -> "G0"
+  },
+  S[3] == {
+    ClassName        -> GP,
+    SelfConjugate    -> False,
+    Goldstone        -> W,
+    Mass             -> {MW, Internal},
+    QuantumNumbers   -> {Q -> 1},
+    Width            -> {WW, 2.085},
+    PropagatorLabel  -> "GP",
+    PropagatorType   -> D,
+    PropagatorArrow  -> None,
+    PDG              -> 251,
+    ParticleName     -> "G+",
+    AntiParticleName -> "G-",
+    FullName         -> "GP"
+  },
+
+(* Higgs: unphysical scalars  *)
+  S[11] == { 
+    ClassName      -> Phi, 
+    Unphysical     -> True, 
+    Indices        -> {Index[SU2D]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 1/2},
+    Definitions    -> { Phi[1] -> -I GP, Phi[2] -> (vev + H + I G0)/Sqrt[2]  }
+  }
+};
+
+
+(* ************************** *)
+(* *****     Gauge      ***** *)
+(* *****   Parameters   ***** *)
+(* *****   (FeynArts)   ***** *)
+(* ************************** *)
+
+GaugeXi[ V[1]  ] = GaugeXi[A];
+GaugeXi[ V[2]  ] = GaugeXi[Z];
+GaugeXi[ V[3]  ] = GaugeXi[W];
+GaugeXi[ V[4]  ] = GaugeXi[G];
+GaugeXi[ S[1]  ] = 1;
+GaugeXi[ S[2]  ] = GaugeXi[Z];
+GaugeXi[ S[3]  ] = GaugeXi[W];
+GaugeXi[ U[1]  ] = GaugeXi[A];
+GaugeXi[ U[2]  ] = GaugeXi[Z];
+GaugeXi[ U[31] ] = GaugeXi[W];
+GaugeXi[ U[32] ] = GaugeXi[W];
+GaugeXi[ U[4]  ] = GaugeXi[G];
+
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+M$Parameters = {
+
+  (* External parameters *)
+  aEWM1 == { 
+    ParameterType    -> External, 
+    BlockName        -> SMINPUTS, 
+    OrderBlock       -> 1, 
+    Value            -> 127.9,
+    InteractionOrder -> {QED,-2},
+    Description      -> "Inverse of the EW coupling constant at the Z pole"
+  },
+  Gf == {
+    ParameterType    -> External,
+    BlockName        -> SMINPUTS,
+    OrderBlock       -> 2,
+    Value            -> 1.16637*^-5, 
+    InteractionOrder -> {QED,2},
+    TeX              -> Subscript[G,f],
+    Description      -> "Fermi constant"
+  },
+  aS    == { 
+    ParameterType    -> External,
+    BlockName        -> SMINPUTS,
+    OrderBlock       -> 3,
+    Value            -> 0.1184, 
+    InteractionOrder -> {QCD,2},
+    TeX              -> Subscript[\[Alpha],s],
+    Description      -> "Strong coupling constant at the Z pole"
+  },
+  ymdo == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 1,
+    Value         -> 5.04*^-3,
+    Description   -> "Down Yukawa mass"
+  },
+  ymup == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 2,
+    Value         -> 2.55*^-3,
+    Description   -> "Up Yukawa mass"
+  },
+  yms == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 3,
+    Value         -> 0.101,
+    Description   -> "Strange Yukawa mass"
+  },
+  ymc == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 4,
+    Value         -> 1.27,
+    Description   -> "Charm Yukawa mass"
+  },
+  ymb == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 5,
+    Value         -> 4.7,
+    Description   -> "Bottom Yukawa mass"
+  },
+  ymt == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 6,
+    Value         -> 172,
+    Description   -> "Top Yukawa mass"
+  },
+  yme == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 11,
+    Value         -> 5.11*^-4,
+    Description   -> "Electron Yukawa mass"
+  },
+  ymm == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 13,
+    Value         -> 0.10566,
+    Description   -> "Muon Yukawa mass"
+  },
+  ymtau == {
+    ParameterType -> External,
+    BlockName     -> YUKAWA,
+    OrderBlock    -> 15,
+    Value         -> 1.777,
+    Description   -> "Tau Yukawa mass"
+  },
+  cabi == {
+    ParameterType -> External,
+    BlockName     -> CKMBLOCK,
+    OrderBlock    -> 1,
+    Value         -> 0.227736,
+    TeX           -> Subscript[\[Theta], c],
+    Description   -> "Cabibbo angle"
+  },
+
+  (* Internal Parameters *)
+  aEW == {
+    ParameterType    -> Internal,
+    Value            -> 1/aEWM1,
+    InteractionOrder -> {QED,2},
+    TeX              -> Subscript[\[Alpha], EW],
+    Description      -> "Electroweak coupling contant"
+  },
+  MW == { 
+    ParameterType -> Internal, 
+    Value         -> Sqrt[MZ^2/2+Sqrt[MZ^4/4-Pi/Sqrt[2]*aEW/Gf*MZ^2]], 
+    TeX           -> Subscript[M,W], 
+    Description   -> "W mass"
+  },
+  sw2 == { 
+    ParameterType -> Internal, 
+    Value         -> 1-(MW/MZ)^2, 
+    Description   -> "Squared Sin of the Weinberg angle"
+  },
+  ee == { 
+    ParameterType    -> Internal, 
+    Value            -> Sqrt[4 Pi aEW], 
+    InteractionOrder -> {QED,1}, 
+    TeX              -> e,  
+    Description      -> "Electric coupling constant"
+  },
+  cw == { 
+    ParameterType -> Internal, 
+    Value         -> Sqrt[1-sw2], 
+    TeX           -> Subscript[c,w], 
+    Description   -> "Cosine of the Weinberg angle"
+  },
+  sw == { 
+    ParameterType -> Internal, 
+    Value         -> Sqrt[sw2], 
+    TeX           -> Subscript[s,w], 
+    Description   -> "Sine of the Weinberg angle"
+  },
+  gw == { 
+    ParameterType    -> Internal, 
+    Definitions      -> {gw->ee/sw}, 
+    InteractionOrder -> {QED,1},  
+    TeX              -> Subscript[g,w], 
+    Description      -> "Weak coupling constant at the Z pole"
+  },
+  g1 == { 
+    ParameterType    -> Internal, 
+    Definitions      -> {g1->ee/cw}, 
+    InteractionOrder -> {QED,1},  
+    TeX              -> Subscript[g,1], 
+    Description      -> "U(1)Y coupling constant at the Z pole"
+  },
+  gs == { 
+    ParameterType    -> Internal, 
+    Value            -> Sqrt[4 Pi aS],
+    InteractionOrder -> {QCD,1},  
+    TeX              -> Subscript[g,s], 
+    ParameterName    -> G,
+    Description      -> "Strong coupling constant at the Z pole"
+  },
+  vev == {
+    ParameterType    -> Internal,
+    Value            -> 2*MW*sw/ee, 
+    InteractionOrder -> {QED,-1},
+    Description      -> "Higgs vacuum expectation value"
+  },
+  lam == {
+    ParameterType    -> Internal,
+    Value            -> MH^2/(2*vev^2),
+    InteractionOrder -> {QED, 2},
+    Description      -> "Higgs quartic coupling"
+  },
+  muH == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[vev^2 lam],
+    TeX           -> \[Mu],
+    Description   -> "Coefficient of the quadratic piece of the Higgs potential"
+  },
+  yl == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Definitions      -> {yl[i_?NumericQ, j_?NumericQ] :> 0  /; (i =!= j)},
+    Value            -> {yl[1,1] -> Sqrt[2] yme / vev, yl[2,2] -> Sqrt[2] ymm / vev, yl[3,3] -> Sqrt[2] ymtau / vev},
+    InteractionOrder -> {QED, 1},
+    ParameterName    -> {yl[1,1] -> ye, yl[2,2] -> ym, yl[3,3] -> ytau},
+    TeX              -> Superscript[y, l],
+    Description      -> "Lepton Yukawa couplings"
+  },
+  yu == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Definitions      -> {yu[i_?NumericQ, j_?NumericQ] :> 0  /; (i =!= j)},
+    Value            -> {yu[1,1] -> Sqrt[2] ymup/vev, yu[2,2] -> Sqrt[2] ymc/vev, yu[3,3] -> Sqrt[2] ymt/vev},
+    InteractionOrder -> {QED, 1},
+    ParameterName    -> {yu[1,1] -> yup, yu[2,2] -> yc, yu[3,3] -> yt},
+    TeX              -> Superscript[y, u],
+    Description      -> "Up-type Yukawa couplings"
+  },
+  yd == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Definitions      -> {yd[i_?NumericQ, j_?NumericQ] :> 0  /; (i =!= j)},
+    Value            -> {yd[1,1] -> Sqrt[2] ymdo/vev, yd[2,2] -> Sqrt[2] yms/vev, yd[3,3] -> Sqrt[2] ymb/vev},
+    InteractionOrder -> {QED, 1},
+    ParameterName    -> {yd[1,1] -> ydo, yd[2,2] -> ys, yd[3,3] -> yb},
+    TeX              -> Superscript[y, d],
+    Description      -> "Down-type Yukawa couplings"
+  },
+(* N. B. : only Cabibbo mixing! *)
+  CKM == { 
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Unitary       -> True,
+    Value         -> {CKM[1,1] -> Cos[cabi],  CKM[1,2] -> Sin[cabi], CKM[1,3] -> 0,
+                      CKM[2,1] -> -Sin[cabi], CKM[2,2] -> Cos[cabi], CKM[2,3] -> 0,
+                      CKM[3,1] -> 0,          CKM[3,2] -> 0,         CKM[3,3] -> 1},
+    TeX         -> Superscript[V,CKM],
+    Description -> "CKM-Matrix"}
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+LGauge := Block[{mu,nu,ii,aa}, 
+  ExpandIndices[-1/4 FS[B,mu,nu] FS[B,mu,nu] - 1/4 FS[Wi,mu,nu,ii] FS[Wi,mu,nu,ii] - 1/4 FS[G,mu,nu,aa] FS[G,mu,nu,aa], FlavorExpand->SU2W]];
+
+LFermions := Block[{mu}, 
+  ExpandIndices[I*(
+    QLbar.Ga[mu].DC[QL, mu] + LLbar.Ga[mu].DC[LL, mu] + uRbar.Ga[mu].DC[uR, mu] + dRbar.Ga[mu].DC[dR, mu] + lRbar.Ga[mu].DC[lR, mu]), 
+  FlavorExpand->{SU2W,SU2D}]/.{CKM[a_,b_] Conjugate[CKM[a_,c_]]->IndexDelta[b,c], CKM[b_,a_] Conjugate[CKM[c_,a_]]->IndexDelta[b,c]}];
+
+LHiggs := Block[{ii,mu, feynmangaugerules},
+  feynmangaugerules = If[Not[FeynmanGauge], {G0|GP|GPbar ->0}, {}];
+ 
+  ExpandIndices[DC[Phibar[ii],mu] DC[Phi[ii],mu] + muH^2 Phibar[ii] Phi[ii] - lam Phibar[ii] Phi[ii] Phibar[jj] Phi[jj], FlavorExpand->{SU2D,SU2W}]/.feynmangaugerules
+ ];
+
+LYukawa := Block[{sp,ii,jj,cc,ff1,ff2,ff3,yuk,feynmangaugerules},
+  feynmangaugerules = If[Not[FeynmanGauge], {G0|GP|GPbar ->0}, {}];
+ 
+  yuk = ExpandIndices[
+   -yd[ff2, ff3] CKM[ff1, ff2] QLbar[sp, ii, ff1, cc].dR [sp, ff3, cc] Phi[ii] - 
+    yl[ff1, ff3] LLbar[sp, ii, ff1].lR [sp, ff3] Phi[ii] - 
+    yu[ff1, ff2] QLbar[sp, ii, ff1, cc].uR [sp, ff2, cc] Phibar[jj] Eps[ii, jj], FlavorExpand -> SU2D];
+  yuk = yuk /. { CKM[a_, b_] Conjugate[CKM[a_, c_]] -> IndexDelta[b, c], CKM[b_, a_] Conjugate[CKM[c_, a_]] -> IndexDelta[b, c]};
+  yuk+HC[yuk]/.feynmangaugerules
+ ];
+
+LGhost := Block[{LGh1,LGhw,LGhs,LGhphi,mu, generators,gh,ghbar,Vectorize,phi1,phi2,togoldstones,doublet,doublet0},
+  (* Pure gauge piece *) 	
+  LGh1 = -ghBbar.del[DC[ghB,mu],mu];
+  LGhw = -ghWibar[ii].del[DC[ghWi[ii],mu],mu];
+  LGhs = -ghGbar[ii].del[DC[ghG[ii],mu],mu];
+
+  (* Scalar pieces: see Peskin pages 739-742 *)
+  (* phi1 and phi2 are the real degrees of freedom of GP *)
+  (* Vectorize transforms a doublet in a vector in the phi-basis, i.e. the basis of real degrees of freedom *)
+  gh    = {ghB, ghWi[1], ghWi[2], ghWi[3]};
+  ghbar = {ghBbar, ghWibar[1], ghWibar[2], ghWibar[3]};
+  generators = {-I/2 g1 IdentityMatrix[2], -I/2 gw PauliSigma[1], -I/2 gw PauliSigma[2], -I/2 gw PauliSigma[3]};
+  doublet = Expand[{(-I phi1 - phi2)/Sqrt[2], Phi[2]} /. MR$Definitions /. vev -> 0]; 
+  doublet0 = {0, vev/Sqrt[2]};
+  Vectorize[{a_, b_}]:= Simplify[{Sqrt[2] Re[Expand[a]], Sqrt[2] Im[Expand[a]], Sqrt[2] Re[Expand[b]], Sqrt[2] Im[Expand[b]]}/.{Im[_]->0, Re[num_]->num}];
+  togoldstones := {phi1 -> (GP + GPbar)/Sqrt[2], phi2 -> (-GP + GPbar)/(I Sqrt[2])};
+  LGhphi=Plus@@Flatten[Table[-ghbar[[kkk]].gh[[lll]] Vectorize[generators[[kkk]].doublet0].Vectorize[generators[[lll]].(doublet+doublet0)],{kkk,4},{lll,4}]] /.togoldstones;
+
+ExpandIndices[ LGhs + If[FeynmanGauge, LGh1 + LGhw + LGhphi,0], FlavorExpand->SU2W]];
+
+LSM:= LGauge + LFermions + LHiggs + LYukawa + LGhost;
+
+===== END SM.fr =====
+
+===== BEGIN PAPER (0901.0639_source.tex; the paper's LaTeX source: equations, fractions and roots are exact) =====
+\documentclass[12pt]{article}
+
+\bibliographystyle{JHEP-2} 
+  
+\IfFileExists{srcltx.sty}{\usepackage[active]{srcltx}}
+
+\usepackage{amssymb,amsmath,bm,array}
+\usepackage[sort&compress,square,comma]{natbib} 
+\usepackage{graphicx}
+
+
+
+
+
+
+
+
+\catcode`\@=11
+
+
+
+
+
+
+
+
+
+
+\def\sla@#1#2#3#4#5{{
+  \setbox\z@\hbox{$\m@th#4#5$}
+  \setbox\tw@\hbox{$\m@th#4#1$}
+  \dimen4\wd\ifdim\wd\z@<\wd\tw@\tw@\else\z@\fi
+  \dimen@\ht\tw@
+  \advance\dimen@-\dp\tw@
+  \advance\dimen@-\ht\z@
+  \advance\dimen@\dp\z@
+  \divide\dimen@\tw@
+  \advance\dimen@-#3\ht\tw@
+  \advance\dimen@-#3\dp\tw@
+  \dimen@ii#2\wd\z@
+  \raise-\dimen@\hbox to\dimen4{
+    \hss\kern\dimen@ii\box\tw@\kern-\dimen@ii\hss}
+  \llap{\hbox to\dimen4{\hss\box\z@\hss}}}}
+
+
+
+\def\slashed#1{
+  \expandafter\ifx\csname sla@\string#1\endcsname\relax
+    {\mathpalette{\sla@/00}{#1}}
+  \else
+    \csname sla@\string#1\endcsname
+  \fi}
+
+
+
+
+
+
+\def\declareslashed#1#2#3#4#5{
+  \expandafter\def\csname sla@\string#5\endcsname{
+    #1{\mathpalette{\sla@{#2}{#3}{#4}}{#5}}}}
+
+\catcode`\@=12
+
+
+
+
+
+
+\declareslashed{}{/}{.08}{0}{D}
+\declareslashed{}{/}{.1}{0}{A}
+\declareslashed{}{/}{0}{-.05}{k}
+\declareslashed{}{/}{.1}{0}{\partial}
+\declareslashed{}{\not}{-.6}{0}{f}
+
+
+
+
+
+
+\newcount\hour \newcount\minute \hour=\time \divide \hour by 60 \minute=\time
+\count99=\hour \multiply \count99 by -60 \advance \minute by \count99
+\def\now{\number\hour h\:\number\minute m} 
+\def\beq{\begin{equation}}
+\def\eeq{\end{equation}}
+\def\bea{\begin{eqnarray}}
+\def\eea{\end{eqnarray}}
+
+
+\usepackage{xspace,paralist} 
+\usepackage[a4paper,hscale=0.72,vscale=0.72,nohead]{geometry} 
+
+\usepackage[colorlinks=true,bookmarks=false]{hyperref}
+
+\IfFileExists{hypernat.sty}{\usepackage{hypernat}}
+
+
+\newcommand{\vb}{\ensuremath{v_{B}}}
+\newcommand{\mb}{\ensuremath{m_{B}}}
+
+
+
+\let\oldbox=\Box 
+\renewcommand{\Box}{\mathop{\oldbox}}
+
+
+
+\let\oldint=\int 
+\renewcommand{\int}{\mathop{\hskip -.25ex\oldint \hskip -.4ex}}
+
+\newcommand{\0}{{(0)}} 
+\newcommand{\1}{{(1)}} 
+\newcommand{\2}{{(2)}} 
+
+\newcommand\gsim{\mathrel{\rlap{\lower4pt\hbox{\hskip1pt$\sim$}}
+    \raise1pt\hbox{$>$}}}
+
+
+\newcommand{\imag}{i}
+\newcommand{\Tr}{\mathop\mathrm{Tr}}  
+\newcommand{\sign}{\mathop\mathrm{sign}} 
+\newcommand{\const}{\mathrm{const}} 
+\newcommand{\diag}{\mathrm{diag}} 
+
+\newcommand{\y}{\textsc{y}} 
+\newcommand{\z}{\textsc{Z}} 
+\newcommand{\EM}{\textsc{em}} 
+\newcommand{\cs}{\textsc{cs}} 
+
+\newcommand{\p}[1]{\partial_{#1}} 
+\newcommand{\py}{\partial_{y}} 
+\newcommand{\pz}{\partial_{z}} 
+\newcommand{\la}{\langle} 
+\newcommand{\ra}{\rangle} 
+\newcommand{\ket}[1]{\left|{#1}\right\rangle} 
+\newcommand{\bra}[1]{\left\langle{#1}\right|} 
+\newcommand{\sprod}[2]{\langle{#1}| {#2}\rangle} 
+\newcommand{\sumk}{\sum\limits_{k=1}^\infty} 
+
+\newcommand{\parfrac}[2]{\left(\frac{#1}{#2}\right)} 
+\newcommand{\pfrac}[2]{\displaystyle\frac{\partial #1}{\partial #2}} 
+\newcommand{\bket}[1]{\left|{#1}\rangle\rangle\right.} 
+\newcommand{\bbra}[1]{\left.\langle\langle{#1}\right|} 
+\newcommand{\Dsl}{\mathop{\lefteqn{D}{\,\mbox{\large /}}}\nolimits} 
+\newcommand{\psl}{\mathop{\lefteqn{\partial}{\mbox{\large /}}}\nolimits} 
+                                                                
+\newcommand{\Asl}{\mathop{\lefteqn{A}{\,\mbox{\large
+        /}}}\nolimits} 
+\newcommand{\Bsl}{\mathop{\lefteqn{B}{\,\mbox{\large
+        /}}}\nolimits} 
+\newcommand{\lsl}{\mathop{\lefteqn{l}{\mbox{\large /}}}\nolimits} 
+\newcommand{\tpsi}{{\tilde\psi}} \newcommand{\tchi}{{\tilde\chi}}
+\newcommand{\ev}{~\text{eV}} 
+\newcommand{\kev}{~\text{keV}} 
+\newcommand{\mev}{~\text{MeV}} 
+\newcommand{\gev}{~\text{GeV}} 
+\newcommand{\tev}{~\text{TeV}} 
+
+
+\newcommand{\g}[1]{\ensuremath{\gamma^{#1}}}
+\newcommand{\uy}{\ensuremath{U_Y(1)}\xspace} 
+\newcommand{\ux}{\ensuremath{U_X(1)}\xspace} 
+\newcommand{\uem}{\ensuremath{U_{em}(1)}\xspace} 
+
+\newcommand{\bc}[1]{c_{#1}} 
+
+\newcommand{\sw}{\sin\theta_w} 
+\newcommand{\cw}{\cos\theta_w} 
+\newcommand{\ssw}{\sin^2\theta_w} 
+\newcommand{\ccw}{\cos^2\theta_w} 
+
+\newcommand{\CA}{\mathcal{A}} 
+\newcommand{\CL}{\mathcal{L}} 
+\newcommand{\CQ}{\mathcal{Q}} 
+\newcommand{\CX}{\mathcal{X}} 
+
+\newcommand{\lanom}{\ensuremath{\mathcal{L}_\text{anom}}\xspace}
+\newcommand{\lloop}{\ensuremath{\mathcal{L}_\text{1{-}loop}}\xspace}
+\newcommand{\gloop}{\ensuremath{\Gamma_\text{1{-}loop}}}
+\begin{document}
+
+
+
+\title{
+    \begin{flushright}
+      {\small CERN-PH-TH/2009-006}
+    \end{flushright}
+Anomaly driven signatures of new invisible physics at the Large
+    Hadron Collider}
+
+  \author{Ignatios Antoniadis$^{a,b}$, Alexey Boyarsky$^{c,d}$, Sam Espahbodi$^{a,e}$, \\
+    Oleg Ruchayskiy$^f$, James D. Wells$^{a,e}$} \date{}
+  \maketitle
+
+\begin{it}\noindent
+  $^{(a)}$ CERN PH-TH, CH-1211 Geneva 23, Switzerland \\
+  $^{(b)}$ CPHT, UMR du CNRS 7644, \'Ecole Polytechnique, 91128 Palaiseau
+  Cedex, France \\
+  $^{(c)}$ ETHZ, Z\"urich, CH-8093,  Switzerland\\
+  $^{(d)}$ Bogolyubov Institute for Theoretical Physics, Kiev 03680, Ukraine\\
+  $^{(e)}$ MCTP, University of Michigan, Ann Arbor, MI 48109, USA\\
+  $^{(f)}$ \'Ecole Polytechnique F\'ed\'erale de Lausanne, FSB/ITP/LPPC, BSP,
+  CH-1015,\\ Lausanne, Switzerland
+\end{it}
+
+
+
+
+
+
+
+
+\begin{abstract}
+  Many extensions of the Standard Model (SM) predict new neutral vector bosons
+  at energies accessible by the Large Hadron Collider (LHC). We study an
+  extension of the SM with new chiral fermions subject to non-trivial anomaly
+  cancellations.  If the new fermions have SM charges, but are too heavy to be
+  created at LHC, and the SM fermions are not charged under the extra gauge
+  field, one would expect that this new sector remains completely invisible at
+  LHC. We show, however, that a non-trivial anomaly cancellation between the
+  new heavy fermions may give rise to observable effects in the gauge boson
+  sector that can be seen at the LHC and distinguished from backgrounds.
+
+\end{abstract}
+
+\vfill\eject
+
+\tableofcontents
+
+
+\section{Introduction: Mixed Anomalies in Gauge Theory}
+\label{sec:introduction-1}
+
+
+It is well known that theories in which fermions have chiral couplings with
+gauge fields suffer from \emph{anomalies} -- a phenomenon of breaking of gauge
+symmetries of the classical theory at one-loop level. Anomalies make a theory
+inconsistent (in particular, its unitarity is lost). The only way to restore
+consistency of such a theory is to arrange the exact \emph{cancellation} of
+anomalies between various chiral sectors of the theory.  This happens, for
+example, in the Standard Model (SM), where the cancellation occurs between quarks
+and leptons within each
+generation~\cite{Gross:1972pv,Bouchiat:1972iq,Georgi:1972bb}.
+
+Another well-studied example is the Green-Schwarz anomaly cancellation
+mechanism~\cite{Green:84} in string theory. In this case the cancellation
+happens between the anomalous contribution of chiral matter of the closed
+string sector with that of the open string.\footnote{Formally, the
+  Green-Schwarz anomaly cancellation occurs due to the anomalous Bianchi
+  identity for the field strength of a 2-form closed string. However, this
+  modification of Bianchi identity arises from the 1-loop contribution of
+  chiral fermions in the open string sector. A toy model, describing
+  microscopically Green-Schwarz mechanism was studied e.g.
+  in~\cite{Boyarsky:02}.}
+
+Particles involved in anomaly cancellation may have very different
+masses -- for example, the mass of the top quark in the SM is much higher than
+the masses of all other fermions.  On the other hand, gauge invariance should
+pertain in the theory at all energies, including those which are smaller than the
+mass of one or several particles involved in anomaly cancellation.  The usual
+logic of renormalizable theories tells us that the interactions, mediated by
+heavy fermions running in loops, are generally suppressed by the masses of
+these fermions~\cite{Appelquist:74}. The case of anomaly cancellation presents
+a notable counterexample to this famous ``decoupling theorem'' -- the
+contribution of \emph{a priori} arbitrary heavy particles should remain
+unsuppressed at arbitrarily low energies.  As was pointed out by D'Hoker
+and Farhi~\cite{DHoker:84a,DHoker:84b}, this is possible because anomalous
+(i.e. gauge-variant) terms in the effective action have topological nature and are
+therefore scale independent.  As a result, they are not suppressed
+even at energies much smaller than the masses of the particles producing
+these terms via loop effects.
+This gives hope to see some signatures at low energies 
+generated by new high-energy physics.
+
+One possibility is to realize non-trivial anomaly cancellation in the
+electroweak (EW) sector of the SM. Here the electromagnetic $U(1)$ subgroup is not
+anomalous by definition.  However, the mixed triangular hypercharge
+
+$\uy\times SU(2)^2$ anomalies and gravitational anomalies are non-zero for a
+generic choice of hypercharges. If one takes the most general choice of
+hypercharges, consistent with the structure of the Yukawa terms, one sees that
+it is parametrized by two independent quantum numbers $Q_e$ (shift of
+hypercharge of left-handed lepton doublet from its SM value) and $Q_q$
+(corresponding shift of quark doublet hypercharge). All the anomalies are then
+proportional to \emph{one} particular linear combination: 
+$\epsilon = Q_e+3Q_q$.  Interestingly enough, $\epsilon$ is equal to the sum
+of \emph{electric charges} of the electron and proton.  The experimental upper
+bound on the parameter $\epsilon$, coming from checks of electro-neutrality of
+matter is rather small: $\epsilon < 10^{-21}e$~\cite{Marinelli:83,PDG:06}.  If
+it is non-zero, the anomaly of the SM has to be cancelled by additional
+anomalous contributions from some physics beyond the SM, possibly giving rise
+to some non-trivial effects in the low energy effective theory.
+
+
+In the scenario described above the anomaly-induced effects are
+proportional to a very small parameter, which makes experimental
+detection very difficult. In this paper we consider another situation, where
+anomalous charges and therefore, anomaly-induced effects, are of order one.
+To reconcile this with existing experimental bounds, such an anomaly
+cancellation should take place between the SM and ``hidden'' sector, with the
+corresponding new particles appearing at relatively high energies.  Namely,
+many extensions of the SM add extra gauge fields to the SM gauge group
+(see e.g.~\cite{Hewett:88} and refs.\ therein).  For example, additional $U(1)$s
+naturally appear in models in which $SU(2)$ and $SU(3)$ gauge factors of
+the SM arise as parts of unitary $U(2)$ and $U(3)$ groups (as e.g.\ in D-brane
+constructions of the SM~\cite{Ibanez:2001nd,Antoniadis:02,Anastasopoulos:06}).
+In this paper, we consider extensions of the SM with an
+additional \ux factor, so that the gauge group becomes $SU(3)_c \times SU(2)_W
+\times \uy\times \ux$.  As the SM fermions are chiral with respect to the EW
+group $SU(2)_W \times \uy$, even choosing the charges for the \ux group
+so that the triangular $\ux^3$ anomaly vanishes,  mixed anomalies may still arise: 
+$\ux\uy^2$, $\ux^2\uy$, $\ux SU(2)^2$. In this
+work we are interested in the situation when only (some of these) \emph{mixed
+  anomalies} with the electroweak group $SU(2)\times \uy$ are non-zero.  A
+number of works have already discussed such theories and their signatures (see
+e.g.~\cite{Antoniadis:06,Anastasopoulos:06,Coriano:07a,Armillis:07a,Coriano:07b,Kumar:07,Antoniadis:07a}).
+
+The question of experimental signatures of such theories at the LHC should be
+addressed differently, depending on whether or not the SM fermions are charged
+with respect to the \ux group:
+
+
+
+ 
+ 
+ 
+  
+
+
+
+\begin{asparaitem}
+\item If SM fermions are charged with respect to the \ux group, and the mass
+  of the new $X$ boson is around the TeV scale, we should be able to see the
+  corresponding resonance in the forthcoming runs of LHC in e.g., $q\bar q\to
+  X\to f\bar f$.  The analysis of this is rather standard $Z'$ phenomenology,
+  although in this case an important question is to distinguish between
+  theories with non-trivial cancellation of mixed anomalies, and those that
+  are anomaly free.
+
+
+
+
+
+
+\item On the other hand, one is presented with a completely different
+  challenge if the SM fermions are \emph{not charged} with respect to the \ux
+  group. This makes impossible the usual direct production of the $X$ boson
+  via coupling to fermions. Therefore, the question of whether an anomalous
+  gauge boson with mass $M_X \sim 1$~TeV can be detected at LHC becomes
+  especially interesting.
+\end{asparaitem}
+
+A theory in which the cancellation of the mixed $\ux SU(2)^2$ anomaly occurs
+between some heavy fermions and Green-Schwarz (i.e. \emph{tree-level
+  gauge-variant}) terms was considered in~\cite{Kumar:07}.  The leading
+non-gauge invariant contributions from the triangular diagrams of heavy
+fermions, unsuppressed by the fermion masses, cancels the Green-Schwarz
+terms.  The triangular diagrams also produce subleading (gauge-invariant)
+terms, suppressed by the mass of the fermions running in the loop. This leads to an
+appearance of dimension-6 operators in the effective action, having the
+general form ${F_{\mu\nu}^3}/{\Lambda_X^2}$, where $F_{\mu\nu}$ is the
+field strength of $X$, $Z$ or $W^\pm$ bosons. Such terms contribute to the
+$XZZ$ and $XWW$ vertices. As the fermions in the loops are heavy, such
+vertices are in general strongly suppressed by their mass.  However, motivated
+by various string constructions, \cite{Kumar:07} assumed two things:
+\emph{(a)} these additional massive fermions are above the LHC reach but not
+too heavy (e.g.,  have masses in tens of TeV); \emph{(b)} there are many such
+fermions (for instance Hagedorn tower of states) and therefore the mass suppression 
+
+can be compensated by the large multiplicity of these fermions.
+
+In this paper we consider another possible setup, in which the anomaly
+cancellation occurs \emph{only within a high-energy sector} (at scales
+not accessible by current experiments), but at low energies there remain
+contributions unsuppressed by masses of heavy particles. A similar setup, with
+completely different phenomenology, has been previously considered
+in~\cite{Antoniadis:06,Antoniadis:07a}.
+
+
+The paper is organized as follows. We first consider in
+section~\ref{sec:gauge-invar-chern} the general theory of D'Hoker-Farhi terms
+arising from the existence of heavy states that contribute to anomalies. We
+illustrate the theory issues in the following section~\ref{sec:toy-example}
+with a toy model.  In section~\ref{sec:choic-charg-real} we give a complete
+set of charges for a realistic $SU(2)\times U(1)_Y\times U(1)_X$ theory. In
+section~\ref{sec:phenomenology} we bring all these elements together to
+demonstrate expected LHC phenomenology of this theory.
+
+
+
+
+
+
+\section{D'Hoker-Farhi Terms from High Energies}
+\label{sec:gauge-invar-chern}
+
+
+In this Section we consider an extension of the SM with an additional \ux
+field. The SM fields are neutral with respect to the \ux group, however, the
+heavy fields are charged with respect to the electroweak (EW) $\uy\times
+SU(2)$ group. This leads to a non-trivial mixed anomaly cancellation in the
+heavy sector and in this respect our setup is similar to the
+work~\cite{Kumar:07}.  However, unlike the work~\cite{Kumar:07}, we show that
+there exists a setup in which non-trivial anomaly cancellation induces a
+\emph{dimension 4 operator} at low energies.  The theories of this type were
+previously considered in~\cite{Antoniadis:06,Antoniadis:07a}.
+
+
+At energies accessible at LHC and below the masses of the new heavy
+fermions, the theory in question is simply the SM plus a massive vector boson
+$X$:
+\begin{equation}
+\label{eq:39}
+\mathcal{L} = \mathcal{L}_{SM} - \frac1{4g_X^2} |F_X|^2 + \frac{M_X^2}2
+|D\theta_X|^2  + \CL_{int}
+\end{equation}
+where $\theta_X$ a pseudo-scalar field, charged
+under \ux so that $D\theta_X = d\theta_X + X$ remains gauge invariant
+(St\"uckelberg field). One can think about $\theta_X$ as being a phase of
+a heavy Higgs field, which gets ``eaten'' by the longitudinal component of the
+$X$ boson. Alternatively, $\theta_X$ can be a component of an
+antisymmetric $n$-form, living in the bulk and wrapped around an $n$-cycle.
+The interaction term $\CL_{int}$ contains the vertices between the $X$ boson
+and the $Z,\gamma,W^\pm$:
+\begin{equation}
+  \label{eq:59}
+  \epsilon^{\mu\nu\lambda\rho} Z_\mu X_\nu \p\lambda Z_\rho,\qquad   \epsilon^{\mu\nu\lambda\rho} Z_\mu X_\nu \p\lambda \gamma_\rho,\qquad   \epsilon^{\mu\nu\lambda\rho} W^+_\mu X_\nu \p\lambda W^-_\rho, 
+\end{equation}
+We wish to generalize these terms into an $SU(2)\times \uy$ covariant form. One
+possible way would be to have them arise from
+\begin{equation}
+  \label{eq:64}
+  \epsilon^{\mu\nu\lambda\rho} X_\mu Y_\nu  \p\lambda
+  Y_\rho\quad\text{and}\quad \epsilon^{\mu\nu\lambda\rho} X_\mu \omega_{\nu\lambda\rho}(A^a)
+\end{equation}
+where $\omega_{\nu\lambda\rho}(A^a)$ is the Chern-Simons term, built of the  $SU(2)$ fields
+$A_\mu^a$:
+\begin{equation}
+  \label{eq:90}
+  \omega_{\nu\lambda\rho}(A^a) = A^a_\nu \p\lambda A_\rho^a + \frac23 \epsilon_{abc} A^a_\nu A_\lambda^b A_\rho^c
+\end{equation}
+
+However, apart from the
+desired terms of eq.~(\ref{eq:59}) they contain also terms like $
+\epsilon^{\mu\nu\lambda\rho} X_\mu \gamma_\nu \p\lambda \gamma_\rho $ which is
+not gauge invariant with respect to the electro-magnetic $U(1)$ group, and thus unacceptable.
+
+To write the expressions of~(\ref{eq:59}) in a gauge-covariant form, we should
+recall that it is the SM Higgs field $H$ which selects massive directions
+through its covariant derivative $D_\mu H$. Therefore, we can write the
+interaction term in the following, explicitly $SU(2)\times\uy\times \ux$
+invariant, form:
+\begin{equation}
+  \label{eq:48}
+  \CL_{int} = \bc1 \frac{H^\dagger D H}{|H|^2} D\theta_X F_Y+\bc2 \frac{H F_W D H^\dagger}{|H|^2} D\theta_X 
+\end{equation}
+
+The coefficients $\bc1,\bc2$ are dimensionless and can have arbitrary values,
+determined entirely by the properties of the high-energy theory.
+In eq.~(\ref{eq:48}) we use the differential form notation (and further we omit the
+wedge product symbol $\wedge$) to keep expressions more compact. We will often
+call the terms in eq.~(\ref{eq:48}) as the \emph{D'Hoker-Farhi}
+terms~\cite{DHoker:84a,DHoker:84b}.
+
+
+What can be the origin of the interaction terms~(\ref{eq:48})? The simplest
+possibility would be to add to the SM several heavy fermions, charged with
+respect to $SU(2)\times \uy\times \ux$. Then, at energies below their masses
+the terms (\ref{eq:48}) will be generated.
+Below, we illustrate this idea in a toy-model setup.
+
+
+ \begin{table}[t]
+  \centering
+  \begin{tabular}[c]{
+                     |>{$}c<{$}||>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}
+                    ||>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|} 
+    \hline
+    & \multicolumn{2}{c|}{$\psi_1$} & \multicolumn{2}{c||}{$\psi_2$} &
+    \multicolumn{2}{c|}{$\chi_1$} & \multicolumn{2}{c|}{$\chi_2$} \\
+    \hline
+
+    &\psi_{1L} & \psi_{1R}& \psi_{2L} & \psi_{2R} &\chi_{1L} &
+    \chi_{1R} & \chi_{2L} & \chi_{2R}\\
+    \hline
+    U(1)_A 
+
+    & e_1 & e_1 & e_2 & e_2 & e_4 & e_3 & e_3 &
+    e_4\\
+    \hline
+    U(1)_B & 
+
+    q_{1} & -q_{1}  &  -q_1 & q_1 & q_2 & q_2 & -q_2 & -q_2
+    \\\hline
+  \end{tabular}
+  \caption{A simple choice of charges for all fermions, leading
+    to the low-energy effective action~(\ref{eq:97}). The charges are
+    chosen in such a way that all gauge anomalies cancel. The cancellation of
+    $U(1)_A^3$ and $U(1)_B^3$ anomalies happens for any value of
+    $e_i,q_i$. Cancellation of mixed anomalies requires 
+    $q_2=\displaystyle \frac{q_1(e_1^2-e_2^2)}{2(e_3^2-e_4^2)}$.} 
+  \label{tab:toymodel}
+\end{table}
+
+
+Consider a theory with a set of chiral fermions $\psi_{1,2}$ and
+$\chi_{1,2}$, charged with respect to the gauge groups $U(1)_A\times U(1)_B$.
+As the fermions are chiral, they can obtain masses only through Yukawa
+interactions with both $\Phi_1$ and $\Phi_2$ scalar fields. $\Phi_{1}$ is charged with respect to
+$U(1)_B$, and $\Phi_2$ is charged with respect to $U(1)_A$:
+\begin{align}
+  \CL_{Yukawa} &= i\sum_{i=1,2}\bar \psi_i \Dsl \psi_i + (f_1v_1) \bar\psi_1
+  e^{i\g5 \theta_B} \psi_1 + (f_2v_2) \bar\psi_2
+  e^{-i\g5 \theta_B }\psi_2 \notag\\
+  &+ i\sum_{i=1,2}i\bar \chi_i \Dsl \chi_i + (\lambda_1 v_2) \bar\chi_1
+  e^{i\gamma_5 \theta_A} \chi_1 + (\lambda_2 v_2) \bar\chi_2 e^{-i\gamma_5
+    \theta_A} \chi_2 +\mathrm{h.c.}  \label{eq:12}
+\end{align}
+Here we have taken $\Phi_1$ in the form $\Phi_1 = v_1 e^{i\theta_B}$, where
+$v_1$ is its vacuum expectation value (VEV) and $\theta_B$ is charged with respect
+to the $U(1)_B$ group with charge $2q_1$, and $\Phi_2 = v_2 e^{i\theta_A}$,
+where $\theta_A$ is charged with respect to $U(1)_A$ group with charge
+$e_3 - e_4$. 
+
+The structure of the Yukawa terms restricts the possible charge assignments,
+so that the fermions $\psi_{1,2}$ should be vector-like with respect to the
+group $U(1)_A$ and chiral with respect to the $U(1)_B$ (and vice versa for the
+fermions $\chi_{1,2}$).  The choice of the charges in Table~\ref{tab:toymodel}
+is such that triangular anomalies $[U(1)_A]^3$ and $[U(1)_B]^3$ cancel
+separately for the $\psi$ and $\chi$ sector for any choice of $e_i,q_i$. The
+cancellation of mixed anomalies occurs only \emph{between} $\psi$ and $\chi$
+sectors. It is instructive to analyze it at energies below the masses of all
+fermions. The terms in the low-energy effective action, not suppressed by the
+scale of fermion masses are given by
+\begin{equation}
+  \label{eq:1008}
+  S_\cs =\int \frac{(e_1^2 -e_2^2)q_1}{16\pi^2} \theta_B F_A\wedge F_A +
+  \frac{(e_3^2 -e_4^2)(2q_2)}{16\pi^2} \theta_A F_A\wedge F_B +
+  \alpha
+  A\wedge  B\wedge F_A 
+\end{equation}
+The diagrammatic expressions for the first two terms are shown in
+Fig.~\ref{fig:diagram-triangular-theta}, while the Chern-Simons (CS) term is
+produced by the diagrams of the type presented in
+Fig.~\ref{fig:diagram-triangular}. The contribution to the CS term $A\wedge
+B\wedge F_A$ comes from both sets of fermions.  Only fermions $\psi$
+contribute to the $\theta_B$ terms and only fermions $\chi$ couple to
+$\theta_A$ and thus contribute to $\theta_A F_A\wedge F_B$.  Notice that
+while coefficients in front of the $ \theta_A$ and $\theta_B$ terms are
+uniquely determined by charges, the coefficient $\alpha$ in front of the CS
+term is \emph{regularization dependent}. As the theory is anomaly free, there
+exists a choice of $\alpha$ such that the expression~(\ref{eq:1008}) becomes
+gauge-invariant with respect to both gauge groups. Notice, however, that in
+the present case $\alpha$ cannot be zero, as $\theta_A F_A\wedge F_B$ and $
+\theta_B F_A\wedge F_A$ have gauge variations with respect to different
+groups.  For the choice of charges presented in Table~\ref{tab:toymodel},
+the choice of 
+$\alpha$ is restricted such that expression~(\ref{eq:1008}) can be written in an
+explicitly gauge-invariant form:
+\begin{equation}
+  \label{eq:97}
+    S_\cs =\int \kappa D\theta_A \wedge D\theta_B\wedge F_A 
+\end{equation}
+where the relation between the coefficient $\kappa$ in front of the CS term
+and the fermion charges is given by
+\begin{equation}
+\label{eq:364}
+\alpha\equiv \kappa = \frac{q_1 (e_1^2 - e_2^2)}{16\pi^2}
+\end{equation}
+For the anomaly cancellation, it is also necessary to impose the condition 
+\begin{equation}
+q_2=\frac{q_1(e_1^2-e_2^2)}{2(e^2_3-e^2_4)}
+\end{equation}
+as indicated in table~\ref{tab:toymodel}.
+
+
+The term~(\ref{eq:97}) was obtained by integrating out heavy fermions
+(Table~\ref{tab:toymodel}). The resulting expression is not suppressed by
+their mass and contains only a dimensionless coupling $\kappa$. Unlike the case
+of~\cite{DHoker:84a,DHoker:84b}, the anomaly was cancelled entirely among the
+fermions which we had integrated out.  The expression~(\ref{eq:97}) represents
+therefore an apparent counterexample of the ``decoupling
+theorem''~\cite{Appelquist:74}. Note that the CS term~(\ref{eq:97})
+contains only \emph{massive} vector fields. This effective action can only be
+valid at energies \emph{above} the masses of all vector fields and
+\emph{below} the masses of all heavy fermions, contributing to it.  However,
+masses of both types arise from the same Higgs fields.  Therefore a hierarchy
+of mass scales can only be achieved by making gauge couplings smaller
+than Yukawa couplings.  On the other hand, the CS coefficient $\kappa$ is
+proportional to the (cube of the) gauge couplings. Therefore we can
+schematically write a dimensionless coefficient $\kappa \sim
+({M_V}/{M_f})^3$, where $M_V$ is the mass of the vector fields and $M_f$ is
+the mass of the fermions (with their Yukawa couplings $\sim 1$). In the
+limit when $M_f$ is sent to infinity, while keeping $M_V$ finite, the
+decoupling theorem holds, as the CS terms get suppressed by the small gauge
+coupling constant.  However, a window of energies $M_V \lesssim E \lesssim
+M_f$, at which the term~(\ref{eq:97}) is applicable, always remains and this
+opens interesting phenomenological possibilities, which are absent in the
+situation when the corresponding terms in the effective action are suppressed as $E/M_f$
+(as in~\cite{Appelquist:74}) and not as $M_V/M_f$.
+
+Finally, it is also possible that the fermion masses are not generated via the
+Higgs mechanism, (e.g. coming from extra dimensions) and are not directly
+related to the masses of the gauge fields. In this case, the decoupling theorem
+may not hold and new terms can appear in a wide range of energies (see
+e.g.~\cite{anomaly-th,anomaly-exp} for discussion).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\noindent 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{figure}[t]
+  \centering
+  \includegraphics{diagram-triangular-theta} 
+  \caption{Anomalous contributions to the correlator $\la\bar \psi \gamma^5 \psi\ra$
+
+
+    .} 
+  \label{fig:diagram-triangular-theta}
+\end{figure}
+
+\begin{figure}[t]
+  \centering 
+
+
+
+
+  \includegraphics{diagram-triangular-currents}
+
+  \caption{Two graphs, contributing to the Chern-Simons terms} 
+  \label{fig:diagram-triangular} 
+\end{figure}
+
+
+\section{A Standard Model Toy Example}
+\label{sec:toy-example}
+
+Let us now generalize this construction to the case of interest, when one of
+the scalar fields generates mass for the chiral fermions and is the SM Higgs
+field, while at the same time the masses of all new fermions are higher than about $10$~TeV.
+
+Note that previously, in the theory described by~(\ref{eq:12}) the mass terms for fermions
+were diagonal in the basis $\psi,\chi$ and schematically had the form $m_1
+\bar\psi\psi + m_2 \bar\chi\chi$. To make both masses for $\psi$ and $\chi$
+heavy (i.e., determined by the non-SM scalar field), while still preserving a
+coupling of the fermions with the SM Higgs, we consider a non-diagonal mass term which
+(schematically) has the following form:
+\begin{equation}
+  \label{eq:62}
+  \CL_{mass} = m\bar\psi \psi + M(\bar \psi \chi +  \bar\chi \psi)
+\end{equation}
+Computing the eigenvalues of the mass matrix, we find that the two mass
+eigenstates have masses $M\pm \frac m2$ (in the limit $m\ll M$).  
+
+
+
+
+ 
+   
+     
+      
+    
+
+
+
+  
+  
+
+
+ 
+   
+   
+ 
+
+
+  
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Now, we consider the case when the mass terms, similar to those of
+Eq.~(\ref{eq:62}) are generated through the Higgs mechanism.  We introduce two
+complex scalar Higgs fields: $H=H_1 + i H_2$ and $\Phi = \Phi_1 + i \Phi_2$.
+$H$ is charged with respect to the \uy only (with charge $1$), while
+$\Phi$ is \uy neutral, but has charge $1$ with respect to the \ux.
+We further assume that both Higgs fields develop non-trivial VEVs:
+\begin{equation}
+  \label{eq:61}
+  \langle H \rangle = v\quad ; \quad \langle \Phi\rangle = V\quad ; \quad v \ll V
+\end{equation}
+Then, we may write
+\begin{equation}
+  \label{eq:69}
+  H = v e^{i\theta_H}; \qquad \Phi = V e^{i\theta_X}
+\end{equation}
+neglecting physical Higgs field excitations ($H(x) = (v+h(x))e^{i\theta_H}$,
+etc.).
+
+Let us suppose that the full gauge group of our theory is just $\uy\times
+\ux$. Consider 4 Dirac fermions ($\psi_1,\psi_2,\chi_1,\chi_2$) with the following
+
+
+
+
+\begin{table}
+  \centering
+  \begin{tabular}{>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}}
+    \hline
+    ~ & \multicolumn{2}{c|}{$\psi_1$} & \multicolumn{2}{c|}{$\psi_2$} &
+    \multicolumn{2}{c|}{$\chi_1$} & \multicolumn{2}{c}{$\chi_2$}\\
+    \hline
+    & \psi_{1L} & \psi_{1R} & \psi_{2L} & \psi_{2R} & \chi_{1L} & \chi_{1R} & \chi_{2L} & \chi_{2R}\\
+    \hline
+    Q_X & x & x & x & x& x-1& x+1& x+1 & x-1\\
+    \hline
+    Q_Y & y & y+1 & y_1 & y_2 & y+1 & y & y_2 & y_1\\
+    
+    
+    \hline
+  \end{tabular}
+  \caption{Charge assignment for the $\uy\times\ux$ with 4 Dirac
+    fermions. Charges of the scalar fields $H$ and $\Phi$ are equal to (1,0) and (0,1), respectively.}
+  \label{tab:2ferm}
+\end{table}
+
+Yukawa terms, leading to the
+Lagrangian in the form, similar to~(\ref{eq:62}):
+\begin{equation}
+  \label{eq:70}
+  \CL_\text{Yukawa} = 
+  m_1  \bar\psi_1  e^{i\g5\theta_H} \psi_1
+  
+  
++ M_1 (\bar \psi_1 e^{i\g5\theta_X} \chi_1 + c.c.) + M_2 (\bar \psi_2 e^{-i\g5\theta_X} \chi_2 + c.c.)
+\end{equation}
+Here we introduced masses $m_{1}=f_{1} v$ and $M_{1,2}=F_{1,2} V$, with
+$f_{1}$ and $F_{1,2}$ the corresponding Yukawa couplings.
+
+
+
+
+
+The choice of fermion charges is dictated by the Yukawa terms~(\ref{eq:70}).
+The $\psi$ fermions are vector-like with respect to \ux group, although chiral
+with respect to the \uy. The fermions $\psi_1,\chi_1$ (and $\psi_2,\chi_2$)
+have charges with respect to \uy group, such that
+\begin{equation}
+  \label{eq:71}
+  Q_Y(\psi_{1L}) = Q_Y(\chi_{1R}) \quad\text{and} \quad Q_Y(\psi_{1R}) =
+  Q_Y(\chi_{1L}) 
+\end{equation}
+and similarly for the pair $\psi_2,\chi_2$. Unlike $\psi_1$, the fermions
+$\psi_2$ do not have Yukawa term $m_2 \bar\psi_2 e^{i\epsilon\g5\theta_H}
+\psi_2$, as this would make the choice of charges too restrictive and does not
+allow us to generate terms similar to~(\ref{eq:97}). The resulting charge
+assignment is shown in Table~\ref{tab:2ferm}.
+
+
+
+
+
+
+
+
+It is clear that the triangular anomalies $XXX$ and $YYY$ cancel as there is
+equal number of left and right moving fermions with the same charges. Let us
+consider the mixed anomaly $XYY$. The condition for anomaly cancellation is given
+by
+\begin{align}
+  \label{eq:72}
+  \mathcal{A}_{XYY} &= \sum Q_X^L (Q_Y^L)^2 - Q_X^R (Q_Y^R)^2=y_1^2 + y_2^2 -
+  1 - 2y -2y^2 = 0
+
+
+
+
+
+
+\end{align}
+The other mixed anomaly $XXY$ is proportional to
+\begin{equation}
+  \label{eq:73}
+  \mathcal{A}_{XXY} = 1-{y_1}+{y_2}+2 {x} (-2
+  y+{y_1}+{y_2}-1) =0
+
+
+
+
+
+\end{equation}
+and should also cancel.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+In analogy with the toy-model, described above, Table~\ref{tab:choice}
+presents an anomaly free assignment for which the mixed anomalies cancel only
+between the $\psi$ and $\chi$ sectors and lead to the following term in the
+effective action (similar to~(\ref{eq:97})):
+\begin{equation}
+  \label{eq:91}
+  \CL_\CA = \kappa D\theta_H \wedge D \theta_X \wedge F_Y
+\end{equation}
+
+Here the parameter $\kappa$ is defined by the $XYY$ anomaly in the $\psi$ or
+$\chi$ sector, in analogy with Eq.~(\ref{eq:364}):
+\begin{equation}
+  \label{eq:92}
+  \kappa =-\frac{x \left(-y_1^2+y_2^2+2 y+1\right)}{32\pi^2}
+\end{equation}
+To have $\kappa\neq 0$ we had to make two
+mass eigenstates in the sector $\psi_2,\chi_2$  degenerate and equal to
+$M_2$. The charges $x, y$ become then arbitrary, while $y_{1,2}$ should satisfy the
+constraints~(\ref{eq:72}) and (\ref{eq:73}). It is easy to see that indeed this can be done
+
+together with the inequality $\kappa\neq 0$. The solution gives:
+\begin{equation}
+  \label{eq:93}
+  y_1 =\frac{4 y x^2-4 y x-4 x-y}{4
+    x^2+1}\quad;\quad y_2 = \frac{4 y x^2+4 x^2+4 y x-y-1}{4
+    x^2+1}
+\end{equation}
+The choice~(\ref{eq:93}) leads to the following value of $\kappa$:
+\begin{equation}
+  \label{eq:95}
+  \kappa = -\frac{2 x \left(4 x^2-1\right) \left((8
+      y+4) x^2+8 y (y+1) x-2
+      y-1\right)}{\left(4 x^2+1\right)^2}
+\end{equation}
+One can easily see that $\kappa$ is non-zero for generic choices of $x$ and
+$y$. One such a choice is shown in Table~\ref{tab:choice} (recall that all
+\ux charges are normalized so that $\theta_X$ has $Q_X(\theta_X)=1$ and all
+\uy charges are normalized so that $Q_Y(\theta_H)=1$).
+\begin{table}
+  \centering
+  \begin{tabular}{>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}}
+    \hline
+    ~ & \multicolumn{2}{c|}{$\psi_1$} & \multicolumn{2}{c|}{$\psi_2$} &
+    \multicolumn{2}{c|}{$\chi_1$} & \multicolumn{2}{c}{$\chi_2$}\\
+    \hline
+    & \psi_{1L} & \psi_{1R} & \psi_{2L} & \psi_{2R} & \chi_{1L} & \chi_{1R} & \chi_{2L} & \chi_{2R}\\
+    \hline
+    Q_X & 1 & 1 & 1 & 1& 0& 2& 2 & 0\\
+    \hline
+    Q_Y & 1 & 2 & -1 & 2 & 2 & 1 &2 & -1\\
+    \hline
+  \end{tabular}
+  \caption{An example of charge assignments for the $\uy\times\ux$ of the 4 Dirac
+    fermions. 
+    The anomaly coefficient $\kappa$ (Eq.~(\ref{eq:95})) is nonzero and equal to
+    6.
+  }
+  \label{tab:choice}
+\end{table}
+
+
+To make the anomalous structure of the Lagrangian~(\ref{eq:70}) more
+transparent, we can perform a chiral change of variables, that makes the
+fermions vector-like.  Namely, let us start with the term $m_1 \bar\psi_1
+e^{i\theta_H\g5}\psi_1$. We want to perform a change of variables to a new
+field $\tpsi$, which will turn this term into $m_1 \bar\tpsi_1\tpsi_1$. This
+is given by
+\begin{equation}
+  \label{eq:75}
+  \left(\begin{matrix}
+    \psi_{1L}\\ 
+    \psi_{1R}
+  \end{matrix}\right) \to \left(\begin{matrix}
+    e^{-\frac i2\theta_H}\tpsi_{1L} \\
+    e^{\frac i2 \theta_H}\tpsi_{1R}
+  \end{matrix}\right)\quad\text{or} \quad \psi \to e^{-\frac
+  i2\g5\theta_H}\tpsi
+\end{equation}
+so that the Yukawa term becomes $m_1 \bar\tpsi_1\tpsi_1$.  The field
+$\tilde\psi_1$ has vector-like charge $x$ with respect to \ux and vector-like
+charge $y+\frac12$ with respect to \uy.  As the change of variables is chiral,
+it introduces a Jacobian 
+ $J_{\psi_1}$~\cite{Fujikawa:1979ay}. The
+transformation~(\ref{eq:75}) turns the term $M_1 (\bar \psi_1 e^{i\g5\theta_X}
+\chi_1 + c.c.)$ into $M_1 (\bar \tpsi_1 e^{i\g5(\theta_X-\frac{\theta_H}2)}
+\chi_1 + c.c.)$. By performing a change of variables from $\chi_1$ to
+$\tchi_1$,
+\begin{equation}
+  \label{eq:78}
+  \chi_1 \to e^{-\frac
+    i2\g5(\theta_X-\frac{\theta_H}2)}\tchi_1,
+\end{equation}
+we make the sector $\tpsi_1,\tchi_1$ fully vector-like, and generate two
+anomalous Jacobians $J_{\psi_1}$ and $J_{\chi_1}$. Similarly, for the last
+term in eq.~(\ref{eq:70}), we perform the change of variables $\chi_2\to
+e^{i\theta_X/2}\chi_2$ and $\psi_2\to e^{i\theta_X/2}\psi_2$, generating two
+more Jacobians. By computing the Jacobians, one can easily show that
+performing the above change of variables for all 4 fermions, we arrive to a
+vector-like Lagrangian with the additional term~(\ref{eq:91}).
+
+
+\section{Charges in a Realistic $SU(2)\times \uy\times \ux$ Model}
+\label{sec:choic-charg-real}
+
+The above example shows us how to construct a realistic model of high-energy
+theory, whose low-energy effective action produces the terms~(\ref{eq:48}).
+We consider the following fermionic content (iso-index $a=1,2$ marks $SU(2)$
+doublets): two left $SU(2)$ doublets $\psi^a_{1L}$ and $\chi^a_{2L}$, two
+right $SU(2)$ doublets ${\psi^a_2}_R$ and ${\chi^a_1}_R$, as well as two left $SU(2)$
+singlets ${\psi_2}_L$ and ${\chi_1}_L$, and two right $SU(2)$ singlets
+${\psi_1}_R$ and ${\chi_2}_R$. The corresponding charge assignments are shown in
+Table~\ref{tab:su2}.
+
+\begin{table}
+  \centering
+  \begin{tabular}{>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}}
+    \hline
+    ~ & \multicolumn{2}{c|}{$\psi_1$} & \multicolumn{2}{c|}{$\psi_2$} &
+    \multicolumn{2}{c|}{$\chi_1$} & \multicolumn{2}{c}{$\chi_2$}\\
+    \hline
+    & \psi^a_{1L} & \psi_{1R} & \psi_{2L} & \psi^a_{2R} & \chi_{1L} & \chi^a_{1R} & \chi^a_{2L} & \chi_{2R}\\
+    \hline
+    Q_X & x & x & x & x& x-1& x+1& x+1 & x-1\\
+    \hline
+    Q_Y & y & y+1 & y_1 & y_2 & y+1 & y & y_2 & y_1\\
+    \hline
+  \end{tabular}
+  \caption{Charge assignment for the $SU(2)\times \uy\times\ux$ gauge
+    group. Fermions, which are doublets with respect to the $SU(2)$ are marked
+    with the superscript ${}^a$. Charges of the SM Higgs field $H$ and of the heavy Higgs $\Phi$ are equal to (1,0) and (0,1) with respect to $\uy\times\ux$.}
+  \label{tab:su2}
+\end{table}
+The Yukawa interaction terms have the form:
+\begin{equation}
+  \begin{aligned}
+    \CL_\text{Yukawa} &= f_1 (\bar\psi^a_{1L} H_a)\psi_{1R} + F_1
+    \Bigl(\bar\psi_{1L}^a (\Phi_1 - i\g5\Phi_2)\chi_{1R}^a +
+    \mathrm{c.c.}\Bigr)\\
+    &+F_2 \Bigl(\bar\psi_{2R}^a
+    (\Phi_1 + i\g5\Phi_2)\chi_{2L}^a + \mathrm{c.c.}\Bigr)\\
+    & + \tilde F_1 \Bigl(\bar\psi_{1R} (\Phi_1 - i\g5\Phi_2)\chi_{1L} +
+    \mathrm{c.c.}\Bigr)+\tilde F_2 \Bigl(\bar\psi_{2L} (\Phi_1 +
+    i\g5\Phi_2)\chi_{2R} + \mathrm{c.c.}\Bigr)
+\end{aligned}
+\label{eq:60}
+\end{equation}
+where $H$ is the SM Higgs boson and $\Phi_{1,2}$ are $SU(2)\times U(1)_Y$ singlets.
+Here again $\langle H\rangle = v \ll \langle \Phi\rangle$, and all states have
+heavy masses $\sim F \langle\Phi\rangle$ (plus possible corrections of
+order ${\cal O}(fv)$).
+
+The anomaly analysis is similar to the one performed in the previous section.
+The only difference being of course two isospin degrees of freedom in the
+$SU(2)$ doublets. The resulting choice of charges is shown in
+Table~\ref{tab:su2ex} (we do not write the general expression as it is too
+cumbersome and provides only an example when $x=-{Q_H}/6$,
+$y={Q_\Phi}/2$). 
+One may check that for this choice of charges the resulting coefficients
+$\bc{1,2}$ in the interaction terms~(\ref{eq:48}) are non-zero, which leads to
+interesting phenomenology to be discussed in the next section.
+
+\begin{table}
+  \centering
+  \begin{tabular}{>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}|>{$}c<{$}}
+    \hline
+    ~ & \multicolumn{2}{c|}{$\psi_1$} & \multicolumn{2}{c|}{$\psi_2$} &
+    \multicolumn{2}{c|}{$\chi_1$} & \multicolumn{2}{c}{$\chi_2$}\\
+    \hline
+    & \psi^a_{1L} & \psi_{1R} & \psi_{2L} & \psi^a_{2R} & \chi_{1L} & \chi^a_{1R} & \chi^a_{2L} & \chi_{2R}\\
+    \hline
+    Q_X & -\frac16 & -\frac16 & -\frac16 & -\frac16& -\frac76 & \frac56 & \frac56 & -\frac76\\
+    \hline
+    Q_Y & \frac12 & \frac32 & -\frac16 & -\frac76 & \frac32 & \frac12 & -\frac76 & -\frac16\\
+    \hline
+  \end{tabular}
+  \caption{Explicit charge assignment for the $SU(2)\times \uy\times\ux$ gauge
+    group. 
+    
+    
+    }
+  \label{tab:su2ex}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Phenomenology}
+\label{sec:phenomenology}
+
+The analysis of the previous sections puts us in position to now discuss the phenomenology
+of the $X$ boson.  To do this, we  first detail the relevant interactions it has with the SM gauge bosons. 
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\textwidth]{diagram-vertex-xzz} 
+  \caption{$\Gamma_{XZZ}$ and $\Gamma_{XZ\gamma}$ interaction vertices, generated by~(\ref{eq:15})}
+  \label{fig:vertex}
+\end{figure}
+
+The first term in~(\ref{eq:48}) generates two interaction vertices: $XZZ$ and
+$XZ\gamma$ (Fig.\ref{fig:vertex}).  In the EW broken phase one can think of
+the first term in expression~(\ref{eq:48}) as being simply
+\begin{equation}
+  \label{eq:15}
+  \CL_{XZY} = 
+  \bc1 (d\theta_Z + Z) F_Y D\theta_X +
+  \mathcal{O}\left(\frac {\partial h}v\right)
+\end{equation}
+where we parametrized the Higgs doublet as
+\begin{equation}
+  \label{eq:13}
+  H = e^{i (\tau^+ \theta_+(x)+\tau^-\theta_-(x) + (\frac12+\tau^3)\theta_Z)}\left({0 \atop v+h(x)}\right)
+\end{equation}
+Here the phases $\theta_\pm, \theta_Z$ will be ``eaten'' by $W^\pm$ and $Z$
+bosons correspondingly, $v$ is the Higgs VEV and the real scalar field $h$
+is the physical Higgs field. 
+
+
+The vertices $\Gamma_{XZZ}$ and $\Gamma_{XZ\gamma}$ are given correspondingly
+by
+
+\begin{equation}
+  \label{eq:40}
+  \begin{aligned}
+    \Gamma_{XZZ}^{\mu\nu\rho}(k_1,k_2|k_3) &= \frac12\bc1\,\sw
+    \epsilon^{\mu\nu\lambda\rho}
+    ({k_2}_\lambda -{k_1}_\lambda)  \\
+    \Gamma_{XZ\gamma}^{\mu\nu\rho}(k_1,k_2|k_3) &= \hphantom{-} \bc1\,\cw
+    \epsilon^{\mu\nu\lambda\rho} {k_2}_\rho
+  \end{aligned}
+\end{equation}
+
+Similarly to above one can analyze the second term
+in~(\ref{eq:48}). It leads to the interaction $XW^+W^-$:
+\begin{equation}
+
+  \Gamma_{XW^+W^-}^{\mu\nu\rho}(k_1,k_2|k_3) = \bc2\,
+  \epsilon^{\mu\nu\lambda\rho}
+  ({k_2}_\lambda -{k_1}_\lambda)
+\end{equation}
+
+The most important relevant fact to phenomenology 
+is that the $X$ boson is produced by and
+decays into SM gauge bosons.  We shall discuss in turn the production mechanisms and the decay final states of the $X$ boson and then estimate the discovery capability at colliders.
+
+
+
+\subsection{Production of $X$ boson}
+
+Producing the $X$ boson must proceed via its coupling to pairs of SM gauge
+bosons.  One such mechanism is through \emph{vector-boson fusion}, where two
+SM gauge bosons are radiated off initial state quark lines and fused into an
+$X$ boson: 
+\begin{equation}
+  pp\to qq'VV'\to qq'X~{\rm or}~VV'\to X~{\rm for~short,}\label{eq:100}
+\end{equation}
+where $VV'$ can be $W^+W^-$, $ZZ$ or $Z\gamma$. This production mechanism was
+studied in ref.~\cite{Kumar:07}.  One of the advantages is that if the decays
+of $X$ are not much different than the SM, the high-rapidity quarks that
+accompany the event can be used as ``tagging jets" to help separate signal
+from the background.  This production mechanism is very similar to what has
+been exploited in the Higgs boson literature.
+
+A second class of production channels is through \emph{associated production}:
+\begin{equation} 
+  pp\to qq'\to V^*\to XV'
+\label{eq:1}
+\end{equation}
+where an off-shell vector boson $V^*$ and the final state $V'$ can be any of
+the SM electroweak gauge bosons: $XZ$, $XW^\pm$ or $X\gamma$.  It turns out
+that this production class has a larger cross-section than the vector boson
+fusion class.  This is opposite to what one finds in SM Higgs phenomenology,
+where $VV'\to H$ cross-section is by $\mathcal{O}(10^2)$ greater than $HV'$
+associated production. The reason for this is that both vector bosons can be
+longitudinal when scattering into $H$, thereby increasing the $VV'\to H$
+cross-section over $HV'$. This is not the case for the $X$ boson production,
+in which only one longitudinal boson can be present at the vertex. This leads
+to a suppression by $\sim (\sqrt{s}/M_V)^2$ of the process~(\ref{eq:100}) as
+opposed to the similar process for the Higgs boson.  For LHC energies
+($\sqrt{s}\sim 10$~TeV) this suppression is of the order $10^{-4}$.  Without
+special longitudinal enhancements, the two body final state $XV'$ dominates
+over the three-body final state $qq'X$, which makes the associated
+production~(\ref{eq:1}) about 2 orders of magnitude \emph{stronger} than the
+corresponding vector-boson fusion. As we shall see below, the decays of the
+$X$ boson are sufficiently exotic in nature that background issues do not
+change the ordering of the importance of these two classes of diagrams. Thus,
+we focus our attention on the associated production $XV'$ to estimate collider
+sensitivities.
+
+In figs.~\ref{fig:lep} and~\ref{fig:lhcsigma} we plot the production
+cross-sections of $XV$ for various $V=W^\pm, Z, \gamma$ at $\sqrt{s}=14\tev$
+$pp$ LHC, $\sqrt{s}=2\tev$ $p\bar p$ Tevatron and $\sqrt{s}=200\gev$ $e^+e^-$
+LEP.
+
+ 
+\begin{figure}[t]
+  \begin{tabular}[c]{cc}
+    \begin{minipage}[c]{0.5\linewidth}
+      \includegraphics[height=1.1\linewidth,angle=-90]{lep}
+    \end{minipage}
+      &
+      \begin{minipage}[c]{0.5\linewidth}
+        \includegraphics[height=1.1\linewidth,angle=-90]{tev}
+      \end{minipage}\\
+      (a) & (b) \\
+    \end{tabular}
+    \caption{Production cross-section for $XZ$ and $X\gamma$ at LEP (left) and
+      for $XZ$, $X\gamma$, $XW^\pm$ at Tevatron (right panel) vs.\ the $X$
+      boson mass. For LEP $\sqrt{s}=200\gev$, and for Tevatron
+      $\sqrt{s}=2\tev$. In both cases  $c_1=c_2=1$.}
+   \label{fig:lep}
+ \end{figure}
+ 
+\begin{figure}[t]
+   \centering
+   
+ \end{figure}
+
+ \begin{figure}[t]
+   \centering
+   \includegraphics[width=.4\textheight,angle=-90]{lhcsigma}
+   \caption{Production cross-section at $\sqrt{s}=14\tev$ LHC of $XV'$ for various $V'=W^\pm, Z, \gamma$ vs.\ the $X$ boson mass with $c_1=c_2=0.1$.}
+   \label{fig:lhcsigma}
+ \end{figure}
+
+
+
+\subsection{Decays of $X$ boson}
+
+The $X$ boson decays primarily via its couplings to SM gauge boson pairs.  The  important decay channels are computed from the interaction vertices computed above.
+The corresponding decay widths are:
+\begin{align}
+  \Gamma_{X\to ZZ} & = \frac{\bc1^2 \ssw M_X^3}{192\pi M_Z^2} \left(1-\frac{4
+      M_Z^2}{M_X^2}\right)^{5/2} \approx \bc1^2\, (45\gev)
+  \left(\frac{M_X}{\mathrm{TeV}}\right)^3 +
+  \ldots
+  , \nonumber \\
+  \Gamma_{X\to W^+W^-} & = \frac{\bc2^2 M_X^3}{48\pi M_W^2}\left(1-\frac{4
+      M_W^2}{M_X^2}\right)^{5/2} \label{eq:41} \approx \bc2^2\,
+  (1.03\;\mathrm{TeV})\left(\frac{M_X}{\mathrm{TeV}}\right)^3 +\ldots\\
+  
+  \Gamma_{X\to Z\gamma} & = \frac{\bc1^2 \ccw M_X^3}{96\pi M_Z^2}
+  \left(1-\frac{
+      M_Z^2}{M_X^2}\right)^3\left(1+\frac{M_Z^2}{M_X^2}\right)\approx \bc1^2\,
+  (307\gev) \left(\frac{M_X}{\mathrm{TeV}}\right)^3 +\ldots,
+  
+  ,\nonumber
+\end{align}
+where $\dots$ denote corrections of the order $(M_V/M_X)^2$. The interaction
+term of eq.~(\ref{eq:15}) also allows interaction of the $X$ boson with
+$\gamma H$ and $ZH$, which are generically small.
+
+ \begin{figure}[t] 
+   \centering
+   \includegraphics[width=0.5\textwidth,height=0.6\textheight,angle=-90]{c1c2} 
+   \caption{Branching fractions of $X$ boson decays into $W^+W^-$ (blue), $ZZ$ (yellow-green) and $Z\gamma$ (purple)
+as a function of $c_2/c_1$ assuming $M_X\gg M_Z$.}
+   \label{fig:XBF}
+ \end{figure}
+
+
+At leading order in $M_Z/M_X$ the decay width into $Z\gamma$ exceeds that of $ZZ$ by
+\begin{equation}
+  \label{eq:55}
+  \frac{\Gamma_{X\to Z\gamma}}{\Gamma_{X\to ZZ}} = 2\frac{\ccw}{\ssw}\approx 6.7
+\end{equation}
+The branching ratio into $WW$ is the largest over much of parameter space where $c_2\gsim c_1$, and  exceeds that of $ZZ$ by
+\bea
+  \label{eq:57}
+  \frac{\Gamma_{X\to W^+W^-}}{\Gamma_{X\to ZZ}}=
+  \frac{4}{\ssw}\,\frac{\bc2^2}{\bc1^2} \approx 17.4\frac{\bc2^2}{\bc1^2}.
+\eea
+This ratio depends on the a priori unknown ratio of couplings $c_2/c_1$. In Fig.~\ref{fig:XBF} we plot the branching fractions of $X$ into the $WW$ (blue), $Z\gamma$ (purple) and $ZZ$ (yellow-green) as a function of $c_2/c_1$.
+
+Let us compare decay widths~(\ref{eq:41}) with analogous expressions
+from~\cite{Kumar:07}. Schematically, decay
+widths 
+can be obtained in our case as
+\begin{equation}
+  \label{eq:50}
+  \Gamma_{X\to VV} \sim \bc{1,2}^2 \frac{M_X^3}{M_V^2}
+\end{equation}
+where we denote by $V$ both $Z$ and $W^\pm$ vector bosons and $M_V =
+\{M_Z,M_W\}$.  In case of setup of Ref.~\cite{Kumar:07} the interaction is the
+dimension 6 operators, suppressed by the cutoff scale $\Lambda_X^2$. Therefore,
+the decay width is suppressed by $\Lambda_X^4$ and the whole expression is
+given by
+\begin{equation}
+  \label{eq:51}
+  \Gamma_{X\to VV} \sim \frac{M_X^4}{\Lambda_X^4}\frac{M_X^3}{M_V^2} \frac{M_V^4}{M_X^4} = \frac{M_X^3
+    M_V^2}{\Lambda^4}
+\end{equation}
+The presence of the factor $\frac{M_V^4}{M_X^4}$, appearing in the first
+equation of~(\ref{eq:51}), can be explained as follows. The vector boson current
+is conserved in the interaction, generated by the higher-dimensional operators
+of Ref.~\cite{Kumar:07}. Therefore the corresponding probability for emitting
+on-shell $Z$ or $W$ boson is suppressed by the $(\frac{M_V}{E})^4$ where the
+energy $E\sim M_X$.  In case of the interaction~(\ref{eq:48}) the vector
+current is not conserved in the vertex and therefore such a suppression does
+not appear.
+
+
+
+\subsection{Collider Searches}
+
+Combining the various production modes and branching fractions yields many permutations of final states to consider at high energy colliders.  All permutations, after taking into account $X$ decays, give rise to three vector boson final states such as $ZZZ$, $W^+W^-\gamma$, etc.  The collider phenomenology associated with these kinds of final states is interesting, and we focus on a few aspects of it below.
+
+Our primary interest will be to study how sensitive the LHC is to finding this
+kind of $X$ boson.  The limits that one can obtain from LEP 2 and Tevatron are
+well below the sensitivity of the LHC, and so we forego a more thorough
+analysis of their constraining power. Briefly, in the limit of no background,
+the Tevatron cannot do better than the mass scale at which at least a few
+events are produced. This implies from fig.~\ref{fig:lep}b that $M_X\gsim
+750\gev$ (for $c_i=1$) is inaccessible territory to the Fermilab with up to
+$10\, {\rm fb}^{-1}$ of integrated luminosity. The LHC can do significantly
+better than this, as we shall see below.
+
+
+Moving to the LHC, the energy is of course an important increase as is the
+planned luminosity.  After discovery is made a comprehensive study programme
+to measure all the final states, and determine production cross-sections and
+branching ratios would be a major endeavor by the experimental community.
+However, the first step is discovery. In this section we demonstrate one of
+the cleanest and most unique discovery modes to this theory.  As has been
+emphasized earlier and in ref.~\cite{Anastasopoulos:06}, the $X\to \gamma Z$
+decay mode is especially important for this kind of theory. Thus, we study
+that decay mode. Consulting the production cross-sections results for LHC, we
+find that producing the $X$ in association with $W^\pm$ gives the highest
+rate. Thus, we focus our attentions on discovering the $X$ boson through
+$XW^\pm$ production followed by $X\to \gamma Z$ decay.
+
+The $\gamma Z W^\pm$ signature is an interesting one since it involves all
+three electroweak gauge bosons. If the $Z$ decays into leptons, it is
+especially easy to find the $X$ boson mass through the invariant mass
+reconstruction of $\gamma l^+l^-$.  The additional $W$ is also helpful as it
+can be used to further cut out background by requiring an additional lepton if
+the $W$ decays leptonically, or by requiring that two jets reconstruct a $W$
+mass.
+
+In our analysis, we are very conservative and only consider the leptonic decays of the $Z$ and the $W$. Thus, after assuming $X\to \gamma Z$ decay, $1.4$ percent of $\gamma ZW^\pm$ turn into $\gamma l^+l^- {l'}^\pm$ plus missing $E_T$ events. These events have very little background when cut around their kinematic expectations.  For example, if we assume $M_X=1\tev$ we find negligible background while retaining $0.82$ fraction of all signal events when we making kinematic cuts $\eta(\gamma,l)<2.5$, 
+
+$m_{l^+l^-}=m_Z\pm 5\gev$, $p_T(\gamma)>50\gev$, $p_T(l^+,l^-,l')>10\gev$, missing $E_T$ greater than $10\gev$ and $m_{\gamma l^+l^-}>500\gev$.  Thus, for $10\, {\rm fb}^{-1}$ of integrated luminosity at the LHC, when $c_i=1$ ($c_i=0.1$) we get at least five events of this type, $\gamma l^+l^-l'$ plus missing $E_T$, if $M_X>4\tev$ ($M_X>2\tev$).  This would be a clear discovery of physics beyond the SM and would point to a new resonance, the $X$ boson.
+
+
+One subtlety for this signal is the required separation of the leptons from the $Z$ decay in order to distinguish two leptons and be able to reconstruct the invariant mass well. The challenge arises because the $Z$ is highly boosted if its parent particle has mass much greater than $m_Z$, and thus the subsequent leptons from $Z$ decays are highly boosted and collimated in the detector.  One does not expect this to be a problem for $Z\to \mu^+\mu^-$ decays, as muon separation is efficient. Separation of electron and positron in the electromagnetic calorimeter in highly boosted $Z\to e^+e^-$ final states is expected to be more challenging. We do not attempt to give precise numbers of separability for $e^+e^-$. Instead, we only make two relevant comments. First, one is safe restricting to muons. Second, once separability of $e^+e^-$ is better understood, it can be compared with the kinematic distributions of this example to estimate the number of events that are cut out due to the inability to resolve $e^+e^-$. In Fig.~\ref{fig:3deltar} we show the $\Delta R$ separation of $e^+e^-$ for a parent $M_X=500\gev$, $1\tev$ and $2\tev$.  For example, if it turns out that $\Delta R>0.2 \, (0.1)$ is required, then one can expect about $2/3$ ($1/4$) of the $e^+e^-$ events are cut out by this separation criterion.
+
+ \begin{figure}[t]
+   \centering
+   \includegraphics[width=.6\textwidth,height=.25\textheight]{3deltar} 
+   \caption{Distribution of $\Delta R$ of $e^+e^-$ in the $Z$ decays of $WX$ production followed by $X\to 
+  \gamma Z$ followed by $Z\to e^+e^-$.  The distributions are for $M_X=500\gev$ (red), $M_X=1\tev$ (blue) and $M_X=2\tev$ (green).}
+      \label{fig:3deltar}
+ \end{figure}
+
+After discovery, in addition to doing a comprehensive search over all
+ possible final states, each individual final state will be studied carefully
+ to see what evidence exists for the spin of the $X$ boson. The topology of
+ $\gamma Z W^\pm$ exists within the SM for $HW^\pm$ production followed by
+ $H\to \gamma Z$ decays. However, the rate at which this happens is very
+ suppressed even for the most optimal mass range of the Higgs
+ boson~\cite{Djouadi:1996yq}.  A heavy resonance that decays into $\gamma Z$
+ would certainly not be a SM Higgs boson, but nevertheless a scalar origin
+ would be considered if a signal were found. Careful studying of angular
+ correlations among the final state particles can help determine this question
+ directly.  For example, distinguishing between the scalar and vector spin possibilities
+ of the $X$ boson is possible by carefully analyzing the photon's $\cos\theta_\gamma$ distribution with respect to the $X$ boost direction in $X\to \gamma Z$ decays in the rest frame of the $X$. If $X$ is a scalar its distribution is flat in $\cos\theta$, whereas if it is a vector it has a non-trivial dependence on $\cos\theta$. With enough events (several hundred) this distribution can be filled in, and the spin of the $X$ resonance can be discerned among the possibilities.
+
+
+
+
+\section*{Acknowledgments}
+We thank J. Kumar, J. Lykken, F. Maltoni, A. Rajaraman, A. De Roeck for helpful
+discussions. I.A. was supported in part by the European Commission under the
+ERC  Advanced Grant 226371. O.R. was supported in part by the Swiss National
+Science Foundation.
+
+
+\providecommand{\href}[2]{#2}\begingroup\raggedright\begin{thebibliography}{10}
+
+\bibitem{Gross:1972pv}
+D.~J. Gross and R.~Jackiw, {\it {Effect of anomalies on quasirenormalizable
+  theories}},  {\em Phys. Rev.} {\bf D6} (1972) 477--493.
+
+
+\bibitem{Bouchiat:1972iq}
+C.~Bouchiat, J.~Iliopoulos and P.~Meyer, {\it {An Anomaly Free Version of
+  Weinberg's Model}},  {\em Phys. Lett.} {\bf B38} (1972) 519--523.
+
+
+\bibitem{Georgi:1972bb}
+H.~Georgi and S.~L. Glashow, {\it {Gauge theories without anomalies}},  {\em
+  Phys. Rev.} {\bf D6} (1972) 429.
+
+
+\bibitem{Green:84}
+M.~B. Green and J.~H. Schwarz, {\it {Anomaly Cancellation in Supersymmetric
+  D=10 Gauge Theory and Superstring Theory}},  {\em Phys. Lett.} {\bf B149}
+  (1984) 117--122.
+
+
+\bibitem{Boyarsky:02}
+A.~Boyarsky, J.~A. Harvey and O.~Ruchayskiy, {\it {A toy model of the M5-brane:
+  Anomalies of monopole strings in five dimensions}},  {\em Annals Phys.} {\bf
+  301} (2002) 1--21 [\href{http://arXiv.org/abs/hep-th/0203154}{{\tt
+  hep-th/0203154}}].
+
+
+\bibitem{Appelquist:74}
+T.~Appelquist and J.~Carazzone, {\it Infrared singularities and massive
+  fields},  {\em Phys. Rev.} {\bf D11} (1975) 2856.
+
+
+\bibitem{DHoker:84a}
+E.~D'Hoker and E.~Farhi, {\it Decoupling a fermion whose mass is generated by a
+  yukawa coupling: The general case},  {\em Nucl. Phys.} {\bf B248} (1984) 59.
+
+
+\bibitem{DHoker:84b}
+E.~D'Hoker and E.~Farhi, {\it Decoupling a fermion in the standard electroweak
+  theory},  {\em Nucl. Phys.} {\bf B248} (1984) 77.
+
+
+\bibitem{anomaly-th}
+A.~Boyarsky, O.~Ruchayskiy and M.~Shaposhnikov, {\it Observational
+  manifestations of anomaly inflow},  {\em Phys. Rev.} {\bf D72} (2005) 085011
+  [\href{http://arXiv.org/abs/hep-th/0507098}{{\tt hep-th/0507098}}].
+
+
+\bibitem{anomaly-exp}
+A.~Boyarsky, O.~Ruchayskiy and M.~Shaposhnikov, {\it Anomalies as a signature
+  of extra dimensions},  {\em Phys. Lett.} {\bf B626} (2005) 184--194
+  [\href{http://arXiv.org/abs/hep-ph/0507195}{{\tt hep-ph/0507195}}].
+
+
+\bibitem{Antoniadis:06}
+I.~Antoniadis, A.~Boyarsky and O.~Ruchayskiy, {\it Axion alternatives},
+  \href{http://arXiv.org/abs/hep-ph/0606306}{{\tt hep-ph/0606306}}.
+
+
+\bibitem{Antoniadis:07a}
+I.~Antoniadis, A.~Boyarsky and O.~Ruchayskiy, {\it Anomaly induced effects in a
+  magnetic field},  {\em Nucl. Phys.} {\bf B793} (2008) 246
+  [\href{http://arXiv.org/abs/arXiv:0708.3001 [hep-ph]}{{\tt arXiv:0708.3001
+  [hep-ph]}}].
+
+
+\bibitem{Gies:06a}
+H.~{Gies}, J.~{Jaeckel} and A.~{Ringwald}, {\it {Polarized Light Propagating in
+  a Magnetic Field as a Probe for Millicharged Fermions}},  {\em Phys. Rev.
+  Lett.} {\bf 97} (Oct., 2006) 140402--+
+  [\href{http://arXiv.org/abs/arXiv:hep-ph/0607118}{{\tt
+  arXiv:hep-ph/0607118}}].
+
+\bibitem{Ahlers:06}
+M.~Ahlers, H.~Gies, J.~Jaeckel and A.~Ringwald, {\it On the particle
+  interpretation of the pvlas data: Neutral versus charged particles},  {\em
+  Phys. Rev.} {\bf D75} (2007) 035011
+  [\href{http://arXiv.org/abs/hep-ph/0612098}{{\tt hep-ph/0612098}}].
+
+
+\bibitem{Ringwald:05} A.~Ringwald, {\it Axion interpretation of the PVLAS
+    data?}, \href{http://arXiv.org/abs/hep-ph/0511184}{{\tt hep-ph/0511184}}.
+
+
+\bibitem{BFRT:92}
+{\bf BFRT} Collaboration, G.~Ruoso {\em et.~al.}, {\it Limits on light scalar
+  and pseudoscalar particles from a photon regeneration experiment},  {\em Z.
+  Phys.} {\bf C56} (1992) 505--508.
+
+
+\bibitem{BFRT:93}
+{\bf BFRT} Collaboration, R.~Cameron {\em et.~al.}, {\it Search for nearly
+  massless, weakly coupled particles by optical techniques},  {\em Phys. Rev.}
+  {\bf D47} (1993) 3707--3725.
+
+
+\bibitem{PVLAS:05a}
+{\bf PVLAS} Collaboration, E.~Zavattini {\em et.~al.}, {\it Experimental
+  observation of optical rotation generated in vacuum by a magnetic field},
+  {\em Phys. Rev. Lett.} {\bf 96} (2006) 110406
+  [\href{http://arXiv.org/abs/hep-ex/0507107}{{\tt hep-ex/0507107}}].
+
+
+\bibitem{PVLAS:05b}
+{\bf PVLAS} Collaboration, E.~Zavattini {\em et.~al.}, {\it Pvlas: Probing
+  vacuum with polarized light},  {\em Nucl. Phys. Proc. Suppl.} {\bf 164}
+  (2007) 264--269 [\href{http://arXiv.org/abs/hep-ex/0512022}{{\tt
+  hep-ex/0512022}}].
+
+
+\bibitem{QandA:06}
+S.-J. Chen, H.-H. Mei and W.-T. Ni, {\it {Q} \& {A} experiment to search for
+  vacuum dichroism, pseudoscalar-photon interaction and millicharged fermions},
+   \href{http://arXiv.org/abs/hep-ex/0611050}{{\tt hep-ex/0611050}}.
+
+
+\bibitem{PVLAS:07a}
+{\bf PVLAS} Collaboration, E.~Zavattini {\em et.~al.}, {\it New pvlas results
+  and limits on magnetically induced optical rotation and ellipticity in
+  vacuum},  \href{http://arXiv.org/abs/arXiv:0706.3419 [hep-ex]}{{\tt
+  arXiv:0706.3419 [hep-ex]}}.
+
+
+\bibitem{OSQAR:06}
+{\bf OSQAR} Collaboration, P.~Pugnat {\em et.~al.}, {\it Optical search for
+  {QED} vacuum magnetic birefringence, axions and photon regeneration
+  ({OSQAR})}, . CERN-SPSC-2006-035.
+
+\bibitem{ALPS:07}
+{\bf ALPS} Collaboration, K.~Ehret {\em et.~al.}, {\it Production and detection
+  of axion-like particles in a {HERA} dipole magnet: Letter-of-intent for the
+  {ALPS} experiment},  \href{http://arXiv.org/abs/hep-ex/0702023}{{\tt
+  hep-ex/0702023}}.
+
+
+\bibitem{BMV:06}
+{\bf BMV} Collaboration, C.~Rizzo, ``Laboratory and astrophysical tests of
+  vacuum magnetism: the {BMV} project.'' 2nd ILIAS-CAST-CERN Axion Training,
+  \url{http://cast.mppmu.mpg.de}, May, 2006.
+
+\bibitem{Robilliard:07}
+{\bf BMV} Collaboration, C.~Robilliard {\em et.~al.}, {\it No light shining
+  through a wall},  \href{http://arXiv.org/abs/arXiv:0707.1296 [hep-ex]}{{\tt
+  arXiv:0707.1296 [hep-ex]}}.
+
+
+\bibitem{Afanasev:06}
+{\bf LIPPS} Collaboration, A.~V. Afanasev, O.~K. Baker and K.~W. McFarlane,
+  {\it Production and detection of very light spin-zero bosons at optical
+  frequencies},  \href{http://arXiv.org/abs/hep-ph/0605250}{{\tt
+  hep-ph/0605250}}.
+
+
+\bibitem{Davidson:91}
+S.~Davidson, B.~Campbell and D.~C. Bailey, {\it Limits on particles of small
+  electric charge},  {\em Phys. Rev.} {\bf D43} (1991) 2314--2321.
+
+
+\bibitem{Davidson:00}
+S.~Davidson, S.~Hannestad and G.~Raffelt, {\it Updated bounds on milli-charged
+  particles},  {\em JHEP} {\bf 05} (2000) 003
+  [\href{http://arXiv.org/abs/hep-ph/0001179}{{\tt hep-ph/0001179}}].
+
+
+\bibitem{Raffelt:06a}
+G.~G. {Raffelt}, {\it {Astrophysical Axion Bounds}},  {\em Submitted to Lect.\
+  Notes Phys.} (Nov., 2006) [\href{http://arXiv.org/abs/hep-ph/0611350}{{\tt
+  hep-ph/0611350}}].
+
+\bibitem{Raffelt:99}
+G.~G. Raffelt, {\it Particle physics from stars},  {\em Ann. Rev. Nucl. Part.
+  Sci.} {\bf 49} (1999) 163--216
+  [\href{http://arXiv.org/abs/hep-ph/9903472}{{\tt hep-ph/9903472}}].
+
+
+\bibitem{Raffelt-book}
+G.~G. Raffelt, {\em Stars as laboratories for fundamental physics: The
+  astrophysics of neutrinos, axions, and other weakly interacting particles}.
+\newblock University of Chicago Press, Chicago, USA, 1996.
+
+\bibitem{PDG}
+S.~Eidelman {\em et.~al.}, {\it {Review of Particle Physics}},  {\em {Phys.\
+  Lett.\ B}} {\bf 592} (2004) 1+.
+
+\bibitem{Ryutov:97}
+D.~{Ryutov}, {\it The role of finite photon mass in magnetohydrodynamics of
+  space plasmas},  {\em Plasma Physics Control Fusion} {\bf 39} (1997) A73.
+
+\bibitem{Williams:71}
+E.~R. Williams, J.~E. Faller and H.~A. Hill, {\it New experimental test of
+  coulomb's law: A laboratory upper limit on the photon rest mass},  {\em Phys.
+  Rev. Lett.} {\bf 26} (1971) 721--724.
+
+
+\bibitem{Chibisov:76}
+G.~V. Chibisov, {\it Astrophysical upper limits on the photon rest mass},  {\em
+  Sov. Phys. Usp.} {\bf 19} (1976) 624--626.
+
+
+\bibitem{Lakes:98}
+R.~Lakes, {\it Experimental limits on the photon mass and cosmic magnetic
+  vector potential},  {\em Phys. Rev. Lett.} {\bf 80} (1998) 1826--1829.
+
+
+\bibitem{Adelberger:03}
+E.~Adelberger, G.~Dvali and A.~Gruzinov, {\it Photon mass bound destroyed by
+  vortices},  \href{http://arXiv.org/abs/hep-ph/0306245}{{\tt hep-ph/0306245}}.
+
+
+\bibitem{Marinelli:83}
+M.~Marinelli and G.~Morpurgo, {\it The electric neutrality of matter: a
+  summary},  {\em Phys. Lett.} {\bf B137} (1984) 439.
+
+
+\bibitem{PDG:06}
+W.-M. {Yao} and et~al., {\it {Review of Particle Physics}},  {\em {Journal of
+  Physics G}} {\bf 33} (2006) 1+.
+
+\bibitem{Faddeev:85}
+L.~D. Faddeev and S.~L. Shatashvili, {\it Algebraic and hamiltonian methods in
+  the theory of nonabelian anomalies},  {\em Theor. Math. Phys.} {\bf 60}
+  (1985) 770--778.
+
+
+\bibitem{Callan:84}
+J.~Callan, Curtis~G. and J.~A. Harvey, {\it Anomalies and fermion zero modes on
+  strings and domain walls},  {\em Nucl. Phys.} {\bf B250} (1985) 427.
+
+
+\bibitem{Hewett:88}
+J.~L. Hewett and T.~G. Rizzo, {\it {Low-Energy Phenomenology of Superstring
+  Inspired E(6) Models}},  {\em Phys. Rept.} {\bf 183} (1989) 193.
+
+
+\bibitem{Anastasopoulos:06}
+P.~Anastasopoulos, M.~Bianchi, E.~Dudas and E.~Kiritsis, {\it Anomalies,
+  anomalous {U}(1)'s and generalized {Chern}-{Simons} terms},  {\em JHEP} {\bf
+  11} (2006) 057 [\href{http://arXiv.org/abs/hep-th/0605225}{{\tt
+  hep-th/0605225}}].
+
+
+\bibitem{Ibanez:2001nd}
+L.~E. Ibanez, F.~Marchesano and R.~Rabadan, {\it Getting just the standard
+  model at intersecting branes},  {\em JHEP} {\bf 11} (2001) 002
+  [\href{http://arXiv.org/abs/hep-th/0105155}{{\tt hep-th/0105155}}].
+
+
+\bibitem{Antoniadis:02}
+I.~{Antoniadis}, E.~{Kiritsis}, J.~{Rizos} and T.~N. {Tomaras}, {\it {D-branes
+  and the Standard Model}},  {\em Nucl. Phys. B} {\bf 660} (June, 2003) 81--115
+  [\href{http://arXiv.org/abs/hep-th/0210263}{{\tt hep-th/0210263}}].
+
+\bibitem{Coriano:07a} C.~Coriano, N.~Irges and S.~Morelli, {\it {Stueckelberg
+      axions and the effective action of anomalous Abelian models. I: A
+      unitarity analysis of the Higgs-axion mixing}}, {\em JHEP} {\bf 07}
+  (2007) 008 [\href{http://arXiv.org/abs/hep-ph/0701010}{{\tt
+      hep-ph/0701010}}].
+
+
+\bibitem{Armillis:07a}
+R.~Armillis, C.~Coriano and M.~Guzzi, {\it {The Search for Extra Neutral
+  Currents at the LHC: QCD and Anomalous Gauge Interactions}},  {\em AIP Conf.
+  Proc.} {\bf 964} (2007) 212--217 [\href{http://arXiv.org/abs/arXiv:0709.2111
+  [hep-ph]}{{\tt arXiv:0709.2111 [hep-ph]}}].
+
+
+\bibitem{Coriano:07b}
+C.~Coriano, N.~Irges and S.~Morelli, {\it {Stueckelberg axions and the
+  effective action of anomalous Abelian models. II: A SU(3)C x SU(2)W x U(1)Y x
+  U(1)B model and its signature at the LHC}},  {\em Nucl. Phys.} {\bf B789}
+  (2008) 133--174 [\href{http://arXiv.org/abs/hep-ph/0703127}{{\tt
+  hep-ph/0703127}}].
+
+
+\bibitem{Kumar:07}
+J.~Kumar, A.~Rajaraman and J.~D. Wells, {\it Probing the green-schwarz
+  mechanism at the large hadron collider},
+  \href{http://arXiv.org/abs/arXiv:0707.3488 [hep-ph]}{{\tt arXiv:0707.3488
+  [hep-ph]}}.
+
+
+
+\bibitem{Fujikawa:1979ay} K.~Fujikawa, {\it Path Integral Measure For Gauge
+    Invariant Fermion Theories}, Phys.\ Rev.\ Lett.\ {\bf 42}, 1195 (1979);
+  
+  
+
+  
+  {\it Path Integral For Gauge Theories With Fermions}, Phys.\ Rev.\ D {\bf
+    21}, 2848 (1980) [Erratum-ibid.\ D {\bf 22}, 1499 (1980)].
+  
+  
+  
+\bibitem{Djouadi:1996yq} A.~Djouadi, V.~Driesen, W.~Hollik and A.~Kraft, {\it
+    The Higgs photon Z boson coupling revisited}, Eur.\ Phys.\ J.\ C {\bf 1},
+  163 (1998) [arXiv:hep-ph/9701342].
+  
+  
+\end{thebibliography}\endgroup
+
+
+\end{document}
+
+
+
+
+
+
+
+
+                                                      END DOCUMENT  
+
+
+
+
+
+
+
+
+
+
+
+===== END PAPER =====
+
+You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.
+
+MODEL: ChernSimonsPortal (SimpleExtensions) — FeynRules DB entry based on arXiv:0901.0639.
+PAPER: the paper's LaTeX source: equations, fractions and roots are exact, included verbatim above between the PAPER markers; it is authoritative.
+FORMAT: write a complete FeynRules .fr add-on model file yourself (M$ModelName, M$Information, M$InteractionOrderHierarchy, IndexRange declarations for new indices, M$Parameters, M$ClassesDescription, the Lagrangian terms and one LTotal). It is loaded on top of SM.fr, included verbatim above between the SM.fr markers.
+
+TASK — extract the COMPLETE new-physics content:
+1. Read the paper. Identify EVERY new particle beyond the Standard Model: spin (S/F/V), colour rep (singlet/triplet/sextet/octet), SU(2) rep, electric charge Q and/or hypercharge Y, mass parameter. COMPLETENESS IS SCORED — a model with several new states (multiplets, mass eigenstates, generations) must include all of them as separate ParticleClass entries (or class_members).
+2. Identify the new coupling/mass/mixing parameters (External unless clearly derived).
+3. Write the main new-physics Lagrangian terms (FeynRules/Mathematica syntax and idioms).
+
+FILE RULES: use FeynRules syntax for every value (rationals -1/3, decimals 1500.); SM add-on => no M$GaugeGroups block; the indices Colour, Gluon, Generation, SU2D and SU2W are declared by SM.fr; any OTHER index (a colour-sextet index, a new-generation index) needs `IndexRange[Index[X]] = NoUnfold[Range[n]];` with the correct size; every class gets a unique label S[n]/F[n]/V[n] with n >= 100; SelfConjugate -> False for complex fields (distinct antiparticle), True for real/Majorana fields.
+
+OUTPUT: your FINAL message must contain exactly one fenced code block tagged mathematica containing ONLY the complete .fr file (no commentary inside the fences). Set M$ModelName = "ChernSimonsPortal_gen".
+
+NO TOOLS: this run has no file, shell, network or code tools. Everything you need is in
+this message: the Standard Model file SM.fr (the file this add-on is loaded on top of:
+take field names, index conventions and hypercharges from it) and the paper. Do not ask
+for anything; do the extraction and write the model.
+
+## Physics-completeness rules (apply to every model)
+
+1. Free-field terms for every new particle class. Write a named kinetic + mass term for each new field even when the paper shows only L_int. Use the mass symbol declared in the class `Mass -> {M, value}`. Add the term to the total Lagrangian sum.
+   - Real vector (gauge singlet): `LXkin := -1/4 FS[X, mu, nu] FS[X, mu, nu] + 1/2 MX^2 X[mu] X[mu];` (the explicit form `-1/4 (del[X[nu], mu] - del[X[mu], nu])^2` is equivalent).
+   - Complex vector: `-1/2 FS[Xbar, mu, nu] FS[X, mu, nu] + MX^2 Xbar[mu] X[mu]`.
+   - Complex scalar: `DC[phibar, mu] DC[phi, mu] - Mphi^2 phibar phi`. Real scalar: `1/2 del[phi, mu] del[phi, mu] - 1/2 Mphi^2 phi^2`.
+   - Dirac fermion: `I psibar.Ga[mu].DC[psi, mu] - Mpsi psibar.psi`. Majorana fermion (`SelfConjugate -> True`): `I/2 psibar.Ga[mu].del[psi, mu] - 1/2 Mpsi psibar.psi`.
+
+2. Explicit EFT cutoffs. When the paper writes an operator with `1/Lambda^n` (or `1/M^n`, `1/f^n`), declare each distinct cutoff as an External parameter in GeV with the paper's benchmark value, e.g. `Lam == { ParameterType -> External, Value -> 1000., BlockName -> CUTOFF, InteractionOrder -> {QED, -1}, Description -> "EFT cutoff [GeV], Eq.(N)" }`. Write the factor `1/Lam^(d-4)` verbatim in the term, with `d` the operator mass dimension you computed in the self-audit. Keep the paper's dimensionless couplings (kappa, lambda, c_i) dimensionless with the paper's benchmark defaults. Do this for the term and for its `HC[...]` partner. Only if the paper's own implementation absorbs `kappa/Lambda^n` into one coefficient may you do the same; then the parameter Description must say "= kappa/Lambda^n, mass dimension -n, units GeV^-n" and the default must equal the paper's numeric `kappa/Lambda^n`. Never leave a dimensionful coefficient with an unexplained O(0.1) default.
+
+3. Charge conjugation. When the paper writes a fermion with a charge-conjugation superscript (`psi^c`, `\bar{psi^c}`, `psi^T C`, or a Majorana mass eigenstate that enters a chiral current with the opposite chirality), write it as `CC[psi]` (and `bar[CC[psi]]` for the conjugated bar). Never write the bare field. If the paper's benchmark sets that term's coefficient to zero, either drop the term or write it with `CC[...]`; never keep the term with the conjugation dropped. Use the class field with its Generation index (for example the SM class `vl[ff]`), not a class member like `ve[nn]`, because FeynRules reads an index on a class member as a spin index.
+
+4. SU(2) doublet contractions. Use the SM.fr conventions the add-on loads on: `Phi` has Y = +1/2, `LL` has Y = -1/2, `QL` has Y = +1/6, `Phi[1] = -I GP`, `Phi[2] = (vev + H + I G0)/Sqrt[2]`. Contract a doublet with an anti-doublet on a shared index: `LLbar[sp, ii, ff] ... Phi[ii]`. Contract two objects of the same conjugation type (`LLbar` with `Phibar`, `QLbar` with `Phibar`, i.e. any term the paper writes with `Htilde = i tau2 H*`) with `Eps[ii, jj]` on two distinct indices: `LLbar[sp, ii, ff] ... Phibar[jj] Eps[ii, jj]`. Never contract `LLbar[ii]` with `Phibar[ii]`. Model the SM Yukawas: `QLbar.dR Phi[ii]`, `LLbar.lR Phi[ii]`, `QLbar.uR Phibar[jj] Eps[ii, jj]`.
+
+5. New U(1) charges. Do not copy a paper's charge table literally when the paper's Yukawa equation and its table use different hypercharge conventions (for example the paper effectively uses Y(H) = -1/2). Re-derive the new-U(1) charge of every SM field, including the Higgs, from the requirement that all SM Yukawas and all new Yukawas are invariant under SM.fr conventions. Report which sign you chose and why. Do not put quantum numbers on a `SelfConjugate -> True` class; put a chiral charge on an Unphysical chiral class instead.
+
+6. Read only the paper. Do not open any cached or reference `.fr` file for the same model. If you see one, say so in the output and do not use it.
+
+7. Fractions and roots in extracted equations. The paper text is machine-extracted. A displayed fraction or radical can arrive flattened: the numerator, the fraction bar and the denominator become separate lines, so `A / Sqrt[B]` and `A Sqrt[B]` look identical. For every coefficient that contains a fraction, a square root or a power:
+   - If a LaTeX source file (`*_source.tex`) is available, read the `\frac{...}{...}` and `\sqrt{...}` there and take it literally. The LaTeX is authoritative over the flattened text.
+   - Otherwise cross-check the placement against a second equation of the paper that depends on the same coefficient (a partial width, a cross section, a limit, or a small-parameter expansion) and name that equation in the self-audit. A coupling `g/Sqrt[1-x]` gives a width proportional to `1/(1-x)`; a coupling `g Sqrt[1-x]` gives a width proportional to `(1-x)`.
+   - If neither resolves it, choose the form that reproduces a numerical value the paper states, and say so.
+   Never silently pick one placement.
+
+8. Mass mixing. When the paper diagonalises a mass mixing between a new state and an SM state (Z-Z', h-S, W-W_R, nu-N), write the mass eigenstates the paper uses: declare the mixing angle (External, or Internal with the paper's formula) and express the gauge eigenstates through it in `Definitions` of Unphysical classes. Do not leave the mixing in a comment.
+
+## FeynRules and UFO construct rules (each one broke a compile or a MadGraph import in earlier runs)
+
+9. Non-fundamental colour representations. If a field carries a colour index other than the triplet `Colour` or the adjoint `Gluon` (for example a sextet), declare the index range AND add the representation line FeynRules needs, before the field declarations: `AddGaugeRepresentation[SU3C -> {T6, Sextet}];` for a sextet (schema: put both lines in `raw_preamble`; also keep the `index_decls` entry). Write covariant derivatives on the whole field, `DC[Phi, mu]`, never with an explicit colour index inside `DC[...]`.
+
+10. Names. Class names, parameter names and index names must not be Mathematica built-ins or FeynRules symbols: never `N`, `C`, `D`, `E`, `I`, `K`, `O`, `HC`, `CC`, `FS`, `DC`, `del`, `Eps`, `Ga`, `ProjP`, `ProjM`, and never a name SM.fr already declares (`H`, `Phi`, `Z`, `W`, `A`, `G`, `ee`, `gs`, `gw`, `sw`, `cw`, `vev`, `MZ`, `MW`, ...). No primes or punctuation in `ParticleName`/`AntiParticleName` (`W'` is not a valid UFO name; write `Wp`, `Wpbar`). Use class indices of 100 or more for new classes.
+
+11. Interaction orders. Every new coupling parameter (Yukawa, portal, quartic, new gauge coupling, dimensionless EFT coefficient) carries an `InteractionOrder`: `{NP, 1}` for a new-physics coupling, `{QED, 1}` or `{QCD, 1}` only when it is literally that coupling. Declare `M$InteractionOrderHierarchy` with every order you use (for example `{{QCD, 1}, {QED, 2}, {NP, 1}}`). A coupling with no order makes MadGraph reject the UFO ("Some couplings have '1' order").
+
+12. Tensor parameters. Give every indexed parameter explicit per-component values (`yN[1,1] -> 0.1, yN[1,2] -> 0, ...`; schema: `value_rules`). Never use a pattern rule such as `X[i_?NumericQ, j_?NumericQ] :> ...` in `Definitions`: FeynRules exports the pattern verbatim as a UFO parameter name and MadGraph fails with an unrelated "invalid syntax" error.
+
+13. Flavour structure in matrix form. Write generation-space couplings as matrix products between class fields, `uqbar.VCKMR.Ga[mu].ProjP.dq`, `LLbar.yN.NR`, `ISbar.Ga[mu].ProjM.IS`, not as explicit index sums `VCKMR[ff1, ff2] uqbar[ff1, cc]...dq[ff2, cc]`, and never nest one generation index inside another. Explicit-index forms leak FeynRules internals (`ConvertSpinToString`, `MakeIdenticalFermions`) into the UFO.
+
+14. One declared total. Define exactly one Lagrangian term named `LTotal` that sums every other term you define, and make sure every other term appears in that sum. Do not define two alternative totals. Do not emit a term that contains no field (a pure constant): FeynRules exports it as a vertex with no particles.
+
+15. Declarations. Every field used in a term is declared; every parameter used in a term is declared with a numeric default; every `SelfConjugate -> True` class has no `QuantumNumbers`; a Majorana mass term is `-1/2 M psibar.psi`.
+
+## Mandatory self-audit table (produce it BEFORE the model)
+
+For every Lagrangian term you emit, output one row of this table. Then fix any row that fails before you write the model.
+
+| term name | fields in the monomial | operator mass dimension d | coupling symbol | coupling mass dimension (must be 4 - d) | 1/Lambda power present (must be d - 4, or "n/a" if d <= 4) | Q sum | Y sum | SU(2) contraction (singlet? which Eps or shared index) | SU(3) contraction | sum of each new U(1) charge (one column per U(1), must be 0) | lepton/baryon number sum (if the paper assigns them) | CC[] used where paper writes psi^c (yes/no/n/a) | fraction/root placement checked against (equation, LaTeX line, or "n/a") | Hermitian partner (HC[] or self-conjugate) |
+
+Rules for the table:
+- Field mass dimensions: scalar 1, vector 1, fermion 3/2, `FS[...]` 2, `del`/`DC` 1.
+- Every Q sum, Y sum, and new-U(1) sum must equal 0. Use the charges you declared in `QuantumNumbers` and the SM.fr charges for SM fields. If a sum is not 0, the term is wrong; fix the contraction or the charge before you continue.
+- If d > 4, the row must show `1/Lambda^(d-4)` and an External cutoff parameter, or a Description that states the absorbed dimension and units.
+- Add one row per new particle class that confirms its kinetic + mass term exists and is in the total Lagrangian sum.
+- Add one row per non-fundamental colour representation that confirms the `AddGaugeRepresentation[...]` line is present.
+- Add one line under the table that lists every `SelfConjugate -> True` class and confirms it carries no `QuantumNumbers`.
+- Add one line that lists every class, parameter and index name you chose and confirms none is a Mathematica built-in, a FeynRules symbol, or an SM.fr name.
+- Add one line that names the single total Lagrangian and lists the terms it sums.
+- Add one line that states whether any reference or cached model file was read (must be "none").

@@ -1,0 +1,29 @@
+```mathematica
+     representing the dark complex singlet S (interaction/gauge eigenstate).
+     Real part mixes with the same angle, orthogonally to Phi[2] above:
+       s = -sin(th) H + cos(th) H2 ; imaginary part = chi (unmixed). *)
+  S[110] == {
+    ClassName     -> Sc,
+    Unphysical    -> True,
+    SelfConjugate -> False,
+    Definitions   -> { Sc -> (vs + (-Sin[th] H + Cos[th] H2) + I chi)/Sqrt[2] }
+  }
+
+};
+
+(* ---------------------------------------------------------------- *)
+(* Lagrangian                                                        *)
+(* ---------------------------------------------------------------- *)
+
+(* L_S, Eq.(2.2): kinetic term, mu_S^2 mass term, Higgs portal, singlet quartic *)
+LS := ExpandIndices[
+  DC[Scbar, mu] DC[Sc, mu] + (muS2/2) Scbar Sc
+    - lamPhiS Phibar[ii] Phi[ii] Scbar Sc
+    - (lamS/2) (Scbar Sc)^2,
+FlavorExpand -> SU2D];
+
+(* L_soft, Eq.(2.3): explicit soft breaking of the global dark U(1) *)
+LSoft := (muSp2/4) (Sc^2 + Scbar^2);
+
+LTotal := LS + LSoft;
+```

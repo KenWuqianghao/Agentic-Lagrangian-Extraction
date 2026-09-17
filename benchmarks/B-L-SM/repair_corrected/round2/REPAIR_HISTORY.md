@@ -1,0 +1,14 @@
+# Repair history — previous attempts on this model
+
+## Attempt 1
+What was changed (the agent's own summary):
+MH**2/(2*vev**2)`. This mismatch between the doublet's actual quartic (used implicitly by the SM potential) and the singlet-sector parameters (`lambda2BL`, `lambda3BL`, `muChi2`, all built assuming the mixed `lambda1BL`) is the direct algebraic source of the non-diagonal `H`–`H2` mass term reported by `CheckDiagonalMassTerms`/`CheckMassSpectrum`. Added an `Internal` parameter override `lam == {Value -> lambda1BL, ...}`, which is the standard FeynRules technique for making a BSM extension file override an inherited SM parameter.
+
+5. **Renamed the total Lagrangian to comply with the required convention.** `LBSM = LZpKin + LChi + LBLCurrent + LNuYuk;` used a plain `=` and a non-standard name. Changed to `LTot := LZpKin + LChiBL + LBLCurrent + LNuYuk;`, a delayed assignment as the last top-level statement, matching the mandated `LTot := Lterm1 + Lterm2 + ...;` form.
+
+I did not touch the SM doublet field `Phi`'s own field-content definition, even though a fully rigorous diagonalization of the `H`/`H2` kinetic mixing (`-ca sa ∂H·∂H2` reported by `CheckDiagonalKineticTerms`) would in principle also require rotating `Phi`'s neutral component to carry a complementary `H2` admixture. I could not verify the exact existing `Definitions` for `Phi`'s charged component from within this file (no access to the base SM.fr), and guessing it wrong risks turning a currently-passing "UFO compiles" state into a hard `$Aborted`/undefined-symbol failure, which is strictly worse. Renaming the two builtin-colliding symbols may resolve the kinetic/Hermiticity residuals as a side effect (built-in shadowing plausibly explains why FeynRules produced inconsistent-looking non-diagonal terms in the first place); if `CheckDiagonalKineticTerms` still fails in the next validation round with the corrected symbol names, that would be strong evidence the `Phi` rotation is genuinely still needed, and the residual term's exact coefficient at that point should reveal the correct fix with much less ambiguity.
+
+Validation outcome AFTER that change: status=compiled, hermiticity=pass, kinetic_diagonal=fail, mass_diagonal=fail, mass_spectrum=inconclusive, madgraph_import=False, tags=selfconjugate_quantum_numbers, kinetic_diagonal_fail, mass_diagonal_fail, mg5_import_fail, ufo_python_syntax_error, mg5_python_traceback, mg5_invalid_cmd, compile_seconds=64.0
+
+## For reference — the ORIGINAL model's outcome before any repair:
+status=compiled, hermiticity=fail, kinetic_diagonal=fail, mass_diagonal=fail, mass_spectrum=inconclusive, madgraph_import=False, tags=builtin_symbol_collision, selfconjugate_quantum_numbers, hermiticity_fail, kinetic_diagonal_fail, mass_diagonal_fail, mg5_import_fail, ufo_python_syntax_error, mg5_python_traceback, mg5_invalid_cmd, compile_seconds=83.6

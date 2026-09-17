@@ -1,0 +1,18 @@
+# Repair history — previous attempts on this model
+
+## Attempt 1
+What was changed (the agent's own summary):
+ structure — untouched:
+
+1. **Removed `QuantumNumbers -> {Q -> 0, Y -> 0}`** from the two self-conjugate real scalar classes `h2` (`S[2]`) and `X` (`S[3]`). FeynRules explicitly warns "Selfconjugated fields should not carry quantumnumbers" — a self-conjugate (real) field is automatically neutral, so declaring its charges is a technical error, not physics content. `Phi` and `S` keep their `QuantumNumbers` since they are not self-conjugate.
+
+2. **Renamed `X`'s `ParticleName` from `"~X"` to `"X"`.** A leading `~` is FeynRules' reserved antiparticle-name prefix; giving a *self-conjugate* particle a name that already looks like an antiparticle label caused it to be registered twice during `MergeModels` ("Doubly defined particle classes" / "All particles should have different names" — the `duplicate_particle_names` tag).
+
+3. **Added the missing dummy index `jj` to the `Block[...]` localization list in `LHiggsPng`.** The quartic term `Phibar[ii] Phi[ii] Phibar[jj] Phi[jj]` used `jj` as a second summed SU(2) index, but only `ii`, `mu`, and `feynmangaugerules` were Block-local — `jj` was a bare global symbol. This let `ExpandIndices` resolve it inconsistently, corrupting the expansion of the Higgs quartic term. I independently re-derived the tadpole (minimization) conditions from the given potential and confirmed `muPsq = lambdaP·vh² + lambdaPS·vs²` and `muSsq = lambdaS·vs² + lambdaPS·vh² − muSpsq` are exactly right, and that the `lambdaP`, `lambdaS`, `lambdaPS` formulas correctly diagonalize the 2×2 (h, h2) mass matrix under the `(ct, st)` rotation — so the reported Hermiticity failure and non-diagonal mass matrix both trace to this single index-scoping bug rather than any error in the parameter relations, which is why no formula, coupling, or VEV needed to change.
+
+File modified: `/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/scratchpad/hmain/eval/benchmark_runs/pNG/repair_corrected/round1/model.fr`
+
+Validation outcome AFTER that change: status=compiled, hermiticity=fail, kinetic_diagonal=pass, mass_diagonal=fail, mass_spectrum=inconclusive, madgraph_import=True, tags=duplicate_particle_names, hermiticity_fail, mass_diagonal_fail, compile_seconds=42.5
+
+## For reference — the ORIGINAL model's outcome before any repair:
+status=compiled, hermiticity=fail, kinetic_diagonal=pass, mass_diagonal=fail, mass_spectrum=inconclusive, madgraph_import=True, tags=duplicate_particle_names, selfconjugate_quantum_numbers, hermiticity_fail, mass_diagonal_fail, compile_seconds=42.7
