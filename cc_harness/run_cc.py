@@ -168,7 +168,10 @@ def parse_stream(lines: list[str]) -> dict:
             "result_usage": last.get("usage"), "num_turns": last.get("num_turns"),
             "duration_ms": last.get("duration_ms"), "is_error": last.get("is_error"),
             "result_subtype": last.get("subtype"), "n_result_events": len(results),
-            "final_text": last.get("result") or final, "init": init}
+            "final_text": last.get("result") or final, "init": init,
+            # A session that ends on an API error (the 64k output cap, a
+            # transport error) never reaches the Stop hook.
+            "api_error": (last.get("result") or "")[:300] if last.get("is_error") else None}
 
 
 # ------------------------------------------------------------------- agent
@@ -192,6 +195,8 @@ def run_agent(page: str, seed: int, args) -> dict:
            # validate_model can hold the tool call for one queued compile plus
            # its own (2 x 900 s): the default MCP tool timeout is far shorter.
            "MCP_TOOL_TIMEOUT": str(3 * 3600 * 1000), "MCP_TIMEOUT": "60000"}
+    if getattr(args, "max_output_tokens", None):
+        env["CLAUDE_CODE_MAX_OUTPUT_TOKENS"] = str(args.max_output_tokens)
     print(f"[cc] {args.variant} {page} s{seed} ...", flush=True)
     t0 = time.time()
     with open(rundir / "agent_stream.jsonl", "w") as out, open(rundir / "agent_stderr.txt", "w") as err:
@@ -270,6 +275,8 @@ def finalize(page: str, seed: int, args, rundir: Path, sandbox: Path, rc: int,
         "usage": parsed["usage"], "cost_usd": parsed["cost_usd"], "n_api_calls": parsed["n_api_calls"],
         "num_turns": parsed["num_turns"], "result_subtype": parsed["result_subtype"],
         "is_error": parsed["is_error"], "n_result_events": parsed["n_result_events"],
+        "api_error": parsed["api_error"],
+        "max_output_tokens": getattr(args, "max_output_tokens", None) or "CLI default (64000)",
         "tool_counts": short, "n_tool_calls": len(names),
         "n_validate": state.get("validations"), "n_review": state.get("reviews"),
         "validate_budget": args.validate_budget, "review_budget": args.review_budget,
@@ -360,6 +367,8 @@ def main() -> int:
     r.add_argument("--validate-budget", type=int, default=10)
     r.add_argument("--review-budget", type=int, default=2)
     r.add_argument("--max-continuations", type=int, default=3)
+    r.add_argument("--max-output-tokens", type=int, default=0,
+                   help="CLAUDE_CODE_MAX_OUTPUT_TOKENS for the agent; 0 = the CLI default (64000)")
     r.add_argument("--force", action="store_true")
     r.set_defaults(fn=cmd_run)
     f = sub.add_parser("finalize", help="rebuild run.json after a runner crash")
