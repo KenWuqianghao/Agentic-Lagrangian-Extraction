@@ -352,7 +352,7 @@ emitHerm[scope_String, v_] := (
   If[scope === "model" && ListQ[v] && v =!= {},
     Do[With[{vx = v[[i]]},
         With[{legs = diagField /@ (First /@ First[vx]),
-              inner = DeleteDuplicates[diagField /@ Cases[Last[vx], f_ /; (FieldQ[f] === True), {0, Infinity}]]},
+              inner = DeleteDuplicates[diagField /@ Cases[Last[vx] /. Index[__] -> 1, f_ /; (FieldQ[f] === True), {0, Infinity}]]},
           WriteString[$Output, "HEPTAPOD-HERM|i=", ToString[i],
             "|fields=", StringRiffle[DeleteDuplicates[Join[legs, inner]], ","],
             "|unreduced=", StringRiffle[inner, ","],

@@ -243,7 +243,7 @@ def test_hermiticity_vertices_are_located_in_their_block():
         "HEPTAPOD-HERM|i=1|fields=W,n4,ta,n5,e|unreduced=n4,ta,n5,e|expr=x\n"
         "HEPTAPOD-HERMBLOCK|block=LWN|contents=W n4bar ta;W n5bar e\n"
         "HEPTAPOD-HERMBLOCK|block=LKin|contents=n4bar n4\n")
-    assert diagnose.localize_herm(un["herm"], un["blocks"])[0]["blocks"] == ["LWN", "LKin"]
+    assert diagnose.localize_herm(un["herm"], un["blocks"])[0]["blocks"] == ["LWN"]   # not the kinetic block
 
 
 def test_report_sections_for_mass_terms_and_hermiticity():

@@ -221,7 +221,10 @@ def _use_diag_driver(rb, fr: Path) -> None:
     lag, _info = rb.vb.total_lag_symbol(fr)
     terms = {t["name"]: t["expression"]
              for t in rb.vb.parse_lagrangian_terms(fr.read_text(errors="replace"))}
-    blocks = sorted(n for n in rb.vb._reach(lag, terms) if n in terms) if lag else []
+    # The total and pure sums of other terms contain every field and locate
+    # nothing; only the blocks that write physics are candidates.
+    blocks = sorted(n for n in rb.vb._reach(lag, terms)
+                    if n in terms and n != lag and not rb.vb._is_pure_alias(n, terms)) if lag else []
     orig = rb.vb._run_driver
 
     def _run(dargs, timeout):

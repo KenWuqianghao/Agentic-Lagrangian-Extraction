@@ -68,7 +68,12 @@ def localize_herm(herm: List[dict], blocks: Dict[str, Optional[List[List[str]]]]
             # is a union: take the blocks with terms whose fields all lie in
             # it, most such terms first.
             vs = set(norm(v["fields"]))
-            score = {b: sum(1 for fc in cs if len(fc) >= 2 and set(fc) <= vs) for b, cs in loose.items()}
+            # Count only terms that carry one of the vertex's own legs (the
+            # boson of a current): a kinetic or mass term of the fermions in
+            # the chain is a subset too, and says nothing.
+            legs = set(norm([f for f in v["fields"] if f not in v["unreduced"]]))
+            score = {b: sum(1 for fc in cs if len(fc) >= 2 and set(fc) <= vs and (not legs or set(fc) & legs))
+                     for b, cs in loose.items()}
             hit = [b for b, n in sorted(score.items(), key=lambda x: (-x[1], x[0])) if n > 0][:3]
         out.append({**v, "blocks": hit})
     return out
@@ -275,7 +280,8 @@ def render_sections(row: dict, log: str, fr_text: str) -> str:
     parts: List[str] = []
     checks = row.get("checks") or {}
     if checks.get("hermiticity") == "fail":
-        herm = localize_herm(d["herm"], d["blocks"])
+        blocks = {b: c for b, c in d["blocks"].items() if b != row.get("lag_symbol")}
+        herm = localize_herm(d["herm"], blocks)
         parts += ["## Hermiticity: the non-zero vertices of L - HC[L]",
                   "Each row is a vertex that does not cancel against its conjugate. The usual "
                   "cause is a term without its `+ HC[...]` partner, or a complex coefficient on "
