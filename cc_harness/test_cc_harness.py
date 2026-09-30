@@ -238,6 +238,12 @@ def test_hermiticity_vertices_are_located_in_their_block():
     assert loc[0]["blocks"] == ["LNZ"]           # matched through the conjugate fields
     assert loc[1]["blocks"] == ["LScalar"]
     assert d["blocks"]["LBig"] is None
+    # an unreduced vertex: a union of fields from several terms of one block
+    un = diagnose.parse_diag_lines(
+        "HEPTAPOD-HERM|i=1|fields=W,n4,ta,n5,e|unreduced=n4,ta,n5,e|expr=x\n"
+        "HEPTAPOD-HERMBLOCK|block=LWN|contents=W n4bar ta;W n5bar e\n"
+        "HEPTAPOD-HERMBLOCK|block=LKin|contents=n4bar n4\n")
+    assert diagnose.localize_herm(un["herm"], un["blocks"])[0]["blocks"] == ["LWN", "LKin"]
 
 
 def test_report_sections_for_mass_terms_and_hermiticity():

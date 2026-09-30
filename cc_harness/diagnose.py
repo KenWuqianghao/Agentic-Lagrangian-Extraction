@@ -20,15 +20,16 @@ import re
 from pathlib import Path
 from typing import Dict, List, Optional
 
-_HERM = re.compile(r"^HEPTAPOD-HERM\|i=(\d+)\|fields=([^|]*)\|expr=(.*)$", re.M)
+_HERM = re.compile(r"^HEPTAPOD-HERM\|i=(\d+)\|fields=([^|]*)(?:\|unreduced=([^|]*))?\|expr=(.*)$", re.M)
 _HERMBLOCK = re.compile(r"^HEPTAPOD-HERMBLOCK\|block=([^|]*)\|contents=(.*)$", re.M)
 _MASSTERM = re.compile(r"^HEPTAPOD-MASSTERM\|fields=([^|]*)\|coefficient=([^|]*)\|numeric=(.*)$", re.M)
 _TADPOLE = re.compile(r"^HEPTAPOD-TADPOLE\|field=([^|]*)\|coefficient=([^|]*)\|numeric=(.*)$", re.M)
 
 
 def parse_diag_lines(log: str) -> dict:
-    herm = [{"i": int(i), "fields": [f for f in fs.split(",") if f], "expr": e.strip()}
-            for i, fs, e in _HERM.findall(log)]
+    herm = [{"i": int(i), "fields": [f for f in fs.split(",") if f],
+             "unreduced": [f for f in (un or "").split(",") if f], "expr": e.strip()}
+            for i, fs, un, e in _HERM.findall(log)]
     blocks: Dict[str, Optional[List[List[str]]]] = {}
     for b, c in _HERMBLOCK.findall(log):
         c = c.strip()
@@ -62,6 +63,13 @@ def localize_herm(herm: List[dict], blocks: Dict[str, Optional[List[List[str]]]]
         hit = sorted(b for b, cs in exact.items() if key in cs or ckey in cs)
         if not hit:
             hit = sorted(b for b, cs in loose.items() if norm(v["fields"]) in cs)
+        if not hit and v.get("unreduced"):
+            # An unreduced vertex lumps many terms together, so its field list
+            # is a union: take the blocks with terms whose fields all lie in
+            # it, most such terms first.
+            vs = set(norm(v["fields"]))
+            score = {b: sum(1 for fc in cs if len(fc) >= 2 and set(fc) <= vs) for b, cs in loose.items()}
+            hit = [b for b, n in sorted(score.items(), key=lambda x: (-x[1], x[0])) if n > 0][:3]
         out.append({**v, "blocks": hit})
     return out
 
@@ -79,6 +87,12 @@ _PY_WORDS = {"name", "value", "texname", "lhablock", "lhacode", "nature", "type"
              "ReplaceAll", "Dot", "Gamma", "Identity", "ProjM", "ProjP", "Index", "PYList",
              "ClassAttributeCreation", "Spin", "Lorentz", "Ext", "Int", "I", "ee", "cw", "sw",
              "vev", "gw", "g1", "gs", "complexconjugate"}
+
+
+# FeynRules words that also appear, mangled, in a broken UFO line
+# (`ConvertSpinToString[0]<>F<>...`): they name no model symbol.
+_FR_HEADS = {"F", "S", "V", "U", "T", "W", "R", "PRIVATE", "ConvertSpinToString", "PartNameMG",
+             "CreateObjectParticleName", "MakeIdenticalFermions", "anti", "Module", "Block"}
 
 
 def _ufo_object(lines: List[str], lineno: int) -> tuple[Optional[str], int, int]:
@@ -241,6 +255,8 @@ def mg5_backtrace(row: dict, fr_text: str) -> List[dict]:
             cands += _fr_candidates(t, sym)
         # Anything else that is a word of the .fr: quantum-number keys, index names.
         for t in name_errs + words(bad_line):
+            if len(t) < 2 or t in _FR_HEADS:
+                continue
             if t not in cands and re.search(rf"(?<![\w$]){re.escape(t)}(?![\w$])", fr_text):
                 cands.append(t)
         cands = list(dict.fromkeys(cands))
@@ -270,6 +286,12 @@ def render_sections(row: dict, log: str, fr_text: str) -> str:
         for v in herm[:25]:
             parts.append(f"- vertex {v['i']}: fields {' '.join(v['fields'])}; "
                          f"block: {', '.join(v['blocks']) or 'not located'}")
+            if v.get("unreduced"):
+                parts.append(f"  UNREDUCED: FeynRules could not strip {', '.join(v['unreduced'])} from this "
+                             "vertex; its coefficient still holds a spinor chain (Ga[0] from the conjugate). "
+                             "The usual cause is an explicit spin or flavour index on the spinors of that "
+                             "chain (see lint rule explicit_spin_in_chain); write the chain with implicit "
+                             "indices (`Xbar.Ga[mu].ProjP.Y`).")
             parts.append(f"  coefficient: `{v['expr'][:500]}`")
         if len(herm) > 25:
             parts.append(f"- ... {len(herm) - 25} more vertices")

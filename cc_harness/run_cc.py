@@ -153,14 +153,18 @@ def parse_stream(lines: list[str]) -> dict:
                 seen_msgs[m["id"]] = m["usage"]
         elif t == "result":
             results.append(ev)
-    usage = {"input_tokens": 0, "cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "output_tokens": 0}
-    for u in seen_msgs.values():
-        for k in usage:
-            usage[k] += int(u.get(k) or 0)
-    usage["input_total"] = usage["input_tokens"] + usage["cache_creation_input_tokens"] + usage["cache_read_input_tokens"]
+    # The result event carries the session's cumulative usage; per-message
+    # usage in the stream is a partial snapshot (output_tokens of 2 or 17).
     last = results[-1] if results else {}
+    ru = last.get("usage") or {}
+    usage = {k: int(ru.get(k) or 0) for k in ("input_tokens", "cache_creation_input_tokens",
+                                                "cache_read_input_tokens", "output_tokens")}
+    usage["thinking_tokens"] = int((ru.get("output_tokens_details") or {}).get("thinking_tokens") or 0)
+    usage["input_total"] = usage["input_tokens"] + usage["cache_creation_input_tokens"] + usage["cache_read_input_tokens"]
+    usage["per_result_event"] = [{k: (r.get("usage") or {}).get(k) for k in
+                                  ("input_tokens", "cache_read_input_tokens", "output_tokens")} for r in results]
     return {"tools": tools, "usage": usage, "n_api_calls": len(seen_msgs),
-            "cost_usd": sum(float(r.get("total_cost_usd") or 0) for r in results),
+            "cost_usd": float(last.get("total_cost_usd") or 0),
             "result_usage": last.get("usage"), "num_turns": last.get("num_turns"),
             "duration_ms": last.get("duration_ms"), "is_error": last.get("is_error"),
             "result_subtype": last.get("subtype"), "n_result_events": len(results),
@@ -224,6 +228,8 @@ def _jsonl(path: Path) -> list[dict]:
 def finalize(page: str, seed: int, args, rundir: Path, sandbox: Path, rc: int,
              secs: float | None, timed_out: bool) -> dict:
     parsed = parse_stream((rundir / "agent_stream.jsonl").read_text(errors="replace").splitlines())
+    if secs is None and parsed.get("duration_ms"):
+        secs = round(parsed["duration_ms"] / 1000, 1)     # finalize: the CLI's own wall time
     (rundir / "agent_out.md").write_text(parsed["final_text"] or "")
     fr_dst = rundir / "model" / f"{page}_gen.fr"
     fr_dst.parent.mkdir(parents=True, exist_ok=True)

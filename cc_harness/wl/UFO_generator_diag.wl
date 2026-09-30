@@ -344,12 +344,19 @@ runNamedCheck[scope_String, name_String, lag_] := Switch[name,
 diagStr[e_, n_: 1500] := StringTake[
   StringReplace[ToString[e, InputForm], {"|" -> "/", "\n" -> " ", "\r" -> " "}], UpTo[n]];
 diagField[f_] := ToString[If[AtomQ[f], f, Head[f]], InputForm];
+(* A vertex whose coefficient still contains fields is one FeynRules could
+   not reduce (typically a spinor chain with explicit indices, whose
+   conjugate carries Ga[0]): those fields belong to the vertex too, and
+   "unreduced" says so. *)
 emitHerm[scope_String, v_] := (
   If[scope === "model" && ListQ[v] && v =!= {},
     Do[With[{vx = v[[i]]},
-        WriteString[$Output, "HEPTAPOD-HERM|i=", ToString[i],
-          "|fields=", StringRiffle[diagField /@ (First /@ First[vx]), ","],
-          "|expr=", diagStr[Last[vx]], "\n"]],
+        With[{legs = diagField /@ (First /@ First[vx]),
+              inner = DeleteDuplicates[diagField /@ Cases[Last[vx], f_ /; (FieldQ[f] === True), {0, Infinity}]]},
+          WriteString[$Output, "HEPTAPOD-HERM|i=", ToString[i],
+            "|fields=", StringRiffle[DeleteDuplicates[Join[legs, inner]], ","],
+            "|unreduced=", StringRiffle[inner, ","],
+            "|expr=", diagStr[Last[vx]], "\n"]]],
       {i, Min[60, Length[v]]}]];
   v);
 
