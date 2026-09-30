@@ -241,8 +241,19 @@ interval of every call (99 in-loop validations and replays): no two overlap.
 
 Caveats: one seed per arm; the referee is the same model as the agent; the
 cc arm's validate budget is 10 (pi Qwen had 6); ALRM_general's output-cap
-failure is kept as a failure (a rerun with `CLAUDE_CODE_MAX_OUTPUT_TOKENS`
-raised is reported separately below when it finishes).
+failure is kept as a failure in the table above.
+
+## ALRM_general with a 128k output cap
+
+A sensitivity rerun (`cc_sonnet_harness_maxout`, `--max-output-tokens 128000`,
+same harness otherwise) removes the API failure but not the model failure.
+The agent wrote a model, spent all 10 validations (9 stopped at compile, call
+9 reached the checks), and edited the file once more after call 10, so the
+Stop gate released it with the file unvalidated. Scored with the standard
+driver: compiled, hermiticity, kinetic_diagonal and mass_diagonal pass,
+mass_spectrum fails, MadGraph import fails. 52 minutes, 29.1M input tokens,
+269k output tokens, $10.03. The full-chain count stays 11 of 16 whether this
+run or the original is counted.
 
 Files: `cc_summary_2026-09-30.json` (collect.py), `cc_logs/`, `cc_replay/`,
 runs under `~/Documents/Github/heptapod/eval/benchmark_runs/*/rerun/cc_sonnet_harness/s1/`.
