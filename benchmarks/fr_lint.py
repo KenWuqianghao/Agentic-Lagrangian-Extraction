@@ -453,7 +453,31 @@ def _mg5_leak_rules(text: str, classes: List[Dict], params: List[Dict]) -> List[
                          f"same explicit spin index with a Dirac matrix between them; drop the explicit "
                          f"spin index (`{m.group(1)}.Ga[mu].{m.group(3)}`) or thread it through the matrix",
                          text[:m.start()].count("\n") + 1))
+    # `NR1bar.Ga[mu].l[1]` for "the electron": the first index of a fermion is
+    # its spin, so FeynRules reads the 1 as a spin index (l[Index[Spin, 1]]),
+    # cannot reduce the chain, and L - HC[L] keeps the unreduced vertex
+    # (EffLRSM, pi Qwen harness). Generation-indexed fermions need all their
+    # indices, or none: `l[sp, 1]`, or a flavour-summed `l`.
+    multi = set(_SM_GEN_FERMIONS)
+    for c in classes:
+        if c["head"].startswith("F[") and re.search(r"Index\[(Generation|Colour|\w+)\]", _prop(c["body"], "Indices") or ""):
+            cn = _prop(c["body"], "ClassName")
+            if cn:
+                multi.add(cn)
+    for m in re.finditer(r"(?:\.\s*(\w+)|\b(\w+)bar)\[\s*(\d+)\s*\]", text):
+        name = m.group(1) or m.group(2)
+        if name in multi:
+            F.append(Finding("numeric_spin_slot", "checks",
+                             f"`{m.group(0).lstrip('. ')}`: the first index of the fermion `{name}` is its spin "
+                             f"index, so `{m.group(3)}` is read as a spin index, not a generation; FeynRules "
+                             f"cannot reduce the spinor chain and hermiticity fails. Give every index "
+                             f"(`{name}[sp, {m.group(3)}]` with the spin index threaded) or none",
+                             text[:m.start()].count("\n") + 1))
     return F
+
+
+# SM.fr fermion classes that carry an index besides spin.
+_SM_GEN_FERMIONS = ("vl", "l", "uq", "dq", "LL", "QL", "lR", "uR", "dR")
 
 
 def lint_file(path: str) -> List[Finding]:

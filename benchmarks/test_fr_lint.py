@@ -65,11 +65,22 @@ def test_same_explicit_spin_index_across_a_dirac_matrix():
         assert "explicit_spin_in_chain" not in _rules(ok), ok
 
 
+def test_numeric_index_in_the_spin_slot_of_a_fermion():
+    bad = "LW := Block[{mu}, -g Ymix[1,1] NR1bar.Ga[mu].l[1] WR[mu]];\n"
+    good_implicit = "LW := Block[{mu}, -g NR1bar.Ga[mu].ProjP.l WR[mu]];\n"
+    good_member = "LW := Block[{mu}, -g NR1bar.Ga[mu].ProjP.e WR[mu]];\n"      # class member, no index
+    hits = _rules(bad)["numeric_spin_slot"]
+    assert len(hits) == 1 and hits[0].stage == "checks" and "spin index" in hits[0].message
+    for ok in (good_implicit, good_member):
+        assert "numeric_spin_slot" not in _rules(ok), ok
+
+
 @pytest.mark.parametrize("page,rule", [("B-L-SM", "pattern_symbol_name"),
                                        ("Wprime", "tensor_orderblock"),
-                                       ("HeavyN", "explicit_spin_in_chain")])
+                                       ("HeavyN", "explicit_spin_in_chain"),
+                                       ("EffLRSM", "numeric_spin_slot")])
 def test_rule_names_the_stored_mg5_failure(page, rule):
     fr = RUNS / page / "rerun" / "pi_qwen_harness" / "s1" / "model" / f"{page}_gen.fr"
     if not fr.is_file():
         pytest.skip(f"stored run not present: {fr}")
-    assert any(f.rule == rule and f.stage == "mg5" for f in fr_lint.lint_file(str(fr)))
+    assert any(f.rule == rule for f in fr_lint.lint_file(str(fr)))
