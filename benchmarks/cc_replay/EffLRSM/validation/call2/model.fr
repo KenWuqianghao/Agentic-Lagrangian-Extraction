@@ -1,0 +1,386 @@
+(******************************************************************************)
+(*                                                                            *)
+(*   EffLRSM : Effective Left-Right Symmetric Model                           *)
+(*   arXiv:1610.08985 (O. Mattelaer, M. Mitra, R. Ruiz)                       *)
+(*                                                                            *)
+(*   New states beyond the SM:                                                *)
+(*     - WR+, WR- : right-handed charged gauge bosons, mass MWR               *)
+(*     - ZR       : right-handed neutral gauge boson, mass MZR                *)
+(*     - N1, N2, N3 : three heavy Majorana neutrinos (particles n1, n2, n3),  *)
+(*                    aligned with the RH chiral states                       *)
+(*                                                                            *)
+(*   WR and ZR are taken to be aligned with their mass eigenstates (no        *)
+(*   mixing with the SM W, Z) and are independent parameters.  The LRSM       *)
+(*   scalar sector is NOT included (decoupled, paper Sec. 2.3) and the        *)
+(*   non-Abelian WR/ZR self-interactions are excluded ("ill-defined",         *)
+(*   Sec. 2.3).                                                               *)
+(*                                                                            *)
+(*   The light-neutrino mixing part of Eq.(2), Sum_m (nu^c)_m X_{lm} W^+ P_R  *)
+(*   l^-, is omitted: the paper's benchmark sets X_{lm} = 0 exactly           *)
+(*   (Eq.(lrsmNuMixing)), so the term carries no physics at the benchmark     *)
+(*   point.  The heavy-neutrino part, Sum_m' N_{m'} Y_{l m'} W^+ P_R l^-, is  *)
+(*   included with Ymix (benchmark: Y_{e N1} = Y_{mu N2} = Y_{tau N3} = 1).   *)
+(*                                                                            *)
+(*   Interactions: WR charged currents (quarks, Eq.(chcurrent), with the      *)
+(*   RH CKM matrix VCKMR; leptons, Eq.(2), with the heavy (Ymix) and          *)
+(*   light (Xmix) neutrino mixing matrices) and ZR neutral currents           *)
+(*   (Eq.(neucurrent), chiral coefficients gL, gR).                           *)
+(*                                                                            *)
+(*   Benchmark inputs (Eq.(lrsmInputs), Table 2):                             *)
+(*     MWR = 3000 GeV, MZR = 5070 GeV, kappa_R^q = kappa_R^l = 1,             *)
+(*     m_N1 = 173.3 GeV, m_N2 = m_N3 = 10^12 GeV,                             *)
+(*     VCKMR = 1 (diagonal, unit entries), Ymix = 1 (e N1, mu N2, tau N3),    *)
+(*     Xmix = 0, widths: WR 84.3 GeV, ZR 114 GeV, N1 2.12*10^-8 GeV.          *)
+(*                                                                            *)
+(*   The ZR chiral coefficients use tan^2(theta_W) exactly as printed in      *)
+(*   Eq.(neucurrent) (the paper's tWSq).  This convention is verified against *)
+(*   the benchmark widths of Table 2: with kappa = 1 it reproduces            *)
+(*   Gamma(ZR -> l+l-) = 7.64 GeV, Gamma(ZR -> N1 N1) = 10.2 GeV,             *)
+(*   Gamma(WR -> t b) = 25.2 GeV, Gamma(WR -> l N) = 8.41 GeV and the         *)
+(*   total widths 114 GeV (ZR) and 84.3 GeV (WR).                             *)
+(*                                                                            *)
+(******************************************************************************)
+
+M$ModelName = "EffLRSM_gen";
+
+M$Information = {
+  Authors      -> {"EffLRSM benchmark extraction (arXiv:1610.08985)"},
+  Version      -> "1.0",
+  Date         -> "28. 09. 2026",
+  Institutions -> {"FeynRules database benchmark"},
+  Emails       -> "",
+  URLs         -> "http://feynrules.irmp.ucl.ac.be/wiki/EffLRSM"
+};
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1},
+  {NP, 2}
+};
+
+(* **************************** *)
+(*  New particle classes       *)
+(* **************************** *)
+
+M$ClassesDescription = {
+
+  V[100] == {
+    ClassName        -> WR,
+    SelfConjugate    -> False,
+    Mass             -> {MWR, 3000.},
+    Width            -> {WWR, 84.3},
+    QuantumNumbers   -> {Q -> 1},
+    ParticleName     -> "wr+",
+    AntiParticleName -> "wr-",
+    PropagatorLabel  -> "WR",
+    PropagatorType   -> Sine,
+    PropagatorArrow  -> Forward,
+    PDG              -> 9900001,
+    FullName         -> "Right-handed charged gauge boson"
+  },
+  V[101] == {
+    ClassName       -> ZR,
+    SelfConjugate   -> True,
+    Mass            -> {MZR, 5070.},
+    Width           -> {WZR, 114.},
+    ParticleName    -> "zr",
+    PropagatorLabel -> "ZR",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    PDG             -> 9900002,
+    FullName        -> "Right-handed neutral gauge boson"
+  },
+  F[100] == {
+    ClassName       -> NR1,
+    SelfConjugate   -> True,
+    Mass            -> {MN1, 173.3},
+    Width           -> {WN1, 2.12*10^-8},
+    ParticleName    -> "n1",
+    PropagatorLabel -> "N1",
+    PropagatorType  -> S,
+    PropagatorArrow -> None,
+    PDG             -> 9900012,
+    FullName        -> "Heavy Majorana neutrino 1"
+  },
+  F[101] == {
+    ClassName       -> NR2,
+    SelfConjugate   -> True,
+    Mass            -> {MN2, 1000000000000.},
+    Width           -> 0,
+    ParticleName    -> "n2",
+    PropagatorLabel -> "N2",
+    PropagatorType  -> S,
+    PropagatorArrow -> None,
+    PDG             -> 9900013,
+    FullName        -> "Heavy Majorana neutrino 2"
+  },
+  F[102] == {
+    ClassName       -> NR3,
+    SelfConjugate   -> True,
+    Mass            -> {MN3, 1000000000000.},
+    Width           -> 0,
+    ParticleName    -> "n3",
+    PropagatorLabel -> "N3",
+    PropagatorType  -> S,
+    PropagatorArrow -> None,
+    PDG             -> 9900014,
+    FullName        -> "Heavy Majorana neutrino 3"
+  }
+};
+
+(* ******************** *)
+(*  Parameters         *)
+(* ******************** *)
+
+M$Parameters = {
+
+  (* External parameters *)
+  MWR == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 1,
+    Value            -> 3000.,
+    InteractionOrder -> {NP, 2},
+    TeX              -> Subscript[M, WR],
+    Description      -> "Mass of the WR gauge boson [GeV], Eq.(lrsmInputs)"
+  },
+  MZR == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 2,
+    Value            -> 5070.,
+    InteractionOrder -> {NP, 2},
+    TeX              -> Subscript[M, ZR],
+    Description      -> "Mass of the ZR gauge boson [GeV], Eq.(lrsmInputs); MZR = Sqrt[2 Cos^2[theta_W]/Cos[2 theta_W]] MWR, Eq.(massRelationship)"
+  },
+  kappaRq == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 3,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Superscript[kappa, R^q],
+    Description      -> "Overall normalization of the WR/ZR coupling to quarks, Eq.(chcurrent), Eq.(neucurrent)"
+  },
+  kappaRell == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 4,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Superscript[kappa, R^l],
+    Description      -> "Overall normalization of the WR/ZR coupling to leptons, Eq.(2), Eq.(neucurrent)"
+  },
+  MN1 == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 5,
+    Value            -> 173.3,
+    InteractionOrder -> {NP, 2},
+    TeX              -> Subscript[m, N1],
+    Description      -> "Mass of the heavy Majorana neutrino N1 [GeV], Eq.(lrsmInputs)"
+  },
+  MN2 == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 6,
+    Value            -> 1000000000000.,
+    InteractionOrder -> {NP, 2},
+    TeX              -> Subscript[m, N2],
+    Description      -> "Mass of the heavy Majorana neutrino N2 [GeV], Eq.(lrsmInputs)"
+  },
+  MN3 == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 7,
+    Value            -> 1000000000000.,
+    InteractionOrder -> {NP, 2},
+    TeX              -> Subscript[m, N3],
+    Description      -> "Mass of the heavy Majorana neutrino N3 [GeV], Eq.(lrsmInputs)"
+  },
+  WWR == {
+    ParameterType -> External,
+    BlockName     -> EFFLRSM_WIDTHS,
+    OrderBlock    -> 1,
+    Value         -> 84.3,
+    Description   -> "Total width of the WR gauge boson [GeV], Table 2"
+  },
+  WZR == {
+    ParameterType -> External,
+    BlockName     -> EFFLRSM_WIDTHS,
+    OrderBlock    -> 2,
+    Value         -> 114.,
+    Description   -> "Total width of the ZR gauge boson [GeV], Table 2"
+  },
+  WN1 == {
+    ParameterType -> External,
+    BlockName     -> EFFLRSM_WIDTHS,
+    OrderBlock    -> 3,
+    Value         -> 2.12*10^-8,
+    Description   -> "Total width of the heavy Majorana neutrino N1 [GeV], Table 2"
+  },
+  Ymix == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 8,
+    InteractionOrder -> {NP, 1},
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {Ymix[1,1] -> 1, Ymix[1,2] -> 0, Ymix[1,3] -> 0,
+                          Ymix[2,1] -> 0, Ymix[2,2] -> 1, Ymix[2,3] -> 0,
+                          Ymix[3,1] -> 0, Ymix[3,2] -> 0, Ymix[3,3] -> 1},
+    TeX              -> Superscript[Y, N],
+    Description      -> "Y_{l m'}: mixing of the heavy neutrino mass eigenstate N_{m'} with the RH state of lepton flavor l, Eq.(lrsmNuMixing); Ymix[N-index, l-index]"
+  },
+  Xmix == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 9,
+    InteractionOrder -> {NP, 1},
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {Xmix[1,1] -> 0, Xmix[1,2] -> 0, Xmix[1,3] -> 0,
+                          Xmix[2,1] -> 0, Xmix[2,2] -> 0, Xmix[2,3] -> 0,
+                          Xmix[3,1] -> 0, Xmix[3,2] -> 0, Xmix[3,3] -> 0},
+    TeX              -> Superscript[X, nu],
+    Description      -> "X_{l m}: mixing of the light neutrino nu_m with the RH state of lepton flavor l, Eq.(lrsmNuMixing); zero in the benchmark; Xmix[nu-index, l-index]"
+  },
+
+  Xmix == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 9,
+    InteractionOrder -> {NP, 1},
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {Xmix[1,1] -> 0, Xmix[1,2] -> 0, Xmix[1,3] -> 0,
+                          Xmix[2,1] -> 0, Xmix[2,2] -> 0, Xmix[2,3] -> 0,
+                          Xmix[3,1] -> 0, Xmix[3,2] -> 0, Xmix[3,3] -> 0},
+    TeX              -> Superscript[X, nu],
+    Description      -> "X_{l m}: mixing of the light neutrino nu_m with the RH state of lepton flavor l, Eq.(lrsmNuMixing); zero in the benchmark; the corresponding term of Eq.(2) is omitted at the benchmark point; Xmix[nu-index, l-index]"
+  },
+
+  (* Internal parameters *)
+  tWSq == {
+    ParameterType -> Internal,
+    Value         -> sw2/cw^2,
+    TeX           -> Subscript[tan, 2 theta_W],
+    Description   -> "tan^2(theta_W), the tWSq appearing in the ZR neutral current, Eq.(neucurrent)"
+  },
+  VCKMR == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Value         -> {VCKMR[1,1] -> 1, VCKMR[1,2] -> 0, VCKMR[1,3] -> 0,
+                      VCKMR[2,1] -> 0, VCKMR[2,2] -> 1, VCKMR[2,3] -> 0,
+                      VCKMR[3,1] -> 0, VCKMR[3,2] -> 0, VCKMR[3,3] -> 1},
+    TeX           -> Superscript[V, CKM_R],
+    Description   -> "Right-handed CKM matrix, taken diagonal with unit entries (paper Sec. 2)"
+  }
+};
+
+(* **************************** *)
+(*  Free-field terms            *)
+(* **************************** *)
+
+(* Complex vector WR: kinetic + mass (explicit field-strength form) *)
+LWRkin := Block[{mu, nu},
+  -1/2 (del[WRbar[nu], mu] - del[WRbar[mu], nu]) (del[WR[nu], mu] - del[WR[mu], nu]) +
+  MWR^2 WRbar[mu] WR[mu]
+];
+
+(* Real vector ZR: kinetic + mass *)
+LZRkin := Block[{mu, nu},
+  -1/4 FS[ZR, mu, nu] FS[ZR, mu, nu] + 1/2 MZR^2 ZR[mu] ZR[mu]
+];
+
+(* Heavy Majorana neutrinos N1, N2, N3: kinetic terms *)
+LNkin := Block[{mu},
+  I/2 (NR1bar.Ga[mu].del[NR1, mu] +
+       NR2bar.Ga[mu].del[NR2, mu] +
+       NR3bar.Ga[mu].del[NR3, mu])
+];
+
+(* Heavy Majorana neutrinos N1, N2, N3: mass terms *)
+LNmass := -1/2 MN1 NR1bar.NR1 - 1/2 MN2 NR2bar.NR2 - 1/2 MN3 NR3bar.NR3;
+
+(* **************************** *)
+(*  WR charged currents         *)
+(*  Eq.(chcurrent), Eq.(2)      *)
+(* **************************** *)
+
+(* WR q q' : L = -kappa_R^q g/Sqrt[2] ubar_i V^CKM'_{ij} W^+_{R mu} gamma^mu P_R d_j + H.c.
+   uRbar = ubar P_L, dR = P_R d, hence uRbar gamma^mu dR = ubar gamma^mu P_R d *)
+LWRquark := Block[{mu},
+  -kappaRq gw/Sqrt[2] uRbar.VCKMR.Ga[mu].dR WR[mu] +
+  HC[-kappaRq gw/Sqrt[2] uRbar.VCKMR.Ga[mu].dR WR[mu]]
+];
+
+(* WR l nu/N : L = -kappa_R^l g/Sqrt[2] Sum_l [ Sum_m (nu^c)_m X_{lm} + Sum_m' N_{m'} Y_{l m'} ]
+   W^+_{R mu} gamma^mu P_R l^- + H.c.
+   The paper's benchmark takes X = 0 exactly (Eq.(lrsmNuMixing)); that part of
+   the current is therefore omitted.  Ymix is kept as a parameter
+   (benchmark: Y_{e N1} = Y_{mu N2} = Y_{tau N3} = 1).
+   The right-handed current gamma^mu P_R is written as (gamma^mu + gamma^mu
+   gamma^5)/2 on the physical lepton fields. *)
+LWRlepton := Block[{mu},
+  -kappaRell gw/(2 Sqrt[2]) (
+     Ymix[1,1] (NR1bar.Ga[mu].l[1] + NR1bar.Ga[mu].Ga[5].l[1]) +
+     Ymix[2,2] (NR2bar.Ga[mu].l[2] + NR2bar.Ga[mu].Ga[5].l[2]) +
+     Ymix[3,3] (NR3bar.Ga[mu].l[3] + NR3bar.Ga[mu].Ga[5].l[3])
+   ) WR[mu] +
+  HC[-kappaRell gw/(2 Sqrt[2]) (
+     Ymix[1,1] (NR1bar.Ga[mu].l[1] + NR1bar.Ga[mu].Ga[5].l[1]) +
+     Ymix[2,2] (NR2bar.Ga[mu].l[2] + NR2bar.Ga[mu].Ga[5].l[2]) +
+     Ymix[3,3] (NR3bar.Ga[mu].l[3] + NR3bar.Ga[mu].Ga[5].l[3])
+   ) WR[mu]]
+];
+
+(* **************************** *)
+(*  ZR neutral currents         *)
+(*  Eq.(neucurrent)             *)
+(*                              *)
+(*  L = -kappa_R^f g/Sqrt[1 - tWSq/kappa_R^f^2] ZR_mu fbar gamma^mu          *)
+(*        (g_L P_L + g_R P_R) f, with tWSq = tan^2(theta_W) and              *)
+(*        g_L = (T_L3 - Q) tWSq/kappa^2,  g_R = T_R3 - tWSq Q/kappa^2.      *)
+(*  Written as vector + axial currents on the SM mass eigenstates:           *)
+(*        g_L P_L + g_R P_R -> vec = (g_L+g_R)/2,  axi = (g_L-g_R)/2.        *)
+(*  T_L3, T_R3, Q from Table 1.                                              *)
+(* **************************** *)
+
+(* quarks: kappa_R^f = kappa_R^q;
+   u: T_L3 = +1/2, Q = +2/3, T_R3 = +1/2;  d: T_L3 = -1/2, Q = -1/3, T_R3 = -1/2 *)
+LZRquark := Block[{mu},
+  -kappaRq gw/Sqrt[1 - tWSq/kappaRq^2] ZR[mu] (
+     (1/4 - 5 tWSq/(12 kappaRq^2)) uqbar.Ga[mu].uq +
+     (tWSq/(4 kappaRq^2) - 1/4) uqbar.Ga[mu].Ga[5].uq +
+     (-1/4 + tWSq/(12 kappaRq^2)) dqbar.Ga[mu].dq +
+     (1/4 - tWSq/(4 kappaRq^2)) dqbar.Ga[mu].Ga[5].dq
+  )
+];
+
+(* leptons: kappa_R^f = kappa_R^l;
+   nu: T_L3 = +1/2, Q = 0, T_R3 = 0;  l: T_L3 = -1/2, Q = -1, T_R3 = -1/2 *)
+LZRlepton := Block[{mu},
+  -kappaRell gw/Sqrt[1 - tWSq/kappaRell^2] ZR[mu] (
+     (tWSq/(4 kappaRell^2)) vlbar.Ga[mu].vl +
+     (tWSq/(4 kappaRell^2)) vlbar.Ga[mu].Ga[5].vl +
+     (-1/4 + 3 tWSq/(4 kappaRell^2)) lbar.Ga[mu].l +
+     (1/4 - tWSq/(4 kappaRell^2)) lbar.Ga[mu].Ga[5].l
+  )
+];
+
+(* heavy Majorana neutrinos: N: T_L3 = 0, Q = 0, T_R3 = +1/2, kappa_R^f = kappa_R^l;
+   g_L = 0, g_R = 1/2.  For a Majorana field the vector current Nbar gamma^mu N
+   vanishes identically, so Nbar gamma^mu P_R N = (1/2) Nbar gamma^mu gamma^5 N. *)
+LZRN := Block[{mu},
+  -kappaRell gw/Sqrt[1 - tWSq/kappaRell^2] ZR[mu] (
+     1/4 NR1bar.Ga[mu].Ga[5].NR1 +
+     1/4 NR2bar.Ga[mu].Ga[5].NR2 +
+     1/4 NR3bar.Ga[mu].Ga[5].NR3
+  )
+];
+
+(* ************************* *)
+(*  Total Lagrangian         *)
+(* ************************* *)
+
+LTotal := LSM + LWRkin + LZRkin + LNkin + LNmass + LWRquark + LWRlepton +
+   LZRquark + LZRlepton + LZRN;

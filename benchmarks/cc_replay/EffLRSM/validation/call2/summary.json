@@ -1,0 +1,100 @@
+{
+ "call": 2,
+ "stage": "checks_failed",
+ "full_chain_pass": false,
+ "compile_ok": true,
+ "checks": {
+  "hermiticity": "fail",
+  "kinetic_diagonal": "pass",
+  "mass_diagonal": "pass",
+  "mass_spectrum": "pass"
+ },
+ "madgraph_import_ok": false,
+ "lagrangian_expression": "LTotal",
+ "error_tags": [
+  "hermiticity_fail",
+  "mg5_import_fail",
+  "ufo_python_syntax_error",
+  "mg5_python_traceback",
+  "mg5_invalid_cmd"
+ ],
+ "seconds": 131.7,
+ "lock_wait_seconds": 0.0,
+ "t_kernel_start": 1790745133.118,
+ "t_kernel_end": 1790745265.413,
+ "stage_reached": "checks",
+ "driver": "diag",
+ "report": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/cc_replay/EffLRSM/validation/call2/VALIDATION_REPORT.md",
+ "row": {
+  "round": 0,
+  "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/EffLRSM/rerun/pi_qwen_harness/s1/model/EffLRSM_gen.fr",
+  "lag_symbol": "LTotal",
+  "lag_resolution": {
+   "roots": [
+    "LTotal"
+   ],
+   "legacy_symbol": "LTotal",
+   "n_terms_defined": 10,
+   "ambiguous": false,
+   "changed_from_legacy": false
+  },
+  "compile_ok": true,
+  "lagrangian_expression": "LTotal",
+  "timed_out": false,
+  "exit": 0,
+  "seconds": 131.7,
+  "ufo_files": [
+   "particles.py",
+   "parameters.py",
+   "couplings.py",
+   "vertices.py",
+   "lorentz.py"
+  ],
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "protected_symbol_errors": 0,
+  "log_tail": "",
+  "n_particles_ufo": 29,
+  "madgraph_import_ok": false,
+  "mg5_particles": null,
+  "lepton_number_violation": false,
+  "mg5_tail": "_ufo.py\", line 413, in import_full_model\n    ufo_model = ufomodels.load_model(model_path, decay)\n  File \"/Users/kenwu/MG5_aMC/models/__init__.py\", line 101, in load_model\n    raise UFOError(str(error))\nmodels.UFOError: invalid syntax (object_library.py, line 268)\n\u001b[1;31mCommand \"import /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/cc_replay/EffLRSM/validation/call2/round0/mg5run/mg5_import.txt\" interrupted in sub-command:\n\"import model /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/cc_replay/EffLRSM/validation/call2/round0/UFO\" with error:\nUFOError : invalid syntax (object_library.py, line 268)\nPlease report this bug on https://bugs.launchpad.net/mg5amcnlo\nMore information is found in 'MG5_debug'.\nPlease attach this file to your report.\u001b[0m\n",
+  "mg5_debug_tail": "el not python3 compatible. You can convert it via the command \\nconvert model %s\\nYou can also type \\\"set auto_convert_model T\\\" to automatically convert all python2 module to be python3 compatible in the future.' % model_path)\nmadgraph.InvalidCmd: UFO model not python3 compatible. You can convert it via the command \nconvert model /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/cc_replay/EffLRSM/validation/call2/round0/UFO\nYou can also type \"set auto_convert_model T\" to automatically convert all python2 module to be python3 compatible in the future.\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"/Users/kenwu/MG5_aMC/madgraph/interface/extended_cmd.py\", line 1570, in onecmd\n    return self.onecmd_orig(line, **opt)\n           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^\n  File \"/Users/kenwu/MG5_aMC/madgraph/interface/extended_cmd.py\", line 1519, in onecmd_orig\n    return func(arg, **opt)\n  File \"/Users/kenwu/MG5_aMC/madgraph/interface/master_interface.py\", line 281, in do_import\n    self.cmd.do_import(self, *args, **opts)\n    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/kenwu/MG5_aMC/madgraph/interface/madgraph_interface.py\", line 5893, in do_import\n    self.import_command_file(args[1])\n    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^\n  File \"/Users/kenwu/MG5_aMC/madgraph/interface/extended_cmd.py\", line 1718, in import_command_file\n    self.exec_cmd(line, precmd=True)\n    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/Users/kenwu/MG5_aMC/madgraph/interface/extended_cmd.py\", line 1599, in exec_cmd\n    stop = Cmd.onecmd_orig(current_interface, line, **opt)\n  File \"/Users/kenwu/MG5_aMC/madgraph/interface/extended_cmd.py\", line 1519, in onecmd_orig\n    return func(arg, **opt)\n  File \"/Users/kenwu/MG5_aMC/madgraph/interface/master_interface.py\", line 281, in do_import\n    self.cmd.do_import(self, *args, **opts)\n    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^\n  File \"/Users/kenwu/MG5_aMC/madgraph/interface/madgraph_interface.py\", line 5835, in do_import\n    raise err\n  File \"/Users/kenwu/MG5_aMC/madgraph/interface/madgraph_interface.py\", line 5819, in do_import\n    self._curr_model = import_ufo.import_model(args[1], prefix=prefix,\n                       ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\n        complex_mass_scheme=self.options['complex_mass_scheme'],\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        options=options)\n        ^^^^^^^^^^^^^^^^\n  File \"/Users/kenwu/MG5_aMC/models/import_ufo.py\", line 251, in import_model\n    model = import_full_model(model_path, decay, prefix)\n  File \"/Users/kenwu/MG5_aMC/models/import_ufo.py\", line 413, in import_full_model\n    ufo_model = ufomodels.load_model(model_path, decay)\n  File \"/Users/kenwu/MG5_aMC/models/__init__.py\", line 101, in load_model\n    raise UFOError(str(error))\nmodels.UFOError: invalid syntax (object_library.py, line 268)\nFail to write options with error No model currently active, please import a model!",
+  "status": "compiled",
+  "ufo_syntax_errors": [
+   {
+    "file": "couplings.py",
+    "line": 694,
+    "msg": "unterminated string literal (detected at line 694)",
+    "context": "  692 | GC_171 = Coupling(name = 'GC_171',\n  693 |                   value = 'ReplaceAll(-0.5*(ee*complex(0,1)*kappaRell*Dot(lbar(-1),Gamma(0),Gamma(1),NR1)*complexconjugate(Ymix1x1)*Gamma(0,r$18608,1))/(sw*cmath.sqrt(2)) - (ee*complex(0,1)*kappaRell*Dot(lbar(-2),Gamma(0),Gamma(1),Gamma5(),NR1)*complexconjugate(Ymix1x1)*Gamma(0,r$18609,1))/(2.*sw*cm\n  694 |                   order = {'                       1                                                                                                                                    I                                                                                                                   \n  695 |                     (-(-) I) ee kappaRell Conjugate[Ymix1x1] lbar[Index[Spin, Int[1]]] . L$Ga[0] . L$Ga[Index[Lorentz, Ext[1]]] . NR1 L$Ga[0, r$18608, 1]   - ee kappaRell Conjugate[Ymix1x1] lbar[Index[Spin, Int[2]]] . L$Ga[0] . L$Ga[Index[Lorentz, Ext[1]]] . L$Ga[5] . NR1 L$Ga[0, r$18609, 1]   - ee \n  696 |                        2                                                                                                                                    2                                                                                                                                          2    "
+   },
+   {
+    "file": "parameters.py",
+    "line": 90,
+    "msg": "positional argument follows keyword argument",
+    "context": "   88 |                     texname = '\\\\text{Ymix1x1}',\n   89 |                     lhablock = 'EFFLRSM',\n   90 | ClassAttributeCreation[lhacode, PYList[{1, 1} /. 8], 20]<>)\n   91 | \n   92 | Xmix1x1 = Parameter(name = 'Xmix1x1',"
+   },
+   {
+    "file": "vertices.py",
+    "line": 580,
+    "msg": "closing parenthesis ')' does not match opening parenthesis '[' on line 577",
+    "context": "  578 |               color = [ '1' ],\n  579 |               lorentz = [ L.<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>V<>PRIVATE`ConvertSpinToString[0]<>1 ],\n  580 |               couplings = {(0,-1 + PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>V<>PRIVATE`ConvertSpinToString[0]<>1):C.GC_171})\n  581 | \n  582 | V_96 = Vertex(name = 'V_96',"
+   }
+  ],
+  "ufo_import_error": "Traceback (most recent call last):\n  File \"<string>\", line 5, in <module>\n    __import__('UFO')\n    ~~~~~~~~~~^^^^^^^\n  File \"/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/cc_replay/EffLRSM/validation/call2/round0/UFO/__init__.py\", line 2, in <module>\n    import particles\n  File \"/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/cc_replay/EffLRSM/validation/call2/round0/UFO/particles.py\", line 8, in <module>\n    import parameters as Param\n  File \"/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/cc_replay/EffLRSM/validation/call2/round0/UFO/parameters.py\", line 90\n    ClassAttributeCreation[lhacode, PYList[{1, 1} /. 8], 20]<>)\n                                                   ^\nSyntaxError: positional argument follows keyword argument\n",
+  "ufo_dir": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/cc_replay/EffLRSM/validation/call2/round0/UFO",
+  "compile_log": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/cc_replay/EffLRSM/validation/call2/round0/compile.log",
+  "full_pass": false,
+  "error_tags": [
+   "hermiticity_fail",
+   "mg5_import_fail",
+   "ufo_python_syntax_error",
+   "mg5_python_traceback",
+   "mg5_invalid_cmd"
+  ]
+ }
+}

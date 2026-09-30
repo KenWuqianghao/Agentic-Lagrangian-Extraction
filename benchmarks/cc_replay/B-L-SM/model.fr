@@ -1,0 +1,371 @@
+(******************************************************************************)
+(*                                                                            *)
+(*  B-L-SM_gen : gauged U(1)_{B-L} extension of the Standard Model           *)
+(*  FeynRules add-on loaded on top of SM.fr                                   *)
+(*                                                                            *)
+(*  Source: arXiv:1811.11452 (Amrith, Butterworth, Deppisch, Liu, Varma,     *)
+(*  Yallup, "LHC Constraints on a B-L Gauge Model using Contur")              *)
+(*                                                                            *)
+(*  New content:                                                              *)
+(*   - Abelian gauge boson ZP (B-L), coupling gp, mass MZP, no Z-Z' mixing   *)
+(*     (tilde g = 0, minimal gauged B-L, Eq. DM of the paper)                 *)
+(*   - complex SM-singlet scalar chi with Y_{B-L}=+2, vev x = MZP/(2 gp),     *)
+(*     Eqs. Ls, VHX; mixes with the SM Higgs through the angle alpha:        *)
+(*     (h1,h2) = [[ca,-sa],[sa,ca]] (H,ch)  (Eq. Higgs mixing),              *)
+(*     h1 = SM-like (mass MH), h2 = exotic (mass MHH)                        *)
+(*   - three heavy (RH) neutrinos Nst = {N1,N2,N3} with Y_{B-L}=-1,          *)
+(*     mass MNR, active-sterile mixing VlN = Sqrt[mnuL/MNR]                  *)
+(*     (seesaw, mnuL = 0.1 eV)                                                *)
+(*                                                                            *)
+(*  Parameterisation: physical masses and angle are External; the quartics   *)
+(*  lam1..3 and the quadratic mass parameters m2H, m2chi are Internal        *)
+(*  (inverted, verified: tadpoles=0, mass matrix diagonal,                  *)
+(*  M^2 = diag(MH^2, MHH^2); the sign of lam3 is the one consistent with    *)
+(*  the paper's rotation + mass matrix + eigenvalue formulae).               *)
+(*                                                                            *)
+(*  Benchmark (Table 1 case D, Table 3 / Fig. 7 point):                      *)
+(*  MZP = 7000 GeV, gp = 0.2 (x = 17.5 TeV), MHH = 310 GeV,                 *)
+(*  sin(alpha) = 0.42, MNR = MZP/5 = 1400 GeV, VlN = Sqrt[1e-10/1400].      *)
+(*                                                                            *)
+(******************************************************************************)
+
+M$ModelName = "B-L-SM_gen";
+
+M$Information = {
+  Authors      -> {"Automated extraction, B-L-SM benchmark"},
+  Version      -> "1.0",
+  Date         -> "28. 09. 2026",
+  Institutions -> {"arXiv:1811.11452"},
+  Emails       -> {"n/a"},
+  URLs         -> "https://arxiv.org/abs/1811.11452"
+};
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+
+M$Parameters = {
+
+  (* --- External parameters: the directly measurable set of the paper --- *)
+  MZP == {
+    ParameterType    -> External,
+    BlockName        -> BL,
+    OrderBlock       -> 1,
+    Value            -> 7000.,
+    TeX              -> M_{Z'},
+    InteractionOrder -> {NP, 1},
+    Description      -> "Mass of the B-L gauge boson ZP [GeV], Table 1 case D"
+  },
+  gp == {
+    ParameterType    -> External,
+    BlockName        -> BL,
+    OrderBlock       -> 2,
+    Value            -> 0.2,
+    TeX              -> g_{B-L},
+    InteractionOrder -> {NP, 1},
+    Description      -> "B-L gauge coupling (Eq. DM), Table 1 case D"
+  },
+  MHH == {
+    ParameterType    -> External,
+    BlockName        -> BL,
+    OrderBlock       -> 3,
+    Value            -> 310.,
+    TeX              -> M_{h2},
+    InteractionOrder -> {NP, 1},
+    Description      -> "Mass of the exotic Higgs h2 [GeV], Table 3"
+  },
+  alphaH == {
+    ParameterType    -> External,
+    BlockName        -> BL,
+    OrderBlock       -> 4,
+    Value            -> ArcSin[0.42],
+    TeX              -> alpha,
+    Description      -> "Higgs mixing angle alpha (Fig. 7 point: sin alpha = 0.42)"
+  },
+  MNR == {
+    ParameterType    -> External,
+    BlockName        -> BL,
+    OrderBlock       -> 5,
+    Value            -> 1400.,
+    TeX              -> M_N,
+    InteractionOrder -> {NP, 1},
+    Description      -> "Heavy RH neutrino mass [GeV], set to MZP/5"
+  },
+  mnuL == {
+    ParameterType    -> External,
+    BlockName        -> BL,
+    OrderBlock       -> 6,
+    Value            -> 1.*^-10,
+    TeX              -> m_{nu},
+    Description      -> "Light-neutrino mass scale [GeV] = 0.1 eV (seesaw input)"
+  },
+  WZP == {
+    ParameterType    -> External,
+    BlockName        -> BL,
+    OrderBlock       -> 7,
+    Value            -> 1.,
+    Description      -> "Width of the ZP [GeV] (placeholder, to be set from full width)"
+  },
+  WHH == {
+    ParameterType    -> External,
+    BlockName        -> BL,
+    OrderBlock       -> 8,
+    Value            -> 1.,
+    Description      -> "Width of the exotic Higgs HH [GeV] (placeholder)"
+  },
+
+  (* --- Internal parameters --- *)
+  xBL == {
+    ParameterType -> Internal,
+    Value         -> MZP/(2 gp),
+    TeX           -> x,
+    Description   -> "B-L breaking vev x = MZP/(2 g') [GeV], Eq. DM / expcons"
+  },
+  sa == {
+    ParameterType -> Internal,
+    Value         -> Sin[alphaH],
+    TeX           -> s_alpha,
+    Description   -> "sin of the Higgs mixing angle"
+  },
+  ca == {
+    ParameterType -> Internal,
+    Value         -> Cos[alphaH],
+    TeX           -> c_alpha,
+    Description   -> "cos of the Higgs mixing angle"
+  },
+  VlN == {
+    ParameterType    -> Internal,
+    Value            -> Sqrt[mnuL/MNR],
+    TeX              -> V_{lN},
+    InteractionOrder -> {NP, 1},
+    Description      -> "Active-sterile neutrino mixing V_lN = Sqrt[m_nu/M_N], Eq. benchmarks"
+  },
+  VlNmat == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {VlNmat[1,1] -> VlN, VlNmat[1,2] -> 0, VlNmat[1,3] -> 0,
+                         VlNmat[2,1] -> 0, VlNmat[2,2] -> VlN, VlNmat[2,3] -> 0,
+                         VlNmat[3,1] -> 0, VlNmat[3,2] -> 0, VlNmat[3,3] -> VlN},
+    TeX              -> Superscript[V, lN],
+    InteractionOrder -> {NP, 1},
+    Description      -> "Active-sterile mixing matrix (diagonal, entries V_lN); generation structure of the heavy neutrinos"
+  },
+  m2H == {
+    ParameterType -> Internal,
+    Value         -> (1/2)*(MH^2*ca*sa*xBL + MH^2*sa^2*vev - MH^2*vev - MHH^2*ca*sa*xBL - MHH^2*sa^2*vev)/vev,
+    TeX           -> m_H^2,
+    Description   -> "Quadratic mass parameter of H^dagger H in V(H,chi), Eq. VHX (tadpole-fixed, inverted)"
+  },
+  m2chi == {
+    ParameterType -> Internal,
+    Value         -> -1/2*(-MH^2*ca*sa*vev + MH^2*sa^2*xBL + MHH^2*ca*sa*vev - MHH^2*sa^2*xBL + MHH^2*xBL)/xBL,
+    TeX           -> m_chi^2,
+    Description   -> "Quadratic mass parameter of |chi|^2 in V(H,chi), Eq. VHX (tadpole-fixed, inverted)"
+  },
+  lam1 == {
+    ParameterType    -> Internal,
+    Value            -> -1/2*(MH^2*sa^2 - MH^2 - MHH^2*sa^2)/vev^2,
+    TeX              -> lambda_1,
+    InteractionOrder -> {QED, 2},
+    Description      -> "Quartic (H^dagger H)^2 of V, Eq. para_quartic (inverted from MH, MHH, alpha)"
+  },
+  lam2 == {
+    ParameterType    -> Internal,
+    Value            -> (1/2)*(MH^2*sa^2 - MHH^2*sa^2 + MHH^2)/xBL^2,
+    TeX              -> lambda_2,
+    InteractionOrder -> {NP, 1},
+    Description      -> "Quartic |chi|^4 of V, Eq. para_quartic (inverted from MH, MHH, alpha)"
+  },
+  lam3 == {
+    ParameterType    -> Internal,
+    Value            -> -ca*sa*(MH - MHH)*(MH + MHH)/(vev*xBL),
+    TeX              -> lambda_3,
+    InteractionOrder -> {NP, 1},
+    Description      -> "Portal quartic H^dagger H |chi|^2 of V (inverted; sign fixed by the paper's rotation + mass matrix, see header)"
+  }
+};
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+
+M$ClassesDescription = {
+
+  (* B-L gauge boson Z' (real vector, mass eigenstate: no Z-Z' mixing, tilde g = 0) *)
+  V[100] == {
+    ClassName       -> ZP,
+    SelfConjugate   -> True,
+    Mass            -> {MZP, 7000.},
+    Width           -> {WZP, 1.},
+    ParticleName    -> "ZP",
+    PDG             -> 5234,
+    PropagatorLabel -> "ZP",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "B-L gauge boson Z'"
+  },
+
+  (* Exotic Higgs h2 (CP-even mass eigenstate mixing with the SM Higgs) *)
+  S[100] == {
+    ClassName       -> HH,
+    SelfConjugate   -> True,
+    Mass            -> {MHH, 310.},
+    Width           -> {WHH, 1.},
+    ParticleName    -> "HH",
+    PDG             -> 5235,
+    PropagatorLabel -> "HH",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    FullName        -> "exotic Higgs h2 (singlet component)"
+  },
+
+  (* Would-be Goldstone boson of the ZP (imaginary part of chi) *)
+  S[101] == {
+    ClassName       -> G02,
+    SelfConjugate   -> True,
+    Goldstone       -> ZP,
+    Mass            -> {MZP, 7000.},
+    Width           -> {WZP, 1.},
+    ParticleName    -> "G02",
+    PDG             -> 252,
+    PropagatorLabel -> "G02",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    FullName        -> "Goldstone boson eaten by the ZP"
+  },
+
+  (* B-L breaking singlet scalar chi (gauge eigenstate, Y_{B-L} = +2) *)
+  S[102] == {
+    ClassName       -> chi,
+    Unphysical      -> True,
+    SelfConjugate   -> False,
+    QuantumNumbers  -> {B_L -> 2},
+    Definitions     -> { chi -> (xBL - sa H + ca HH + I G02)/Sqrt[2] }
+  },
+
+  (* Three heavy RH neutrinos (Dirac mass eigenstates, Y_{B-L} = -1);
+      their Majorana nature is encoded by the mass MNR and the mixing
+      vertices; set to be stable as in the paper's benchmark *)
+  F[100] == {
+    ClassName        -> Nst,
+    ClassMembers     -> {N1, N2, N3},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {MNR, 1400.},
+    Width            -> 0,
+    QuantumNumbers   -> {B_L -> -1, LeptonNumber -> 1},
+    ParticleName     -> {"N1", "N2", "N3"},
+    AntiParticleName -> {"N1~", "N2~", "N3~"},
+    PropagatorLabel  -> {"N1", "N2", "N3"},
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    PDG              -> {1000021, 1000023, 1000035},
+    FullName         -> {"Heavy RH neutrino 1", "Heavy RH neutrino 2", "Heavy RH neutrino 3"}
+  },
+
+  (* Re-declare the SM Higgs doublet with the h1-h2 mixing inserted
+     (same class, index and names as SM.fr; Eqs. Higgs mixing, Neutrino) *)
+  S[11] == {
+    ClassName       -> Phi,
+    Unphysical      -> True,
+    Indices         -> {Index[SU2D]},
+    FlavorIndex     -> SU2D,
+    SelfConjugate   -> False,
+    QuantumNumbers  -> {Y -> 1/2},
+    Definitions     -> {
+      Phi[1] -> -I GP,
+      Phi[2] -> (vev + ca H + sa HH + I G0)/Sqrt[2]
+    }
+  }
+};
+
+(* gauge-fixing parameters for the new gauge boson and its Goldstone *)
+GaugeXi[V[100]] = GaugeXi[Z];
+GaugeXi[S[101]] = GaugeXi[Z];
+
+(* ************************** *)
+(* *****  Lagrangian   ***** *)
+(* ************************** *)
+
+(* SM Higgs doublet kinetic term + full scalar potential V(H, chi)
+   of Eq. VHX, written in the gauge basis (Phi, chi) with the
+   inverted couplings (mass eigenstates H and HH are diagonal).
+   Replaces LHiggs of SM.fr. *)
+LScalar := Block[{ii, jj, mu},
+  ExpandIndices[
+    DC[Phibar[ii], mu] DC[Phi[ii], mu]
+    - m2H Phibar[ii] Phi[ii]
+    - m2chi chibar chi
+    - lam1 Phibar[ii] Phi[ii] Phibar[jj] Phi[jj]
+    - lam2 chibar chi chibar chi
+    - lam3 Phibar[ii] Phi[ii] chibar chi,
+    FlavorExpand -> {SU2D, SU2W}]
+];
+
+(* Singlet kinetic term (D chi)^dagger (D chi) with the B-L covariant
+   derivative D = del + i 2 gp ZP (charge of chi is 2); expands to the
+   ZP mass 1/2 MZP^2 ZP^2 (since MZP = 2 gp xBL), the ZP-G02-G02 mass
+   mixing, and the ZP^2 H / ZP^2 HH vertices. *)
+LChiKin := Block[{mu},
+  del[chibar, mu] del[chi, mu]
+  + I gp ZP[mu] (del[chibar, mu] chi - chibar del[chi, mu])
+  + HC[I gp ZP[mu] (del[chibar, mu] chi - chibar del[chi, mu])]
+  + 4 gp^2 ZP[mu] ZP[mu] chibar chi
+];
+
+(* ZP free kinetic term (Abelian, no self-couplings) *)
+LZPkin := Block[{mu, nu},
+  -1/4 FS[ZP, mu, nu] FS[ZP, mu, nu]
+];
+
+(* Explicit Feynman-gauge mass of the ZP Goldstone (no automatic
+   gauge-fixing term exists for a gauge boson outside M$GaugeGroups) *)
+LG02mass := -1/2 MZP^2 G02 G02;
+
+(* ZP couplings to SM fermions: L ⊃ -gp ZP Y_{B-L} fbar gamma f,
+   Y_{B-L} = +1/3 (quarks), -1 (leptons, heavy neutrinos) *)
+LZPferm := -gp ZP[mu] (
+  1/3 uqbar.Ga[mu].uq
+  + 1/3 dqbar.Ga[mu].dq
+  - lbar.Ga[mu].l
+  - vlbar.Ga[mu].vl
+  - Nstbar.Ga[mu].Nst
+);
+
+(* Heavy neutrino kinetic + mass terms (free fields, Eq. Lf) *)
+LNkin := I Nstbar.Ga[mu].DC[Nst, mu] - MNR Nstbar.Nst;
+
+(* Active-heavy neutrino mixing vertices in the mass basis
+   (2x2 rotation of Eq. Rotation, sin theta = VlN, ctheta = 1 to
+   leading order; h = ca H + sa HH is the gauge-basis Higgs;
+   generation structure through the diagonal matrix VlNmat) *)
+LNmix := Block[{mu, ff1, ff2},
+  (* W l N, from the SM charged current *)
+  + (gw/Sqrt[2]) VlNmat[ff1, ff2] Nstbar.Ga[mu].ProjM.l.W[mu]
+  + HC[(gw/Sqrt[2]) VlNmat[ff1, ff2] Nstbar.Ga[mu].ProjM.l.W[mu]]
+  (* Z nu N, from the SM neutral current *)
+  + (gw/cw) VlNmat[ff1, ff2] Z[mu] vlbar.Ga[mu].ProjM.Nst
+  + HC[(gw/cw) VlNmat[ff1, ff2] Z[mu] vlbar.Ga[mu].ProjM.Nst]
+  (* Z N N *)
+  + (gw/cw) VlN^2 Z[mu] Nstbar.Ga[mu].ProjM.Nst
+  (* h nu N, from the Yukawa -y^nu LLbar Nst Phitilde (nub P_R N) *)
+  - (MNR VlN/vev) (ca H + sa HH) VlNmat[ff1, ff2] vlbar.ProjP.Nst
+  + HC[-(MNR VlN/vev) (ca H + sa HH) VlNmat[ff1, ff2] vlbar.ProjP.Nst]
+  (* h N N, vector-like (nubar P_L N + nub P_R N = nub N) *)
+  - (MNR VlN^2/vev) (ca H + sa HH) Nstbar.Nst
+];
+
+(* Total Lagrangian: SM.fr minus its Higgs potential (replaced by LScalar
+   in the gauge basis with the full B-L scalar sector) plus the new terms *)
+LTotal := LSM - LHiggs + LScalar + LChiKin + LZPkin + LZPferm + LNkin + LNmix + LG02mass;
