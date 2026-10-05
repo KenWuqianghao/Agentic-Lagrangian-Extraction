@@ -1,0 +1,305 @@
+<title>Heptapod pi Harness</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --ink: #141a22;
+  --ink-2: #3e4856;
+  --muted: #6a7482;
+  --rule: #d8dde5;
+  --rule-soft: #e8ebf0;
+  --accent: #1d4f82;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+  --good-bg: #e3f4ea; --good-ink: #16623a;
+  --bad-bg: #fbe9e7; --bad-ink: #9b2c1f;
+  --mid-bg: #fdf3dc; --mid-ink: #7a5300;
+  --none-bg: #eef0f3; --none-ink: #5f6875;
+  --serif: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --sans: "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #101317; --surface: #171b21; --ink: #e9ecf1; --ink-2: #c1c8d2; --muted: #8f99a6;
+    --rule: #2c333d; --rule-soft: #222830; --accent: #8db8e8;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+    --good-bg: #16301f; --good-ink: #8fdcaa; --bad-bg: #3a1c18; --bad-ink: #f2a597;
+    --mid-bg: #33280f; --mid-ink: #f0c56b; --none-bg: #1f252d; --none-ink: #9aa3ae;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #101317; --surface: #171b21; --ink: #e9ecf1; --ink-2: #c1c8d2; --muted: #8f99a6;
+  --rule: #2c333d; --rule-soft: #222830; --accent: #8db8e8;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+  --good-bg: #16301f; --good-ink: #8fdcaa; --bad-bg: #3a1c18; --bad-ink: #f2a597;
+  --mid-bg: #33280f; --mid-ink: #f0c56b; --none-bg: #1f252d; --none-ink: #9aa3ae;
+}
+body { background: var(--bg); color: var(--ink); font: 15px/1.6 var(--sans); }
+.wrap { max-width: 860px; margin: 0 auto; padding-inline: 20px; padding-block: 40px 72px; display: grid; gap: 44px; }
+header { display: grid; gap: 12px; }
+.eyebrow { font: 500 12px/1.4 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+h1 { font: 600 40px/1.1 var(--serif); margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+h2 { font: 600 25px/1.2 var(--serif); margin: 0; text-wrap: balance; }
+h3 { font: 600 15px/1.3 var(--sans); margin: 0; }
+p { margin: 0; max-width: 68ch; color: var(--ink-2); }
+section { display: grid; gap: 16px; }
+.lede { font-size: 17px; color: var(--ink); }
+.verdict { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 22px 24px; display: grid; gap: 14px; }
+.verdict .big { display: flex; flex-wrap: wrap; gap: 28px; }
+.stat { display: grid; gap: 2px; }
+.stat b { font: 600 34px/1 var(--serif); font-variant-numeric: tabular-nums; }
+.stat span { font-size: 13px; color: var(--muted); max-width: 22ch; }
+.stat.hl b { color: var(--s3); }
+ul, ol { margin: 0; padding-left: 20px; display: grid; gap: 8px; color: var(--ink-2); max-width: 70ch; }
+li b, p b { color: var(--ink); }
+code, .mono { font-family: var(--mono); font-size: 13px; }
+code { background: var(--rule-soft); padding: 1px 5px; border-radius: 4px; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--rule-soft); vertical-align: top; }
+th { font: 500 12px/1.3 var(--sans); color: var(--muted); border-bottom: 1px solid var(--rule); }
+td.num, th.num { text-align: right; }
+.arm { display: inline-flex; align-items: center; gap: 8px; }
+.sw { width: 10px; height: 10px; border-radius: 2px; flex: none; }
+.chip { display: inline-block; font: 500 12px/1.2 var(--mono); padding: 3px 7px; border-radius: 5px; white-space: nowrap; }
+.chip.pass { background: var(--good-bg); color: var(--good-ink); }
+.chip.chk { background: var(--mid-bg); color: var(--mid-ink); }
+.chip.fail { background: var(--bad-bg); color: var(--bad-ink); }
+.chip.none { background: var(--none-bg); color: var(--none-ink); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--ink-2); }
+.chart { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 16px 8px; }
+.chart svg { display: block; width: 100%; height: auto; }
+.chart text { font-family: var(--sans); }
+.note { font-size: 13px; color: var(--muted); }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+.card { border-top: 2px solid var(--rule); padding-top: 10px; display: grid; gap: 6px; }
+.card p { font-size: 14px; }
+.tip { position: fixed; pointer-events: none; background: var(--ink); color: var(--bg); font: 12px/1.4 var(--sans); padding: 6px 8px; border-radius: 6px; max-width: 260px; }
+pre { margin: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; padding: 12px 14px; overflow-x: auto; font: 12.5px/1.55 var(--mono); color: var(--ink-2); }
+a { color: var(--accent); }
+.matrix td:first-child { font-family: var(--mono); font-size: 12.5px; white-space: nowrap; }
+@media (max-width: 560px) { h1 { font-size: 31px; } .stat b { font-size: 28px; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Agentic Lagrangian extraction · benchmark note · 28 Sep 2026</div>
+    <h1>A 27B open model in the heptapod pi harness passes twice as many papers as one-shot Claude Code</h1>
+    <p class="lede">We built a custom agent harness on <a href="https://pi.dev/">pi</a> that puts the heptapod validation chain inside the agent loop, and ran it on the 16 single-model papers of the September ablation. Same papers, same task text, same scorer for every arm.</p>
+  </header>
+
+  <section class="verdict" aria-label="Headline">
+    <div class="big">
+      <div class="stat hl"><b>4/16</b><span>full chain, pi + heptapod harness, Qwen3.8-27B</span></div>
+      <div class="stat"><b>2/16</b><span>full chain, plain Claude Code, Sonnet 5 (Sept. baseline, re-scored)</span></div>
+      <div class="stat"><b>0/16</b><span>full chain, plain pi, same Qwen model, same prompt as Claude Code</span></div>
+      <div class="stat"><b>10 vs 3</b><span>mass-diagonal check passed, harness vs plain, same model (p = 0.016)</span></div>
+    </div>
+    <p>The harness doubles the one-shot Claude Code pass count with a much smaller open model, and it clears the check that sank most one-shot runs: <b>mass_diagonal</b>. The same-model gain is significant on compilation and on the mass check. The gain over Claude Code is not significant at n = 16, and the cleanest test, the harness on Sonnet itself, could not run (pi bills Anthropic models as extra usage).</p>
+  </section>
+
+  <section>
+    <h2>What was compared</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Arm</th><th>Engine and model</th><th>Tools in the loop</th><th>Runs</th></tr></thead>
+      <tbody>
+        <tr><td><span class="arm"><i class="sw" style="background:var(--s1)"></i>Claude Code, one shot</span></td><td>Claude Code subagent, Sonnet 5</td><td>none; the paper and SM.fr inlined, one fenced .fr</td><td>16 (Sept. 17)</td></tr>
+        <tr><td><span class="arm"><i class="sw" style="background:var(--s2)"></i>pi, one shot</span></td><td>pi 0.80.2, Qwen3.8-27B-FP8</td><td>none; prompt byte-identical to the Claude Code arm</td><td>16</td></tr>
+        <tr><td><span class="arm"><i class="sw" style="background:var(--s3)"></i>pi + heptapod harness</span></td><td>pi 0.80.2, Qwen3.8-27B-FP8</td><td>read/write/edit in a sandbox, <code>lint_model</code>, <code>validate_model</code> (6 calls), <code>massbasis</code>, <code>review_model</code></td><td>16</td></tr>
+        <tr><td><span class="arm"><i class="sw" style="background:var(--s4)"></i>pi, one shot</span></td><td>pi 0.80.2, gpt-oss-120b</td><td>none; same prompt</td><td>16</td></tr>
+        <tr><td><span class="arm"><i class="sw" style="background:var(--muted)"></i>pi + harness, gpt-oss</span></td><td>pi 0.80.2, gpt-oss-120b</td><td>as the harness arm</td><td>5 of 16, cut off by the GPU provider</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Open models ran on vLLM 0.30 on Modal H100s. Scoring for every arm: <code>hepval validate</code> on the delivered file (heptapod-dev main 4bcbcf2 driver, check verdicts from return values, 900 s compile limit), then MadGraph <code>import model</code>. The scorer reproduces the September baseline exactly: 2/16, the same two passes.</p>
+  </section>
+
+  <section>
+    <h2>Where each arm drops out</h2>
+    <p>Runs that reach each stage of the chain, out of 16 papers. A run that delivered no model counts as a failure at every stage.</p>
+    <div class="legend" id="legend"></div>
+    <div class="chart"><svg id="funnel" role="img" aria-label="Grouped bar chart of runs reaching each validation stage per arm"></svg></div>
+    <div class="scroll"><table id="funnel-table"></table></div>
+    <p class="note">Paired exact McNemar tests on the same 16 papers. Harness vs plain pi (same model): compiled 11 vs 4, p = 0.016; mass_diagonal 10 vs 3, p = 0.016; all checks 7 vs 2, p = 0.125; full chain 4 vs 0, p = 0.125. Harness (Qwen) vs Claude Code (Sonnet): mass_diagonal 10 vs 5, p = 0.125; full chain 4 vs 2, p = 0.5.</p>
+  </section>
+
+  <section>
+    <h2>Per paper</h2>
+    <p>Check glyphs are hermiticity, kinetic-diagonal, mass-diagonal, mass-spectrum: ✓ pass, ✗ fail, ? inconclusive. MG is the MadGraph import.</p>
+    <div class="legend">
+      <span><span class="chip pass">PASS</span> full chain</span>
+      <span><span class="chip chk">✓✓✓✓ MG✗</span> compiled, stops later</span>
+      <span><span class="chip fail">compile failed</span> no UFO</span>
+      <span><span class="chip none">no model</span> nothing delivered</span>
+    </div>
+    <div class="scroll"><table class="matrix" id="matrix"></table></div>
+  </section>
+
+  <section>
+    <h2>Physics fidelity: did the harness pass by deleting physics?</h2>
+    <p>The harness optimises against the same chain that scores it, so a pass could in principle come from dropping the hard terms. Two independent measures say it did not, with one clear exception.</p>
+    <div class="scroll"><table>
+      <thead><tr><th>Arm</th><th class="num">Mean field F1 vs reference .fr</th><th class="num">Runs scored</th><th>Physicist-finding predicates</th></tr></thead>
+      <tbody id="fidelity"></tbody>
+    </table></div>
+    <ul>
+      <li><b>Field F1 rises</b> from 0.66 (Claude Code) and 0.64 (plain Qwen) to <b>0.77</b> with the harness: its models carry more of the reference fields, not fewer.</li>
+      <li><b>The exception: EffLRSM Z_R normalisation.</b> The harness model passes three of four checks but has the September Z_R factor wrong, which both one-shot arms had right. The consistency checks cannot see a normalisation, and the referee was not run on this paper. Passing the chain is not the same as reproducing the paper.</li>
+      <li><b>The independent referee</b> (a second pi agent with a fresh context, paper and file only) ran on 5 of 16 papers. On pNG it found no physics discrepancy and argued, from the paper's own direct-detection formula, that a sign in the paper's appendix is the typo.</li>
+      <li><b>The agent's own verdicts were honest.</b> In 13 runs that called <code>validate_model</code>, the agent's last in-loop verdict was a pass 4 times, and the independent re-score confirmed all 4.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>What the harness changed</h2>
+    <div class="cols">
+      <div class="card"><h3>The mass-basis wall</h3><p>Mass-diagonal passes went from 5 (Claude Code) and 3 (plain Qwen) to 10. The protocol gives the SM-override recipe, <code>LTotal := LSM - LHiggs + …</code> with the redeclared Higgs doublet, and <code>massbasis</code> derives the inverted couplings symbolically. On pNG the agent wrote a three-field spec with the soft-breaking term unprompted.</p></div>
+      <div class="card"><h3>Compile errors caught in the loop</h3><p>Plain Qwen compiled 4 of 16 files. With lint and validation in the loop, 11. The pilot surfaced two defects the old reports hid: an unclosed <code>(*</code> that commented out the whole model, and an edit that dropped a closing brace. Both are now lint rules.</p></div>
+      <div class="card"><h3>The new bottleneck: MadGraph</h3><p>Seven harness models pass all four FeynRules checks; three of them (B-L-SM, HeavyN, Wprime) then fail the MadGraph import. The next diagnostic to add is the UFO import error itself, surfaced in the report.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Cost and behaviour</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>Arm</th><th class="num">Median wall time</th><th class="num">Median input tokens</th><th class="num">Median output tokens</th><th>Tool use</th></tr></thead>
+      <tbody>
+        <tr><td>pi + harness, Qwen</td><td class="num">42 min</td><td class="num">3.05 M</td><td class="num">176 k</td><td>validation in 13 runs (43 calls), massbasis 3, referee 5, lint 14; 0 sandbox violations</td></tr>
+        <tr><td>pi one shot, Qwen</td><td class="num">15 min</td><td class="num">44 k</td><td class="num">81 k</td><td>none</td></tr>
+        <tr><td>pi one shot, gpt-oss</td><td class="num">2.3 min</td><td class="num">41 k</td><td class="num">7 k</td><td>none</td></tr>
+      </tbody>
+    </table></div>
+    <p>The harness re-sends its whole context every turn, so it reads about 70 times the input of a one-shot run. With self-hosted models that is GPU time, not a bill per token, but it is the obvious target for the token-efficiency pass that comes next.</p>
+  </section>
+
+  <section>
+    <h2>Limits of this result</h2>
+    <ul>
+      <li><b>n = 16, one seed per arm.</b> Only the same-model effects on compilation and on the mass check reach p &lt; 0.05. About 58 papers per arm would be needed to detect 25% → 50% on the full chain.</li>
+      <li><b>Different models across the headline comparison.</b> "Beats Claude Code" compares the harness on Qwen3.8-27B with Claude Code on Sonnet 5. The harness on Sonnet could not run: Anthropic rejects Claude Max logins from third-party apps unless extra usage is funded.</li>
+      <li><b>The harness sees the scoring chain.</b> That is the design, and it is why field F1, the physicist-finding predicates and the referee are reported alongside the pass count.</li>
+      <li><b>Infrastructure noise.</b> Two runs lost to GPU-proxy disconnects were re-run once, by rule. Two harness runs (331, GeneralU1) ended on a text-only turn with no model and count as failures. Two harness runs hit Qwen's 262k context but still delivered.</li>
+      <li><b>gpt-oss harness incomplete.</b> The second GPU account was disabled after 5 of 16 papers, each cut off mid-loop. Plain gpt-oss compiled 2 of 16, so the large-model arm says little either way.</li>
+      <li><b>The pilot was excluded.</b> The pNG pilot passed on validation 4 while two lint rules were being added; the benchmark re-ran pNG on the final code (it passed again).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Conclusions</h2>
+    <ol>
+      <li><b>The toolkit's value shows up once it sits inside the loop.</b> The September ablation tested a schema and renderer in one shot and found nothing. Validation, lint and a mass-basis tool in the loop turn a model that compiles 4 of 16 files into one that matches Claude Code on compilation and doubles its full-chain passes.</li>
+      <li><b>The gain lands where predicted.</b> The mass-diagonal failure class, which neither prompt rules nor a frontier model fixed in one shot, is the one the harness converts.</li>
+      <li><b>The claim that holds today:</b> same model, the harness is significantly better at producing compilable, mass-diagonal models. The claim against Claude Code is directionally positive and not yet significant.</li>
+      <li><b>Checks are not fidelity.</b> The EffLRSM normalisation miss shows the referee must run on every model, not by choice.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Next steps</h2>
+    <ol>
+      <li>Run the harness on Sonnet 5 (API key or funded extra usage) against the same Claude Code baseline: the clean comparison.</li>
+      <li>Make <code>review_model</code> mandatory before the agent may stop, and add a continue guard for text-only turns (331, GeneralU1).</li>
+      <li>Report the UFO import error in <code>validate_model</code>, the new bottleneck.</li>
+      <li>Apply the Cursor token-efficiency audit to the harness, measured as tokens per completed model.</li>
+      <li>Three seeds per arm and the remaining gpt-oss harness runs, when GPU budget allows.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Reproduce</h2>
+    <pre>cd Agentic-Lagrangian-Extraction/pi_harness
+modal deploy modal_vllm.py                      # Qwen3.8-27B-FP8 + gpt-oss-120b on vLLM
+python3 hepval.py setup                         # validator worktree (heptapod-dev main)
+python3 run_pi.py run --arm harness --variant pi_qwen_harness --pages all --model modal-qwen/qwen3.8-27b
+python3 run_pi.py run --arm plain   --variant pi_qwen_plain   --pages all --model modal-qwen/qwen3.8-27b
+python3 run_pi.py score --variants v3s_notools,pi_qwen_plain,pi_qwen_harness --pages all
+python3 summarize.py --variants v3s_notools,pi_qwen_plain,pi_qwen_harness</pre>
+    <p class="note">Code: <code>pi_harness/</code> in Agentic-Lagrangian-Extraction (hepval.py, extension/heptapod.ts, prompts/protocol.md, run_pi.py, summarize.py). Runs: <code>heptapod/eval/benchmark_runs/&lt;paper&gt;/rerun/&lt;arm&gt;/s1/</code>. Field F1: <code>ablation_report_pi.md</code>.</p>
+  </section>
+</div>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+const DATA = {"pages": ["331", "ALRM_general", "B-L-SM", "ChernSimonsPortal", "EffLRSM", "GeneralU1", "HeavyN", "MDMmodel", "Monotops", "NJLComposite", "SLQrules", "SMWeinberg", "Top-Philic-Zprime", "Wprime", "pNG", "pSPSS"], "funnel": {"v3s_notools": {"delivered": 15, "compiled": 11, "hermiticity": 7, "mass_diagonal": 5, "all_checks": 4, "madgraph": 4, "full_chain": 2}, "pi_qwen_plain": {"delivered": 15, "compiled": 4, "hermiticity": 3, "mass_diagonal": 3, "all_checks": 2, "madgraph": 0, "full_chain": 0}, "pi_qwen_harness": {"delivered": 14, "compiled": 11, "hermiticity": 7, "mass_diagonal": 10, "all_checks": 7, "madgraph": 4, "full_chain": 4}, "pi_gptoss_plain": {"delivered": 16, "compiled": 2, "hermiticity": 1, "mass_diagonal": 2, "all_checks": 1, "madgraph": 0, "full_chain": 0}, "pi_gptoss_harness": {"delivered": 5, "compiled": 2, "hermiticity": 1, "mass_diagonal": 2, "all_checks": 1, "madgraph": 0, "full_chain": 0}}, "f1": {"v3s_notools": {"331": null, "ALRM_general": 0.485, "B-L-SM": 0.533, "ChernSimonsPortal": 1.0, "EffLRSM": 1.0, "GeneralU1": 0.333, "HeavyN": 0.5, "MDMmodel": 0.462, "Monotops": 0.5, "NJLComposite": 0.182, "SLQrules": 0.526, "SMWeinberg": 1.0, "Top-Philic-Zprime": 1.0, "Wprime": 0.667, "pNG": 0.857, "pSPSS": 0.833}, "pi_qwen_plain": {"331": 0.286, "ALRM_general": 0.516, "B-L-SM": 0.588, "ChernSimonsPortal": 0.667, "EffLRSM": 0.0, "GeneralU1": null, "HeavyN": 0.5, "MDMmodel": 0.462, "Monotops": 0.5, "NJLComposite": 0.32, "SLQrules": 1.0, "SMWeinberg": 1.0, "Top-Philic-Zprime": 1.0, "Wprime": 1.0, "pNG": 0.8, "pSPSS": 0.923}, "pi_qwen_harness": {"331": null, "ALRM_general": 0.45, "B-L-SM": 0.5, "ChernSimonsPortal": 1.0, "EffLRSM": 0.75, "GeneralU1": null, "HeavyN": 1.0, "MDMmodel": 0.462, "Monotops": 1.0, "NJLComposite": 0.105, "SLQrules": 1.0, "SMWeinberg": 1.0, "Top-Philic-Zprime": 1.0, "Wprime": 0.667, "pNG": 0.857, "pSPSS": 0.923}, "pi_gptoss_plain": {"331": 0.0, "ALRM_general": 0.5, "B-L-SM": 0.571, "ChernSimonsPortal": 0.667, "EffLRSM": 0.0, "GeneralU1": 0.0, "HeavyN": 0.5, "MDMmodel": 0.182, "Monotops": 0.0, "NJLComposite": 0.0, "SLQrules": 0.0, "SMWeinberg": 0.0, "Top-Philic-Zprime": 0.0, "Wprime": 1.0, "pNG": 0.0, "pSPSS": 0.5}, "pi_gptoss_harness": {"331": null, "ALRM_general": 0.0, "B-L-SM": 0.0, "ChernSimonsPortal": 0.667, "EffLRSM": 1.0, "GeneralU1": 0.333, "HeavyN": null, "MDMmodel": null, "Monotops": null, "NJLComposite": null, "SLQrules": null, "SMWeinberg": null, "Top-Philic-Zprime": null, "Wprime": null, "pNG": null, "pSPSS": null}}, "cells": {"v3s_notools": {"331": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}, "ALRM_general": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": false, "full": false, "delivered": true}, "B-L-SM": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "fail", "mass_spectrum": "inconclusive"}, "mg5": true, "full": false, "delivered": true}, "ChernSimonsPortal": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": true, "full": true, "delivered": true}, "EffLRSM": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "fail"}, "mg5": false, "full": false, "delivered": true}, "GeneralU1": {"status": "compiled", "checks": {"hermiticity": "fail", "kinetic_diagonal": "pass", "mass_diagonal": "fail", "mass_spectrum": "inconclusive"}, "mg5": true, "full": false, "delivered": true}, "HeavyN": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "fail", "mass_spectrum": "inconclusive"}, "mg5": false, "full": false, "delivered": true}, "MDMmodel": {"status": "compiled", "checks": {"hermiticity": "fail", "kinetic_diagonal": "pass", "mass_diagonal": "fail", "mass_spectrum": "inconclusive"}, "mg5": false, "full": false, "delivered": true}, "Monotops": {"status": "compiled", "checks": {"hermiticity": "fail", "kinetic_diagonal": "pass", "mass_diagonal": "fail", "mass_spectrum": "inconclusive"}, "mg5": false, "full": false, "delivered": true}, "NJLComposite": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "SLQrules": {"status": "compile_timeout", "checks": {}, "mg5": false, "full": false, "delivered": true}, "SMWeinberg": {"status": "compiled", "checks": {"hermiticity": "fail", "kinetic_diagonal": "pass", "mass_diagonal": "fail", "mass_spectrum": "inconclusive"}, "mg5": false, "full": false, "delivered": true}, "Top-Philic-Zprime": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": false, "full": false, "delivered": true}, "Wprime": {"status": "no_lagrangian_symbol", "checks": {}, "mg5": false, "full": false, "delivered": true}, "pNG": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": true, "full": true, "delivered": true}, "pSPSS": {"status": "compile_timeout", "checks": {"hermiticity": "fail", "kinetic_diagonal": "fail", "mass_diagonal": "fail", "mass_spectrum": "inconclusive"}, "mg5": false, "full": false, "delivered": true}}, "pi_qwen_plain": {"331": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "ALRM_general": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "B-L-SM": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "ChernSimonsPortal": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": false, "full": false, "delivered": true}, "EffLRSM": {"status": "no_lagrangian_symbol", "checks": {}, "mg5": false, "full": false, "delivered": true}, "GeneralU1": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}, "HeavyN": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "fail", "mass_spectrum": "inconclusive"}, "mg5": false, "full": false, "delivered": true}, "MDMmodel": {"status": "compile_timeout", "checks": {}, "mg5": false, "full": false, "delivered": true}, "Monotops": {"status": "compile_timeout", "checks": {}, "mg5": false, "full": false, "delivered": true}, "NJLComposite": {"status": "compile_timeout", "checks": {}, "mg5": false, "full": false, "delivered": true}, "SLQrules": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "SMWeinberg": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": false, "full": false, "delivered": true}, "Top-Philic-Zprime": {"status": "compiled", "checks": {"hermiticity": "fail", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": false, "full": false, "delivered": true}, "Wprime": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "pNG": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "pSPSS": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}}, "pi_qwen_harness": {"331": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}, "ALRM_general": {"status": "no_lagrangian_symbol", "checks": {}, "mg5": false, "full": false, "delivered": true}, "B-L-SM": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": false, "full": false, "delivered": true}, "ChernSimonsPortal": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": true, "full": true, "delivered": true}, "EffLRSM": {"status": "compiled", "checks": {"hermiticity": "fail", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": false, "full": false, "delivered": true}, "GeneralU1": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}, "HeavyN": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": false, "full": false, "delivered": true}, "MDMmodel": {"status": "compiled", "checks": {"hermiticity": "fail", "kinetic_diagonal": "fail", "mass_diagonal": "fail", "mass_spectrum": "inconclusive"}, "mg5": false, "full": false, "delivered": true}, "Monotops": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": true, "full": true, "delivered": true}, "NJLComposite": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "SLQrules": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "SMWeinberg": {"status": "compiled", "checks": {"hermiticity": "fail", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": false, "full": false, "delivered": true}, "Top-Philic-Zprime": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": true, "full": true, "delivered": true}, "Wprime": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": false, "full": false, "delivered": true}, "pNG": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": true, "full": true, "delivered": true}, "pSPSS": {"status": "compiled", "checks": {"hermiticity": "fail", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": false, "full": false, "delivered": true}}, "pi_gptoss_plain": {"331": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "ALRM_general": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "B-L-SM": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "ChernSimonsPortal": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "EffLRSM": {"status": "compile_timeout", "checks": {}, "mg5": false, "full": false, "delivered": true}, "GeneralU1": {"status": "compile_timeout", "checks": {}, "mg5": false, "full": false, "delivered": true}, "HeavyN": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "MDMmodel": {"status": "compiled", "checks": {"hermiticity": "fail", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "fail"}, "mg5": false, "full": false, "delivered": true}, "Monotops": {"status": "compile_timeout", "checks": {}, "mg5": false, "full": false, "delivered": true}, "NJLComposite": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "SLQrules": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "SMWeinberg": {"status": "no_lagrangian_symbol", "checks": {}, "mg5": false, "full": false, "delivered": true}, "Top-Philic-Zprime": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "Wprime": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "pNG": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": false, "full": false, "delivered": true}, "pSPSS": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}}, "pi_gptoss_harness": {"331": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}, "ALRM_general": {"status": "compiled", "checks": {"hermiticity": "fail", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": false, "full": false, "delivered": true}, "B-L-SM": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "ChernSimonsPortal": {"status": "compiled", "checks": {"hermiticity": "pass", "kinetic_diagonal": "pass", "mass_diagonal": "pass", "mass_spectrum": "pass"}, "mg5": false, "full": false, "delivered": true}, "EffLRSM": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "GeneralU1": {"status": "compile_failed", "checks": {}, "mg5": false, "full": false, "delivered": true}, "HeavyN": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}, "MDMmodel": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}, "Monotops": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}, "NJLComposite": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}, "SLQrules": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}, "SMWeinberg": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}, "Top-Philic-Zprime": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}, "Wprime": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}, "pNG": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}, "pSPSS": {"status": "no model", "checks": {}, "mg5": false, "full": false, "delivered": false}}}};
+const ARMS = [
+  {k: "v3s_notools", label: "Claude Code · Sonnet 5 · one shot", c: "var(--s1)"},
+  {k: "pi_qwen_plain", label: "pi · Qwen3.8-27B · one shot", c: "var(--s2)"},
+  {k: "pi_qwen_harness", label: "pi + heptapod · Qwen3.8-27B", c: "var(--s3)"},
+  {k: "pi_gptoss_plain", label: "pi · gpt-oss-120b · one shot", c: "var(--s4)"},
+];
+const ALL = ARMS.concat([{k: "pi_gptoss_harness", label: "pi + heptapod · gpt-oss (5 run)", c: "var(--muted)"}]);
+const STAGES = [["delivered","Delivered a model"],["compiled","Compiled to UFO"],["mass_diagonal","Mass-diagonal check"],["all_checks","All four checks"],["madgraph","MadGraph import"],["full_chain","Full chain"]];
+
+document.getElementById("legend").innerHTML = ARMS.map(a => `<span class="arm"><i class="sw" style="background:${a.c}"></i>${a.label}</span>`).join("");
+
+(function funnel() {
+  const svg = document.getElementById("funnel"), W = 800, rowH = 74, top = 8, left = 170, right = 44, barH = 12, gap = 2;
+  const H = top + STAGES.length * rowH + 26;
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const x = v => left + (W - left - right) * v / 16;
+  let s = "";
+  for (const t of [0, 4, 8, 12, 16]) {
+    s += `<line x1="${x(t)}" x2="${x(t)}" y1="${top}" y2="${H - 22}" stroke="var(--rule-soft)" stroke-width="1"/>`;
+    s += `<text x="${x(t)}" y="${H - 6}" text-anchor="middle" font-size="11" fill="var(--muted)">${t}</text>`;
+  }
+  STAGES.forEach(([key, name], i) => {
+    const y0 = top + i * rowH + 6;
+    s += `<text x="0" y="${y0 + 30}" font-size="13" fill="var(--ink)" font-weight="500">${name}</text>`;
+    ARMS.forEach((a, j) => {
+      const v = DATA.funnel[a.k][key], y = y0 + j * (barH + gap);
+      const w = Math.max(x(v) - left, 0);
+      s += `<g class="bar" data-tip="${a.label}: ${v}/16 ${name.toLowerCase()}">`
+        + `<rect x="${left}" y="${y - 1}" width="${W - left - right}" height="${barH + 2}" fill="transparent"/>`
+        + (w > 0 ? `<rect x="${left}" y="${y}" width="${w}" height="${barH}" rx="3" fill="${a.c}"/>` : `<rect x="${left}" y="${y + barH/2 - 1}" width="3" height="2" fill="${a.c}"/>`)
+        + `<text x="${left + w + 6}" y="${y + barH - 2}" font-size="11" fill="var(--ink-2)" style="font-variant-numeric:tabular-nums">${v}</text></g>`;
+    });
+  });
+  s += `<line x1="${left}" x2="${left}" y1="${top}" y2="${H - 22}" stroke="var(--rule)" stroke-width="1"/>`;
+  svg.innerHTML = s;
+  const tip = document.getElementById("tip");
+  svg.querySelectorAll(".bar").forEach(g => {
+    g.addEventListener("mousemove", e => { tip.textContent = g.dataset.tip; tip.hidden = false; tip.style.left = (e.clientX + 12) + "px"; tip.style.top = (e.clientY + 12) + "px"; });
+    g.addEventListener("mouseleave", () => { tip.hidden = true; });
+  });
+  document.getElementById("funnel-table").innerHTML =
+    `<thead><tr><th>Stage</th>${ALL.map(a => `<th class="num">${a.label}</th>`).join("")}</tr></thead><tbody>` +
+    STAGES.map(([key, name]) => `<tr><td>${name}</td>${ALL.map(a => `<td class="num">${DATA.funnel[a.k][key]}</td>`).join("")}</tr>`).join("") + "</tbody>";
+})();
+
+(function matrix() {
+  const g = {pass: "✓", fail: "✗", inconclusive: "?"};
+  const cell = c => {
+    if (!c || !c.delivered) return `<span class="chip none">no model</span>`;
+    if (c.full) return `<span class="chip pass">PASS</span>`;
+    const ks = ["hermiticity", "kinetic_diagonal", "mass_diagonal", "mass_spectrum"];
+    if (c.checks && Object.keys(c.checks).length) {
+      const glyphs = ks.map(k => g[c.checks[k]] || "·").join("");
+      return `<span class="chip chk">${glyphs} MG${c.mg5 ? "✓" : "✗"}</span>`;
+    }
+    const st = {compile_failed: "compile failed", compile_timeout: "compile timeout", no_lagrangian_symbol: "no total L"}[c.status] || c.status;
+    return `<span class="chip fail">${st}</span>`;
+  };
+  document.getElementById("matrix").innerHTML =
+    `<thead><tr><th>Paper</th>${ALL.map(a => `<th><span class="arm"><i class="sw" style="background:${a.c}"></i>${a.label}</span></th>`).join("")}</tr></thead><tbody>` +
+    DATA.pages.map(p => `<tr><td>${p}</td>${ALL.map(a => `<td>${cell(DATA.cells[a.k][p])}</td>`).join("")}</tr>`).join("") + "</tbody>";
+})();
+
+(function fidelity() {
+  const preds = {
+    v3s_notools: "3 of 4 resolved (GeneralU1 charge wrong)",
+    pi_qwen_plain: "3 of 3 on files present",
+    pi_qwen_harness: "2 of 3 (EffLRSM Z_R wrong; GeneralU1 no model)",
+    pi_gptoss_plain: "1 of 4",
+    pi_gptoss_harness: "1 of 3 (interrupted runs)",
+  };
+  document.getElementById("fidelity").innerHTML = ALL.map(a => {
+    const vals = Object.values(DATA.f1[a.k] || {}).filter(v => typeof v === "number");
+    const mean = vals.length ? (vals.reduce((x, y) => x + y, 0) / vals.length).toFixed(2) : "—";
+    return `<tr><td><span class="arm"><i class="sw" style="background:${a.c}"></i>${a.label}</span></td><td class="num">${mean}</td><td class="num">${vals.length}</td><td>${preds[a.k]}</td></tr>`;
+  }).join("");
+})();
+</script>
