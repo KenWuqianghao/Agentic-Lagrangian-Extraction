@@ -1,0 +1,13 @@
+{
+  "id": "331__sqrt_swap",
+  "page": "331",
+  "kind": "mutant",
+  "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v3s_tools/s1/model/331_gen.fr",
+  "operator": "sqrt_swap",
+  "term": "v2",
+  "tokens": [
+    "v2",
+    "Sqrt"
+  ],
+  "defect": "Parameter `v2`: `Sqrt[vev^2 - v1^2]` replaced by `1/Sqrt[vev^2 - v1^2]` (a normalisation that divides now multiplies)."
+}

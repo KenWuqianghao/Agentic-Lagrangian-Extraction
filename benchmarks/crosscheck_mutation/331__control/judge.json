@@ -1,0 +1,18 @@
+{
+  "named": "n/a",
+  "quote": "",
+  "severity": "none",
+  "other_substantive": 9,
+  "other_list": [
+    "D1: M_{Z'} mass is a factor sqrt(2) too small (file uses /6 in the mass formula instead of the paper's /3).",
+    "D2: g_X is treated as a free external input (0.5) instead of being derived from s_W and beta as the paper requires.",
+    "D3: No third-generation exotic current: the t-T-V' and b-T-Y' vertices are missing, so T is stable in the file.",
+    "D4: No heavy lepton currents: the ell-E_ell-Y' and nu_ell-E_ell-V' vertices are missing, leaving E_ell fully inert.",
+    "D5: The CKM factors V_ud and V_cs are dropped from the D-d-V' and S-s-V' currents.",
+    "D6: No Z' couplings to any SM or exotic fermion are present, so the Z' is stable and cannot be produced.",
+    "D7: The Y' and V' kinetic terms use an abelian curl instead of the non-abelian SU(3)_L field strength, so all triple and quartic gauge self-coupling vertices are missing.",
+    "D8: The entire scalar interaction sector is absent: no Higgs potential, no CP-even/CP-odd mixing matrices U and O, no mixing angles, and none of the VSS, VVS, VVSS, or scalar-fermion coupling tables.",
+    "D13: At the chosen benchmark (v_3 = 2 TeV) the resulting M_Z' sits below the paper's own dilepton exclusion limit of about 3.6-4 TeV."
+  ],
+  "note": "The reviewer's comparison correctly isolates two real coefficient defects (the Z' mass factor and the free g_X) from the much larger set of coverage gaps, so it would send a physicist to the right places in the file."
+}

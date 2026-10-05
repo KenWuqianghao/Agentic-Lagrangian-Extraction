@@ -1,0 +1,13 @@
+{
+  "named": "yes",
+  "quote": "D1 — Factor 2 in the χ kinetic and mass terms. Severity: substantive. The paper gives ½∂μχ∂μχ − ½ m_χ²χ²; the reconstruction gives twice that.",
+  "severity": "substantive",
+  "other_substantive": 4,
+  "other_list": [
+    "D2 — `LX` syntax: `LX := 2 (Block[{mu}, ...];)` ends with `;` and returns `Null`, so it is unclear whether any χ term survives.",
+    "D3 — Missing pure scalar self-couplings (v_s sφ², v_hφs², φ²s², s³, s⁴) and the redefined λ_Φ of eq. (2.19).",
+    "D4 — SM coupling rescaling by cosθ/sinθ cannot be confirmed: prose claims it but `LSM` is imported unmodified, and θ = 1.53 rad makes the rescaling large.",
+    "D5 — `WH2 -> 0.` fixed to zero even though H2→χχ is kinematically open (2M_χ = 125.146 GeV < M_H2 = 125.30 GeV), affecting the resonance cross section."
+  ],
+  "note": "The reviewer names the injected LX factor-2 defect precisely, with the correct term, the correct kind of error, and the correct physical consequences, so a physicist would be sent straight to the right line and the right fix."
+}

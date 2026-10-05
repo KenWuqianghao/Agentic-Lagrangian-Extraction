@@ -1,0 +1,17 @@
+RUN-TAG: XM-RECON-Top-Philic-Zprime__control
+
+Your working directory for this task is /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/crosscheck_mutation/Top-Philic-Zprime__control/recon_sandbox. It contains exactly one file, sanitized.fr. Tool policy: use only the Read tool, and only on files under /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/crosscheck_mutation/Top-Philic-Zprime__control/recon_sandbox; then use the Write tool exactly once to write your document to /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/crosscheck_mutation/Top-Philic-Zprime__control/reconstruction.md. No shell, no search, no web, no other files or directories. After writing, reply with the single line DONE.
+
+You are given a single FeynRules model file `sanitized.fr` in your working directory. All metadata (model name, authors, comments, prose labels) has been removed; you have NO other context about where this model comes from. Do not guess a published model name — work only from the file's content.
+
+Reconstruct the physics it encodes, as a markdown document with:
+
+1. **Lagrangian (LaTeX).** Every Lagrangian term in standard physics notation, one display equation per term, each labeled with the `.fr` symbol it came from (e.g. `LkinS1`). Expand FeynRules idioms (DC covariant derivatives, FS field strengths, Ga gamma matrices, HC hermitian conjugate, CC charge conjugation, ProjP/ProjM chiral projectors) into conventional notation. State the covariant derivative's gauge content explicitly.
+
+2. **Field table.** For every new particle class: symbol, spin, SU(3) rep, SU(2) rep (if declared), U(1) charge or hypercharge, self-conjugate or not, mass symbol and value if numeric.
+
+3. **Parameters.** For every new external parameter: symbol, what it multiplies in the Lagrangian, and its physical meaning (coupling, mass, mixing angle, ...).
+
+4. **Physics summary.** Two or three sentences: what kind of model is this (what new states, what interactions), and what processes it would mediate.
+
+Be precise about chirality, conjugation and index contractions — a physicist will check your reconstruction term by term. Write the complete markdown document to /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/crosscheck_mutation/Top-Philic-Zprime__control/reconstruction.md.
