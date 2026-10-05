@@ -1,0 +1,5 @@
+SCHEMA OK: 5 particle classes, 10 parameters, Lagrangian terms ['LZpKin', 'LHsKin', 'LNrKin', 'LZpGauge', 'LYnu', 'LYnuM', 'LHportal', 'Llam2', 'LTotal']
+RENDERED: model.fr (156 lines). You may read it.
+LINT: 2 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are real defects; do not remove paper physics just to silence one.
+- [checks] mixing_in_definitions: class `Chi` is defined as a mixture of ['H', 'Hs']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 123)
+- [checks] mixing_in_definitions: class `Nrg` is defined as a mixture of ['NR', 'vl']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 130)

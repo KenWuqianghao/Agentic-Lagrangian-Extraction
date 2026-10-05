@@ -1,0 +1,548 @@
+{
+  "model_name": "NJLComposite_gen",
+  "info": {
+    "authors": ["S. Ajmal", "J. T. Gaglione", "A. Gurrola", "R. Leonardi", "O. Panella", "M. Presilla", "F. Romeo", "H. Sun", "S. S. Xue"],
+    "version": "1.0",
+    "date": "2023-11-30",
+    "institutions": ["INFN Perugia", "Vanderbilt University", "Dalian University of Technology", "ICRANet"],
+    "emails": ["xue@icra.it"]
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "feynman_gauge": true,
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "Lam",
+      "parameter_type": "External",
+      "value": "5100.",
+      "block_name": "NPINPUTS",
+      "order_block": 1,
+      "interaction_order": ["NP", -2],
+      "description": "EFT cutoff Lambda [GeV], Eq.(q1) and Sec.IV; paper estimate 5.1 TeV"
+    },
+    {
+      "name": "FPi",
+      "parameter_type": "External",
+      "value": "1000.",
+      "block_name": "NPINPUTS",
+      "order_block": 2,
+      "interaction_order": ["NP", -1],
+      "description": "Composite decay constant F_Pi [GeV], gY=(FPi/Lam)^2"
+    },
+    {
+      "name": "gY",
+      "parameter_type": "Internal",
+      "value": "(FPi/Lam)^2",
+      "interaction_order": ["NP", 1],
+      "tex": "g_{Y}",
+      "description": "Dimensionless Yukawa gY = (FPi/Lam)^2, Eq.(ciqlB)"
+    },
+    {
+      "name": "gYp",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "NPINPUTS",
+      "order_block": 3,
+      "interaction_order": ["NP", 1],
+      "tex": "g'_{Y}",
+      "description": "Generation-mixing Yukawa g'_Y < g_Y, Eq.(ciqlBqlmix)"
+    },
+    {
+      "name": "gst",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "NPINPUTS",
+      "order_block": 4,
+      "interaction_order": ["NP", 1],
+      "tex": "g_{*}",
+      "description": "UV fixed-point coupling g_* in g_*^2/Lam^2 contact interactions"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "S",
+      "class_index": 100,
+      "class_name": "PI1",
+      "self_conjugate": false,
+      "indices": ["SU2D", "Generation"],
+      "flavor_index": "SU2D",
+      "class_members": ["Pip", "PI0d"],
+      "mass": {"sym": "mPi", "value": "1000."},
+      "width": {"sym": "WPi", "value": "1."},
+      "quantum_numbers": {"Y": "1/2"},
+      "pdg": [9000001, 9000002],
+      "particle_name": ["PIp+", "PI0d"],
+      "antiparticle_name": ["PIm-", "PI0db"],
+      "full_name": ["Pi+ composite", "Pi0d composite"],
+      "propagator_label": ["PIp", "PI0d"],
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 101,
+      "class_name": "PI2",
+      "self_conjugate": false,
+      "indices": ["SU2D", "Generation"],
+      "flavor_index": "SU2D",
+      "class_members": ["PI0u", "PIm"],
+      "mass": {"sym": "mPi", "value": "1000."},
+      "width": {"sym": "WPi", "value": "1."},
+      "quantum_numbers": {"Y": "-1/2"},
+      "pdg": [9000003, 9000004],
+      "particle_name": ["PI0u", "PIm2"],
+      "antiparticle_name": ["PI0ub", "PIp2"],
+      "full_name": ["Pi0u composite", "Pi- composite"],
+      "propagator_label": ["PI0u", "PIm"],
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 102,
+      "class_name": "Hc1",
+      "self_conjugate": false,
+      "indices": ["SU2D", "Generation"],
+      "flavor_index": "SU2D",
+      "class_members": ["Hcp", "Hc0d"],
+      "mass": {"sym": "mPi", "value": "1000."},
+      "width": {"sym": "WPi", "value": "1."},
+      "quantum_numbers": {"Y": "1/2"},
+      "pdg": [9000011, 9000012],
+      "particle_name": ["Hcp+", "Hc0d"],
+      "antiparticle_name": ["Hcm-", "Hc0db"],
+      "full_name": ["H+ scalar composite", "H0d scalar composite"],
+      "propagator_label": ["Hcp", "Hc0d"],
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 103,
+      "class_name": "Hc2",
+      "self_conjugate": false,
+      "indices": ["SU2D", "Generation"],
+      "flavor_index": "SU2D",
+      "class_members": ["Hc0u", "Hcm"],
+      "mass": {"sym": "mPi", "value": "1000."},
+      "width": {"sym": "WPi", "value": "1."},
+      "quantum_numbers": {"Y": "-1/2"},
+      "pdg": [9000013, 9000014],
+      "particle_name": ["Hc0u", "Hcm2"],
+      "antiparticle_name": ["Hc0ub", "Hcp2"],
+      "full_name": ["H0u scalar composite", "H- scalar composite"],
+      "propagator_label": ["Hc0u", "Hcm"],
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 110,
+      "class_name": "LQ1",
+      "self_conjugate": false,
+      "indices": ["Colour", "SU2D", "Generation"],
+      "flavor_index": "SU2D",
+      "class_members": ["LQ53", "LQ23d"],
+      "mass": {"sym": "mPi", "value": "1000."},
+      "width": {"sym": "WPi", "value": "1."},
+      "quantum_numbers": {"Y": "7/6"},
+      "pdg": [9000021, 9000022],
+      "particle_name": ["LQ53", "LQ23d"],
+      "antiparticle_name": ["LQm53", "LQm23d"],
+      "full_name": ["Pi+5/3 leptoquark", "Pi+2/3d leptoquark"],
+      "propagator_label": ["LQ53", "LQ23d"],
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 111,
+      "class_name": "LQ2",
+      "self_conjugate": false,
+      "indices": ["Colour", "SU2D", "Generation"],
+      "flavor_index": "SU2D",
+      "class_members": ["LQ23u", "LQm13"],
+      "mass": {"sym": "mPi", "value": "1000."},
+      "width": {"sym": "WPi", "value": "1."},
+      "quantum_numbers": {"Y": "1/6"},
+      "pdg": [9000023, 9000024],
+      "particle_name": ["LQ23u", "LQm13"],
+      "antiparticle_name": ["LQm23u", "LQp13"],
+      "full_name": ["Pi+2/3u leptoquark", "Pi-1/3 leptoquark"],
+      "propagator_label": ["LQ23u", "LQm13"],
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 100,
+      "class_name": "FN1",
+      "self_conjugate": false,
+      "indices": ["SU2D", "Generation"],
+      "flavor_index": "SU2D",
+      "class_members": ["FN0", "FNm"],
+      "mass": {"sym": "MF", "value": "1000."},
+      "width": {"sym": "WF", "value": "1."},
+      "quantum_numbers": {"Y": "-1/2"},
+      "pdg": [9000101, 9000102],
+      "particle_name": ["FN0", "FNm"],
+      "antiparticle_name": ["FN0b", "FNpb"],
+      "full_name": ["N0 composite fermion", "N- composite fermion"],
+      "propagator_label": ["FN0", "FNm"],
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 101,
+      "class_name": "FE1",
+      "self_conjugate": false,
+      "indices": ["SU2D", "Generation"],
+      "flavor_index": "SU2D",
+      "class_members": ["FE0", "FEm"],
+      "mass": {"sym": "MF", "value": "1000."},
+      "width": {"sym": "WF", "value": "1."},
+      "quantum_numbers": {"Y": "-1/2"},
+      "pdg": [9000111, 9000112],
+      "particle_name": ["FE0", "FEm"],
+      "antiparticle_name": ["FE0b", "FEpb"],
+      "full_name": ["E0 composite fermion", "E- composite fermion"],
+      "propagator_label": ["FE0", "FEm"],
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 102,
+      "class_name": "FNs",
+      "self_conjugate": false,
+      "indices": ["Generation"],
+      "flavor_index": "Generation",
+      "mass": {"sym": "MF", "value": "1000."},
+      "width": {"sym": "WF", "value": "1."},
+      "quantum_numbers": {"Y": "0", "Q": "0"},
+      "pdg": [9000121],
+      "particle_name": "FNs",
+      "antiparticle_name": "FNsb",
+      "full_name": "Ns singlet composite fermion",
+      "propagator_label": "FNs",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 103,
+      "class_name": "FEs",
+      "self_conjugate": false,
+      "indices": ["Generation"],
+      "flavor_index": "Generation",
+      "mass": {"sym": "MF", "value": "1000."},
+      "width": {"sym": "WF", "value": "1."},
+      "quantum_numbers": {"Y": "-1", "Q": "-1"},
+      "pdg": [9000131],
+      "particle_name": "FEs",
+      "antiparticle_name": "FEsb",
+      "full_name": "Es singlet composite fermion",
+      "propagator_label": "FEs",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 110,
+      "class_name": "FN2",
+      "self_conjugate": false,
+      "indices": ["Colour", "SU2D", "Generation"],
+      "flavor_index": "SU2D",
+      "class_members": ["FN23", "FNm13"],
+      "mass": {"sym": "MF", "value": "1000."},
+      "width": {"sym": "WF", "value": "1."},
+      "quantum_numbers": {"Y": "1/6"},
+      "pdg": [9000141, 9000142],
+      "particle_name": ["FN23", "FNm13"],
+      "antiparticle_name": ["FNm23", "FNp13"],
+      "full_name": ["N+2/3 composite fermion", "N-1/3 composite fermion"],
+      "propagator_label": ["FN23", "FNm13"],
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 111,
+      "class_name": "FE2",
+      "self_conjugate": false,
+      "indices": ["Colour", "SU2D", "Generation"],
+      "flavor_index": "SU2D",
+      "class_members": ["FE23", "FEm13"],
+      "mass": {"sym": "MF", "value": "1000."},
+      "width": {"sym": "WF", "value": "1."},
+      "quantum_numbers": {"Y": "1/6"},
+      "pdg": [9000151, 9000152],
+      "particle_name": ["FE23", "FEm13"],
+      "antiparticle_name": ["FEm23", "FEp13"],
+      "full_name": ["E+2/3 composite fermion", "E-1/3 composite fermion"],
+      "propagator_label": ["FE23", "FEm13"],
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 112,
+      "class_name": "FNsC",
+      "self_conjugate": false,
+      "indices": ["Colour", "Generation"],
+      "flavor_index": "Generation",
+      "mass": {"sym": "MF", "value": "1000."},
+      "width": {"sym": "WF", "value": "1."},
+      "quantum_numbers": {"Y": "-1/3", "Q": "-1/3"},
+      "pdg": [9000161],
+      "particle_name": "FNsC",
+      "antiparticle_name": "FNsCb",
+      "full_name": "Ns color triplet composite fermion",
+      "propagator_label": "FNsC",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 113,
+      "class_name": "FEsC",
+      "self_conjugate": false,
+      "indices": ["Colour", "Generation"],
+      "flavor_index": "Generation",
+      "mass": {"sym": "MF", "value": "1000."},
+      "width": {"sym": "WF", "value": "1."},
+      "quantum_numbers": {"Y": "2/3", "Q": "2/3"},
+      "pdg": [9000171],
+      "particle_name": "FEsC",
+      "antiparticle_name": "FEsCb",
+      "full_name": "Es color triplet composite fermion",
+      "propagator_label": "FEsC",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 120,
+      "class_name": "FU1",
+      "self_conjugate": false,
+      "indices": ["SU2D", "Generation"],
+      "flavor_index": "SU2D",
+      "class_members": ["FU0", "FUm"],
+      "mass": {"sym": "MF", "value": "1000."},
+      "width": {"sym": "WF", "value": "1."},
+      "quantum_numbers": {"Y": "-1/2"},
+      "pdg": [9000181, 9000182],
+      "particle_name": ["FU0", "FUm"],
+      "antiparticle_name": ["FU0b", "FUpb"],
+      "full_name": ["U0 composite fermion", "U- composite fermion"],
+      "propagator_label": ["FU0", "FUm"],
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 121,
+      "class_name": "FD1",
+      "self_conjugate": false,
+      "indices": ["SU2D", "Generation"],
+      "flavor_index": "SU2D",
+      "class_members": ["FD0", "FDm"],
+      "mass": {"sym": "MF", "value": "1000."},
+      "width": {"sym": "WF", "value": "1."},
+      "quantum_numbers": {"Y": "-1/2"},
+      "pdg": [9000191, 9000192],
+      "particle_name": ["FD0", "FDm"],
+      "antiparticle_name": ["FD0b", "FDpb"],
+      "full_name": ["D0 composite fermion", "D- composite fermion"],
+      "propagator_label": ["FD0", "FDm"],
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 122,
+      "class_name": "FUsC",
+      "self_conjugate": false,
+      "indices": ["Colour", "Generation"],
+      "flavor_index": "Generation",
+      "mass": {"sym": "MF", "value": "1000."},
+      "width": {"sym": "WF", "value": "1."},
+      "quantum_numbers": {"Y": "-1/3", "Q": "-1/3"},
+      "pdg": [9000201],
+      "particle_name": "FUsC",
+      "antiparticle_name": "FUsCb",
+      "full_name": "Us color triplet composite fermion",
+      "propagator_label": "FUsC",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 123,
+      "class_name": "FDsC",
+      "self_conjugate": false,
+      "indices": ["Colour", "Generation"],
+      "flavor_index": "Generation",
+      "mass": {"sym": "MF", "value": "1000."},
+      "width": {"sym": "WF", "value": "1."},
+      "quantum_numbers": {"Y": "2/3", "Q": "2/3"},
+      "pdg": [9000211],
+      "particle_name": "FDsC",
+      "antiparticle_name": "FDsCb",
+      "full_name": "Ds color triplet composite fermion",
+      "propagator_label": "FDsC",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 130,
+      "class_name": "nur",
+      "self_conjugate": true,
+      "mass": {"sym": "MN", "value": "1000."},
+      "width": {"sym": "WN", "value": "1."},
+      "pdg": [9000221],
+      "particle_name": "nur",
+      "full_name": "sterile right-handed neutrino",
+      "propagator_label": "nur",
+      "propagator_type": "Straight",
+      "propagator_arrow": "None"
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "LPI1kin",
+      "delayed": true,
+      "expression": "ExpandIndices[DC[PI1bar[ii],mu] DC[PI1[ii],mu] - mPi^2 PI1bar[ii] PI1[ii], FlavorExpand->SU2D]"
+    },
+    {
+      "name": "LPI2kin",
+      "delayed": true,
+      "expression": "ExpandIndices[DC[PI2bar[ii],mu] DC[PI2[ii],mu] - mPi^2 PI2bar[ii] PI2[ii], FlavorExpand->SU2D]"
+    },
+    {
+      "name": "LHc1kin",
+      "delayed": true,
+      "expression": "ExpandIndices[DC[Hc1bar[ii],mu] DC[Hc1[ii],mu] - mPi^2 Hc1bar[ii] Hc1[ii], FlavorExpand->SU2D]"
+    },
+    {
+      "name": "LHc2kin",
+      "delayed": true,
+      "expression": "ExpandIndices[DC[Hc2bar[ii],mu] DC[Hc2[ii],mu] - mPi^2 Hc2bar[ii] Hc2[ii], FlavorExpand->SU2D]"
+    },
+    {
+      "name": "LLQ1kin",
+      "delayed": true,
+      "expression": "ExpandIndices[DC[LQ1bar[ii,cc],mu] DC[LQ1[ii,cc],mu] - mPi^2 LQ1bar[ii,cc] LQ1[ii,cc], FlavorExpand->SU2D]"
+    },
+    {
+      "name": "LLQ2kin",
+      "delayed": true,
+      "expression": "ExpandIndices[DC[LQ2bar[ii,cc],mu] DC[LQ2[ii,cc],mu] - mPi^2 LQ2bar[ii,cc] LQ2[ii,cc], FlavorExpand->SU2D]"
+    },
+    {
+      "name": "LFN1kin",
+      "delayed": true,
+      "expression": "ExpandIndices[I FN1bar.Ga[mu].DC[FN1, mu] - MF FN1bar.FN1, FlavorExpand->SU2D]"
+    },
+    {
+      "name": "LFE1kin",
+      "delayed": true,
+      "expression": "ExpandIndices[I FE1bar.Ga[mu].DC[FE1, mu] - MF FE1bar.FE1, FlavorExpand->SU2D]"
+    },
+    {
+      "name": "LFNskin",
+      "delayed": true,
+      "expression": "ExpandIndices[I FNsbar.Ga[mu].DC[FNs, mu] - MF FNsbar.FNs, FlavorExpand->Generation]"
+    },
+    {
+      "name": "LFEskin",
+      "delayed": true,
+      "expression": "ExpandIndices[I FEsbar.Ga[mu].DC[FEs, mu] - MF FEsbar.FEs, FlavorExpand->Generation]"
+    },
+    {
+      "name": "LFN2kin",
+      "delayed": true,
+      "expression": "ExpandIndices[I FN2bar.Ga[mu].DC[FN2, mu] - MF FN2bar.FN2, FlavorExpand->SU2D]"
+    },
+    {
+      "name": "LFE2kin",
+      "delayed": true,
+      "expression": "ExpandIndices[I FE2bar.Ga[mu].DC[FE2, mu] - MF FE2bar.FE2, FlavorExpand->SU2D]"
+    },
+    {
+      "name": "LFNsCkin",
+      "delayed": true,
+      "expression": "ExpandIndices[I FNsCbar.Ga[mu].DC[FNsC, mu] - MF FNsCbar.FNsC, FlavorExpand->Generation]"
+    },
+    {
+      "name": "LFEsCkin",
+      "delayed": true,
+      "expression": "ExpandIndices[I FEsCbar.Ga[mu].DC[FEsC, mu] - MF FEsCbar.FEsC, FlavorExpand->Generation]"
+    },
+    {
+      "name": "LFU1kin",
+      "delayed": true,
+      "expression": "ExpandIndices[I FU1bar.Ga[mu].DC[FU1, mu] - MF FU1bar.FU1, FlavorExpand->SU2D]"
+    },
+    {
+      "name": "LFD1kin",
+      "delayed": true,
+      "expression": "ExpandIndices[I FD1bar.Ga[mu].DC[FD1, mu] - MF FD1bar.FD1, FlavorExpand->SU2D]"
+    },
+    {
+      "name": "LFUsCkin",
+      "delayed": true,
+      "expression": "ExpandIndices[I FUsCbar.Ga[mu].DC[FUsC, mu] - MF FUsCbar.FUsC, FlavorExpand->Generation]"
+    },
+    {
+      "name": "LFDsCkin",
+      "delayed": true,
+      "expression": "ExpandIndices[I FDsCbar.Ga[mu].DC[FDsC, mu] - MF FDsCbar.FDsC, FlavorExpand->Generation]"
+    },
+    {
+      "name": "Lnurkin",
+      "delayed": true,
+      "expression": "I/2 nurbar.Ga[mu].del[nur, mu] - 1/2 MN nurbar.nur"
+    },
+    {
+      "name": "LYPI",
+      "delayed": true,
+      "expression": "ExpandIndices[gY dRbar[sp1,ff,cc] QL[sp1,1,ff,cc] PIm + gY dRbar[sp1,ff,cc] QL[sp1,2,ff,cc] PI0dbar + gY uRbar[sp1,ff,cc] QL[sp1,1,ff,cc] PI0ubar + gY uRbar[sp1,ff,cc] Conjugate[CKM[ff,ff2]] dq[sp1,ff2,cc] Pip + gYp dRbar[sp1,ff,cc] QL[sp1,1,ff,cc] PIm, FlavorExpand->{SU2D,SU2W}] + HC[gY dRbar[sp1,ff,cc] QL[sp1,1,ff,cc] PIm + gY dRbar[sp1,ff,cc] QL[sp1,2,ff,cc] PI0dbar + gY uRbar[sp1,ff,cc] QL[sp1,1,ff,cc] PI0ubar + gY uRbar[sp1,ff,cc] Conjugate[CKM[ff,ff2]] dq[sp1,ff2,cc] Pip]"
+    },
+    {
+      "name": "LYLQ",
+      "delayed": true,
+      "expression": "ExpandIndices[gY eRbar[sp1,ff] QL[sp1,1,ff,cc] LQ53[cc] + gY vyRbar[sp1,ff] QL[sp1,2,ff,cc] LQm13[cc] + gY vyRbar[sp1,ff] QL[sp1,1,ff,cc] LQ23u[cc] + gY eRbar[sp1,ff] QL[sp1,2,ff,cc] LQ23d[cc], FlavorExpand->SU2D] + HC[gY eRbar[sp1,ff] QL[sp1,1,ff,cc] LQ53[cc] + gY vyRbar[sp1,ff] QL[sp1,2,ff,cc] LQm13[cc] + gY vyRbar[sp1,ff] QL[sp1,1,ff,cc] LQ23u[cc] + gY eRbar[sp1,ff] QL[sp1,2,ff,cc] LQ23d[cc]]"
+    },
+    {
+      "name": "LHcFF",
+      "delayed": true,
+      "expression": "ExpandIndices[gY dRbar[sp1,ff,cc] QL[sp1,1,ff,cc] Hcm + gY dRbar[sp1,ff,cc] QL[sp1,2,ff,cc] Hc0dbar + gY uRbar[sp1,ff,cc] QL[sp1,1,ff,cc] Hc0ubar + gY uRbar[sp1,ff,cc] Conjugate[CKM[ff,ff2]] dq[sp1,ff2,cc] Hcp, FlavorExpand->{SU2D,SU2W}] + HC[gY dRbar[sp1,ff,cc] QL[sp1,1,ff,cc] Hcm + gY dRbar[sp1,ff,cc] QL[sp1,2,ff,cc] Hc0dbar + gY uRbar[sp1,ff,cc] QL[sp1,1,ff,cc] Hc0ubar + gY uRbar[sp1,ff,cc] Conjugate[CKM[ff,ff2]] dq[sp1,ff2,cc] Hcp]"
+    },
+    {
+      "name": "LFCI",
+      "delayed": true,
+      "expression": "gst^2/Lam^2 ((FU0bar[sp1,ff,cc] uR[sp2,ff,cc])(uRbar[sp2,ff2,cc] vl[sp1,ff2]) + (FUpb[sp1,ff,cc] uR[sp2,ff,cc])(uRbar[sp2,ff2,cc] l[sp1,ff2]) + (FDpb[sp1,ff,cc] dq[sp2,ff,cc])(dqbar[sp2,ff2,cc] l[sp1,ff2]) + (FD0bar[sp1,ff,cc] dq[sp2,ff,cc])(dqbar[sp2,ff2,cc] vl[sp1,ff2]) + (FE23bar[sp1,ff,cc] eR[sp2,ff])(eRbar[sp2,ff] uL[sp1,ff,cc]) + (FNm13bar[sp1,ff,cc] vyR[sp2,ff])(vyRbar[sp2,ff] dL[sp1,ff,cc]) + (FEp13bar[sp1,ff,cc] eR[sp2,ff])(eRbar[sp2,ff] dL[sp1,ff,cc]) + (FN23bar[sp1,ff,cc] vyR[sp2,ff])(vyRbar[sp2,ff] uL[sp1,ff,cc])) + HC[gst^2/Lam^2 ((FU0bar[sp1,ff,cc] uR[sp2,ff,cc])(uRbar[sp2,ff2,cc] vl[sp1,ff2]) + (FUpb[sp1,ff,cc] uR[sp2,ff,cc])(uRbar[sp2,ff2,cc] l[sp1,ff2]) + (FDpb[sp1,ff,cc] dq[sp2,ff,cc])(dqbar[sp2,ff2,cc] l[sp1,ff2]) + (FD0bar[sp1,ff,cc] dq[sp2,ff,cc])(dqbar[sp2,ff2,cc] vl[sp1,ff2]) + (FE23bar[sp1,ff,cc] eR[sp2,ff])(eRbar[sp2,ff] uL[sp1,ff,cc]) + (FNm13bar[sp1,ff,cc] vyR[sp2,ff])(vyRbar[sp2,ff] dL[sp1,ff,cc]) + (FEp13bar[sp1,ff,cc] eR[sp2,ff])(eRbar[sp2,ff] dL[sp1,ff,cc]) + (FN23bar[sp1,ff,cc] vyR[sp2,ff])(vyRbar[sp2,ff] uL[sp1,ff,cc]))]"
+    },
+    {
+      "name": "LANOMPI0",
+      "delayed": true,
+      "expression": "Sum over PI0: (ee gw Nc)/(4 Pi^2 FPi Sqrt[2]) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[W,sig,nu] PI0 fields - written as anomaly couplings for PI0u and PI0d to gamma gamma, gamma Z, ZZ, WW, gg via paper Eqs.(PiGG)-(PiGGg): (2 ee^2 Nc)/(3 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0ubar + (ee^2 Nc)/(9 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0dbar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0ubar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0dbar + HC[(2 ee^2 Nc)/(3 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0ubar + (ee^2 Nc)/(9 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0dbar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0ubar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0dbar]"
+    },
+    {
+      "name": "LANOMPIc",
+      "delayed": true,
+      "expression": "gQ2 Nc/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[W,sig,nu] PIm + HC[gQ2 Nc/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[W,sig,nu] PIm] where gQ2 is the fractional charge factor (2/3 ee)*(gw/(2 Sqrt[2])) or (-(1/3) ee)*(gw/(2 Sqrt[2])) from Eqs.(PiGG1+1)-(PiGG1+2)"
+    },
+    {
+      "name": "LTotal",
+      "delayed": true,
+      "expression": "LPI1kin + LPI2kin + LHc1kin + LHc2kin + LLQ1kin + LLQ2kin + LFN1kin + LFE1kin + LFNskin + LFEskin + LFN2kin + LFE2kin + LFNsCkin + LFEsCkin + LFU1kin + LFD1kin + LFUsCkin + LFDsCkin + Lnurkin + LYPI + LYLQ + LHcFF + LFCI + LANOMPI0 + LANOMPIc"
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}

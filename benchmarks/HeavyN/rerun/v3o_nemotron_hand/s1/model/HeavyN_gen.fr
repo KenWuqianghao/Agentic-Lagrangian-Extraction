@@ -1,0 +1,109 @@
+(* HeavyN_gen.fr - Heavy Neutrino add-on for SM.fr *)
+(* Based on arXiv:1602.06957 *)
+
+M$ModelName = "HeavyN_gen";
+
+M$Information = {
+  Authors -> {"[Auto-generated from arXiv:1602.06957]"},
+  Version -> "1.0",
+  Date -> "2026-09-24",
+  Institutions -> {},
+  Emails -> {},
+  URLs -> "https://arxiv.org/abs/1602.06957"
+};
+
+(* Interaction orders *)
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+(* New index for heavy neutrino generations *)
+IndexRange[Index[HeavyGeneration]] = NoUnfold[Range[1]];
+IndexStyle[HeavyGeneration, hg];
+
+(* Parameters *)
+M$Parameters = {
+  (* Heavy neutrino mass *)
+  MNuH == {
+    ParameterType -> External,
+    BlockName -> HEAVYN,
+    OrderBlock -> 1,
+    Value -> 1000.,
+    InteractionOrder -> {NP, 0},
+    TeX -> Subscript[M, N],
+    Description -> "Heavy neutrino mass [GeV]"
+  },
+  (* Active-heavy mixing matrix V_{lN} *)
+  Vmix == {
+    ParameterType -> External,
+    BlockName -> HEAVYNMIX,
+    Indices -> {Index[Generation], Index[HeavyGeneration]},
+    Value -> {Vmix[1,1] -> 1.*^-3, Vmix[2,1] -> 1.*^-3, Vmix[3,1] -> 1.*^-3},
+    InteractionOrder -> {NP, 1},
+    TeX -> Subscript[V, lN],
+    Description -> "Active-heavy neutrino mixing matrix"
+  }
+};
+
+(* Particle classes *)
+M$ClassesDescription = {
+  (* Heavy neutrino: Majorana fermion, SM singlet *)
+  F[100] == {
+    ClassName -> NuH,
+    ClassMembers -> {N1},
+    Indices -> {Index[HeavyGeneration]},
+    FlavorIndex -> HeavyGeneration,
+    SelfConjugate -> True,
+    Mass -> {MNuH, 1000.},
+    Width -> {WNuH, 0.},
+    QuantumNumbers -> {},
+    PropagatorLabel -> "NuH",
+    PropagatorType -> S,
+    PropagatorArrow -> Forward,
+    PDG -> 9900012,
+    ParticleName -> "N",
+    AntiParticleName -> "N",
+    FullName -> "Heavy Neutrino"
+  }
+};
+
+(* Lagrangian *)
+
+(* Kinetic and mass term for heavy neutrino (Majorana) *)
+LNKin := Block[{mu, hg},
+  ExpandIndices[
+    I/2 * bar[NuH[hg]].Ga[mu].DC[NuH[hg], mu] - 1/2 * MNuH * bar[NuH[hg]].NuH[hg],
+    FlavorExpand -> HeavyGeneration
+  ]
+];
+
+(* Interaction terms from Eq. (2.4) of arXiv:1602.06957 *)
+(* Using physical fields: W, Z, H, vl, l, NuH *)
+
+LIntW := Block[{mu, ff, hg},
+  ExpandIndices[
+    -gw/Sqrt[2] * W[mu] * bar[CC[NuH[hg]]].Ga[mu].ProjM.l[ff] * Conjugate[Vmix[ff, hg]],
+    FlavorExpand -> {Generation, HeavyGeneration}
+  ]
+];
+
+LIntZ := Block[{mu, ff, hg},
+  ExpandIndices[
+    -gw/(2*cw) * Z[mu] * bar[CC[NuH[hg]]].Ga[mu].ProjM.vl[ff] * Conjugate[Vmix[ff, hg]],
+    FlavorExpand -> {Generation, HeavyGeneration}
+  ]
+];
+
+LIntH := Block[{ff, hg},
+  ExpandIndices[
+    -gw*MNuH/(2*MW) * H * bar[CC[NuH[hg]]].ProjM.vl[ff] * Conjugate[Vmix[ff, hg]],
+    FlavorExpand -> {Generation, HeavyGeneration}
+  ]
+];
+
+LInt := LIntW + LIntZ + LIntH;
+
+(* Total Lagrangian *)
+LTotal := LNKin + LInt + HC[LInt];

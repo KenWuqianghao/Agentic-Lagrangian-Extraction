@@ -1,0 +1,4 @@
+SCHEMA OK: 12 particle classes, 91 parameters, Lagrangian terms ['LZpKin', 'LVKin', 'LYKin', 'LH0Kin', 'LH2Kin', 'LH3Kin', 'LHpKin', 'LHVKin', 'LHYKin', 'LDqKin', 'LTqKin', 'LElKin', 'LZpNewFerm', 'LVNewFerm', 'LYNewFerm', 'LVSint', 'LVVSint', 'LYukNew', 'LTotal']
+RENDERED: model.fr (791 lines). You may read it.
+LINT: 1 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are real defects; do not remove paper physics just to silence one.
+- [warn] sm_parameter_redeclared: parameter `ee` is already declared by SM.fr (model.fr line 304)

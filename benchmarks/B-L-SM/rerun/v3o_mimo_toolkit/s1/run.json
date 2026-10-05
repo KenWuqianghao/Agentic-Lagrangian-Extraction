@@ -1,0 +1,38 @@
+{
+ "page": "B-L-SM",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit",
+ "seed": 1,
+ "variant": "v3o_mimo_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 2763.5,
+ "tokens": {
+  "input": 272582,
+  "output": 12212,
+  "reasoning": 110425
+ },
+ "output_max": 128000,
+ "n_events": 97,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 51,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la && ./frgen spec.json\"}"
+  ],
+  "frgen_runs": 2,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/B-L-SM/rerun/v3o_mimo_toolkit/s1/model/B-L-SM_gen.fr",
+ "final_lint_findings": 2
+}

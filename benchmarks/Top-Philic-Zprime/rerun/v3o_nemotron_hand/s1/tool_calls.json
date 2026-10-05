@@ -1,0 +1,54 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-1c4ozhjz/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-1c4ozhjz/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: Top-Philic-Zprime (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1604.07421.\n4: PAPER: th"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-1c4ozhjz/paper/1604.07421_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-1c4ozhjz/paper/1604.07421_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[aps,prd,amsmath,amsfonts,amssymb,eqsecnum,nofootinbib,\n2:   floatfix,secnumarabic,preprintnumbers,superscriptaddress,nobalancelastpage,\n3:   twocolumn]{revtex4}\n4: \\usepackage{color,multirow,graphicx}\n5: \\usepackage{slashed}\n6"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "offset": 625,
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-1c4ozhjz/paper/1604.07421_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-1c4ozhjz/paper/1604.07421_source.tex</path>\n<type>file</type>\n<content>\n625:                                     $M_J > 900 \\GeV$                      &   0.11                                 & $0.073$                           & 32                                               & $0.23$                     & 89\n626"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-1c4ozhjz/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-1c4ozhjz/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                      "
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-1c4ozhjz/model.fr",
+   "content": "(* ************************** *)\n(* *****  Information   ***** *)\n(* ************************** *)\n\nM$ModelName = \"Top-Philic-Zprime_gen\";\n\nM$Information = {\n  Authors      -> {\"Auto-generated from arXiv:1604.07421\"},\n  Version      -> \"1.0\",\n  Date         -> \"24.09.2026\",\n  Institutions -> {\"Benchmark extraction\"},\n  Emails       -> {},\n  URLs         -> \"https://arxiv.org/abs/1604.07421\"\n};\n\n(* ************************** *)\n(* ***** Interaction orders *** *)\n(* ************************** *)\n\nM$InteractionOrderHierarchy = {\n  {QCD, 1},\n  {QED, 2},\n  {NP, 1}\n};\n\n(* ************************** *)\n(* *****    Parameters    ***** *)\n(* ************************** *)\n\nM$Parameters = {\n\n  (* New physics parameters *)\n  MV1 == {\n    ParameterType    -> External,\n    BlockName        -> NP,\n    OrderBlock       -> 1,\n    Value            -> 1500.,\n    InteractionOrder -> {NP, 0},\n    TeX              -> Subscript[M, V1],\n    Description      -> \"Mass of the top-philic vector resonance V1 [GeV]\"\n  },\n\n  ct == {\n    ParameterType    -> External,\n    BlockName        -> NP,\n    OrderBlock       -> 2,\n    Value            -> 2.0,\n    InteractionOrder -> {NP, 1},\n    TeX              -> Subscript[c, t],\n    Description      -> \"Overall coupling of V1 to top quarks, c_t = sqrt(c_L^2 + c_R^2)\"\n  },\n\n  theta == {\n    ParameterType    -> External,\n    BlockName        -> NP,\n    OrderBlock       -> 3,\n    Value            -> Pi/2,\n    InteractionOrder -> {NP, 0},\n    TeX              -> \\[Theta],\n    Description      -> \"Chirality angle, tan(theta) = c_R/c_L. Paper sets theta = Pi/2 (pure right-handed)\"\n  },\n\n  cL == {\n    ParameterType    -> Internal,\n    Value            -> ct*Cos[theta],\n    InteractionOrder -> {NP, 1},\n    TeX              -> Subscript[c, L],\n    Description      -> \"Left-handed coupling of V1 to top quarks\"\n  },\n\n  cR == {\n    ParameterType    -> Internal,\n    Value            -> ct*Sin[theta],\n    InteractionOrder -> {NP, 1},\n    TeX              -> Subscript[c, R],\n    Description      -> \"Right-handed coupling of V1 to top quarks\"\n  }\n\n};\n\n(* ************************** *)\n(* **** Particle classes **** *)\n(* ************************** *)\n\nM$ClassesDescription = {\n\n  (* New color-singlet vector resonance V1 *)\n  V[100] == {\n    ClassName       -> V1,\n    SelfConjugate   -> True,\n    Mass            -> {MV1, 1500.},\n    Width           -> {WV1, 0.},\n    ParticleName    -> \"V1\",\n    PDG             -> 9000001,\n    PropagatorLabel -> \"V1\",\n    PropagatorType  -> Sine,\n    PropagatorArrow -> None,\n    QuantumNumbers  -> {Q -> 0},\n    FullName        -> \"Top-philic vector resonance V1\"\n  }\n\n};\n\n(* ************************** *)\n(* *****   Lagrangian   ***** *)\n(* ************************** *)\n\n(* Kinetic + mass term for V1 (real vector, gauge singlet) *)\nLV1kin := -1/4 FS[V1, mu, nu] FS[V1, mu, nu] + 1/2 MV1^2 V1[mu] V1[mu];\n\n(* Interaction term: c_t * \\bar{t} \\gamma^\\mu (cos\\theta P_L + sin\\theta P_R) t V1_\\mu *)\n(* Using physical top quark field uq[3] from SM.fr *)\nLV1int := Block[{sp, cc},\n  ct * (\n    Cos[theta] * uqbar[sp, 3, cc].Ga[mu].ProjM.uq[sp, 3, cc] +\n    Sin[theta] * uqbar[sp, 3, cc].Ga[mu].ProjP.uq[sp, 3, cc]\n  ) * V1[mu]\n];\n\n(* Total Lagrangian *)\nLTotal := LV1kin + LV1int;"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-1c4ozhjz/model.fr",
+   "oldString": "V[100] == {\n    ClassName       -> V1,\n    SelfConjugate   -> True,\n    Mass            -> {MV1, 1500.},\n    Width           -> {WV1, 0.},\n    ParticleName    -> \"V1\",\n    PDG             -> 9000001,\n    PropagatorLabel -> \"V1\",\n    PropagatorType  -> Sine,\n    PropagatorArrow -> None,\n    QuantumNumbers  -> {Q -> 0},\n    FullName        -> \"Top-philic vector resonance V1\"\n  }",
+   "newString": "V[100] == {\n    ClassName       -> V1,\n    SelfConjugate   -> True,\n    Mass            -> {MV1, 1500.},\n    Width           -> {WV1, 0.},\n    ParticleName    -> \"V1\",\n    PDG             -> 9000001,\n    PropagatorLabel -> \"V1\",\n    PropagatorType  -> Sine,\n    PropagatorArrow -> None,\n    FullName        -> \"Top-philic vector resonance V1\"\n  }"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully."
+ }
+]

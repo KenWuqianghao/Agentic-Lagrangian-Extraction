@@ -1,0 +1,52 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-z8twrsgw/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-z8twrsgw/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: Top-Philic-Zprime (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1604.07421.\n4: PAPER: th"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-z8twrsgw/paper/1604.07421_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-z8twrsgw/paper/1604.07421_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[aps,prd,amsmath,amsfonts,amssymb,eqsecnum,nofootinbib,\n2:   floatfix,secnumarabic,preprintnumbers,superscriptaddress,nobalancelastpage,\n3:   twocolumn]{revtex4}\n4: \\usepackage{color,multirow,graphicx}\n5: \\usepackage{slashed}\n6"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-z8twrsgw/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-z8twrsgw/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                      "
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-z8twrsgw/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-z8twrsgw/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-z8twrsgw/paper/1604.07421_source.tex"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-z8twrsgw/paper/1604.07421_source.tex",
+   "offset": 625
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-z8twrsgw/paper/1604.07421_source.tex</path>\n<type>file</type>\n<content>\n625:                                     $M_J > 900 \\GeV$                      &   0.11                                 & $0.073$                           & 32                                               & $0.23$                     & 89\n626"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "content": "(*****************************************************************************************)\n(*****   FeynRules add-on: Top-Philic Z' simplified model (V1)                       *****)\n(*****   Extracted from arXiv:1604.07421 (paper/1604.07421_source.tex, authoritative) *****)\n(*****   Loaded on top of SM.fr \u2014 no M$GaugeGroups block                              *****)\n(*****************************************************************************************)\n\nM$ModelName = \"Top-Philic-Zprime_gen\";\n\nM$Information = {\n  Authors      -> {\"Automated extraction from arXiv:1604.07421\"},\n  Version      -> \"1.0\",\n  Date         -> \"24. 09. 2026\",\n  Institutions -> {\"N/A\"},\n  Emails       -> {\"N/A\"},\n  URLs         -> \"arXiv:1604.07421\"\n};\n\n(* Interaction orders used by this add-on: NP for the new coupling ct *)\nM$InteractionOrderHierarchy = {\n  {QCD, 1},\n  {QED, 2},\n  {NP, 1}\n};\n\n(* No new indices: Colour, Gluon, Generation, SU2D, SU2W all come from SM.fr.\n   V1 is an SU(3)xSU(2)xU(1) singlet \u2014 no IndexRange or AddGaugeRepresentation needed. *)\n\nM$Parameters = {\n\n  (* External parameters of the simplified model, Eq. (v0inttop) and Sec. II *)\n  ct == {\n    ParameterType    -> External,\n    BlockName        -> TPZPINPUTS,\n    OrderBlock       -> 1,\n    Value            -> 2.0,\n    InteractionOrder -> {NP, 1},\n    TeX              -> Subscript[c, t],\n    Description      -> \"Overall V1-top coupling strength, benchmark c_t = 2.0, Eq.(1)\"\n  },\n  thV1 == {\n    ParameterType    -> External,\n    BlockName        -> TPZPINPUTS,\n    OrderBlock       -> 2,\n    Value            -> Pi/2,\n    TeX              -> Subscript[\\[Theta], t],\n    Description      -> \"Chirality angle, tan(theta)=c_R/c_L; benchmark theta=Pi/2 (pure right-handed), Eq.(1)\"\n  },\n  MV1 == {\n    ParameterType    -> External,\n    BlockName        -> TPZPINPUTS,\n    OrderBlock       -> 3,\n    Value            -> 1500.,\n    TeX              -> Subscript[M, V1],\n    Description      -> \"Mass of the colour-singlet vector resonance V1 in GeV, benchmark 1500.\"\n  }\n};\n\nM$ClassesDescription = {\n\n  (* The single new particle of the model: colour-singlet, EW-singlet real vector V1 *)\n  V[100] == {\n    ClassName       -> V1,\n    SelfConjugate   -> True,\n    Mass            -> {MV1, 1500.},\n    Width           -> 0,\n    ParticleName    -> \"V1\",\n    PropagatorLabel -> \"V1\",\n    PropagatorType  -> Sine,\n    PropagatorArrow -> None,\n    PDG             -> 9000001,\n    FullName        -> \"Top-philic colour-singlet vector resonance V1\"\n  }\n};\n\n(* ************************** *)\n(* *****   Lagrangian    ***** *)\n(* ************************** *)\n\n(* Free-field term for the real massive vector V1 (kinetic + Proca mass) *)\nLV1kin := Block[{mu, nu},\n  -1/4 FS[V1, mu, nu] FS[V1, mu, nu] + 1/2 MV1^2 V1[mu] V1[mu]\n];\n\n(* L_int = c_t * tbar gamma_mu (cos(theta) P_L + sin(theta) P_R) t * V1^mu\n   Paper Eq. (v0inttop): L_int = c_t tbar gamma_mu (cos theta P_L + sin theta P_R) t V1^mu\n   with c_L = c_t cos(theta), c_R = c_t sin(theta); benchmark theta = Pi/2.\n   Hermitian as written (vector chiral current x real V1); no HC[] needed. *)\nLV1int := Block[{mu},\n  ct V1[mu] (Cos[thV1] tbar.Ga[mu].ProjM.t + Sin[thV1] tbar.Ga[mu].ProjP.t)\n];\n\n(* Single total Lagrangian of this add-on *)\nLTotal := LV1kin + LV1int;\n",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Top-Philic-Zprime-z8twrsgw/model.fr"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ }
+]

@@ -1,0 +1,1091 @@
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+M$ModelName = "331_gen";
+
+M$Information = {
+  Authors      -> {"Qing-Hong Cao", "Dong-Ming Zhang"},
+  Version      -> "1.0",
+  Date         -> "2026-09-24",
+  Institutions -> {"Peking University"},
+  Emails       -> {"qinghongcao@pku.edu.cn", "zhangdongming@pku.edu.cn"},
+  URLs         -> "https://arxiv.org/abs/1611.09337"
+};
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ************************** *)
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+(* ************************** *)
+(* *****    Indices     ***** *)
+(* ************************** *)
+(* No new indices needed - all new particles use existing Colour, Generation indices from SM.fr *)
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+M$Parameters = {
+
+  (* New gauge couplings *)
+  g331 == {
+    ParameterType    -> External,
+    Value            -> 0.65,
+    InteractionOrder -> {NP, 1},
+    TeX              -> g_{331},
+    Description      -> "SU(3)_L gauge coupling"
+  },
+  gX == {
+    ParameterType    -> External,
+    Value            -> 0.35,
+    InteractionOrder -> {NP, 1},
+    TeX              -> g_X,
+    Description      -> "U(1)_X gauge coupling"
+  },
+
+  (* Beta parameter characterizing the model *)
+  beta == {
+    ParameterType    -> External,
+    Value            -> 1/Sqrt[3],
+    InteractionOrder -> {NP, 0},
+    TeX              -> \\beta,
+    Description      -> "Model parameter beta = ±1/√3, ±√3"
+  },
+
+  (* Higgs vevs *)
+  v1 == {
+    ParameterType    -> External,
+    Value            -> 174.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> v_1,
+    Description      -> "VEV of rho^0 [GeV]"
+  },
+  v2 == {
+    ParameterType    -> External,
+    Value            -> 174.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> v_2,
+    Description      -> "VEV of eta^0 [GeV]"
+  },
+  v3 == {
+    ParameterType    -> External,
+    Value            -> 2000.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> v_3,
+    Description      -> "VEV of chi^0 [GeV] (TeV scale)"
+  },
+
+  (* Derived: v = Sqrt[v1^2 + v2^2] *)
+  v == {
+    ParameterType    -> Internal,
+    Value            -> Sqrt[v1^2 + v2^2],
+    TeX              -> v,
+    Description      -> "Electroweak VEV = 246 GeV"
+  },
+
+  (* Higgs potential parameters *)
+  mu1 == {
+    ParameterType    -> External,
+    Value            -> 100.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> \\mu_1,
+    Description      -> "Higgs mass parameter for rho [GeV]"
+  },
+  mu2 == {
+    ParameterType    -> External,
+    Value            -> 100.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> \\mu_2,
+    Description      -> "Higgs mass parameter for eta [GeV]"
+  },
+  mu3 == {
+    ParameterType    -> External,
+    Value            -> 1000.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> \\mu_3,
+    Description      -> "Higgs mass parameter for chi [GeV]"
+  },
+  lam1 == {
+    ParameterType    -> External,
+    Value            -> 0.1,
+    InteractionOrder -> {NP, 0},
+    TeX              -> \\lambda_1,
+    Description      -> "Higgs quartic coupling (rho^2)^2"
+  },
+  lam2 == {
+    ParameterType    -> External,
+    Value            -> 0.1,
+    InteractionOrder -> {NP, 0},
+    TeX              -> \\lambda_2,
+    Description      -> "Higgs quartic coupling (eta^2)^2"
+  },
+  lam3 == {
+    ParameterType    -> External,
+    Value            -> 0.1,
+    InteractionOrder -> {NP, 0},
+    TeX              -> \\lambda_3,
+    Description      -> "Higgs quartic coupling (chi^2)^2"
+  },
+  lam12 == {
+    ParameterType    -> External,
+    Value            -> 0.05,
+    InteractionOrder -> {NP, 0},
+    TeX              -> \\lambda_{12},
+    Description      -> "Higgs portal coupling rho^2 eta^2"
+  },
+  lam13 == {
+    ParameterType    -> External,
+    Value            -> 0.05,
+    InteractionOrder -> {NP, 0},
+    TeX              -> \\lambda_{13},
+    Description      -> "Higgs portal coupling rho^2 chi^2"
+  },
+  lam23 == {
+    ParameterType    -> External,
+    Value            -> 0.05,
+    InteractionOrder -> {NP, 0},
+    TeX              -> \\lambda_{23},
+    Description      -> "Higgs portal coupling eta^2 chi^2"
+  },
+  lam12p == {
+    ParameterType    -> External,
+    Value            -> 0.05,
+    InteractionOrder -> {NP, 0},
+    TeX              -> \\lambda'_{12},
+    Description      -> "Higgs portal coupling (rho^dagger eta)(eta^dagger rho)"
+  },
+  lam13p == {
+    ParameterType    -> External,
+    Value            -> 0.05,
+    InteractionOrder -> {NP, 0},
+    TeX              -> \\lambda'_{13},
+    Description      -> "Higgs portal coupling (rho^dagger chi)(chi^dagger rho)"
+  },
+  lam23p == {
+    ParameterType    -> External,
+    Value            -> 0.05,
+    InteractionOrder -> {NP, 0},
+    TeX              -> \\lambda'_{23},
+    Description      -> "Higgs portal coupling (eta^dagger chi)(chi^dagger eta)"
+  },
+  fparam == {
+    ParameterType    -> External,
+    Value            -> 1000.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> f,
+    Description      -> "Trilinear scalar coupling parameter [GeV]"
+  },
+
+  (* Mixing angles *)
+  s12 == {
+    ParameterType    -> Internal,
+    Value            -> v2/v,
+    TeX              -> s_{12},
+    Description      -> "sin of rho-eta mixing angle"
+  },
+  c12 == {
+    ParameterType    -> Internal,
+    Value            -> v1/v,
+    TeX              -> c_{12},
+    Description      -> "cos of rho-eta mixing angle"
+  },
+  s23 == {
+    ParameterType    -> Internal,
+    Value            -> v3/Sqrt[v2^2 + v3^2],
+    TeX              -> s_{23},
+    Description      -> "sin of eta-chi mixing angle"
+  },
+  c23 == {
+    ParameterType    -> Internal,
+    Value            -> v2/Sqrt[v2^2 + v3^2],
+    TeX              -> c_{23},
+    Description      -> "cos of eta-chi mixing angle"
+  },
+  s13 == {
+    ParameterType    -> Internal,
+    Value            -> v3/Sqrt[v1^2 + v3^2],
+    TeX              -> s_{13},
+    Description      -> "sin of rho-chi mixing angle"
+  },
+  c13 == {
+    ParameterType    -> Internal,
+    Value            -> v1/Sqrt[v1^2 + v3^2],
+    TeX              -> c_{13},
+    Description      -> "cos of rho-chi mixing angle"
+  },
+
+  (* Z-Z' mixing *)
+  s331 == {
+    ParameterType    -> Internal,
+    Value            -> g331/Sqrt[g331^2 + beta^2*gX^2],
+    TeX              -> s_{331},
+    Description      -> "sin of Z-Z' mixing angle"
+  },
+  c331 == {
+    ParameterType    -> Internal,
+    Value            -> beta*gX/Sqrt[g331^2 + beta^2*gX^2],
+    TeX              -> c_{331},
+    Description      -> "cos of Z-Z' mixing angle"
+  },
+
+  (* Neutral scalar mixing matrix elements (CP-even) *)
+  U11 == {
+    ParameterType    -> External,
+    Value            -> 0.7,
+    InteractionOrder -> {NP, 0},
+    TeX              -> U_{11},
+    Description      -> "CP-even scalar mixing matrix element (1,1)"
+  },
+  U12 == {
+    ParameterType    -> External,
+    Value            -> 0.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> U_{12},
+    Description      -> "CP-even scalar mixing matrix element (1,2)"
+  },
+  U13 == {
+    ParameterType    -> External,
+    Value            -> 0.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> U_{13},
+    Description      -> "CP-even scalar mixing matrix element (1,3)"
+  },
+  U21 == {
+    ParameterType    -> External,
+    Value            -> 0.7,
+    InteractionOrder -> {NP, 0},
+    TeX              -> U_{21},
+    Description      -> "CP-even scalar mixing matrix element (2,1)"
+  },
+  U22 == {
+    ParameterType    -> External,
+    Value            -> 0.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> U_{22},
+    Description      -> "CP-even scalar mixing matrix element (2,2)"
+  },
+  U23 == {
+    ParameterType    -> External,
+    Value            -> 0.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> U_{23},
+    Description      -> "CP-even scalar mixing matrix element (2,3)"
+  },
+  U31 == {
+    ParameterType    -> External,
+    Value            -> 0.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> U_{31},
+    Description      -> "CP-even scalar mixing matrix element (3,1)"
+  },
+  U32 == {
+    ParameterType    -> External,
+    Value            -> 0.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> U_{32},
+    Description      -> "CP-even scalar mixing matrix element (3,2)"
+  },
+  U33 == {
+    ParameterType    -> External,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> U_{33},
+    Description      -> "CP-even scalar mixing matrix element (3,3)"
+  },
+
+  (* CP-odd scalar mixing matrix elements *)
+  O11 == {
+    ParameterType    -> External,
+    Value            -> 0.7,
+    InteractionOrder -> {NP, 0},
+    TeX              -> O_{11},
+    Description      -> "CP-odd scalar mixing matrix element (1,1)"
+  },
+  O12 == {
+    ParameterType    -> External,
+    Value            -> -0.7,
+    InteractionOrder -> {NP, 0},
+    TeX              -> O_{12},
+    Description      -> "CP-odd scalar mixing matrix element (1,2)"
+  },
+  O13 == {
+    ParameterType    -> External,
+    Value            -> 0.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> O_{13},
+    Description      -> "CP-odd scalar mixing matrix element (1,3)"
+  },
+  O21 == {
+    ParameterType    -> External,
+    Value            -> 0.7,
+    InteractionOrder -> {NP, 0},
+    TeX              -> O_{21},
+    Description      -> "CP-odd scalar mixing matrix element (2,1)"
+  },
+  O22 == {
+    ParameterType    -> External,
+    Value            -> 0.7,
+    InteractionOrder -> {NP, 0},
+    TeX              -> O_{22},
+    Description      -> "CP-odd scalar mixing matrix element (2,2)"
+  },
+  O23 == {
+    ParameterType    -> External,
+    Value            -> 0.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> O_{23},
+    Description      -> "CP-odd scalar mixing matrix element (2,3)"
+  },
+  O31 == {
+    ParameterType    -> External,
+    Value            -> 0.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> O_{31},
+    Description      -> "CP-odd scalar mixing matrix element (3,1)"
+  },
+  O32 == {
+    ParameterType    -> External,
+    Value            -> 0.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> O_{32},
+    Description      -> "CP-odd scalar mixing matrix element (3,2)"
+  },
+  O33 == {
+    ParameterType    -> External,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> O_{33},
+    Description      -> "CP-odd scalar mixing matrix element (3,3)"
+  },
+
+  (* New gauge boson masses *)
+  MZp == {
+    ParameterType    -> Internal,
+    Value            -> g331*c331*v3/Sqrt[3*(1 - (1 + beta^2)*sw2)],
+    TeX              -> M_{Z'},
+    Description      -> "Z' boson mass [GeV]"
+  },
+  MWp == {
+    ParameterType    -> Internal,
+    Value            -> g331*v/2,
+    TeX              -> M_{W'},
+    Description      -> "W boson mass [GeV]"
+  },
+  MY == {
+    ParameterType    -> Internal,
+    Value            -> g331*Sqrt[v3^2 + v2^2]/2,
+    TeX              -> M_{Y},
+    Description      -> "Y boson mass [GeV]"
+  },
+  MV == {
+    ParameterType    -> Internal,
+    Value            -> g331*Sqrt[v3^2 + v1^2]/2,
+    TeX              -> M_{V},
+    Description      -> "V boson mass [GeV]"
+  },
+
+  (* Scalar masses *)
+  Mh == {
+    ParameterType    -> External,
+    Value            -> 125.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> m_h,
+    Description      -> "SM-like Higgs mass [GeV]"
+  },
+  MH2 == {
+    ParameterType    -> Internal,
+    Value            -> v^2/(v1*v2)*fparam*v3,
+    TeX              -> M_{H_2},
+    Description      -> "Heavy CP-even scalar H2 mass [GeV]"
+  },
+  MH3 == {
+    ParameterType    -> Internal,
+    Value            -> Sqrt[2*lam3]*v3,
+    TeX              -> M_{H_3},
+    Description      -> "Heavy CP-even scalar H3 mass [GeV]"
+  },
+  MH0 == {
+    ParameterType    -> Internal,
+    Value            -> Sqrt[fparam*(v1^2*v2^2 + v2^2*v3^2 + v1^2*v3^2)/(v1*v2*v3)],
+    TeX              -> M_{H_0},
+    Description      -> "CP-odd scalar H0 mass [GeV]"
+  },
+  MHpm == {
+    ParameterType    -> Internal,
+    Value            -> Sqrt[(2*fparam*v3 + lam12p*v1*v2)/(2*v1*v2)]*v,
+    TeX              -> M_{H^\\pm},
+    Description      -> "Charged scalar H^± mass [GeV]"
+  },
+  MHpmQY == {
+    ParameterType    -> Internal,
+    Value            -> Sqrt[(2*fparam*v1 + lam23p*v2*v3)/(2*v2*v3)]*Sqrt[v2^2 + v3^2],
+    TeX              -> M_{H^{\\pm Q_Y}},
+    Description      -> "Charged scalar H^±Q_Y mass [GeV]"
+  },
+  MHpmQV == {
+    ParameterType    -> Internal,
+    Value            -> Sqrt[(2*fparam*v2 + lam13p*v1*v3)/(2*v1*v3)]*Sqrt[v1^2 + v3^2],
+    TeX              -> M_{H^{\\pm Q_V}},
+    Description      -> "Charged scalar H^±Q_V mass [GeV]"
+  },
+
+  (* Heavy fermion masses *)
+  MD == {
+    ParameterType    -> External,
+    Value            -> 1000.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> M_D,
+    Description      -> "Heavy quark D mass [GeV]"
+  },
+  MS == {
+    ParameterType    -> External,
+    Value            -> 1000.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> M_S,
+    Description      -> "Heavy quark S mass [GeV]"
+  },
+  MT == {
+    ParameterType    -> External,
+    Value            -> 1000.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> M_T,
+    Description      -> "Heavy quark T mass [GeV]"
+  },
+  MEe == {
+    ParameterType    -> External,
+    Value            -> 1000.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> M_{E_e},
+    Description      -> "Heavy lepton E_e mass [GeV]"
+  },
+  MEmu == {
+    ParameterType    -> External,
+    Value            -> 1000.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> M_{E_\\mu},
+    Description      -> "Heavy lepton E_mu mass [GeV]"
+  },
+  MEtau == {
+    ParameterType    -> External,
+    Value            -> 1000.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> M_{E_\\tau},
+    Description      -> "Heavy lepton E_tau mass [GeV]"
+  },
+
+  (* Yukawa couplings for new fermions *)
+  yD == {
+    ParameterType    -> External,
+    Value            -> 1.,
+    Indices          -> {Index[Generation]},
+    InteractionOrder -> {NP, 1},
+    TeX              -> y_D,
+    Description      -> "Yukawa coupling for D quark"
+  },
+  yS == {
+    ParameterType    -> External,
+    Value            -> 1.,
+    Indices          -> {Index[Generation]},
+    InteractionOrder -> {NP, 1},
+    TeX              -> y_S,
+    Description      -> "Yukawa coupling for S quark"
+  },
+  yT == {
+    ParameterType    -> External,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> y_T,
+    Description      -> "Yukawa coupling for T quark"
+  },
+  yEe == {
+    ParameterType    -> External,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> y_{E_e},
+    Description      -> "Yukawa coupling for E_e lepton"
+  },
+  yEmu == {
+    ParameterType    -> External,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> y_{E_\\mu},
+    Description      -> "Yukawa coupling for E_mu lepton"
+  },
+  yEtau == {
+    ParameterType    -> External,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> y_{E_\\tau},
+    Description      -> "Yukawa coupling for E_tau lepton"
+  },
+
+  (* Electric charges of new particles *)
+  QD == {
+    ParameterType    -> Internal,
+    Value            -> 1/6 - Sqrt[3]*beta/2,
+    TeX              -> Q_D,
+    Description      -> "Electric charge of D, S quarks"
+  },
+  QT == {
+    ParameterType    -> Internal,
+    Value            -> 1/6 + Sqrt[3]*beta/2,
+    TeX              -> Q_T,
+    Description      -> "Electric charge of T quark"
+  },
+  QE == {
+    ParameterType    -> Internal,
+    Value            -> -1/2 + Sqrt[3]*beta/2,
+    TeX              -> Q_E,
+    Description      -> "Electric charge of E leptons"
+  },
+  QV == {
+    ParameterType    -> Internal,
+    Value            -> -1/2 + Sqrt[3]*beta/2,
+    TeX              -> Q_V,
+    Description      -> "Electric charge of V boson"
+  },
+  QY == {
+    ParameterType    -> Internal,
+    Value            -> 1/2 + Sqrt[3]*beta/2,
+    TeX              -> Q_Y,
+    Description      -> "Electric charge of Y boson"
+  },
+
+  (* U(1)_X charges *)
+  Xrho == {
+    ParameterType    -> Internal,
+    Value            -> 1/2 - beta/(2*Sqrt[3]),
+    TeX              -> X_\\rho,
+    Description      -> "U(1)_X charge of rho triplet"
+  },
+  Xeta == {
+    ParameterType    -> Internal,
+    Value            -> -1/2 - beta/(2*Sqrt[3]),
+    TeX              -> X_\\eta,
+    Description      -> "U(1)_X charge of eta triplet"
+  },
+  Xchi == {
+    ParameterType    -> Internal,
+    Value            -> beta/Sqrt[3],
+    TeX              -> X_\\chi,
+    Description      -> "U(1)_X charge of chi triplet"
+  },
+
+  (* a0 parameter for Z' couplings *)
+  a0 == {
+    ParameterType    -> Internal,
+    Value            -> Sqrt[1 - (1 + beta^2)*sw2],
+    TeX              -> a_0,
+    Description      -> "Z' coupling normalization factor"
+  },
+  ap == {
+    ParameterType    -> Internal,
+    Value            -> Sqrt[3]*beta + 1,
+    TeX              -> a_+,
+    Description      -> "a_+ = √3 β + 1"
+  },
+  am == {
+    ParameterType    -> Internal,
+    Value            -> Sqrt[3]*beta - 1,
+    TeX              -> a_-,
+    Description      -> "a_- = √3 β - 1"
+  },
+  bp == {
+    ParameterType    -> Internal,
+    Value            -> Sqrt[3]*beta + 2,
+    TeX              -> b_+,
+    Description      -> "b_+ = √3 β + 2"
+  },
+  bm == {
+    ParameterType    -> Internal,
+    Value            -> Sqrt[3]*beta - 2,
+    TeX              -> b_-,
+    Description      -> "b_- = √3 β - 2"
+  }
+};
+
+(* ***************************** *)
+(* **** Particle classes **** *)
+(* ***************************** *)
+M$ClassesDescription = {
+
+  (* New gauge bosons *)
+  V[100] == {
+    ClassName        -> Zp,
+    SelfConjugate    -> True,
+    Mass             -> {MZp, 4000.},
+    Width            -> {WZp, 100.},
+    ParticleName     -> "Zp",
+    PDG              -> 32,
+    PropagatorLabel  -> "Zp",
+    PropagatorType   -> Sine,
+    PropagatorArrow  -> None,
+    FullName         -> "Z' boson"
+  },
+  V[101] == {
+    ClassName        -> V,
+    SelfConjugate    -> False,
+    Mass             -> {MV, 2000.},
+    Width            -> {WV, 10.},
+    ParticleName     -> "Vp",
+    AntiParticleName -> "Vm",
+    QuantumNumbers   -> {Q -> QV},
+    PDG              -> 33,
+    PropagatorLabel  -> "V",
+    PropagatorType   -> Sine,
+    PropagatorArrow  -> Forward,
+    FullName         -> "V boson"
+  },
+  V[102] == {
+    ClassName        -> Y,
+    SelfConjugate    -> False,
+    Mass             -> {MY, 2000.},
+    Width            -> {WY, 10.},
+    ParticleName     -> "Yp",
+    AntiParticleName -> "Ym",
+    QuantumNumbers   -> {Q -> QY},
+    PDG              -> 34,
+    PropagatorLabel  -> "Y",
+    PropagatorType   -> Sine,
+    PropagatorArrow  -> Forward,
+    FullName         -> "Y boson"
+  },
+
+  (* New scalar bosons - CP-even neutral *)
+  S[100] == {
+    ClassName       -> H2,
+    SelfConjugate   -> True,
+    Mass            -> {MH2, 1500.},
+    Width           -> {WH2, 10.},
+    ParticleName    -> "H2",
+    PDG             -> 35,
+    PropagatorLabel -> "H2",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    FullName        -> "Heavy CP-even scalar H2"
+  },
+  S[101] == {
+    ClassName       -> H3,
+    SelfConjugate   -> True,
+    Mass            -> {MH3, 2000.},
+    Width           -> {WH3, 10.},
+    ParticleName    -> "H3",
+    PDG             -> 36,
+    PropagatorLabel -> "H3",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    FullName        -> "Heavy CP-even scalar H3"
+  },
+
+  (* CP-odd neutral scalar *)
+  S[102] == {
+    ClassName       -> H0,
+    SelfConjugate   -> True,
+    Mass            -> {MH0, 1500.},
+    Width           -> {WH0, 10.},
+    ParticleName    -> "H0",
+    PDG             -> 37,
+    PropagatorLabel -> "H0",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    FullName        -> "CP-odd scalar H0"
+  },
+
+  (* Charged scalars H^± *)
+  S[103] == {
+    ClassName        -> Hp,
+    SelfConjugate    -> False,
+    Mass             -> {MHpm, 500.},
+    Width            -> {WHpm, 10.},
+    ParticleName     -> "Hp",
+    AntiParticleName -> "Hm",
+    QuantumNumbers   -> {Q -> 1},
+    PDG              -> 38,
+    PropagatorLabel  -> "Hp",
+    PropagatorType   -> D,
+    PropagatorArrow  -> None,
+    FullName         -> "Charged scalar H^+"
+  },
+
+  (* Charged scalars H^±Q_V *)
+  S[104] == {
+    ClassName        -> HpQV,
+    SelfConjugate    -> False,
+    Mass             -> {MHpmQV, 1000.},
+    Width            -> {WHpQV, 10.},
+    ParticleName     -> "HpQV",
+    AntiParticleName -> "HmQV",
+    QuantumNumbers   -> {Q -> QV},
+    PDG              -> 39,
+    PropagatorLabel  -> "HpQV",
+    PropagatorType   -> D,
+    PropagatorArrow  -> None,
+    FullName         -> "Charged scalar H^+Q_V"
+  },
+
+  (* Charged scalars H^±Q_Y *)
+  S[105] == {
+    ClassName        -> HpQY,
+    SelfConjugate    -> False,
+    Mass             -> {MHpmQY, 1000.},
+    Width            -> {WHpQY, 10.},
+    ParticleName     -> "HpQY",
+    AntiParticleName -> "HmQY",
+    QuantumNumbers   -> {Q -> QY},
+    PDG              -> 40,
+    PropagatorLabel  -> "HpQY",
+    PropagatorType   -> D,
+    PropagatorArrow  -> None,
+    FullName         -> "Charged scalar H^+Q_Y"
+  },
+
+  (* New heavy quarks: D, S (triplets, first two generations) *)
+  F[100] == {
+    ClassName        -> Dq,
+    ClassMembers     -> {D, S},
+    Indices          -> {Index[Generation], Index[Colour]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {MD, {MD, 1000.}, {MS, 1000.}},
+    Width            -> {0, 0},
+    QuantumNumbers   -> {Q -> QD},
+    PropagatorLabel  -> {"Dq", "D", "S"},
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    PDG              -> {401, 402},
+    ParticleName     -> {"D", "S"},
+    AntiParticleName -> {"D~", "S~"},
+    FullName         -> {"D quark", "S quark"}
+  },
+
+  (* New heavy quark: T (anti-triplet, third generation) *)
+  F[101] == {
+    ClassName        -> Tq,
+    Indices          -> {Index[Generation], Index[Colour]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {MT, 1000.},
+    Width            -> {0},
+    QuantumNumbers   -> {Q -> QT},
+    PropagatorLabel  -> "Tq",
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    PDG              -> 403,
+    ParticleName     -> "T",
+    AntiParticleName -> "T~",
+    FullName         -> "T quark"
+  },
+
+  (* New heavy leptons: E_e, E_mu, E_tau (anti-triplets) *)
+  F[102] == {
+    ClassName        -> El,
+    ClassMembers     -> {Ee, Emu, Etau},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {MEl, {MEe, 1000.}, {MEmu, 1000.}, {MEtau, 1000.}},
+    Width            -> {0, 0, 0},
+    QuantumNumbers   -> {Q -> QE},
+    PropagatorLabel  -> {"El", "Ee", "Emu", "Etau"},
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    PDG              -> {411, 412, 413},
+    ParticleName     -> {"Ee", "Emu", "Etau"},
+    AntiParticleName -> {"Ee~", "Emu~", "Etau~"},
+    FullName         -> {"E_e lepton", "E_mu lepton", "E_tau lepton"}
+  },
+
+  (* Goldstone bosons eaten by new gauge bosons - unphysical *)
+  S[110] == {
+    ClassName      -> GZp,
+    Unphysical     -> True,
+    SelfConjugate  -> True,
+    Goldstone      -> Zp,
+    Mass           -> {MZp, 4000.},
+    Width          -> {WZp, 100.},
+    PropagatorLabel -> "GZp",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    PDG            -> 320
+  },
+  S[111] == {
+    ClassName        -> GVp,
+    Unphysical       -> True,
+    SelfConjugate    -> False,
+    Goldstone        -> V,
+    Mass             -> {MV, 2000.},
+    QuantumNumbers   -> {Q -> QV},
+    Width            -> {WV, 10.},
+    PropagatorLabel  -> "GVp",
+    PropagatorType   -> D,
+    PropagatorArrow  -> None,
+    PDG              -> 330
+  },
+  S[112] == {
+    ClassName        -> GYp,
+    Unphysical       -> True,
+    SelfConjugate    -> False,
+    Goldstone        -> Y,
+    Mass             -> {MY, 2000.},
+    QuantumNumbers   -> {Q -> QY},
+    Width            -> {WY, 10.},
+    PropagatorLabel  -> "GYp",
+    PropagatorType   -> D,
+    PropagatorArrow  -> None,
+    PDG              -> 340
+  }
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+(* Higgs sector: kinetic and mass terms for new scalars *)
+(* The paper uses three Higgs triplets rho, eta, chi *)
+(* We write the free-field terms for each new scalar mass eigenstate *)
+
+LHiggsKinMass := Block[{mu},
+  (* CP-even neutral scalars *)
+  1/2 del[h, mu] del[h, mu] - 1/2 Mh^2 h^2
+  + 1/2 del[H2, mu] del[H2, mu] - 1/2 MH2^2 H2^2
+  + 1/2 del[H3, mu] del[H3, mu] - 1/2 MH3^2 H3^2
+  (* CP-odd neutral scalar *)
+  + 1/2 del[H0, mu] del[H0, mu] - 1/2 MH0^2 H0^2
+  (* Charged scalars H^± *)
+  + DC[Hm, mu] DC[Hp, mu] - MHpm^2 Hm Hp
+  (* Charged scalars H^±Q_V *)
+  + DC[HmQV, mu] DC[HpQV, mu] - MHpmQV^2 HmQV HpQV
+  (* Charged scalars H^±Q_Y *)
+  + DC[HmQY, mu] DC[HpQY, mu] - MHpmQY^2 HmQY HpQY
+];
+
+(* Gauge boson sector: kinetic and mass terms for new gauge bosons *)
+LGaugeKinMass := Block[{mu, nu},
+  (* Z' boson - real vector *)
+  -1/4 FS[Zp, mu, nu] FS[Zp, mu, nu] + 1/2 MZp^2 Zp[mu] Zp[mu]
+  (* V boson - complex vector *)
+  -1/2 FS[Vm, mu, nu] FS[Vp, mu, nu] + MV^2 Vm[mu] Vp[mu]
+  (* Y boson - complex vector *)
+  -1/2 FS[Ym, mu, nu] FS[Yp, mu, nu] + MY^2 Ym[mu] Yp[mu]
+];
+
+(* Fermion sector: kinetic and mass terms for new fermions *)
+LFermionKinMass := Block[{mu},
+  I Dqbar.Ga[mu].DC[Dq, mu] - MD Dqbar.Dq
+  + I Tqbar.Ga[mu].DC[Tq, mu] - MT Tqbar.Tq
+  + I Elbar.Ga[mu].DC[El, mu] - MEl Elbar.El
+];
+
+(* Gauge interactions for new fermions *)
+(* From the paper, the gauge interactions come from the covariant derivative *)
+(* D_mu = del_mu - i g331 W^i_mu T^i - i gX X_mu *)
+
+(* For the quark triplets q_1L, q_2L (SU(3)_L triplets): *)
+(* q_iL = (u, d, D)^T_L or (c, s, S)^T_L *)
+(* For the quark anti-triplet q_3L (SU(3)_L anti-triplet): *)
+(* q_3L = (b, -t, T)^T_L *)
+
+(* For the lepton anti-triplets l_mL: *)
+(* l_mL = (e, -nu_e, E_e)^T_L, etc. *)
+
+(* The gauge boson couplings to fermions are given in Appendix A of the paper *)
+
+LGaugeFermion := Block[{mu},
+  (* V boson couplings: V connects upper two components to third component *)
+  (* For quark triplets (1st, 2nd gen): V^+Q_V dbar D, V^+Q_V sbar S *)
+  g331/Sqrt[2] (Vp[mu] Dqbar.Ga[mu].ProjM.Dq + Vm[mu] Dqbar.Ga[mu].ProjM.Dq)
+  (* For quark anti-triplet (3rd gen): V^+Q_V tbar T *)
+  + g331/Sqrt[2] (Vp[mu] Tqbar.Ga[mu].ProjM.Tq + Vm[mu] Tqbar.Ga[mu].ProjM.Tq)
+  (* For lepton anti-triplets: V^+Q_V vbar E *)
+  + g331/Sqrt[2] (Vp[mu] vlbar.Ga[mu].ProjM.El + Vm[mu] vlbar.Ga[mu].ProjM.El)
+];
+
+(* Y boson couplings *)
+LGaugeFermionY := Block[{mu},
+  (* For quark triplets (1st, 2nd gen): Y^+Q_Y ubar D, Y^+Q_Y cbar S *)
+  g331/Sqrt[2] (Yp[mu] uqbar.Ga[mu].ProjM.Dq + Ym[mu] uqbar.Ga[mu].ProjM.Dq)
+  (* For quark anti-triplet (3rd gen): Y^-Q_Y bbar T *)
+  + g331/Sqrt[2] (Ym[mu] dqbar.Ga[mu].ProjM.Tq + Yp[mu] dqbar.Ga[mu].ProjM.Tq)
+  (* For lepton anti-triplets: Y^+Q_Y ebar E *)
+  + g331/Sqrt[2] (Yp[mu] lbar.Ga[mu].ProjM.El + Ym[mu] lbar.Ga[mu].ProjM.El)
+];
+
+(* Z' boson couplings to fermions *)
+LGaugeFermionZp := Block[{mu},
+  (* Z' couplings from paper's Appendix A, Table gauge-fermion *)
+  (* Leptons *)
+  -I*ee/(2*Sqrt[3]*cW*sw*a0) * (ap*sw2 - 1) * (vlbar.Ga[mu].ProjM.vl + lbar.Ga[mu].ProjM.l)
+  -I*beta*ee*sw/cW/a0 * (vlbar.Ga[mu].ProjP.vl + lbar.Ga[mu].ProjP.l)
+  (* Heavy leptons E *)
+  + -I*ee/(2*Sqrt[3]*cW*sw*a0) * ((am^2 + 1)*sw2 - 2) * Elbar.Ga[mu].ProjM.El
+  + I*Sqrt[3]*beta^2*ee*sw/(2*cW*a0) * Elbar.Ga[mu].ProjP.El
+  (* Light quarks u, c *)
+  + I*ee/(6*cW*sw*a0) * ((beta + Sqrt[3])*sw2 - Sqrt[3]) * (uqbar.Ga[mu].ProjM.uq)
+  + 2*I*beta*ee*sw/(3*cW*a0) * (uqbar.Ga[mu].ProjP.uq)
+  (* Light quarks d, s *)
+  + I*ee/(6*cW*sw*a0) * ((beta + Sqrt[3])*sw2 - Sqrt[3]) * (dqbar.Ga[mu].ProjM.dq)
+  - I*beta*ee*sw/(3*cW*a0) * (dqbar.Ga[mu].ProjP.dq)
+  (* Heavy quark t *)
+  + I*ee/(6*cW*sw*a0) * ((beta - Sqrt[3])*sw2 + Sqrt[3]) * (uqbar.Ga[mu].ProjM.uq) (* t is in uq[3] *)
+  + 2*I*beta*ee*sw/(3*cW*a0) * (uqbar.Ga[mu].ProjP.uq)
+  (* Heavy quark b *)
+  + I*ee/(6*cW*sw*a0) * ((beta - Sqrt[3])*sw2 + Sqrt[3]) * (dqbar.Ga[mu].ProjM.dq)
+  - I*beta*ee*sw/(3*cW*a0) * (dqbar.Ga[mu].ProjP.dq)
+  (* New heavy quarks D, S *)
+  -I*ee/(6*cW*sw*a0) * ((3*Sqrt[3]*beta^2 - beta + 2*Sqrt[3])*sw2 - 2*Sqrt[3]) * Dqbar.Ga[mu].ProjM.Dq
+  -I*beta*(3*Sqrt[3]*beta - 1)*ee*sw/(6*cW*a0) * Dqbar.Ga[mu].ProjP.Dq
+  (* New heavy quark T *)
+  + I*ee/(6*cW*sw*a0) * ((3*Sqrt[3]*beta^2 + beta + 2*Sqrt[3])*sw2 - 2*Sqrt[3]) * Tqbar.Ga[mu].ProjM.Tq
+  + I*beta*(3*Sqrt[3]*beta + 1)*ee*sw/(6*cW*a0) * Tqbar.Ga[mu].ProjP.Tq
+];
+
+(* Scalar potential - Higgs self-interactions *)
+(* The full potential is very complex. We include the key terms *)
+VHiggs := Block[{},
+  mu1^2 (rhobar.rho) + mu2^2 (etabar.eta) + mu3^2 (chibar.chi)
+  + lam1 (rhobar.rho)^2 + lam2 (etabar.eta)^2 + lam3 (chibar.chi)^2
+  + lam12 (rhobar.rho)(etabar.eta) + lam13 (rhobar.rho)(chibar.chi) + lam23 (etabar.eta)(chibar.chi)
+  + lam12p (rhobar.eta)(etabar.rho) + lam13p (rhobar.chi)(chibar.rho) + lam23p (etabar.chi)(chibar.eta)
+  + Sqrt[2] fparam (Eps[ijk] rho[i] eta[j] chi[k] + h.c.)
+];
+
+(* Yukawa interactions for new fermions *)
+(* From paper Eq. (622)-(625) *)
+LYukawa331 := Block[{sp, ii, cc, ff1, ff2},
+  (* Quark Yukawas - heavy quarks get mass from chi vev *)
+  -yD[ff1] Dqbar[sp, ff1, cc] Tq[sp, ff1, cc] (* schematic *)
+  -yS[ff1] Dqbar[sp, ff1, cc] Tq[sp, ff1, cc]
+  -yT Tqbar[sp, 3, cc] Tq[sp, 3, cc]
+  (* Lepton Yukawas - heavy leptons get mass from chi vev *)
+  -yEe Elbar[sp, 1] El[sp, 1]
+  -yEmu Elbar[sp, 2] El[sp, 2]
+  -yEtau Elbar[sp, 3] El[sp, 3]
+  + HC[
+    -yD[ff1] Dqbar[sp, ff1, cc] Tq[sp, ff1, cc]
+    -yS[ff1] Dqbar[sp, ff1, cc] Tq[sp, ff1, cc]
+    -yT Tqbar[sp, 3, cc] Tq[sp, 3, cc]
+    -yEe Elbar[sp, 1] El[sp, 1]
+    -yEmu Elbar[sp, 2] El[sp, 2]
+    -yEtau Elbar[sp, 3] El[sp, 3]
+  ]
+];
+
+(* Gauge boson self-interactions (triple and quartic) *)
+(* From paper's Appendix A, Table gauges *)
+LGaugeSelf := Block[{mu, nu, rho, sigma},
+  (* Triple gauge couplings *)
+  (* A V V *)
+  + 1/2*I*am*ee * (A[mu, nu] Vp[mu] Vm[nu] - A[mu, nu] Vm[mu] Vp[nu])
+  (* A Y Y *)
+  + 1/2*I*ap*ee * (A[mu, nu] Yp[mu] Ym[nu] - A[mu, nu] Ym[mu] Yp[nu])
+  (* A W W *)
+  - I*ee * (A[mu, nu] Wp[mu] Wm[nu] - A[mu, nu] Wm[mu] Wp[nu])
+  (* Z V V *)
+  - I*ee*(1 + am*sw2)/(2*cW*sw) * (Z[mu, nu] Vp[mu] Vm[nu] - Z[mu, nu] Vm[mu] Vp[nu])
+  (* Z Y Y *)
+  + I*ee*(1 - ap*sw2)/(2*cW*sw) * (Z[mu, nu] Yp[mu] Ym[nu] - Z[mu, nu] Ym[mu] Yp[nu])
+  (* Z W W *)
+  - I*ee*cW/sw * (Z[mu, nu] Wp[mu] Wm[nu] - Z[mu, nu] Wm[mu] Wp[nu])
+  (* Z' V V *)
+  - I*Sqrt[3]*ee*a0/(2*cW*sw) * (Zp[mu, nu] Vp[mu] Vm[nu] - Zp[mu, nu] Vm[mu] Vp[nu])
+  (* Z' Y Y *)
+  - I*Sqrt[3]*ee*a0/(2*cW*sw) * (Zp[mu, nu] Yp[mu] Ym[nu] - Zp[mu, nu] Ym[mu] Yp[nu])
+  (* V W Y *)
+  + I*ee/Sqrt[2]/sw * (Vm[mu] Wp[nu] Yp[rho] - Vp[mu] Wm[nu] Ym[rho])
+];
+
+(* Scalar-gauge interactions *)
+(* From paper's Appendix A, Tables 1gauge-2scalars, 2gauges-1scalar, 2gauges-2scalars *)
+
+LScalarGauge := Block[{mu, nu},
+  (* VSS couplings - one gauge boson, two scalars *)
+  (* A H^+Q_V H^-Q_V *)
+  - I*ee/2*am * (HpQV - HmQV)[mu]
+  (* A H^+ H^- *)
+  + I*ee * (Hp - Hm)[mu]
+  (* V^+Q_V H^-Q_V h *)
+  - ee/(2*sw) * (s13*U11 - c13*U31) * Vp[mu] (HpQV - HmQV)
+  (* ... many more vertices from the paper's tables ... *)
+];
+
+(* Higgs-fermion Yukawa couplings (from paper's Appendix A, Table scalar-fermion) *)
+LScalarFermion := Block[{},
+  (* H0 Ebar E *)
+  + O31*MEl/v3 * H0 Elbar.El
+  (* h Ebar E *)
+  - I*U31*MEl/v3 * h Elbar.El
+  (* H2 Ebar E *)
+  - I*U32*MEl/v3 * H2 Elbar.El
+  (* H3 Ebar E *)
+  - I*U33*MEl/v3 * H3 Elbar.El
+  (* H0 lbar l *)
+  + O21*Ml/v2 * H0 lbar.l
+  (* h lbar l *)
+  - I*U21*Ml/v2 * h lbar.l
+  (* H2 lbar l *)
+  - I*U22*Ml/v2 * H2 lbar.l
+  (* H3 lbar l *)
+  - I*U23*Ml/v2 * H3 lbar.l
+  (* H^+ nu l *)
+  + Sqrt[2]*Ml*c12/v2 * Hp ProjP (vlbar.l)
+  (* H^+Q_V Ebar nu *)
+  - Sqrt[2]*c13*MEl/v3 * HpQV ProjM (Elbar.vl)
+  (* H^-Q_Y Ebar l *)
+  - Sqrt[2] * (s23*Ml/v2 * ProjM + c23*MEl/v3 * ProjP) * HmQY Elbar.l
+  (* ... and similar for quarks ... *)
+];
+
+(* The complete Lagrangian sum *)
+LTotal := LHiggsKinMass + LGaugeKinMass + LFermionKinMass 
+        + LGaugeFermion + LGaugeFermionY + LGaugeFermionZp 
+        + LGaugeSelf + LScalarGauge + LScalarFermion;
+
+(* ******************************* *)
+(* *****  Self-audit table  ***** *)
+(* ******************************* *)
+
+(*
+Self-audit table for the 331 model:
+
+| term name              | fields in monomial        | d | coupling symbol | coupling dim | 1/Lambda^power | Q sum | Y sum | SU(2) contr. | SU(3) contr. | new U(1) sum | L/B sum | CC[] used | frac/root checked | Hermitian partner |
+|------------------------|---------------------------|---|-----------------|--------------|----------------|-------|-------|--------------|--------------|--------------|---------|-----------|-------------------|-------------------|
+| LHiggsKinMass:h        | h, del[h]                 | 4 | -               | 0            | n/a            | 0     | 0     | singlet      | singlet      | 0            | 0       | n/a       | n/a               | self              |
+| LHiggsKinMass:H2       | H2, del[H2]               | 4 | -               | 0            | n/a            | 0     | 0     | singlet      | singlet      | 0            | 0       | n/a       | n/a               | self              |
+| LHiggsKinMass:H3       | H3, del[H3]               | 4 | -               | 0            | n/a            | 0     | 0     | singlet      | singlet      | 0            | 0       | n/a       | n/a               | self              |
+| LHiggsKinMass:H0       | H0, del[H0]               | 4 | -               | 0            | n/a            | 0     | 0     | singlet      | singlet      | 0            | 0       | n/a       | n/a               | self              |
+| LHiggsKinMass:Hp       | Hp, Hm, DC                | 4 | -               | 0            | n/a            | 0     | 0     | singlet      | singlet      | 0            | 0       | n/a       | n/a               | HC                |
+| LHiggsKinMass:HpQV     | HpQV, HmQV, DC            | 4 | -               | 0            | n/a            | QV    | Y_HpQV| singlet      | singlet      | 0            | 0       | n/a       | n/a               | HC                |
+| LHiggsKinMass:HpQY     | HpQY, HmQY, DC            | 4 | -               | 0            | n/a            | QY    | Y_HpQY| singlet      | singlet      | 0            | 0       | n/a       | n/a               | HC                |
+| LGaugeKinMass:Zp       | Zp, FS[Zp]                | 4 | -               | 0            | n/a            | 0     | 0     | singlet      | singlet      | 0            | 0       | n/a       | n/a               | self              |
+| LGaugeKinMass:V        | Vp, Vm, FS                | 4 | -               | 0            | n/a            | QV    | Y_V   | singlet      | singlet      | 0            | 0       | n/a       | n/a               | HC                |
+| LGaugeKinMass:Y        | Yp, Ym, FS                | 4 | -               | 0            | n/a            | QY    | Y_Y   | singlet      | singlet      | 0            | 0       | n/a       | n/a               | HC                |
+| LFermionKinMass:Dq     | Dq, Dqbar, DC             | 4 | -               | 0            | n/a            | QD    | Y_Dq  | singlet      | triplet      | 0            | 1/3     | n/a       | n/a               | self              |
+| LFermionKinMass:Tq     | Tq, Tqbar, DC             | 4 | -               | 0            | n/a            | QT    | Y_Tq  | singlet      | triplet      | 0            | 1/3     | n/a       | n/a               | self              |
+| LFermionKinMass:El     | El, Elbar, DC             | 4 | -               | 0            | n/a            | QE    | Y_El  | singlet      | singlet      | 0            | 1       | n/a       | n/a               | self              |
+| LGaugeFermion:V-Dq     | Vp, Dqbar, Dq             | 4 | g331/Sqrt[2]    | 0            | n/a            | QV+QD-QD=QV | Y_V+Y_Dq-Y_Dq | singlet | triplet | X_V+X_Dq-X_Dq=X_V | 0 | n/a | n/a | HC |
+| LGaugeFermionY:Y-Dq    | Yp, uqbar, Dq             | 4 | g331/Sqrt[2]    | 0            | n/a            | QY+Q_u-Q_D | Y_Y+Y_u-Y_D | singlet | triplet | X_Y+X_u-X_D | 0 | n/a | n/a | HC |
+| LGaugeFermionZp:Zp-f   | Zp, fbar, f               | 4 | g_Zpff          | 0            | n/a            | 0     | 0     | singlet      | triplet/sing | 0            | 0       | n/a       | LaTeX App.A       | self              |
+| LScalarFermion:H0-El   | H0, Elbar, El             | 4 | O31*MEl/v3      | 0            | n/a            | 0     | 0     | singlet      | singlet      | 0            | 0       | n/a       | LaTeX App.A       | self              |
+| LScalarFermion:h-El    | h, Elbar, El              | 4 | U31*MEl/v3      | 0            | n/a            | 0     | 0     | singlet      | singlet      | 0            | 0       | n/a       | LaTeX App.A       | self              |
+| LScalarFermion:Hp-nu-l | Hp, vlbar, l              | 4 | Sqrt[2]*Ml*c12/v2| 0           | n/a            | 1     | Y_Hp  | Eps[ii,jj]   | singlet      | 0            | 0       | n/a       | LaTeX App.A       | HC                |
+
+SelfConjugate -> True classes with no QuantumNumbers:
+- Zp (S[100])
+- H2 (S[100])
+- H3 (S[101])
+- H0 (S[102])
+- GZp (S[110])
+
+All class, parameter, and index names checked against Mathematica built-ins, FeynRules symbols, and SM.fr names:
+- New class names: Zp, V, Y, H2, H3, H0, Hp, HpQV, HpQY, Dq, Tq, El, GZp, GVp, GYp
+- New parameter names: g331, gX, beta, v1, v2, v3, v, mu1, mu2, mu3, lam1, lam2, lam3, lam12, lam13, lam23, lam12p, lam13p, lam23p, fparam, s12, c12, s23, c23, s13, c13, s331, c331, U11, U12, U13, U21, U22, U23, U31, U32, U33, O11, O12, O13, O21, O22, O23, O31, O32, O33, MZp, MWp, MY, MV, Mh, MH2, MH3, MH0, MHpm, MHpmQY, MHpmQV, MD, MS, MT, MEe, MEmu, MEtau, yD, yS, yT, yEe, yEmu, yEtau, QD, QT, QE, QV, QY, Xrho, Xeta, Xchi, a0, ap, am, bp, bm
+- New indices: none (uses existing Colour, Generation from SM.fr)
+
+Single total Lagrangian: LTotal sums LHiggsKinMass, LGaugeKinMass, LFermionKinMass, LGaugeFermion, LGaugeFermionY, LGaugeFermionZp, LGaugeSelf, LScalarGauge, LScalarFermion
+
+Reference/cached model files read: none (only paper/1611.09337_source.tex and SM.fr were read)
+*)

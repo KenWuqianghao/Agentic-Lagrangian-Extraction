@@ -1,0 +1,315 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+From kernel 1 (Local):
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+From kernel 3 (Local):
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+From kernel 4 (Local):
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+From kernel 5 (Local):
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+From kernel 6 (Local):
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+
+General::stop: Further output of Format::nosym will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of Format::nosym will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of Format::nosym will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of Format::nosym will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of Format::nosym will be suppressed during this calculation.
+From kernel 6 (Local):
+General::stop: Further output of Format::nosym will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+From kernel 1 (Local):
+ReplaceAll::reps: {MR$ParameterRules[Cll_ee]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 3 (Local):
+ReplaceAll::reps: {MR$ParameterRules[Cll_ee]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 4 (Local):
+ReplaceAll::reps: {MR$ParameterRules[Cll_ee]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 5 (Local):
+ReplaceAll::reps: {MR$ParameterRules[Cll_ee]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 6 (Local):
+ReplaceAll::reps: {MR$ParameterRules[Cll_ee]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of `1` is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing. will be suppressed during this calculation.
+Merging model-files...
+This model implementation was created by
+Auto-generated from arXiv:2012.09882
+Model Version: 1.0
+https://arxiv.org/abs/2012.09882
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+
+General::stop: Further output of Format::nosym will be suppressed during this calculation.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+ReplaceAll::reps: {MR$ParameterRules[Cll_ee]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+ReplaceAll::reps: {MR$ParameterRules[Cll_ee]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+ReplaceAll::reps: {MR$ParameterRules[Cll_ee]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+
+Model SMWeinberg_gen loaded.
+
+N::argt: N called with 0 arguments; 1 or 2 arguments are expected.
+
+PutIndices::NoIndexMath: -- Message text not found --
+
+N::argt: N called with 0 arguments; 1 or 2 arguments are expected.
+
+PutIndices::NoIndexMath: -- Message text not found --
+
+N::argt: N called with 0 arguments; 1 or 2 arguments are expected.
+
+General::stop: Further output of N::argt will be suppressed during this calculation.
+
+PutIndices::NoIndexMath: -- Message text not found --
+
+General::stop: Further output of PutIndices::NoIndexMath will be suppressed during this calculation.
+[INFO] Lagrangian: LSM + LTotal
+HEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)
+HEPTAPOD-LAGRANGIAN|expression=LSM + LTotal|symbols=LSM,LTotal|terms=795
+HEPTAPOD-RESIDUAL|count=1|fields=N
+[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+General::stop: Further output of QN::NonConserv will be suppressed during this calculation.
+HEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=fail|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. 28 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$F
+HEPTAPOD-CHECK|scope=model|name=kinetic_diagonal|verdict=pass|detail=Neglecting all terms with more than 2 particles. All kinetic terms are diagonal.
+HEPTAPOD-CHECK|scope=model|name=mass_diagonal|verdict=fail|detail=Warning: not numerical value encountered. Unable to decide whether mass term is diagonal Non diagonal mass term found:    1       2                                  I                                   I   2                                   I                                    I   2                                   I (-(-) I) ee  GP h mN bar[CC[e]] . ProjM . N   - ee GP mN bar[CC[e]] . ProjM . N 
+Neglecting all terms with more than 2 particles.
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: ((-1/4*I)*ee^2*GP*h*mN*bar[CC[e]] . ProjM . N)/(Sqrt[2]*mW^2*sw^2) - (I/2*ee*GP*mN*bar[CC[e]] . ProjM . N)/(Sqrt[2]*mW*sw) - (I/4*ee^2*GP*h*mN*bar[CC[mu]] . ProjM . N)/(Sqrt[2]*mW^2*sw^2) - (I/2*ee*GP*mN*bar[CC[mu]] . ProjM . N)/(Sqrt[2]*mW*sw) - (I/4*ee^2*GP*h*mN*bar[CC[ta]] . ProjM . N)/(Sqrt[2]*mW^2*sw^2) - (I/2*ee*GP*mN*bar[CC[ta]] . ProjM . N)/(Sqrt[2]*mW*sw)
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (I/4*ee^2*GPbar*mN*Nbar . Ga[0] . ProjM . HC[bar[CC[e]]]*HC[h])/(Sqrt[2]*sw^2*HC[mW]^2) + (I/4*ee^2*GPbar*mN*Nbar . Ga[0] . ProjM . HC[bar[CC[mu]]]*HC[h])/(Sqrt[2]*sw^2*HC[mW]^2) + (I/4*ee^2*GPbar*mN*Nbar . Ga[0] . ProjM . HC[bar[CC[ta]]]*HC[h])/(Sqrt[2]*sw^2*HC[mW]^2) + (I/2*ee*GPbar*mN*Nbar . Ga[0] . ProjM . HC[bar[CC[e]]])/(Sqrt[2]*sw*HC[mW]) + (I/2*ee*GPbar*mN*Nbar . Ga[0] . ProjM . HC[bar[CC[mu]]])/(Sqrt[2]*sw*HC[mW]) + (I/2*ee*GPbar*mN*Nbar . Ga[0] . ProjM . HC[bar[CC[ta]]])/(Sqrt[2]*sw*HC[mW])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -1/8*(ee^2*h^2*mN*Nbar[Index[Spin, i$18640]] . ve[Index[Spin, j$18640]]*ProjM[Index[Spin, i$18640], Index[Spin, j$18640]])/(mW^2*sw^2) - (ee*h*mN*Nbar[Index[Spin, i$18644]] . ve[Index[Spin, j$18644]]*ProjM[Index[Spin, i$18644], Index[Spin, j$18644]])/(2*mW*sw)
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -1/8*(ee^2*h^2*mN*Nbar[Index[Spin, i$18650]] . vm[Index[Spin, j$18650]]*ProjM[Index[Spin, i$18650], Index[Spin, j$18650]])/(mW^2*sw^2) - (ee*h*mN*Nbar[Index[Spin, i$18654]] . vm[Index[Spin, j$18654]]*ProjM[Index[Spin, i$18654], Index[Spin, j$18654]])/(2*mW*sw)
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -1/8*(ee^2*h^2*mN*Nbar[Index[Spin, i$18660]] . vt[Index[Spin, j$18660]]*ProjM[Index[Spin, i$18660], Index[Spin, j$18660]])/(mW^2*sw^2) - (ee*h*mN*Nbar[Index[Spin, i$18664]] . vt[Index[Spin, j$18664]]*ProjM[Index[Spin, i$18664], Index[Spin, j$18664]])/(2*mW*sw)
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: ((-1/4*I)*ee^2*GP*h*mN*ebar[Index[Spin, j$18620]] . Index[Spin, i$18620]*ProjM[Index[Spin, j$18620], Index[Spin, i$18620]])/(Sqrt[2]*mW^2*sw^2) - (I/2*ee*GP*mN*ebar[Index[Spin, j$18622]] . Index[Spin, i$18622]*ProjM[Index[Spin, j$18622], Index[Spin, i$18622]])/(Sqrt[2]*mW*sw)
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: ((-1/4*I)*ee^2*GP*h*mN*mubar[Index[Spin, j$18626]] . Index[Spin, i$18626]*ProjM[Index[Spin, j$18626], Index[Spin, i$18626]])/(Sqrt[2]*mW^2*sw^2) - (I/2*ee*GP*mN*mubar[Index[Spin, j$18628]] . Index[Spin, i$18628]*ProjM[Index[Spin, j$18628], Index[Spin, i$18628]])/(Sqrt[2]*mW*sw)
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (I/4*ee^2*GPbar*mN*ebar[Index[Spin, i$18702]] . Index[Index]*HC[h]*ProjP[Index[Spin, i$18702], Index[Spin, j$18702]])/(Sqrt[2]*sw^2*HC[mW]^2) + (I/2*ee*GPbar*mN*ebar[Index[Spin, i$18738]] . Index[Index]*ProjP[Index[Spin, i$18738], Index[Spin, j$18738]])/(Sqrt[2]*sw*HC[mW])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (I/4*ee^2*GPbar*mN*mubar[Index[Spin, i$18706]] . Index[Index]*HC[h]*ProjP[Index[Spin, i$18706], Index[Spin, j$18706]])/(Sqrt[2]*sw^2*HC[mW]^2) + (I/2*ee*GPbar*mN*mubar[Index[Spin, i$18742]] . Index[Index]*ProjP[Index[Spin, i$18742], Index[Spin, j$18742]])/(Sqrt[2]*sw*HC[mW])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (I/4*ee^2*GPbar*mN*tabar[Index[Spin, i$18710]] . Index[Index]*HC[h]*ProjP[Index[Spin, i$18710], Index[Spin, j$18710]])/(Sqrt[2]*sw^2*HC[mW]^2) + (I/2*ee*GPbar*mN*tabar[Index[Spin, i$18746]] . Index[Index]*ProjP[Index[Spin, i$18746], Index[Spin, j$18746]])/(Sqrt[2]*sw*HC[mW])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (I/4*ee^2*G0*mN*vebar[Index[Spin, i$18714]] . Index[Index]*HC[h]*ProjP[Index[Spin, i$18714], Index[Spin, j$18714]])/(sw^2*HC[mW]^2) + (I/2*ee*G0*mN*vebar[Index[Spin, i$18750]] . Index[Index]*ProjP[Index[Spin, i$18750], Index[Spin, j$18750]])/(sw*HC[mW])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (I/4*ee^2*G0*mN*vmbar[Index[Spin, i$18718]] . Index[Index]*HC[h]*ProjP[Index[Spin, i$18718], Index[Spin, j$18718]])/(sw^2*HC[mW]^2) + (I/2*ee*G0*mN*vmbar[Index[Spin, i$18754]] . Index[Index]*ProjP[Index[Spin, i$18754], Index[Spin, j$18754]])/(sw*HC[mW])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (I/4*ee^2*G0*mN*vtbar[Index[Spin, i$18722]] . Index[Index]*HC[h]*ProjP[Index[Spin, i$18722], Index[Spin, j$18722]])/(sw^2*HC[mW]^2) + (I/2*ee*G0*mN*vtbar[Index[Spin, i$18758]] . Index[Index]*ProjP[Index[Spin, i$18758], Index[Spin, j$18758]])/(sw*HC[mW])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((ee*ebar[Index[Spin, i$18788]] . Index[Index]*Wbar[Index[Lorentz, mu]]*TensDot[Ga[Index[Lorentz, mu]], ProjM][Index[Spin, i$18788], Index[Spin, j$18788]])/(Sqrt[2]*sw))
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((ee*mubar[Index[Spin, i$18792]] . Index[Index]*Wbar[Index[Lorentz, mu]]*TensDot[Ga[Index[Lorentz, mu]], ProjM][Index[Spin, i$18792], Index[Spin, j$18792]])/(Sqrt[2]*sw))
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((ee*tabar[Index[Spin, i$18796]] . Index[Index]*Wbar[Index[Lorentz, mu]]*TensDot[Ga[Index[Lorentz, mu]], ProjM][Index[Spin, i$18796], Index[Spin, j$18796]])/(Sqrt[2]*sw))
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -1/2*(ee*vebar[Index[Spin, i$18808]] . Index[Index]*Z[Index[Lorentz, mu]]*TensDot[Ga[Index[Lorentz, mu]], ProjM][Index[Spin, i$18808], Index[Spin, j$18808]])/(cw*sw)
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -1/2*(ee*vmbar[Index[Spin, i$18812]] . Index[Index]*Z[Index[Lorentz, mu]]*TensDot[Ga[Index[Lorentz, mu]], ProjM][Index[Spin, i$18812], Index[Spin, j$18812]])/(cw*sw)
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -1/2*(ee*vtbar[Index[Spin, i$18816]] . Index[Index]*Z[Index[Lorentz, mu]]*TensDot[Ga[Index[Lorentz, mu]], ProjM][Index[Spin, i$18816], Index[Spin, j$18816]])/(cw*sw)
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (ee*ebar[Index[Spin, j$18778]] . Index[Spin, i$18778]*W[Index[Lorentz, mu]]*TensDot[Ga[Index[Lorentz, mu]], ProjP][Index[Spin, j$18778], Index[Spin, i$18778]])/(Sqrt[2]*sw)
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (ee*mubar[Index[Spin, j$18780]] . Index[Spin, i$18780]*W[Index[Lorentz, mu]]*TensDot[Ga[Index[Lorentz, mu]], ProjP][Index[Spin, j$18780], Index[Spin, i$18780]])/(Sqrt[2]*sw)
+HEPTAPOD-CHECK|scope=model|name=mass_spectrum|verdict=inconclusive|detail=
+[INFO] UFO output: /private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/vbench/open/v3o_nemotron_hand/SMWeinberg/s1/SMWeinberg_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+194 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 194.
+30 vertices obtained.
+Flavor expansion of the vertices: Dynamic[FR$Count1] / 30
+
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+
+ReplaceRepeated::reps: {Join[{dq[1] -> d, dq[2] -> s, dq[3] -> b}, IndexRange[(bar dq)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar dq][[Index[MR$Null]]]], {l[1] -> e, l[2] -> mu, l[3] -> ta}, IndexRange[(bar l)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar l][[Index[MR$Null]]]], {uq[1] -> u, uq[2] -> c, uq[3] -> t}, IndexRange[(bar uq)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar uq][[Index[MR$Null]]]], {vl[1] -> ve, vl[2] -> vm, vl[3] -> vt}, IndexRange[(bar vl)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar vl][[Index[MR$Null]]]], {CC[dq][1] -> CC[d], CC[dq][2] -> CC[s], CC[dq][3] -> CC[b]}, {CC[l][1] -> CC[e], CC[l][2] -> CC[mu], CC[l][3] -> CC[ta]}, {CC[uq][1] -> CC[u], CC[uq][2] -> CC[c], CC[uq][3] -> CC[t]}, {CC[vl][1] -> CC[ve], CC[vl][2] -> CC[vm], CC[vl][3] -> CC[vt]}]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+ReplaceRepeated::reps: {Join[{dq[1] -> d, dq[2] -> s, dq[3] -> b}, IndexRange[(bar dq)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar dq][[Index[MR$Null]]]], {l[1] -> e, l[2] -> mu, l[3] -> ta}, IndexRange[(bar l)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar l][[Index[MR$Null]]]], {uq[1] -> u, uq[2] -> c, uq[3] -> t}, IndexRange[(bar uq)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar uq][[Index[MR$Null]]]], {vl[1] -> ve, vl[2] -> vm, vl[3] -> vt}, IndexRange[(bar vl)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar vl][[Index[MR$Null]]]], {CC[dq][1] -> CC[d], CC[dq][2] -> CC[s], CC[dq][3] -> CC[b]}, {CC[l][1] -> CC[e], CC[l][2] -> CC[mu], CC[l][3] -> CC[ta]}, {CC[uq][1] -> CC[u], CC[uq][2] -> CC[c], CC[uq][3] -> CC[t]}, {CC[vl][1] -> CC[ve], CC[vl][2] -> CC[vm], CC[vl][3] -> CC[vt]}]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+
+General::stop: Further output of Join::heads will be suppressed during this calculation.
+
+ReplaceRepeated::reps: {Join[{dq[1] -> d, dq[2] -> s, dq[3] -> b}, IndexRange[(bar dq)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar dq][[Index[MR$Null]]]], {l[1] -> e, l[2] -> mu, l[3] -> ta}, IndexRange[(bar l)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar l][[Index[MR$Null]]]], {uq[1] -> u, uq[2] -> c, uq[3] -> t}, IndexRange[(bar uq)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar uq][[Index[MR$Null]]]], {vl[1] -> ve, vl[2] -> vm, vl[3] -> vt}, IndexRange[(bar vl)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar vl][[Index[MR$Null]]]], {dqbar[1] -> dbar, dqbar[2] -> sbar, dqbar[3] -> bbar}, {lbar[1] -> ebar, lbar[2] -> mubar, lbar[3] -> tabar}, {uqbar[1] -> ubar, uqbar[2] -> cbar, uqbar[3] -> tbar}, {vlbar[1] -> vebar, vlbar[2] -> vmbar, vlbar[3] -> vtbar}]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of ReplaceRepeated::reps will be suppressed during this calculation.
+
+First::nofirst: {} has zero length and no first element.
+   - Saved vertices in InterfaceRun[ 1 ].
+Quantum number GhostNumber not conserved in vertex {ghG, ghG}.
+Quantum number Q not conserved in vertex {bar*N, ta}.
+Quantum number LeptonNumber not conserved in vertex {bar*N, ta}.
+Quantum number LeptonNumber not conserved in vertex {bar*N, ve}.
+Quantum number LeptonNumber not conserved in vertex {bar*N, vm}.
+Quantum number LeptonNumber not conserved in vertex {bar*N, vt}.
+Quantum number Q not conserved in vertex {CC[cbar], d}.
+Quantum number Q not conserved in vertex {CC[cbar], s}.
+Quantum number Q not conserved in vertex {CC[bbar], c}.
+Quantum number Q not conserved in vertex {CC[bbar], t}.
+Quantum number Q not conserved in vertex {CC[bbar], u}.
+Quantum number Q not conserved in vertex {CC[dbar], t}.
+Quantum number Q not conserved in vertex {CC[dbar], u}.
+Quantum number Q not conserved in vertex {CC[sbar], t}.
+Quantum number Q not conserved in vertex {CC[sbar], u}.
+Quantum number Q not conserved in vertex {CC[bbar], b}.
+Quantum number Q not conserved in vertex {CC[dbar], d}.
+Quantum number Q not conserved in vertex {CC[sbar], s}.
+Quantum number Q not conserved in vertex {CC[ebar], ve}.
+Quantum number LeptonNumber not conserved in vertex {CC[ebar], ve}.
+Quantum number Q not conserved in vertex {CC[mubar], vm}.
+Quantum number LeptonNumber not conserved in vertex {CC[mubar], vm}.
+Quantum number Q not conserved in vertex {CC[tabar], vt}.
+Quantum number LeptonNumber not conserved in vertex {CC[tabar], vt}.
+Quantum number Q not conserved in vertex {CC[ebar], e}.
+Quantum number LeptonNumber not conserved in vertex {CC[ebar], e}.
+Quantum number Q not conserved in vertex {CC[mubar], mu}.
+Quantum number LeptonNumber not conserved in vertex {CC[mubar], mu}.
+Quantum number Q not conserved in vertex {CC[tabar], ta}.
+Quantum number LeptonNumber not conserved in vertex {CC[tabar], ta}.
+Quantum number Q not conserved in vertex {CC[cbar], c}.
+Quantum number Q not conserved in vertex {CC[tbar], t}.
+Quantum number Q not conserved in vertex {CC[ubar], u}.
+Quantum number LeptonNumber not conserved in vertex {CC[vebar], ve}.
+Quantum number LeptonNumber not conserved in vertex {CC[vmbar], vm}.
+Quantum number LeptonNumber not conserved in vertex {CC[vtbar], vt}.
+Preparing Python output.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+From kernel 1 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 3 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 4 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 5 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 6 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 6 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+From kernel 1 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 3 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 4 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 5 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 6 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+
+General::stop: Further output of Join::heads will be suppressed during this calculation.
+From kernel 1 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 2 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 3 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 4 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 5 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+From kernel 1 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 2 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 3 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 4 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 5 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+
+General::stop: Further output of Join::heads will be suppressed during this calculation.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/30 .
+
+StringJoin::string: String expected at position 2 in F<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>1.
+
+StringJoin::string: String expected at position 3 in F<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>1.
+
+StringJoin::string: String expected at position 2 in F<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>2.
+
+General::stop: Further output of StringJoin::string will be suppressed during this calculation.
+    - Writing files.
+Done!
+[INFO] UFO complete: particles.py, vertices.py, couplings.py, parameters.py, coupling_orders.py all present.
+[INFO] Done.

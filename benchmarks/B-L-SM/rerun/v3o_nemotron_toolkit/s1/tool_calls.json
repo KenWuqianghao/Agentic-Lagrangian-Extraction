@@ -1,0 +1,223 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: B-L-SM (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1811.11452.\n4: PAPER: the paper's LaTeX source"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/paper/1811.11452_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/paper/1811.11452_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[a4paper,11pt]{article}\n2: \\pdfoutput=1\n3: \\usepackage{jheppub} \n4:                      \n5: \n6: \\usepackage[T1]{fontenc} \n7: \\usepackage{graphicx}\n8: \\usepackage{amsmath}\n9: \\usepackage{xspace}\n10: \\usepackage{subfig}\n11: \\usepackage{myd"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDEL"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                 "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/paper/1811.11452_source.tex",
+   "offset": 677
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/paper/1811.11452_source.tex</path>\n<type>file</type>\n<content>\n677: our results at high \\MZP reproduce those of resonance searches made by ATLAS and CMS in the same data set. \n678: At lower \\MZP and for couplings \\gp greater than about $7 \\times 10^{-3}$, some previously unexamined parameter space is excluded compare"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/paper/appendix.tex"
+  },
+  "status": "error",
+  "output": "File not found: /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/paper/appendix.tex"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDELIN"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and the\n"
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Create spec.json with B-L model: gauge group U1BL, new particles (Zp, chi, h2, Gp, N_i), parameters, Lagrangian terms",
+     "status": "in_progress",
+     "priority": "high"
+    },
+    {
+     "content": "Run ./frgen spec.json and fix schema errors",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Fix lint findings until only harmless remain",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Produce self-audit table and final frgen result",
+     "status": "pending",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Create spec.json with B-L model: gauge group U1BL, new particles (Zp, chi, h2, Gp, N_i), parameters, Lagrangian terms\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Run ./frgen spec.json and fix schema errors\",\n    \"status\": \"pending\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Fix lint findings until only harmless remain\",\n    \"status\": \""
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/spec.json",
+   "content": "{\n  \"model_name\": \"B-L-SM_gen\",\n  \"info\": {\n    \"authors\": [\"S. Amrith\", \"J. M. Butterworth\", \"F. F. Deppisch\", \"W. Liu\", \"A. Varma\", \"D. Yallup\"],\n    \"version\": \"1.0\",\n    \"date\": \"2024-01-01\",\n    \"institutions\": [\"UCL\"],\n    \"emails\": [\"f.deppisch@ucl.ac.uk\"]\n  },\n  \"interaction_order_hierarchy\": [[\"QCD\", 1], [\"QED\", 2], [\"NP\", 1]],\n  \"interaction_order_limit\": [[\"NP\", 1]],\n  \"feynman_gauge\": true,\n  \"vevs\": [[\"Phi[2]\", \"vev\"], [\"chi\", \"x\"]],\n  \"gauge_groups\": [\n    {\n      \"name\": \"U1BL\",\n      \"abelian\": true,\n      \"gauge_boson\": \"Zp\",\n      \"coupling_constant\": \"gp\",\n      \"charge\": \"BL\",\n      \"representations\": []\n    }\n  ],\n  \"index_decls\": [],\n  \"parameters\": [\n    {\n      \"name\": \"gp\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.2\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"U(1)_{B-L} gauge coupling\"\n    },\n    {\n      \"name\": \"MZp\",\n      \"parameter_type\": \"External\",\n      \"value\": \"7000.\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 2,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' boson mass [GeV]\"\n    },\n    {\n      \"name\": \"MHH\",\n      \"parameter_type\": \"External\",\n      \"value\": \"200.\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 3,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Heavy Higgs mass [GeV]\"\n    },\n    {\n      \"name\": \"SA\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.2\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 4,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Sine of Higgs mixing angle alpha\"\n    },\n    {\n      \"name\": \"MN\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1400.\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 5,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"RH neutrino mass (degenerate) [GeV]\"\n    },\n    {\n      \"name\": \"x\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"MZp/(2*gp)\",\n      \"interaction_order\": [\"NP\", -1],\n      \"description\": \"B-L breaking VEV [GeV]\"\n    },\n    {\n      \"name\": \"CA\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Sqrt[1-SA^2]\",\n      \"description\": \"Cosine of Higgs mixing angle alpha\"\n    },\n    {\n      \"name\": \"lam1\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(1/(4*vev^2))*((MH^2+MHH^2)-CA*(MHH^2-MH^2))\",\n      \"interaction_order\": [\"NP\", 2],\n      \"description\": \"Higgs quartic lambda_1\"\n    },\n    {\n      \"name\": \"lam2\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(1/(4*x^2))*((MH^2+MHH^2)+CA*(MHH^2-MH^2))\",\n      \"interaction_order\": [\"NP\", 2],\n      \"description\": \"Higgs quartic lambda_2\"\n    },\n    {\n      \"name\": \"lam3\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(1/(2*vev*x))*SA*(MHH^2-MH^2)\",\n      \"interaction_order\": [\"NP\", 2],\n      \"description\": \"Higgs portal coupling lambda_3\"\n    },\n    {\n      \"name\": \"yM\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"MN/(Sqrt[2]*x)\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Majorana Yukawa coupling (diagonal)\"\n    },\n    {\n      \"name\": \"ynu\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Sqrt[2]*MN*VlN/vev\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Dirac neutrino Yukawa coupling (diagonal)\"\n    },\n    {\n      \"name\": \"VlN\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Sqrt[0.1*^-9/MN]\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Active-sterile mixing V_lN = sqrt(m_nu/MN) with m_nu=0.1 eV\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 100,\n      \"class_name\": \"Zp\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"MZp\", \"value\": \"MZp\"},\n      \"width\": {\"sym\": \"WZp\", \"value\": \"Auto\"},\n      \"quantum_numbers\": {\"BL\": \"0\"},\n      \"pdg\": 32,\n      \"particle_name\": \"Zp\",\n      \"antiparticle_name\": \"Zp\",\n      \"full_name\": \"Z' boson\",\n      \"propagator_label\": \"Zp\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 101,\n      \"class_name\": \"chi\",\n      \"self_conjugate\": false,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"Mchi\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"Wchi\", \"value\": \"Auto\"},\n      \"quantum_numbers\": {\"BL\": \"2\"},\n      \"pdg\": 9000001,\n      \"particle_name\": \"chi\",\n      \"antiparticle_name\": \"chibar\",\n      \"full_name\": \"B-L Higgs singlet\",\n      \"propagator_label\": \"chi\",\n      \"propagator_type\": \"ScalarDash\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 102,\n      \"class_name\": \"h2\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"MHH\", \"value\": \"MHH\"},\n      \"width\": {\"sym\": \"Wh2\", \"value\": \"Auto\"},\n      \"quantum_numbers\": {},\n      \"pdg\": 35,\n      \"particle_name\": \"h2\",\n      \"antiparticle_name\": \"h2\",\n      \"full_name\": \"Heavy Higgs\",\n      \"propagator_label\": \"h2\",\n      \"propagator_type\": \"ScalarDash\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 103,\n      \"class_name\": \"Gp\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"MZp\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"WZp\", \"value\": \"Internal\"},\n      \"quantum_numbers\": {},\n      \"pdg\": 9000002,\n      \"particle_name\": \"Gp\",\n      \"antiparticle_name\": \"Gp\",\n      \"full_name\": \"Z' Goldstone\",\n      \"propagator_label\": \"Gp\",\n      \"propagator_type\": \"ScalarDash\",\n      \"propagator_arrow\": \"None\",\n      \"goldstone\": \"Zp\"\n    },\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 104,\n      \"class_name\": \"N\",\n      \"self_conjugate\": false,\n      \"indices\": [\"Generation\"],\n      \"flavor_index\": \"Generation\",\n      \"class_members\": [\"N1\", \"N2\", \"N3\"],\n      \"mass\": {\"sym\": \"MN\", \"members\": [[\"MN1\", \"MN\"], [\"MN2\", \"MN\"], [\"MN3\", \"MN\"]]},\n      \"width\": {\"sym\": \"WN\", \"value\": \"Auto\"},\n      \"quantum_numbers\": {\"BL\": \"-1\", \"LeptonNumber\": \"1\"},\n      \"pdg\": [9900012, 9900014, 9900016],\n      \"particle_name\": [\"N1\", \"N2\", \"N3\"],\n      \"antiparticle_name\": [\"N1bar\", \"N2bar\", \"N3bar\"],\n      \"full_name\": [\"RH neutrino 1\", \"RH neutrino 2\", \"RH neutrino 3\"],\n      \"propagator_label\": [\"N1\", \"N2\", \"N3\"],\n      \"propagator_type\": \"Straight\",\n      \"propagator_arrow\": \"Forward\"\n    }\n  ],\n  \"gauge_xi\": [[\"Zp\", \"GaugeXi[Zp]\"]],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"LZpKin\",\n      \"expression\": \"-1/4 FS[Zp, mu, nu] FS[Zp, mu, nu] + 1/2 MZp^2 Zp[mu] Zp[mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LchiKin\",\n      \"expression\": \"DC[chibar, mu] DC[chi, mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"Lh2Kin\",\n      \"expression\": \"1/2 del[h2, mu] del[h2, mu] - 1/2 MHH^2 h2^2\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LGpKin\",\n      \"expression\": \"1/2 del[Gp, mu] del[Gp, mu] - 1/2 MZp^2 Gp^2\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LNKin\",\n      \"expression\": \"I Nbar[ff].Ga[mu].DC[N[ff], mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LPotential\",\n      \"expression\": \"mH2 Phibar[2] Phi[2] + mu2 chibar chi + lam1 (Phibar[2] Phi[2])^2 + lam2 (chibar chi)^2 + lam3 Phibar[2] Phi[2] chibar chi\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LYukawaNu\",\n      \"expression\": \"-ynu[ff] LLbar[sp, ii, ff].ProjP[N[ff]] Phibar[jj] Eps[ii, jj]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LYukawaM\",\n      \"expression\": \"-yM[ff] bar[CC[N[ff]]].ProjP[N[ff]] chi\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LZpSM\",\n      \"expression\": \"gp*Zp[mu]*( (1/3)*(uqbar[ff,cc].Ga[mu].uq[ff,cc] + dqbar[ff,cc].Ga[mu].dq[ff,cc]) - (vlbar[ff].Ga[mu].vl[ff] + lbar[ff].Ga[mu].l[ff]) )\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LTotal\",\n      \"expression\": \"LZpKin + LchiKin + Lh2Kin + LGpKin + LNKin + LPotential + LYukawaNu + LYukawaM + LZpSM + HC[LYukawaNu] + HC[LYukawaM] + LSM\",\n      \"delayed\": true\n    }\n  ],\n  \"raw_preamble\": [\n    \"(* B-L gauge group *)\",\n    \"AddGaugeGroup[U1BL, gp, Zp, BL, Abelian -> True];\"\n  ],\n  \"raw_blocks\": []\n}"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json",
+   "timeout": 60000
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 5 particle classes, 13 parameters, Lagrangian terms ['LZpKin', 'LchiKin', 'Lh2Kin', 'LGpKin', 'LNKin', 'LPotential', 'LYukawaNu', 'LYukawaM', 'LZpSM', 'LTotal']\nRENDERED: model.fr (198 lines). You may read it.\nLINT: 4 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be id"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: B-L-SM_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-------------------------------------------"
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Create spec.json with B-L model: gauge group U1BL, new particles (Zp, chi, h2, Gp, NuR), parameters, Lagrangian terms",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Run ./frgen spec.json and fix schema errors",
+     "status": "in_progress",
+     "priority": "high"
+    },
+    {
+     "content": "Fix lint findings until only harmless remain",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Produce self-audit table and final frgen result",
+     "status": "pending",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Create spec.json with B-L model: gauge group U1BL, new particles (Zp, chi, h2, Gp, NuR), parameters, Lagrangian terms\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Run ./frgen spec.json and fix schema errors\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Fix lint findings until only harmless remain\",\n    \"status\":"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "content": "{\n  \"model_name\": \"B-L-SM_gen\",\n  \"info\": {\n    \"authors\": [\"S. Amrith\", \"J. M. Butterworth\", \"F. F. Deppisch\", \"W. Liu\", \"A. Varma\", \"D. Yallup\"],\n    \"version\": \"1.0\",\n    \"date\": \"2024-01-01\",\n    \"institutions\": [\"UCL\"],\n    \"emails\": [\"f.deppisch@ucl.ac.uk\"]\n  },\n  \"interaction_order_hierarchy\": [[\"QCD\", 1], [\"QED\", 2], [\"NP\", 1]],\n  \"interaction_order_limit\": [[\"NP\", 1]],\n  \"feynman_gauge\": true,\n  \"vevs\": [[\"Phi[2]\", \"vev\"], [\"chi\", \"x\"]],\n  \"gauge_groups\": [\n    {\n      \"name\": \"U1BL\",\n      \"abelian\": true,\n      \"gauge_boson\": \"Zp\",\n      \"coupling_constant\": \"gp\",\n      \"charge\": \"BL\",\n      \"representations\": []\n    }\n  ],\n  \"index_decls\": [],\n  \"parameters\": [\n    {\n      \"name\": \"gp\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.2\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"U(1)_{B-L} gauge coupling\"\n    },\n    {\n      \"name\": \"MZp\",\n      \"parameter_type\": \"External\",\n      \"value\": \"7000.\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 2,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' boson mass [GeV]\"\n    },\n    {\n      \"name\": \"MHH\",\n      \"parameter_type\": \"External\",\n      \"value\": \"200.\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 3,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Heavy Higgs mass [GeV]\"\n    },\n    {\n      \"name\": \"SA\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.2\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 4,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Sine of Higgs mixing angle alpha\"\n    },\n    {\n      \"name\": \"MN\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1400.\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 5,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"RH neutrino mass (degenerate) [GeV]\"\n    },\n    {\n      \"name\": \"x\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"MZp/(2*gp)\",\n      \"interaction_order\": [\"NP\", -1],\n      \"description\": \"B-L breaking VEV [GeV]\"\n    },\n    {\n      \"name\": \"CA\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Sqrt[1-SA^2]\",\n      \"description\": \"Cosine of Higgs mixing angle alpha\"\n    },\n    {\n      \"name\": \"lam1\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(1/(4*vev^2))*((MH^2+MHH^2)-CA*(MHH^2-MH^2))\",\n      \"interaction_order\": [\"NP\", 2],\n      \"description\": \"Higgs quartic lambda_1\"\n    },\n    {\n      \"name\": \"lam2\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(1/(4*x^2))*((MH^2+MHH^2)+CA*(MHH^2-MH^2))\",\n      \"interaction_order\": [\"NP\", 2],\n      \"description\": \"Higgs quartic lambda_2\"\n    },\n    {\n      \"name\": \"lam3\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(1/(2*vev*x))*SA*(MHH^2-MH^2)\",\n      \"interaction_order\": [\"NP\", 2],\n      \"description\": \"Higgs portal coupling lambda_3\"\n    },\n    {\n      \"name\": \"mH2\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"-lam1*vev^2 - lam3*x^2/2 - MH^2/2\",\n      \"interaction_order\": [\"NP\", 2],\n      \"description\": \"Quadratic shift for H\u2020H: m^2 - muH^2\"\n    },\n    {\n      \"name\": \"mu2\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"-lam2*x^2 - lam3*vev^2/2\",\n      \"interaction_order\": [\"NP\", 2],\n      \"description\": \"Quadratic coefficient for |chi|^2\"\n    },\n    {\n      \"name\": \"yM\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"yM[1]\", \"rhs\": \"MN/(Sqrt[2]*x)\"},\n        {\"lhs\": \"yM[2]\", \"rhs\": \"MN/(Sqrt[2]*x)\"},\n        {\"lhs\": \"yM[3]\", \"rhs\": \"MN/(Sqrt[2]*x)\"}\n      ],\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Majorana Yukawa coupling (diagonal)\"\n    },\n    {\n      \"name\": \"VlN\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Sqrt[0.1*^-9/MN]\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Active-sterile mixing V_lN = sqrt(m_nu/MN) with m_nu=0.1 eV\"\n    },\n    {\n      \"name\": \"ynu\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"ynu[1]\", \"rhs\": \"Sqrt[2]*MN*VlN/vev\"},\n        {\"lhs\": \"ynu[2]\", \"rhs\": \"Sqrt[2]*MN*VlN/vev\"},\n        {\"lhs\": \"ynu[3]\", \"rhs\": \"Sqrt[2]*MN*VlN/vev\"}\n      ],\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Dirac neutrino Yukawa coupling (diagonal)\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 100,\n      \"class_name\": \"Zp\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"MZp\", \"value\": \"MZp\"},\n      \"width\": {\"sym\": \"WZp\", \"value\": \"Auto\"},\n      \"quantum_numbers\": {\"BL\": \"0\"},\n      \"pdg\": 32,\n      \"particle_name\": \"Zp\",\n      \"antiparticle_name\": \"Zp\",\n      \"full_name\": \"Z' boson\",\n      \"propagator_label\": \"Zp\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 101,\n      \"class_name\": \"chi\",\n      \"self_conjugate\": false,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"Mchi\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"Wchi\", \"value\": \"Auto\"},\n      \"quantum_numbers\": {\"BL\": \"2\"},\n      \"pdg\": 9000001,\n      \"particle_name\": \"chi\",\n      \"antiparticle_name\": \"chibar\",\n      \"full_name\": \"B-L Higgs singlet\",\n      \"propagator_label\": \"chi\",\n      \"propagator_type\": \"ScalarDash\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 102,\n      \"class_name\": \"h2\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"MHH\", \"value\": \"MHH\"},\n      \"width\": {\"sym\": \"Wh2\", \"value\": \"Auto\"},\n      \"quantum_numbers\": {},\n      \"pdg\": 35,\n      \"particle_name\": \"h2\",\n      \"antiparticle_name\": \"h2\",\n      \"full_name\": \"Heavy Higgs\",\n      \"propagator_label\": \"h2\",\n      \"propagator_type\": \"ScalarDash\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 103,\n      \"class_name\": \"Gp\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"MZp\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"WZp\", \"value\": \"Internal\"},\n      \"quantum_numbers\": {},\n      \"pdg\": 9000002,\n      \"particle_name\": \"Gp\",\n      \"antiparticle_name\": \"Gp\",\n      \"full_name\": \"Z' Goldstone\",\n      \"propagator_label\": \"Gp\",\n      \"propagator_type\": \"ScalarDash\",\n      \"propagator_arrow\": \"None\",\n      \"goldstone\": \"Zp\"\n    },\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 104,\n      \"class_name\": \"NuR\",\n      \"self_conjugate\": false,\n      \"indices\": [\"Generation\"],\n      \"flavor_index\": \"Generation\",\n      \"class_members\": [\"NuR1\", \"NuR2\", \"NuR3\"],\n      \"mass\": {\"sym\": \"MN\", \"members\": [[\"MN1\", \"MN\"], [\"MN2\", \"MN\"], [\"MN3\", \"MN\"]]},\n      \"width\": {\"sym\": \"WNuR\", \"value\": \"Auto\"},\n      \"quantum_numbers\": {\"BL\": \"-1\", \"LeptonNumber\": \"1\"},\n      \"pdg\": [9900012, 9900014, 9900016],\n      \"particle_name\": [\"NuR1\", \"NuR2\", \"NuR3\"],\n      \"antiparticle_name\": [\"NuR1bar\", \"NuR2bar\", \"NuR3bar\"],\n      \"full_name\": [\"RH neutrino 1\", \"RH neutrino 2\", \"RH neutrino 3\"],\n      \"propagator_label\": [\"NuR1\", \"NuR2\", \"NuR3\"],\n      \"propagator_type\": \"Straight\",\n      \"propagator_arrow\": \"Forward\"\n    }\n  ],\n  \"gauge_xi\": [[\"Zp\", \"GaugeXi[Zp]\"]],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"LZpKin\",\n      \"expression\": \"-1/4 FS[Zp, mu, nu] FS[Zp, mu, nu] + 1/2 MZp^2 Zp[mu] Zp[mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LchiKin\",\n      \"expression\": \"DC[chibar, mu] DC[chi, mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"Lh2Kin\",\n      \"expression\": \"1/2 del[h2, mu] del[h2, mu] - 1/2 MHH^2 h2^2\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LGpKin\",\n      \"expression\": \"1/2 del[Gp, mu] del[Gp, mu] - 1/2 MZp^2 Gp^2\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LNuRKin\",\n      \"expression\": \"I NuRbar[ff].Ga[mu].DC[NuR, mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LPotential\",\n      \"expression\": \"mH2 Phibar[ii] Phi[ii] + mu2 chibar chi + lam1 (Phibar[ii] Phi[ii])^2 + lam2 (chibar chi)^2 + lam3 Phibar[ii] Phi[ii] chibar chi\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LYukawaNu\",\n      \"expression\": \"-ynu[ff] LLbar[sp, ii, ff].ProjP[NuR[ff]] Phibar[jj] Eps[ii, jj]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LYukawaM\",\n      \"expression\": \"-yM[ff] bar[CC[NuR[ff]]].ProjP[NuR[ff]] chi\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LZpSM\",\n      \"expression\": \"gp*Zp[mu]*( (1/3)*(uqbar.Ga[mu].uq + dqbar.Ga[mu].dq) - (vlbar.Ga[mu].vl + lbar.Ga[mu].l) )\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LTotal\",\n      \"expression\": \"LZpKin + LchiKin + Lh2Kin + LGpKin + LNuRKin + LPotential + LYukawaNu + LYukawaM + LZpSM + HC[LYukawaNu] + HC[LYukawaM] + LSM\",\n      \"delayed\": true\n    }\n  ],\n  \"raw_preamble\": [\n    \"(* B-L gauge group *)\",\n    \"AddGaugeGroup[U1BL, gp, Zp, BL, Abelian -> True];\"\n  ],\n  \"raw_blocks\": []\n}",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/spec.json"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json",
+   "timeout": 60000
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 5 particle classes, 15 parameters, Lagrangian terms ['LZpKin', 'LchiKin', 'Lh2Kin', 'LGpKin', 'LNuRKin', 'LPotential', 'LYukawaNu', 'LYukawaM', 'LZpSM', 'LTotal']\nRENDERED: model.fr (212 lines). You may read it.\nLINT: 2 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-ourn4wgs/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: B-L-SM_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-------------------------------------------"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "timeout": 60000,
+   "command": "./frgen spec.json"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 5 particle classes, 15 parameters, Lagrangian terms ['LZpKin', 'LchiKin', 'Lh2Kin', 'LGpKin', 'LNuRKin', 'LPotential', 'LYukawaNu', 'LYukawaM', 'LZpSM', 'LTotal']\nRENDERED: model.fr (212 lines). You may read it.\nLINT: 2 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be "
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Create spec.json with B-L model: gauge group U1BL, new particles (Zp, chi, h2, Gp, NuR), parameters, Lagrangian terms",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Run ./frgen spec.json and fix schema errors",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Fix lint findings until only harmless remain",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Produce self-audit table and final frgen result",
+     "status": "in_progress",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Create spec.json with B-L model: gauge group U1BL, new particles (Zp, chi, h2, Gp, NuR), parameters, Lagrangian terms\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Run ./frgen spec.json and fix schema errors\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Fix lint findings until only harmless remain\",\n    \"status\": \""
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "cat spec.json"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"bash\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"bash\",\"pattern\":\"./frgen *\",\"action\":\"allow\"},{\"permission\":\"bash\",\"pattern\":\"./frgen\",\"action\":\"allow\"}]"
+ }
+]

@@ -1,0 +1,12 @@
+SCHEMA OK: 19 particle classes, 5 parameters, Lagrangian terms ['LPI1kin', 'LPI2kin', 'LHc1kin', 'LHc2kin', 'LLQ1kin', 'LLQ2kin', 'LFN1kin', 'LFE1kin', 'LFNskin', 'LFEskin', 'LFN2kin', 'LFE2kin', 'LFNsCkin', 'LFEsCkin', 'LFU1kin', 'LFD1kin', 'LFUsCkin', 'LFDsCkin', 'Lnurkin', 'LYPI', 'LYLQ', 'LHcFF', 'LFCI', 'LANOMPI0', 'LANOMPIc', 'LTotal']
+RENDERED: model.fr (429 lines). You may read it.
+LINT: 9 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are real defects; do not remove paper physics just to silence one.
+- [warn] explicit_index_in_dc: `LPI1kin`: covariant derivative on an explicitly indexed field `PI1bar` (model.fr line 379)
+- [warn] explicit_index_in_dc: `LPI2kin`: covariant derivative on an explicitly indexed field `PI2bar` (model.fr line 381)
+- [warn] explicit_index_in_dc: `LHc1kin`: covariant derivative on an explicitly indexed field `Hc1bar` (model.fr line 383)
+- [warn] explicit_index_in_dc: `LHc2kin`: covariant derivative on an explicitly indexed field `Hc2bar` (model.fr line 385)
+- [warn] explicit_index_in_dc: `LLQ1kin`: covariant derivative on an explicitly indexed field `LQ1bar` (model.fr line 387)
+- [warn] explicit_index_in_dc: `LLQ2kin`: covariant derivative on an explicitly indexed field `LQ2bar` (model.fr line 389)
+- [warn] undeclared_symbol: `LFCI` uses `FUpb` which is neither declared here nor by SM.fr (model.fr line 423)
+- [warn] undeclared_symbol: `LANOMPI0` uses `Eqs` which is neither declared here nor by SM.fr (model.fr line 425)
+- [warn] undeclared_symbol: `LANOMPIc` uses `Eqs` which is neither declared here nor by SM.fr (model.fr line 427)

@@ -1,0 +1,17 @@
+| term name | fields in the monomial | operator mass dimension d | coupling symbol | coupling mass dimension (4 − d) | 1/Lambda power | Q sum | Y sum | SU(2) contraction | SU(3) contraction | new U(1) charge sum | lepton/baryon number sum | CC[] where paper writes ψ^c | fraction/root placement checked against | Hermitian partner |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| LWRkin | FS[WRbar,mu,nu]FS[WR,mu,nu], MWR² WRbar[mu]WR[mu] | 4 (FS·FS: 2+2; M²A̅A: 2+1+1) | canonical (none) | 0 | n/a (d=4) | −1+1=0 | −1+1=0 (Y(WR±)=±1, T3L=0) | singlet | singlet | n/a (no new U(1)) | n/a | n/a | n/a | self-hermitian; row confirms free-field term exists and is in LTotal |
+| LZRkin | FS[ZR,mu,nu]², ½MZR²ZR[mu]ZR[mu] | 4 | canonical (none) | 0 | n/a | 0 | 0 | singlet | singlet | n/a | n/a | n/a | n/a | self-hermitian; in LTotal |
+| LNkin | I/2 NRbar.Ga[mu].del[NR,mu], −½MNᵢ Nī.Nᵢ | 4 (3/2+3/2+1; 1+3/2+3/2) | canonical MNR (MN1/MN2/MN3) | 0 | n/a | 0 | 0 | singlet | singlet | n/a | Majorana mass violates L by 2, as in paper (no separate L/B assignment to audit) | n/a | n/a | self-hermitian (Majorana ½-coefficients); in LTotal |
+| LWRqq | uqbar.VCKMR.Ga[mu].ProjP.dq WR[mu] (+HC) | 4 (3/2+3/2+1) | kRq·gw/Sqrt[2] | 0 | n/a | −2/3−1/3+1=0 | −2/3−1/3+1=0 (SM.fr Y: uq=+2/3, dq=−1/3) | singlets (RH fields, no SU(2) structure) | singlet×singlet→singlet | n/a | B=0, L=0 | no (no ψ^c in term) | Sqrt[2]: LaTeX line 281 (`\frac` over `\sqrt{2}`) | HC[...] written explicitly |
+| LWRln | NRbar.YR.Ga[mu].ProjP.l WR[mu] (+HC) | 4 | kRl·gw/Sqrt[2] | 0 | n/a | 0−1+1=0 | 0−1+1=0 (SM.fr Y: l=−1) | singlets | singlet | n/a | B=0; L violation only via Majorana MN, as in paper | n/a — the ν^c term of Eq. (3) is dropped because benchmark X=0 (rule 3) | Sqrt[2]: LaTeX line 293 | HC[...] written explicitly |
+| LZRff | ZR[mu]×{uq,dq,l,vl,NR} γμ ProjM/ProjP bilinears | 4 | cZqL, cZuR, cZdR, cZlL, cZeR, cZNR (all via normZRq/l) | 0 | n/a | 0 for every bilinear | 0 for every bilinear (SM.fr Y sums cancel per bilinear; Y(ZR)=0) | singlets only (ProjM/ProjP on singlet classes) | singlet | n/a | B=0, L=0 | no | ZR denominator `Sqrt[1 - tan2W/kR^2]`: LaTeX line 352; cross-checked against partial widths, LaTeX lines 375–377 (coupling ∝1/Sqrt ⇒ width ∝1/(1−x)) | self-hermitian (real coefficients, γμ bilinears); in LTotal |
+| LTotal | LWRkin + LZRkin + LNkin + LWRqq + LWRln + LZRff | — | — | — | n/a (all d≤4, no cutoff declared) | — | — | — | — | — | — | — | — | single declared total; all six terms present |
+
+- SelfConjugate→True classes: **ZR**, **NR** — both declare `quantum_numbers: {}` (no QuantumNumbers).
+- Colour: no non-fundamental representation used (only SM `Colour`/`Gluon`); no `AddGaugeRepresentation[...]` needed.
+- Names: classes WR, ZR, NR; parameters kRq, kRl, VCKMR, YR, X, tan2W, normZRq, normZRl, cZqL, cZuR, cZdR, cZlL, cZeR, cZNR; only index in use is built-in `Generation` — none collides with Mathematica built-ins, FeynRules symbols, or SM.fr names; class indices 100/101 ≥ 100.
+- Single total: `LTotal` = LWRkin + LZRkin + LNkin + LWRqq + LWRln + LZRff (no second total; no constant terms).
+- Reference or cached model files read: **none** (paper LaTeX + SM.fr + schema/renderer/lint only).
+
+`./frgen spec.json` → `SCHEMA OK: 3 particle classes, 14 parameters, Lagrangian terms ['LWRkin', 'LZRkin', 'LNkin', 'LWRqq', 'LWRln', 'LZRff', 'LTotal']` / `RENDERED: model.fr (173 lines). You may read it.` / `LINT: no findings.`

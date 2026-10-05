@@ -1,0 +1,40 @@
+{
+ "page": "ChernSimonsPortal",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit2",
+ "seed": 1,
+ "variant": "v3o_mimo_toolkit2",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3609.0,
+ "tokens": {
+  "input": 417888,
+  "output": 10485,
+  "reasoning": 166295
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 0,
+ "n_events": 90,
+ "length_stops": 1,
+ "audit": {
+  "tool_calls": 31,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la\"}",
+   "bash:{\"command\": \"grep -n \\\"label{eq\\\" paper/0901.0639_source.tex | head -100\"}",
+   "bash:{\"command\": \"wc -l paper/0901.0639_source.tex; grep -n \\\"section\\\\|subsection\\\" "
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_spec"
+}

@@ -1,0 +1,387 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+From kernel 5 (Local):
+Part::partw: Part 2 of {MH01} does not exist.
+From kernel 1 (Local):
+Part::partw: Part 2 of {MH01} does not exist.
+From kernel 2 (Local):
+Part::partw: Part 2 of {MH01} does not exist.
+From kernel 3 (Local):
+Part::partw: Part 2 of {MH01} does not exist.
+From kernel 4 (Local):
+Part::partw: Part 2 of {MH01} does not exist.
+
+General::stop: Further output of Part::partw will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of Part::partw will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of Part::partw will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of Part::partw will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of Part::partw will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of Part::partw will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+Merging model-files...
+This model implementation was created by
+Mariana Frank
+Benjamin Fuks
+Ozer Ozdal
+Model Version: 1.0.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+
+Part::partw: Part 2 of {MH01} does not exist.
+
+Part::partw: Part 2 of {MH02} does not exist.
+
+Part::partw: Part 2 of {MH03} does not exist.
+
+General::stop: Further output of Part::partw will be suppressed during this calculation.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+Model ALRM_general_gen loaded.
+[INFO] Lagrangian: LSM + LTotal
+HEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)
+HEPTAPOD-LAGRANGIAN|expression=LSM + LTotal|symbols=LSM,LTotal|terms=1356
+HEPTAPOD-RESIDUAL|count=0|fields=
+[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+General::stop: Further output of QN::NonConserv will be suppressed during this calculation.
+HEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=fail|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. 548 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$
+HEPTAPOD-CHECK|scope=model|name=kinetic_diagonal|verdict=pass|detail=Neglecting all terms with more than 2 particles. All kinetic terms are diagonal.
+HEPTAPOD-CHECK|scope=model|name=mass_diagonal|verdict=pass|detail=All mass terms are diagonal.
+Neglecting all terms with more than 2 particles.
+All mass terms are diagonal.
+Getting mass spectrum.
+Checking for less then 0.1% agreement with model file values.
+HEPTAPOD-MASS|particle=A10|derived=193.4044157205112|declared=If[{0.} < {1.934044157205112*^-11}, Re[{193.4044157205112}], {193.4044157205112}]|agrees=False
+HEPTAPOD-MASS|particle=A20|derived=906.6800714197415|declared=If[{0.} < {9.066800714197415*^-11}, Re[{906.6800714197415}], {906.6800714197415}]|agrees=False
+HEPTAPOD-MASS|particle=H01|derived=1.|declared=If[{0.} < {1.*^-13}, Re[{1.}], {1.}]|agrees=False
+HEPTAPOD-MASS|particle=H02|derived=1.|declared=If[{0.} < {1.*^-13}, Re[{1.}], {1.}]|agrees=False
+HEPTAPOD-MASS|particle=H03|derived=1.|declared=If[{0.} < {1.*^-13}, Re[{1.}], {1.}]|agrees=False
+HEPTAPOD-MASS|particle=Hp1|derived=1.|declared=If[{0.} < {1.*^-13}, Re[{1.}], {1.}]|agrees=False
+HEPTAPOD-MASS|particle=Hp2|derived=1.|declared=If[{0.} < {1.*^-13}, Re[{1.}], {1.}]|agrees=False
+HEPTAPOD-MASS|particle=H|derived=125.00000000000006|declared=125.|agrees=True
+HEPTAPOD-MASS|particle=ghWm|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=ghWp|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=ghZ|derived=91.18760000000003|declared=91.1876|agrees=True
+HEPTAPOD-MASS|particle=dp1|derived=1500.|declared=1500.|agrees=True
+HEPTAPOD-MASS|particle=dp2|derived=1800.|declared=1800.|agrees=True
+HEPTAPOD-MASS|particle=dp3|derived=2000.|declared=2000.|agrees=True
+HEPTAPOD-MASS|particle=n1|derived=756.|declared=756.|agrees=True
+HEPTAPOD-MASS|particle=n2|derived=971.|declared=971.|agrees=True
+HEPTAPOD-MASS|particle=n3|derived=1202.|declared=1202.|agrees=True
+HEPTAPOD-MASS|particle=b|derived=4.700000000000002|declared=4.7|agrees=True
+HEPTAPOD-MASS|particle=d|derived=0.005040000000000001|declared=0.00504|agrees=True
+HEPTAPOD-MASS|particle=s|derived=0.10100000000000002|declared=0.101|agrees=True
+HEPTAPOD-MASS|particle=e|derived=0.0005110000000000001|declared=0.000511|agrees=True
+HEPTAPOD-MASS|particle=mu|derived=0.10566000000000003|declared=0.10566|agrees=True
+HEPTAPOD-MASS|particle=ta|derived=1.7770000000000006|declared=1.777|agrees=True
+HEPTAPOD-MASS|particle=c|derived=1.2700000000000002|declared=1.27|agrees=True
+HEPTAPOD-MASS|particle=t|derived=172.00000000000003|declared=172.|agrees=True
+HEPTAPOD-MASS|particle=u|derived=0.002550000000000001|declared=0.00255|agrees=True
+HEPTAPOD-MASS|particle=W|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=Wp|derived=1458.413|declared=1458.413|agrees=True
+HEPTAPOD-MASS|particle=Z|derived=91.18760000000003|declared=91.1876|agrees=True
+HEPTAPOD-MASS|particle=Zp|derived=5048.864071464997|declared=5048.864071464997|agrees=True
+HEPTAPOD-CHECK|scope=model|name=mass_spectrum|verdict=fail|detail=
+[INFO] UFO output: /private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/vbench/open/v3o_mimo_toolkit/ALRM_general/s1/ALRM_general_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+722 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 722.
+695 vertices obtained.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 695
+   - Saved vertices in InterfaceRun[ 1 ].
+Quantum number Q not conserved in vertex {A10, A20, G0, Hp1}.
+Quantum number Q not conserved in vertex {A20, A20, G0, Hp1}.
+Quantum number Q not conserved in vertex {A10, A10, H01, Hp1}.
+Quantum number Q not conserved in vertex {A20, H, H01, Hp1}.
+Quantum number Q not conserved in vertex {H01, H01, H01, Hp1}.
+Quantum number Q not conserved in vertex {A10, H, H02, Hp1}.
+Quantum number Q not conserved in vertex {A20, H01, H02, Hp1}.
+Quantum number Q not conserved in vertex {G0, H01, H02, Hp1}.
+Quantum number Q not conserved in vertex {A10, H02, H02, Hp1}.
+Quantum number Q not conserved in vertex {G0, H02, H02, Hp1}.
+Quantum number Q not conserved in vertex {A20, A20, Hp1, Hp1}.
+Quantum number Q not conserved in vertex {A10, A10, Hp1, Hp1}.
+Quantum number Q not conserved in vertex {A10, A20, Hp1, Hp1}.
+Quantum number Q not conserved in vertex {G0, G0, Hp1, Hp1}.
+Quantum number Q not conserved in vertex {H, H, Hp1, Hp1}.
+Quantum number Q not conserved in vertex {H01, H01, Hp1, Hp1}.
+Quantum number Q not conserved in vertex {H, H02, Hp1, Hp1}.
+Quantum number Q not conserved in vertex {H01, H02, Hp1, Hp1}.
+Quantum number Q not conserved in vertex {H02, H02, Hp1, Hp1}.
+Quantum number Q not conserved in vertex {Hp1, Hp1, Hp1, Hp1}.
+Quantum number Q not conserved in vertex {A10, A20, G0, Hp1bar}.
+Quantum number Q not conserved in vertex {A20, A20, G0, Hp1bar}.
+Quantum number Q not conserved in vertex {A10, A10, H01, Hp1bar}.
+Quantum number Q not conserved in vertex {A20, H, H01, Hp1bar}.
+Quantum number Q not conserved in vertex {H01, H01, H01, Hp1bar}.
+Quantum number Q not conserved in vertex {A10, H, H02, Hp1bar}.
+Quantum number Q not conserved in vertex {A20, H01, H02, Hp1bar}.
+Quantum number Q not conserved in vertex {G0, H01, H02, Hp1bar}.
+Quantum number Q not conserved in vertex {A10, H02, H02, Hp1bar}.
+Quantum number Q not conserved in vertex {G0, H02, H02, Hp1bar}.
+Quantum number Q not conserved in vertex {A20, A20, Hp1bar, Hp1bar}.
+Quantum number Q not conserved in vertex {A10, A10, Hp1bar, Hp1bar}.
+Quantum number Q not conserved in vertex {A10, A20, Hp1bar, Hp1bar}.
+Quantum number Q not conserved in vertex {G0, G0, Hp1bar, Hp1bar}.
+Quantum number Q not conserved in vertex {H, H, Hp1bar, Hp1bar}.
+Quantum number Q not conserved in vertex {H01, H01, Hp1bar, Hp1bar}.
+Quantum number Q not conserved in vertex {H, H02, Hp1bar, Hp1bar}.
+Quantum number Q not conserved in vertex {H01, H02, Hp1bar, Hp1bar}.
+Quantum number Q not conserved in vertex {H02, H02, Hp1bar, Hp1bar}.
+Quantum number Q not conserved in vertex {Hp1bar, Hp1bar, Hp1bar, Hp1bar}.
+Quantum number Q not conserved in vertex {A10, A10, H, Hp2}.
+Quantum number Q not conserved in vertex {H, H01, H01, Hp2}.
+Quantum number Q not conserved in vertex {A10, A10, H02, Hp2}.
+Quantum number Q not conserved in vertex {H01, H01, H02, Hp2}.
+Quantum number Q not conserved in vertex {A10, G0, Hp1, Hp2}.
+Quantum number Q not conserved in vertex {A20, G0, Hp1, Hp2}.
+Quantum number Q not conserved in vertex {H, H01, Hp1, Hp2}.
+Quantum number Q not conserved in vertex {H, H02, Hp1, Hp2}.
+Quantum number Q not conserved in vertex {H01, H02, Hp1, Hp2}.
+Quantum number Q not conserved in vertex {H02, H02, Hp1, Hp2}.
+Quantum number Q not conserved in vertex {A10, Hp1, Hp1, Hp2}.
+Quantum number Q not conserved in vertex {A20, Hp1, Hp1, Hp2}.
+Quantum number Q not conserved in vertex {A10, Hp1, Hp1bar, Hp2}.
+Quantum number Q not conserved in vertex {A10, Hp1bar, Hp1bar, Hp2}.
+Quantum number Q not conserved in vertex {A20, Hp1bar, Hp1bar, Hp2}.
+Quantum number Q not conserved in vertex {A20, A20, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {A10, A10, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {G0, G0, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {H, H, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {H01, H01, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {H, H02, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {H02, H02, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {H01, Hp1, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {Hp1, Hp1, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {H01, Hp1bar, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {Hp1, Hp1bar, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {H, Hp2, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {H02, Hp2, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {Hp2, Hp2, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {A10, A10, H, Hp2bar}.
+Quantum number Q not conserved in vertex {H, H01, H01, Hp2bar}.
+Quantum number Q not conserved in vertex {A10, A10, H02, Hp2bar}.
+Quantum number Q not conserved in vertex {H01, H01, H02, Hp2bar}.
+Quantum number Q not conserved in vertex {A10, Hp1, Hp1, Hp2bar}.
+Quantum number Q not conserved in vertex {A20, Hp1, Hp1, Hp2bar}.
+Quantum number Q not conserved in vertex {A10, G0, Hp1bar, Hp2bar}.
+Quantum number Q not conserved in vertex {A20, G0, Hp1bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H, H01, Hp1bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H, H02, Hp1bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H01, H02, Hp1bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H02, H02, Hp1bar, Hp2bar}.
+Quantum number Q not conserved in vertex {A10, Hp1, Hp1bar, Hp2bar}.
+Quantum number Q not conserved in vertex {A10, Hp1bar, Hp1bar, Hp2bar}.
+Quantum number Q not conserved in vertex {A20, Hp1bar, Hp1bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H01, Hp1, Hp2, Hp2bar}.
+Quantum number Q not conserved in vertex {Hp1, Hp1, Hp2, Hp2bar}.
+Quantum number Q not conserved in vertex {H01, Hp1bar, Hp2, Hp2bar}.
+Quantum number Q not conserved in vertex {Hp1bar, Hp1bar, Hp2, Hp2bar}.
+Quantum number Q not conserved in vertex {H, Hp2, Hp2, Hp2bar}.
+Quantum number Q not conserved in vertex {H02, Hp2, Hp2, Hp2bar}.
+Quantum number Q not conserved in vertex {A20, A20, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {A10, A10, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {G0, G0, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H, H, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H01, H01, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H, H02, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H02, H02, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H01, Hp1, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H01, Hp1bar, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {Hp1, Hp1bar, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {Hp1bar, Hp1bar, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H, Hp2, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H02, Hp2, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H, Hp2bar, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H02, Hp2bar, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {Hp2bar, Hp2bar, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {A10, Hp1, Hp1}.
+Quantum number Q not conserved in vertex {H01, Hp1, Hp1}.
+Quantum number Q not conserved in vertex {A10, Hp1bar, Hp1bar}.
+Quantum number Q not conserved in vertex {H01, Hp1bar, Hp1bar}.
+Quantum number Q not conserved in vertex {A10, Hp1, Hp2}.
+Quantum number Q not conserved in vertex {A20, Hp1, Hp2}.
+Quantum number Q not conserved in vertex {H01, Hp1, Hp2}.
+Quantum number Q not conserved in vertex {H02, Hp1, Hp2}.
+Quantum number Q not conserved in vertex {A20, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {H02, Hp2, Hp2}.
+Quantum number Q not conserved in vertex {A10, Hp1bar, Hp2bar}.
+Quantum number Q not conserved in vertex {A20, Hp1bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H01, Hp1bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H02, Hp1bar, Hp2bar}.
+Quantum number Q not conserved in vertex {A20, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {H02, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {Hp1, Hp1, Hp1, Hp1bar}.
+Quantum number Q not conserved in vertex {Hp1, Hp1bar, Hp1bar, Hp1bar}.
+Quantum number Q not conserved in vertex {Hp2, Hp2, Hp2, Hp2bar}.
+Quantum number Q not conserved in vertex {Hp2, Hp2bar, Hp2bar, Hp2bar}.
+Quantum number Q not conserved in vertex {Hp2bar, ubar, d}.
+Quantum number Q not conserved in vertex {Hp2bar, ubar, s}.
+Quantum number Q not conserved in vertex {Hp2bar, ubar, b}.
+Quantum number Q not conserved in vertex {Hp2bar, cbar, d}.
+Quantum number Q not conserved in vertex {Hp2bar, cbar, s}.
+Quantum number Q not conserved in vertex {Hp2bar, cbar, b}.
+Quantum number Q not conserved in vertex {Hp2bar, tbar, d}.
+Quantum number Q not conserved in vertex {Hp2bar, tbar, s}.
+Quantum number Q not conserved in vertex {Hp2bar, tbar, b}.
+Quantum number Q not conserved in vertex {Hp1bar, ubar, dp1}.
+Quantum number Q not conserved in vertex {Hp1bar, ubar, dp2}.
+Quantum number Q not conserved in vertex {Hp1bar, ubar, dp3}.
+Quantum number Q not conserved in vertex {Hp1bar, cbar, dp1}.
+Quantum number Q not conserved in vertex {Hp1bar, cbar, dp2}.
+Quantum number Q not conserved in vertex {Hp1bar, cbar, dp3}.
+Quantum number Q not conserved in vertex {Hp1bar, tbar, dp1}.
+Quantum number Q not conserved in vertex {Hp1bar, tbar, dp2}.
+Quantum number Q not conserved in vertex {Hp1bar, tbar, dp3}.
+Quantum number Q not conserved in vertex {Hp2, ebar, n1}.
+Quantum number LeptonNumber not conserved in vertex {Hp2, ebar, n1}.
+Quantum number LeptonNumber not conserved in vertex {Hp2bar, ebar, n1}.
+Quantum number LeptonNumber not conserved in vertex {A10, vebar, n1}.
+Quantum number LeptonNumber not conserved in vertex {H01, vebar, n1}.
+Quantum number Q not conserved in vertex {Hp1bar, vebar, e}.
+Quantum number Q not conserved in vertex {Hp2, ebar, n2}.
+Quantum number LeptonNumber not conserved in vertex {Hp2, ebar, n2}.
+Quantum number LeptonNumber not conserved in vertex {Hp2bar, ebar, n2}.
+Quantum number LeptonNumber not conserved in vertex {A10, vebar, n2}.
+Quantum number LeptonNumber not conserved in vertex {H01, vebar, n2}.
+Quantum number Q not conserved in vertex {Hp1bar, vebar, mu}.
+Quantum number Q not conserved in vertex {Hp2, ebar, n3}.
+Quantum number LeptonNumber not conserved in vertex {Hp2, ebar, n3}.
+Quantum number LeptonNumber not conserved in vertex {Hp2bar, ebar, n3}.
+Quantum number LeptonNumber not conserved in vertex {A10, vebar, n3}.
+Quantum number LeptonNumber not conserved in vertex {H01, vebar, n3}.
+Quantum number Q not conserved in vertex {Hp1bar, vebar, ta}.
+Quantum number Q not conserved in vertex {Hp2, mubar, n1}.
+Quantum number LeptonNumber not conserved in vertex {Hp2, mubar, n1}.
+Quantum number LeptonNumber not conserved in vertex {Hp2bar, mubar, n1}.
+Quantum number LeptonNumber not conserved in vertex {A10, vmbar, n1}.
+Quantum number LeptonNumber not conserved in vertex {H01, vmbar, n1}.
+Quantum number Q not conserved in vertex {Hp1bar, vmbar, e}.
+Quantum number Q not conserved in vertex {Hp2, mubar, n2}.
+Quantum number LeptonNumber not conserved in vertex {Hp2, mubar, n2}.
+Quantum number LeptonNumber not conserved in vertex {Hp2bar, mubar, n2}.
+Quantum number LeptonNumber not conserved in vertex {A10, vmbar, n2}.
+Quantum number LeptonNumber not conserved in vertex {H01, vmbar, n2}.
+Quantum number Q not conserved in vertex {Hp1bar, vmbar, mu}.
+Quantum number Q not conserved in vertex {Hp2, mubar, n3}.
+Quantum number LeptonNumber not conserved in vertex {Hp2, mubar, n3}.
+Quantum number LeptonNumber not conserved in vertex {Hp2bar, mubar, n3}.
+Quantum number LeptonNumber not conserved in vertex {A10, vmbar, n3}.
+Quantum number LeptonNumber not conserved in vertex {H01, vmbar, n3}.
+Quantum number Q not conserved in vertex {Hp1bar, vmbar, ta}.
+Quantum number Q not conserved in vertex {Hp2, tabar, n1}.
+Quantum number LeptonNumber not conserved in vertex {Hp2, tabar, n1}.
+Quantum number LeptonNumber not conserved in vertex {Hp2bar, tabar, n1}.
+Quantum number LeptonNumber not conserved in vertex {A10, vtbar, n1}.
+Quantum number LeptonNumber not conserved in vertex {H01, vtbar, n1}.
+Quantum number Q not conserved in vertex {Hp1bar, vtbar, e}.
+Quantum number Q not conserved in vertex {Hp2, tabar, n2}.
+Quantum number LeptonNumber not conserved in vertex {Hp2, tabar, n2}.
+Quantum number LeptonNumber not conserved in vertex {Hp2bar, tabar, n2}.
+Quantum number LeptonNumber not conserved in vertex {A10, vtbar, n2}.
+Quantum number LeptonNumber not conserved in vertex {H01, vtbar, n2}.
+Quantum number Q not conserved in vertex {Hp1bar, vtbar, mu}.
+Quantum number Q not conserved in vertex {Hp2, tabar, n3}.
+Quantum number LeptonNumber not conserved in vertex {Hp2, tabar, n3}.
+Quantum number LeptonNumber not conserved in vertex {Hp2bar, tabar, n3}.
+Quantum number LeptonNumber not conserved in vertex {A10, vtbar, n3}.
+Quantum number LeptonNumber not conserved in vertex {H01, vtbar, n3}.
+Quantum number Q not conserved in vertex {Hp1bar, vtbar, ta}.
+Quantum number Q not conserved in vertex {Hp1, ebar, n1}.
+Quantum number LeptonNumber not conserved in vertex {Hp1, ebar, n1}.
+Quantum number LeptonNumber not conserved in vertex {Hp1bar, ebar, n1}.
+Quantum number Q not conserved in vertex {Hp1, ebar, n2}.
+Quantum number LeptonNumber not conserved in vertex {Hp1, ebar, n2}.
+Quantum number LeptonNumber not conserved in vertex {Hp1bar, ebar, n2}.
+Quantum number Q not conserved in vertex {Hp1, ebar, n3}.
+Quantum number LeptonNumber not conserved in vertex {Hp1, ebar, n3}.
+Quantum number LeptonNumber not conserved in vertex {Hp1bar, ebar, n3}.
+Quantum number Q not conserved in vertex {Hp1, mubar, n1}.
+Quantum number LeptonNumber not conserved in vertex {Hp1, mubar, n1}.
+Quantum number LeptonNumber not conserved in vertex {Hp1bar, mubar, n1}.
+Quantum number Q not conserved in vertex {Hp1, mubar, n2}.
+Quantum number LeptonNumber not conserved in vertex {Hp1, mubar, n2}.
+Quantum number LeptonNumber not conserved in vertex {Hp1bar, mubar, n2}.
+Quantum number Q not conserved in vertex {Hp1, mubar, n3}.
+Quantum number LeptonNumber not conserved in vertex {Hp1, mubar, n3}.
+Quantum number LeptonNumber not conserved in vertex {Hp1bar, mubar, n3}.
+Quantum number Q not conserved in vertex {Hp1, tabar, n1}.
+Quantum number LeptonNumber not conserved in vertex {Hp1, tabar, n1}.
+Quantum number LeptonNumber not conserved in vertex {Hp1bar, tabar, n1}.
+Quantum number Q not conserved in vertex {Hp1, tabar, n2}.
+Quantum number LeptonNumber not conserved in vertex {Hp1, tabar, n2}.
+Quantum number LeptonNumber not conserved in vertex {Hp1bar, tabar, n2}.
+Quantum number Q not conserved in vertex {Hp1, tabar, n3}.
+Quantum number LeptonNumber not conserved in vertex {Hp1, tabar, n3}.
+Quantum number LeptonNumber not conserved in vertex {Hp1bar, tabar, n3}.
+Quantum number Q not conserved in vertex {Hp2, ebar, vre}.
+Quantum number Q not conserved in vertex {Hp2, ebar, vrm}.
+Quantum number Q not conserved in vertex {Hp2, ebar, vrt}.
+Quantum number Q not conserved in vertex {Hp2, mubar, vre}.
+Quantum number Q not conserved in vertex {Hp2, mubar, vrm}.
+Quantum number Q not conserved in vertex {Hp2, mubar, vrt}.
+Quantum number Q not conserved in vertex {Hp2, tabar, vre}.
+Quantum number Q not conserved in vertex {Hp2, tabar, vrm}.
+Quantum number Q not conserved in vertex {Hp2, tabar, vrt}.
+Quantum number Q not conserved in vertex {Hp1, bbar, u}.
+Quantum number Q not conserved in vertex {Hp1, dbar, u}.
+Quantum number Q not conserved in vertex {Hp1, sbar, u}.
+Quantum number Q not conserved in vertex {Hp2bar, ubar, dp1}.
+Quantum number Q not conserved in vertex {Hp1, bbar, c}.
+Quantum number Q not conserved in vertex {Hp1, dbar, c}.
+Quantum number Q not conserved in vertex {Hp1, sbar, c}.
+Quantum number Q not conserved in vertex {Hp2bar, ubar, dp2}.
+Quantum number Q not conserved in vertex {Hp1, bbar, t}.
+Quantum number Q not conserved in vertex {Hp1, dbar, t}.
+Quantum number Q not conserved in vertex {Hp1, sbar, t}.
+Quantum number Q not conserved in vertex {Hp2bar, ubar, dp3}.
+Quantum number Q not conserved in vertex {Hp2bar, cbar, dp1}.
+Quantum number Q not conserved in vertex {Hp2bar, cbar, dp2}.
+Quantum number Q not conserved in vertex {Hp2bar, cbar, dp3}.
+Quantum number Q not conserved in vertex {Hp2bar, tbar, dp1}.
+Quantum number Q not conserved in vertex {Hp2bar, tbar, dp2}.
+Quantum number Q not conserved in vertex {Hp2bar, tbar, dp3}.
+Quantum number LeptonNumber not conserved in vertex {Wp, n1bar, e}.
+Quantum number LeptonNumber not conserved in vertex {Wp, n2bar, mu}.
+Quantum number LeptonNumber not conserved in vertex {Wp, n3bar, ta}.
+Quantum number LeptonNumber not conserved in vertex {Wpbar, ebar, n1}.
+Quantum number LeptonNumber not conserved in vertex {Wpbar, mubar, n2}.
+Quantum number LeptonNumber not conserved in vertex {Wpbar, tabar, n3}.
+Preparing Python output.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/695 .
+    - Writing files.
+Done!
+[INFO] UFO complete: particles.py, vertices.py, couplings.py, parameters.py, coupling_orders.py all present.
+[INFO] Done.

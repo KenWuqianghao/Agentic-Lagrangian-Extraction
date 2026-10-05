@@ -1,0 +1,1 @@
+I'll continue with the spec rework. Let me re-read the paper's mass-mixing section and the lint rules to finalize the corrected Definitions.

@@ -1,0 +1,40 @@
+{
+ "page": "SLQrules",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit",
+ "seed": 2,
+ "variant": "v3o_mimo_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3605.6,
+ "tokens": {
+  "input": 770652,
+  "output": 34324,
+  "reasoning": 110671
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 0,
+ "n_events": 214,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 71,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"wc -l paper/2105.04844_source.tex SM.fr tools/fr_lint.py tools/frge",
+   "bash:{\"command\": \"wc -l /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-S",
+   "bash:{\"command\": \"grep -n \\\"ClassName\\\\|ClassMembers\\\\|SelfConjugate\\\\|ChiralityProje"
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_spec"
+}

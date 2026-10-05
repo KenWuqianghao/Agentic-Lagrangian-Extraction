@@ -1,0 +1,344 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+Merging model-files...
+This model implementation was created by
+Qing-Hong Cao
+Dong-Ming Zhang
+Model Version: 1.0.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+Model 331_gen loaded.
+[INFO] Lagrangian: LSM + LTotal
+HEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)
+HEPTAPOD-LAGRANGIAN|expression=LSM + LTotal|symbols=LSM,LTotal|terms=714
+HEPTAPOD-RESIDUAL|count=0|fields=
+[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum
+HEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=fail|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. 45 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$F
+HEPTAPOD-CHECK|scope=model|name=kinetic_diagonal|verdict=pass|detail=Neglecting all terms with more than 2 particles. All kinetic terms are diagonal.
+HEPTAPOD-CHECK|scope=model|name=mass_diagonal|verdict=pass|detail=All mass terms are diagonal.
+Neglecting all terms with more than 2 particles.
+All mass terms are diagonal.
+Getting mass spectrum.
+Checking for less then 0.1% agreement with model file values.
+HEPTAPOD-MASS|particle=H0|derived=2912.559972671051|declared=2912.559972671051|agrees=True
+HEPTAPOD-MASS|particle=H2|derived=2907.646057278223|declared=2907.646057278223|agrees=True
+HEPTAPOD-MASS|particle=H3|derived=894.427190999916|declared=894.427190999916|agrees=True
+HEPTAPOD-MASS|particle=Hp|derived=500.|declared=500.|agrees=True
+HEPTAPOD-MASS|particle=HV|derived=1300.|declared=1300.|agrees=True
+HEPTAPOD-MASS|particle=HY|derived=1400.|declared=1400.|agrees=True
+HEPTAPOD-MASS|particle=H|derived=125.00000000000006|declared=125.|agrees=True
+HEPTAPOD-MASS|particle=ghWm|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=ghWp|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=ghZ|derived=91.18760000000003|declared=91.1876|agrees=True
+HEPTAPOD-MASS|particle=DQ|derived=1000.|declared=1000.|agrees=True
+HEPTAPOD-MASS|particle=Ee|derived=1000.|declared=1000.|agrees=True
+HEPTAPOD-MASS|particle=Emu|derived=1000.|declared=1000.|agrees=True
+HEPTAPOD-MASS|particle=Etau|derived=1000.|declared=1000.|agrees=True
+HEPTAPOD-MASS|particle=SQ|derived=1000.|declared=1000.|agrees=True
+HEPTAPOD-MASS|particle=TQ|derived=1000.|declared=1000.|agrees=True
+HEPTAPOD-MASS|particle=b|derived=4.700000000000002|declared=4.7|agrees=True
+HEPTAPOD-MASS|particle=d|derived=0.005040000000000001|declared=0.00504|agrees=True
+HEPTAPOD-MASS|particle=s|derived=0.10100000000000002|declared=0.101|agrees=True
+HEPTAPOD-MASS|particle=e|derived=0.0005110000000000001|declared=0.000511|agrees=True
+HEPTAPOD-MASS|particle=mu|derived=0.10566000000000003|declared=0.10566|agrees=True
+HEPTAPOD-MASS|particle=ta|derived=1.7770000000000006|declared=1.777|agrees=True
+HEPTAPOD-MASS|particle=c|derived=1.2700000000000002|declared=1.27|agrees=True
+HEPTAPOD-MASS|particle=t|derived=172.00000000000003|declared=172.|agrees=True
+HEPTAPOD-MASS|particle=u|derived=0.002550000000000001|declared=0.00255|agrees=True
+HEPTAPOD-MASS|particle=Vb|derived=424623.0752908008|declared=424623.0752908008|agrees=True
+HEPTAPOD-MASS|particle=W|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=Yb|derived=422568.1728786695|declared=422568.1728786695|agrees=True
+HEPTAPOD-MASS|particle=Z|derived=91.18760000000003|declared=91.1876|agrees=True
+HEPTAPOD-MASS|particle=Zp|derived=6.587939265875638*^6|declared=6.587939265875638*^6|agrees=True
+HEPTAPOD-CHECK|scope=model|name=mass_spectrum|verdict=pass|detail=
+[INFO] UFO output: /private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/vbench/open/v3o_mimo_toolkit/331/s1/331_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+325 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 325.
+290 vertices obtained.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 290
+   - Saved vertices in InterfaceRun[ 1 ].
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number Y not conserved in vertex {HYbar, SQbar, c}.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number Y not conserved in vertex {HV, dbar, DQ}.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+General::stop: Further output of QN::NonConserv will be suppressed during this calculation.
+Quantum number LeptonNumber not conserved in vertex {HYbar, ebar, Ee}.
+Quantum number Y not conserved in vertex {HYbar, ebar, Ee}.
+Quantum number LeptonNumber not conserved in vertex {HYbar, mubar, Emu}.
+Quantum number Y not conserved in vertex {HYbar, mubar, Emu}.
+Quantum number LeptonNumber not conserved in vertex {HYbar, tabar, Etau}.
+Quantum number Y not conserved in vertex {HYbar, tabar, Etau}.
+Quantum number Y not conserved in vertex {HV, sbar, SQ}.
+Quantum number Y not conserved in vertex {HV, TQbar, t}.
+Quantum number Y not conserved in vertex {HYbar, bbar, TQ}.
+Quantum number Y not conserved in vertex {HYbar, DQbar, u}.
+Quantum number Y not conserved in vertex {HY, cbar, SQ}.
+Quantum number Y not conserved in vertex {HVbar, DQbar, d}.
+Quantum number LeptonNumber not conserved in vertex {HV, Eebar, ve}.
+Quantum number Y not conserved in vertex {HV, Eebar, ve}.
+Quantum number LeptonNumber not conserved in vertex {HV, Emubar, vm}.
+Quantum number Y not conserved in vertex {HV, Emubar, vm}.
+Quantum number LeptonNumber not conserved in vertex {HV, Etaubar, vt}.
+Quantum number Y not conserved in vertex {HV, Etaubar, vt}.
+Quantum number Y not conserved in vertex {HVbar, SQbar, s}.
+Quantum number Y not conserved in vertex {HVbar, tbar, TQ}.
+Quantum number Y not conserved in vertex {HY, TQbar, b}.
+Quantum number Y not conserved in vertex {HY, ubar, DQ}.
+Quantum number LeptonNumber not conserved in vertex {HVbar, vebar, Ee}.
+Quantum number Y not conserved in vertex {HVbar, vebar, Ee}.
+Quantum number LeptonNumber not conserved in vertex {HVbar, vmbar, Emu}.
+Quantum number Y not conserved in vertex {HVbar, vmbar, Emu}.
+Quantum number LeptonNumber not conserved in vertex {HVbar, vtbar, Etau}.
+Quantum number Y not conserved in vertex {HVbar, vtbar, Etau}.
+Quantum number LeptonNumber not conserved in vertex {HY, Eebar, e}.
+Quantum number Y not conserved in vertex {HY, Eebar, e}.
+Quantum number LeptonNumber not conserved in vertex {HY, Emubar, mu}.
+Quantum number Y not conserved in vertex {HY, Emubar, mu}.
+Quantum number LeptonNumber not conserved in vertex {HY, Etaubar, ta}.
+Quantum number Y not conserved in vertex {HY, Etaubar, ta}.
+Quantum number Q not conserved in vertex {Vb}.
+Quantum number Q not conserved in vertex {Vbbar}.
+Quantum number Q not conserved in vertex {Yb}.
+Quantum number Q not conserved in vertex {Ybbar}.
+Quantum number LeptonNumber not conserved in vertex {Vb, Eebar, ve}.
+Quantum number Y not conserved in vertex {Vb, Eebar, ve}.
+Quantum number LeptonNumber not conserved in vertex {Vb, Emubar, vm}.
+Quantum number Y not conserved in vertex {Vb, Emubar, vm}.
+Quantum number LeptonNumber not conserved in vertex {Vb, Etaubar, vt}.
+Quantum number Y not conserved in vertex {Vb, Etaubar, vt}.
+Quantum number LeptonNumber not conserved in vertex {Yb, Eebar, e}.
+Quantum number Y not conserved in vertex {Yb, Eebar, e}.
+Quantum number LeptonNumber not conserved in vertex {Yb, Emubar, mu}.
+Quantum number Y not conserved in vertex {Yb, Emubar, mu}.
+Quantum number LeptonNumber not conserved in vertex {Yb, Etaubar, ta}.
+Quantum number Y not conserved in vertex {Yb, Etaubar, ta}.
+Quantum number LeptonNumber not conserved in vertex {Vbbar, vebar, Ee}.
+Quantum number Y not conserved in vertex {Vbbar, vebar, Ee}.
+Quantum number LeptonNumber not conserved in vertex {Vbbar, vmbar, Emu}.
+Quantum number Y not conserved in vertex {Vbbar, vmbar, Emu}.
+Quantum number LeptonNumber not conserved in vertex {Vbbar, vtbar, Etau}.
+Quantum number Y not conserved in vertex {Vbbar, vtbar, Etau}.
+Quantum number LeptonNumber not conserved in vertex {Ybbar, ebar, Ee}.
+Quantum number Y not conserved in vertex {Ybbar, ebar, Ee}.
+Quantum number LeptonNumber not conserved in vertex {Ybbar, mubar, Emu}.
+Quantum number Y not conserved in vertex {Ybbar, mubar, Emu}.
+Quantum number LeptonNumber not conserved in vertex {Ybbar, tabar, Etau}.
+Quantum number Y not conserved in vertex {Ybbar, tabar, Etau}.
+Preparing Python output.
+Warning: Multi-Fermion operators are not yet fully supported!
+
+Part::pkspec1: The expression dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]] cannot be used as a part specification.
+
+Part::pkspec1: The expression PRIVATE`hold[SP$1, SP$2] cannot be used as a part specification.
+
+Inner::incom: Length 1 of dimension 1 in {PRIVATE`dummylist[{{Vb, 1}}[[dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]]]], {{Vb, 1}}[[PRIVATE`hold[SP$1, SP$2]]]]} is incommensurate with length 2 of dimension 1 in {dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]], ProjM[Index[Spin, SP$1], Index[Spin, SP$2]]}.
+
+Inner::heads: Heads Dot and PRIVATE`dummylist at positions 3 and 2 are expected to be the same.
+
+Join::heads: Heads Inner and List at positions 1 and 2 are expected to be the same.
+
+Part::pkspec1: The expression PRIVATE`hold[SP$1, SP$2] cannot be used as a part specification.
+
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+
+Inner::heads: Heads Dot and PRIVATE`dummylist at positions 3 and 2 are expected to be the same.
+
+Join::heads: Heads Inner and List at positions 1 and 2 are expected to be the same.
+
+Join::heads: Heads Inner and List at positions 1 and 2 are expected to be the same.
+
+General::stop: Further output of Join::heads will be suppressed during this calculation.
+
+Function::slotn: Slot number 2 in Ext[#2, opt___] -> Ext[#3, opt] &  cannot be filled from (Ext[#2, opt___] -> Ext[#3, opt] & )[1].
+
+Function::slotn: Slot number 3 in Ext[#2, opt___] -> Ext[#3, opt] &  cannot be filled from (Ext[#2, opt___] -> Ext[#3, opt] & )[1].
+
+Function::slotn: Slot number 3 in Ext[#2, opt___] -> Ext[#3, opt] &  cannot be filled from (Ext[#2, opt___] -> Ext[#3, opt] & )[{Vb, 1}, 2].
+
+General::stop: Further output of Function::slotn will be suppressed during this calculation.
+
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+ReplaceAll::reps: {Rule[Ext[PRIVATE`dummylist[{{Vb, 1}}[[dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]]]], {{Vb, 1}}[[PRIVATE`hold[SP$1, SP$2]]]], opt___], Ext[dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]], opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+Warning: Multi-Fermion operators are not yet fully supported!
+
+Inner::incom: Length 1 of dimension 1 in {PRIVATE`dummylist[{{Vbbar, 1}}[[DQbar[Index[Spin, SP$1]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . Ga[0] . d[Index[Spin, SP$2]]]], {{Vbbar, 1}}[[PRIVATE`hold[SP$1, SP$2]]]]} is incommensurate with length 2 of dimension 1 in {DQbar[Index[Spin, SP$1]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . Ga[0] . d[Index[Spin, SP$2]], ProjP[Index[Spin, SP$1], Index[Spin, SP$2]]}.
+
+Inner::heads: Heads Dot and PRIVATE`dummylist at positions 3 and 2 are expected to be the same.
+
+General::stop: Further output of Inner::heads will be suppressed during this calculation.
+
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+ReplaceAll::reps: {Rule[Ext[PRIVATE`dummylist[{{Vbbar, 1}}[[DQbar[Index[Spin, SP$1]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . Ga[0] . d[Index[Spin, SP$2]]]], {{Vbbar, 1}}[[PRIVATE`hold[SP$1, SP$2]]]], opt___], Ext[DQbar[Index[Spin, SP$1]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . Ga[0] . d[Index[Spin, SP$2]], opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+Warning: Multi-Fermion operators are not yet fully supported!
+
+Inner::incom: Length 1 of dimension 1 in {PRIVATE`dummylist[{{Yb, 1}}[[cbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . SQ[Index[Spin, SP$2]]]], {{Yb, 1}}[[PRIVATE`hold[SP$1, SP$2]]]]} is incommensurate with length 2 of dimension 1 in {cbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . SQ[Index[Spin, SP$2]], ProjM[Index[Spin, SP$1], Index[Spin, SP$2]]}.
+
+General::stop: Further output of Inner::incom will be suppressed during this calculation.
+
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+
+ReplaceAll::reps: {Rule[Ext[PRIVATE`dummylist[{{Yb, 1}}[[cbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . SQ[Index[Spin, SP$2]]]], {{Yb, 1}}[[PRIVATE`hold[SP$1, SP$2]]]], opt___], Ext[cbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . SQ[Index[Spin, SP$2]], opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+Warning: Multi-Fermion operators are not yet fully supported!
+
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+
+MapAt::partw: Part {1} of 1 does not exist.
+
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+From kernel 2 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 3 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 8 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 1 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 2 (Local):
+MapAt::partw: Part {1} of 1 does not exist.
+
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 2 (Local):
+Part::pkspec1: The expression dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]] cannot be used as a part specification.
+From kernel 3 (Local):
+Part::pkspec1: The expression dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]] cannot be used as a part specification.
+From kernel 8 (Local):
+Part::pkspec1: The expression dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]] cannot be used as a part specification.
+From kernel 1 (Local):
+Part::pkspec1: The expression dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]] cannot be used as a part specification.
+From kernel 2 (Local):
+Part::pkspec1: The expression PRIVATE`hold[SP$1, SP$2] cannot be used as a part specification.
+
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 2 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 3 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 8 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 1 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 2 (Local):
+ReplaceAll::reps: {Rule[Ext[PRIVATE`dummylist[{{Vb, 1}}[[dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]]]], {{Vb, 1}}[[PRIVATE`hold[SP$1, SP$2]]]], opt___], Ext[dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]], opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 3 (Local):
+ReplaceAll::reps: {Rule[Ext[PRIVATE`dummylist[{{Vb, 1}}[[dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]]]], {{Vb, 1}}[[PRIVATE`hold[SP$1, SP$2]]]], opt___], Ext[dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]], opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 4 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+From kernel 8 (Local):
+ReplaceAll::reps: {Rule[Ext[PRIVATE`dummylist[{{Vb, 1}}[[dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]]]], {{Vb, 1}}[[PRIVATE`hold[SP$1, SP$2]]]], opt___], Ext[dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]], opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 1 (Local):
+ReplaceAll::reps: {Rule[Ext[PRIVATE`dummylist[{{Vb, 1}}[[dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]]]], {{Vb, 1}}[[PRIVATE`hold[SP$1, SP$2]]]], opt___], Ext[dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]], opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 4 (Local):
+ReplaceAll::reps: {Rule[Ext[PRIVATE`dummylist[{{Vb, 1}}[[dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]]]], {{Vb, 1}}[[PRIVATE`hold[SP$1, SP$2]]]], opt___], Ext[dbar[Index[Spin, SP$1]] . Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]], opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of `1` is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing. will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 8 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+From kernel 1 (Local):
+Part::pkspec1: The expression dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]] cannot be used as a part specification.
+From kernel 2 (Local):
+Part::pkspec1: The expression dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]] cannot be used as a part specification.
+From kernel 3 (Local):
+Part::pkspec1: The expression dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]] cannot be used as a part specification.
+From kernel 4 (Local):
+Part::pkspec1: The expression dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]] cannot be used as a part specification.
+From kernel 5 (Local):
+Part::pkspec1: The expression dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]] cannot be used as a part specification.
+
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 1 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 2 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 3 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 4 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 5 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+From kernel 1 (Local):
+ReplaceAll::reps: {Rule[Ext[PRIVATE`dummylist[{{Vb, 1}}[[dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]]]], {{Vb, 1}}[[PRIVATE`hold[SP$1, SP$2]]]], opt___], Ext[dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]], opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 2 (Local):
+ReplaceAll::reps: {Rule[Ext[PRIVATE`dummylist[{{Vb, 1}}[[dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]]]], {{Vb, 1}}[[PRIVATE`hold[SP$1, SP$2]]]], opt___], Ext[dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]], opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 3 (Local):
+ReplaceAll::reps: {Rule[Ext[PRIVATE`dummylist[{{Vb, 1}}[[dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]]]], {{Vb, 1}}[[PRIVATE`hold[SP$1, SP$2]]]], opt___], Ext[dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]], opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 4 (Local):
+ReplaceAll::reps: {Rule[Ext[PRIVATE`dummylist[{{Vb, 1}}[[dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]]]], {{Vb, 1}}[[PRIVATE`hold[SP$1, SP$2]]]], opt___], Ext[dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]], opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 5 (Local):
+ReplaceAll::reps: {Rule[Ext[PRIVATE`dummylist[{{Vb, 1}}[[dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]]]], {{Vb, 1}}[[PRIVATE`hold[SP$1, SP$2]]]], opt___], Ext[dbar[Index[Spin, SP$1]] . L$Ga[Index[Lorentz, Ext[1]]] . DQ[Index[Spin, SP$2]], opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of `1` is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing. will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/290 .
+
+StringJoin::string: String expected at position 1 in PRIVATE`ConvertSpinToString[0]<>F<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>V<>PRIVATE`ConvertSpinToString[0]<>1.
+
+StringJoin::string: String expected at position 3 in PRIVATE`ConvertSpinToString[0]<>F<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>V<>PRIVATE`ConvertSpinToString[0]<>1.
+
+StringJoin::string: String expected at position 4 in PRIVATE`ConvertSpinToString[0]<>F<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>V<>PRIVATE`ConvertSpinToString[0]<>1.
+
+General::stop: Further output of StringJoin::string will be suppressed during this calculation.
+    - Writing files.
+Done!
+[INFO] UFO complete: particles.py, vertices.py, couplings.py, parameters.py, coupling_orders.py all present.
+[INFO] Done.

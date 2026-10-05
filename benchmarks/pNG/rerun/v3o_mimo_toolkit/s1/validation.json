@@ -1,0 +1,44 @@
+{
+ "page": "pNG",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/rerun/v3o_mimo_toolkit/s1/model/pNG_gen.fr",
+ "lag_symbol": "LTotal",
+ "lag_resolution": {
+  "roots": [
+   "LTotal"
+  ],
+  "legacy_symbol": "LTotal",
+  "n_terms_defined": 8,
+  "ambiguous": false,
+  "changed_from_legacy": false
+ },
+ "t0": 1790248798.4253,
+ "compile_ok": true,
+ "lagrangian_expression": "LSM + LTotal",
+ "timed_out": false,
+ "exit": 0,
+ "seconds": 133.3,
+ "ufo_files": [
+  "particles.py",
+  "parameters.py",
+  "couplings.py",
+  "vertices.py",
+  "lorentz.py"
+ ],
+ "checks": {
+  "hermiticity": "pass",
+  "kinetic_diagonal": "fail",
+  "mass_diagonal": "pass",
+  "mass_spectrum": "fail"
+ },
+ "protected_symbol_errors": 0,
+ "log_tail": "",
+ "n_particles_ufo": 26,
+ "madgraph_import_ok": true,
+ "mg5_particles": 19,
+ "lepton_number_violation": false,
+ "mg5_tail": "",
+ "status": "compiled",
+ "full_chain_pass": false,
+ "seconds_total": 133.72910022735596,
+ "wall_seconds": 133.8
+}

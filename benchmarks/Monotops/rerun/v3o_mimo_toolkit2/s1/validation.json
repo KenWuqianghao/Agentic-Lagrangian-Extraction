@@ -1,0 +1,28 @@
+{
+ "page": "Monotops",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/rerun/v3o_mimo_toolkit2/s1/model/Monotops_gen.fr",
+ "lag_symbol": "LTotal",
+ "lag_resolution": {
+  "roots": [
+   "LTotal"
+  ],
+  "legacy_symbol": "LTotal",
+  "n_terms_defined": 9,
+  "ambiguous": false,
+  "changed_from_legacy": false
+ },
+ "t0": 1790306492.653732,
+ "compile_ok": false,
+ "lagrangian_expression": "LSM + LTotal",
+ "timed_out": false,
+ "exit": 0,
+ "seconds": 16.2,
+ "ufo_files": [],
+ "checks": {},
+ "protected_symbol_errors": 0,
+ "log_tail": "2500 exceeded.\nFrom kernel 5 (Local):\n$RecursionLimit::reclim: Recursion depth of 2500 exceeded.\nFrom kernel 6 (Local):\n$RecursionLimit::reclim: Recursion depth of 2500 exceeded.\n\nGeneral::stop: Further output of Recursion depth of `1` exceeded. will be suppressed during this calculation.\nMerging model-files...\nThis model implementation was created by\nJ. Andrea\nB. Fuks\nF. Maltoni\nModel Version: 1.0.0\nFor more information, type ModelInformation[].\n\n   - Loading particle classes.\n\n                                               2\nSetDelayed::write: Tag Plus in MakeBoxes[-(Mphi  sPhi sPhibar) + DC[sPhi, mu] DC[sPhibar, mu], TraditionalForm] is Protected.\n\n                                               2\nSetDelayed::write: Tag Plus in MakeBoxes[-(Mphi  sPhi sPhibar) + DC[sPhi, mu] DC[sPhibar, mu], StandardForm] is Protected.\n\n                                               2\nSetDelayed::write: Tag Plus in MakeBoxes[-(Mphi  sPhi sPhibar) + DC[sPhi, mu] DC[sPhibar, mu], TraditionalForm] is Protected.\n\nGeneral::stop: Further output of SetDelayed::write will be suppressed during this calculation.\nTerminatedEvaluation[RecursionLimit]\n$RecursionLimit::reclim: Recursion depth of 2500 exceeded.\n",
+ "status": "compile_failed",
+ "full_chain_pass": false,
+ "seconds_total": 16.21405792236328,
+ "wall_seconds": 16.3
+}

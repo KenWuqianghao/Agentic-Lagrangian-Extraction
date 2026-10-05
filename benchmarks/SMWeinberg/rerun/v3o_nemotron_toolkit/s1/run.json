@@ -1,0 +1,36 @@
+{
+ "page": "SMWeinberg",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "toolkit",
+ "seed": 1,
+ "variant": "v3o_nemotron_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 1754.8,
+ "tokens": {
+  "input": 361133,
+  "output": 16688,
+  "reasoning": 14266
+ },
+ "output_max": 128000,
+ "n_events": 102,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 25,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [],
+  "frgen_runs": 7,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/SMWeinberg/rerun/v3o_nemotron_toolkit/s1/model/SMWeinberg_gen.fr",
+ "final_lint_findings": 0
+}

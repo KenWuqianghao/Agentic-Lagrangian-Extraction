@@ -1,0 +1,201 @@
+{
+  "model_name": "pNG_gen",
+  "info": {
+    "authors": ["C. Arina", "A. Beniwal", "C. Degrande", "J. Heisig", "A. Scaffidi"],
+    "version": "1.0",
+    "date": "2019",
+    "institutions": ["Universite catholique de Louvain (CP3)", "University of Adelaide"]
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "interaction_order_limit": [],
+  "feynman_gauge": null,
+  "vevs": [["Phi[2]", "vev"], ["Sc", "vs/Sqrt[2]"]],
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "vs",
+      "parameter_type": "External",
+      "value": "13155.",
+      "block_name": "PINPUTS",
+      "order_block": 1,
+      "description": "singlet scalar VEV v_s [GeV], free parameter of eq.(17)"
+    },
+    {
+      "name": "thetaHS",
+      "parameter_type": "External",
+      "value": "1.53",
+      "block_name": "PINPUTS",
+      "order_block": 2,
+      "description": "h-S mixing angle theta [rad], free parameter of eq.(17); tan(2 theta) of eq.(14)"
+    },
+    {
+      "name": "muSps2",
+      "parameter_type": "Internal",
+      "value": "Mchi^2",
+      "interaction_order": ["NP", 1],
+      "description": "soft-breaking parameter mu_S'^2 = m_chi^2 [GeV^2]"
+    },
+    {
+      "name": "lamS",
+      "parameter_type": "Internal",
+      "value": "(MH^2 Sin[thetaHS]^2 + MH2^2 Cos[thetaHS]^2)/(vs^2)",
+      "interaction_order": ["NP", 1],
+      "description": "singlet quartic lambda_S in mass-eigenstate parameters"
+    },
+    {
+      "name": "lamPS",
+      "parameter_type": "Internal",
+      "value": "((MH2^2 - MH^2) Sin[thetaHS] Cos[thetaHS])/(vev*vs)",
+      "interaction_order": ["NP", 1],
+      "description": "Higgs-portal coupling lambda_PhiS"
+    },
+    {
+      "name": "muS2",
+      "parameter_type": "Internal",
+      "value": "lamS*vs^2 + lamPS*vev^2 - muSps2",
+      "interaction_order": ["NP", 1],
+      "description": "singlet mass parameter mu_S^2 [GeV^2]"
+    },
+    {
+      "name": "lamPhi",
+      "parameter_type": "Internal",
+      "value": "(MH^2 Cos[thetaHS]^2 + MH2^2 Sin[thetaHS]^2)/(vev^2)",
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic lambda_Phi in the paper convention (lambda_Phi = 2 lam of SM.fr)"
+    },
+    {
+      "name": "muPhi2",
+      "parameter_type": "Internal",
+      "value": "lamPhi*vev^2 + lamPS*vs^2",
+      "description": "Higgs mass parameter mu_Phi^2 [GeV^2]"
+    },
+    {
+      "name": "kapXh",
+      "parameter_type": "Internal",
+      "value": "-(MH^2 Sin[thetaHS])/vs",
+      "interaction_order": ["NP", 1],
+      "description": "kappa_chi chi h [GeV] = -m_h^2 Sin[theta]/v_s, appendix A"
+    },
+    {
+      "name": "kapXH",
+      "parameter_type": "Internal",
+      "value": "(MH2^2 Cos[thetaHS])/vs",
+      "interaction_order": ["NP", 1],
+      "description": "kappa_chi chi H [GeV] = +m_H^2 Cos[theta]/v_s, appendix A"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "S",
+      "class_index": 100,
+      "class_name": "H2",
+      "self_conjugate": true,
+      "mass": {"sym": "MH2", "value": "125.3"},
+      "width": {"massless": true},
+      "pdg": 35,
+      "particle_name": "H2",
+      "full_name": "CP-even scalar H",
+      "propagator_label": "H2",
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 101,
+      "class_name": "Chi",
+      "self_conjugate": true,
+      "mass": {"sym": "Mchi", "value": "62.573"},
+      "width": {"massless": true},
+      "pdg": 51,
+      "particle_name": "chi",
+      "full_name": "pseudo-Nambu-Goldstone DM",
+      "propagator_label": "chi",
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 200,
+      "class_name": "phi0",
+      "self_conjugate": true,
+      "unphysical": true,
+      "definitions": ["phi0 -> Cos[thetaHS] H + Sin[thetaHS] H2"]
+    },
+    {
+      "spin_type": "S",
+      "class_index": 201,
+      "class_name": "s0",
+      "self_conjugate": true,
+      "unphysical": true,
+      "definitions": ["s0 -> Cos[thetaHS] H2 - Sin[thetaHS] H"]
+    },
+    {
+      "spin_type": "S",
+      "class_index": 202,
+      "class_name": "Sc",
+      "self_conjugate": false,
+      "unphysical": true,
+      "definitions": ["Sc -> vs/Sqrt[2] + (s0 + I Chi)/Sqrt[2]"]
+    },
+    {
+      "spin_type": "S",
+      "class_index": 203,
+      "class_name": "PhiC",
+      "self_conjugate": false,
+      "indices": ["SU2D"],
+      "flavor_index": "SU2D",
+      "quantum_numbers": {"Y": "1/2"},
+      "unphysical": true,
+      "definitions": [
+        "PhiC[1] -> -I GP",
+        "PhiC[2] -> (vev + phi0 + I G0)/Sqrt[2]"
+      ]
+    }
+  ],
+  "gauge_xi": [],
+  "lagrangian_terms": [
+    {
+      "name": "LH2Kin",
+      "expression": "1/2 del[H2, mu] del[H2, mu] - 1/2 MH2^2 H2^2",
+      "delayed": true
+    },
+    {
+      "name": "LChiKin",
+      "expression": "1/2 del[Chi, mu] del[Chi, mu] - 1/2 Mchi^2 Chi^2",
+      "delayed": true
+    },
+    {
+      "name": "LS",
+      "expression": "muS2/2 Scbar Sc - lamPS PhiCbar[ii] PhiC[ii] Scbar Sc - lamS/2 (Scbar Sc)^2",
+      "delayed": true
+    },
+    {
+      "name": "LSoft",
+      "expression": "muSps2/4 (Sc^2 + Scbar^2)",
+      "delayed": true
+    },
+    {
+      "name": "LPotCorr",
+      "expression": "-muH^2 Phibar[ii] Phi[ii] + lam Phibar[ii] Phi[ii] Phibar[jj] Phi[jj] + muPhi2/2 PhiCbar[ii] PhiC[ii] - lamPhi/2 PhiCbar[ii] PhiC[ii] PhiCbar[jj] PhiC[jj]",
+      "delayed": true
+    },
+    {
+      "name": "LGaugeH2",
+      "expression": "DC[PhiCbar[ii], mu] DC[PhiC[ii], mu] - DC[Phibar[ii], mu] DC[Phi[ii], mu]",
+      "delayed": true
+    },
+    {
+      "name": "LYukCorr",
+      "expression": "Block[{sp, ii, jj, cc, ff1, ff2, ff3, yuk1, yuk2}, yuk1 = ExpandIndices[-yd[ff2, ff3] CKM[ff1, ff2] QLbar[sp, ii, ff1, cc].dR[sp, ff3, cc] PhiC[ii] - yl[ff1, ff3] LLbar[sp, ii, ff1].lR[sp, ff3] PhiC[ii] - yu[ff1, ff2] QLbar[sp, ii, ff1, cc].uR[sp, ff2, cc] PhiCbar[jj] Eps[ii, jj], FlavorExpand -> SU2D]; yuk2 = ExpandIndices[-yd[ff2, ff3] CKM[ff1, ff2] QLbar[sp, ii, ff1, cc].dR[sp, ff3, cc] Phi[ii] - yl[ff1, ff3] LLbar[sp, ii, ff1].lR[sp, ff3] Phi[ii] - yu[ff1, ff2] QLbar[sp, ii, ff1, cc].uR[sp, ff2, cc] Phibar[jj] Eps[ii, jj], FlavorExpand -> SU2D]; (yuk1 + HC[yuk1]) - (yuk2 + HC[yuk2])]",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "LH2Kin + LChiKin + LS + LSoft + LPotCorr + LGaugeH2 + LYukCorr",
+      "delayed": true
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}

@@ -1,0 +1,227 @@
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+
+M$ModelName = "Wprime_gen";
+
+M$Information = {
+  Authors      -> {"Auto-generated from arXiv:hep-ph/0207290"},
+  Version      -> "1.0",
+  Date         -> "24.09.2026",
+  Institutions -> {"Fermilab"},
+  Emails       -> {},
+  URLs         -> "https://arxiv.org/abs/hep-ph/0207290"
+};
+
+(* ************************** *)
+(* ***** Interaction orders *** *)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+(* ************************** *)
+(* *****      Indices     ***** *)
+(* ************************** *)
+
+(* No new indices needed; Generation, Colour, SU2D, SU2W, Gluon declared in SM.fr *)
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+
+M$Parameters = {
+
+  (* W' mass *)
+  MWp == {
+    ParameterType    -> External,
+    BlockName        -> WprimePars,
+    OrderBlock       -> 1,
+    Value            -> 500.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> Subscript[M, Wp],
+    Description      -> "W' boson mass [GeV]"
+  },
+
+  (* W' width - computed from partial widths, but can be set externally *)
+  WWp == {
+    ParameterType    -> External,
+    BlockName        -> WprimePars,
+    OrderBlock       -> 2,
+    Value            -> 10.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> Subscript[\Gamma, Wp],
+    Description      -> "W' boson total width [GeV]"
+  },
+
+  (* Left-handed quark coupling matrix (GCKM) *)
+  CLq == {
+    ParameterType    -> External,
+    BlockName        -> WprimeCouplings,
+    OrderBlock       -> 10,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      CLq[1,1] -> 0.9751, CLq[1,2] -> 0.2215, CLq[1,3] -> 0.0035,
+      CLq[2,1] -> 0.2210, CLq[2,2] -> 0.9743, CLq[2,3] -> 0.0410,
+      CLq[3,1] -> 0.0090, CLq[3,2] -> 0.0400, CLq[3,3] -> 1.0000
+    },
+    InteractionOrder -> {NP, 1},
+    TeX              -> Superscript[V, {L,q}],
+    Description      -> "Left-handed quark mixing matrix (GCKM), Eq.(2)"
+  },
+
+  (* Right-handed quark coupling matrix (GCKM) *)
+  CRq == {
+    ParameterType    -> External,
+    BlockName        -> WprimeCouplings,
+    OrderBlock       -> 11,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      CRq[1,1] -> 0., CRq[1,2] -> 0., CRq[1,3] -> 0.,
+      CRq[2,1] -> 0., CRq[2,2] -> 0., CRq[2,3] -> 0.,
+      CRq[3,1] -> 0., CRq[3,2] -> 0., CRq[3,3] -> 0.
+    },
+    InteractionOrder -> {NP, 1},
+    TeX              -> Superscript[V, {R,q}],
+    Description      -> "Right-handed quark mixing matrix (GCKM), Eq.(2)"
+  },
+
+  (* Left-handed lepton coupling matrix (GCKM) *)
+  CLl == {
+    ParameterType    -> External,
+    BlockName        -> WprimeCouplings,
+    OrderBlock       -> 20,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      CLl[1,1] -> 1., CLl[1,2] -> 0., CLl[1,3] -> 0.,
+      CLl[2,1] -> 0., CLl[2,2] -> 1., CLl[2,3] -> 0.,
+      CLl[3,1] -> 0., CLl[3,2] -> 0., CLl[3,3] -> 1.
+    },
+    InteractionOrder -> {NP, 1},
+    TeX              -> Superscript[V, {L,l}],
+    Description      -> "Left-handed lepton mixing matrix (GCKM), Eq.(2)"
+  },
+
+  (* Right-handed lepton coupling matrix (GCKM) *)
+  CRl == {
+    ParameterType    -> External,
+    BlockName        -> WprimeCouplings,
+    OrderBlock       -> 21,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      CRl[1,1] -> 0., CRl[1,2] -> 0., CRl[1,3] -> 0.,
+      CRl[2,1] -> 0., CRl[2,2] -> 0., CRl[2,3] -> 0.,
+      CRl[3,1] -> 0., CRl[3,2] -> 0., CRl[3,3] -> 0.
+    },
+    InteractionOrder -> {NP, 1},
+    TeX              -> Superscript[V, {R,l}],
+    Description      -> "Right-handed lepton mixing matrix (GCKM), Eq.(2)"
+  },
+
+  (* Right-handed neutrino masses *)
+  MvR == {
+    ParameterType    -> External,
+    BlockName        -> WprimePars,
+    OrderBlock       -> 3,
+    Indices          -> {Index[Generation]},
+    Value            -> {MvR[1] -> 0., MvR[2] -> 0., MvR[3] -> 0.},
+    InteractionOrder -> {NP, 0},
+    TeX              -> Subscript[M, nuR],
+    Description      -> "Right-handed neutrino masses [GeV]"
+  }
+
+};
+
+(* ************************** *)
+(* ***** Particle classes **** *)
+(* ************************** *)
+
+M$ClassesDescription = {
+
+  (* W' boson: charged vector, colour singlet, SU(2) singlet, Q = +1 *)
+  V[100] == {
+    ClassName        -> Wp,
+    SelfConjugate    -> False,
+    Indices          -> {},
+    Mass             -> {MWp, 500.},
+    Width            -> {WWp, 10.},
+    ParticleName     -> "Wp",
+    AntiParticleName -> "Wm",
+    QuantumNumbers   -> {Q -> 1},
+    PDG              -> 34,
+    PropagatorLabel  -> "Wp",
+    PropagatorType   -> Sine,
+    PropagatorArrow  -> Forward,
+    FullName         -> "W' boson"
+  },
+
+  (* Right-handed neutrinos: Dirac fermions, colour singlets, SU(2) singlets, Q = 0 *)
+  F[100] == {
+    ClassName        -> vR,
+    ClassMembers     -> {vRe, vRmu, vRtau},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {MvR, {0., 0., 0.}},
+    Width            -> 0,
+    QuantumNumbers   -> {LeptonNumber -> 1},
+    PropagatorLabel  -> {"vR", "vRe", "vRmu", "vRtau"},
+    PropagatorType   -> S,
+    PropagatorArrow  -> Forward,
+    PDG              -> {9900012, 9900014, 9900016},
+    ParticleName     -> {"vRe", "vRmu", "vRtau"},
+    AntiParticleName -> {"vRe~", "vRmu~", "vRtau~"},
+    FullName         -> {"Right-handed electron neutrino", "Right-handed muon neutrino", "Right-handed tau neutrino"}
+  }
+
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+(* W' kinetic and mass term (complex vector) *)
+LWpKin := Block[{mu, nu},
+  -1/2 FS[Wpbar, mu, nu] FS[Wp, mu, nu] + MWp^2 Wpbar[mu] Wp[mu]
+];
+
+(* Right-handed neutrino kinetic and mass terms (Dirac) *)
+LvRKin := Block[{mu, ff},
+  I vRbar[ff].Ga[mu].DC[vR[ff], mu] - MvR[ff] vRbar[ff].vR[ff]
+];
+
+(* W' interactions with quarks *)
+(* L = gw/Sqrt[2] * uqbar.Ga[mu].(CLq*ProjM + CRq*ProjP).dq * Wp[mu] + H.c. *)
+LWpQuark := Block[{mu, sp, sp1, sp2, cc, ff1, ff2},
+  gw/Sqrt[2] * (
+    uqbar[sp1, ff1, cc].Ga[mu].(
+      CLq[ff1, ff2] * ProjM[sp1, sp2] + CRq[ff1, ff2] * ProjP[sp1, sp2]
+    ).dq[sp2, ff2, cc] * Wp[mu]
+  )
+];
+
+(* W' interactions with leptons (left-handed: nu_L - l_L) *)
+(* L = gw/Sqrt[2] * vlbar.Ga[mu].(CLl*ProjM).l * Wp[mu] + H.c. *)
+LWpLeptonLeft := Block[{mu, sp, sp1, sp2, ff1, ff2},
+  gw/Sqrt[2] * (
+    vlbar[sp1, ff1].Ga[mu].(
+      CLl[ff1, ff2] * ProjM[sp1, sp2]
+    ).l[sp2, ff2] * Wp[mu]
+  )
+];
+
+(* W' interactions with leptons (right-handed: nu_R - l_R) *)
+(* L = gw/Sqrt[2] * vRbar.Ga[mu].(CRl*ProjP).l * Wp[mu] + H.c. *)
+LWpLeptonRight := Block[{mu, sp, sp1, sp2, ff1, ff2},
+  gw/Sqrt[2] * (
+    vRbar[sp1, ff1].Ga[mu].(
+      CRl[ff1, ff2] * ProjP[sp1, sp2]
+    ).l[sp2, ff2] * Wp[mu]
+  )
+];
+
+(* Total Lagrangian *)
+LTotal := LWpKin + LvRKin + LWpQuark + HC[LWpQuark] + LWpLeptonLeft + HC[LWpLeptonLeft] + LWpLeptonRight + HC[LWpLeptonRight];

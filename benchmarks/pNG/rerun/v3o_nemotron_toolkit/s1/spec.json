@@ -1,0 +1,180 @@
+{
+  "model_name": "pNG_gen",
+  "info": {
+    "authors": ["Chiara Arina", "Ankit Beniwal", "Celine Degrande", "Jan Heisig", "Andre Scaffidi"],
+    "version": "1.0",
+    "date": "2024-01-01",
+    "institutions": ["UCLouvain", "University of Adelaide"],
+    "emails": ["chiara.arina@uclouvain.be"]
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "feynman_gauge": true,
+  "vevs": [["Phi[2]", "vev"]],
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "mChi",
+      "parameter_type": "External",
+      "value": "100.",
+      "block_name": "PNG",
+      "order_block": 1,
+      "interaction_order": ["NP", 1],
+      "description": "pNG DM mass [GeV]"
+    },
+    {
+      "name": "vs",
+      "parameter_type": "External",
+      "value": "1000.",
+      "block_name": "PNG",
+      "order_block": 2,
+      "interaction_order": ["NP", 1],
+      "description": "Singlet VEV [GeV]"
+    },
+    {
+      "name": "theta",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "PNG",
+      "order_block": 3,
+      "interaction_order": ["NP", 1],
+      "description": "Scalar mixing angle [rad]"
+    },
+    {
+      "name": "mH",
+      "parameter_type": "External",
+      "value": "200.",
+      "block_name": "PNG",
+      "order_block": 4,
+      "interaction_order": ["NP", 1],
+      "description": "Heavy scalar mass [GeV]"
+    },
+    {
+      "name": "mh",
+      "parameter_type": "External",
+      "value": "125.",
+      "block_name": "SMINPUTS",
+      "order_block": 10,
+      "interaction_order": ["NP", 0],
+      "description": "SM-like Higgs mass [GeV]"
+    },
+    {
+      "name": "vh",
+      "parameter_type": "External",
+      "value": "246.",
+      "block_name": "SMINPUTS",
+      "order_block": 11,
+      "interaction_order": ["NP", 0],
+      "description": "Higgs VEV [GeV]"
+    },
+    {
+      "name": "lambdaPhi",
+      "parameter_type": "Internal",
+      "value": "(mh^2*Cos[theta]^2 + mH^2*Sin[theta]^2)/vh^2",
+      "interaction_order": ["NP", 0],
+      "description": "Higgs quartic coupling in pNG model"
+    },
+    {
+      "name": "lambdaS",
+      "parameter_type": "Internal",
+      "value": "(mh^2*Sin[theta]^2 + mH^2*Cos[theta]^2)/vs^2",
+      "interaction_order": ["NP", 0],
+      "description": "Singlet quartic coupling"
+    },
+    {
+      "name": "lambdaPhiS",
+      "parameter_type": "Internal",
+      "value": "(mH^2 - mh^2)*Sin[theta]*Cos[theta]/(vh*vs)",
+      "interaction_order": ["NP", 0],
+      "description": "Portal coupling"
+    },
+    {
+      "name": "muSprime2",
+      "parameter_type": "Internal",
+      "value": "mChi^2",
+      "interaction_order": ["NP", 0],
+      "description": "Soft breaking parameter squared"
+    },
+    {
+      "name": "muPhi2",
+      "parameter_type": "Internal",
+      "value": "lambdaPhi*vh^2 + lambdaPhiS*vs^2",
+      "interaction_order": ["NP", 0],
+      "description": "Higgs mass parameter squared"
+    },
+    {
+      "name": "muS2",
+      "parameter_type": "Internal",
+      "value": "lambdaS*vs^2 + lambdaPhiS*vh^2 - muSprime2",
+      "interaction_order": ["NP", 0],
+      "description": "Singlet mass parameter squared"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "S",
+      "class_index": 100,
+      "class_name": "S",
+      "self_conjugate": false,
+      "indices": [],
+      "quantum_numbers": {},
+      "particle_name": "S",
+      "antiparticle_name": "Sbar",
+      "full_name": "Complex scalar singlet"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 101,
+      "class_name": "Chi",
+      "self_conjugate": true,
+      "indices": [],
+      "mass": {"sym": "mChi", "value": "100."},
+      "quantum_numbers": {},
+      "pdg": 52,
+      "particle_name": "chi",
+      "full_name": "pNG Dark Matter"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 102,
+      "class_name": "H2",
+      "self_conjugate": true,
+      "indices": [],
+      "mass": {"sym": "mH", "value": "200."},
+      "quantum_numbers": {},
+      "pdg": 53,
+      "particle_name": "H2",
+      "full_name": "Heavy scalar"
+    }
+  ],
+  "gauge_xi": [],
+  "lagrangian_terms": [
+    {
+      "name": "LKinS",
+      "expression": "DC[Sbar, mu] DC[S, mu]",
+      "delayed": true
+    },
+    {
+      "name": "LMassS",
+      "expression": "muS2/2 Sbar S + muSprime2/4 (S^2 + Sbar^2) - lambdaPhiS Phibar[ii] Phi[ii] Sbar S - lambdaS/2 (Sbar S)^2",
+      "delayed": true
+    },
+    {
+      "name": "LKinChi",
+      "expression": "1/2 del[Chi, mu] del[Chi, mu] - 1/2 mChi^2 Chi^2",
+      "delayed": true
+    },
+    {
+      "name": "LKinH2",
+      "expression": "1/2 del[H2, mu] del[H2, mu] - 1/2 mH^2 H2^2",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "LKinS + LMassS + LKinChi + LKinH2",
+      "delayed": true
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}

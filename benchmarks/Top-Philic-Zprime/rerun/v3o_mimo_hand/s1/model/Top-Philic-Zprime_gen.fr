@@ -1,0 +1,93 @@
+(*****************************************************************************************)
+(*****   FeynRules add-on: Top-Philic Z' simplified model (V1)                       *****)
+(*****   Extracted from arXiv:1604.07421 (paper/1604.07421_source.tex, authoritative) *****)
+(*****   Loaded on top of SM.fr — no M$GaugeGroups block                              *****)
+(*****************************************************************************************)
+
+M$ModelName = "Top-Philic-Zprime_gen";
+
+M$Information = {
+  Authors      -> {"Automated extraction from arXiv:1604.07421"},
+  Version      -> "1.0",
+  Date         -> "24. 09. 2026",
+  Institutions -> {"N/A"},
+  Emails       -> {"N/A"},
+  URLs         -> "arXiv:1604.07421"
+};
+
+(* Interaction orders used by this add-on: NP for the new coupling ct *)
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+(* No new indices: Colour, Gluon, Generation, SU2D, SU2W all come from SM.fr.
+   V1 is an SU(3)xSU(2)xU(1) singlet — no IndexRange or AddGaugeRepresentation needed. *)
+
+M$Parameters = {
+
+  (* External parameters of the simplified model, Eq. (v0inttop) and Sec. II *)
+  ct == {
+    ParameterType    -> External,
+    BlockName        -> TPZPINPUTS,
+    OrderBlock       -> 1,
+    Value            -> 2.0,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[c, t],
+    Description      -> "Overall V1-top coupling strength, benchmark c_t = 2.0, Eq.(1)"
+  },
+  thV1 == {
+    ParameterType    -> External,
+    BlockName        -> TPZPINPUTS,
+    OrderBlock       -> 2,
+    Value            -> Pi/2,
+    TeX              -> Subscript[\[Theta], t],
+    Description      -> "Chirality angle, tan(theta)=c_R/c_L; benchmark theta=Pi/2 (pure right-handed), Eq.(1)"
+  },
+  MV1 == {
+    ParameterType    -> External,
+    BlockName        -> TPZPINPUTS,
+    OrderBlock       -> 3,
+    Value            -> 1500.,
+    TeX              -> Subscript[M, V1],
+    Description      -> "Mass of the colour-singlet vector resonance V1 in GeV, benchmark 1500."
+  }
+};
+
+M$ClassesDescription = {
+
+  (* The single new particle of the model: colour-singlet, EW-singlet real vector V1 *)
+  V[100] == {
+    ClassName       -> V1,
+    SelfConjugate   -> True,
+    Mass            -> {MV1, 1500.},
+    Width           -> 0,
+    ParticleName    -> "V1",
+    PropagatorLabel -> "V1",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    PDG             -> 9000001,
+    FullName        -> "Top-philic colour-singlet vector resonance V1"
+  }
+};
+
+(* ************************** *)
+(* *****   Lagrangian    ***** *)
+(* ************************** *)
+
+(* Free-field term for the real massive vector V1 (kinetic + Proca mass) *)
+LV1kin := Block[{mu, nu},
+  -1/4 FS[V1, mu, nu] FS[V1, mu, nu] + 1/2 MV1^2 V1[mu] V1[mu]
+];
+
+(* L_int = c_t * tbar gamma_mu (cos(theta) P_L + sin(theta) P_R) t * V1^mu
+   Paper Eq. (v0inttop): L_int = c_t tbar gamma_mu (cos theta P_L + sin theta P_R) t V1^mu
+   with c_L = c_t cos(theta), c_R = c_t sin(theta); benchmark theta = Pi/2.
+   Hermitian as written (vector chiral current x real V1); no HC[] needed. *)
+LV1int := Block[{mu},
+  ct V1[mu] (Cos[thV1] tbar.Ga[mu].ProjM.t + Sin[thV1] tbar.Ga[mu].ProjP.t)
+];
+
+(* Single total Lagrangian of this add-on *)
+LTotal := LV1kin + LV1int;

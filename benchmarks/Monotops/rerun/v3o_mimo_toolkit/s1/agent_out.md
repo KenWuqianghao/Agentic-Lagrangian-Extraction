@@ -1,0 +1,1 @@
+Full TASK.md read. Now checking spec.json and running the toolkit.

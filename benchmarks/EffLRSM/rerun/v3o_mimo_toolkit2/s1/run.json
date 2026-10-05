@@ -1,0 +1,40 @@
+{
+ "page": "EffLRSM",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit2",
+ "seed": 1,
+ "variant": "v3o_mimo_toolkit2",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3606.4,
+ "tokens": {
+  "input": 704945,
+  "output": 26384,
+  "reasoning": 185868
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 0,
+ "n_events": 253,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 93,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -laR\"}",
+   "read:{\"filePath\": \"/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchm",
+   "bash:{\"command\": \"wc -l tools/frgen/frmodel.py tools/frgen/render.py tools/fr_lint.py"
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_spec"
+}

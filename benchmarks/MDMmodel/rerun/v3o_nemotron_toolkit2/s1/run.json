@@ -1,0 +1,40 @@
+{
+ "page": "MDMmodel",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "toolkit2",
+ "seed": 1,
+ "variant": "v3o_nemotron_toolkit2",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 840.1,
+ "tokens": {
+  "input": 270166,
+  "output": 15288,
+  "reasoning": 27499
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 5,
+ "n_events": 48,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 17,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"cat /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDM"
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/MDMmodel/rerun/v3o_nemotron_toolkit2/s1/model/MDMmodel_gen.fr",
+ "final_lint_findings": 2
+}

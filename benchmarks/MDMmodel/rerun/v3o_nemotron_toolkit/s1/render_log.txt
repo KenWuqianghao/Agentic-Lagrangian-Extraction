@@ -1,0 +1,9 @@
+SCHEMA OK: 4 particle classes, 19 parameters, Lagrangian terms ['LSkin', 'LSpot', 'LTkin', 'LTmass', 'LTyuk', 'LTotal']
+RENDERED: model.fr (193 lines). You may read it.
+LINT: 6 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are real defects; do not remove paper physics just to silence one.
+- [warn] sm_class_redeclared: class `s` is already declared by SM.fr (doubly-defined class) (model.fr line 144)
+- [warn] sm_parameter_redeclared: parameter `muH` is already declared by SM.fr (model.fr line 110)
+- [warn] sm_parameter_redeclared: parameter `lam` is already declared by SM.fr (model.fr line 86)
+- [warn] sm_parameter_redeclared: parameter `MH` is already declared by SM.fr (model.fr line 122)
+- [checks] mixing_in_definitions: class `S` is defined as a mixture of ['H', 's']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 138)
+- [checks] mixing_in_definitions: class `Tcol` is defined as a mixture of ['tprime', 'uq']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 157)

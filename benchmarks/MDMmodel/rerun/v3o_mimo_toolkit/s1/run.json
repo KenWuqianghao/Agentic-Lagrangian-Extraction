@@ -1,0 +1,39 @@
+{
+ "page": "MDMmodel",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit",
+ "seed": 1,
+ "variant": "v3o_mimo_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3600.1,
+ "tokens": {
+  "input": 194668,
+  "output": 5736,
+  "reasoning": 112231
+ },
+ "output_max": 128000,
+ "n_events": 50,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 20,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la \\\"$HOME/Documents/Github/heptapod/tools/feynrules/test_files",
+   "bash:{\"command\": \"python3 -c \\\"\\nimport sys; sys.path.insert(0,'tools')\\nfrom fr_lint"
+  ],
+  "frgen_runs": 1,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/MDMmodel/rerun/v3o_mimo_toolkit/s1/model/MDMmodel_gen.fr",
+ "final_lint_findings": 0
+}

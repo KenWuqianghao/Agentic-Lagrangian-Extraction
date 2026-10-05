@@ -1,0 +1,180 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+From kernel 2 (Local):
+ReplaceAll::reps: {5} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 5 (Local):
+ReplaceAll::reps: {5} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 8 (Local):
+ReplaceAll::reps: {5} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 1 (Local):
+ReplaceAll::reps: {5} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 2 (Local):
+ReplaceAll::reps: {5} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of `1` is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing. will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+From kernel 8 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+Merging model-files...
+This model implementation was created by
+Benchmark extraction
+Model Version: 1.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+ReplaceAll::reps: {5} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+ReplaceAll::reps: {5} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+ReplaceAll::reps: {5} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+
+Model GeneralU1_gen loaded.
+[INFO] Lagrangian: LSM + LTotal
+HEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)
+HEPTAPOD-LAGRANGIAN|expression=LSM + LTotal|symbols=LSM,LTotal|terms=650
+HEPTAPOD-RESIDUAL|count=0|fields=
+[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum
+HEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=pass|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. No vertices found. 0 vertices obtained. The lagrangian is hermitian.
+HEPTAPOD-CHECK|scope=model|name=kinetic_diagonal|verdict=pass|detail=Neglecting all terms with more than 2 particles. All kinetic terms are diagonal.
+HEPTAPOD-CHECK|scope=model|name=mass_diagonal|verdict=fail|detail=Warning: not numerical value encountered. Unable to decide whether mass term is diagonal Non diagonal mass term found: -(PhiXbar Conjugate[YN[Index[Generation, 1]]] Ga[0, r$18618, Index[Spin, sp]] HC[bar[NR1[Index[Spin, sp]]]] NR1bar[Index[Spin, r$18618]]) Warning: not numerical value encountered. Unable to decide whether mass term is diagonal Non diagonal mass term found: -(PhiXbar Conjugate[YN[I
+Neglecting all terms with more than 2 particles.
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -(PhiXbar*Conjugate[YN[Index[Generation, 1]]]*Ga[0, r$18618, Index[Spin, sp]]*HC[bar[NR1[Index[Spin, sp]]]]*NR1bar[Index[Spin, r$18618]])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -(PhiXbar*Conjugate[YN[Index[Generation, 2]]]*Ga[0, r$18619, Index[Spin, sp]]*HC[bar[NR2[Index[Spin, sp]]]]*NR2bar[Index[Spin, r$18619]])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -(PhiXbar*Conjugate[YN[Index[Generation, 3]]]*Ga[0, r$18620, Index[Spin, sp]]*HC[bar[NR3[Index[Spin, sp]]]]*NR3bar[Index[Spin, r$18620]])
+Non diagonal mass term found: -((vev*Conjugate[yN[Index[Generation, 1], Index[Generation, 1]]]*NR1bar[Index[Spin, r$18615]] . ve[Index[Spin, r$18616]]*ProjM[Index[Spin, r$18615], Index[Spin, r$18616]])/Sqrt[2])
+Non diagonal mass term found: -((vev*Conjugate[yN[Index[Generation, 2], Index[Generation, 2]]]*NR2bar[Index[Spin, r$18615]] . vm[Index[Spin, r$18616]]*ProjM[Index[Spin, r$18615], Index[Spin, r$18616]])/Sqrt[2])
+Non diagonal mass term found: -((vev*Conjugate[yN[Index[Generation, 3], Index[Generation, 3]]]*NR3bar[Index[Spin, r$18615]] . vt[Index[Spin, r$18616]]*ProjM[Index[Spin, r$18615], Index[Spin, r$18616]])/Sqrt[2])
+Non diagonal mass term found: -((vev*vebar[Index[Spin, sp2$18608]] . NR1[Index[Spin, sp]]*ProjP[Index[Spin, sp2$18608], Index[Spin, sp]]*yN[Index[Generation, 1], Index[Generation, 1]])/Sqrt[2])
+Non diagonal mass term found: -((vev*vmbar[Index[Spin, sp2$18608]] . NR2[Index[Spin, sp]]*ProjP[Index[Spin, sp2$18608], Index[Spin, sp]]*yN[Index[Generation, 2], Index[Generation, 2]])/Sqrt[2])
+Non diagonal mass term found: -((vev*vtbar[Index[Spin, sp2$18608]] . NR3[Index[Spin, sp]]*ProjP[Index[Spin, sp2$18608], Index[Spin, sp]]*yN[Index[Generation, 3], Index[Generation, 3]])/Sqrt[2])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -(PhiX*bar[NR1[Index[Spin, sp]]]*NR1[Index[Spin, sp]]*YN[Index[Generation, 1]])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -(PhiX*bar[NR2[Index[Spin, sp]]]*NR2[Index[Spin, sp]]*YN[Index[Generation, 2]])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -(PhiX*bar[NR3[Index[Spin, sp]]]*NR3[Index[Spin, sp]]*YN[Index[Generation, 3]])
+HEPTAPOD-CHECK|scope=model|name=mass_spectrum|verdict=inconclusive|detail=
+[INFO] UFO output: /private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/vbench/open/v3o_mimo_hand/GeneralU1/s1/GeneralU1_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+272 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 272.
+245 vertices obtained.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 245
+   - Saved vertices in InterfaceRun[ 1 ].
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number LeptonNumber not conserved in vertex {GP, NR1bar, e}.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number LeptonNumber not conserved in vertex {GP, NR1bar, mu}.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+General::stop: Further output of QN::NonConserv will be suppressed during this calculation.
+Quantum number LeptonNumber not conserved in vertex {GP, NR1bar, ta}.
+Quantum number LeptonNumber not conserved in vertex {GP, NR2bar, e}.
+Quantum number LeptonNumber not conserved in vertex {GP, NR2bar, mu}.
+Quantum number LeptonNumber not conserved in vertex {GP, NR2bar, ta}.
+Quantum number LeptonNumber not conserved in vertex {GP, NR3bar, e}.
+Quantum number LeptonNumber not conserved in vertex {GP, NR3bar, mu}.
+Quantum number LeptonNumber not conserved in vertex {GP, NR3bar, ta}.
+Quantum number LeptonNumber not conserved in vertex {G0, NR1bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {G0, NR1bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {G0, NR1bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {G0, NR2bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {G0, NR2bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {G0, NR2bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {G0, NR3bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {G0, NR3bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {G0, NR3bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {H, NR1bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {H, NR1bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {H, NR1bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {H, NR2bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {H, NR2bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {H, NR2bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {H, NR3bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {H, NR3bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {H, NR3bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, ebar, NR1}.
+Quantum number LeptonNumber not conserved in vertex {G0, vebar, NR1}.
+Quantum number LeptonNumber not conserved in vertex {H, vebar, NR1}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, ebar, NR2}.
+Quantum number LeptonNumber not conserved in vertex {G0, vebar, NR2}.
+Quantum number LeptonNumber not conserved in vertex {H, vebar, NR2}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, ebar, NR3}.
+Quantum number LeptonNumber not conserved in vertex {G0, vebar, NR3}.
+Quantum number LeptonNumber not conserved in vertex {H, vebar, NR3}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, mubar, NR1}.
+Quantum number LeptonNumber not conserved in vertex {G0, vmbar, NR1}.
+Quantum number LeptonNumber not conserved in vertex {H, vmbar, NR1}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, mubar, NR2}.
+Quantum number LeptonNumber not conserved in vertex {G0, vmbar, NR2}.
+Quantum number LeptonNumber not conserved in vertex {H, vmbar, NR2}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, mubar, NR3}.
+Quantum number LeptonNumber not conserved in vertex {G0, vmbar, NR3}.
+Quantum number LeptonNumber not conserved in vertex {H, vmbar, NR3}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, tabar, NR1}.
+Quantum number LeptonNumber not conserved in vertex {G0, vtbar, NR1}.
+Quantum number LeptonNumber not conserved in vertex {H, vtbar, NR1}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, tabar, NR2}.
+Quantum number LeptonNumber not conserved in vertex {G0, vtbar, NR2}.
+Quantum number LeptonNumber not conserved in vertex {H, vtbar, NR2}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, tabar, NR3}.
+Quantum number LeptonNumber not conserved in vertex {G0, vtbar, NR3}.
+Quantum number LeptonNumber not conserved in vertex {H, vtbar, NR3}.
+Preparing Python output.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/245 .
+    - Writing files.
+
+StringJoin::string: String expected at position 1 in ClassAttributeCreation[lhacode, PYList[{1} /. 6], 16]<>).
+
+
+StringJoin::string: String expected at position 1 in ClassAttributeCreation[lhacode, PYList[{2} /. 6], 16]<>).
+
+
+StringJoin::string: String expected at position 1 in ClassAttributeCreation[lhacode, PYList[{3} /. 6], 16]<>).
+
+
+General::stop: Further output of StringJoin::string will be suppressed during this calculation.
+Warning: Non positive interaction order QED.
+                This might reduce the efficiency of certain matrix element generators.
+                See logfile for more details.
+Done!
+[INFO] UFO complete: particles.py, vertices.py, couplings.py, parameters.py, coupling_orders.py all present.
+[INFO] Done.

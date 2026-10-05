@@ -1,0 +1,88 @@
+{
+  "model_name": "HeavyN_gen",
+  "info": {
+    "authors": ["C. Degrande", "O. Mattelaer", "R. Ruiz", "J. Turner"],
+    "version": "1.0.0",
+    "date": "2016",
+    "institutions": ["Institute for Particle Physics Phenomenology, Durham University"]
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "feynman_gauge": true,
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "VeN",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "NPINPUTS",
+      "order_block": 1,
+      "interaction_order": ["NP", 1],
+      "description": "Active-heavy mixing V_eN (real); paper sigma0 sets |V|=1, Eq.(Lagrangian)"
+    },
+    {
+      "name": "VmN",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "NPINPUTS",
+      "order_block": 2,
+      "interaction_order": ["NP", 1],
+      "description": "Active-heavy mixing V_muN (real); paper sigma0 sets |V|=1, Eq.(Lagrangian)"
+    },
+    {
+      "name": "VtN",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "NPINPUTS",
+      "order_block": 3,
+      "interaction_order": ["NP", 1],
+      "description": "Active-heavy mixing V_tauN (real); paper sigma0 sets |V|=1, Eq.(Lagrangian)"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "F",
+      "class_index": 100,
+      "class_name": "Nr",
+      "self_conjugate": true,
+      "mass": {"sym": "MN", "value": "500."},
+      "width": {"sym": "WN", "value": "Automatic"},
+      "quantum_numbers": {},
+      "pdg": 9900012,
+      "particle_name": "N",
+      "full_name": "Heavy Neutrino",
+      "propagator_label": "N",
+      "propagator_type": "Straight",
+      "propagator_arrow": "None"
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "LNRkin",
+      "expression": "I/2 Nrbar.Ga[mu].del[Nr, mu] - 1/2 MN Nrbar.Nr",
+      "delayed": true
+    },
+    {
+      "name": "LWN",
+      "expression": "-gw/Sqrt[2] W[mu] (VeN bar[CC[Nr]].Ga[mu].ProjP.l[1] + VmN bar[CC[Nr]].Ga[mu].ProjP.l[2] + VtN bar[CC[Nr]].Ga[mu].ProjP.l[3]) + HC[-gw/Sqrt[2] W[mu] (VeN bar[CC[Nr]].Ga[mu].ProjP.l[1] + VmN bar[CC[Nr]].Ga[mu].ProjP.l[2] + VtN bar[CC[Nr]].Ga[mu].ProjP.l[3])]",
+      "delayed": true
+    },
+    {
+      "name": "LZN",
+      "expression": "-gw/(2 cw) Z[mu] (VeN bar[CC[Nr]].Ga[mu].ProjP.vl[1] + VmN bar[CC[Nr]].Ga[mu].ProjP.vl[2] + VtN bar[CC[Nr]].Ga[mu].ProjP.vl[3]) + HC[-gw/(2 cw) Z[mu] (VeN bar[CC[Nr]].Ga[mu].ProjP.vl[1] + VmN bar[CC[Nr]].Ga[mu].ProjP.vl[2] + VtN bar[CC[Nr]].Ga[mu].ProjP.vl[3])]",
+      "delayed": true
+    },
+    {
+      "name": "LhN",
+      "expression": "-gw MN/(2 MW) H (VeN bar[CC[Nr]].ProjP.vl[1] + VmN bar[CC[Nr]].ProjP.vl[2] + VtN bar[CC[Nr]].ProjP.vl[3]) + HC[-gw MN/(2 MW) H (VeN bar[CC[Nr]].ProjP.vl[1] + VmN bar[CC[Nr]].ProjP.vl[2] + VtN bar[CC[Nr]].ProjP.vl[3])]",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "LNRkin + LWN + LZN + LhN",
+      "delayed": true
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}

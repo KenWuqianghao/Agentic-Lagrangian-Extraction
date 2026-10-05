@@ -1,0 +1,157 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+From kernel 1 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+From kernel 2 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+From kernel 3 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+From kernel 4 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+From kernel 5 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+
+General::stop: Further output of Warning: Doubly defined particle classes. will be suppressed during this calculation.
+From kernel 1 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 2 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 4 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 6 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 8 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+
+General::stop: Further output of Warning : All particles should have different names. will be suppressed during this calculation.
+Merging model-files...
+
+MergeModels::Particles: Warning: Doubly defined particle classes.
+This model implementation was created by
+Auto-extraction from arXiv:2210.10738
+Model Version: 1.0
+https://arxiv.org/abs/2210.10738
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+
+LoadModel::Part: Warning : All particles should have different names.
+
+LoadModel::Part: Warning : All particles should have different names.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+Model pSPSS_gen loaded.
+[INFO] Lagrangian: LTotal
+HEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)
+HEPTAPOD-LAGRANGIAN|expression=LTotal|symbols=LTotal|terms=1234
+HEPTAPOD-RESIDUAL|count=0|fields=
+[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum
+HEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=pass|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. No vertices found. 0 vertices obtained. The lagrangian is hermitian.
+HEPTAPOD-CHECK|scope=model|name=kinetic_diagonal|verdict=fail|detail=Neglecting all terms with more than 2 particles. Non diagonal kinetic term found: I Conjugate[UnCL[Index[Generation, 1], Index[NeutMass, 4]]] n4bar[Index[Spin, r$18365]] . del[vm[Index[Spin, sp2$18450]], Index[Lorentz, mu]] UnCL[Index[Generation, 1], Index[NeutMass, 2]] TensDot[Ga[Index[Lorentz, mu]], ProjM][Index[Spin, r$18365], Index[Spin, sp2$18450]] + I Conjugate[UnCL[Index[Generation, 2], Ind
+HEPTAPOD-CHECK|scope=model|name=mass_diagonal|verdict=fail|detail=Non diagonal mass term found: I                                                                                                                                                                                                                 I                                                                                                                                                               
+Neglecting all terms with more than 2 particles.
+Non diagonal mass term found: I/2*vevNP*Conjugate[UnCL[Index[Generation, 1], Index[NeutMass, 2]]]*Conjugate[yvn[Index[Generation, 1]]]*vmbar[Index[Spin, r$18584]] . n4[Index[Spin, r$18585]]*ProjP[Index[Spin, r$18584], Index[Spin, r$18585]] + I/2*vevNP*Conjugate[UnCL[Index[Generation, 2], Index[NeutMass, 2]]]*Conjugate[yvn[Index[Generation, 2]]]*vmbar[Index[Spin, r$18584]] . n4[Index[Spin, r$18585]]*ProjP[Index[Spin, r$18584], Index[Spin, r$18585]] + I/2*vevNP*Conjugate[UnCL[Index[Generation, 3], Index[NeutMass, 2]]]*Conjugate[yvn[Index[Generation, 3]]]*vmbar[Index[Spin, r$18584]] . n4[Index[Spin, r$18585]]*ProjP[Index[Spin, r$18584], Index[Spin, r$18585]]
+Non diagonal mass term found: -1/2*(vevNP*Conjugate[UnCL[Index[Generation, 1], Index[NeutMass, 2]]]*Conjugate[yvn[Index[Generation, 1]]]*vmbar[Index[Spin, r$18590]] . n5[Index[Spin, r$18591]]*ProjP[Index[Spin, r$18590], Index[Spin, r$18591]]) - (vevNP*Conjugate[UnCL[Index[Generation, 2], Index[NeutMass, 2]]]*Conjugate[yvn[Index[Generation, 2]]]*vmbar[Index[Spin, r$18590]] . n5[Index[Spin, r$18591]]*ProjP[Index[Spin, r$18590], Index[Spin, r$18591]])/2 - (vevNP*Conjugate[UnCL[Index[Generation, 3], Index[NeutMass, 2]]]*Conjugate[yvn[Index[Generation, 3]]]*vmbar[Index[Spin, r$18590]] . n5[Index[Spin, r$18591]]*ProjP[Index[Spin, r$18590], Index[Spin, r$18591]])/2
+Non diagonal mass term found: (-1/2*I)*vevNP*n4bar[Index[Spin, sp1]] . vm[Index[Spin, sp2$18573]]*ProjM[Index[Spin, sp1], Index[Spin, sp2$18573]]*UnCL[Index[Generation, 1], Index[NeutMass, 2]]*yvn[Index[Generation, 1]] - I/2*vevNP*n4bar[Index[Spin, sp1]] . vm[Index[Spin, sp2$18573]]*ProjM[Index[Spin, sp1], Index[Spin, sp2$18573]]*UnCL[Index[Generation, 2], Index[NeutMass, 2]]*yvn[Index[Generation, 2]] - I/2*vevNP*n4bar[Index[Spin, sp1]] . vm[Index[Spin, sp2$18573]]*ProjM[Index[Spin, sp1], Index[Spin, sp2$18573]]*UnCL[Index[Generation, 3], Index[NeutMass, 2]]*yvn[Index[Generation, 3]]
+Non diagonal mass term found: -1/2*(vevNP*n5bar[Index[Spin, sp1]] . vm[Index[Spin, sp2$18575]]*ProjM[Index[Spin, sp1], Index[Spin, sp2$18575]]*UnCL[Index[Generation, 1], Index[NeutMass, 2]]*yvn[Index[Generation, 1]]) - (vevNP*n5bar[Index[Spin, sp1]] . vm[Index[Spin, sp2$18575]]*ProjM[Index[Spin, sp1], Index[Spin, sp2$18575]]*UnCL[Index[Generation, 2], Index[NeutMass, 2]]*yvn[Index[Generation, 2]])/2 - (vevNP*n5bar[Index[Spin, sp1]] . vm[Index[Spin, sp2$18575]]*ProjM[Index[Spin, sp1], Index[Spin, sp2$18575]]*UnCL[Index[Generation, 3], Index[NeutMass, 2]]*yvn[Index[Generation, 3]])/2
+HEPTAPOD-CHECK|scope=model|name=mass_spectrum|verdict=inconclusive|detail=
+[INFO] UFO output: /private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/vbench/open/v3o_mimo_hand/pSPSS/s1/pSPSS_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+334 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 334.
+262 vertices obtained.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 262
+   - Saved vertices in InterfaceRun[ 1 ].
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number LeptonNumber not conserved in vertex {GPbar, ebar, n4}.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number LeptonNumber not conserved in vertex {GPbar, mubar, n4}.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+General::stop: Further output of QN::NonConserv will be suppressed during this calculation.
+Quantum number LeptonNumber not conserved in vertex {GPbar, tabar, n4}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, ebar, n5}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, mubar, n5}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, tabar, n5}.
+Quantum number LeptonNumber not conserved in vertex {G0, vebar, n4}.
+Quantum number LeptonNumber not conserved in vertex {G0, vmbar, n4}.
+Quantum number LeptonNumber not conserved in vertex {G0, vtbar, n4}.
+Quantum number LeptonNumber not conserved in vertex {H, vebar, n4}.
+Quantum number LeptonNumber not conserved in vertex {H, vmbar, n4}.
+Quantum number LeptonNumber not conserved in vertex {H, vtbar, n4}.
+Quantum number LeptonNumber not conserved in vertex {G0, vebar, n5}.
+Quantum number LeptonNumber not conserved in vertex {G0, vmbar, n5}.
+Quantum number LeptonNumber not conserved in vertex {G0, vtbar, n5}.
+Quantum number LeptonNumber not conserved in vertex {H, vebar, n5}.
+Quantum number LeptonNumber not conserved in vertex {H, vmbar, n5}.
+Quantum number LeptonNumber not conserved in vertex {H, vtbar, n5}.
+Quantum number LeptonNumber not conserved in vertex {GP, n4bar, e}.
+Quantum number LeptonNumber not conserved in vertex {GP, n5bar, e}.
+Quantum number LeptonNumber not conserved in vertex {GP, n4bar, mu}.
+Quantum number LeptonNumber not conserved in vertex {GP, n5bar, mu}.
+Quantum number LeptonNumber not conserved in vertex {GP, n4bar, ta}.
+Quantum number LeptonNumber not conserved in vertex {GP, n5bar, ta}.
+Quantum number LeptonNumber not conserved in vertex {G0, n4bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {H, n4bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {G0, n5bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {H, n5bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {G0, n4bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {H, n4bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {G0, n5bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {H, n5bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {G0, n4bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {H, n4bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {G0, n5bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {H, n5bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {W, n4bar, e}.
+Quantum number LeptonNumber not conserved in vertex {W, n4bar, mu}.
+Quantum number LeptonNumber not conserved in vertex {W, n4bar, ta}.
+Quantum number LeptonNumber not conserved in vertex {W, n5bar, e}.
+Quantum number LeptonNumber not conserved in vertex {W, n5bar, mu}.
+Quantum number LeptonNumber not conserved in vertex {W, n5bar, ta}.
+Quantum number LeptonNumber not conserved in vertex {Z, n4bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {Z, n5bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {Z, n4bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {Z, n5bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {Z, n4bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {Z, n5bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {Z, vebar, n4}.
+Quantum number LeptonNumber not conserved in vertex {Z, vmbar, n4}.
+Quantum number LeptonNumber not conserved in vertex {Z, vtbar, n4}.
+Quantum number LeptonNumber not conserved in vertex {Z, vebar, n5}.
+Quantum number LeptonNumber not conserved in vertex {Z, vmbar, n5}.
+Quantum number LeptonNumber not conserved in vertex {Z, vtbar, n5}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, ebar, n4}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, ebar, n5}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, mubar, n4}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, mubar, n5}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, tabar, n4}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, tabar, n5}.
+Preparing Python output.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/262 .
+    - Writing files.
+Done!
+[INFO] UFO complete: particles.py, vertices.py, couplings.py, parameters.py, coupling_orders.py all present.
+[INFO] Done.

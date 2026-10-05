@@ -1,0 +1,6 @@
+SCHEMA OK: 20 particle classes, 42 parameters, Lagrangian terms ['LZpkin', 'LWpkin', 'Lnlkin', 'Ldqpkin', 'Lnurkin', 'Lh0kin', 'LA0kin', 'LHpkin', 'LYuk', 'Lpot', 'Leff', 'LWpint', 'LZpint', 'LTotal']
+RENDERED: model.fr (528 lines). You may read it.
+LINT: 3 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are real defects; do not remove paper physics just to silence one.
+- [checks] mixing_in_definitions: class `WiR` is defined as a mixture of ['A', 'Wp', 'Z', 'Zp']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 418)
+- [checks] mixing_in_definitions: class `QR` is defined as a mixture of ['dqp', 'uq']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 426)
+- [checks] mixing_in_definitions: class `LR` is defined as a mixture of ['l', 'nl']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 434)

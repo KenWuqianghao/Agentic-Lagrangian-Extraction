@@ -1,0 +1,120 @@
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+
+M$ModelName = "Top-Philic-Zprime_gen";
+
+M$Information = {
+  Authors      -> {"Auto-generated from arXiv:1604.07421"},
+  Version      -> "1.0",
+  Date         -> "24.09.2026",
+  Institutions -> {"Benchmark extraction"},
+  Emails       -> {},
+  URLs         -> "https://arxiv.org/abs/1604.07421"
+};
+
+(* ************************** *)
+(* ***** Interaction orders *** *)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+(* ************************** *)
+(* *****    Parameters    ***** *)
+(* ************************** *)
+
+M$Parameters = {
+
+  (* New physics parameters *)
+  MV1 == {
+    ParameterType    -> External,
+    BlockName        -> NP,
+    OrderBlock       -> 1,
+    Value            -> 1500.,
+    InteractionOrder -> {NP, 0},
+    TeX              -> Subscript[M, V1],
+    Description      -> "Mass of the top-philic vector resonance V1 [GeV]"
+  },
+
+  ct == {
+    ParameterType    -> External,
+    BlockName        -> NP,
+    OrderBlock       -> 2,
+    Value            -> 2.0,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[c, t],
+    Description      -> "Overall coupling of V1 to top quarks, c_t = sqrt(c_L^2 + c_R^2)"
+  },
+
+  theta == {
+    ParameterType    -> External,
+    BlockName        -> NP,
+    OrderBlock       -> 3,
+    Value            -> Pi/2,
+    InteractionOrder -> {NP, 0},
+    TeX              -> \[Theta],
+    Description      -> "Chirality angle, tan(theta) = c_R/c_L. Paper sets theta = Pi/2 (pure right-handed)"
+  },
+
+  cL == {
+    ParameterType    -> Internal,
+    Value            -> ct*Cos[theta],
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[c, L],
+    Description      -> "Left-handed coupling of V1 to top quarks"
+  },
+
+  cR == {
+    ParameterType    -> Internal,
+    Value            -> ct*Sin[theta],
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[c, R],
+    Description      -> "Right-handed coupling of V1 to top quarks"
+  }
+
+};
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+
+M$ClassesDescription = {
+
+  (* New color-singlet vector resonance V1 *)
+  V[100] == {
+    ClassName       -> V1,
+    SelfConjugate   -> True,
+    Mass            -> {MV1, 1500.},
+    Width           -> {WV1, 0.},
+    ParticleName    -> "V1",
+    PDG             -> 9000001,
+    PropagatorLabel -> "V1",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "Top-philic vector resonance V1"
+  }
+
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+(* Kinetic + mass term for V1 (real vector, gauge singlet) *)
+LV1kin := -1/4 FS[V1, mu, nu] FS[V1, mu, nu] + 1/2 MV1^2 V1[mu] V1[mu];
+
+(* Interaction term: c_t * \bar{t} \gamma^\mu (cos\theta P_L + sin\theta P_R) t V1_\mu *)
+(* Using physical top quark field uq[3] from SM.fr *)
+LV1int := Block[{sp, cc},
+  ct * (
+    Cos[theta] * uqbar[sp, 3, cc].Ga[mu].ProjM.uq[sp, 3, cc] +
+    Sin[theta] * uqbar[sp, 3, cc].Ga[mu].ProjP.uq[sp, 3, cc]
+  ) * V1[mu]
+];
+
+(* Total Lagrangian *)
+LTotal := LV1kin + LV1int;

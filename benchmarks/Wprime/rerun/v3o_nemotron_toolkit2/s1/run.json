@@ -1,0 +1,40 @@
+{
+ "page": "Wprime",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "toolkit2",
+ "seed": 1,
+ "variant": "v3o_nemotron_toolkit2",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 1269.4,
+ "tokens": {
+  "input": 511615,
+  "output": 15278,
+  "reasoning": 24010
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 10,
+ "n_events": 92,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 30,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-"
+  ],
+  "frgen_runs": 3,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Wprime/rerun/v3o_nemotron_toolkit2/s1/model/Wprime_gen.fr",
+ "final_lint_findings": 0
+}

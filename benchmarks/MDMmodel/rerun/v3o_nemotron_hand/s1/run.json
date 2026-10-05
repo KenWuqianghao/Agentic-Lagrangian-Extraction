@@ -1,0 +1,35 @@
+{
+ "page": "MDMmodel",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "hand",
+ "seed": 1,
+ "variant": "v3o_nemotron_hand",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 1852.6,
+ "tokens": {
+  "input": 159251,
+  "output": 12857,
+  "reasoning": 26058
+ },
+ "output_max": 128000,
+ "n_events": 36,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 8,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "model.fr",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/MDMmodel/rerun/v3o_nemotron_hand/s1/model/MDMmodel_gen.fr"
+}

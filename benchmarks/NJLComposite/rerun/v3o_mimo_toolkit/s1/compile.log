@@ -1,0 +1,56 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+From kernel 1 (Local):
+Syntax::sntx: Invalid syntax in or before "LANOMPI0 := Sum over PI0: (ee gw Nc)/(4 Pi^2 FPi Sqrt[2]) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[W,sig,nu] PI0 fields - written as anomaly couplings for PI0u and PI0d to gamma gamma, gamma Z, ZZ, WW, gg via paper Eqs.(PiGG)-(PiGGg): (2 ee^2 Nc)/(3 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0ubar + (ee^2 Nc)/(9 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0dbar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0ubar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0dbar + HC[(2 ee^2 Nc)/(3 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0ubar + (ee^2 Nc)/(9 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0dbar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0ubar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0dbar];". (line 425 of "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/NJLComposite/rerun/v3o_mimo_toolkit/s1/model/NJLComposite_gen.fr")
+                                                                                                                                                                                                                             ^
+From kernel 2 (Local):
+Syntax::sntx: Invalid syntax in or before "LANOMPI0 := Sum over PI0: (ee gw Nc)/(4 Pi^2 FPi Sqrt[2]) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[W,sig,nu] PI0 fields - written as anomaly couplings for PI0u and PI0d to gamma gamma, gamma Z, ZZ, WW, gg via paper Eqs.(PiGG)-(PiGGg): (2 ee^2 Nc)/(3 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0ubar + (ee^2 Nc)/(9 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0dbar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0ubar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0dbar + HC[(2 ee^2 Nc)/(3 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0ubar + (ee^2 Nc)/(9 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0dbar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0ubar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0dbar];". (line 425 of "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/NJLComposite/rerun/v3o_mimo_toolkit/s1/model/NJLComposite_gen.fr")
+                                                                                                                                                                                                                             ^
+From kernel 3 (Local):
+Syntax::sntx: Invalid syntax in or before "LANOMPI0 := Sum over PI0: (ee gw Nc)/(4 Pi^2 FPi Sqrt[2]) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[W,sig,nu] PI0 fields - written as anomaly couplings for PI0u and PI0d to gamma gamma, gamma Z, ZZ, WW, gg via paper Eqs.(PiGG)-(PiGGg): (2 ee^2 Nc)/(3 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0ubar + (ee^2 Nc)/(9 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0dbar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0ubar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0dbar + HC[(2 ee^2 Nc)/(3 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0ubar + (ee^2 Nc)/(9 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0dbar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0ubar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0dbar];". (line 425 of "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/NJLComposite/rerun/v3o_mimo_toolkit/s1/model/NJLComposite_gen.fr")
+                                                                                                                                                                                                                             ^
+From kernel 4 (Local):
+Syntax::sntx: Invalid syntax in or before "LANOMPI0 := Sum over PI0: (ee gw Nc)/(4 Pi^2 FPi Sqrt[2]) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[W,sig,nu] PI0 fields - written as anomaly couplings for PI0u and PI0d to gamma gamma, gamma Z, ZZ, WW, gg via paper Eqs.(PiGG)-(PiGGg): (2 ee^2 Nc)/(3 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0ubar + (ee^2 Nc)/(9 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0dbar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0ubar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0dbar + HC[(2 ee^2 Nc)/(3 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0ubar + (ee^2 Nc)/(9 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0dbar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0ubar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0dbar];". (line 425 of "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/NJLComposite/rerun/v3o_mimo_toolkit/s1/model/NJLComposite_gen.fr")
+                                                                                                                                                                                                                             ^
+From kernel 5 (Local):
+Syntax::sntx: Invalid syntax in or before "LANOMPI0 := Sum over PI0: (ee gw Nc)/(4 Pi^2 FPi Sqrt[2]) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[W,sig,nu] PI0 fields - written as anomaly couplings for PI0u and PI0d to gamma gamma, gamma Z, ZZ, WW, gg via paper Eqs.(PiGG)-(PiGGg): (2 ee^2 Nc)/(3 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0ubar + (ee^2 Nc)/(9 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0dbar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0ubar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0dbar + HC[(2 ee^2 Nc)/(3 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0ubar + (ee^2 Nc)/(9 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0dbar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0ubar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0dbar];". (line 425 of "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/NJLComposite/rerun/v3o_mimo_toolkit/s1/model/NJLComposite_gen.fr")
+                                                                                                                                                                                                                             ^
+
+General::stop: Further output of Syntax::sntx will be suppressed during this calculation.
+Merging model-files...
+
+Syntax::sntx: Invalid syntax in or before "LANOMPI0 := Sum over PI0: (ee gw Nc)/(4 Pi^2 FPi Sqrt[2]) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[W,sig,nu] PI0 fields - written as anomaly couplings for PI0u and PI0d to gamma gamma, gamma Z, ZZ, WW, gg via paper Eqs.(PiGG)-(PiGGg): (2 ee^2 Nc)/(3 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0ubar + (ee^2 Nc)/(9 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0dbar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0ubar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0dbar + HC[(2 ee^2 Nc)/(3 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0ubar + (ee^2 Nc)/(9 4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[A,rho,mu] FS[A,sig,nu] PI0dbar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0ubar + (gs^2/2)/(4 Pi^2 FPi) Eps[mu,nu,rho,sig] FS[G,rho,mu,aa] FS[G,sig,nu,aa] PI0dbar];". (line 425 of "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/NJLComposite/rerun/v3o_mimo_toolkit/s1/model/NJLComposite_gen.fr")
+                                                                                                                                                                                                                             ^
+This model implementation was created by
+S. Ajmal
+J. T. Gaglione
+A. Gurrola
+R. Leonardi
+O. Panella
+M. Presilla
+F. Romeo
+H. Sun
+S. S. Xue
+Model Version: 1.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+Model NJLComposite_gen loaded.
+Error: undefined symbol(s) in Lagrangian "LSM + LTotal": LTotal
+[INFO] Lagrangian-like symbols defined by this model: LFCI, LFD1kin, LFDsCkin, LFE1kin, LFE2kin, LFermions, LFEsCkin, LFEskin, LFN1kin, LFN2kin, LFNsCkin, LFNskin, LFU1kin, LFUsCkin, LGauge, LGhost, LHc1kin, LHc2kin, LHcFF, LHiggs, LLQ1kin, LLQ2kin, Lnurkin, LPI1kin, LPI2kin, LSM, LYLQ, LYPI, LYukawa

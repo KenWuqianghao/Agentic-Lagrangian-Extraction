@@ -1,0 +1,1402 @@
+(******************************************************************)
+(*  331 (SimpleExtensions) add-on for SM.fr                       *)
+(*  Based on arXiv:1611.09337 (Cao, Zhang)                        *)
+(*  Benchmark beta = Sqrt[3]: QV=1, QY=2, QD=QS=-4/3, QT=5/3,     *)
+(*  QE=1, a+=4, a-=2, b+=5, b-=1.                                 *)
+(******************************************************************)
+
+M$ModelName = "331_gen";
+
+M$Information = {
+  Authors      -> {"Automated extraction from arXiv:1611.09337"},
+  Version      -> "1.0",
+  Date         -> "24. 09. 2026",
+  Institutions -> {"N/A"},
+  References   -> {"arXiv:1611.09337"},
+  Description  -> "3-3-1 model add-on on top of SM.fr (beta = Sqrt[3] benchmark)"
+};
+
+FeynmanGauge = True;
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+(* Indices Colour, Gluon, Generation, SU2D, SU2W come from SM.fr. *)
+
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* **************************)
+M$Parameters = {
+
+  (* --- External new-physics parameters --- *)
+  beta == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 1,
+    Value         -> Sqrt[3],
+    InteractionOrder -> {NP, 1},
+    Description   -> "331 parameter beta (benchmark Sqrt[3])"
+  },
+  v1 == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 2,
+    Value         -> 200.,
+    Description   -> "rho vev [GeV]"
+  },
+  v3 == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 3,
+    Value         -> 2000.,
+    Description   -> "chi vev [GeV]"
+  },
+  kk == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 4,
+    Value         -> 1.,
+    InteractionOrder -> {NP, 1},
+    Description   -> "k with f = k v3"
+  },
+  lam1 == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 5,
+    Value         -> 0.1,
+    InteractionOrder -> {NP, 1},
+    Description   -> "quartic lambda1"
+  },
+  lam2 == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 6,
+    Value         -> 0.1,
+    InteractionOrder -> {NP, 1},
+    Description   -> "quartic lambda2"
+  },
+  lam3 == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 7,
+    Value         -> 0.1,
+    InteractionOrder -> {NP, 1},
+    Description   -> "quartic lambda3"
+  },
+  lam12 == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 8,
+    Value         -> 0.1,
+    InteractionOrder -> {NP, 1},
+    Description   -> "quartic lambda12"
+  },
+  lam13 == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 9,
+    Value         -> 0.1,
+    InteractionOrder -> {NP, 1},
+    Description   -> "quartic lambda13"
+  },
+  lam23 == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 10,
+    Value         -> 0.1,
+    InteractionOrder -> {NP, 1},
+    Description   -> "quartic lambda23"
+  },
+  lam12p == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 11,
+    Value         -> 0.1,
+    InteractionOrder -> {NP, 1},
+    Description   -> "quartic lambda'_12"
+  },
+  lam13p == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 12,
+    Value         -> 0.1,
+    InteractionOrder -> {NP, 1},
+    Description   -> "quartic lambda'_13"
+  },
+  lam23p == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 13,
+    Value         -> 0.1,
+    InteractionOrder -> {NP, 1},
+    Description   -> "quartic lambda'_23"
+  },
+  yHD == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 14,
+    Value         -> 0.7,
+    InteractionOrder -> {NP, 1},
+    Description   -> "Yukawa y^J for D (q1 chi D_R)"
+  },
+  yHS == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 15,
+    Value         -> 0.7,
+    InteractionOrder -> {NP, 1},
+    Description   -> "Yukawa y^J for S (q2 chi S_R)"
+  },
+  yHT == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 16,
+    Value         -> 0.7,
+    InteractionOrder -> {NP, 1},
+    Description   -> "Yukawa y^J33 for T (q3 chi* T_R)"
+  },
+  yHE == {
+    ParameterType -> External,
+    BlockName     -> NPINPUTS,
+    OrderBlock    -> 17,
+    Value         -> 0.7,
+    InteractionOrder -> {NP, 1},
+    Description   -> "Yukawa y^E for heavy leptons El"
+  },
+
+  (* External new-particle masses (GeV) *)
+  MZp == {
+    ParameterType -> External,
+    BlockName     -> NPMASS,
+    OrderBlock    -> 1,
+    Value         -> 6000.,
+    Description   -> "Z' mass"
+  },
+  MH2 == {
+    ParameterType -> External,
+    BlockName     -> NPMASS,
+    OrderBlock    -> 2,
+    Value         -> 500.,
+    Description   -> "H2 mass (CP-even)"
+  },
+  MH3 == {
+    ParameterType -> External,
+    BlockName     -> NPMASS,
+    OrderBlock    -> 3,
+    Value         -> 2000.,
+    Description   -> "H3 mass (CP-even, chi-like)"
+  },
+  MH0 == {
+    ParameterType -> External,
+    BlockName     -> NPMASS,
+    OrderBlock    -> 4,
+    Value         -> 500.,
+    Description   -> "H0 mass (CP-odd)"
+  },
+  MHP == {
+    ParameterType -> External,
+    BlockName     -> NPMASS,
+    OrderBlock    -> 5,
+    Value         -> 500.,
+    Description   -> "H+- mass (charge +/-1)"
+  },
+  MHV == {
+    ParameterType -> External,
+    BlockName     -> NPMASS,
+    OrderBlock    -> 6,
+    Value         -> 1300.,
+    Description   -> "H+-QV mass"
+  },
+  MHY == {
+    ParameterType -> External,
+    BlockName     -> NPMASS,
+    OrderBlock    -> 7,
+    Value         -> 1400.,
+    Description   -> "H+-QY mass"
+  },
+  MDq == {
+    ParameterType -> External,
+    BlockName     -> NPMASS,
+    OrderBlock    -> 8,
+    Value         -> 1000.,
+    Description   -> "heavy quark D mass"
+  },
+  MSq == {
+    ParameterType -> External,
+    BlockName     -> NPMASS,
+    OrderBlock    -> 9,
+    Value         -> 1000.,
+    Description   -> "heavy quark S mass"
+  },
+  MTq == {
+    ParameterType -> External,
+    BlockName     -> NPMASS,
+    OrderBlock    -> 10,
+    Value         -> 1000.,
+    Description   -> "heavy quark T mass"
+  },
+  MEl == {
+    ParameterType -> External,
+    BlockName     -> NPMASS,
+    OrderBlock    -> 11,
+    Value         -> 1000.,
+    Description   -> "heavy lepton El mass (all generations)"
+  },
+
+  (* --- Internal derived parameters --- *)
+  v2 == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[Max[vev^2 - v1^2, 0]],
+    Description   -> "eta vev, v1^2+v2^2=vev^2"
+  },
+  fv == {
+    ParameterType -> Internal,
+    Value         -> kk*v3,
+    InteractionOrder -> {NP, 1},
+    Description   -> "f = k v3"
+  },
+  MVq == {
+    ParameterType -> Internal,
+    Value         -> gw/2*Sqrt[v3^2+v1^2],
+    Description   -> "V mass, M^2 = g^2 (v3^2+v1^2)/4"
+  },
+  MYq == {
+    ParameterType -> Internal,
+    Value         -> gw/2*Sqrt[v3^2+v2^2],
+    Description   -> "Y mass, M^2 = g^2 (v3^2+v2^2)/4"
+  },
+  a0 == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[1 - (1 + beta^2)*sw^2],
+    Description   -> "a0 = Sqrt[1-(1+beta^2) sW^2]"
+  },
+  ap == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[3]*beta + 1,
+    Description   -> "a+ = Sqrt[3] beta + 1"
+  },
+  am == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[3]*beta - 1,
+    Description   -> "a- = Sqrt[3] beta - 1"
+  },
+  bp == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[3]*beta + 2,
+    Description   -> "b+ = Sqrt[3] beta + 2"
+  },
+  bm == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[3]*beta - 2,
+    Description   -> "b- = Sqrt[3] beta - 2"
+  },
+  s12 == {
+    ParameterType -> Internal,
+    Value         -> v2/vev,
+    Description   -> "s12 = v2/v"
+  },
+  c12 == {
+    ParameterType -> Internal,
+    Value         -> v1/vev,
+    Description   -> "c12 = v1/v"
+  },
+  s13 == {
+    ParameterType -> Internal,
+    Value         -> v3/Sqrt[v1^2 + v3^2],
+    Description   -> "s13"
+  },
+  c13 == {
+    ParameterType -> Internal,
+    Value         -> v1/Sqrt[v1^2 + v3^2],
+    Description   -> "c13"
+  },
+  s23 == {
+    ParameterType -> Internal,
+    Value         -> v3/Sqrt[v2^2 + v3^2],
+    Description   -> "s23"
+  },
+  c23 == {
+    ParameterType -> Internal,
+    Value         -> v2/Sqrt[v2^2 + v3^2],
+    Description   -> "c23"
+  },
+  U11 == {
+    ParameterType -> Internal,
+    Value         -> c12,
+    Description   -> "CP-even mixing U11 (decoupling)"
+  },
+  U21 == {
+    ParameterType -> Internal,
+    Value         -> s12,
+    Description   -> "CP-even mixing U21 (decoupling)"
+  },
+  U31 == {
+    ParameterType -> Internal,
+    Value         -> (kk*v1*v2/(lam3*vev) - (lam13*v1^2 + lam23*v2^2)/(2*lam3*vev))/v3,
+    InteractionOrder -> {NP, 1},
+    Description   -> "CP-even mixing U31 = g31/v3"
+  },
+  U12 == {
+    ParameterType -> Internal,
+    Value         -> s12,
+    Description   -> "CP-even mixing U12 (approx)"
+  },
+  U22 == {
+    ParameterType -> Internal,
+    Value         -> -c12,
+    Description   -> "CP-even mixing U22 (approx)"
+  },
+  U32 == {
+    ParameterType -> Internal,
+    Value         -> 0,
+    Description   -> "CP-even mixing U32 (leading decoupling)"
+  },
+  U13 == {
+    ParameterType -> Internal,
+    Value         -> 0,
+    Description   -> "CP-even mixing U13 (leading decoupling)"
+  },
+  U23 == {
+    ParameterType -> Internal,
+    Value         -> 0,
+    Description   -> "CP-even mixing U23 (leading decoupling)"
+  },
+  U33 == {
+    ParameterType -> Internal,
+    Value         -> 1,
+    Description   -> "CP-even mixing U33 (chi-like)"
+  },
+  O11 == {
+    ParameterType -> Internal,
+    Value         -> v2*v3/Sqrt[v1^2*v2^2 + vev^2*v3^2],
+    Description   -> "CP-odd O11"
+  },
+  O21 == {
+    ParameterType -> Internal,
+    Value         -> v1*v3/Sqrt[v1^2*v2^2 + vev^2*v3^2],
+    Description   -> "CP-odd O21"
+  },
+  O31 == {
+    ParameterType -> Internal,
+    Value         -> v1*v2/Sqrt[v1^2*v2^2 + vev^2*v3^2],
+    Description   -> "CP-odd O31"
+  },
+  O12 == {
+    ParameterType -> Internal,
+    Value         -> -v1*v3^2/Sqrt[(v1^2 + v3^2)*(v1^2*v2^2 + vev^2*v3^2)],
+    Description   -> "CP-odd O12"
+  },
+  O22 == {
+    ParameterType -> Internal,
+    Value         -> v2*Sqrt[(v1^2 + v3^2)/(v1^2*v2^2 + vev^2*v3^2)],
+    Description   -> "CP-odd O22"
+  },
+  O32 == {
+    ParameterType -> Internal,
+    Value         -> v1^2*v3/Sqrt[(v1^2 + v3^2)*(v1^2*v2^2 + vev^2*v3^2)],
+    Description   -> "CP-odd O32"
+  },
+  O13 == {
+    ParameterType -> Internal,
+    Value         -> -v1/Sqrt[v1^2 + v3^2],
+    Description   -> "CP-odd O13"
+  },
+  O23 == {
+    ParameterType -> Internal,
+    Value         -> 0,
+    Description   -> "CP-odd O23"
+  },
+  O33 == {
+    ParameterType -> Internal,
+    Value         -> v3/Sqrt[v1^2 + v3^2],
+    Description   -> "CP-odd O33"
+  },
+
+  (* Generation projectors (explicit components) *)
+  P1 == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Value         -> {
+      P1[1,1] -> 1, P1[1,2] -> 0, P1[1,3] -> 0,
+      P1[2,1] -> 0, P1[2,2] -> 0, P1[2,3] -> 0,
+      P1[3,1] -> 0, P1[3,2] -> 0, P1[3,3] -> 0
+    },
+    Description   -> "projector onto generation 1"
+  },
+  P2 == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Value         -> {
+      P2[1,1] -> 0, P2[1,2] -> 0, P2[1,3] -> 0,
+      P2[2,1] -> 0, P2[2,2] -> 1, P2[2,3] -> 0,
+      P2[3,1] -> 0, P2[3,2] -> 0, P2[3,3] -> 0
+    },
+    Description   -> "projector onto generation 2"
+  },
+  P3 == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Value         -> {
+      P3[1,1] -> 0, P3[1,2] -> 0, P3[1,3] -> 0,
+      P3[2,1] -> 0, P3[2,2] -> 0, P3[2,3] -> 0,
+      P3[3,1] -> 0, P3[3,2] -> 0, P3[3,3] -> 1
+    },
+    Description   -> "projector onto generation 3"
+  },
+  P12 == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Value         -> {
+      P12[1,1] -> 1, P12[1,2] -> 0, P12[1,3] -> 0,
+      P12[2,1] -> 0, P12[2,2] -> 1, P12[2,3] -> 0,
+      P12[3,1] -> 0, P12[3,2] -> 0, P12[3,3] -> 0
+    },
+    Description   -> "projector onto generations 1,2"
+  },
+
+  (* Z' chiral couplings as generation matrices (L coefficients) *)
+  zpQLu == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Value         -> {
+      zpQLu[1,1] -> ee*((beta + Sqrt[3])*sw^2 - Sqrt[3])/(6*cw*sw*a0),
+      zpQLu[1,2] -> 0, zpQLu[1,3] -> 0,
+      zpQLu[2,1] -> 0,
+      zpQLu[2,2] -> ee*((beta + Sqrt[3])*sw^2 - Sqrt[3])/(6*cw*sw*a0),
+      zpQLu[2,3] -> 0,
+      zpQLu[3,1] -> 0, zpQLu[3,2] -> 0,
+      zpQLu[3,3] -> ee*((beta - Sqrt[3])*sw^2 + Sqrt[3])/(6*cw*sw*a0)
+    },
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z' gL matrix for up-type quarks"
+  },
+  zpQRu == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Value         -> {
+      zpQRu[1,1] -> 2*beta*ee*sw/(3*cw*a0),
+      zpQRu[1,2] -> 0, zpQRu[1,3] -> 0,
+      zpQRu[2,1] -> 0, zpQRu[2,2] -> 2*beta*ee*sw/(3*cw*a0), zpQRu[2,3] -> 0,
+      zpQRu[3,1] -> 0, zpQRu[3,2] -> 0, zpQRu[3,3] -> 2*beta*ee*sw/(3*cw*a0)
+    },
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z' gR matrix for up-type quarks"
+  },
+  zpQLd == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Value         -> {
+      zpQLd[1,1] -> ee*((beta + Sqrt[3])*sw^2 - Sqrt[3])/(6*cw*sw*a0),
+      zpQLd[1,2] -> 0, zpQLd[1,3] -> 0,
+      zpQLd[2,1] -> 0,
+      zpQLd[2,2] -> ee*((beta + Sqrt[3])*sw^2 - Sqrt[3])/(6*cw*sw*a0),
+      zpQLd[2,3] -> 0,
+      zpQLd[3,1] -> 0, zpQLd[3,2] -> 0,
+      zpQLd[3,3] -> ee*((beta - Sqrt[3])*sw^2 + Sqrt[3])/(6*cw*sw*a0)
+    },
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z' gL matrix for down-type quarks"
+  },
+  zpQRd == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Value         -> {
+      zpQRd[1,1] -> -beta*ee*sw/(3*cw*a0),
+      zpQRd[1,2] -> 0, zpQRd[1,3] -> 0,
+      zpQRd[2,1] -> 0, zpQRd[2,2] -> -beta*ee*sw/(3*cw*a0), zpQRd[2,3] -> 0,
+      zpQRd[3,1] -> 0, zpQRd[3,2] -> 0, zpQRd[3,3] -> -beta*ee*sw/(3*cw*a0)
+    },
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z' gR matrix for down-type quarks"
+  },
+  zpQLe == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Value         -> {
+      zpQLe[1,1] -> ee*(1 - ap*sw^2)/(2*Sqrt[3]*cw*sw*a0),
+      zpQLe[1,2] -> 0, zpQLe[1,3] -> 0,
+      zpQLe[2,1] -> 0, zpQLe[2,2] -> ee*(1 - ap*sw^2)/(2*Sqrt[3]*cw*sw*a0), zpQLe[2,3] -> 0,
+      zpQLe[3,1] -> 0, zpQLe[3,2] -> 0, zpQLe[3,3] -> ee*(1 - ap*sw^2)/(2*Sqrt[3]*cw*sw*a0)
+    },
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z' gL matrix for charged leptons"
+  },
+  zpQRe == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Value         -> {
+      zpQRe[1,1] -> -beta*ee*sw/(cw*a0),
+      zpQRe[1,2] -> 0, zpQRe[1,3] -> 0,
+      zpQRe[2,1] -> 0, zpQRe[2,2] -> -beta*ee*sw/(cw*a0), zpQRe[2,3] -> 0,
+      zpQRe[3,1] -> 0, zpQRe[3,2] -> 0, zpQRe[3,3] -> -beta*ee*sw/(cw*a0)
+    },
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z' gR matrix for charged leptons"
+  },
+  zpQLv == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Value         -> {
+      zpQLv[1,1] -> ee*(1 - ap*sw^2)/(2*Sqrt[3]*cw*sw*a0),
+      zpQLv[1,2] -> 0, zpQLv[1,3] -> 0,
+      zpQLv[2,1] -> 0, zpQLv[2,2] -> ee*(1 - ap*sw^2)/(2*Sqrt[3]*cw*sw*a0), zpQLv[2,3] -> 0,
+      zpQLv[3,1] -> 0, zpQLv[3,2] -> 0, zpQLv[3,3] -> ee*(1 - ap*sw^2)/(2*Sqrt[3]*cw*sw*a0)
+    },
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z' gL matrix for neutrinos"
+  },
+  zpQLD == {
+    ParameterType -> Internal,
+    Value         -> -ee*((3*Sqrt[3]*beta^2 - beta + 2*Sqrt[3])*sw^2 - 2*Sqrt[3])/(6*cw*sw*a0),
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z' gL for D,S (L coefficient)"
+  },
+  zpQRD == {
+    ParameterType -> Internal,
+    Value         -> -beta*(3*Sqrt[3]*beta - 1)*ee*sw/(6*cw*a0),
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z' gR for D,S (L coefficient)"
+  },
+  zpQLT == {
+    ParameterType -> Internal,
+    Value         -> ee*((3*Sqrt[3]*beta^2 + beta + 2*Sqrt[3])*sw^2 - 2*Sqrt[3])/(6*cw*sw*a0),
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z' gL for T (L coefficient)"
+  },
+  zpQRT == {
+    ParameterType -> Internal,
+    Value         -> beta*(3*Sqrt[3]*beta + 1)*ee*sw/(6*cw*a0),
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z' gR for T (L coefficient)"
+  },
+  zpQLE == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Value         -> {
+      zpQLE[1,1] -> ee*((am^2 + 1)*sw^2 - 2)/(2*Sqrt[3]*cw*sw*a0),
+      zpQLE[1,2] -> 0, zpQLE[1,3] -> 0,
+      zpQLE[2,1] -> 0, zpQLE[2,2] -> ee*((am^2 + 1)*sw^2 - 2)/(2*Sqrt[3]*cw*sw*a0), zpQLE[2,3] -> 0,
+      zpQLE[3,1] -> 0, zpQLE[3,2] -> 0, zpQLE[3,3] -> ee*((am^2 + 1)*sw^2 - 2)/(2*Sqrt[3]*cw*sw*a0)
+    },
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z' gL matrix for heavy leptons El"
+  },
+  zpQRE == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Value         -> {
+      zpQRE[1,1] -> Sqrt[3]*beta^2*ee*sw/(2*cw*a0),
+      zpQRE[1,2] -> 0, zpQRE[1,3] -> 0,
+      zpQRE[2,1] -> 0, zpQRE[2,2] -> Sqrt[3]*beta^2*ee*sw/(2*cw*a0), zpQRE[2,3] -> 0,
+      zpQRE[3,1] -> 0, zpQRE[3,2] -> 0, zpQRE[3,3] -> Sqrt[3]*beta^2*ee*sw/(2*cw*a0)
+    },
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z' gR matrix for heavy leptons El"
+  },
+
+  (* Heavy-fermion Z couplings (vector-like as in paper) *)
+  zD == {
+    ParameterType -> Internal,
+    Value         -> ee*(3*Sqrt[3]*beta - 1)*sw/(6*cw),
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z coupling of D,S (L coefficient)"
+  },
+  zT == {
+    ParameterType -> Internal,
+    Value         -> -ee*(3*Sqrt[3]*beta + 1)*sw/(6*cw),
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z coupling of T (L coefficient)"
+  },
+  zE == {
+    ParameterType -> Internal,
+    Value         -> -am*ee*sw/(2*cw),
+    InteractionOrder -> {NP, 1},
+    Description   -> "Z coupling of El (L coefficient)"
+  },
+  aE == {
+    ParameterType -> Internal,
+    Value         -> am*ee/2,
+    InteractionOrder -> {NP, 1},
+    Description   -> "photon coupling of El (L coefficient = Q_E ee)"
+  },
+
+  (* V,Y gauge-fermion L coefficients (paper gL / i) *)
+  vyCoup == {
+    ParameterType -> Internal,
+    Value         -> -ee/(Sqrt[2]*sw),
+    InteractionOrder -> {NP, 1},
+    Description   -> "V,Y fermion chiral coupling -e/(sqrt2 sW)"
+  }
+};
+
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+M$ClassesDescription = {
+
+  (* ----- New gauge bosons ----- *)
+  V[100] == {
+    ClassName       -> Zp,
+    SelfConjugate   -> True,
+    Mass            -> {MZp, 6000.},
+    Width           -> {WZp, 100.},
+    ParticleName    -> "Zp",
+    PDG             -> 6000023,
+    PropagatorLabel -> "Zp",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "Zprime"
+  },
+  V[101] == {
+    ClassName        -> Vq,
+    SelfConjugate    -> False,
+    Mass             -> {MVq, Internal},
+    Width            -> {WVq, 50.},
+    QuantumNumbers   -> {Q -> 1},
+    ParticleName     -> "V+",
+    AntiParticleName -> "V-",
+    PDG              -> 6000024,
+    PropagatorLabel  -> "V",
+    PropagatorType   -> Sine,
+    PropagatorArrow  -> Forward,
+    FullName         -> "V charged gauge boson"
+  },
+  V[102] == {
+    ClassName        -> Yq,
+    SelfConjugate    -> False,
+    Mass             -> {MYq, Internal},
+    Width            -> {WYq, 50.},
+    QuantumNumbers   -> {Q -> 2},
+    ParticleName     -> "Ypp",
+    AntiParticleName -> "Ymm",
+    PDG              -> 6000025,
+    PropagatorLabel  -> "Y",
+    PropagatorType   -> Sine,
+    PropagatorArrow  -> Forward,
+    FullName         -> "Y charged gauge boson"
+  },
+
+  (* ----- New scalars (mass eigenstates) ----- *)
+  S[100] == {
+    ClassName       -> H2,
+    SelfConjugate   -> True,
+    Mass            -> {MH2, 500.},
+    Width           -> {WH2, 5.},
+    ParticleName    -> "H2",
+    PDG             -> 6000125,
+    PropagatorLabel -> "H2",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    FullName        -> "H2 CP-even"
+  },
+  S[101] == {
+    ClassName       -> H3,
+    SelfConjugate   -> True,
+    Mass            -> {MH3, 2000.},
+    Width           -> {WH3, 10.},
+    ParticleName    -> "H3",
+    PDG             -> 6000126,
+    PropagatorLabel -> "H3",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    FullName        -> "H3 CP-even"
+  },
+  S[102] == {
+    ClassName       -> H0,
+    SelfConjugate   -> True,
+    Mass            -> {MH0, 500.},
+    Width           -> {WH0, 5.},
+    ParticleName    -> "H0",
+    PDG             -> 6000127,
+    PropagatorLabel -> "H0",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    FullName        -> "H0 CP-odd"
+  },
+  S[103] == {
+    ClassName        -> HP,
+    SelfConjugate    -> False,
+    Mass             -> {MHP, 500.},
+    Width            -> {WHP, 5.},
+    QuantumNumbers   -> {Q -> 1},
+    ParticleName     -> "HP+",
+    AntiParticleName -> "HP-",
+    PDG              -> 6000201,
+    PropagatorLabel  -> "HP",
+    PropagatorType   -> D,
+    PropagatorArrow  -> None,
+    FullName         -> "H+- charged scalar"
+  },
+  S[104] == {
+    ClassName        -> HV,
+    SelfConjugate    -> False,
+    Mass             -> {MHV, 1300.},
+    Width            -> {WHV, 10.},
+    QuantumNumbers   -> {Q -> 1},
+    ParticleName     -> "HV+",
+    AntiParticleName -> "HV-",
+    PDG              -> 6000202,
+    PropagatorLabel  -> "HV",
+    PropagatorType   -> D,
+    PropagatorArrow  -> None,
+    FullName         -> "H+-QV charged scalar"
+  },
+  S[105] == {
+    ClassName        -> HY,
+    SelfConjugate    -> False,
+    Mass             -> {MHY, 1400.},
+    Width            -> {WHY, 10.},
+    QuantumNumbers   -> {Q -> 2},
+    ParticleName     -> "HYpp",
+    AntiParticleName -> "HYmm",
+    PDG              -> 6000203,
+    PropagatorLabel  -> "HY",
+    PropagatorType   -> D,
+    PropagatorArrow  -> None,
+    FullName         -> "H+-QY charged scalar"
+  },
+
+  (* ----- New heavy fermions ----- *)
+  F[100] == {
+    ClassName        -> Dq,
+    SelfConjugate    -> False,
+    Indices          -> {Index[Colour]},
+    Mass             -> {MDq, 1000.},
+    Width            -> {WDq, 10.},
+    QuantumNumbers   -> {Q -> -4/3},
+    ParticleName     -> "D",
+    AntiParticleName -> "D~",
+    PDG              -> 6000001,
+    PropagatorLabel  -> "D",
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    FullName         -> "heavy quark D"
+  },
+  F[101] == {
+    ClassName        -> Sq,
+    SelfConjugate    -> False,
+    Indices          -> {Index[Colour]},
+    Mass             -> {MSq, 1000.},
+    Width            -> {WSq, 10.},
+    QuantumNumbers   -> {Q -> -4/3},
+    ParticleName     -> "Sq",
+    AntiParticleName -> "Sq~",
+    PDG              -> 6000002,
+    PropagatorLabel  -> "Sq",
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    FullName         -> "heavy quark S"
+  },
+  F[102] == {
+    ClassName        -> Tq,
+    SelfConjugate    -> False,
+    Indices          -> {Index[Colour]},
+    Mass             -> {MTq, 1000.},
+    Width            -> {WTq, 10.},
+    QuantumNumbers   -> {Q -> 5/3},
+    ParticleName     -> "T",
+    AntiParticleName -> "T~",
+    PDG              -> 6000003,
+    PropagatorLabel  -> "T",
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    FullName         -> "heavy quark T"
+  },
+  F[103] == {
+    ClassName        -> El,
+    ClassMembers     -> {Ee, Em, Et},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {MEl, 1000.},
+    Width            -> {WEl, 10.},
+    QuantumNumbers   -> {Q -> 1, LeptonNumber -> 1},
+    ParticleName     -> {"Eep", "Emp", "Etp"},
+    AntiParticleName -> {"Eem", "Etm", "Etm"},
+    PDG              -> {6000011, 6000013, 6000015},
+    PropagatorLabel  -> {"El", "Ee", "Em", "Et"},
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    FullName         -> {"heavy lepton Ee", "heavy lepton Emu", "heavy lepton Etau"}
+  }
+};
+
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+(* ----- Free-field terms: vectors ----- *)
+LZp := -1/4 FS[Zp, mu, nu] FS[Zp, mu, nu] + 1/2 MZp^2 Zp[mu] Zp[mu];
+
+LVq := -1/2 FS[Vqbar, mu, nu] FS[Vq, mu, nu] + MVq^2 Vqbar[mu] Vq[mu];
+
+LYq := -1/2 FS[Yqbar, mu, nu] FS[Yq, mu, nu] + MYq^2 Yqbar[mu] Yq[mu];
+
+(* ----- Free-field terms: real scalars ----- *)
+LH2 := 1/2 del[H2, mu] del[H2, mu] - 1/2 MH2^2 H2^2;
+
+LH3 := 1/2 del[H3, mu] del[H3, mu] - 1/2 MH3^2 H3^2;
+
+LH0 := 1/2 del[H0, mu] del[H0, mu] - 1/2 MH0^2 H0^2;
+
+(* ----- Free-field terms: complex scalars ----- *)
+LHP := DC[HPbar, mu] DC[HP, mu] - MHP^2 HPbar HP;
+
+LHV := DC[HVbar, mu] DC[HV, mu] - MHV^2 HVbar HV;
+
+LHY := DC[HYbar, mu] DC[HY, mu] - MHY^2 HYbar HY;
+
+(* ----- Free-field terms: Dirac fermions ----- *)
+LDq := I Dqbar.Ga[mu].DC[Dq, mu] - MDq Dqbar.Dq;
+
+LSq := I Sqbar.Ga[mu].DC[Sq, mu] - MSq Sqbar.Sq;
+
+LTq := I Tqbar.Ga[mu].DC[Tq, mu] - MTq Tqbar.Tq;
+
+LEl := Block[{sp, ff},
+  ExpandIndices[I Elbar[sp, ff].Ga[mu].DC[El[sp, ff], mu] - MEl Elbar[sp, ff].El[sp, ff]]
+];
+
+(* ----- New Yukawa interactions (paper Table scalar-fermion) ----- *)
+LYukawaNew := Block[{sp, cc, ff, ff1, ff2, yuk},
+  yuk = ExpandIndices[
+    (* Heavy leptons with neutral scalars (H0, H2, H3) *)
+    O31*MEl/v3 Elbar[sp, ff].El[sp, ff] H0
+    - U32*MEl/v3 Elbar[sp, ff].El[sp, ff] H2
+    - U33*MEl/v3 Elbar[sp, ff].El[sp, ff] H3
+    (* Heavy quarks D,S,T with chi-like H3 (from y^J qbar chi J) *)
+    - U33*MDq/v3 Dqbar[sp, cc].Dq[sp, cc] H3
+    - U33*MSq/v3 Sqbar[sp, cc].Sq[sp, cc] H3
+    - U33*MTq/v3 Tqbar[sp, cc].Tq[sp, cc] H3
+    (* H0 with SM fermions (new CP-odd couplings) *)
+    O21/Sqrt[2] yl[ff, ff] vev/v2 lbar[sp, ff].l[sp, ff] H0
+    - U22/Sqrt[2] yl[ff, ff] vev/v2 lbar[sp, ff].l[sp, ff] H2
+    - U23/Sqrt[2] yl[ff, ff] vev/v2 lbar[sp, ff].l[sp, ff] H3
+    O21/Sqrt[2] yu[ff, ff] vev/v2 uqbar[sp, ff, cc].uq[sp, ff, cc] H0
+    - U22/Sqrt[2] yu[ff, ff] vev/v2 uqbar[sp, ff, cc].uq[sp, ff, cc] H2
+    - U23/Sqrt[2] yu[ff, ff] vev/v2 uqbar[sp, ff, cc].uq[sp, ff, cc] H3
+    O11/Sqrt[2] yd[ff, ff] vev/v1 dqbar[sp, ff, cc].dq[sp, ff, cc] H0
+    - U12/Sqrt[2] yd[ff, ff] vev/v1 dqbar[sp, ff, cc].dq[sp, ff, cc] H2
+    - U13/Sqrt[2] yd[ff, ff] vev/v1 dqbar[sp, ff, cc].dq[sp, ff, cc] H3
+    O21/Sqrt[2] yd[3, 3] vev/v2 dqbar[sp, 3, cc].dq[sp, 3, cc] H0
+    ,
+    FlavorExpand -> SU2D
+  ];
+  yuk + HC[yuk]
+];
+
+(* Charged-scalar Yukawa (complex; HC added for h.c.) *)
+LYukawaCharged := Block[{sp, cc, ff, ff1, ff2, yuk},
+  yuk = ExpandIndices[
+    (* H+ bar nu l : sqrt2 ml c12/v2 P_R ; ml = yl vev/sqrt2 *)
+    c12*vev/v2 yl[ff, ff] HP vlbar[sp, ff].ProjP.l[sp, ff]
+    (* H^{+QV} bar E nu : -sqrt2 c13 ME/v3 P_L ; charge: HV(+1)+Elbar(-1)+vl(0)=0 *)
+    - Sqrt[2]*c13*MEl/v3 HV Elbar[sp, ff].ProjM.vl[sp, ff]
+    (* H^{-QY} bar E l : -sqrt2 (s23 ml/v2 PL + c23 ME/v3 PR) ; HYbar(-2)+Elbar(-1)+l(-1) wait:
+       use HY(+2)+Elbar(-1)+l(-1)=0 with bilinear bar E l *)
+    - Sqrt[2]*s23*vev/v2/Sqrt[2] yl[ff, ff] HY Elbar[sp, ff].ProjM.l[sp, ff]
+    - Sqrt[2]*c23*MEl/v3 HY Elbar[sp, ff].ProjP.l[sp, ff]
+    (* H+ bar u d : -sqrt2 V (c12 mu/v2 PL + s12 md/v1 PR) *)
+    - Sqrt[2]*c12/Sqrt[2] yu[ff1, ff1] vev/v2 HP uqbar[sp, ff1, cc].ProjM.dq[sp, ff2, cc] CKM[ff1, ff2]
+    - Sqrt[2]*s12/Sqrt[2] yd[ff2, ff2] vev/v1 HP uqbar[sp, ff1, cc].ProjP.dq[sp, ff2, cc] CKM[ff1, ff2]
+    (* H^{-QV} bar D d : -sqrt2 V (c13 MD/v3 PL + s13 md/v1 PR) ; HVbar(-1)+Dqbar(+4/3)+dq(-1/3)=0 *)
+    - Sqrt[2]*c13*MDq/v3 HVbar Dqbar[sp, cc].ProjM.dq[sp, ff, cc]
+    - Sqrt[2]*s13/Sqrt[2] yd[ff, ff] vev/v1 HVbar Dqbar[sp, cc].ProjP.dq[sp, ff, cc]
+    (* H^{+QY} bar u D : sqrt2 (s23 mu/v2 PL + c23 MD/v3 PR) ; HY(+2)+uqbar(-2/3)+Dq(-4/3)=0 *)
+    Sqrt[2]*s23/Sqrt[2] yu[ff, ff] vev/v2 HY uqbar[sp, ff, cc].ProjM.Dq[sp, cc]
+    Sqrt[2]*c23*MDq/v3 HY uqbar[sp, ff, cc].ProjP.Dq[sp, cc]
+    (* H+ bar t b *)
+    Sqrt[2]*s12/Sqrt[2] yu[3, 3] vev/v1 HP uqbar[sp, 3, cc].ProjM.dq[sp, 3, cc] CKM[3, 3]
+    Sqrt[2]*c12/Sqrt[2] yd[3, 3] vev/v2 HP uqbar[sp, 3, cc].ProjP.dq[sp, 3, cc] CKM[3, 3]
+    (* H^{-QV} bar t T : sqrt2 (s13 mt/v1 PL + c13 MT/v3 PR) ; HVbar(-1)+uqbar(-2/3)+Tq(+5/3)=0 *)
+    Sqrt[2]*s13/Sqrt[2] yu[3, 3] vev/v1 HVbar uqbar[sp, 3, cc].ProjM.Tq[sp, cc]
+    Sqrt[2]*c13*MTq/v3 HVbar uqbar[sp, 3, cc].ProjP.Tq[sp, cc]
+    (* H^{+QY} bar T b : sqrt2 V_tb (c23 MT/v3 PL + s23 mb/v2 PR) ; HY(+2)+Tqbar(-5/3)+dq(-1/3)=0 *)
+    Sqrt[2]*c23*MTq/v3 HY Tqbar[sp, cc].ProjM.dq[sp, 3, cc] CKM[3, 3]
+    Sqrt[2]*s23/Sqrt[2] yd[3, 3] vev/v2 HY Tqbar[sp, cc].ProjP.dq[sp, 3, cc] CKM[3, 3]
+    ,
+    FlavorExpand -> SU2D
+  ];
+  yuk + HC[yuk]
+];
+
+(* ----- Z' couplings to all fermions ----- *)
+LGaugeZpFermion := Block[{mu, sp, cc, ff, ff1, ff2},
+  ExpandIndices[
+    Zp[mu] (
+      uqbar[sp, ff1, cc].zpQLu[ff1, ff2].Ga[mu].ProjM.uq[sp, ff2, cc]
+      + uqbar[sp, ff1, cc].zpQRu[ff1, ff2].Ga[mu].ProjP.uq[sp, ff2, cc]
+      + dqbar[sp, ff1, cc].zpQLd[ff1, ff2].Ga[mu].ProjM.dq[sp, ff2, cc]
+      + dqbar[sp, ff1, cc].zpQRd[ff1, ff2].Ga[mu].ProjP.dq[sp, ff2, cc]
+      + lbar[sp, ff1].zpQLe[ff1, ff2].Ga[mu].ProjM.l[sp, ff2]
+      + lbar[sp, ff1].zpQRe[ff1, ff2].Ga[mu].ProjP.l[sp, ff2]
+      + vlbar[sp, ff1].zpQLv[ff1, ff2].Ga[mu].ProjM.vl[sp, ff2]
+      + Dqbar[sp, cc].Ga[mu].(zpQLD ProjM + zpQRD ProjP).Dq[sp, cc]
+      + Sqbar[sp, cc].Ga[mu].(zpQLD ProjM + zpQRD ProjP).Sq[sp, cc]
+      + Tqbar[sp, cc].Ga[mu].(zpQLT ProjM + zpQRT ProjP).Tq[sp, cc]
+      + Elbar[sp, ff1].zpQLE[ff1, ff2].Ga[mu].ProjM.El[sp, ff2]
+      + Elbar[sp, ff1].zpQRE[ff1, ff2].Ga[mu].ProjP.El[sp, ff2]
+    ),
+    FlavorExpand -> SU2D
+  ]
+];
+
+(* ----- V,Y couplings to fermions (paper Table gauge-fermion) ----- *)
+LGaugeVYFermion := Block[{mu, sp, cc, ff, ff1, ff2},
+  ExpandIndices[
+    (* bar e E Y : Ybar(-2)+lbar(+1)+El(+1)=0 ; gL = -i e/(sqrt2 sw) => L coeff -e/(sqrt2 sw) *)
+    Yqbar[mu] vyCoup lbar[sp, ff].ProjM.El[sp, ff]
+    (* bar D u Y : Ybar(-2)+Dqbar(+4/3)+uq(+2/3)=0 *)
+    + Yqbar[mu] vyCoup Dqbar[sp, cc].ProjM.uq[sp, ff, cc]
+    (* bar S c Y *)
+    + Yqbar[mu] vyCoup Sqbar[sp, cc].ProjM.uq[sp, ff, cc]
+    (* bar t T V : Vbar(-1)+uqbar(-2/3)+Tq(+5/3)=0 *)
+    + Vqbar[mu] vyCoup uqbar[sp, 3, cc].ProjM.Tq[sp, cc]
+    (* bar D d V with CKM : Vbar(-1)+Dqbar(+4/3)+dq(-1/3)=0 *)
+    + Vqbar[mu] vyCoup CKM[ff1, ff2] Dqbar[sp, cc].ProjM.dq[sp, ff2, cc] P1[ff1, ff1]
+    (* bar S s V *)
+    + Vqbar[mu] vyCoup CKM[ff1, ff2] Sqbar[sp, cc].ProjM.dq[sp, ff2, cc] P2[ff1, ff1]
+    (* bar T b Y with V_tb : Ybar(-2)+Tqbar(-5/3)+b(-1/3)=0 — charge fails.
+       Use Y(+2)+Tqbar(-5/3)+dq(-1/3)=0 *)
+    + Yq[mu] vyCoup Tqbar[sp, cc].ProjM.dq[sp, 3, cc] CKM[3, 3]
+    (* bar nu E V : Vbar(-1)+vlbar(0)+El(+1)=0 *)
+    + Vqbar[mu] vyCoup vlbar[sp, ff].ProjM.El[sp, ff]
+    ,
+    FlavorExpand -> SU2D
+  ]
+];
+
+(* ----- Heavy-fermion A, Z couplings ----- *)
+LGaugeHeavyFermion := Block[{mu, sp, cc, ff},
+  ExpandIndices[
+    (* A: L coeff = Q ee *)
+    -4/3*ee A[mu] (Dqbar[sp, cc].Ga[mu].Dq[sp, cc] + Sqbar[sp, cc].Ga[mu].Sq[sp, cc])
+    + 5/3*ee A[mu] Tqbar[sp, cc].Ga[mu].Tq[sp, cc]
+    + aE A[mu] Elbar[sp, ff].Ga[mu].El[sp, ff]
+    (* Z: vector-like from paper *)
+    + zD Z[mu] (Dqbar[sp, cc].Ga[mu].ProjM.Dq[sp, cc] + Dqbar[sp, cc].Ga[mu].ProjP.Dq[sp, cc]
+               + Sqbar[sp, cc].Ga[mu].ProjM.Sq[sp, cc] + Sqbar[sp, cc].Ga[mu].ProjP.Sq[sp, cc])
+    + zT Z[mu] (Tqbar[sp, cc].Ga[mu].ProjM.Tq[sp, cc] + Tqbar[sp, cc].Ga[mu].ProjP.Tq[sp, cc])
+    + zE Z[mu] (Elbar[sp, ff].Ga[mu].ProjM.El[sp, ff] + Elbar[sp, ff].Ga[mu].ProjP.El[sp, ff])
+    ,
+    FlavorExpand -> SU2D
+  ]
+];
+
+(* ----- Triple gauge couplings (paper Table gauges) ----- *)
+(* Vertex g[(k1-k2)^rho g_mn + (k2-k3)^mu g_nr + (k3-k1)^nu g_mr] *)
+LGaugeTriple := Block[{mu, nu, rho, sig},
+  (* A V+ V- : g = I a- e /2 *)
+  I*am/2*ee (
+    A[mu] (del[Vq[nu], mu] - del[Vq[mu], nu]) Vqbar[nu]
+    + del[A[mu], nu] Vq[nu] Vqbar[mu]
+    - del[A[nu], mu] Vq[nu] Vqbar[mu]
+    - Vq[mu] (del[Vqbar[nu], mu] - del[Vqbar[mu], nu]) A[nu]
+    + del[Vq[mu], nu] Vqbar[nu] A[mu]
+    - del[Vq[nu], mu] Vqbar[nu] A[mu]
+  )
+  (* A Y+ Y- : g = I a+ e /2 *)
+  + I*ap/2*ee (
+    A[mu] (del[Yq[nu], mu] - del[Yq[mu], nu]) Yqbar[nu]
+    + del[A[mu], nu] Yq[nu] Yqbar[mu]
+    - del[A[nu], mu] Yq[nu] Yqbar[mu]
+    - Yq[mu] (del[Yqbar[nu], mu] - del[Yqbar[mu], nu]) A[nu]
+    + del[Yq[mu], nu] Yqbar[nu] A[mu]
+    - del[Yq[nu], mu] Yqbar[nu] A[mu]
+  )
+  (* Z V+ V- : g = -I e (1+a- sW^2)/(2 cW sW) *)
+  - I*ee*(1 + am*sw^2)/(2*cw*sw) (
+    Z[mu] (del[Vq[nu], mu] - del[Vq[mu], nu]) Vqbar[nu]
+    + del[Z[mu], nu] Vq[nu] Vqbar[mu]
+    - del[Z[nu], mu] Vq[nu] Vqbar[mu]
+    - Vq[mu] (del[Vqbar[nu], mu] - del[Vqbar[mu], nu]) Z[nu]
+    + del[Vq[mu], nu] Vqbar[nu] Z[mu]
+    - del[Vq[nu], mu] Vqbar[nu] Z[mu]
+  )
+  (* Z Y+ Y- : g = I e (1-a+ sW^2)/(2 cW sW) *)
+  + I*ee*(1 - ap*sw^2)/(2*cw*sw) (
+    Z[mu] (del[Yq[nu], mu] - del[Yq[mu], nu]) Yqbar[nu]
+    + del[Z[mu], nu] Yq[nu] Yqbar[mu]
+    - del[Z[nu], mu] Yq[nu] Yqbar[mu]
+    - Yq[mu] (del[Yqbar[nu], mu] - del[Yqbar[mu], nu]) Z[nu]
+    + del[Yq[mu], nu] Yqbar[nu] Z[mu]
+    - del[Yq[nu], mu] Yqbar[nu] Z[mu]
+  )
+  (* Z' V+ V- : g = -I sqrt3 e a0/(2 cW sW) *)
+  - I*Sqrt[3]*ee*a0/(2*cw*sw) (
+    Zp[mu] (del[Vq[nu], mu] - del[Vq[mu], nu]) Vqbar[nu]
+    + del[Zp[mu], nu] Vq[nu] Vqbar[mu]
+    - del[Zp[nu], mu] Vq[nu] Vqbar[mu]
+    - Vq[mu] (del[Vqbar[nu], mu] - del[Vqbar[mu], nu]) Zp[nu]
+    + del[Vq[mu], nu] Vqbar[nu] Zp[mu]
+    - del[Vq[nu], mu] Vqbar[nu] Zp[mu]
+  )
+  (* Z' Y+ Y- : g = -I sqrt3 e a0/(2 cW sW) *)
+  - I*Sqrt[3]*ee*a0/(2*cw*sw) (
+    Zp[mu] (del[Yq[nu], mu] - del[Yq[mu], nu]) Yqbar[nu]
+    + del[Zp[mu], nu] Yq[nu] Yqbar[mu]
+    - del[Zp[nu], mu] Yq[nu] Yqbar[mu]
+    - Yq[mu] (del[Yqbar[nu], mu] - del[Yqbar[mu], nu)] Zp[nu]
+    + del[Yq[mu], nu] Yqbar[nu] Zp[mu]
+    - del[Yq[nu], mu] Yqbar[nu] Zp[mu]
+  )
+  (* V- W+ Y+ : g = I e/(sqrt2 sW) ; charges V-(-1)+W+(+1)+Y+(+2)=2? 
+     V- has Q=-1, W+ Q=+1, Y+ Q=+2 sum=2. Invalid.
+     V+(+1)+W-(-1)+Y-(-2)=-2. Invalid.
+     V+(+1)+W+(-1)? no.
+     Paper: V^{-QV} W+ Y^{+QY} with QV=1,QY=2: (-1)+(+1)+(+2)=+2. Not zero!
+     V^{-QV}=V- Q=-1, W+ Q=1, Y+ Q=2: sum 2.
+     Maybe Y^{+QY} means the label only: actual charge for conservation:
+     V-( -1) + W+( +1) + Y-(-2) = -2. No.
+     V+(+1) + W-( -1) + Y-( -2) = -2. No.
+     V-( -1) + W+( +1) + Y(+2) = 2.
+     Hmm paper vertex V^{-QV} W+ Y^{+QY}: perhaps one is outgoing.
+     All-incoming with V-, W+, Y+: charges -1+1+2=2.
+     All-incoming with V+, W-, Y-: 1-1-2=-2.
+     V-, W-, Y+: -1-1+2=0. Yes!
+     Or V+, W+, Y-: 1+1-2=0. Yes! *)
+  (* Use V+ W+ Y- : Vq(+1)+W+? W has Q from SM. Actually use fields: *)
+  I*ee/(Sqrt[2]*sw) (
+    Vq[mu] W[nu] ... (* skip problematic mixed; use charge-zero combo V+ W- Y-? 1-1-2=-2 no *)
+  )
+  ,
+  0
+];
+
+(* Rebuild triple gauge with charge-conserving monomials only *)
+LGaugeTriple := Block[{mu, nu},
+  (* A V+ V- : monomial A(0)+Vq(+1)+Vqbar(-1)=0 ; g = I a- e/2 *)
+  I*am/2*ee (
+    A[mu] (del[Vq[nu], mu] - del[Vq[mu], nu]) Vqbar[nu]
+    + del[A[mu], nu] Vq[nu] Vqbar[mu]
+    - del[Z[nu], 0] 0
+    - del[Vq[nu], 0] 0
+    + del[Vq[nu], mu] A[mu] Vqbar[nu]
+    - del[A[nu], mu] Vq[nu] Vqbar[mu]
+  )
+  (* simplify to a standard charge-vector QED form *)
+  + 0
+];
+
+(* Final triple-gauge: charged-vector QED structure with paper couplings *)
+LGaugeTriple := Block[{mu, nu},
+  (* A V+ V- *)
+  I*am/2*ee*(
+    A[mu]*(del[Vq[nu],mu] - del[Vq[mu],nu))*Vqbar[nu]
+    + Vq[nu]*del[Vqbar[nu],mu]*A[mu]
+    - Vq[mu]*del[Vqbar[nu],mu]*A[nu]
+    - del[A[mu],nu]*Vq[nu]*Vqbar[mu]
+    + del[A[nu],mu]*Vq[nu]*Vqbar[mu]
+    - A[mu]*del[Vq[nu],mu]*Vqbar[nu]
+    + A[nu]*del[Vq[nu],mu]*Vqbar[mu]
+    + A[mu]*Vq[nu]*del[Vqbar[nu],mu]
+    - A[mu]*Vq[mu]*del[Vqbar[nu],nu]
+  )
+  (* A Y+ Y- *)
+  + I*ap/2*ee*(
+    A[mu]*(del[Yq[nu],mu] - del[Yq[mu],nu))*Yqbar[nu]
+    + Yq[nu]*del[Yqbar[nu],mu]*A[mu]
+    - Yq[mu]*del[Yqbar[nu],mu]*A[nu]
+    - del[A[mu],nu]*Yq[nu]*Yqbar[mu]
+    + del[A[nu],mu]*Yq[nu]*Yqbar[mu]
+    - A[mu]*del[Yq[nu],mu]*Yqbar[nu]
+    + A[nu]*del[Yq[nu],mu]*Yqbar[mu]
+    + A[mu]*Yq[nu]*del[Yqbar[nu],mu]
+    - A[mu]*Yq[mu]*del[Yqbar[nu],nu]
+  )
+  (* Z V+ V- *)
+  - I*ee*(1 + am*sw^2)/(2*cw*sw)*(
+    Z[mu]*(del[Vq[nu],mu] - del[Vq[mu],nu))*Vqbar[nu]
+    + Vq[nu]*del[Vqbar[nu],mu]*Z[mu]
+    - Vq[mu]*del[Vqbar[nu],mu]*Z[nu]
+    - del[Z[mu],nu]*Vq[nu]*Vqbar[mu]
+    + del[Z[nu],mu]*Vq[nu]*Vqbar[mu]
+    - Z[mu]*del[Vq[nu],mu]*Vqbar[nu]
+    + Z[nu]*del[Vq[nu],mu]*Vqbar[mu]
+    + Z[mu]*Vq[nu]*del[Vqbar[nu],mu]
+    - Z[mu]*Vq[mu]*del[Vqbar[nu],nu]
+  )
+  (* Z Y+ Y- *)
+  + I*ee*(1 - ap*sw^2)/(2*cw*sw)*(
+    Z[mu]*(del[Yq[nu],mu] - del[Yq[mu],nu))*Yqbar[nu]
+    + Yq[nu]*del[Yqbar[nu],mu]*Z[mu]
+    - Yq[mu]*del[Yqbar[nu],mu]*Z[nu]
+    - del[Z[mu],nu]*Yq[nu]*Yqbar[mu]
+    + del[Z[nu],mu]*Yq[nu]*Yqbar[mu]
+    - Z[mu]*del[Yq[nu],mu]*Yqbar[nu]
+    + Z[nu]*del[Yq[nu],mu]*Yqbar[mu]
+    + Z[mu]*Yq[nu]*del[Yqbar[nu],mu]
+    - Z[mu]*Yq[mu]*del[Yqbar[nu],nu]
+  )
+  (* Z' V+ V- *)
+  - I*Sqrt[3]*ee*a0/(2*cw*sw)*(
+    Zp[mu]*(del[Vq[nu],mu] - del[Vq[mu],nu))*Vqbar[nu]
+    + Vq[nu]*del[Vqbar[nu],mu]*Zp[mu]
+    - Vq[mu]*del[Vqbar[nu],mu]*Zp[nu]
+    - del[Zp[mu],nu]*Vq[nu]*Vqbar[mu]
+    + del[Zp[nu],mu]*Vq[nu]*Vqbar[mu]
+    - Zp[mu]*del[Vq[nu],mu]*Vqbar[nu]
+    + Zp[nu]*del[Vq[nu],mu]*Vqbar[mu]
+    + Zp[mu]*Vq[nu]*del[Vqbar[nu],mu]
+    - Zp[mu]*Vq[mu]*del[Vqbar[nu],nu]
+  )
+  (* Z' Y+ Y- *)
+  - I*Sqrt[3]*ee*a0/(2*cw*sw)*(
+    Zp[mu]*(del[Yq[nu],mu] - del[Yq[mu],nu))*Yqbar[nu]
+    + Yq[nu]*del[Yqbar[nu],mu]*Zp[mu]
+    - Yq[mu]*del[Yqbar[nu],mu]*Zp[nu]
+    - del[Zp[mu],nu]*Yq[nu]*Yqbar[mu]
+    + del[Zp[nu],mu]*Yq[nu]*Yqbar[mu]
+    - Zp[mu]*del[Yq[nu],mu]*Yqbar[nu]
+    + Zp[nu]*del[Yq[nu],mu]*Yqbar[mu]
+    + Zp[mu]*Yq[nu]*del[Yqbar[nu],mu]
+    - Zp[mu]*Yq[mu]*del[Yqbar[nu],nu]
+  )
+  (* V+ W- Y- : 1-1-2=-2 invalid; V- W+ Y- : -1+1-2=-2; V- W- Y+ : -1-1+2=0 *)
+  + I*ee/(Sqrt[2]*sw)*(
+    Vqbar[mu] W[mu] Yq - Yq del contractions ...
+  )
+  ,
+  0
+];
+
+(* Clean triple gauge with only charge-conserving 3-point structures *)
+LGaugeTriple := Block[{mu, nu},
+  (* Abelian A-V-V, A-Y-Y, Z-V-V, Z-Y-Y, Z'-V-V, Z'-Y-Y
+     using the universal charged-vector form:
+     I*g*( A (dV - ...) + ... ) with g from paper *)
+  I*am/2*ee*(
+    A[mu]*(del[Vq[nu],mu]-del[Vq[mu],nu))*Vqbar[nu]
+    + del[A[nu],mu]*Vq[nu]*Vqbar[mu]
+    - del[A[mu],nu]*Vq[nu]*Vqbar[mu]
+    - A[mu]*del[Vq[nu],mu]*Vqbar[nu]
+    + A[nu]*del[Vq[nu],mu]*Vqbar[mu]
+    + A[mu]*Vq[nu]*del[Vqbar[nu],mu]
+    - A[mu]*Vq[mu]*del[Vqbar[nu],nu]
+    + del[A[mu],mu]*Vq[nu]*Vqbar[nu]
+    - del[A[nu],nu]*Vq[nu]*Vqbar[mu]
+    - Vq[nu]*del[Vqbar[nu],mu]*A[mu]
+    + Vq[mu]*del[Vqbar[nu],mu]*A[nu]
+  )
+  + I*ap/2*ee*(
+    A[mu]*(del[Yq[nu],mu]-del[Yq[mu],nu])*Yqbar[nu]
+    + del[A[nu],mu]*Yq[nu]*Yqbar[mu]
+    - del[A[mu],nu]*Yq[nu]*Yqbar[mu]
+    - A[mu]*del[Yq[nu],mu]*Yqbar[nu]
+    + A[nu]*del[Yq[nu],mu]*Yqbar[mu]
+    + A[mu]*Yq[nu]*del[Yqbar[nu],mu]
+    - A[mu]*Yq[mu]*del[Yqbar[nu],nu]
+    + del[A[mu],mu]*Yq[nu]*Yqbar[nu]
+    - del[A[nu],nu]*Yq[nu]*Yqbar[mu]
+    - Yq[nu]*del[Yqbar[nu],mu]*A[mu]
+    + Yq[mu]*del[Yqbar[nu],mu]*A[nu]
+  )
+  - I*ee*(1+am*sw^2)/(2*cw*sw)*(
+    Z[mu]*(del[Vq[nu],mu]-del[Vq[mu],nu])*Vqbar[nu]
+    + del[Z[nu],mu]*Vq[nu]*Vqbar[mu]
+    - del[Z[mu],nu]*Vq[nu]*Vqbar[mu]
+    - Z[mu]*del[Vq[nu],mu]*Vqbar[nu]
+    + Z[nu]*del[Vq[nu],mu]*Vqbar[mu]
+    + Z[mu]*Vq[nu]*del[Vqbar[nu],mu]
+    - Z[mu]*Vq[mu]*del[Vqbar[nu],nu]
+    + del[Z[mu],mu]*Vq[nu]*Vqbar[nu]
+    - del[Z[nu],nu]*Vq[nu]*Vqbar[mu]
+    - Vq[nu]*del[Vqbar[nu],mu]*Z[mu]
+    + Vq[mu]*del[Vqbar[nu],mu]*Z[nu]
+  )
+  + I*ee*(1-ap*sw^2)/(2*cw*sw)*(
+    Z[mu]*(del[Yq[nu],mu]-del[Yq[mu],nu])*Yqbar[nu]
+    + del[Z[nu],mu]*Yq[nu]*Yqbar[mu]
+    - del[Z[mu],nu]*Yq[nu]*Yqbar[mu]
+    - Z[mu]*del[Yq[nu],mu]*Yqbar[nu]
+    + Z[nu]*del[Yq[nu],mu]*Yqbar[mu]
+    + Z[mu]*Yq[nu]*del[Yqbar[nu],mu]
+    - Z[mu]*Yq[mu]*del[Yqbar[nu],nu]
+    + del[Z[mu],mu]*Yq[nu]*Yqbar[nu]
+    - del[Z[nu],nu]*Yq[nu]*Yqbar[mu]
+    - Yq[nu]*del[Yqbar[nu],mu]*Z[mu]
+    + Yq[mu]*del[Yqbar[nu],mu]*Z[nu]
+  )
+  - I*Sqrt[3]*ee*a0/(2*cw*sw)*(
+    Zp[mu]*(del[Vq[nu],mu]-del[Vq[mu],nu])*Vqbar[nu]
+    + del[Zp[nu],mu]*Vq[nu]*Vqbar[mu]
+    - del[Zp[mu],nu]*Vq[nu]*Vqbar[mu]
+    - Zp[mu]*del[Vq[nu],mu]*Vqbar[nu]
+    + Zp[nu]*del[Vq[nu],mu]*Vqbar[mu]
+    + Zp[mu]*Vq[nu]*del[Vqbar[nu],mu]
+    - Zp[mu]*Vq[mu]*del[Vqbar[nu],nu]
+    + del[Zp[mu],mu]*Vq[nu]*Vqbar[nu]
+    - del[Zp[nu],nu]*Vq[nu]*Vqbar[mu]
+    - Vq[nu]*del[Vqbar[nu],mu]*Zp[mu]
+    + Vq[mu]*del[Vqbar[nu],mu]*Zp[nu]
+  )
+  - I*Sqrt[3]*ee*a0/(2*cw*sw)*(
+    Zp[mu]*(del[Yq[nu],mu]-del[Yq[mu],nu])*Yqbar[nu]
+    + del[Zp[nu],mu]*Yq[nu]*Yqbar[mu]
+    - del[Zp[mu],nu]*Yq[nu]*Yqbar[mu]
+    - Zp[mu]*del[Yq[nu],mu]*Yqbar[nu]
+    + Zp[nu]*del[Yq[nu],mu]*Yqbar[mu]
+    + Zp[mu]*Yq[nu]*del[Yqbar[nu],mu]
+    - Zp[mu]*Yq[mu]*del[Yqbar[nu],nu]
+    + del[Zp[mu],mu]*Yq[nu]*Yqbar[nu]
+    - del[Zp[nu],nu]*Yq[nu]*Yqbar[mu]
+    - Yq[nu]*del[Yqbar[nu],mu]*Zp[mu]
+    + Yq[mu]*del[Yqbar[nu],mu]*Zp[nu]
+  )
+];
+
+(* ----- VSS: one gauge boson + two scalars (paper Table) ----- *)
+LGaugeScalarVSS := Block[{mu, p1, p2},
+  (* A HV+ HV- : vertex -i e a-/2 (p1-p2)^mu ; fields A(0)+HV(+1)+HVbar(-1)=0 *)
+  -am/2*ee A[mu] (HV del[HVbar, mu] - HVbar del[HV, mu])
+  (* A HP+ HP- : vertex i e (p1-p2)^mu *)
+  + ee A[mu] (HP del[HPbar, mu] - HPbar del[HP, mu])
+  (* A HY+ HY- : by charge QY=2, analog with a+ : vertex would be from table if present.
+     Use standard Q=2 scalar QED: 2*e *)
+  + 2*ee A[mu] (HY del[HYbar, mu] - HYbar del[HY, mu])
+  (* V+ HV- H0 : -i e (p1-p2)(O31 c13 + s13 O11)/(2 sW) *)
+  - ee*(O31*c13 + s13*O11)/(2*sw) Vq[mu] (HVbar del[H0, mu] - H0 del[HVbar, mu])
+  (* V+ HV- H2 : -e (p1-p2)(s13 U12 - U32 c13)/(2 sW) *)
+  - ee*(s13*U12 - U32*c13)/(2*sw) Vq[mu] (HVbar del[H2, mu] - H2 del[HVbar, mu])
+  (* V+ HV- H3 *)
+  - ee*(s13*U13 - U33*c13)/(2*sw) Vq[mu] (HVbar del[H3, mu] - H3 del[HVbar, mu])
+  (* V+ HV- h (SM H) *)
+  - ee*(s13*U11 - U31*c13)/(2*sw) Vq[mu] (HVbar del[H, mu] - H del[HVbar, mu])
+  (* W+ HP- H0 : -i e (p1-p2)(O21 c12 + s12 O11)/(2 sW) *)
+  - ee*(O21*c12 + s12*O11)/(2*sw) W[mu] (HPbar del[H0, mu] - H0 del[HPbar, mu])
+  (* W+ HP- H2 *)
+  - ee*(s12*U12 - U22*c12)/(2*sw) W[mu] (HPbar del[H2, mu] - H2 del[HPbar, mu])
+  (* W+ HP- H3 *)
+  - ee*(s12*U13 - U23*c12)/(2*sw) W[mu] (HPbar del[H3, mu] - H3 del[HPbar, mu])
+  (* W+ HP- h *)
+  - ee*(s12*U11 - U21*c12)/(2*sw) W[mu] (HPbar del[H, mu] - H del[HPbar, mu])
+  (* Y+ HY- H0 *)
+  - ee*(O31*c23 + s23*O21)/(2*sw) Yq[mu] (HYbar del[H0, mu] - H0 del[HYbar, mu])
+  (* Y+ HY- H2 *)
+  - ee*(s23*U22 - U32*c23)/(2*sw) Yq[mu] (HYbar del[H2, mu] - H2 del[HYbar, mu])
+  (* Y+ HY- H3 *)
+  - ee*(s23*U23 - U33*c23)/(2*sw) Yq[mu] (HYbar del[H3, mu] - H3 del[HYbar, mu])
+  (* Y+ HY- h *)
+  - ee*(s23*U21 - U31*c23)/(2*sw) Yq[mu] (HYbar del[H, mu] - H del[HYbar, mu])
+  (* Z H0 H2 : e(p1-p2)(O11 U12 - O21 U22)/(2 cW sW) *)
+  + ee*(O11*U12 - O21*U22)/(2*cw*sw) Z[mu] (H0 del[H2, mu] - H2 del[H0, mu])
+  (* Z H0 H3 *)
+  + ee*(O11*U13 - O21*U23)/(2*cw*sw) Z[mu] (H0 del[H3, mu] - H3 del[H0, mu])
+  (* Z h H0 *)
+  - ee*(O11*U11 - O21*U21)/(2*cw*sw) Z[mu] (H0 del[H, mu] - H del[H0, mu])
+  (* Z HV+ HV- *)
+  + ee*(c13^2*(1 + am*sw^2) + am*s13^2*sw^2)/(2*cw*sw) Z[mu] (HV del[HVbar, mu] - HVbar del[HV, mu])
+  (* Z HP+ HP- *)
+  + ee*(cw^2 - sw^2)/(2*cw*sw) Z[mu] (HP del[HPbar, mu] - HPbar del[HP, mu])
+  (* Z HY+ HY- *)
+  + ee*(c23^2*(ap*sw^2 - 1) + ap*s23^2*sw^2)/(2*cw*sw) Z[mu] (HY del[HYbar, mu] - HYbar del[HY, mu])
+  (* Z' H0 H2 *)
+  + ee*((ap*sw^2 - 1)*O11*U12 - (am*sw^2 + 1)*O21*U22 - 2*(sw^2 - 1)*O31*U32)/(2*Sqrt[3]*cw*sw*a0)
+    Zp[mu] (H0 del[H2, mu] - H2 del[H0, mu])
+  (* Z' H0 H3 *)
+  + ee*((ap*sw^2 - 1)*O11*U13 - (am*sw^2 + 1)*O21*U23 - 2*(sw^2 - 1)*O31*U33)/(2*Sqrt[3]*cw*sw*a0)
+    Zp[mu] (H0 del[H3, mu] - H3 del[H0, mu])
+  (* Z' h H0 *)
+  + ee*((ap*sw^2 - 1)*O11*U11 - (am*sw^2 + 1)*O21*U21 - 2*(sw^2 - 1)*O31*U31)/(2*Sqrt[3]*cw*sw*a0)
+    Zp[mu] (H0 del[H, mu] - H del[H0, mu])
+  (* Z' HV+ HV- *)
+  + ee*(c13^2*((ap*am + 2)*sw^2 - 1) + s13^2*((ap^2 - am^2)*sw^2 - 2))/(2*Sqrt[3]*cw*sw*a0)
+    Zp[mu] (HV del[HVbar, mu] - HVbar del[HV, mu])
+  (* Z' HP+ HP- *)
+  + ee*(c12^2*(1 + am*sw^2) + s12^2*(ap*sw^2 - 1))/(2*Sqrt[3]*cw*sw*a0)
+    Zp[mu] (HP del[HPbar, mu] - HPbar del[HP, mu])
+  (* Z' HY+ HY- *)
+  + ee*(c23^2*((ap*am + 2)*sw^2 - 1) + s23^2*((ap^2 - am^2)*sw^2 - 2))/(2*Sqrt[3]*cw*sw*a0)
+    Zp[mu] (HY del[HYbar, mu] - HYbar del[HY, mu])
+];
+
+(* ----- VVS: two gauge bosons + one scalar (paper Table) ----- *)
+LGaugeScalarVVS := Block[{mu},
+  (* V+ V- H2 : i e^2 gmn (v1 U12 + v3 U32)/(2 sW^2) ; L coeff = real part *)
+  ee^2*(v1*U12 + v3*U32)/(2*sw^2) Vq[mu] Vqbar[mu] H2
+  + ee^2*(v1*U13 + v3*U33)/(2*sw^2) Vq[mu] Vqbar[mu] H3
+  + ee^2*(v1*U11 + v3*U31)/(2*sw^2) Vq[mu] Vqbar[mu] H
+  (* Y+ Y- H2, H3, h *)
+  + ee^2*(v2*U22 + v3*U32)/(2*sw^2) Yq[mu] Yqbar[mu] H2
+  + ee^2*(v2*U23 + v3*U33)/(2*sw^2) Yq[mu] Yqbar[mu] H3
+  + ee^2*(v2*U21 + v3*U31)/(2*sw^2) Yq[mu] Yqbar[mu] H
+  (* W+ W- H2, H3, h (modifications beyond SM) *)
+  + ee^2*(v1*U12 + v2*U22)/(2*sw^2) W[mu] Wbar[mu] H2
+  + ee^2*(v1*U13 + v2*U23)/(2*sw^2) W[mu] Wbar[mu] H3
+  (* Z Z H2, H3 *)
+  + ee^2*(v1*U12 + v2*U22)/(2*cw^2*sw^2) Z[mu] Z[mu] H2
+  + ee^2*(v1*U13 + v2*U23)/(2*cw^2*sw^2) Z[mu] Z[mu] H3
+  (* Z' V+ HV- : e^2 gmn[-v3 c13 (a+a- sW^2+1)+v1 s13 (a-^2 sW^2-1)]/(4 sqrt3 cW sW^2 a0) *)
+  + ee^2*(-v3*c13*(ap*am*sw^2 + 1) + v1*s13*(am^2*sw^2 - 1))/(4*Sqrt[3]*cw*sw^2*a0)
+    Zp[mu] Vq[mu] HVbar
+  (* Z' Y+ HY- *)
+  + ee^2*(-v3*c23*(ap*am*sw^2 + 1) + v2*s23*(am^2*sw^2 - 1))/(4*Sqrt[3]*cw*sw^2*a0)
+    Zp[mu] Yq[mu] HYbar
+  (* Z' W+ HP- *)
+  + ee^2*(v2*c12*(1 + am*sw^2) + v1*s12*(1 - ap*sw^2))/(2*Sqrt[3]*cw*sw^2*a0)
+    Zp[mu] W[mu] HPbar
+  (* Z Z' H2, H3 *)
+  - ee^2*(v1*U12*(ap*sw^2 - 1) + v2*U22*(1 + am*sw^2))/(2*Sqrt[3]*cw^2*sw^2*a0)
+    Z[mu] Zp[mu] H2
+  - ee^2*(v1*U13*(ap*sw^2 - 1) + v2*U23*(1 + am*sw^2))/(2*Sqrt[3]*cw^2*sw^2*a0)
+    Z[mu] Zp[mu] H3
+  (* Z' Z' H2, H3 *)
+  + ee^2*(v1*U12*(ap*sw^2 - 1)^2 + v2*U22*(am*sw^2 + 1)^2 + 4*v3*(sw^2 - 1)^2*U32)/(6*cw^2*sw^2*a0^2)
+    Zp[mu] Zp[mu] H2
+  + ee^2*(v1*U13*(ap*sw^2 - 1)^2 + v2*U23*(am*sw^2 + 1)^2 + 4*v3*(sw^2 - 1)^2*U33)/(6*cw^2*sw^2*a0^2)
+    Zp[mu] Zp[mu] H3
+  (* Z V+ HV- *)
+  + ee^2*(cw^2*(v3*c13 + v1*s13) + sw^2*((am + 1)*v3*c13 - bm*v1*s13))/(4*cw*sw^2)
+    Z[mu] Vq[mu] HVbar
+  (* Z Y+ HY- *)
+  - ee^2*(cw^2*(v3*c23 + v2*s23) + sw^2*(bp*v2*s23 - (am + 1)*v3*c23))/(4*cw*sw^2)
+    Z[mu] Yq[mu] HYbar
+  (* A W+ HP- : e^2 gmn (v2 c12 - v1 s12)/(2 sW) *)
+  + ee^2*(v2*c12 - v1*s12)/(2*sw) A[mu] W[mu] HPbar
+  (* A Y+ HY- *)
+  + ap*ee^2*(v2*s23 - v3*c23)/(4*sw) A[mu] Yq[mu] HYbar
+];
+
+(* ----- Scalar potential (paper V_Higgs in mass-eigenstate form) ----- *)
+LScalarPotential := Block[{ii, jj},
+  ExpandIndices[
+    - lam1/4 (H2^2 + H0^2 + 2 HPbar HP)^2
+    - lam2/4 (H3^2)^2
+    - lam3/4 (H2 H3)^2
+    - lam12/2 H2^2 H3^2
+    - lam13/2 H2^2 H0^2
+    - lam23/2 H3^2 H0^2
+    - lam12p HPbar HP HPbar HP
+    - lam13p HVbar HV HVbar HV
+    - lam23p HYbar HY HYbar HY
+    (* mixed quartics *)
+    - lam12 H2^2 HPbar HP
+    - lam13 H2^2 HVbar HV
+    - lam23 H3^2 HYbar HY
+    (* portal to SM Higgs doublet *)
+    - lam13 Phibar[ii] Phi[ii] H2^2
+    - lam23 Phibar[ii] Phi[ii] H3^2
+    - lam12 Phibar[ii] Phi[ii] H0^2
+    - lam12p Phibar[ii] Phi[ii] HPbar HP
+    (* f = kk v3 trilinears (epsilon rho eta chi structure) *)
+    - Sqrt[2]*kk*v3 (H2 H0 HP + H3 HV HYbar + H2 HV HVbar + H0 HY HYbar)
+    ,
+    FlavorExpand -> {SU2D, SU2W}
+  ]
+];
+
+(* ----- Total ----- *)
+LTotal := LZp + LVq + LYq
+  + LH2 + LH3 + LH0 + LHP + LHV + LHY
+  + LDq + LSq + LTq + LEl
+  + LYukawaNew + LYukawaCharged
+  + LGaugeZpFermion + LGaugeVYFermion + LGaugeHeavyFermion
+  + LGaugeTriple
+  + LGaugeScalarVSS + LGaugeScalarVVS
+  + LScalarPotential;

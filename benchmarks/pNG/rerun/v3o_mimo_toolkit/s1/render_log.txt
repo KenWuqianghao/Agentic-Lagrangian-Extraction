@@ -1,0 +1,6 @@
+SCHEMA OK: 6 particle classes, 10 parameters, Lagrangian terms ['LH2Kin', 'LChiKin', 'LS', 'LSoft', 'LPotCorr', 'LGaugeH2', 'LYukCorr', 'LTotal']
+RENDERED: model.fr (151 lines). You may read it.
+LINT: 3 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are real defects; do not remove paper physics just to silence one.
+- [warn] explicit_index_in_dc: `LGaugeH2`: covariant derivative on an explicitly indexed field `PhiCbar` (model.fr line 147)
+- [checks] mixing_in_definitions: class `phi0` is defined as a mixture of ['H', 'H2']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 109)
+- [checks] mixing_in_definitions: class `s0` is defined as a mixture of ['H', 'H2']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 115)

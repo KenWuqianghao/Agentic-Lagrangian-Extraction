@@ -1,0 +1,44 @@
+{
+ "page": "ALRM_general",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ALRM_general/rerun/v3o_mimo_toolkit/s1/model/ALRM_general_gen.fr",
+ "lag_symbol": "LTotal",
+ "lag_resolution": {
+  "roots": [
+   "LTotal"
+  ],
+  "legacy_symbol": "LTotal",
+  "n_terms_defined": 14,
+  "ambiguous": false,
+  "changed_from_legacy": false
+ },
+ "t0": 1790229516.1314502,
+ "compile_ok": true,
+ "lagrangian_expression": "LSM + LTotal",
+ "timed_out": false,
+ "exit": 0,
+ "seconds": 413.3,
+ "ufo_files": [
+  "particles.py",
+  "parameters.py",
+  "couplings.py",
+  "vertices.py",
+  "lorentz.py"
+ ],
+ "checks": {
+  "hermiticity": "fail",
+  "kinetic_diagonal": "pass",
+  "mass_diagonal": "pass",
+  "mass_spectrum": "fail"
+ },
+ "protected_symbol_errors": 0,
+ "log_tail": "",
+ "n_particles_ufo": 44,
+ "madgraph_import_ok": false,
+ "mg5_particles": null,
+ "lepton_number_violation": false,
+ "mg5_tail": ".py\", line 101, in load_model\n    raise UFOError(str(error))\nmodels.UFOError: invalid syntax (object_library.py, line 268)\n\u001b[1;31mCommand \"import /private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/vbench/open/v3o_mimo_toolkit/ALRM_general/s1/mg5run/mg5_import.txt\" interrupted in sub-command:\n\"import model /private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/vbench/open/v3o_mimo_toolkit/ALRM_general/s1/ALRM_general_UFO\" with error:\nUFOError : invalid syntax (object_library.py, line 268)\nPlease report this bug on https://bugs.launchpad.net/mg5amcnlo\nMore information is found in 'MG5_debug'.\nPlease attach this file to your report.\u001b[0m\n",
+ "status": "compiled",
+ "full_chain_pass": false,
+ "seconds_total": 413.89833664894104,
+ "wall_seconds": 414.0
+}

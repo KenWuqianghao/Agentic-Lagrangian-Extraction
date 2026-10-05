@@ -1,0 +1,34 @@
+{
+ "page": "NJLComposite",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "hand",
+ "seed": 1,
+ "variant": "v3o_nemotron_hand",
+ "harness": "opencode 1.18.25",
+ "exit": 1,
+ "timed_out": true,
+ "nudges": 1,
+ "seconds": 3600.1,
+ "tokens": {
+  "input": 112566,
+  "output": 1898,
+  "reasoning": 2631
+ },
+ "output_max": 128000,
+ "n_events": 20,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 7,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_model_fr"
+}

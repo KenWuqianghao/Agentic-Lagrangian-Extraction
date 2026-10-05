@@ -1,0 +1,30 @@
+{
+ "page": "EffLRSM",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3o_nemotron_toolkit2/s1/model/EffLRSM_gen.fr",
+ "lag_symbol": "LTotal",
+ "lag_resolution": {
+  "roots": [
+   "LTotal"
+  ],
+  "legacy_symbol": "LTotal",
+  "n_terms_defined": 9,
+  "ambiguous": false,
+  "changed_from_legacy": false
+ },
+ "t0": 1790297612.540656,
+ "compile_ok": false,
+ "lagrangian_expression": "LSM + LTotal",
+ "timed_out": true,
+ "exit": -1,
+ "seconds": 900.1,
+ "ufo_files": [],
+ "checks": {
+  "hermiticity": "fail"
+ },
+ "protected_symbol_errors": 0,
+ "log_tail": "ce=SM.fr (inherited unless the model overrides it)\nHEPTAPOD-LAGRANGIAN|expression=LSM + LTotal|symbols=LSM,LTotal|terms=536\nHEPTAPOD-RESIDUAL|count=0|fields=\n[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum\n\nPart::partw: Part 2 of {NRbar[Index[Spin, PRIVATE`noindname]]} does not exist.\n\nPart::partw: Part 2 of {NRbar[Index[Spin, PRIVATE`noindname]]} does not exist.\n\nPart::partw: Part 2 of {NRbar[Index[Spin, PRIVATE`noindname]]} does not exist.\n\nGeneral::stop: Further output of Part::partw will be suppressed during this calculation.\n\nQN::NonConserv: Warning: non quantum number conserving vertex encountered!\n\nQN::NonConserv: Warning: non quantum number conserving vertex encountered!\nHEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=fail|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. 18 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$F\n",
+ "status": "compile_timeout",
+ "full_chain_pass": false,
+ "seconds_total": 900.154210805893,
+ "wall_seconds": 900.2
+}

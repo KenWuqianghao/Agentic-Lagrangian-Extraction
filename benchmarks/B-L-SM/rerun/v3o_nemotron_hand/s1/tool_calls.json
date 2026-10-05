@@ -1,0 +1,214 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-2k71ggs5/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-2k71ggs5/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: B-L-SM (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1811.11452.\n4: PAPER: the paper's LaTeX source"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-2k71ggs5/paper/1811.11452_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-2k71ggs5/paper/1811.11452_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[a4paper,11pt]{article}\n2: \\pdfoutput=1\n3: \\usepackage{jheppub} \n4:                      \n5: \n6: \\usepackage[T1]{fontenc} \n7: \\usepackage{graphicx}\n8: \\usepackage{amsmath}\n9: \\usepackage{xspace}\n10: \\usepackage{subfig}\n11: \\usepackage{myd"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-2k71ggs5/paper/1811.11452_source.tex",
+   "offset": 677
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-2k71ggs5/paper/1811.11452_source.tex</path>\n<type>file</type>\n<content>\n677: our results at high \\MZP reproduce those of resonance searches made by ATLAS and CMS in the same data set. \n678: At lower \\MZP and for couplings \\gp greater than about $7 \\times 10^{-3}$, some previously unexamined parameter space is excluded compare"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-2k71ggs5/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-2k71ggs5/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                 "
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Read and understand paper and SM.fr",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Extract all new particles, parameters, and Lagrangian terms from paper",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Write M$ModelName, M$Information, M$InteractionOrderHierarchy",
+     "status": "in_progress",
+     "priority": "high"
+    },
+    {
+     "content": "Write IndexRange declarations (no new indices needed)",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write M$Parameters (External and Internal)",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write M$ClassesDescription (Zp, H2, NR, Chi, gauge group)",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write Lagrangian terms (kinetic, mass, interactions)",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write LTotal summing all terms",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Perform self-audit and write model.fr",
+     "status": "pending",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Read and understand paper and SM.fr\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Extract all new particles, parameters, and Lagrangian terms from paper\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Write M$ModelName, M$Information, M$InteractionOrderHierarchy\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\"\n "
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Read and understand paper and SM.fr",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Extract all new particles, parameters, and Lagrangian terms from paper",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Write M$ModelName, M$Information, M$InteractionOrderHierarchy",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Write IndexRange declarations (no new indices needed)",
+     "status": "in_progress",
+     "priority": "high"
+    },
+    {
+     "content": "Write M$Parameters (External and Internal)",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write M$ClassesDescription (Zp, H2, NR, Chi, gauge group)",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write Lagrangian terms (kinetic, mass, interactions)",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write LTotal summing all terms",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Perform self-audit and write model.fr",
+     "status": "pending",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Read and understand paper and SM.fr\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Extract all new particles, parameters, and Lagrangian terms from paper\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Write M$ModelName, M$Information, M$InteractionOrderHierarchy\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  }"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "content": "(* ************************** *)\n(* *****  Information   ***** *)\n(* ************************** *)\nM$ModelName = \"B-L-SM_gen\";\n\nM$Information = {\n  Authors      -> {\"S. Amrith\", \"J. M. Butterworth\", \"F. F. Deppisch\", \"W. Liu\", \"A. Varma\", \"D. Yallup\"},\n  Version      -> \"1.0\",\n  Date         -> \"24.09.2026\",\n  Institutions -> {\"UCL\"},\n  Emails       -> {\"shyam.amrith.14@ucl.ac.uk\", \"j.butterworth@ucl.ac.uk\", \"f.deppisch@ucl.ac.uk\", \"wei.liu.16@ucl.ac.uk\", \"abhinav.varma.17@ucl.ac.uk\", \"david.yallup.15@ucl.ac.uk\"},\n  URLs         -> \"https://arxiv.org/abs/1811.11452\",\n  References   -> {\"arXiv:1811.11452\"}\n};\n\n(* ************************** *)\n(* *** Interaction orders *** *)\n(* ************************** *)\nM$InteractionOrderHierarchy = {\n  {QCD, 1},\n  {QED, 2},\n  {NP,  1}\n};\n\n(* ************************** *)\n(* *****  Gauge groups  ***** *)\n(* ************************** *)\n(* New U(1)_{B-L} gauge group added on top of SM.fr *)\nM$GaugeGroups = {\n  U1BL == { \n    Abelian          -> True,  \n    CouplingConstant -> g1p, \n    GaugeBoson       -> Zp, \n    Charge           -> BL\n  }\n};\n\n(* ************************** *)\n(* *****    Indices     ***** *)\n(* ************************** *)\n(* All indices (Colour, Gluon, Generation, SU2D, SU2W) are declared in SM.fr.\n   No new indices needed for B-L model (no colour sextets, etc.) *)\n\n(* ************************** *)\n(* *****   Parameters   ***** *)\n(* ************************** *)\nM$Parameters = {\n\n  (* External parameters - new physics *)\n  \n  g1p == { \n    ParameterType    -> External, \n    BlockName        -> BLINPUTS, \n    OrderBlock       -> 1, \n    Value            -> 0.2, \n    InteractionOrder -> {NP, 1}, \n    TeX              -> Subscript[g, BL], \n    Description      -> \"U(1)_{B-L} gauge coupling\"\n  },\n  \n  MZp == { \n    ParameterType    -> External, \n    BlockName        -> BLINPUTS, \n    OrderBlock       -> 2, \n    Value            -> 7000., \n    InteractionOrder -> {NP, 1}, \n    TeX              -> Subscript[M, Zp], \n    Description      -> \"Z' boson mass [GeV]\"\n  },\n  \n  MH2 == { \n    ParameterType    -> External, \n    BlockName        -> BLINPUTS, \n    OrderBlock       -> 3, \n    Value            -> 200., \n    InteractionOrder -> {NP, 1}, \n    TeX              -> Subscript[M, h2], \n    Description      -> \"Second Higgs mass eigenstate mass [GeV]\"\n  },\n  \n  SA == { \n    ParameterType    -> External, \n    BlockName        -> BLINPUTS, \n    OrderBlock       -> 4, \n    Value            -> 0.2, \n    InteractionOrder -> {NP, 1}, \n    TeX              -> Sin[\\[Alpha]], \n    Description      -> \"Sine of the Higgs mixing angle alpha\"\n  },\n  \n  MNR == { \n    ParameterType    -> External, \n    BlockName        -> BLINPUTS, \n    OrderBlock       -> 5, \n    Indices          -> {Index[Generation]}, \n    Value            -> {1400., 1400., 1400.}, \n    InteractionOrder -> {NP, 1}, \n    TeX              -> Subscript[M, N], \n    Description      -> \"Heavy (right-handed) neutrino masses [GeV]\"\n  },\n  \n  Vln == { \n    ParameterType    -> External, \n    BlockName        -> BLINPUTS, \n    OrderBlock       -> 6, \n    Indices          -> {Index[Generation]}, \n    Value            -> {1.e-6, 1.e-6, 1.e-6}, \n    InteractionOrder -> {NP, 1}, \n    TeX              -> V_{lN}, \n    Description      -> \"Active-sterile neutrino mixing V_{lN} = sin(theta_nu)\"\n  },\n\n  (* Internal parameters - derived from external ones *)\n  \n  x == { \n    ParameterType -> Internal, \n    Value         -> MZp/(2*g1p), \n    TeX           -> x, \n    Description   -> \"B-L breaking VEV = <chi> = MZp/(2*g1p) [GeV]\"\n  },\n  \n  CA == { \n    ParameterType -> Internal, \n    Value         -> Sqrt[1 - SA^2], \n    TeX           -> Cos[\\[Alpha]], \n    Description   -> \"Cosine of the Higgs mixing angle alpha\"\n  },\n  \n  lambda1 == { \n    ParameterType -> Internal, \n    Value         -> (1/(4*vev^2))*((MH^2 + MH2^2) - CA*(MH2^2 - MH^2)), \n    TeX           -> \\[Lambda]_1, \n    Description   -> \"Quartic coupling lambda1 from Eq. (2.11)\"\n  },\n  \n  lambda2 == { \n    ParameterType -> Internal, \n    Value         -> (1/(4*x^2))*((MH^2 + MH2^2) + CA*(MH2^2 - MH^2)), \n    TeX           -> \\[Lambda]_2, \n    Description   -> \"Quartic coupling lambda2 from Eq. (2.11)\"\n  },\n  \n  lambda3 == { \n    ParameterType -> Internal, \n    Value         -> (1/(2*vev*x))*(2*SA*CA*(MH2^2 - MH^2)), \n    TeX           -> \\[Lambda]_3, \n    Description   -> \"Quartic coupling lambda3 from Eq. (2.11)\"\n  },\n  \n  muChi == { \n    ParameterType -> Internal, \n    Value         -> Sqrt[2*lambda2]*x, \n    TeX           -> \\[Mu]_\\chi, \n    Description   -> \"Chi quadratic coefficient from potential\"\n  },\n\n  (* Yukawa couplings for neutrinos - derived from seesaw *)\n  (* y_nu = sqrt(2) * M_D / v, with M_D = V_lN * M_N (Type-I seesaw) *)\n  ynu == { \n    ParameterType    -> Internal, \n    Indices          -> {Index[Generation], Index[Generation]}, \n    Definitions      -> {ynu[i_?NumericQ, j_?NumericQ] :> 0 /; (i =!= j)}, \n    Value            -> {ynu[1,1] -> Sqrt[2]*Vln[1]*MNR[1]/vev, \n                         ynu[2,2] -> Sqrt[2]*Vln[2]*MNR[2]/vev, \n                         ynu[3,3] -> Sqrt[2]*Vln[3]*MNR[3]/vev}, \n    InteractionOrder -> {NP, 1}, \n    TeX              -> y^\\nu, \n    Description      -> \"Dirac neutrino Yukawa couplings from seesaw\"\n  },\n  \n  yM == { \n    ParameterType    -> Internal, \n    Indices          -> {Index[Generation], Index[Generation]}, \n    Definitions      -> {yM[i_?NumericQ, j_?NumericQ] :> 0 /; (i =!= j)}, \n    Value            -> {yM[1,1] -> MNR[1]/(Sqrt[2]*x), \n                         yM[2,2] -> MNR[2]/(Sqrt[2]*x), \n                         yM[3,3] -> MNR[3]/(Sqrt[2]*x)}, \n    InteractionOrder -> {NP, 1}, \n    TeX              -> y^M, \n    Description      -> \"Majorana Yukawa couplings: M_N = sqrt(2) y^M x\"\n  }\n};\n\n(* ************************** *)\n(* **** Particle classes **** *)\n(* ************************** *)\nM$ClassesDescription = {\n\n  (* Physical vector boson: Z' *)\n  V[100] == { \n    ClassName       -> Zp, \n    SelfConjugate   -> True,  \n    Mass            -> {MZp, 7000.},  \n    Width           -> {WZp, 0.},  \n    ParticleName    -> \"Zp\", \n    PDG             -> 32, \n    PropagatorLabel -> \"Zp\", \n    PropagatorType  -> Sine, \n    PropagatorArrow -> None, \n    FullName        -> \"Zprime\"\n  },\n\n  (* Physical scalar: h2 (second Higgs mass eigenstate) *)\n  S[100] == { \n    ClassName       -> h2, \n    SelfConjugate   -> True, \n    Mass            -> {MH2, 200.}, \n    Width           -> {Wh2, 0.}, \n    PropagatorLabel -> \"h2\", \n    PropagatorType  -> D, \n    PropagatorArrow -> None, \n    PDG             -> 35, \n    ParticleName    -> \"h2\", \n    FullName        -> \"Heavy Higgs\"\n  },\n\n  (* Majorana right-handed neutrinos: 3 generations *)\n  F[100] == { \n    ClassName        -> NR, \n    ClassMembers     -> {N1, N2, N3}, \n    Indices          -> {Index[Generation]}, \n    FlavorIndex      -> Generation, \n    SelfConjugate    -> True, \n    Mass             -> {MNR, {1400., 1400., 1400.}}, \n    Width            -> {WNR, {0., 0., 0.}}, \n    QuantumNumbers   -> {BL -> -1}, \n    PropagatorLabel  -> {\"N\", \"N1\", \"N2\", \"N3\"}, \n    PropagatorType   -> Straight, \n    PropagatorArrow  -> Forward, \n    PDG              -> {9990012, 9990014, 9990016}, \n    ParticleName     -> {\"N1\", \"N2\", \"N3\"}, \n    AntiParticleName -> {\"N1\", \"N2\", \"N3\"}, \n    FullName         -> {\"Heavy neutrino 1\", \"Heavy neutrino 2\", \"Heavy neutrino 3\"}\n  },\n\n  (* Unphysical scalar: Chi (complex singlet, BL=2) *)\n  S[101] == { \n    ClassName      -> Chi, \n    Unphysical     -> True, \n    SelfConjugate  -> False, \n    QuantumNumbers -> {BL -> 2}, \n    Definitions    -> { Chi -> (x + h2 + I*GpBL)/Sqrt[2] } \n  },\n\n  (* Unphysical scalar: Goldstone for Z' *)\n  S[102] == { \n    ClassName      -> GpBL, \n    Unphysical     -> True, \n    SelfConjugate  -> True, \n    Goldstone      -> Zp, \n    Mass           -> {MZp, Internal}, \n    Width          -> {WZp, Internal}, \n    QuantumNumbers -> {BL -> 0} \n  }\n};\n\n(* ************************** *)\n(* *****   Lagrangian   ***** *)\n(* ************************** *)\n\n(* Z' kinetic term *)\nLZpKin := Block[{mu, nu}, \n  ExpandIndices[-1/4 FS[Zp, mu, nu] FS[Zp, mu, nu]]];\n\n(* Z' mass term is generated by the Higgs mechanism via Chi VEV *)\n\n(* Chi kinetic term with B-L covariant derivative *)\nLChiKin := Block[{mu, ii}, \n  ExpandIndices[DC[Chibar[ii], mu] DC[Chi[ii], mu]]];\n\n(* Chi scalar potential from Eq. (2.7) *)\n(* V = m^2 H^dagger H + mu^2 |chi|^2 + lambda1 (H^dagger H)^2 + lambda2 |chi|^4 + lambda3 H^dagger H |chi|^2 *)\n(* After EWSB and B-L breaking, m^2 = -lambda1 v^2 - lambda3/2 x^2, mu^2 = -lambda2 x^2 - lambda3/2 v^2 *)\nLChiPot := Block[{ii, jj}, \n  ExpandIndices[\n    -(-lambda1*vev^2 - lambda3/2*x^2) Phibar[ii] Phi[ii] \n    - (-lambda2*x^2 - lambda3/2*vev^2) Chibar[ii] Chi[ii] \n    - lambda1 Phibar[ii] Phi[ii] Phibar[jj] Phi[jj] \n    - lambda2 Chibar[ii] Chi[ii] Chibar[jj] Chi[jj] \n    - lambda3 Phibar[ii] Phi[ii] Chibar[jj] Chi[jj], \n    FlavorExpand -> {SU2D}]];\n\n(* Right-handed neutrino kinetic term *)\nLNRKin := Block[{mu}, \n  ExpandIndices[I*NRbar.Ga[mu].DC[NR, mu]]];\n\n(* Dirac neutrino Yukawa: -y_nu_ij Lbar_i NR_j Htilde + h.c. *)\n(* Htilde = i sigma2 H* = -i tau2 H^dagger. In SM.fr: Phibar with Eps contraction *)\nLNuYuk := Block[{sp, ii, jj, ff1, ff2}, \n  ExpandIndices[\n    -ynu[ff1, ff2] LLbar[sp, ii, ff1].NR[ff2] Phibar[jj] Eps[ii, jj], \n    FlavorExpand -> {SU2D, Generation}]];\n\n(* Majorana neutrino Yukawa: -yM_ij NRbar^c NR_j chi + h.c. *)\n(* NRbar^c = CC[NR] = NR^T C. In FeynRules: CC[NR] *)\nLNuMYuk := Block[{ff1, ff2}, \n  ExpandIndices[\n    -yM[ff1, ff2] CC[NR[ff1]].NR[ff2] Chi, \n    FlavorExpand -> Generation]];\n\n(* Total new physics Lagrangian *)\nLTotal := LZpKin + LChiKin + LChiPot + LNRKin + LNuYuk + HC[LNuYuk] + LNuMYuk + HC[LNuMYuk];",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-2k71ggs5/model.fr"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Read and understand paper and SM.fr",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Extract all new particles, parameters, and Lagrangian terms from paper",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Write M$ModelName, M$Information, M$InteractionOrderHierarchy",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Write IndexRange declarations (no new indices needed)",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Write M$Parameters (External and Internal)",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Write M$ClassesDescription (Zp, H2, NR, Chi, gauge group)",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Write Lagrangian terms (kinetic, mass, interactions)",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Write LTotal summing all terms",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Perform self-audit and verify model.fr",
+     "status": "in_progress",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Read and understand paper and SM.fr\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Extract all new particles, parameters, and Lagrangian terms from paper\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Write M$ModelName, M$Information, M$InteractionOrderHierarchy\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  }"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-2k71ggs5/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-2k71ggs5/model.fr</path>\n<type>file</type>\n<content>\n1: (* ************************** *)\n2: (* *****  Information   ***** *)\n3: (* ************************** *)\n4: M$ModelName = \"B-L-SM_gen\";\n5: \n6: M$Information = {\n7:   Authors      -> {\"S. Amrith\", \"J. M. Butterworth\", \"F. F. Deppisch\", \"W. Liu\", \"A. Varma\", \"D. Yallup\"},\n"
+ }
+]

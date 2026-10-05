@@ -1,0 +1,261 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: Monotops (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1106.6199.\n4: PAPER: the paper's LaTeX sou"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "ls -la"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"bash\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"bash\",\"pattern\":\"./frgen *\",\"action\":\"allow\"},{\"permission\":\"bash\",\"pattern\":\"./frgen\",\"action\":\"allow\"}]"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/frgen\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/tools/fr_lint.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv98000"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUID"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/frgen"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/frgen</path>\n<type>file</type>\n<content>\n1: #!/bin/sh\n2: FRGEN_TOOLKIT=\"$(pwd)/tools\" exec \"/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/venv/bin/python\" \"/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ope"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/paper/1106.6199_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/paper/1106.6199_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[showpacs,aps,prl,twocolumn,nofootinbib]{revtex4}\n2: \\usepackage{amsmath}\n3: \\usepackage{epsfig}\n4: \\usepackage{graphicx}\n5: \\usepackage{subfigure}\n6: \\usepackage{float}\n7: \\usepackage{verbatim} \n8: \\usepackage{pstricks}\n9: \\usepackage{c"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                               "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDEL"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and th"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/spec.json",
+   "content": "{\n  \"model_name\": \"Monotops_gen\",\n  \"info\": {\n    \"authors\": [\"J. Andrea\", \"B. Fuks\", \"F. Maltoni\"],\n    \"version\": \"1.0.0\",\n    \"date\": \"25. 09. 2026\"\n  },\n  \"interaction_order_hierarchy\": [[\"QCD\", 1], [\"QED\", 2], [\"NP\", 1]],\n  \"gauge_groups\": [],\n  \"index_decls\": [],\n  \"parameters\": [\n    {\n      \"name\": \"a0FC\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"a0FC[1,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"a0FC[1,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"a0FC[1,3]\", \"rhs\": \"0.1\"},\n        {\"lhs\": \"a0FC[2,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"a0FC[2,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"a0FC[2,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"a0FC[3,1]\", \"rhs\": \"0.1\"},\n        {\"lhs\": \"a0FC[3,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"a0FC[3,3]\", \"rhs\": \"0.\"}\n      ],\n      \"block_name\": \"A0FC\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"a^0_FC scalar flavour-changing coupling of phi to up quarks, Eq.(1)\"\n    },\n    {\n      \"name\": \"b0FC\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"b0FC[1,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b0FC[1,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b0FC[1,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b0FC[2,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b0FC[2,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b0FC[2,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b0FC[3,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b0FC[3,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b0FC[3,3]\", \"rhs\": \"0.\"}\n      ],\n      \"block_name\": \"B0FC\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"b^0_FC scalar flavour-changing axial coupling of phi, Eq.(1); zero in the benchmark\"\n    },\n    {\n      \"name\": \"a1FC\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"a1FC[1,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"a1FC[1,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"a1FC[1,3]\", \"rhs\": \"0.1\"},\n        {\"lhs\": \"a1FC[2,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"a1FC[2,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"a1FC[2,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"a1FC[3,1]\", \"rhs\": \"0.1\"},\n        {\"lhs\": \"a1FC[3,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"a1FC[3,3]\", \"rhs\": \"0.\"}\n      ],\n      \"block_name\": \"A1FC\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"a^1_FC vector flavour-changing coupling of V to up quarks, Eq.(1)\"\n    },\n    {\n      \"name\": \"b1FC\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"b1FC[1,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b1FC[1,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b1FC[1,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b1FC[2,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b1FC[2,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b1FC[2,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b1FC[3,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b1FC[3,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"b1FC[3,3]\", \"rhs\": \"0.\"}\n      ],\n      \"block_name\": \"B1FC\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"b^1_FC vector flavour-changing axial coupling of V, Eq.(1); zero in the benchmark\"\n    },\n    {\n      \"name\": \"aqSR\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"aqSR[1,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aqSR[1,2]\", \"rhs\": \"0.1\"},\n        {\"lhs\": \"aqSR[1,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aqSR[2,1]\", \"rhs\": \"-0.1\"},\n        {\"lhs\": \"aqSR[2,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aqSR[2,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aqSR[3,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aqSR[3,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aqSR[3,3]\", \"rhs\": \"0.\"}\n      ],\n      \"block_name\": \"AQSR\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"a^q_SR scalar diquark coupling of varphi to down-type quarks, Eq.(1); antisymmetric in flavour\"\n    },\n    {\n      \"name\": \"bqSR\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"bqSR[1,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqSR[1,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqSR[1,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqSR[2,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqSR[2,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqSR[2,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqSR[3,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqSR[3,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqSR[3,3]\", \"rhs\": \"0.\"}\n      ],\n      \"block_name\": \"BQSR\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"b^q_SR scalar diquark axial coupling of varphi, Eq.(1); zero in the benchmark\"\n    },\n    {\n      \"name\": \"aSRu\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"aSRu[1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aSRu[2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aSRu[3]\", \"rhs\": \"0.1\"}\n      ],\n      \"block_name\": \"ASRU\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"a^{1/2}_SR coupling of varphi to up-type quarks and chi, Eq.(1); one index per up-type quark generation\"\n    },\n    {\n      \"name\": \"bSRu\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"bSRu[1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bSRu[2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bSRu[3]\", \"rhs\": \"0.\"}\n      ],\n      \"block_name\": \"BSRU\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"b^{1/2}_SR axial coupling of varphi to up-type quarks and chi, Eq.(1); zero in the benchmark\"\n    },\n    {\n      \"name\": \"atqSR\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"atqSR[1,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"atqSR[1,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"atqSR[1,3]\", \"rhs\": \"0.1\"},\n        {\"lhs\": \"atqSR[2,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"atqSR[2,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"atqSR[2,3]\", \"rhs\": \"0.1\"},\n        {\"lhs\": \"atqSR[3,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"atqSR[3,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"atqSR[3,3]\", \"rhs\": \"0.\"}\n      ],\n      \"block_name\": \"ATQSR\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"tilde a^q_SR four-fermion coupling of tvarphi to down-type and up-type quarks, Eq.(1)\"\n    },\n    {\n      \"name\": \"btqSR\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"btqSR[1,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"btqSR[1,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"btqSR[1,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"btqSR[2,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"btqSR[2,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"btqSR[2,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"btqSR[3,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"btqSR[3,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"btqSR[3,3]\", \"rhs\": \"0.\"}\n      ],\n      \"block_name\": \"BTQSR\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"tilde b^q_SR four-fermion axial coupling of tvarphi, Eq.(1); zero in the benchmark\"\n    },\n    {\n      \"name\": \"atSRd\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"atSRd[1]\", \"rhs\": \"0.1\"},\n        {\"lhs\": \"atSRd[2]\", \"rhs\": \"0.1\"},\n        {\"lhs\": \"atSRd[3]\", \"rhs\": \"0.\"}\n      ],\n      \"block_name\": \"ATSRD\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"tilde a^{1/2}_SR coupling of tvarphi to down-type quarks and chi, Eq.(1); one index per down-type quark generation\"\n    },\n    {\n      \"name\": \"btSRd\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"btSRd[1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"btSRd[2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"btSRd[3]\", \"rhs\": \"0.\"}\n      ],\n      \"block_name\": \"BTSRD\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"tilde b^{1/2}_SR axial coupling of tvarphi to down-type quarks and chi, Eq.(1); zero in the benchmark\"\n    },\n    {\n      \"name\": \"aqVR\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"aqVR[1,1]\", \"rhs\": \"0.1\"},\n        {\"lhs\": \"aqVR[1,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aqVR[1,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aqVR[2,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aqVR[2,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aqVR[2,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aqVR[3,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aqVR[3,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aqVR[3,3]\", \"rhs\": \"0.\"}\n      ],\n      \"block_name\": \"AQVR\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"a^q_VR vector diquark coupling of X to down-type quarks, Eq.(1); antisymmetric in flavour\"\n    },\n    {\n      \"name\": \"bqVR\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"bqVR[1,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqVR[1,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqVR[1,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqVR[2,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqVR[2,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqVR[2,3]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqVR[3,1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqVR[3,2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bqVR[3,3]\", \"rhs\": \"0.\"}\n      ],\n      \"block_name\": \"BQVR\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"b^q_VR vector diquark axial coupling of X, Eq.(1); zero in the benchmark\"\n    },\n    {\n      \"name\": \"aVRu\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"aVRu[1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aVRu[2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"aVRu[3]\", \"rhs\": \"0.1\"}\n      ],\n      \"block_name\": \"AVRU\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"a^{1/2}_VR vector coupling of X to up-type quarks and chi, Eq.(1)\"\n    },\n    {\n      \"name\": \"bVRu\",\n      \"parameter_type\": \"External\",\n      \"indices\": [\"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"bVRu[1]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bVRu[2]\", \"rhs\": \"0.\"},\n        {\"lhs\": \"bVRu[3]\", \"rhs\": \"0.\"}\n      ],\n      \"block_name\": \"BVRU\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"b^{1/2}_VR vector axial coupling of X to up-type quarks and chi, Eq.(1); zero in the benchmark\"\n    },\n    {\n      \"name\": \"epsC\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Colour\", \"Colour\", \"Colour\"],\n      \"value_rules\": [\n        {\"lhs\": \"epsC[1,1,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[1,1,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[1,1,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[1,2,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[1,2,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[1,2,3]\", \"rhs\": \"1\"},\n        {\"lhs\": \"epsC[1,3,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[1,3,2]\", \"rhs\": \"-1\"},\n        {\"lhs\": \"epsC[1,3,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[2,1,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[2,1,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[2,1,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[2,2,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[2,2,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[2,2,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[2,3,1]\", \"rhs\": \"1\"},\n        {\"lhs\": \"epsC[2,3,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[2,3,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[3,1,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[3,1,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[3,1,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[3,2,1]\", \"rhs\": \"-1\"},\n        {\"lhs\": \"epsC[3,2,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[3,2,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[3,3,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[3,3,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"epsC[3,3,3]\", \"rhs\": \"0\"}\n      ],\n      \"description\": \"Levi-Civita tensor epsilon^{ijk} of SU(3)_c colour in Eq.(1); declared explicitly because FeynRules has no built-in colour epsilon\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 100,\n      \"class_name\": \"sPhi\",\n      \"self_conjugate\": false,\n      \"mass\": {\"sym\": \"Mphi\", \"value\": \"300.\"},\n      \"width\": {\"massless\": true},\n      \"quantum_numbers\": {\"Q\": \"0\", \"Y\": \"0\"},\n      \"pdg\": 5000001,\n      \"particle_name\": \"sPhi\",\n      \"antiparticle_name\": \"sPhibar\",\n      \"full_name\": \"invisible scalar phi\",\n      \"propagator_label\": \"sPhi\",\n      \"propagator_type\": \"D\",\n      \"propagator_arrow\": \"Forward\"\n    },\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 100,\n      \"class_name\": \"vVec\",\n      \"self_conjugate\": false,\n      \"mass\": {\"sym\": \"Mvec\", \"value\": \"50.\"},\n      \"width\": {\"massless\": true},\n      \"quantum_numbers\": {\"Q\": \"0\", \"Y\": \"0\"},\n      \"pdg\": 5000002,\n      \"particle_name\": \"vVec\",\n      \"antiparticle_name\": \"vVecbar\",\n      \"full_name\": \"invisible vector V\",\n      \"propagator_label\": \"vVec\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"Forward\"\n    },\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 100,\n      \"class_name\": \"fChi\",\n      \"self_conjugate\": false,\n      \"mass\": {\"sym\": \"Mchi\", \"value\": \"50.\"},\n      \"width\": {\"massless\": true},\n      \"quantum_numbers\": {\"Q\": \"0\", \"Y\": \"0\"},\n      \"pdg\": 5000003,\n      \"particle_name\": \"fChi\",\n      \"antiparticle_name\": \"fChibar\",\n      \"full_name\": \"invisible fermion chi\",\n      \"propagator_label\": \"fChi\",\n      \"propagator_type\": \"Straight\",\n      \"propagator_arrow\": \"Forward\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 101,\n      \"class_name\": \"sVarph\",\n      \"self_conjugate\": false,\n      \"indices\": [\"Colour\"],\n      \"mass\": {\"sym\": \"Mvarphi\", \"value\": \"500.\"},\n      \"width\": {\"sym\": \"Wvarphi\", \"value\": \"Automatic\"},\n      \"quantum_numbers\": {\"Q\": \"2/3\", \"Y\": \"2/3\"},\n      \"pdg\": 5000004,\n      \"particle_name\": \"sVarph\",\n      \"antiparticle_name\": \"sVarphbar\",\n      \"full_name\": \"colored scalar varphi\",\n      \"propagator_label\": \"sVarph\",\n      \"propagator_type\": \"D\",\n      \"propagator_arrow\": \"Forward\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 102,\n      \"class_name\": \"sTvarph\",\n      \"self_conjugate\": false,\n      \"indices\": [\"Colour\"],\n      \"mass\": {\"sym\": \"Mtvarphi\", \"value\": \"3000.\"},\n      \"width\": {\"sym\": \"Wtvarphi\", \"value\": \"Automatic\"},\n      \"quantum_numbers\": {\"Q\": \"-1/3\", \"Y\": \"-1/3\"},\n      \"pdg\": 5000005,\n      \"particle_name\": \"sTvarph\",\n      \"antiparticle_name\": \"sTvarphbar\",\n      \"full_name\": \"colored scalar tilde varphi\",\n      \"propagator_label\": \"sTvarph\",\n      \"propagator_type\": \"D\",\n      \"propagator_arrow\": \"Forward\"\n    },\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 101,\n      \"class_name\": \"vXcol\",\n      \"self_conjugate\": false,\n      \"indices\": [\"Colour\"],\n      \"mass\": {\"sym\": \"Mxvec\", \"value\": \"500.\"},\n      \"width\": {\"sym\": \"Wxvec\", \"value\": \"Automatic\"},\n      \"quantum_numbers\": {\"Q\": \"2/3\", \"Y\": \"2/3\"},\n      \"pdg\": 5000006,\n      \"particle_name\": \"vXcol\",\n      \"antiparticle_name\": \"vXcolbar\",\n      \"full_name\": \"colored vector X\",\n      \"propagator_label\": \"vXcol\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"Forward\"\n    }\n  ],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"Lkin_sPhi\",\n      \"delayed\": true,\n      \"expression\": \"DC[sPhibar, mu] DC[sPhi, mu] - Mphi^2 sPhibar sPhi\"\n    },\n    {\n      \"name\": \"Lkin_vVec\",\n      \"delayed\": true,\n      \"expression\": \"-1/2 FS[vVecbar, mu, nu] FS[vVec, mu, nu] + Mvec^2 vVecbar[mu] vVec[mu]\"\n    },\n    {\n      \"name\": \"Lkin_fChi\",\n      \"delayed\": true,\n      \"expression\": \"I fChibar.Ga[mu].DC[fChi, mu] - Mchi fChibar.fChi\"\n    },\n    {\n      \"name\": \"Lkin_sVarph\",\n      \"delayed\": true,\n      \"expression\": \"DC[sVarphbar, mu] DC[sVarph, mu] - Mvarphi^2 sVarphbar sVarph\"\n    },\n    {\n      \"name\": \"Lkin_sTvarph\",\n      \"delayed\": true,\n      \"expression\": \"DC[sTvarphbar, mu] DC[sTvarph, mu] - Mtvarphi^2 sTvarphbar sTvarph\"\n    },\n    {\n      \"name\": \"Lkin_vXcol\",\n      \"delayed\": true,\n      \"expression\": \"-1/2 FS[vXcolbar, mu, nu] FS[vXcol, mu, nu] + Mxvec^2 vXcolbar[mu] vXcol[mu]\"\n    },\n    {\n      \"name\": \"LphiFC\",\n      \"delayed\": true,\n      \"expression\": \"sPhi (uqbar.a0FC.uq + uqbar.b0FC.Ga[5].uq) + HC[sPhi (uqbar.a0FC.uq + uqbar.b0FC.Ga[5].uq)]\"\n    },\n    {\n      \"name\": \"LVFC\",\n      \"delayed\": true,\n      \"expression\": \"vVec[mu] (uqbar.a1FC.Ga[mu].uq + uqbar.b1FC.Ga[mu].Ga[5].uq) + HC[vVec[mu] (uqbar.a1FC.Ga[mu].uq + uqbar.b1FC.Ga[mu].Ga[5].uq)]\"\n    },\n    {\n      \"name\": \"Lsvarphq\",\n      \"delayed\": true,\n      \"expression\": \"epsC[cc1,cc2,cc3] sVarph[cc1] aqSR[ff1,ff2] (bar[CC[dq[ff1,cc2]]].dq[ff2,cc3] + bar[CC[dq[ff1,cc2]]].Ga[5].dq[ff2,cc3]) + HC[epsC[cc1,cc2,cc3] sVarph[cc1] aqSR[ff1,ff2] (bar[CC[dq[ff1,cc2]]].dq[ff2,cc3] + bar[CC[dq[ff1,cc2]]].Ga[5].dq[ff2,cc3])]\"\n    },\n    {\n      \"name\": \"Lsvarphu\",\n      \"delayed\": true,\n      \"expression\": \"sVarph[cc1] (uqbar[ff1,cc1].fChi aSRu[ff1] + uqbar[ff1,cc1].Ga[5].fChi bSRu[ff1]) + HC[sVarph[cc1] (uqbar[ff1,cc1].fChi aSRu[ff1] + uqbar[ff1,cc1].Ga[5].fChi bSRu[ff1])]\"\n    },\n    {\n      \"name\": \"Ltvarphq\",\n      \"delayed\": true,\n      \"expression\": \"epsC[cc1,cc2,cc3] sTvarph[cc1] atqSR[ff1,ff2] (bar[CC[dq[ff1,cc2]]].uq[ff2,cc3] + bar[CC[dq[ff1,cc2]]].Ga[5].uq[ff2,cc3]) + HC[epsC[cc1,cc2,cc3] sTvarph[cc1] atqSR[ff1,ff2] (bar[CC[dq[ff1,cc2]]].uq[ff2,cc3] + bar[CC[dq[ff1,cc2]]].Ga[5].uq[ff2,cc3])]\"\n    },\n    {\n      \"name\": \"Ltvarphd\",\n      \"delayed\": true,\n      \"expression\": \"sTvarph[cc1] (dqbar[ff1,cc1].fChi atSRd[ff1] + dqbar[ff1,cc1].Ga[5].fChi btSRd[ff1]) + HC[sTvarph[cc1] (dqbar[ff1,cc1].fChi atSRd[ff1] + dqbar[ff1,cc1].Ga[5].fChi btSRd[ff1])]\"\n    },\n    {\n      \"name\": \"Lxq\",\n      \"delayed\": true,\n      \"expression\": \"epsC[cc1,cc2,cc3] vXcol[mu,cc1] aqVR[ff1,ff2] (bar[CC[dq[ff1,cc2]]].Ga[mu].dq[ff2,cc3] + bar[CC[dq[ff1,cc2]]].Ga[mu].Ga[5].dq[ff2,cc3]) + HC[epsC[cc1,cc2,cc3] vXcol[mu,cc1] aqVR[ff1,ff2] (bar[CC[dq[ff1,cc2]]].Ga[mu].dq[ff2,cc3] + bar[CC[dq[ff1,cc2]]].Ga[mu].Ga[5].dq[ff2,cc3])]\"\n    },\n    {\n      \"name\": \"Lxu\",\n      \"delayed\": true,\n      \"expression\": \"vXcol[mu,cc1] (uqbar[ff1,cc1].Ga[mu].fChi aVRu[ff1] + uqbar[ff1,cc1].Ga[mu].Ga[5].fChi bVRu[ff1]) + HC[vXcol[mu,cc1] (uqbar[ff1,cc1].Ga[mu].fChi aVRu[ff1] + uqbar[ff1,cc1].Ga[mu].Ga[5].fChi bVRu[ff1])]\"\n    },\n    {\n      \"name\": \"LTotal\",\n      \"delayed\": true,\n      \"expression\": \"Lkin_sPhi + Lkin_vVec + Lkin_fChi + Lkin_sVarph + Lkin_sTvarph + Lkin_vXcol + LphiFC + LVFC + Lsvarphq + Lsvarphu + Ltvarphq + Ltvarphd + Lxq + Lxu\"\n    }\n  ]\n}\n"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 6 particle classes, 17 parameters, Lagrangian terms ['Lkin_sPhi', 'Lkin_vVec', 'Lkin_fChi', 'Lkin_sVarph', 'Lkin_sTvarph', 'Lkin_vXcol', 'LphiFC', 'LVFC', 'Lsvarphq', 'Lsvarphu', 'Ltvarphq', 'Ltvarphd', 'Lxq', 'Lxu', 'LTotal']\nRENDERED: model.fr (271 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/frgen\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/model.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json",
+   "workdir": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 6 particle classes, 17 parameters, Lagrangian terms ['Lkin_sPhi', 'Lkin_vVec', 'Lkin_fChi', 'Lkin_sVarph', 'Lkin_sTvarph', 'Lkin_vXcol', 'LphiFC', 'LVFC', 'Lsvarphq', 'Lsvarphu', 'Ltvarphq', 'Ltvarphd', 'Lxq', 'Lxu', 'LTotal']\nRENDERED: model.fr (271 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: Monotops (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1106.6199.\n4: PAPER: the paper's LaTeX sou"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: Monotops_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*---------------------------------------"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "mathcal\\{L\\}|bar\\{d\\}\\^c|h\\.c",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/paper"
+  },
+  "status": "completed",
+  "output": "Found 1 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/paper/1106.6199_source.tex:\n  Line 204:        {\\rm h.c.}  ,\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/paper/1106.6199_source.tex",
+   "offset": 150,
+   "limit": 160
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/paper/1106.6199_source.tex</path>\n<type>file</type>\n<content>\n150: In the second class of models, the top quark is produced in association with a\n151: neutral bosonic state, either long-lived or decaying invisibly, from\n152: quark-gluon initial states undergoing a flavor-changing\n153: interaction, as discussed, \\eg"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/SM.fr",
+   "pattern": "ClassName -> (uq|dq)|QuantumNumbers|SelfConjugate"
+  },
+  "status": "completed",
+  "output": "Found 68 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/SM.fr:\n  Line 128:     SelfConjugate   -> True,  \n\n  Line 140:     SelfConjugate   -> True,\n\n  Line 152:     SelfConjugate    -> False,\n\n  Line 157:     QuantumNumbers   -> {Q -> 1},\n\n  Line 166:     SelfConjugate    -> True,\n\n  Line 181:     SelfConjugate   -> False,\n\n  Line 183:     QuantumNumbers  -> "
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/SM.fr",
+   "pattern": "uq|dq"
+  },
+  "status": "completed",
+  "output": "Found 25 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/TASK.md:\n  Line 70: 13. Flavour structure in matrix form. Write generation-space couplings as matrix products between class fields, `uqbar.VCKMR.Ga[mu].ProjP.dq`, `LLbar.yN.NR`, `ISbar.Ga[mu].ProjM.IS`, not as explicit index sums `VCKMR[ff1, ff2] uqbar[ff1, cc]...dq[ff2, cc]`, and never nest one generati"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and th"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/SM.fr",
+   "limit": 140,
+   "offset": 300
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/SM.fr</path>\n<type>file</type>\n<content>\n300:     PropagatorArrow  -> Forward,\n301:     PDG              -> {11, 13, 15},\n302:     ParticleName     -> {\"e-\", \"mu-\", \"ta-\"},\n303:     AntiParticleName -> {\"e+\", \"mu+\", \"ta+\"},\n304:     FullName         -> {\"Electron\", \"Muon\", \"Tau\"} \n305:   },\n306:   F[3] == {\n307:   "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/spec.json"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/spec.json</path>\n<type>file</type>\n<content>\n1: {\n2:   \"model_name\": \"Monotops_gen\",\n3:   \"info\": {\n4:     \"authors\": [\"J. Andrea\", \"B. Fuks\", \"F. Maltoni\"],\n5:     \"version\": \"1.0.0\",\n6:     \"date\": \"25. 09. 2026\"\n7:   },\n8:   \"interaction_order_hierarchy\": [[\"QCD\", 1], [\"QED\", 2], [\"NP\", 1]],\n9:   \"gauge_groups\":"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/tools/frgen/render.py",
+   "pattern": "width|Automatic"
+  },
+  "status": "completed",
+  "output": "Found 22 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/tools/frgen/render.py:\n  Line 83: def _reserved_mass_width_names(particles) -> set:\n\n  Line 84:     \"\"\"Mass/width parameter names FeynRules auto-declares from particle Mass/Width\n\n  Line 89:         for spec in (getattr(p, \"mass\", None), getattr(p, \"width\", None)):\n\n  Line 102:     M$Parameters even when"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/spec.json",
+   "pattern": "aqVR|bqVR"
+  },
+  "status": "completed",
+  "output": "Found 26 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/spec.json:\n  Line 217:       \"name\": \"aqVR\",\n\n  Line 221:         {\"lhs\": \"aqVR[1,1]\", \"rhs\": \"0.1\"},\n\n  Line 222:         {\"lhs\": \"aqVR[1,2]\", \"rhs\": \"0.\"},\n\n  Line 223:         {\"lhs\": \"aqVR[1,3]\", \"rhs\": \"0.\"},\n\n  Line 224:         {\"lhs\": \"aqVR[2,1]\", \"rhs\": \"0.\"},\n\n  Line 225:         {\"lhs\": \"aqVR["
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json",
+   "workdir": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 6 particle classes, 17 parameters, Lagrangian terms ['Lkin_sPhi', 'Lkin_vVec', 'Lkin_fChi', 'Lkin_sVarph', 'Lkin_sTvarph', 'Lkin_vXcol', 'LphiFC', 'LVFC', 'Lsvarphq', 'Lsvarphu', 'Ltvarphq', 'Ltvarphd', 'Lxq', 'Lxu', 'LTotal']\nRENDERED: model.fr (271 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/spec.json",
+   "offset": 210,
+   "limit": 45
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/spec.json</path>\n<type>file</type>\n<content>\n210:         {\"lhs\": \"btSRd[3]\", \"rhs\": \"0.\"}\n211:       ],\n212:       \"block_name\": \"BTSRD\",\n213:       \"interaction_order\": [\"NP\", 1],\n214:       \"description\": \"tilde b^{1/2}_SR axial coupling of tvarphi to down-type quarks and chi, Eq.(1); zero in the benchmark\"\n215:"
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/spec.json",
+   "oldString": "      \"description\": \"a^q_VR vector diquark coupling of X to down-type quarks, Eq.(1); antisymmetric in flavour\"",
+   "newString": "      \"description\": \"a^q_VR vector (gamma^mu) diquark coupling of X to down-type quarks, Eq.(1); benchmark aqVR[1,1]=0.1 (diagonal d)\""
+  },
+  "status": "completed",
+  "output": "Edit applied successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 6 particle classes, 17 parameters, Lagrangian terms ['Lkin_sPhi', 'Lkin_vVec', 'Lkin_fChi', 'Lkin_sVarph', 'Lkin_sTvarph', 'Lkin_vXcol', 'LphiFC', 'LVFC', 'Lsvarphq', 'Lsvarphu', 'Ltvarphq', 'Ltvarphd', 'Lxq', 'Lxu', 'LTotal']\nRENDERED: model.fr (271 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/spec.json",
+   "oldString": "      \"description\": \"b^q_VR vector diquark axial coupling of X, Eq.(1); zero in the benchmark\"",
+   "newString": "      \"description\": \"b^q_VR axial (gamma^mu gamma5) diquark coupling of X, Eq.(1); vanishes for identical quarks, zero in the benchmark\""
+  },
+  "status": "completed",
+  "output": "Edit applied successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 6 particle classes, 17 parameters, Lagrangian terms ['Lkin_sPhi', 'Lkin_vVec', 'Lkin_fChi', 'Lkin_sVarph', 'Lkin_sTvarph', 'Lkin_vXcol', 'LphiFC', 'LVFC', 'Lsvarphq', 'Lsvarphu', 'Ltvarphq', 'Ltvarphd', 'Lxq', 'Lxu', 'LTotal']\nRENDERED: model.fr (271 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json",
+   "workdir": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 6 particle classes, 17 parameters, Lagrangian terms ['Lkin_sPhi', 'Lkin_vVec', 'Lkin_fChi', 'Lkin_sVarph', 'Lkin_sTvarph', 'Lkin_vXcol', 'LphiFC', 'LVFC', 'Lsvarphq', 'Lsvarphu', 'Ltvarphq', 'Ltvarphd', 'Lxq', 'Lxu', 'LTotal']\nRENDERED: model.fr (271 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/spec.json"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/spec.json</path>\n<type>file</type>\n<content>\n1: {\n2:   \"model_name\": \"Monotops_gen\",\n3:   \"info\": {\n4:     \"authors\": [\"J. Andrea\", \"B. Fuks\", \"F. Maltoni\"],\n5:     \"version\": \"1.0.0\",\n6:     \"date\": \"25. 09. 2026\"\n7:   },\n8:   \"interaction_order_hierarchy\": [[\"QCD\", 1], [\"QED\", 2], [\"NP\", 1]],\n9:   \"gauge_groups\":"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-o1nqi0is/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: Monotops (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1106.6199.\n4: PAPER: the paper's LaTeX sou"
+ }
+]

@@ -1,0 +1,4 @@
+SCHEMA OK: 14 particle classes, 61 parameters, Lagrangian terms ['Lkin', 'L2Phi', 'Lyuk', 'L3Phi', 'L4Phi', 'LTotal']
+RENDERED: model.fr (564 lines). You may read it.
+LINT: 1 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are real defects; do not remove paper physics just to silence one.
+- [compile] explicit_index_in_dc: `Lkin`: covariant derivative on `LQ2` with an explicit colour-type index (model.fr line 554)

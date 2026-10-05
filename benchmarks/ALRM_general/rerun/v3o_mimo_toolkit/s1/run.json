@@ -1,0 +1,39 @@
+{
+ "page": "ALRM_general",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit",
+ "seed": 1,
+ "variant": "v3o_mimo_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 3164.3,
+ "tokens": {
+  "input": 728645,
+  "output": 41325,
+  "reasoning": 133518
+ },
+ "output_max": 128000,
+ "n_events": 307,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 166,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la\"}",
+   "bash:{\"command\": \"test -f \\\"$HOME/Documents/Github/heptapod/tools/feynrules/test_file"
+  ],
+  "frgen_runs": 4,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ALRM_general/rerun/v3o_mimo_toolkit/s1/model/ALRM_general_gen.fr",
+ "final_lint_findings": 3
+}

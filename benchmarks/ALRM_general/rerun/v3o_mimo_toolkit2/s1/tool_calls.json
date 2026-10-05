@@ -1,0 +1,655 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: ALRM_general (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1911.12883.\n4: PAPER: the paper's "
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "ls -laR . | head -50"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"bash\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"bash\",\"pattern\":\"./frgen *\",\"action\":\"allow\"},{\"permission\":\"bash\",\"pattern\":\"./frgen\",\"action\":\"allow\"}]"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see "
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/frgen\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/fr_lint.py\n/private/var/folders/pf/fm0v0g_52r7"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1: \\pdfoutput=1\n2: \\documentclass[a4paper,10pt]{article}\n3: \\usepackage{jheppub,amsmath,amsfonts,amssymb,xcolor,graphicx,hyperref}\n4: \\usepackage[utf8x]{inputenc}\n5: \\usepackage[section]{placeins}\n6: \\hypersetup{colorlinks=true,linkcolor=blue,citeco"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "offset": 906
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n906: associated with different $Z'$ mass ranges, lighter $Z'$-bosons being associated\n907: with smaller neutron-DM scattering rates. Second, down-type quarks play a\n908: special role in the ALRSM as they do not couple to the $Z'$-boson. This impacts"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                           "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GU"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 an"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: ALRM_general (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1911.12883.\n4: PAPER: the paper's "
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/frgen\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/fr_lint.py\n/private/var/folders/pf/fm0v0g_52r7"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 300
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1: \\pdfoutput=1\n2: \\documentclass[a4paper,10pt]{article}\n3: \\usepackage{jheppub,amsmath,amsfonts,amssymb,xcolor,graphicx,hyperref}\n4: \\usepackage[utf8x]{inputenc}\n5: \\usepackage[section]{placeins}\n6: \\hypersetup{colorlinks=true,linkcolor=blue,citeco"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "offset": 301,
+   "limit": 320
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n301:     Higgs sector (upper right panel) separately.}\n302:     \\label{tab:content}\n303:   \\end{center}\n304: \\end{table}\n305: \n306: Pairing the fields presented in eq.~\\eqref{eq:331_fields} into $SU(3)_c \\times\n307: SU(2)_L\\times SU(2)_{R'}\\times U("
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 320,
+   "offset": 621
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n621: least one light extra gauge boson (see section~\\ref{sec:gaugebosons}). The same\n622: light-spectrum considerations has lead to our choices for the values of the\n623: $\\tan\\beta$ and $v'$ parameters, with the additional constrains stemming from\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 320,
+   "offset": 941
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n941:   \\renewcommand{\\arraystretch}{1.3}\\setlength\\tabcolsep{6pt}\n942:   \\begin{center}\n943:     \\begin{tabular}{c|c c c c c c}\n944:        &$\\tan\\beta$& $\\gR$ & $v'$ [GeV] & $\\lambda_3$ & $\\kappa$ [GeV]\n945:          & $\\alpha_1 = \\alpha_2 = \\alpha"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 300,
+   "offset": 1261
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1261:    luminosity and recast the CMS stop search of ref.~\\cite{Sirunyan:2017leh},\n1262:   and plot the two significance measures of eq.~\\eqref{eq:sign}.}\n1263:   \\label{fig:sigIII}\n1264: \\end{figure}\n1265: \n1266: \n1267: \n1268: \n1269: \n1270: \n1271:"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 210,
+   "offset": 1561
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1561:   \\frac{\\vR}{\\sqrt{2}}   {\\bf\\hat Y}^{d'}\n1562:     \\to \\frac{\\vR}{\\sqrt{2}} U_{d'}{\\bf Y}^{d'} V_{d'}^\\dag\n1563:     =   \\bpm M_{d'}&0&0\\\\0&M_{s'}&0\\\\0&0&M_{b'}\\epm \\! ,\\\n1564: & \\frac{\\vR}{\\sqrt{2}}   {\\bf\\hat Y}^n\n1565:     \\to \\frac{\\vR}{\\"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/frgen"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/frgen</path>\n<type>file</type>\n<content>\n1: #!/bin/sh\n2: FRGEN_TOOLKIT=\"$(pwd)/tools\" exec \"/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/venv/bin/python\" \"/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/templates/model.fr.j2"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/templates/model.fr.j2</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: {{ model_name }}                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*------"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 350
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1: \\pdfoutput=1\n2: \\documentclass[a4paper,10pt]{article}\n3: \\usepackage{jheppub,amsmath,amsfonts,amssymb,xcolor,graphicx,hyperref}\n4: \\usepackage[utf8x]{inputenc}\n5: \\usepackage[section]{placeins}\n6: \\hypersetup{colorlinks=true,linkcolor=blue,citeco"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 330,
+   "offset": 351
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n351: is given, following standard conventions~\\cite{Borah:2010zq}, by\n352: \\be\\bsp\n353:   V_{\\rm H} = &\n354:    -\\mu_1^2 {\\rm Tr} \\big[\\phi^\\dag \\phi\\big]\n355:    -\\mu_2^2 \\big[\\chi_L^\\dag \\chi_L + \\chi_R^\\dag \\chi_R\\big]\n356:    + \\lambda_1 \\big({\\"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr",
+   "limit": 250
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                           "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr",
+   "limit": 280,
+   "offset": 251
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr</path>\n<type>file</type>\n<content>\n251:   },\n252: \n253: (* Ghosts: related to unphysical gauge bosons *)\n254:   U[11] == {\n255:     ClassName     -> ghB, \n256:     Unphysical    -> True,\n257:     SelfConjugate -> False,\n258:     Ghost         -> B, \n259:     Definitions   -> { ghB -> -sw ghZ + cw ghA}\n260"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr",
+   "limit": 210,
+   "offset": 531
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr</path>\n<type>file</type>\n<content>\n531:     Value         -> 4.7,\n532:     Description   -> \"Bottom Yukawa mass\"\n533:   },\n534:   ymt == {\n535:     ParameterType -> External,\n536:     BlockName     -> YUKAWA,\n537:     OrderBlock    -> 6,\n538:     Value         -> 172,\n539:     Description   -> \"Top Yukawa"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "tools/frgen/**"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/templates/model.fr.j2\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/__init__.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/render.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-u"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GU"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: ALRM_general (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1911.12883.\n4: PAPER: the paper's "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 an"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "\\\\(section|subsection|begin\\{table\\}|label\\{tab|label\\{eq)",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex"
+  },
+  "status": "completed",
+  "output": "Found 40 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex:\n  Line 100: \\section{Introduction}\n\n  Line 213: \\section{The alternative left-right symmetric model}\n\n  Line 241: \\label{eq:331_fields}\\ee\n\n  Line 265: \\begin{table}\n\n  Line 302:     \\label{tab:content}\n\n  Line 337: \\be\\label{eq:yuk}\n\n  Line 372: \\esp\\label{eq:Hpot}\\ee\n\n "
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "ClassName|ParticleName|FieldDimensions|QuantumNumbers|ClassMembers",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr"
+  },
+  "status": "completed",
+  "output": "Found 89 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/TASK.md:\n  Line 64: 10. Names. Class names, parameter names and index names must not be Mathematica built-ins or FeynRules symbols: never `N`, `C`, `D`, `E`, `I`, `K`, `O`, `HC`, `CC`, `FS`, `DC`, `del`, `Eps`, `Ga`, `ProjP`, `ProjM`, and never a name SM.fr already declares (`H`, `Phi`, `Z`, `W`, `A`"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "offset": 1596,
+   "limit": 180
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1596: \\esp\\ee\n1597: Omitting any potential Majorana phase, each of the four CKM/PMNS rotation\n1598: matrices can be defined by three mixing angles $\\theta_{ij}$ and a Dirac phase\n1599: $\\delta$.\n1600: \n1601: \\section{Technical details on our \\fr\\ im"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr",
+   "offset": 440,
+   "limit": 310
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr</path>\n<type>file</type>\n<content>\n440:     SelfConjugate  -> False,\n441:     QuantumNumbers -> {Y -> 1/2},\n442:     Definitions    -> { Phi[1] -> -I GP, Phi[2] -> (vev + H + I G0)/Sqrt[2]  }\n443:   }\n444: };\n445: \n446: \n447: (* ************************** *)\n448: (* *****     Gauge      ***** *)\n449: (* *"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 320,
+   "offset": 213
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n213: \\section{The alternative left-right symmetric model}\n214: \\label{sec:ALRSMmodel}\n215: The alternative left-right symmetric model~\\cite{Ma:1986we,Babu:1987kp,\n216: Frank:2005rb,Ma:2010us} is a variant of the more usual minimal left-right\n217: sy"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 100,
+   "offset": 1496
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1496:   }{\n1497:     \\sqrt{2} \\vL \\vR M_{H_0^0}^4\n1498:       + (\\kappa k-2\\sqrt{2}\\lambda_3 \\vL \\vR) (\\vL^2+\\vR^2)M_{H_0^0}^2 \n1499:       - 2\\kappa k \\lambda_3 (\\vL^2-\\vR^2)^2\n1500:   }\\ ,\n1501: \\ee\n1502: and the remaining scalar masses then read\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 65,
+   "offset": 937
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n937: \\section{Scotino DM signal at colliders}\n938: \\label{sec:collider}\n939: \n940: \\begin{table}[t]\n941:   \\renewcommand{\\arraystretch}{1.3}\\setlength\\tabcolsep{6pt}\n942:   \\begin{center}\n943:     \\begin{tabular}{c|c c c c c c}\n944:        &$\\tan\\be"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 145,
+   "offset": 1352
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1352: thanks the University of Southampton, where part of\n1353: this work was completed, for their hospitality.\n1354: \n1355: \n1356: \n1357: \n1358: \n1359: \\appendix\n1360: \\section{Diagonalisation of the scalar sector}\n1361: \\label{app:higgs}\n1362: The"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 112,
+   "offset": 533
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n533: implementation, which could yield wrong predictions when jointly used with a\n534: tool handling computations in Feynman gauge by default (like \\mo~\\cite{\n535: Belanger:2018mqt}). Secondly, all scalar fields are doubly-declared (\\ie\\ both\n536: u"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GU"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr",
+   "pattern": "Mass\\s*->|Width\\s*->|PDG\\s*->|Indices\\s*->|ClassMembers\\s*->|FlavorIndex"
+  },
+  "status": "completed",
+  "output": "Found 81 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr:\n  Line 129:     Mass            -> 0,  \n\n  Line 130:     Width           -> 0,  \n\n  Line 132:     PDG             -> 22, \n\n  Line 141:     Mass            -> {MZ, 91.1876},\n\n  Line 142:     Width           -> {WZ, 2.4952},\n\n  Line 144:     PDG             -> 23, \n\n  Line 153:     Mass         "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: ALRM_general (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1911.12883.\n4: PAPER: the paper's "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "offset": 1596,
+   "limit": 200
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1596: \\esp\\ee\n1597: Omitting any potential Majorana phase, each of the four CKM/PMNS rotation\n1598: matrices can be defined by three mixing angles $\\theta_{ij}$ and a Dirac phase\n1599: $\\delta$.\n1600: \n1601: \\section{Technical details on our \\fr\\ im"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 180,
+   "offset": 213
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n213: \\section{The alternative left-right symmetric model}\n214: \\label{sec:ALRSMmodel}\n215: The alternative left-right symmetric model~\\cite{Ma:1986we,Babu:1987kp,\n216: Frank:2005rb,Ma:2010us} is a variant of the more usual minimal left-right\n217: sy"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 140,
+   "offset": 393
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n393:  \\renewcommand{\\arraystretch}{1.3}\n394:   \\phi_1^0 =&\\ \\frac{1}{\\sqrt{2}}\n395:      \\Big[ \\Re\\{\\phi^0_1\\} + i\\ \\Im\\{\\phi^0_1\\}\\Big]\\ ,\n396: \\\\\n397:   \\phi_2^0 =&\\ \\frac{1}{\\sqrt{2}}\n398:      \\Big[ k + \\Re\\{\\phi^0_2\\} + i\\ \\Im\\{\\phi^0_2\\}\\Big] "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 240,
+   "offset": 1261
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1261:    luminosity and recast the CMS stop search of ref.~\\cite{Sirunyan:2017leh},\n1262:   and plot the two significance measures of eq.~\\eqref{eq:sign}.}\n1263:   \\label{fig:sigIII}\n1264: \\end{figure}\n1265: \n1266: \n1267: \n1268: \n1269: \n1270: \n1271:"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 75,
+   "offset": 930
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n930: values to accommodate Planck data. A small fraction of scenarios are moreover\n931: compatible with DM direct and indirect detection bounds. Another general feature\n932: is that those scenarios feature a potentially  light $W'$ boson, with a mas"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr",
+   "pattern": "g1|Gf|aEWM1|ckm|CKM|Goldstone|G0|GP"
+  },
+  "status": "completed",
+  "output": "Found 67 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/TASK.md:\n  Line 46: 4. SU(2) doublet contractions. Use the SM.fr conventions the add-on loads on: `Phi` has Y = +1/2, `LL` has Y = -1/2, `QL` has Y = +1/6, `Phi[1] = -I GP`, `Phi[2] = (vev + H + I G0)/Sqrt[2]`. Contract a doublet with an anti-doublet on a shared index: `LLbar[sp, ii, ff] ... Phi[ii]`"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "offset": 1620,
+   "limit": 150
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1620:   (third column) and the associated PDG identifier (last column).}\n1621: \\label{tab:fields}\n1622: \\begin{tabular}{c c c c}\n1623:   Parameter& Name & LH block & LH counter\\\\\n1624:   \\hline\\hline\n1625:   $\\tan\\beta$ & {\\tt tb}   & {\\tt SMINPUTS}"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "tools/frgen/*.py"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/render.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/__init__.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/frmodel.py"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GU"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/frgen"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/frgen</path>\n<type>file</type>\n<content>\n1: #!/bin/sh\n2: FRGEN_TOOLKIT=\"$(pwd)/tools\" exec \"/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/venv/bin/python\" \"/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "tools/*.py"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/fr_lint.py"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 an"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 240,
+   "offset": 533
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n533: implementation, which could yield wrong predictions when jointly used with a\n534: tool handling computations in Feynman gauge by default (like \\mo~\\cite{\n535: Belanger:2018mqt}). Secondly, all scalar fields are doubly-declared (\\ie\\ both\n536: u"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 180,
+   "offset": 213
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n213: \\section{The alternative left-right symmetric model}\n214: \\label{sec:ALRSMmodel}\n215: The alternative left-right symmetric model~\\cite{Ma:1986we,Babu:1987kp,\n216: Frank:2005rb,Ma:2010us} is a variant of the more usual minimal left-right\n217: sy"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 110,
+   "offset": 1261
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1261:    luminosity and recast the CMS stop search of ref.~\\cite{Sirunyan:2017leh},\n1262:   and plot the two significance measures of eq.~\\eqref{eq:sign}.}\n1263:   \\label{fig:sigIII}\n1264: \\end{figure}\n1265: \n1266: \n1267: \n1268: \n1269: \n1270: \n1271:"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "LYukawa|LGauge\\s*=|LFermions\\s*=",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr"
+  },
+  "status": "completed",
+  "output": "Found 2 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr:\n  Line 709: LYukawa := Block[{sp,ii,jj,cc,ff1,ff2,ff3,yuk,feynmangaugerules},\n\n  Line 740: LSM:= LGauge + LFermions + LHiggs + LYukawa + LGhost;\n"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "pattern": "label\\{eq:(ewmix|mz_mzp|mw_mwp|minpot|lam1|cstr2)\\}"
+  },
+  "status": "completed",
+  "output": "Found 6 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex:\n  Line 448: \\label{eq:mw_mwp}\\ee\n\n  Line 483: \\esp\\label{eq:ewmix}\\ee\n\n  Line 492: \\label{eq:mz_mzp}\\ee\n\n  Line 1376: \\label{eq:cstr2}\\ee\n\n  Line 1385: \\label{eq:minpot}\\ee\n\n  Line 1492: \\be\\label{eq:lam1}\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr",
+   "limit": 75,
+   "offset": 666
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr</path>\n<type>file</type>\n<content>\n666:     TeX              -> Superscript[y, u],\n667:     Description      -> \"Up-type Yukawa couplings\"\n668:   },\n669:   yd == {\n670:     ParameterType    -> Internal,\n671:     Indices          -> {Index[Generation], Index[Generation]},\n672:     Definitions      -> {yd[i"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 75,
+   "offset": 1546
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1546: The different mass matrices ${\\bf \\hat Y}$ can be diagonalised through 12\n1547: unitary rotations,\n1548: \\be\\renewcommand{\\arraystretch}{1.}\\bsp\n1549:   \\frac{k}{\\sqrt{2}}   {\\bf\\hat Y}^u\n1550:     \\to \\frac{k}{\\sqrt{2}}   V_u {\\bf Y}^u U_u^\\d"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 62,
+   "offset": 938
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n938: \\label{sec:collider}\n939: \n940: \\begin{table}[t]\n941:   \\renewcommand{\\arraystretch}{1.3}\\setlength\\tabcolsep{6pt}\n942:   \\begin{center}\n943:     \\begin{tabular}{c|c c c c c c}\n944:        &$\\tan\\beta$& $\\gR$ & $v'$ [GeV] & $\\lambda_3$ & $\\kapp"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr",
+   "pattern": "ClassName\\s*->|ClassMembers\\s*->|Chirality\\s*->|SelfConjugate\\s*->|FlavorIndex\\s*->|Indices\\s*->"
+  },
+  "status": "completed",
+  "output": "Found 93 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/SM.fr:\n  Line 127:     ClassName       -> A, \n\n  Line 128:     SelfConjugate   -> True,  \n\n  Line 139:     ClassName       -> Z, \n\n  Line 140:     SelfConjugate   -> True,\n\n  Line 151:     ClassName        -> W,\n\n  Line 152:     SelfConjugate    -> False,\n\n  Line 165:     ClassName        -> G,\n\n  Li"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 95,
+   "offset": 438
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n438: the physical states in terms of other model parameters.\n439: \n440: By definition, the breaking of the left-right symmetry generates masses for the\n441: model gauge bosons and induces their mixing (from the Higgs-boson kinetic\n442: terms). The c"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "offset": 466,
+   "limit": 70
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n466:   \\bpm A_\\mu\\\\ Z_\\mu\\\\ Z^\\prime_\\mu\\epm  \\ ,\n467: \\ee\n468: where $s_i$ and $c_i$ respectively denote the sine and cosine of the angle $i$.\n469: The $\\phw$-rotation mixes the $B$ and $W_R^3$ bosons into the hypercharge boson\n470: $B'$ as generat"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "offset": 1657,
+   "limit": 115
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1657:   $\\bar\\rho$      & {\\tt CKMrho} & {\\tt CKMBLOCK} & 3\\\\\n1658:   $\\bar\\eta$      & {\\tt CKMeta} & {\\tt CKMBLOCK} & 4\\\\\n1659:   \\hline\n1660:   $s_{12}^{\\rm(CKM')}$ & {\\tt CKMps12} & {\\tt CKMBLOCK}& 11\\\\\n1661:   $s_{23}^{\\rm(CKM')}$ & {\\tt CKMps2"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 145,
+   "offset": 300
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n300:     the matter sector (left panel), the gauge sector (lower right panel) and the\n301:     Higgs sector (upper right panel) separately.}\n302:     \\label{tab:content}\n303:   \\end{center}\n304: \\end{table}\n305: \n306: Pairing the fields presented in"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex",
+   "limit": 55,
+   "offset": 920
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n920: however pretty constrained, in particular due to direct detection bounds that\n921: put severe requirements on the model spectrum, rendering it very predictable. In the surviving scenarios, the lightest\n922: scotino (\\ie\\ our DM candidate) has a"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "\\\\bar u_R|\\\\bar e_R|d^\\prime_R|\\\\bar\\\\nu|current|J_\\\\mu|g_\\\\R.*W|W\\^\\\\pm",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper"
+  },
+  "status": "error",
+  "output": "rg: regex parse error:\n    (?:\\\\bar u_R|\\\\bar e_R|d^\\prime_R|\\\\bar\\\\nu|current|J_\\\\mu|g_\\\\R.*W|W\\^\\\\pm)\n                             ^^^\nerror: Unicode property not found"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "new physics interaction|interact|\\\\lag\\^|Lagrangian.*W|\\\\mathcal\\{L\\}",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper"
+  },
+  "status": "completed",
+  "output": "Found 9 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-uo1n8han/paper/1911.12883_source.tex:\n  Line 102: The nature of dark matter and its interactions \n\n  Line 108: enforces a stable supersymmetric state behaving as a weakly-interacting massive\n\n  Line 117: could be introduced to mediate the interactions of the dark sector with the SM\n\n  Line 121: interactions wi"
+ }
+]
