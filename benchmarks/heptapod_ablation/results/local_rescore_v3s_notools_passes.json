@@ -1,0 +1,64 @@
+{
+ "arm": "v3s_notools",
+ "compile_timeout": "900",
+ "n": 2,
+ "agree": 2,
+ "stored_pass": 2,
+ "local_pass": 2,
+ "median_time_ratio": 1.44,
+ "max_time_ratio": 1.46,
+ "rows": [
+  {
+   "paper": "ChernSimonsPortal",
+   "stored": {
+    "compile": "pass",
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass",
+    "mg5": "pass"
+   },
+   "local": {
+    "compile": "pass",
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass",
+    "mg5": "pass"
+   },
+   "agree": true,
+   "stored_pass": true,
+   "local_pass": true,
+   "stored_seconds": 71.3,
+   "local_seconds": 101.5,
+   "local_timed_out": false,
+   "ratio": 1.42
+  },
+  {
+   "paper": "pNG",
+   "stored": {
+    "compile": "pass",
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass",
+    "mg5": "pass"
+   },
+   "local": {
+    "compile": "pass",
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass",
+    "mg5": "pass"
+   },
+   "agree": true,
+   "stored_pass": true,
+   "local_pass": true,
+   "stored_seconds": 73.6,
+   "local_seconds": 107.1,
+   "local_timed_out": false,
+   "ratio": 1.46
+  }
+ ]
+}
