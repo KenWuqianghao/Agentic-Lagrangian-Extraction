@@ -181,6 +181,10 @@ def lint(args) -> int:
     import fr_lint  # noqa: E402
     findings = [f.__dict__ for f in fr_lint.lint_file(args.model)]
     findings = _structure_findings(Path(args.model).read_text(errors="replace")) + findings
+    if getattr(args, "opt", False):
+        sys.path.insert(0, str(ALE / "cc_harness"))
+        import opt_checks  # noqa: E402
+        findings += opt_checks.lint(Path(args.model).read_text(errors="replace"))
     for f in findings:
         # The SM-override recipe redeclares Phi on purpose; say when that is fine.
         if f["rule"] == "sm_class_redeclared":
@@ -235,6 +239,8 @@ def _use_diag_driver(rb, fr: Path) -> None:
 def validate(args) -> int:
     rb = _load_validator()
     fr = Path(args.model).resolve()
+    if getattr(args, "opt", False):
+        args.diag = True                  # the optimisation arm reports on top of the located sections
     if getattr(args, "diag", False):
         _use_diag_driver(rb, fr)
     out = Path(args.out).resolve()
@@ -278,6 +284,13 @@ def validate(args) -> int:
                           else "checks" if not rb.vb.all_checks_pass(row.get("checks")) else "mg5"),
         "driver": "diag" if getattr(args, "diag", False) else "scoring",
     }
+    opt_text = ""
+    if getattr(args, "opt", False):
+        sys.path.insert(0, str(ALE / "cc_harness"))
+        import opt_checks  # noqa: E402
+        clog = Path(row["compile_log"]).read_text(errors="replace") if row.get("compile_log") and Path(row["compile_log"]).is_file() else ""
+        opt_text, inert = opt_checks.report_sections(row, clog)
+        summary["particles_without_vertex"] = inert
     # The report path stays out of what the agent reads: it lies outside the
     # sandbox. The extension saves the agent's copy as validation/call<n>.md.
     (work / "summary.json").write_text(json.dumps({**summary, "report": str(work / "VALIDATION_REPORT.md"),
@@ -290,10 +303,16 @@ def validate(args) -> int:
         head = ("# Validation report: FULL CHAIN PASS (compile, all four checks, MadGraph import)\n\n"
                 "A pass says the file is consistent FeynRules. It does not say the file is the "
                 "paper's model: check that with review_model.")
+        if summary.get("particles_without_vertex"):
+            head = ("# Validation report: the chain passes, and the model is NOT done: new particles have no vertex\n\n"
+                    + opt_text)
+            opt_text = ""
     if args.view:
         print(_generic_view(summary, row, fr, report, with_import=args.view == "import"))
         return 0
     body = [json.dumps(summary, indent=1, default=str), "", head]
+    if opt_text:
+        body += ["", opt_text.rstrip()]
     if stage == "no_lagrangian_symbol":
         # The generic report says nothing here; say what the harness looked for.
         struct = _structure_findings(fr.read_text(errors="replace"))
@@ -461,6 +480,7 @@ def main() -> int:
     sub.add_parser("setup").set_defaults(fn=setup)
     p = sub.add_parser("lint")
     p.add_argument("model")
+    p.add_argument("--opt", action="store_true", help="add the optimisation arm's rules (cc_harness/opt_checks.py)")
     p.set_defaults(fn=lint)
     p = sub.add_parser("validate")
     p.add_argument("model")
@@ -468,6 +488,9 @@ def main() -> int:
     p.add_argument("--diag", action="store_true",
                    help="in-loop diagnostics (cc_harness driver copy): non-hermitian vertices, "
                         "mass matrix, MadGraph back-trace; never used for scoring")
+    p.add_argument("--opt", action="store_true",
+                   help="the optimisation arm's report: --diag plus the sections of cc_harness/opt_checks.py; "
+                        "never used for scoring")
     p.add_argument("--view", choices=("compile", "import"),
                    help="print a generic build report instead of the full one (the ablation's "
                         "control arms): whether FeynRules wrote a UFO, and with `import` whether "

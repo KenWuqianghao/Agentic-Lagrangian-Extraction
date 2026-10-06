@@ -61,7 +61,7 @@ def test_protocol_names_only_the_arms_tools_and_keeps_the_sm_override_recipe(arm
         assert (f"`{tool}`" in text) == (tool in C.ARMS[arm].tools), tool
     assert "LTotal := LSM - LHiggs + LScalar" in text
     assert not any(x in text for x in ("<!--", "{tool_list}", "{validate_budget}", "{max_continuations}"))
-    if C.ARMS[arm].feedback != "diag":
+    if C.ARMS[arm].feedback not in ("diag", "opt"):
         assert "the report lists" not in text
 
 
@@ -131,3 +131,50 @@ def test_a_run_from_a_draft_starts_with_that_file_and_is_told_so(tmp_path, monke
     assert "first draft" in run_cc.task_prompt("X", C.ARMS["heptapod"], draft=True)
     assert "first draft" not in run_cc.task_prompt("X", C.ARMS["heptapod"])
     assert not (run_cc.make_sandbox("X", rundir) / "model.fr").exists()
+
+
+BAD_FR = '''M$ClassesDescription = {
+  F[101] == { ClassName -> Nh, SelfConjugate -> True, Mass -> {MN, 300.} }
+};
+S[11] == { ClassName -> Phi, Unphysical -> True };
+M$Parameters = {
+  MN == { ParameterType -> External, Value -> 300. },
+  VlN == { ParameterType -> External, Indices -> {Index[Generation]}, BlockName -> NPV },
+  VlM == { ParameterType -> External, Indices -> {Index[Generation]}, BlockName -> NPV }
+};
+LCC := VlN[ff] Nhbar.Ga[mu].ProjM.l[ff] W[mu];
+LOK := Nhbar.Ga[mu].ProjM.e W[mu] + yl[ff1, ff2] LLbar[sp1, ii, ff1].lR[sp1, ff2] Phi[ii];
+LTotal := LSM + LCC + LOK;
+'''
+
+
+def test_optimisation_lint_names_the_four_silent_mistakes_and_not_the_good_forms():
+    import opt_checks
+    found = {f["rule"]: f for f in opt_checks.lint(BAD_FR)}
+    assert set(found) == {"partial_index_fermion", "class_outside_list", "duplicate_mass_parameter", "shared_lha_block"}
+    assert "l[ff]" in found["partial_index_fermion"]["message"] and found["partial_index_fermion"]["line"] == 10
+    good = BAD_FR.replace("};\nS[11] == { ClassName -> Phi, Unphysical -> True };", ",\n  S[11] == { ClassName -> Phi }\n};") \
+        .replace("  MN == { ParameterType -> External, Value -> 300. },\n", "").replace("BlockName -> NPV }\n", "BlockName -> NPW }\n") \
+        .replace("VlN[ff] Nhbar.Ga[mu].ProjM.l[ff]", "Nhbar.Ga[mu].ProjM.mu")
+    assert opt_checks.lint(good) == []
+
+
+def test_optimisation_arm_does_not_accept_a_chain_pass_with_a_vertexless_particle(env):
+    (env["tmp"] / "hepval.py").write_text(textwrap.dedent('''
+        import json, sys
+        from pathlib import Path
+        if sys.argv[1] == "lint":
+            print(json.dumps({"findings": []}))
+        else:
+            assert "--opt" in sys.argv
+            out = Path(sys.argv[sys.argv.index("--out") + 1])
+            (out / "call1").mkdir(parents=True)
+            (out / "call1" / "summary.json").write_text(json.dumps(
+                {"call": 1, "stage_reached": "pass", "full_chain_pass": True, "particles_without_vertex": ["n4"]}))
+            print("## New particles that are in no vertex of the UFO")
+    '''))
+    e = {**env["env"], "CC_ARM": "opt"}
+    text = _mcp(e, [("validate_model", {"path": "model.fr"})])[1]["result"]["content"][0]["text"]
+    assert "FULL CHAIN PASS" not in text and "no vertex" in text.splitlines()[0]
+    assert C.load_state(env["rd"])["last_validation"]["told_pass"] is False
+    assert _stop(e, False)["decision"] == "block"

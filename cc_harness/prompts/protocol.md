@@ -46,7 +46,24 @@ compared with the paper, field by field and term by term. Both matter.
   sent back with a digest of that report (at most {max_continuations} times). If you cannot make it pass,
   say what still fails and why in your final summary.
 <!--end-->
-## Mass mixing with Standard Model fields (the SM-override recipe)
+<!--if opt-->## Four mistakes that pass silently
+
+- Indices of a fermion. `l`, `vl` have (spin, generation); `uq`, `dq` have (spin, generation,
+  colour). In a chain write the field with NO index (`Nbar.Ga[mu].ProjM.e`, or a matrix coupling
+  `LLbar.yN.NR`), or with ALL of them. `l[ff]` puts `ff` in the spin slot: the term fails
+  hermiticity or vanishes from the UFO. `lint_model` reports it (`partial_index_fermion`).
+- A redeclared class (for example `S[11] == { ClassName -> Phi, ... }`) must be an entry INSIDE
+  the `M$ClassesDescription = { ... }` list. As a separate statement FeynRules ignores it.
+- A mass or width named in a class (`Mass -> {MX, 500}`) is declared by that line. Do not
+  declare `MX` again in `M$Parameters`, and give each indexed External parameter its own
+  `BlockName`: otherwise MadGraph stops with "name ... define multiple time".
+- A chain pass is not enough: every new particle must be in a vertex of the UFO. The report
+  says when one is not; that model is not done.
+
+After a Higgs-doublet override that changes the vev, `mass_spectrum` can fail on the ghosts
+only (`ghWp`, `ghWm`, `ghZ`). Then put `FeynmanGauge = False;` at the top of model.fr.
+
+<!--end-->## Mass mixing with Standard Model fields (the SM-override recipe)
 
 The dominant failure of plain one-shot extraction is `mass_diagonal` (with
 `mass_spectrum` then inconclusive): a new scalar mixes with the SM Higgs, a Z' mixes with

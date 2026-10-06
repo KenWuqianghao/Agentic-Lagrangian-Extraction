@@ -97,6 +97,11 @@ _CHAIN = ("Run the scored chain on a .fr file: FeynRules compile (Wolfram), the 
           "Budget: {budget} calls per run. The report states the call number, the stage the "
           "chain reached (compile / checks / mg5 / pass), the verdicts")
 VALIDATE_DESCRIPTIONS = {
+    "opt": _CHAIN + (", the non-zero vertices "
+                     "of L - HC[L] with the Lagrangian block that holds them, the off-diagonal mass terms "
+                     "and tadpoles, the mass-spectrum rows that disagree, new particles that are in no "
+                     "vertex of the UFO (such a model is not a pass), UFO parameters defined twice, and "
+                     "for a MadGraph failure the UFO object that broke with the model.fr lines behind it."),
     "diag": _CHAIN + (", the non-zero vertices "
                       "of L - HC[L] with the Lagrangian block that holds them, the off-diagonal mass terms "
                       "and tadpoles, and for a MadGraph failure the UFO object that broke with the model.fr "
@@ -133,10 +138,14 @@ def _run(cmd: list[str], **kw) -> subprocess.CompletedProcess:
 
 def lint_model(args: dict) -> str:
     fr = _path(args.get("path", "model.fr"))
-    r = _run([C.PYTHON, str(C.HEPVAL), "lint", str(fr)])
+    r = _run([C.PYTHON, str(C.HEPVAL), "lint", str(fr), *_OPT()])
     if r.returncode != 0:
         raise ToolError(r.stderr[-1500:] or "lint failed")
     return _lint_text(r.stdout)
+
+
+def _OPT() -> list:
+    return ["--opt"] if C.arm().feedback == "opt" else []
 
 
 def _lint_text(raw: str) -> str:
@@ -167,7 +176,7 @@ def validate_model(args: dict) -> str:
     st["validations"] = n
     C.save_state(rd, st)
     arm = C.arm()
-    view = {"diag": ["--diag"], "checks": [], "compile": ["--view", "compile"],
+    view = {"diag": ["--diag"], "opt": ["--opt"], "checks": [], "compile": ["--view", "compile"],
             "import": ["--view", "import"]}[arm.feedback]
     t0 = time.time()
     r = _run([C.PYTHON, str(C.HEPVAL), "validate", str(fr), "--out", str(rd / "validation"), *view])
@@ -187,13 +196,16 @@ def validate_model(args: dict) -> str:
         head = (f"# validate_model call {n}/{st['validate_budget']}: {outcome}\n"
                 f"Calls left: {st['validate_budget'] - n}.\n")
     else:
-        told_pass = bool(summ.get("full_chain_pass"))
+        # In the optimisation arm a chain pass with a vertex-less new particle is not a pass.
+        told_pass = bool(summ.get("full_chain_pass")) and not summ.get("particles_without_vertex")
+        if summ.get("full_chain_pass") and not told_pass:
+            stage = "pass, but new particles have no vertex"
         head = (f"# validate_model call {n}/{st['validate_budget']}: stage reached = {stage}"
                 f"{' (FULL CHAIN PASS)' if told_pass else ''}\n"
                 f"Stages: compile -> checks -> mg5 -> pass. Calls left: {st['validate_budget'] - n}.\n")
     report = head + "\n" + r.stdout + "\n"
     if "lint_model" in arm.tools:
-        lint = _run([C.PYTHON, str(C.HEPVAL), "lint", str(fr)])
+        lint = _run([C.PYTHON, str(C.HEPVAL), "lint", str(fr), *_OPT()])
         report += "\n## lint findings\n" + _lint_text(lint.stdout) + "\n"
     (rd / "validation" / f"call{n}").mkdir(parents=True, exist_ok=True)
     (rd / "validation" / f"call{n}" / "agent_report.md").write_text(report)

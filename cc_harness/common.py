@@ -46,6 +46,9 @@ class Arm:
                four checks, MadGraph import
       diag     checks plus the ALE diagnostic sections (non-hermitian vertices
                by block, mass-matrix entries, MadGraph back-trace)
+      opt      diag plus the optimisation checks of opt_checks.py: more lint
+               rules, new particles without a vertex (not a pass), the
+               disagreeing mass rows, UFO parameters defined twice
     """
     tools: tuple
     feedback: str
@@ -60,6 +63,7 @@ ARMS = {
     "lint": Arm(("lint_model", "validate_model"), "diag"),
     "massbasis": Arm(("lint_model", "validate_model", "massbasis"), "diag"),
     "full": Arm(TOOLS, "diag"),
+    "opt": Arm(TOOLS, "opt"),
 }
 
 
@@ -82,8 +86,10 @@ def render_protocol(template: str, a: Arm, validate_budget: int, max_continuatio
     sees check verdicts), `checks_plain` (verdicts without the diagnostic
     sections) or `diag`. The SM-override recipe is outside every block: all arms get it."""
     flags = {*a.tools, *(["tools"] if a.tools else []),
-             {"import": "import", "checks": "checks_plain", "diag": "diag"}.get(a.feedback, "")}
-    if a.feedback in ("checks", "diag"):
+             {"import": "import", "checks": "checks_plain", "diag": "diag", "opt": "opt"}.get(a.feedback, "")}
+    if a.feedback == "opt":
+        flags.add("diag")
+    if a.feedback in ("checks", "diag", "opt"):
         flags.add("checks")
     if a.feedback in ("compile", "import"):
         flags.add("generic")
