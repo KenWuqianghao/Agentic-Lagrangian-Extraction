@@ -438,6 +438,12 @@ def cmd_score(args) -> int:
                     # ablation_report reads validation.json; the pi arms have no other.
                     (d / "validation.json").write_text(json.dumps(v, indent=1, default=str))
                 shutil.copy2(work / "call1" / "VALIDATION_REPORT.md", d / "VALIDATION_REPORT_final.md")
+                # The scored UFO's particle and vertex lists: a pass whose new
+                # particles have no vertex is visible only there.
+                for name in ("particles.py", "vertices.py"):
+                    if (work / "call1" / "round0" / "UFO" / name).is_file():
+                        (d / "score_ufo").mkdir(exist_ok=True)
+                        shutil.copy2(work / "call1" / "round0" / "UFO" / name, d / "score_ufo" / name)
                 print(f"[score]   -> {v['status']} full_chain={v['full_chain_pass']} "
                       f"checks={v['checks']} mg5={v['madgraph_import_ok']}", flush=True)
     return 0

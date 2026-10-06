@@ -44,7 +44,7 @@ def decide(event: dict, sandbox: Path) -> tuple[bool, str]:
     if tool in DENY_TOOLS:
         return False, f"{tool} is not available in this harness (no shell, no network, no subagents); use the file tools and the heptapod tools"
     if tool.startswith("mcp__"):
-        return tool in C.MCP_TOOL_NAMES, f"only the {C.SERVER_NAME} MCP tools are available"
+        return tool in C.mcp_tool_names(C.arm()), f"only the {C.SERVER_NAME} MCP tools are available"
     if tool not in FILE_TOOLS:
         return True, "not a file tool"
     paths = [inp[k] for k in PATH_KEYS if isinstance(inp.get(k), str) and inp.get(k)]

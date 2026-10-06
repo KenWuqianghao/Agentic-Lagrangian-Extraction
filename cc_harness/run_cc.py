@@ -8,6 +8,12 @@ other arm.
     run_cc.py score --variants cc_sonnet_harness --pages all
     run_cc.py report --variants v3s_notools,pi_qwen_harness,cc_sonnet_harness --pages all
 
+`--arm` selects an ablation arm (common.ARMS): which MCP tools exist and what
+validate_model shows. The default, `full`, is the harness described here.
+`--draft-from VARIANT` starts the agent from a stored first draft of that
+variant (its first validated file, else its delivered file) instead of an
+empty directory: arms then differ only in the feedback on the same file.
+
 One agent per paper, in its own sandbox (a temp dir with the paper, SM.fr and
 the model.fr it writes; nothing else):
 
@@ -56,6 +62,12 @@ PROTOCOL = HERE / "prompts" / "protocol.md"
 AGENT_TIMEOUT = int(os.environ.get("CC_AGENT_TIMEOUT", str(4 * 3600)))
 BUILTIN_TOOLS = "Read,Write,Edit,Glob,Grep"
 DISALLOWED = "Bash,WebFetch,WebSearch,Task,Agent,NotebookEdit"
+# The stored runs that drafts come from; RUNS may be a fresh tree (runs_root.sh).
+DRAFT_RUNS = Path(os.environ.get("CC_DRAFT_RUNS", Path.home() / "Documents/Github/heptapod/eval/benchmark_runs"))
+DRAFT_NOTE = """\
+DRAFT: model.fr in the working directory is a first draft of this model from an earlier
+attempt. It does not pass the chain. Check it against the paper, repair it, and hand in the
+repaired model.fr. You may change or rewrite any part of it."""
 
 
 def _pages(arg: str) -> list[str]:
@@ -79,15 +91,27 @@ def cmd_check(args) -> int:
 
 
 # ----------------------------------------------------------------- sandbox
-def make_sandbox(page: str, rundir: Path) -> Path:
-    """The paper and SM.fr, nothing else; outside the repo (a sandbox path
-    that names the repo invites reads through the real path)."""
+def draft_file(page: str, variant: str) -> Path:
+    """The first file a stored run had validated, or the file it delivered."""
+    d = DRAFT_RUNS / page / "rerun" / variant / "s1"
+    for f in (d / "validation" / "call1" / "model.fr", d / "model" / f"{page}_gen.fr"):
+        if f.is_file():
+            return f
+    raise FileNotFoundError(f"no stored draft for {page} in {variant} under {DRAFT_RUNS}")
+
+
+def make_sandbox(page: str, rundir: Path, draft: Path | None = None) -> Path:
+    """The paper and SM.fr (and the draft, as model.fr), nothing else; outside
+    the repo (a sandbox path that names the repo invites reads through the
+    real path)."""
     sb = Path(tempfile.mkdtemp(prefix=f"cc-{page}-")).resolve()
     paper = run_pi.paper_file(page)
     dst = sb / "eval" / "benchmark_runs" / page / "text" / paper.name
     dst.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(paper, dst)
     shutil.copy2(run_pi.SM_FR, sb / "SM.fr")
+    if draft:
+        shutil.copy2(draft, sb / "model.fr")
     (rundir / "sandbox_path.txt").write_text(str(sb))
     return sb
 
@@ -96,33 +120,50 @@ def write_configs(rundir: Path, sandbox: Path, args) -> dict:
     env = {"CC_SANDBOX": str(sandbox), "CC_RUNDIR": str(rundir),
            "CC_VALIDATE_BUDGET": str(args.validate_budget), "CC_REVIEW_BUDGET": str(args.review_budget),
            "CC_MAX_CONTINUATIONS": str(args.max_continuations), "CC_AGENT_MODEL": args.model,
-           "CC_REVIEW_MODEL": args.review_model or args.model, "CC_PYTHON": sys.executable}
+           "CC_REVIEW_MODEL": args.review_model or args.model, "CC_PYTHON": sys.executable,
+           "CC_ARM": args.arm,
+           # The validator's settings (compile time limit, tree, lock) must be
+           # the runner's: the MCP server does not get them any other way.
+           **{k: v for k, v in os.environ.items() if k.startswith("HEPVAL_")}}
     py = sys.executable
-    settings = {
-        "env": env,
-        "permissions": {"deny": ["Bash", "WebFetch", "WebSearch", "Task", "Agent"]},
-        "hooks": {
-            "PreToolUse": [{"matcher": "*", "hooks": [
-                {"type": "command", "command": f"{py} {HERE / 'hooks' / 'pretool_guard.py'}"}]}],
-            "Stop": [{"hooks": [
-                {"type": "command", "command": f"{py} {HERE / 'hooks' / 'stop_gate.py'}"}]}],
-        },
-    }
-    mcp = {"mcpServers": {C.SERVER_NAME: {"type": "stdio", "command": py,
-                                           "args": [str(HERE / "heptapod_mcp.py")], "env": env}}}
+    arm = C.arm(args.arm)
+    hooks = {"PreToolUse": [{"matcher": "*", "hooks": [
+        {"type": "command", "command": f"{py} {HERE / 'hooks' / 'pretool_guard.py'}"}]}]}
+    if "validate_model" in arm.tools:
+        # The gate asks for a validate_model verdict; without the tool there is none to ask for.
+        hooks["Stop"] = [{"hooks": [
+            {"type": "command", "command": f"{py} {HERE / 'hooks' / 'stop_gate.py'}"}]}]
+    settings = {"env": env, "permissions": {"deny": ["Bash", "WebFetch", "WebSearch", "Task", "Agent"]},
+                "hooks": hooks}
+    servers = {C.SERVER_NAME: {"type": "stdio", "command": py,
+                               "args": [str(HERE / "heptapod_mcp.py")], "env": env}} if arm.tools else {}
     (rundir / "settings.json").write_text(json.dumps(settings, indent=1))
-    (rundir / "mcp.json").write_text(json.dumps(mcp, indent=1))
+    (rundir / "mcp.json").write_text(json.dumps({"mcpServers": servers}, indent=1))
+    (rundir / "protocol.md").write_text(C.render_protocol(
+        PROTOCOL.read_text(), arm, args.validate_budget, args.max_continuations))
     return env
 
 
-def agent_cmd(rundir: Path, model: str) -> list[str]:
+def task_prompt(page: str, arm: C.Arm, draft: bool = False) -> str:
+    """run_pi's harness prompt; an arm without validate_model has no verdict
+    to summarise, and a run that starts from a draft is told so."""
+    prompt = run_pi.build_prompt(page, "harness")
+    if "validate_model" not in arm.tools:
+        tail = " and the last validate_model verdict."
+        if tail not in prompt:
+            raise ValueError("task prompt: the validate_model sentence is not where it was")
+        prompt = prompt.replace(tail, ".")
+    return prompt + ("\n" + DRAFT_NOTE + "\n" if draft else "")
+
+
+def agent_cmd(rundir: Path, model: str, arm: C.Arm) -> list[str]:
     return [C.CLAUDE, "-p", "--output-format", "stream-json", "--verbose", "--model", model,
             "--setting-sources", "", "--settings", str(rundir / "settings.json"),
             "--mcp-config", str(rundir / "mcp.json"), "--strict-mcp-config",
             "--tools", BUILTIN_TOOLS,
-            "--allowedTools", ",".join((BUILTIN_TOOLS, *C.MCP_TOOL_NAMES)),
+            "--allowedTools", ",".join((BUILTIN_TOOLS, *C.mcp_tool_names(arm))),
             "--permission-mode", "dontAsk",
-            "--append-system-prompt-file", str(PROTOCOL),
+            "--append-system-prompt-file", str(rundir / "protocol.md"),
             # Variadic: it must come last, and the prompt goes on stdin.
             "--disallowedTools", DISALLOWED]
 
@@ -185,11 +226,12 @@ def run_agent(page: str, seed: int, args) -> dict:
     if rundir.exists():
         shutil.rmtree(rundir)
     rundir.mkdir(parents=True)
-    sandbox = make_sandbox(page, rundir)
-    prompt = run_pi.build_prompt(page, "harness")
+    draft = draft_file(page, args.draft_from) if args.draft_from else None
+    sandbox = make_sandbox(page, rundir, draft)
+    prompt = task_prompt(page, C.arm(args.arm), draft=bool(draft))
     (rundir / "prompt.txt").write_text(prompt)
     env_cc = write_configs(rundir, sandbox, args)
-    cmd = agent_cmd(rundir, args.model)
+    cmd = agent_cmd(rundir, args.model, C.arm(args.arm))
     (rundir / "command.json").write_text(json.dumps(cmd, indent=1))
     env = {**os.environ, **env_cc,
            # validate_model can hold the tool call for one queued compile plus
@@ -263,6 +305,7 @@ def finalize(page: str, seed: int, args, rundir: Path, sandbox: Path, rc: int,
         "seconds": secs, "engine": "claude-code", "claude_bin": C.CLAUDE,
         "claude_version": subprocess.run([C.CLAUDE, "--version"], capture_output=True, text=True).stdout.strip(),
         "model": args.model, "review_model": args.review_model or args.model, "arm": "harness",
+        "ablation_arm": args.arm, "draft_from": getattr(args, "draft_from", "") or None,
         "mode": "cc_harness",
         "tool_policy": "enforced (--tools allow-list, --disallowedTools, PreToolUse sandbox guard, strict MCP)",
         # A denied call never ran, so nothing outside the sandbox was read; the
@@ -299,7 +342,7 @@ def finalize(page: str, seed: int, args, rundir: Path, sandbox: Path, rc: int,
 
 
 def cmd_run(args) -> int:
-    jobs = [(p, k) for p in _pages(args.pages) for k in range(1, args.seeds + 1)]
+    jobs = [(p, k) for p in _pages(args.pages) for k in range(args.first_seed, args.seeds + 1)]
     with ThreadPoolExecutor(max_workers=max(1, args.parallel)) as ex:
         list(ex.map(lambda j: run_agent(j[0], j[1], args), jobs))
     return 0
@@ -359,10 +402,17 @@ def main() -> int:
     c.set_defaults(fn=cmd_check)
     r = sub.add_parser("run")
     r.add_argument("--variant", default="cc_sonnet_harness")
+    r.add_argument("--arm", default="full", choices=sorted(C.ARMS),
+                   help="ablation arm: the MCP tools the agent has and what validate_model shows")
+    r.add_argument("--draft-from", default="", metavar="VARIANT",
+                   help="start from the stored first draft of this variant (repair design)")
     r.add_argument("--pages", required=True, help="comma-separated, or 'all' for the 16 single-model papers")
     r.add_argument("--model", default="claude-sonnet-5")
     r.add_argument("--review-model", default="")
     r.add_argument("--seeds", type=int, default=1)
+    r.add_argument("--first-seed", type=int, default=1,
+                   help="run seeds first-seed..seeds: a later batch must not touch the earlier seeds "
+                        "(a run that failed is run again when its seed is in range)")
     r.add_argument("--parallel", type=int, default=4)
     r.add_argument("--validate-budget", type=int, default=10)
     r.add_argument("--review-budget", type=int, default=2)
@@ -373,6 +423,7 @@ def main() -> int:
     r.set_defaults(fn=cmd_run)
     f = sub.add_parser("finalize", help="rebuild run.json after a runner crash")
     f.add_argument("--variant", default="cc_sonnet_harness")
+    f.add_argument("--arm", default="full", choices=sorted(C.ARMS))
     f.add_argument("--pages", required=True)
     f.add_argument("--seed", type=int, default=1)
     f.add_argument("--model", default="claude-sonnet-5")

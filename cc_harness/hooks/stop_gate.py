@@ -4,7 +4,8 @@
 When the agent tries to stop, block (and send it back to work) if
   - model.fr does not exist, or
   - it never ran validate_model, or
-  - the last validate_model did not pass the full chain, or
+  - the last validate_model did not report a pass (the full chain; in the
+    compile-feedback arm, the compile), or
   - model.fr changed after the last validate_model (the verdict is stale).
 The reason returned to the agent is a digest of the last report.
 
@@ -60,7 +61,7 @@ def decide(event: dict, sandbox: Path, rundir: Path) -> dict:
     elif last.get("model_sha") != C.sha(model):
         reason = (f"model.fr changed after the last validate_model (call {last.get('call')}), so its verdict "
                   "does not apply to the file you would hand in. Validate the current model.fr.")
-    elif not last.get("full_chain_pass"):
+    elif not last.get("told_pass"):
         reason = (f"The last validate_model (call {last.get('call')}) did not pass: stage reached = "
                   f"{last.get('stage')}. Fix the cause and validate again. Digest of that report:\n\n"
                   + digest(last.get("report")))

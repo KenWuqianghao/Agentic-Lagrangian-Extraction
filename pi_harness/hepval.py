@@ -290,6 +290,9 @@ def validate(args) -> int:
         head = ("# Validation report: FULL CHAIN PASS (compile, all four checks, MadGraph import)\n\n"
                 "A pass says the file is consistent FeynRules. It does not say the file is the "
                 "paper's model: check that with review_model.")
+    if args.view:
+        print(_generic_view(summary, row, fr, report, with_import=args.view == "import"))
+        return 0
     body = [json.dumps(summary, indent=1, default=str), "", head]
     if stage == "no_lagrangian_symbol":
         # The generic report says nothing here; say what the harness looked for.
@@ -312,6 +315,40 @@ def validate(args) -> int:
             body += ["", report[report.index("## MadGraph import output"):][:3500]]
     print("\n".join(body))
     return 0
+
+
+def _generic_view(summary: dict, row: dict, fr: Path, report: str, with_import: bool) -> str:
+    """What a generic build loop tells the agent: FeynRules wrote a UFO or it
+    did not, with the log when it did not; with_import adds whether MadGraph
+    imports the UFO, with MadGraph's output when it does not. No check
+    verdict: the chain ran the checks, and they are in summary.json only."""
+    view = {"call": summary["call"], "compile_ok": bool(row.get("compile_ok")), "seconds": row.get("seconds")}
+    if with_import:
+        view["madgraph_import_ok"] = bool(row.get("madgraph_import_ok"))
+    if row.get("compile_ok"):
+        text = (json.dumps(view, indent=1) + "\n\n# Compile report: OK\n\n"
+                "FeynRules loaded model.fr on top of SM.fr and WriteUFO wrote the UFO "
+                f"({', '.join(row.get('ufo_files') or [])}).")
+        if with_import and row.get("madgraph_import_ok"):
+            text += "\n\n# MadGraph import: OK"
+        elif with_import:
+            text += "\n\n# MadGraph import: FAILED\n\n" + (
+                report[report.index("## MadGraph import output"):][:3500] if "## MadGraph import output" in report else "")
+        return text
+    body = [json.dumps(view, indent=1), "", "# Compile report: FAILED", ""]
+    if row.get("status") == "no_lagrangian_symbol":
+        body += ["No total Lagrangian was found: the harness looks for top-level `Name := expr;` "
+                 "statements (outside comments) and takes the one no other term uses as the total."]
+        body += [f"- line {f['line']}: {f['rule']}: {f['message']}"
+                 for f in _structure_findings(fr.read_text(errors="replace"))]
+        return "\n".join(body)
+    if row.get("timed_out"):
+        body += [f"FeynRules did not finish within {COMPILE_TIMEOUT} s."]
+    log = Path(row["compile_log"]).read_text(errors="replace") if row.get("compile_log") and Path(row["compile_log"]).is_file() else ""
+    # A timeout can come after the checks printed: keep their lines out too.
+    log = "\n".join(ln for ln in log.splitlines() if not ln.startswith(("HEPTAPOD-", "Non diagonal ")))
+    body += ["## FeynRules log, distinct lines (tail)", "```", _dedupe_tail(log, 3000), "```"]
+    return "\n".join(body)
 
 
 # -------------------------------------------------------------- massbasis
@@ -431,6 +468,10 @@ def main() -> int:
     p.add_argument("--diag", action="store_true",
                    help="in-loop diagnostics (cc_harness driver copy): non-hermitian vertices, "
                         "mass matrix, MadGraph back-trace; never used for scoring")
+    p.add_argument("--view", choices=("compile", "import"),
+                   help="print a generic build report instead of the full one (the ablation's "
+                        "control arms): whether FeynRules wrote a UFO, and with `import` whether "
+                        "MadGraph imports it; summary.json keeps the full verdicts")
     p.set_defaults(fn=validate)
     p = sub.add_parser("massbasis")
     p.add_argument("spec", help="JSON file or JSON string")

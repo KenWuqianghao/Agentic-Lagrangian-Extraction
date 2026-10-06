@@ -190,7 +190,7 @@ def _state(env, **last):
 
 
 def test_stop_gate_blocks_a_failing_model_then_releases_after_three(env):
-    _state(env, stage="checks", full_chain_pass=False)
+    _state(env, stage="checks", told_pass=False)
     reasons = []
     for i in range(3):
         out = _stop(env["env"], active=i > 0)
@@ -210,15 +210,15 @@ def test_stop_gate_blocks_missing_or_unvalidated_or_stale_model(env):
     (env["sb"] / "model.fr").write_text("M$ModelName = \"X_gen\";\n")
     assert "have not run validate_model" in _stop(env["env"], False)["reason"]
     (env["rd"] / "stop_gate.json").unlink()
-    _state(env, stage="pass", full_chain_pass=True)
+    _state(env, stage="pass", told_pass=True)
     (env["sb"] / "model.fr").write_text("edited after the pass\n")
     assert "changed after the last validate_model" in _stop(env["env"], False)["reason"]
 
 
 def test_stop_gate_allows_a_passing_model_and_a_spent_budget(env):
-    _state(env, stage="pass", full_chain_pass=True)
+    _state(env, stage="pass", told_pass=True)
     assert _stop(env["env"], False) is None
-    _state(env, stage="mg5", full_chain_pass=False, validations=10, budget=10)
+    _state(env, stage="mg5", told_pass=False, validations=10, budget=10)
     assert _stop(env["env"], False) is None
     log = [json.loads(x) for x in (env["rd"] / "stop_gate_log.jsonl").read_text().splitlines()]
     assert "budget spent" in log[-1]["why"]

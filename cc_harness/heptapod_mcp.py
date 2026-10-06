@@ -62,14 +62,7 @@ TOOL_SPECS = [
      "inputSchema": {"type": "object", "properties": {"path": {"type": "string", "description": "the .fr file, e.g. model.fr"}},
                      "required": ["path"]}},
     {"name": "validate_model",
-     "description": "Run the scored chain on a .fr file: FeynRules compile (Wolfram), the four FeynRules "
-                    "consistency checks (hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum), "
-                    "then MadGraph 'import model'. 1 to 15 minutes; calls queue for one Wolfram kernel. "
-                    "Budget: {budget} calls per run. The report states the call number, the stage the "
-                    "chain reached (compile / checks / mg5 / pass), the verdicts, the non-zero vertices "
-                    "of L - HC[L] with the Lagrangian block that holds them, the off-diagonal mass terms "
-                    "and tadpoles, and for a MadGraph failure the UFO object that broke with the model.fr "
-                    "lines behind it.",
+     "description": "{validate_description}",
      "inputSchema": {"type": "object", "properties": {"path": {"type": "string", "description": "the .fr file, e.g. model.fr"}},
                      "required": ["path"]}},
     {"name": "massbasis",
@@ -96,6 +89,29 @@ TOOL_SPECS = [
      "inputSchema": {"type": "object", "properties": {"path": {"type": "string", "description": "the .fr file, e.g. model.fr"}},
                      "required": ["path"]}},
 ]
+
+
+_CHAIN = ("Run the scored chain on a .fr file: FeynRules compile (Wolfram), the four FeynRules "
+          "consistency checks (hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum), "
+          "then MadGraph 'import model'. 1 to 15 minutes; calls queue for one Wolfram kernel. "
+          "Budget: {budget} calls per run. The report states the call number, the stage the "
+          "chain reached (compile / checks / mg5 / pass), the verdicts")
+VALIDATE_DESCRIPTIONS = {
+    "diag": _CHAIN + (", the non-zero vertices "
+                      "of L - HC[L] with the Lagrangian block that holds them, the off-diagonal mass terms "
+                      "and tadpoles, and for a MadGraph failure the UFO object that broke with the model.fr "
+                      "lines behind it."),
+    "checks": _CHAIN + ", FeynRules' own message for each failing check, and the MadGraph error.",
+    "compile": "Run FeynRules (Wolfram) on a .fr file loaded on top of SM.fr and write the UFO. 1 to 15 "
+               "minutes; calls queue for one Wolfram kernel. Budget: {budget} calls per run. The report "
+               "states the call number and whether the UFO was written, with the FeynRules log when it "
+               "was not.",
+    "import": "Run FeynRules (Wolfram) on a .fr file loaded on top of SM.fr, write the UFO, and run "
+              "MadGraph 'import model' on it. 1 to 15 minutes; calls queue for one Wolfram kernel. "
+              "Budget: {budget} calls per run. The report states the call number, whether the UFO was "
+              "written (with the FeynRules log when it was not) and whether MadGraph imported it (with "
+              "MadGraph's output when it did not).",
+}
 
 
 class ToolError(Exception):
@@ -144,28 +160,46 @@ def validate_model(args: dict) -> str:
     fr = _path(args.get("path", "model.fr"))
     if st["validations"] >= st["validate_budget"]:
         C.log(rd, "tool_calls.jsonl", {"event": "budget", "tool": "validate_model"})
-        raise ToolError(f"validation budget exhausted ({st['validate_budget']} calls). Use lint_model, fix what "
+        lint = "Use lint_model, fix" if "lint_model" in C.arm().tools else "Fix"
+        raise ToolError(f"validation budget exhausted ({st['validate_budget']} calls). {lint} what "
                         "the last report named, and finish.")
     n = st["validations"] + 1
     st["validations"] = n
     C.save_state(rd, st)
-    lint = _run([C.PYTHON, str(C.HEPVAL), "lint", str(fr)])
+    arm = C.arm()
+    view = {"diag": ["--diag"], "checks": [], "compile": ["--view", "compile"],
+            "import": ["--view", "import"]}[arm.feedback]
     t0 = time.time()
-    r = _run([C.PYTHON, str(C.HEPVAL), "validate", str(fr), "--out", str(rd / "validation"), "--diag"])
+    r = _run([C.PYTHON, str(C.HEPVAL), "validate", str(fr), "--out", str(rd / "validation"), *view])
     if r.returncode != 0:
         C.log(rd, "tool_calls.jsonl", {"event": "validator_error", "n": n, "err": r.stderr[-800:]})
         raise ToolError(f"validator error (not a model verdict): {r.stderr[-1500:]}")
     summ_file = rd / "validation" / f"call{n}" / "summary.json"
     summ = json.loads(summ_file.read_text()) if summ_file.is_file() else {}
     stage = summ.get("stage_reached") or "unknown"
-    head = (f"# validate_model call {n}/{st['validate_budget']}: stage reached = {stage}"
-            f"{' (FULL CHAIN PASS)' if summ.get('full_chain_pass') else ''}\n"
-            f"Stages: compile -> checks -> mg5 -> pass. Calls left: {st['validate_budget'] - n}.\n")
-    report = head + "\n" + r.stdout + "\n\n## lint findings\n" + _lint_text(lint.stdout) + "\n"
+    if arm.feedback in ("compile", "import"):
+        # These arms are told only what a generic build loop sees; that is
+        # also all their Stop gate can ask for.
+        compiled = bool(summ.get("compile_ok"))
+        told_pass = compiled and (arm.feedback == "compile" or bool(summ.get("madgraph_import_ok")))
+        outcome = ("compile failed" if not compiled else "compiled" if arm.feedback == "compile" else
+                   "compiled and imported" if told_pass else "compiled, MadGraph import failed")
+        head = (f"# validate_model call {n}/{st['validate_budget']}: {outcome}\n"
+                f"Calls left: {st['validate_budget'] - n}.\n")
+    else:
+        told_pass = bool(summ.get("full_chain_pass"))
+        head = (f"# validate_model call {n}/{st['validate_budget']}: stage reached = {stage}"
+                f"{' (FULL CHAIN PASS)' if told_pass else ''}\n"
+                f"Stages: compile -> checks -> mg5 -> pass. Calls left: {st['validate_budget'] - n}.\n")
+    report = head + "\n" + r.stdout + "\n"
+    if "lint_model" in arm.tools:
+        lint = _run([C.PYTHON, str(C.HEPVAL), "lint", str(fr)])
+        report += "\n## lint findings\n" + _lint_text(lint.stdout) + "\n"
     (rd / "validation" / f"call{n}").mkdir(parents=True, exist_ok=True)
     (rd / "validation" / f"call{n}" / "agent_report.md").write_text(report)
     st = C.load_state(rd)
     st["last_validation"] = {"call": n, "stage": stage, "full_chain_pass": bool(summ.get("full_chain_pass")),
+                             "told_pass": told_pass,
                              "model_sha": C.sha(fr), "path": str(fr), "report": str(rd / "validation" / f"call{n}" / "agent_report.md"),
                              "checks": summ.get("checks"), "madgraph_import_ok": summ.get("madgraph_import_ok"),
                              "seconds": round(time.time() - t0, 1)}
@@ -248,10 +282,14 @@ HANDLERS = {"lint_model": lint_model, "validate_model": validate_model,
 def _tool_list() -> list:
     vb = C.env_int("CC_VALIDATE_BUDGET", 10)
     rb = C.env_int("CC_REVIEW_BUDGET", 2)
+    arm = C.arm()
     out = []
     for t in TOOL_SPECS:
+        if t["name"] not in arm.tools:
+            continue
         t = dict(t)
-        t["description"] = t["description"].replace("{budget}", str(vb)).replace("{review_budget}", str(rb))
+        t["description"] = (t["description"].replace("{validate_description}", VALIDATE_DESCRIPTIONS.get(arm.feedback, ""))
+                            .replace("{budget}", str(vb)).replace("{review_budget}", str(rb)))
         out.append(t)
     return out
 
@@ -261,7 +299,7 @@ def call_tool(name: str, arguments: dict) -> dict:
     C.log(rd, "tool_calls.jsonl", {"event": "call", "tool": name, "input": arguments})
     t0 = time.time()
     try:
-        if name not in HANDLERS:
+        if name not in HANDLERS or name not in C.arm().tools:
             raise ToolError(f"unknown tool {name}")
         text = HANDLERS[name](arguments or {})
         C.log(rd, "tool_calls.jsonl", {"event": "result", "tool": name, "seconds": round(time.time() - t0, 1),

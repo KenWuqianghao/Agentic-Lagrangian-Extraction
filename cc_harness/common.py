@@ -9,6 +9,7 @@ The MCP server, both hooks and the runner read the same environment:
   CC_MAX_CONTINUATIONS  Stop-gate blocks per run (default 3)
   CC_REVIEW_MODEL     model for the referee (default: CC_AGENT_MODEL)
   CC_AGENT_MODEL      model of the agent under test
+  CC_ARM              ablation arm (ARMS below; default "full")
 """
 
 from __future__ import annotations
@@ -16,7 +17,9 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import time
+from dataclasses import dataclass
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -26,7 +29,71 @@ CLAUDE = os.environ.get("CC_CLAUDE_BIN", str(Path.home() / ".local/bin/claude"))
 PYTHON = os.environ.get("CC_PYTHON", "python3")
 SERVER_NAME = "heptapod-tools"
 TOOLS = ("lint_model", "validate_model", "massbasis", "review_model")
-MCP_TOOL_NAMES = tuple(f"mcp__{SERVER_NAME}__{t}" for t in TOOLS)
+
+
+@dataclass(frozen=True)
+class Arm:
+    """One ablation arm: the MCP tools the agent has, and what validate_model
+    shows it. The chain always runs in full and its verdicts go to
+    summary.json; `feedback` only selects the agent's view:
+
+      none     no validate_model
+      compile  whether FeynRules wrote a UFO, and the log when it did not
+               (a generic compile loop: no checks, no MadGraph import)
+      import   compile, plus whether MadGraph imports the UFO, with its
+               output when it does not (a generic build-and-load loop)
+      checks   the verdicts and prose heptapod-dev main returns: compile, the
+               four checks, MadGraph import
+      diag     checks plus the ALE diagnostic sections (non-hermitian vertices
+               by block, mass-matrix entries, MadGraph back-trace)
+    """
+    tools: tuple
+    feedback: str
+
+
+ARMS = {
+    "none": Arm((), "none"),
+    "compile": Arm(("validate_model",), "compile"),
+    "import": Arm(("validate_model",), "import"),
+    "heptapod": Arm(("validate_model",), "checks"),
+    "diag": Arm(("validate_model",), "diag"),
+    "lint": Arm(("lint_model", "validate_model"), "diag"),
+    "massbasis": Arm(("lint_model", "validate_model", "massbasis"), "diag"),
+    "full": Arm(TOOLS, "diag"),
+}
+
+
+def arm(name: str | None = None) -> Arm:
+    return ARMS[name or os.environ.get("CC_ARM", "full")]
+
+
+def mcp_tool_names(a: Arm) -> tuple:
+    return tuple(f"mcp__{SERVER_NAME}__{t}" for t in a.tools)
+
+
+_BLOCK = re.compile(r"<!--if (!?)(\w+)-->(.*?)<!--end-->", re.S)
+
+
+def render_protocol(template: str, a: Arm, validate_budget: int, max_continuations: int) -> str:
+    """The system-prompt protocol for an arm: a block `<!--if X-->...<!--end-->`
+    stays when X holds (`!X`: when it does not). X is a tool name, `tools`
+    (the arm has any), `generic` (a build report without check verdicts),
+    `import` (that report includes the MadGraph import), `checks` (the agent
+    sees check verdicts), `checks_plain` (verdicts without the diagnostic
+    sections) or `diag`. The SM-override recipe is outside every block: all arms get it."""
+    flags = {*a.tools, *(["tools"] if a.tools else []),
+             {"import": "import", "checks": "checks_plain", "diag": "diag"}.get(a.feedback, "")}
+    if a.feedback in ("checks", "diag"):
+        flags.add("checks")
+    if a.feedback in ("compile", "import"):
+        flags.add("generic")
+    if a.feedback != "compile" and a.tools:
+        flags.add("imports_shown")
+    text = _BLOCK.sub(lambda m: m.group(3) if (m.group(2) in flags) != bool(m.group(1)) else "", template)
+    names = [f"`{t}`" for t in a.tools]
+    tool_list = names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1] if names else ""
+    return (text.replace("{tool_list}", tool_list).replace("{validate_budget}", str(validate_budget))
+            .replace("{max_continuations}", str(max_continuations)))
 
 
 def env_int(name: str, default: int) -> int:
