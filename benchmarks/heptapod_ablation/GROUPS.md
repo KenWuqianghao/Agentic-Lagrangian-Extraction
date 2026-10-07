@@ -117,10 +117,12 @@ How to read it:
   - The gate can be met by adding or removing physics (331, SMWeinberg,
     MDMmodel above). It needs the paper's interactions as the reference, not
     only the model's own particles.
-- **A defect of the shared task text, found here.** Rule 3 of the prompt
-  addendum tells the agent to write `bar[CC[psi]]`; the kernel reads it as
-  `bar[1]`. It broke the first call of SMWeinberg, Monotops and EffLRSM. Every
-  harness group has this line.
+- **A claim of the audit that I could not reproduce.** The audit says rule 3
+  of the prompt addendum (`bar[CC[psi]]`) is read by the kernel as `bar[1]`
+  and broke the first call of SMWeinberg, Monotops and EffLRSM. In a kernel
+  with SM.fr loaded, `bar[CC[l]]` stays `bar[CC[l]]` (run on 2026-10-07). So
+  the mechanism is not confirmed; the form may still be wrong inside a Dot
+  chain, which was not tested.
 
 ## A defect no tool names: statements cut at a line end
 
