@@ -1,0 +1,9714 @@
+{
+ "331": {
+  "vanilla": {
+   "reference_model": "331 Model",
+   "generated_model": "331_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 38,
+    "generated": 32,
+    "reference_raw": 58,
+    "generated_raw": 32
+   },
+   "field_signature": {
+    "precision": 0.562,
+    "recall": 0.474,
+    "f1": 0.514,
+    "matched": 18
+   },
+   "quantum_number_values": {
+    "precision": 0.688,
+    "recall": 0.579,
+    "f1": 0.629,
+    "matched": 22
+   },
+   "n_parameters": {
+    "reference": 92,
+    "generated": 79
+   },
+   "parameter_name_jaccard": 0.062,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "1/6+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "1/6-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "-1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1/2 + Sqrt[3] betaX/2"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1/2 + Sqrt[3] betaX/2"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1/2 + Sqrt[3] betaX/2"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "1/6 + Sqrt[3] betaX/2"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "1/6 - Sqrt[3] betaX/2"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "1/6 - Sqrt[3] betaX/2"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "(-1 + Sqrt[3] betaX)/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "(1 + Sqrt[3] betaX)/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "(-1 + Sqrt[3] betaX)/2"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "(1 + Sqrt[3] betaX)/2"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "331 Model",
+   "generated_model": "331_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 38,
+    "generated": 6,
+    "reference_raw": 58,
+    "generated_raw": 17
+   },
+   "field_signature": {
+    "precision": 0.5,
+    "recall": 0.079,
+    "f1": 0.136,
+    "matched": 3
+   },
+   "quantum_number_values": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "matched": 0
+   },
+   "n_parameters": {
+    "reference": 92,
+    "generated": 50
+   },
+   "parameter_name_jaccard": 0.029,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "1/6+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "1/6-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "-1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "-1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "331 Model",
+   "generated_model": "331_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 38,
+    "generated": 11,
+    "reference_raw": 58,
+    "generated_raw": 11
+   },
+   "field_signature": {
+    "precision": 0.727,
+    "recall": 0.211,
+    "f1": 0.327,
+    "matched": 8
+   },
+   "quantum_number_values": {
+    "precision": 0.727,
+    "recall": 0.211,
+    "f1": 0.327,
+    "matched": 8
+   },
+   "n_parameters": {
+    "reference": 92,
+    "generated": 75
+   },
+   "parameter_name_jaccard": 0.018,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "1/6+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "1/6-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "-1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "331 Model",
+   "generated_model": "331_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 38,
+    "generated": 12,
+    "reference_raw": 58,
+    "generated_raw": 12
+   },
+   "field_signature": {
+    "precision": 0.667,
+    "recall": 0.211,
+    "f1": 0.32,
+    "matched": 8
+   },
+   "quantum_number_values": {
+    "precision": 0.667,
+    "recall": 0.211,
+    "f1": 0.32,
+    "matched": 8
+   },
+   "n_parameters": {
+    "reference": 92,
+    "generated": 89
+   },
+   "parameter_name_jaccard": 0.034,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "1/6+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "1/6-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "-1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "1/2+Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "-1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1/2-Sqrt[3] beta/2"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  }
+ },
+ "ALRM_general": {
+  "vanilla": {
+   "reference_model": "ALRSM_BF",
+   "generated_model": "ALRM_general_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 16,
+    "generated": 14,
+    "reference_raw": 30,
+    "generated_raw": 24
+   },
+   "field_signature": {
+    "precision": 0.714,
+    "recall": 0.625,
+    "f1": 0.667,
+    "matched": 10
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 0.9,
+    "f1": 0.947,
+    "matched": 9
+   },
+   "n_parameters": {
+    "reference": 97,
+    "generated": 122
+   },
+   "parameter_name_jaccard": 0.237,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "ALRSM_BF",
+   "generated_model": "ALRM_general_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 16,
+    "generated": 8,
+    "reference_raw": 30,
+    "generated_raw": 8
+   },
+   "field_signature": {
+    "precision": 0.75,
+    "recall": 0.375,
+    "f1": 0.5,
+    "matched": 6
+   },
+   "quantum_number_values": {
+    "precision": 0.5,
+    "recall": 0.4,
+    "f1": 0.444,
+    "matched": 4
+   },
+   "n_parameters": {
+    "reference": 97,
+    "generated": 35
+   },
+   "parameter_name_jaccard": 0.073,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "ALRSM_BF",
+   "generated_model": "ALRM_general_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 16,
+    "generated": 19,
+    "reference_raw": 30,
+    "generated_raw": 19
+   },
+   "field_signature": {
+    "precision": 0.421,
+    "recall": 0.5,
+    "f1": 0.457,
+    "matched": 8
+   },
+   "quantum_number_values": {
+    "precision": 0.316,
+    "recall": 0.6,
+    "f1": 0.414,
+    "matched": 6
+   },
+   "n_parameters": {
+    "reference": 97,
+    "generated": 67
+   },
+   "parameter_name_jaccard": 0.271,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "-1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  }
+ },
+ "B-L-SM": {
+  "vanilla": {
+   "reference_model": "B-L-FR",
+   "generated_model": "B-L-SM_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 10,
+    "generated": 8,
+    "reference_raw": 30,
+    "generated_raw": 8
+   },
+   "field_signature": {
+    "precision": 0.625,
+    "recall": 0.5,
+    "f1": 0.556,
+    "matched": 5
+   },
+   "quantum_number_values": {
+    "precision": 0.875,
+    "recall": 0.7,
+    "f1": 0.778,
+    "matched": 7
+   },
+   "n_parameters": {
+    "reference": 42,
+    "generated": 13
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "B-L-FR",
+   "generated_model": "B-L-SM_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 10,
+    "generated": 6,
+    "reference_raw": 30,
+    "generated_raw": 6
+   },
+   "field_signature": {
+    "precision": 0.667,
+    "recall": 0.4,
+    "f1": 0.5,
+    "matched": 4
+   },
+   "quantum_number_values": {
+    "precision": 0.833,
+    "recall": 0.5,
+    "f1": 0.625,
+    "matched": 5
+   },
+   "n_parameters": {
+    "reference": 42,
+    "generated": 12
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "B-L-FR",
+   "generated_model": "B-L-SM_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 10,
+    "generated": 7,
+    "reference_raw": 30,
+    "generated_raw": 7
+   },
+   "field_signature": {
+    "precision": 0.857,
+    "recall": 0.6,
+    "f1": 0.706,
+    "matched": 6
+   },
+   "quantum_number_values": {
+    "precision": 0.857,
+    "recall": 0.6,
+    "f1": 0.706,
+    "matched": 6
+   },
+   "n_parameters": {
+    "reference": 42,
+    "generated": 20
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "B-L-FR",
+   "generated_model": "B-L-SM_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 10,
+    "generated": 5,
+    "reference_raw": 30,
+    "generated_raw": 5
+   },
+   "field_signature": {
+    "precision": 0.8,
+    "recall": 0.4,
+    "f1": 0.533,
+    "matched": 4
+   },
+   "quantum_number_values": {
+    "precision": 0.8,
+    "recall": 0.4,
+    "f1": 0.533,
+    "matched": 4
+   },
+   "n_parameters": {
+    "reference": 42,
+    "generated": 15
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  }
+ },
+ "ChernSimonsPortal": {
+  "vanilla": {
+   "reference_model": "ChernSimons",
+   "generated_model": "ChernSimonsPortal_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 1,
+    "reference_raw": 1,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 4,
+    "generated": 2
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "ChernSimons",
+   "generated_model": "ChernSimonsPortal_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 1,
+    "reference_raw": 1,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 4,
+    "generated": 2
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "ChernSimons",
+   "generated_model": "ChernSimonsPortal_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 1,
+    "reference_raw": 1,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 4,
+    "generated": 6
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "ChernSimons",
+   "generated_model": "ChernSimonsPortal_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 1,
+    "reference_raw": 1,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 4,
+    "generated": 2
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  }
+ },
+ "EffLRSM": {
+  "vanilla": {
+   "reference_model": "EffLRSM",
+   "generated_model": "EffLRSM_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 3,
+    "generated": 3,
+    "reference_raw": 3,
+    "generated_raw": 3
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 3
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 3
+   },
+   "n_parameters": {
+    "reference": 17,
+    "generated": 13
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "EffLRSM",
+   "generated_model": "EffLRSM_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 3,
+    "generated": 3,
+    "reference_raw": 3,
+    "generated_raw": 3
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 3
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 3
+   },
+   "n_parameters": {
+    "reference": 17,
+    "generated": 18
+   },
+   "parameter_name_jaccard": 0.296,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "EffLRSM",
+   "generated_model": "EffLRSM_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 3,
+    "generated": 3,
+    "reference_raw": 3,
+    "generated_raw": 3
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 3
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 3
+   },
+   "n_parameters": {
+    "reference": 17,
+    "generated": 11
+   },
+   "parameter_name_jaccard": 0.12,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "EffLRSM",
+   "generated_model": "EffLRSM_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 3,
+    "generated": 3,
+    "reference_raw": 3,
+    "generated_raw": 3
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 3
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 3
+   },
+   "n_parameters": {
+    "reference": 17,
+    "generated": 18
+   },
+   "parameter_name_jaccard": 0.296,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  }
+ },
+ "GeneralU1": {
+  "vanilla": {
+   "reference_model": "U1XGeneric",
+   "generated_model": "GeneralU1_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 15,
+    "generated": 9,
+    "reference_raw": 41,
+    "generated_raw": 9
+   },
+   "field_signature": {
+    "precision": 0.778,
+    "recall": 0.467,
+    "f1": 0.583,
+    "matched": 7
+   },
+   "quantum_number_values": {
+    "precision": 0.889,
+    "recall": 0.533,
+    "f1": 0.667,
+    "matched": 8
+   },
+   "n_parameters": {
+    "reference": 61,
+    "generated": 28
+   },
+   "parameter_name_jaccard": 0.023,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "U1XGeneric",
+   "generated_model": "GeneralU1_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 15,
+    "generated": 3,
+    "reference_raw": 41,
+    "generated_raw": 3
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 0.2,
+    "f1": 0.333,
+    "matched": 3
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 0.2,
+    "f1": 0.333,
+    "matched": 3
+   },
+   "n_parameters": {
+    "reference": 61,
+    "generated": 24
+   },
+   "parameter_name_jaccard": 0.024,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "U1XGeneric",
+   "generated_model": "GeneralU1_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 15,
+    "generated": 8,
+    "reference_raw": 41,
+    "generated_raw": 8
+   },
+   "field_signature": {
+    "precision": 0.875,
+    "recall": 0.467,
+    "f1": 0.609,
+    "matched": 7
+   },
+   "quantum_number_values": {
+    "precision": 0.875,
+    "recall": 0.467,
+    "f1": 0.609,
+    "matched": 7
+   },
+   "n_parameters": {
+    "reference": 61,
+    "generated": 23
+   },
+   "parameter_name_jaccard": 0.012,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "U1XGeneric",
+   "generated_model": "GeneralU1_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 15,
+    "generated": 5,
+    "reference_raw": 41,
+    "generated_raw": 5
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 5
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 5
+   },
+   "n_parameters": {
+    "reference": 61,
+    "generated": 17
+   },
+   "parameter_name_jaccard": 0.026,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "U",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  }
+ },
+ "HeavyN": {
+  "vanilla": {
+   "reference_model": "SM_HeavyN",
+   "generated_model": "HeavyN_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 3,
+    "generated": 1,
+    "reference_raw": 3,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 10,
+    "generated": 2
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "SM_HeavyN",
+   "generated_model": "HeavyN_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 3,
+    "generated": 1,
+    "reference_raw": 3,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 10,
+    "generated": 3
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "SM_HeavyN",
+   "generated_model": "HeavyN_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 3,
+    "generated": 1,
+    "reference_raw": 3,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 10,
+    "generated": 3
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "SM_HeavyN",
+   "generated_model": "HeavyN_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 3,
+    "generated": 1,
+    "reference_raw": 3,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 10,
+    "generated": 3
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  }
+ },
+ "MDMmodel": {
+  "vanilla": {
+   "reference_model": "Minimal Dilaton Model",
+   "generated_model": "MDMmodel_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 9,
+    "generated": 7,
+    "reference_raw": 35,
+    "generated_raw": 7
+   },
+   "field_signature": {
+    "precision": 0.857,
+    "recall": 0.667,
+    "f1": 0.75,
+    "matched": 6
+   },
+   "quantum_number_values": {
+    "precision": 0.857,
+    "recall": 0.667,
+    "f1": 0.75,
+    "matched": 6
+   },
+   "n_parameters": {
+    "reference": 43,
+    "generated": 17
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "Minimal Dilaton Model",
+   "generated_model": "MDMmodel_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 9,
+    "generated": 3,
+    "reference_raw": 35,
+    "generated_raw": 3
+   },
+   "field_signature": {
+    "precision": 0.667,
+    "recall": 0.222,
+    "f1": 0.333,
+    "matched": 2
+   },
+   "quantum_number_values": {
+    "precision": 0.667,
+    "recall": 0.222,
+    "f1": 0.333,
+    "matched": 2
+   },
+   "n_parameters": {
+    "reference": 43,
+    "generated": 17
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "Minimal Dilaton Model",
+   "generated_model": "MDMmodel_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 9,
+    "generated": 6,
+    "reference_raw": 35,
+    "generated_raw": 6
+   },
+   "field_signature": {
+    "precision": 0.667,
+    "recall": 0.444,
+    "f1": 0.533,
+    "matched": 4
+   },
+   "quantum_number_values": {
+    "precision": 0.667,
+    "recall": 0.444,
+    "f1": 0.533,
+    "matched": 4
+   },
+   "n_parameters": {
+    "reference": 43,
+    "generated": 12
+   },
+   "parameter_name_jaccard": 0.019,
+   "reference_field_signatures": [
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "Minimal Dilaton Model",
+   "generated_model": "MDMmodel_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 9,
+    "generated": 5,
+    "reference_raw": 35,
+    "generated_raw": 5
+   },
+   "field_signature": {
+    "precision": 0.6,
+    "recall": 0.333,
+    "f1": 0.429,
+    "matched": 3
+   },
+   "quantum_number_values": {
+    "precision": 0.6,
+    "recall": 0.333,
+    "f1": 0.429,
+    "matched": 3
+   },
+   "n_parameters": {
+    "reference": 43,
+    "generated": 17
+   },
+   "parameter_name_jaccard": 0.017,
+   "reference_field_signatures": [
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  }
+ },
+ "Monotops": {
+  "vanilla": {
+   "reference_model": "MonoTops",
+   "generated_model": "Monotops_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 6,
+    "generated": 6,
+    "reference_raw": 6,
+    "generated_raw": 6
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 6
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 6
+   },
+   "n_parameters": {
+    "reference": 16,
+    "generated": 22
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "MonoTops",
+   "generated_model": "Monotops_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 6,
+    "generated": 6,
+    "reference_raw": 6,
+    "generated_raw": 6
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 6
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 6
+   },
+   "n_parameters": {
+    "reference": 16,
+    "generated": 16
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "MonoTops",
+   "generated_model": "Monotops_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 6,
+    "generated": 6,
+    "reference_raw": 6,
+    "generated_raw": 6
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 6
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 6
+   },
+   "n_parameters": {
+    "reference": 16,
+    "generated": 16
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "MonoTops",
+   "generated_model": "Monotops_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 6,
+    "generated": 6,
+    "reference_raw": 6,
+    "generated_raw": 6
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 6
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 6
+   },
+   "n_parameters": {
+    "reference": 16,
+    "generated": 16
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ]
+   ]
+  }
+ },
+ "NJLComposite": {
+  "vanilla": {
+   "reference_model": "NJLCompositeModel-LQ",
+   "generated_model": "NJLComposite_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 18,
+    "generated": 21,
+    "reference_raw": 18,
+    "generated_raw": 21
+   },
+   "field_signature": {
+    "precision": 0.19,
+    "recall": 0.222,
+    "f1": 0.205,
+    "matched": 4
+   },
+   "quantum_number_values": {
+    "precision": 0.381,
+    "recall": 0.444,
+    "f1": 0.41,
+    "matched": 8
+   },
+   "n_parameters": {
+    "reference": 16,
+    "generated": 5
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "NJLCompositeModel-LQ",
+   "generated_model": "NJLComposite_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 18,
+    "generated": 14,
+    "reference_raw": 18,
+    "generated_raw": 14
+   },
+   "field_signature": {
+    "precision": 0.429,
+    "recall": 0.333,
+    "f1": 0.375,
+    "matched": 6
+   },
+   "quantum_number_values": {
+    "precision": 0.429,
+    "recall": 0.333,
+    "f1": 0.375,
+    "matched": 6
+   },
+   "n_parameters": {
+    "reference": 16,
+    "generated": 3
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "-1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "NJLCompositeModel-LQ",
+   "generated_model": "NJLComposite_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 18,
+    "generated": 35,
+    "reference_raw": 18,
+    "generated_raw": 35
+   },
+   "field_signature": {
+    "precision": 0.171,
+    "recall": 0.333,
+    "f1": 0.226,
+    "matched": 6
+   },
+   "quantum_number_values": {
+    "precision": 0.4,
+    "recall": 0.778,
+    "f1": 0.528,
+    "matched": 14
+   },
+   "n_parameters": {
+    "reference": 16,
+    "generated": 3
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Q",
+      "-1"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Y",
+      "-1/2"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Y",
+      "-1/2"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Y",
+      "-1/2"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "Y",
+      "-1/2"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "-1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "NJLCompositeModel-LQ",
+   "generated_model": "NJLComposite_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 18,
+    "generated": 13,
+    "reference_raw": 18,
+    "generated_raw": 13
+   },
+   "field_signature": {
+    "precision": 0.308,
+    "recall": 0.222,
+    "f1": 0.258,
+    "matched": 4
+   },
+   "quantum_number_values": {
+    "precision": 0.308,
+    "recall": 0.222,
+    "f1": 0.258,
+    "matched": 4
+   },
+   "n_parameters": {
+    "reference": 16,
+    "generated": 10
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "triplet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ]
+   ]
+  }
+ },
+ "SLQrules": {
+  "vanilla": {
+   "reference_model": "SLQrules",
+   "generated_model": "SLQrules_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 14,
+    "generated": 14,
+    "reference_raw": 14,
+    "generated_raw": 14
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 14
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 14
+   },
+   "n_parameters": {
+    "reference": 103,
+    "generated": 113
+   },
+   "parameter_name_jaccard": 0.038,
+   "reference_field_signatures": [
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "SLQrules",
+   "generated_model": "SLQrules_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 14,
+    "generated": 11,
+    "reference_raw": 14,
+    "generated_raw": 11
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 0.786,
+    "f1": 0.88,
+    "matched": 11
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 0.786,
+    "f1": 0.88,
+    "matched": 11
+   },
+   "n_parameters": {
+    "reference": 103,
+    "generated": 91
+   },
+   "parameter_name_jaccard": 0.141,
+   "reference_field_signatures": [
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "SLQrules",
+   "generated_model": "SLQrules_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 14,
+    "generated": 12,
+    "reference_raw": 14,
+    "generated_raw": 12
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 0.857,
+    "f1": 0.923,
+    "matched": 12
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 0.857,
+    "f1": 0.923,
+    "matched": 12
+   },
+   "n_parameters": {
+    "reference": 103,
+    "generated": 86
+   },
+   "parameter_name_jaccard": 0.005,
+   "reference_field_signatures": [
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "SLQrules",
+   "generated_model": "SLQrules_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 14,
+    "generated": 12,
+    "reference_raw": 14,
+    "generated_raw": 12
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 0.857,
+    "f1": 0.923,
+    "matched": 12
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 0.857,
+    "f1": 0.923,
+    "matched": 12
+   },
+   "n_parameters": {
+    "reference": 103,
+    "generated": 50
+   },
+   "parameter_name_jaccard": 0.109,
+   "reference_field_signatures": [
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "-4/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "2/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Q",
+      "5/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "-1/3"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "1/6"
+     ]
+    ],
+    [
+     "S",
+     "triplet",
+     [
+      "Y",
+      "7/6"
+     ]
+    ]
+   ]
+  }
+ },
+ "SMWeinberg": {
+  "vanilla": {
+   "reference_model": "SMWeinberg",
+   "generated_model": "SMWeinberg_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 1,
+    "reference_raw": 1,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 8,
+    "generated": 4
+   },
+   "parameter_name_jaccard": 0.091,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "SMWeinberg",
+   "generated_model": "SMWeinberg_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 1,
+    "reference_raw": 1,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 8,
+    "generated": 10
+   },
+   "parameter_name_jaccard": 0.636,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "SMWeinberg",
+   "generated_model": "SMWeinberg_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 1,
+    "reference_raw": 1,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 8,
+    "generated": 5
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "SMWeinberg",
+   "generated_model": "SMWeinberg_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 1,
+    "reference_raw": 1,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 8,
+    "generated": 9
+   },
+   "parameter_name_jaccard": 0.7,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  }
+ },
+ "Top-Philic-Zprime": {
+  "vanilla": {
+   "reference_model": "Top_Philic",
+   "generated_model": "Top-Philic-Zprime_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 1,
+    "reference_raw": 1,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 2,
+    "generated": 5
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "Top_Philic",
+   "generated_model": "Top-Philic-Zprime_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 1,
+    "reference_raw": 1,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 2,
+    "generated": 5
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "Top_Philic",
+   "generated_model": "Top-Philic-Zprime_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 1,
+    "reference_raw": 1,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 2,
+    "generated": 7
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "Top_Philic",
+   "generated_model": "Top-Philic-Zprime_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 1,
+    "reference_raw": 1,
+    "generated_raw": 1
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 2,
+    "generated": 5
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  }
+ },
+ "Wprime": {
+  "vanilla": {
+   "reference_model": "WEff",
+   "generated_model": "Wprime_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 2,
+    "reference_raw": 1,
+    "generated_raw": 2
+   },
+   "field_signature": {
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.667,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.667,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 8,
+    "generated": 12
+   },
+   "parameter_name_jaccard": 0.111,
+   "reference_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "WEff",
+   "generated_model": "Wprime_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 2,
+    "reference_raw": 1,
+    "generated_raw": 2
+   },
+   "field_signature": {
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.667,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.667,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 8,
+    "generated": 8
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "WEff",
+   "generated_model": "Wprime_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 2,
+    "reference_raw": 1,
+    "generated_raw": 2
+   },
+   "field_signature": {
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.667,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.667,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 8,
+    "generated": 15
+   },
+   "parameter_name_jaccard": 0.0,
+   "reference_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "WEff",
+   "generated_model": "Wprime_gen",
+   "sm_subtracted": false,
+   "n_fields": {
+    "reference": 1,
+    "generated": 2,
+    "reference_raw": 1,
+    "generated_raw": 2
+   },
+   "field_signature": {
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.667,
+    "matched": 1
+   },
+   "quantum_number_values": {
+    "precision": 0.5,
+    "recall": 1.0,
+    "f1": 0.667,
+    "matched": 1
+   },
+   "n_parameters": {
+    "reference": 8,
+    "generated": 10
+   },
+   "parameter_name_jaccard": 0.125,
+   "reference_field_signatures": [
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "V",
+     "singlet",
+     [
+      "Q",
+      "1"
+     ]
+    ]
+   ]
+  }
+ },
+ "pNG": {
+  "vanilla": {
+   "reference_model": "SM_with_pNG",
+   "generated_model": "pNG_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 3,
+    "generated": 5,
+    "reference_raw": 29,
+    "generated_raw": 5
+   },
+   "field_signature": {
+    "precision": 0.6,
+    "recall": 1.0,
+    "f1": 0.75,
+    "matched": 3
+   },
+   "quantum_number_values": {
+    "precision": 0.6,
+    "recall": 1.0,
+    "f1": 0.75,
+    "matched": 3
+   },
+   "n_parameters": {
+    "reference": 37,
+    "generated": 11
+   },
+   "parameter_name_jaccard": 0.021,
+   "reference_field_signatures": [
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "SM_with_pNG",
+   "generated_model": "pNG_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 3,
+    "generated": 4,
+    "reference_raw": 29,
+    "generated_raw": 4
+   },
+   "field_signature": {
+    "precision": 0.75,
+    "recall": 1.0,
+    "f1": 0.857,
+    "matched": 3
+   },
+   "quantum_number_values": {
+    "precision": 0.75,
+    "recall": 1.0,
+    "f1": 0.857,
+    "matched": 3
+   },
+   "n_parameters": {
+    "reference": 37,
+    "generated": 10
+   },
+   "parameter_name_jaccard": 0.044,
+   "reference_field_signatures": [
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "SM_with_pNG",
+   "generated_model": "pNG_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 3,
+    "generated": 4,
+    "reference_raw": 29,
+    "generated_raw": 4
+   },
+   "field_signature": {
+    "precision": 0.75,
+    "recall": 1.0,
+    "f1": 0.857,
+    "matched": 3
+   },
+   "quantum_number_values": {
+    "precision": 0.75,
+    "recall": 1.0,
+    "f1": 0.857,
+    "matched": 3
+   },
+   "n_parameters": {
+    "reference": 37,
+    "generated": 10
+   },
+   "parameter_name_jaccard": 0.022,
+   "reference_field_signatures": [
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "SM_with_pNG",
+   "generated_model": "pNG_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 3,
+    "generated": 4,
+    "reference_raw": 29,
+    "generated_raw": 4
+   },
+   "field_signature": {
+    "precision": 0.75,
+    "recall": 1.0,
+    "f1": 0.857,
+    "matched": 3
+   },
+   "quantum_number_values": {
+    "precision": 0.75,
+    "recall": 1.0,
+    "f1": 0.857,
+    "matched": 3
+   },
+   "n_parameters": {
+    "reference": 37,
+    "generated": 10
+   },
+   "parameter_name_jaccard": 0.068,
+   "reference_field_signatures": [
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  }
+ },
+ "pSPSS": {
+  "vanilla": {
+   "reference_model": "pSPSS",
+   "generated_model": "pSPSS_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 6,
+    "generated": 5,
+    "reference_raw": 32,
+    "generated_raw": 5
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 0.833,
+    "f1": 0.909,
+    "matched": 5
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 0.833,
+    "f1": 0.909,
+    "matched": 5
+   },
+   "n_parameters": {
+    "reference": 45,
+    "generated": 13
+   },
+   "parameter_name_jaccard": 0.208,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ]
+   ]
+  },
+  "harness": {
+   "reference_model": "pSPSS",
+   "generated_model": "pSPSS_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 6,
+    "generated": 2,
+    "reference_raw": 32,
+    "generated_raw": 2
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 2
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 2
+   },
+   "n_parameters": {
+    "reference": 45,
+    "generated": 15
+   },
+   "parameter_name_jaccard": 0.132,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  },
+  "opt": {
+   "reference_model": "pSPSS",
+   "generated_model": "pSPSS_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 6,
+    "generated": 2,
+    "reference_raw": 32,
+    "generated_raw": 2
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 2
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 2
+   },
+   "n_parameters": {
+    "reference": 45,
+    "generated": 17
+   },
+   "parameter_name_jaccard": 0.107,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ]
+   ]
+  },
+  "shell": {
+   "reference_model": "pSPSS",
+   "generated_model": "pSPSS_gen",
+   "sm_subtracted": true,
+   "n_fields": {
+    "reference": 6,
+    "generated": 2,
+    "reference_raw": 32,
+    "generated_raw": 2
+   },
+   "field_signature": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 2
+   },
+   "quantum_number_values": {
+    "precision": 1.0,
+    "recall": 0.333,
+    "f1": 0.5,
+    "matched": 2
+   },
+   "n_parameters": {
+    "reference": 45,
+    "generated": 26
+   },
+   "parameter_name_jaccard": 0.092,
+   "reference_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "S",
+     "singlet",
+     [
+      "Y",
+      "1/2"
+     ]
+    ]
+   ],
+   "generated_field_signatures": [
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ],
+    [
+     "F",
+     "singlet",
+     [
+      "neutral",
+      "0"
+     ]
+    ]
+   ]
+  }
+ }
+}

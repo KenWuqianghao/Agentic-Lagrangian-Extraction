@@ -23,7 +23,23 @@ with a computer: with a shell the same model reaches 7.
 | chain pass, and no cut statement, and every new particle in a UFO vertex | 7 | 8 | 9 | 14 |
 | chain pass, and the fresh referee finds nothing physics-changing | 2 | 2 | 3 | 7 |
 | chain pass, and every interaction of the paper has a vertex (audit, particle content only) | not audited | not audited | not audited | 7 |
+| mean field F1 against the FeynRules database reference `.fr` (all delivered models) | 0.76 | 0.67 | 0.71 | 0.68 |
 | cost | $78 | $63 | $60 | $70 (two timed-out runs recorded $0) |
+
+The field F1 row is the only row measured against ground truth: the
+reference `.fr` of each paper from the FeynRules model database
+(`heptapod/eval/reference_cache/`, scorer `heptapod/eval/reference_bench.py`,
+per-paper numbers in `results/reference_field_scores.json`). It compares the
+new fields (spin, colour, quantum number), not the interactions. On it the
+order of the groups is reversed: vanilla declares the most reference fields
+and the harness groups the fewest. Examples, fields delivered of fields in
+the reference: 331, vanilla 32 of 38 (compile fails) and group 4 12 of 38
+(chain pass); GeneralU1, 9 of 15 and 5 of 15; pSPSS, 5 of 6 and 2 of 6;
+MDMmodel, 7 of 9 and 5 of 9. A smaller model passes the chain more easily,
+and every harness group is rewarded for a pass. So the pass counts above
+measure consistency, and they rise while completeness falls. Not confirmed:
+how much of the gap is real omission and how much is style (a model that
+reuses SM.fr's fields declares fewer classes than one that redeclares them).
 
 Group 4 against group 1, paired on the papers: 7 papers pass the chain only
 in group 4 (331, B-L-SM, GeneralU1, MDMmodel, Monotops, SMWeinberg, pSPSS)
