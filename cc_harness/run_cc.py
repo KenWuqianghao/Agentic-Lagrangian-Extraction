@@ -55,6 +55,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent / "pi_harness"))
 import common as C  # noqa: E402
+import isolation  # noqa: E402
 import run_pi  # noqa: E402
 
 RUNS = run_pi.RUNS
@@ -116,6 +117,20 @@ def make_sandbox(page: str, rundir: Path, draft: Path | None = None) -> Path:
     return sb
 
 
+SHELL_NOTE = """\
+SANDBOX: the working directory contains the paper (under eval/benchmark_runs/), SM.fr (the
+Standard Model file this add-on is loaded on top of: take field names, index conventions and
+hypercharges from it), and what you write. You have a shell: wolframscript, FeynRules
+($FEYNRULES_PATH) and MadGraph ($MG5_PATH) are installed. Do not use the network."""
+# What the shell arm's agent may see of the repositories: the harness code its MCP server and
+# hooks run from, the validator tree, and its own run directory. No stored model.
+_VALIDATOR = Path.home() / "code" / "hep-pr" / "validator-main"
+SHELL_READ_ONLY = (HERE, HERE.parent / "pi_harness", HERE.parent / "benchmarks" / "fr_lint.py",
+                   HERE.parent / "benchmarks" / "heptapod_ablation" / "sm_ufo_particles.json",
+                   _VALIDATOR / "tools", _VALIDATOR / "eval", _VALIDATOR / "config.py")
+SHELL_HIDDEN = (_VALIDATOR / "tools" / "feynrules" / "test_files" / "models" / "S1_LQ_RR.fr",)
+
+
 def write_configs(rundir: Path, sandbox: Path, args) -> dict:
     env = {"CC_SANDBOX": str(sandbox), "CC_RUNDIR": str(rundir),
            "CC_VALIDATE_BUDGET": str(args.validate_budget), "CC_REVIEW_BUDGET": str(args.review_budget),
@@ -127,27 +142,36 @@ def write_configs(rundir: Path, sandbox: Path, args) -> dict:
            **{k: v for k, v in os.environ.items() if k.startswith("HEPVAL_")}}
     py = sys.executable
     arm = C.arm(args.arm)
-    hooks = {"PreToolUse": [{"matcher": "*", "hooks": [
+    if arm.shell:
+        # hepval's default validator path goes through ~/Documents, which the isolation hides.
+        env["HEPVAL_ROOT"] = str(_VALIDATOR)
+    # With a shell the PreToolUse guard cannot confine anything: isolation.py does.
+    hooks = {} if arm.shell else {"PreToolUse": [{"matcher": "*", "hooks": [
         {"type": "command", "command": f"{py} {HERE / 'hooks' / 'pretool_guard.py'}"}]}]}
     if "validate_model" in arm.tools:
         # The gate asks for a validate_model verdict; without the tool there is none to ask for.
         hooks["Stop"] = [{"hooks": [
             {"type": "command", "command": f"{py} {HERE / 'hooks' / 'stop_gate.py'}"}]}]
-    settings = {"env": env, "permissions": {"deny": ["Bash", "WebFetch", "WebSearch", "Task", "Agent"]},
-                "hooks": hooks}
+    denied = ["WebFetch", "WebSearch", "Task", "Agent"] + ([] if arm.shell else ["Bash"])
+    settings = {"env": env, "permissions": {"deny": denied}, "hooks": hooks}
     servers = {C.SERVER_NAME: {"type": "stdio", "command": py,
                                "args": [str(HERE / "heptapod_mcp.py")], "env": env}} if arm.tools else {}
     (rundir / "settings.json").write_text(json.dumps(settings, indent=1))
     (rundir / "mcp.json").write_text(json.dumps({"mcpServers": servers}, indent=1))
     (rundir / "protocol.md").write_text(C.render_protocol(
-        PROTOCOL.read_text(), arm, args.validate_budget, args.max_continuations))
+        PROTOCOL.read_text(), arm, args.validate_budget, args.max_continuations, rundir=str(rundir)))
     return env
 
 
 def task_prompt(page: str, arm: C.Arm, draft: bool = False) -> str:
     """run_pi's harness prompt; an arm without validate_model has no verdict
-    to summarise, and a run that starts from a draft is told so."""
+    to summarise, a run that starts from a draft is told so, and the shell
+    arm is not told that it has no shell."""
     prompt = run_pi.build_prompt(page, "harness")
+    if arm.shell:
+        if run_pi.SANDBOX_NOTE not in prompt:
+            raise ValueError("task prompt: the sandbox note is not where it was")
+        prompt = prompt.replace(run_pi.SANDBOX_NOTE, SHELL_NOTE)
     if "validate_model" not in arm.tools:
         tail = " and the last validate_model verdict."
         if tail not in prompt:
@@ -156,7 +180,17 @@ def task_prompt(page: str, arm: C.Arm, draft: bool = False) -> str:
     return prompt + ("\n" + DRAFT_NOTE + "\n" if draft else "")
 
 
-def agent_cmd(rundir: Path, model: str, arm: C.Arm) -> list[str]:
+def agent_cmd(rundir: Path, model: str, arm: C.Arm, sandbox: Path | None = None) -> list[str]:
+    if arm.shell:
+        cmd = [C.CLAUDE, "-p", "--output-format", "stream-json", "--verbose", "--model", model,
+               "--setting-sources", "", "--settings", str(rundir / "settings.json"),
+               "--mcp-config", str(rundir / "mcp.json"), "--strict-mcp-config",
+               "--permission-mode", "bypassPermissions",
+               "--append-system-prompt-file", str(rundir / "protocol.md"),
+               "--disallowedTools", "WebFetch,WebSearch,Task,Agent"]
+        from hepval import STATE          # the kernel lock the wrapper and hepval share
+        return isolation.isolate(cmd, sandbox, read_only=SHELL_READ_ONLY, read_write=(rundir, STATE),
+                                 hidden=SHELL_HIDDEN)
     return [C.CLAUDE, "-p", "--output-format", "stream-json", "--verbose", "--model", model,
             "--setting-sources", "", "--settings", str(rundir / "settings.json"),
             "--mcp-config", str(rundir / "mcp.json"), "--strict-mcp-config",
@@ -231,12 +265,16 @@ def run_agent(page: str, seed: int, args) -> dict:
     prompt = task_prompt(page, C.arm(args.arm), draft=bool(draft))
     (rundir / "prompt.txt").write_text(prompt)
     env_cc = write_configs(rundir, sandbox, args)
-    cmd = agent_cmd(rundir, args.model, C.arm(args.arm))
+    cmd = agent_cmd(rundir, args.model, C.arm(args.arm), sandbox)
     (rundir / "command.json").write_text(json.dumps(cmd, indent=1))
     env = {**os.environ, **env_cc,
            # validate_model can hold the tool call for one queued compile plus
            # its own (2 x 900 s): the default MCP tool timeout is far shorter.
            "MCP_TOOL_TIMEOUT": str(3 * 3600 * 1000), "MCP_TIMEOUT": "60000"}
+    if C.arm(args.arm).shell:
+        from hepval import LOCK
+        env.update({"PATH": f"{isolation.write_wolframscript_wrapper(sandbox, LOCK)}:{os.environ['PATH']}",
+                    "FEYNRULES_PATH": str(isolation.FEYNRULES), "MG5_PATH": str(isolation.MG5)})
     if getattr(args, "max_output_tokens", None):
         env["CLAUDE_CODE_MAX_OUTPUT_TOKENS"] = str(args.max_output_tokens)
     print(f"[cc] {args.variant} {page} s{seed} ...", flush=True)

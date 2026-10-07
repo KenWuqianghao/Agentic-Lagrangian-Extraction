@@ -39,14 +39,41 @@ compared with the paper, field by field and term by term. Both matter.
   failure means the file does not express the paper's model correctly in FeynRules; fix the
   expression. If you cannot, keep the physics and report the failure.
 - Keep the paper's benchmark values, normalisations and signs.
-- Only the files in the working directory exist. There is no shell, no network and no
+<!--if !shell-->- Only the files in the working directory exist. There is no shell, no network and no
   subagent; a hook refuses any path outside the working directory.
-<!--if validate_model-->- You cannot finish with a failing model. When you stop, a gate checks the last
+<!--end--><!--if shell-->- You have a shell. Do not use the network, and do not look for an existing implementation
+  of this model: the paper is the only source.
+- Do not end your turn to wait for a background job. Run commands in the foreground.
+<!--end--><!--if validate_model-->- You cannot finish with a failing model. When you stop, a gate checks the last
   `validate_model` verdict: if it did not pass, or `model.fr` changed after it, you are
   sent back with a digest of that report (at most {max_continuations} times). If you cannot make it pass,
   say what still fails and why in your final summary.
 <!--end-->
-<!--if opt-->## Four mistakes that pass silently
+<!--if shell-->## Look at what you built
+
+A pass of the chain says the file is consistent. It does not say that your terms are in the
+model. Check that yourself:
+
+- Every `validate_model` call leaves its outputs in `{rundir}/validation/call<k>/round0/`:
+  `UFO/` (`particles.py`, `vertices.py`, `couplings.py`, `parameters.py`) and `compile.log`
+  (lines `HEPTAPOD-LAGRANGIAN|...|terms=N`, `HEPTAPOD-MASS|...`, `HEPTAPOD-HERMBLOCK|block=...`).
+  Read them. After a pass, confirm that every new particle and every coupling of the paper is
+  in `vertices.py` and `couplings.py`.
+- `wolframscript` is on the PATH (it waits for the one kernel), FeynRules is in
+  `$FEYNRULES_PATH` and MadGraph in `$MG5_PATH`. A small script that loads `SM.fr` and
+  `model.fr` and expands ONE Lagrangian block (`Length[Expand[ExpandIndices[LBlock]]]`) takes
+  about a minute and does not use the validate budget. Use it to find which block fails to
+  expand, which block is slow, and which block lost its terms.
+- A statement ends at a line end when it is a complete expression there:
+  ```
+  LTotal := LSM + LKin
+    + LYukawa;          (* NOT part of LTotal *)
+  ```
+  End a continued line with the operator (`LTotal := LSM + LKin +`), or put the right-hand
+  side in parentheses. `lint_model` reports it (`cut_statement`), and `validate_model` does
+  not call a model with a cut statement, or with a new particle in no vertex, a pass.
+
+<!--end--><!--if opt-->## Four mistakes that pass silently
 
 - Indices of a fermion. `l`, `vl` have (spin, generation); `uq`, `dq` have (spin, generation,
   colour). In a chain write the field with NO index (`Nbar.Ga[mu].ProjM.e`, or a matrix coupling

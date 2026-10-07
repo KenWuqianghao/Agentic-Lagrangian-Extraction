@@ -45,12 +45,10 @@ import common as C  # noqa: E402
 import run_cc  # noqa: E402
 import run_pi  # noqa: E402
 
+import isolation  # noqa: E402
+
 HOME = Path.home()
-MAC = sys.platform == "darwin"
-# The chain's three paths on this machine (the Mac keeps them in the home directory).
-FEYNRULES = HOME / "feynrules-current" if MAC else HOME / "hep-tools" / "feynrules-current"
-MG5 = HOME / "MG5_aMC" if MAC else HOME / "hep-tools" / "MG5_aMC"
-WOLFRAMSCRIPT = Path("/opt/homebrew/bin/wolframscript") if MAC else HOME / "hep-tools" / "bin" / "wolframscript"
+FEYNRULES, MG5 = isolation.FEYNRULES, isolation.MG5
 LOCK = Path(os.environ.get("HEPVAL_STATE", HOME / ".cache/ale-pi-harness")) / "wolfram.lock"
 AGENT_TIMEOUT = int(os.environ.get("VANILLA_AGENT_TIMEOUT", str(2 * 3600)))
 NETWORK = re.compile(r"\b(curl|wget|git\s+clone|pip\s+install|pip3\s+install|scp|ssh|nc)\b")
@@ -74,25 +72,12 @@ This machine has: wolframscript (Wolfram Engine) on the PATH; FeynRules 2.3.49 i
 stands when you stop is the deliverable.
 """
 
-WRAPPER = """#!{python}
-# One Wolfram kernel at a time on this machine (licence limit); wait for it.
-import fcntl, os, sys
-fd = os.open("{lock}", os.O_RDWR | os.O_CREAT)
-fcntl.flock(fd, fcntl.LOCK_EX)
-os.set_inheritable(fd, True)          # the lock lives as long as wolframscript does
-os.execv("{real}", ["{real}", *sys.argv[1:]])
-"""
-
-
 def make_sandbox(page: str, rundir: Path) -> Path:
     sb = Path(tempfile.mkdtemp(prefix=f"vanilla-{page}-")).resolve()
     paper = run_pi.paper_file(page)
     shutil.copy2(paper, sb / paper.name)
     shutil.copy2(run_pi.SM_FR, sb / "SM.fr")
-    (sb / ".bin").mkdir()
-    w = sb / ".bin" / "wolframscript"
-    w.write_text(WRAPPER.format(python=sys.executable, lock=LOCK, real=WOLFRAMSCRIPT))
-    w.chmod(0o755)
+    isolation.write_wolframscript_wrapper(sb, LOCK)
     (rundir / "sandbox_path.txt").write_text(str(sb))
     return sb
 
@@ -102,18 +87,7 @@ def agent_cmd(sandbox: Path, model: str) -> list[str]:
               "--setting-sources", "", "--strict-mcp-config", "--mcp-config", '{"mcpServers": {}}',
               "--permission-mode", "bypassPermissions",
               "--disallowedTools", "WebFetch,WebSearch,Task,Agent"]
-    # The agent sees the system, its own directory, the tools and its login; not the
-    # repositories, the stored runs or other sessions' temp files.
-    if MAC:
-        profile = ('(version 1)(allow default)'
-                   f'(deny file-read* (subpath "{HOME / "Documents"}") (subpath "{HOME / "code"}")'
-                   f' (subpath "{HOME / "Desktop"}") (subpath "{HOME / "Downloads"}"))')
-        return ["sandbox-exec", "-p", profile, *claude]
-    return ["bwrap", "--bind", "/", "/", "--dev", "/dev", "--proc", "/proc",
-            "--tmpfs", str(HOME / "code"), "--tmpfs", str(HOME / "Documents"), "--tmpfs", "/tmp",
-            "--tmpfs", str(HOME / ".claude" / "projects"),
-            "--bind", str(sandbox), str(sandbox), "--bind", str(LOCK.parent), str(LOCK.parent),
-            "--chdir", str(sandbox), "--die-with-parent", *claude]
+    return isolation.isolate(claude, sandbox, read_write=(LOCK.parent,))
 
 
 def audit(stream: list[str]) -> dict:

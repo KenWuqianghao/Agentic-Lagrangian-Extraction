@@ -61,7 +61,7 @@ def test_protocol_names_only_the_arms_tools_and_keeps_the_sm_override_recipe(arm
         assert (f"`{tool}`" in text) == (tool in C.ARMS[arm].tools), tool
     assert "LTotal := LSM - LHiggs + LScalar" in text
     assert not any(x in text for x in ("<!--", "{tool_list}", "{validate_budget}", "{max_continuations}"))
-    if C.ARMS[arm].feedback not in ("diag", "opt"):
+    if C.ARMS[arm].feedback not in ("diag", "opt", "real"):
         assert "the report lists" not in text
 
 
@@ -178,3 +178,29 @@ def test_optimisation_arm_does_not_accept_a_chain_pass_with_a_vertexless_particl
     assert "FULL CHAIN PASS" not in text and "no vertex" in text.splitlines()[0]
     assert C.load_state(env["rd"])["last_validation"]["told_pass"] is False
     assert _stop(e, False)["decision"] == "block"
+
+
+def test_cut_statement_is_found_only_where_the_line_end_ends_the_expression():
+    import opt_checks
+    cut = "LTotal := LSM + LKin\n  + LYuk;\n"
+    assert [c["line"] for c in opt_checks.cut_lines(cut)] == [2]
+    assert "cut_statement" in {f["rule"] for f in opt_checks.lint(cut, real=True)}
+    assert "cut_statement" not in {f["rule"] for f in opt_checks.lint(cut)}          # the opt arm ran without it
+    for whole in ("LTotal := LSM + LKin +\n  LYuk;\n", "LTotal := (LSM + LKin\n  + LYuk);\n",
+                  "LA := Block[{mu},\n  a\n  + b];\n", "LA := x;\n-1 (* next statement *) ;\n"):
+        assert opt_checks.cut_lines(whole) == [], whole
+
+
+def test_shell_arm_has_bash_no_path_guard_and_sees_only_its_own_run(tmp_path, monkeypatch):
+    monkeypatch.setattr(run_cc.isolation, "MAC", False)
+    args = SimpleNamespace(arm="shell", validate_budget=10, review_budget=2, max_continuations=3, model="m", review_model="")
+    run_cc.write_configs(tmp_path, tmp_path, args)
+    settings = json.loads((tmp_path / "settings.json").read_text())
+    assert "PreToolUse" not in settings["hooks"] and "Stop" in settings["hooks"]
+    assert "Bash" not in settings["permissions"]["deny"]
+    cmd = run_cc.agent_cmd(tmp_path, "m", C.ARMS["shell"], tmp_path)
+    assert cmd[0] == "bwrap" and ["--tmpfs", str(Path.home() / "code")] == cmd[cmd.index("--tmpfs"):cmd.index("--tmpfs") + 2]
+    bound = [cmd[i + 1] for i, x in enumerate(cmd) if x in ("--bind", "--ro-bind")]
+    assert str(tmp_path) in bound and not any("benchmark_runs" in b for b in bound)
+    protocol = (tmp_path / "protocol.md").read_text()
+    assert f"{tmp_path}/validation/call<k>/round0/" in protocol and "There is no shell" not in protocol

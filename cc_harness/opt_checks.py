@@ -17,6 +17,11 @@ Lint rules, on the .fr text:
   nonpositive_order       InteractionOrder with a power below 1: couplings
                           of order '1', which MadGraph rejects
 
+With `real=True` (the `shell` arm) one more rule:
+  cut_statement           a top-level statement that is a complete expression
+                          at a line end: the next line, starting with + or -,
+                          is a separate statement with no effect
+
 Report sections, on the chain's outputs:
   new particles that are in no UFO vertex; the mass-spectrum rows that
   disagree; the UFO parameter names that are defined twice.
@@ -59,9 +64,39 @@ def _fermion_indices(classes: list[dict]) -> dict:
     return counts
 
 
-def lint(raw: str) -> list[dict]:
+def cut_lines(raw: str) -> list[dict]:
+    """Lines at bracket depth 0 that start with + or - after a line that ended
+    a complete expression (no trailing operator, comma or semicolon). In a
+    file read with Get, the expression ended at that line end."""
+    text = fr_lint.strip_comments(raw)
+    out, depth, prev, in_str = [], 0, "", False
+    for n, line in enumerate(text.splitlines(), 1):
+        s = line.strip()
+        if s and depth == 0 and re.match(r"[+\-]", s) and prev and not re.search(r"[+\-*/.,;=({\[&|^]$", prev):
+            out.append({"line": n, "text": s[:100], "after": prev[:80]})
+        for ch in line:
+            if ch == '"':
+                in_str = not in_str
+            elif not in_str and ch in "([{":
+                depth += 1
+            elif not in_str and ch in ")]}":
+                depth = max(0, depth - 1)
+        if s:
+            prev = s
+    return out
+
+
+def lint(raw: str, real: bool = False) -> list[dict]:
     text = fr_lint.strip_comments(raw)
     out: list[dict] = []
+    if real:
+        for c in cut_lines(raw):
+            out.append(_finding(
+                "cut_statement", "checks", c["line"],
+                f"this line starts with `{c['text'][0]}`, and the line before it (`... {c['after'][-40:]}`) is already a "
+                "complete expression. Mathematica ends the statement at that line end; this line is a separate statement "
+                "and its terms are NOT in the model. Join the lines, end the earlier line with the operator, or put the "
+                "whole right-hand side in parentheses."))
     block = re.search(r"M\$ClassesDescription\s*=\s*\{", text)
     list_end = fr_lint._matching(text, block.end() - 1) if block else -1
     classes = fr_lint._entries(fr_lint._block(text, "ClassesDescription"))
@@ -135,10 +170,12 @@ def particles_without_vertex(ufo: Path) -> list[str]:
     Ghosts are skipped."""
     if not (ufo / "vertices.py").is_file() or not (ufo / "particles.py").is_file():
         return []
-    declared = set(re.findall(r"^(\w+) = Particle\(", (ufo / "particles.py").read_text(errors="replace"), re.M))
+    text = (ufo / "particles.py").read_text(errors="replace")
+    declared = set(re.findall(r"^(\w+) = Particle\(", text, re.M))
+    anti = {p: a for a, p in re.findall(r"^(\w+) = (\w+)\.anti\(\)", text, re.M)}
     used = set(re.findall(r"P\.(\w+)", (ufo / "vertices.py").read_text(errors="replace")))
     return sorted(n for n in declared - SM_PARTICLES
-                  if n not in used and n + "__tilde__" not in used and not n.startswith("gh"))
+                  if n not in used and anti.get(n) not in used and not n.startswith("gh"))
 
 
 def duplicate_ufo_parameters(ufo: Path) -> list[str]:
@@ -152,13 +189,27 @@ def mass_rows(log: str) -> list[dict]:
     return [{"particle": p, "derived": d, "declared": c} for p, d, c, ok in rows if ok != "True"]
 
 
-def report_sections(row: dict, log: str) -> tuple[str, list[str]]:
+def report_sections(row: dict, log: str, real: bool = False, fr_text: str = "") -> tuple[str, list[str]]:
     """Extra report text, and the new particles without a vertex (a model
-    with any is not a pass in the `opt` arm)."""
+    with any is not a pass in the `opt` and `shell` arms)."""
     parts: list[str] = []
     ufo = Path(row["ufo_dir"]) if row.get("ufo_dir") else None
     inert = particles_without_vertex(ufo) if ufo and row.get("compile_ok") else []
-    if inert:
+    cut = cut_lines(fr_text) if real else []
+    if cut:
+        parts += ["## Statements cut at a line end",
+                  "These lines start with `+` or `-` after a line that is already a complete expression. Mathematica ended "
+                  "the statement there, so the terms on these lines are not in the model that was just checked:", "",
+                  *[f"- line {c['line']}: `{c['text']}`" for c in cut[:12]],
+                  *([f"- ... and {len(cut) - 12} more"] if len(cut) > 12 else []),
+                  "", "A model with a cut statement is not done, whatever the chain says.", ""]
+    if inert and real:
+        parts += ["## New particles that are in no vertex of the UFO",
+                  f"{', '.join(inert)}: declared, and no vertex of the UFO contains them. The terms that hold them did not "
+                  "reach the UFO. This report does not know why. Find out: the UFO and the FeynRules log of this call are "
+                  "on disk (see the protocol), and you can expand one Lagrangian block at a time with wolframscript and "
+                  "count its terms. The chain's checks pass such a model; it is not the paper's model.", ""]
+    elif inert:
         parts += ["## New particles that are in no vertex of the UFO",
                   f"{', '.join(inert)}: declared, and no interaction of the model contains them. FeynRules dropped the "
                   "terms that hold them, with no message. The usual cause is a field written with a partial index list "
@@ -175,7 +226,7 @@ def report_sections(row: dict, log: str) -> tuple[str, list[str]]:
     dup = duplicate_ufo_parameters(ufo) if ufo and row.get("compile_ok") else []
     if dup:
         parts += ["## UFO parameters defined more than once",
-                  f"{', '.join(dup[:20])}: MadGraph rejects the UFO (\"name ... define multiple time\"). Each is either a "
+                  f"{', '.join(dup[:20])}{f' and {len(dup) - 20} more' if len(dup) > 20 else ''}: MadGraph rejects the UFO (\"name ... define multiple time\"). Each is either a "
                   "mass or width named in a class and declared again in M$Parameters (remove that entry), or a "
                   "component of tensors that share one BlockName (give each tensor its own BlockName).", ""]
-    return "\n".join(parts), inert
+    return "\n".join(parts), inert + ([f"(cut statement, line {c['line']})" for c in cut] if real else [])

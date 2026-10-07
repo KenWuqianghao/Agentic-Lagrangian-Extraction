@@ -49,9 +49,15 @@ class Arm:
       opt      diag plus the optimisation checks of opt_checks.py: more lint
                rules, new particles without a vertex (not a pass), the
                disagreeing mass rows, UFO parameters defined twice
+      real     opt plus statements cut at a line end (not a pass)
+
+    `shell`: the agent also has Bash, can read the outputs of its validate
+    calls (UFO, FeynRules log) and can run wolframscript and MadGraph itself.
+    The run is isolated by isolation.py, not by the PreToolUse guard.
     """
     tools: tuple
     feedback: str
+    shell: bool = False
 
 
 ARMS = {
@@ -64,6 +70,7 @@ ARMS = {
     "massbasis": Arm(("lint_model", "validate_model", "massbasis"), "diag"),
     "full": Arm(TOOLS, "diag"),
     "opt": Arm(TOOLS, "opt"),
+    "shell": Arm(TOOLS, "real", shell=True),
 }
 
 
@@ -78,7 +85,7 @@ def mcp_tool_names(a: Arm) -> tuple:
 _BLOCK = re.compile(r"<!--if (!?)(\w+)-->(.*?)<!--end-->", re.S)
 
 
-def render_protocol(template: str, a: Arm, validate_budget: int, max_continuations: int) -> str:
+def render_protocol(template: str, a: Arm, validate_budget: int, max_continuations: int, rundir: str = "") -> str:
     """The system-prompt protocol for an arm: a block `<!--if X-->...<!--end-->`
     stays when X holds (`!X`: when it does not). X is a tool name, `tools`
     (the arm has any), `generic` (a build report without check verdicts),
@@ -86,11 +93,13 @@ def render_protocol(template: str, a: Arm, validate_budget: int, max_continuatio
     sees check verdicts), `checks_plain` (verdicts without the diagnostic
     sections) or `diag`. The SM-override recipe is outside every block: all arms get it."""
     flags = {*a.tools, *(["tools"] if a.tools else []),
-             {"import": "import", "checks": "checks_plain", "diag": "diag", "opt": "opt"}.get(a.feedback, "")}
-    if a.feedback == "opt":
+             {"import": "import", "checks": "checks_plain", "diag": "diag", "opt": "opt", "real": "opt"}.get(a.feedback, "")}
+    if a.feedback in ("opt", "real"):
         flags.add("diag")
-    if a.feedback in ("checks", "diag", "opt"):
+    if a.feedback in ("checks", "diag", "opt", "real"):
         flags.add("checks")
+    if a.shell:
+        flags.add("shell")
     if a.feedback in ("compile", "import"):
         flags.add("generic")
     if a.feedback != "compile" and a.tools:
@@ -99,6 +108,7 @@ def render_protocol(template: str, a: Arm, validate_budget: int, max_continuatio
     names = [f"`{t}`" for t in a.tools]
     tool_list = names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1] if names else ""
     return (text.replace("{tool_list}", tool_list).replace("{validate_budget}", str(validate_budget))
+            .replace("{rundir}", rundir)
             .replace("{max_continuations}", str(max_continuations)))
 
 
