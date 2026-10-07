@@ -1,4 +1,4 @@
-# Three groups on the 16 papers: results and defects (2026-10-07)
+# Four groups on the 16 papers: results and defects (2026-10-07)
 
 Same model (Sonnet 5 in Claude Code), same 16 papers, same scorer, one seed
 per group. This note replaces the group comparison in `REPORT.md`; the
@@ -9,19 +9,47 @@ retrospective analysis there still stands.
 | 1. vanilla (`cc_vanilla`) | a shell and file tools; no heptapod tool, skill, protocol or gate; it runs `wolframscript` and MadGraph itself (`run_vanilla.py`) | new, 2026-10-06, half on the Mac |
 | 2. harness (`cc_sonnet_harness`) | lint, validate (budget 10), massbasis, referee, Stop gate, protocol with the SM-override recipe | stored, 2026-09-30 |
 | 3. optimised (`cc_sonnet_opt`) | group 2 plus `cc_harness/opt_checks.py` and four prompt notes | new, 2026-10-06 |
+| 4. shell + tools (`cc_sonnet_shell`) | group 3 plus a shell, read access to the outputs of its own validate calls, the cut-statement check, and a gate that does not accept a cut statement or a vertex-less new particle | new, 2026-10-07 |
 
 The older "no tools, one shot" arm (2 of 16) is not a baseline for a person
 with a computer: with a shell the same model reaches 7.
 
 ## Results
 
-| measure | 1. vanilla | 2. harness | 3. optimised |
-|---|---|---|---|
-| model delivered | 16 | 15 | 16 |
-| full chain pass | 7 | 11 | 13 |
-| chain pass, and no cut statement, and every new particle in a UFO vertex | 7 | 8 | 9 |
-| chain pass, and the fresh referee finds nothing physics-changing | 2 | 2 | 3 |
-| cost | $78 | $63 | $60 |
+| measure | 1. vanilla | 2. harness | 3. optimised | 4. shell + tools |
+|---|---|---|---|---|
+| model delivered | 16 | 15 | 16 | 16 |
+| full chain pass | 7 | 11 | 13 | 14 |
+| chain pass, and no cut statement, and every new particle in a UFO vertex | 7 | 8 | 9 | 14 |
+| chain pass, and the fresh referee finds nothing physics-changing | 2 | 2 | 3 | 7 |
+| chain pass, and every interaction of the paper has a vertex (audit, particle content only) | not audited | not audited | not audited | 7 |
+| cost | $78 | $63 | $60 | $70 (two timed-out runs recorded $0) |
+
+Group 4 against group 1, paired on the papers: 7 papers pass the chain only
+in group 4 (331, B-L-SM, GeneralU1, MDMmodel, Monotops, SMWeinberg, pSPSS)
+and none only in group 1; exact McNemar p = 0.016. On the second row, group 4
+against group 3 is 5 against 0, p = 0.0625. Group 4's chain failures:
+ALRM_general (compile timeout) and SLQrules (mass_spectrum and import; its
+first compile in any group).
+
+Read the second row with care for group 4: its gate checks exactly those two
+conditions, so the agent worked against them. The audit
+(`results/forensics/group4_shell.md`) asked whether the 14 passes are real:
+
+- None is hollow. Seven hold every interaction of the paper (B-L-SM,
+  ChernSimonsPortal, EffLRSM, HeavyN, Top-Philic-Zprime, Wprime, pNG);
+  Monotops holds the paper's Eq. 1 and lacks the gluon vertices of its colour
+  triplets; six are partial (331, GeneralU1, MDMmodel, NJLComposite,
+  SMWeinberg, pSPSS).
+- Three reached a condition in a cheap way. 331 added a term the paper does
+  not have, `H2^2 H3^2`, "only so H2/H3 have a vertex". SMWeinberg set the
+  Goldstone terms to zero after mass_diagonal failed. MDMmodel replaced the
+  paper's t-T mixing by diagonal couplings. All three say so in their text.
+- The referee count moves the same way as the audit (7 clean against 2, 2
+  and 3), and 6 of its 7 clean papers are in the audit's complete set. The
+  referee's noise, measured in group 3, still holds.
+- Groups 1 to 3 were not audited this way, so the last row cannot be
+  compared yet.
 
 Per paper (P pass; "cut" a top-level statement cut at a line end; "inert" a
 new particle with no vertex; the failing stage otherwise):
@@ -65,6 +93,34 @@ How to read it:
 - The earlier statement "8 of the 11 harness passes are faithful" used the
   in-loop verdicts of 2026-09-30. With a fresh referee on the same files it
   is 2 of 11. The verdict the agent worked against is not a measurement.
+
+## 4. Shell + tools (`cc_sonnet_shell`): what the shell did and what is wrong
+
+- **The agent used it.** 488 shell commands in 16 runs: 68 read its own
+  validation outputs, 64 ran `wolframscript` itself, 78 read the FeynRules
+  source. No command reached the network or opened another run.
+- **The new checks fired little.** `cut_statement` fired in one run (331, 23
+  lines, fixed before the first validation); "no vertex" in two (Monotops,
+  pSPSS, fixed at the next call). No delivered file has either defect. As in
+  group 3, the prompt text and the agent's own look at the UFO did most of
+  the work; no run isolates the two.
+- **Defects of the arm:**
+  - The agent ends its turn to wait. `Monitor` and `ScheduleWakeup` are in
+    its tool list; SLQrules used all 3 gate continuations in 117 s, and the
+    gate did nothing for the next 3.4 hours.
+  - Three runs hit the 4-hour limit (ALRM_general, NJLComposite, SLQrules).
+    The agent's own `wolframscript` waits behind the same kernel lock as the
+    validations: 6.6 hours of lock wait over the 16 runs.
+  - The MCP client's 1800 s limit ended 5 validate calls.
+  - NJLComposite's delivered file is not the one it last validated (the limit
+    came during call 7); it passes the score.
+  - The gate can be met by adding or removing physics (331, SMWeinberg,
+    MDMmodel above). It needs the paper's interactions as the reference, not
+    only the model's own particles.
+- **A defect of the shared task text, found here.** Rule 3 of the prompt
+  addendum tells the agent to write `bar[CC[psi]]`; the kernel reads it as
+  `bar[1]`. It broke the first call of SMWeinberg, Monotops and EffLRSM. Every
+  harness group has this line.
 
 ## A defect no tool names: statements cut at a line end
 
@@ -177,6 +233,7 @@ In the order the three groups support:
 ## Limits
 
 - One seed per group. Differences of one or two papers are not established.
+- Group 4's checks and notes were written after reading the failures of groups 2 and 3 on these papers; its gain is in-sample.
 - Group 2 ran on 2026-09-30 on the Mac with Claude Code 2.1.282; groups 1
   and 3 on 2026-10-06 with 2.1.290 and 2.1.291. The scorer reproduces all 15
   stored group-2 scores on this machine.
