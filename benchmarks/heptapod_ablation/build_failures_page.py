@@ -5,7 +5,8 @@ with its cause and the lines of the model file or log that show it.
 The causes are written here; every snippet is read from the run's files when
 the page is built, so a snippet cannot drift from the evidence.
 
-    build_failures_page.py        # writes failures.html next to this file
+    build_failures_page.py              # writes failures.html (Chinese) next to this file
+    build_failures_page.py --lang en    # writes failures.en.html (text from failures_en.py)
 """
 
 from __future__ import annotations
@@ -292,6 +293,50 @@ document.querySelectorAll('section[data-g]').forEach(s=>s.hidden=!(b.dataset.g==
 """
 
 
+def to_english(cases: list[dict]) -> list[dict]:
+    import failures_en as EN
+    out = []
+    for c in cases:
+        result, kind, cause, fix = EN.CASES[(c["group"], c["paper"])]
+        snippets = []
+        for label, snip in c["snippets"]:
+            for pat, repl in EN.INLINE:
+                snip = re.sub(pat, repl, snip)
+            snippets.append((EN.LABELS[label] if re.search(r"[\u4e00-\u9fff]", label) else label, snip))
+        out.append({**c, "result": result, "kind": kind, "cause": cause, "fix": fix, "snippets": snippets})
+    return out
+
+
+def render_en(cases: list[dict]) -> str:
+    import failures_en as EN
+    page = render(to_english(cases))
+    ui = EN.UI
+    swaps = [("lang='zh-CN'", "lang='en'"), ("每个失败的例子：原因和片段", ui["title"]),
+             ("Sonnet，16 篇论文，每组 1 个 seed，同一个评分器。片段是生成这个页面时从运行的文件里读出来的。", ui["sub"]),
+             ("<th>组</th><th>完整链路通过</th><th>通过并且模型是实的</th><th>本页的例子</th>",
+              "".join(f"<th>{x}</th>" for x in ui["th"])),
+             ("第 1 组 · vanilla（只有命令行）", ui["rows"][0]), ("第 2 组 · harness（cc_sonnet_harness）", ui["rows"][1]),
+             ("<td>第 3 组 · 优化后</td>", f"<td>{ui['rows'][2]}</td>"),
+             ("“模型是实的”：链路通过，并且没有被截断的语句，并且每个新粒子在 UFO 里至少有一个顶点。"
+              "本页包括两类例子：没有通过链路的，和通过了但是模型是空的或者不完整的。", ui["note1"]),
+             ("<b>被截断的语句</b>是三个组里最常见的隐藏问题。在 .fr 文件里，一条顶层语句如果在行尾已经是完整的表达式，"
+              "Mathematica 就在那里结束它；下一行以 + 或 - 开头的部分是另一条语句，不起作用。FeynRules、4 个检查和 MadGraph 都不报告。", ui["note2"]),
+             (">全部<", f">{ui['all']}<"), ("<b>需要什么：</b>", f"<b>{ui['needs']}</b>"),
+             ("来源：benchmarks/heptapod_ablation/GROUPS.md 和 results/forensics/ 下的三份分析。"
+              "原因的文字来自这些分析；标为“没有确定”的地方是真的没有确定。每组只有一个 seed。", ui["footer"])]
+    for g, (zh_title, zh_desc, _fn) in GROUPS.items():
+        swaps += [(html.escape(zh_title), ui["groups"][g][0]), (html.escape(zh_desc), ui["groups"][g][1])]
+    for a, b in swaps:
+        if a not in page:
+            raise KeyError(f"English page: text not found: {a[:40]}")
+        page = page.replace(a, b)
+    page = page.replace("）</button>", ")</button>").replace("（", " (")
+    left = re.findall(r"[\u4e00-\u9fff]+", page)
+    if left:
+        raise ValueError(f"English page still has Chinese text: {left[:5]}")
+    return page
+
+
 def render(cases: list[dict]) -> str:
     e = html.escape
     counts = {g: sum(c["group"] == g for c in cases) for g in GROUPS}
@@ -330,6 +375,10 @@ def main() -> int:
     for c in cases:
         if c["empty"]:
             print(f"EMPTY snippet: {c['group']} {c['paper']}: {c['empty']}", file=sys.stderr)
+    if "--lang" in sys.argv and sys.argv[sys.argv.index("--lang") + 1] == "en":
+        (HERE / "failures.en.html").write_text(render_en(cases))
+        print(f"wrote {HERE / 'failures.en.html'} ({len(cases)} cases)")
+        return 0
     (HERE / "failures.html").write_text(render(cases))
     print(f"wrote {HERE / 'failures.html'} ({len(cases)} cases)")
     return 0
