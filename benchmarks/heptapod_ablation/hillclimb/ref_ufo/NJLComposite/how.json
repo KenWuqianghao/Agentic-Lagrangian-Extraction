@@ -1,0 +1,48 @@
+{
+ "model_files": [
+  "/home/deck/code/heptapod/eval/reference_cache/NJLComposite/NJL_MODEL_LQ.fr"
+ ],
+ "load_sm": true,
+ "sm_file": "/home/deck/hep-tools/feynrules-current/Models/SM/SM.fr",
+ "lagrangian": "",
+ "seconds": 0,
+ "ok": false,
+ "n_particles": 0,
+ "n_vertices": 0,
+ "n_bsm_vertices": 0,
+ "bsm_particles": [],
+ "example_bsm_vertex": null,
+ "evidence": "NJL_MODEL_LQ.fr:155 has M$GaugeGroups commented out; the file ends at line 376 after M$ClassesDescription; no line has a Lagrangian definition (no ':=' outside Definitions). The discovery run in compile.log lists only SM symbols.",
+ "notes": "Not compiled: the reference file defines only parameters and scalar classes and no Lagrangian, so there is no published expression to compile.",
+ "extra_args": [],
+ "command": null,
+ "problems": [
+  "no UFO directory"
+ ],
+ "last_log_lines": [
+  "For more information, type ModelInformation[].",
+  "   - Loading particle classes.",
+  "   - Loading gauge group classes.",
+  "   - Loading parameter classes.",
+  "Model NJLCompositeModel-LQ loaded.",
+  "Error: no Lagrangian given. Pass Lagrangian=<expression>, e.g. Lagrangian=\"LSM + LBSM\" or Lagrangian=\"LNP\".",
+  "[INFO] Lagrangian-like symbols defined by this model: LFermions, LGauge, LGhost, LHiggs, LSM, LYukawa",
+  "===== exit code 1"
+ ],
+ "attempts": [
+  {
+   "lagrangian": "",
+   "load_sm": true,
+   "model_files": [
+    "/home/deck/code/heptapod/eval/reference_cache/NJLComposite/NJL_MODEL_LQ.fr"
+   ],
+   "extra": [],
+   "seconds": 0,
+   "exit_code": null,
+   "ok": false,
+   "problems": [
+    "no UFO directory"
+   ]
+  }
+ ]
+}

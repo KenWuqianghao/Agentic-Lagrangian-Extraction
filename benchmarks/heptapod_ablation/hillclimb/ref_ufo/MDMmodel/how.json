@@ -1,0 +1,54 @@
+{
+ "model_files": [
+  "/home/deck/code/heptapod/eval/reference_cache/MDMmodel/MDM.fr"
+ ],
+ "load_sm": false,
+ "sm_file": null,
+ "lagrangian": "LMDM",
+ "seconds": 98,
+ "ok": true,
+ "n_particles": 26,
+ "n_vertices": 227,
+ "n_bsm_vertices": 64,
+ "bsm_particles": [
+  "sDM",
+  "tp"
+ ],
+ "example_bsm_vertex": [
+  "G0",
+  "G0",
+  "sDM",
+  "sDM"
+ ],
+ "evidence": "MDM.fr:36 M$GaugeGroups, :97-521 declare the SM fields; MDM.fr:944 'LMDM:= LGauge + LFermions + LFermionsDM + LHiggs + LYukawa + LYukawaDM + LGhost'.",
+ "notes": "Full model, loaded alone. Total is the file's own LMDM.",
+ "extra_args": [],
+ "command": [
+  "wolframscript",
+  "-f",
+  "/home/deck/code/hep-pr/validator-main/tools/feynrules/UFO_generator.wl",
+  "FeynRulesPath=/home/deck/hep-tools/feynrules-current",
+  "ModelPath=/home/deck/code/heptapod/eval/reference_cache/MDMmodel/MDM.fr",
+  "OutputDir=/home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/hillclimb/ref_ufo/MDMmodel/UFO",
+  "Checks=false",
+  "AddDecays=false",
+  "LoadSM=false",
+  "Lagrangian=LMDM"
+ ],
+ "problems": [],
+ "last_log_lines": [],
+ "attempts": [
+  {
+   "lagrangian": "LMDM",
+   "load_sm": false,
+   "model_files": [
+    "/home/deck/code/heptapod/eval/reference_cache/MDMmodel/MDM.fr"
+   ],
+   "extra": [],
+   "seconds": 98,
+   "exit_code": 0,
+   "ok": true,
+   "problems": []
+  }
+ ]
+}

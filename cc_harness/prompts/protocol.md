@@ -49,7 +49,31 @@ compared with the paper, field by field and term by term. Both matter.
   sent back with a digest of that report (at most {max_continuations} times). If you cannot make it pass,
   say what still fails and why in your final summary.
 <!--end-->
-<!--if shell-->## Look at what you built
+<!--if cover-->## Write the target first: spec.json
+
+A model that passes with part of the paper's physics left out is a failure, and a smaller
+model passes more easily. So fix the target before you write the model:
+
+1. From the paper, write `spec.json` in the working directory:
+   ```
+   {"fields":       [{"name": "Zp", "spin": 1, "paper": "Eq. (2)"}],
+    "interactions": [{"particles": ["Zp", "tbar", "t"], "paper": "Eq. (3)"}]}
+   ```
+   - `fields`: EVERY new field of the paper's model (every generation copy and every component
+     that is its own particle). `name` is the class or member name you will use in model.fr.
+   - `interactions`: one entry per vertex kind the paper's Lagrangian gives, by particle content.
+     Include the gauge interactions of each new charged or coloured field (with `A`, `Z`, `W`,
+     `G`), the Higgs couplings, and each term of the new-physics Lagrangian. Use the names of
+     model.fr and SM.fr (`e`, `mu`, `ve`, `t`, `b`, `W`, `Z`, `A`, `G`, `H`; an SM class `l`,
+     `vl`, `uq`, `dq` stands for any of its members; `xbar` for an antiparticle). Kinetic and
+     mass terms need no entry.
+2. Run `review_spec` once and add what it finds missing.
+3. Then write model.fr. `validate_model` checks the UFO against spec.json: every listed field
+   must be a particle and every listed interaction must have a vertex. An uncovered entry is not
+   a pass. An entry that you remove later is reported; remove one only when the paper does not
+   have it.
+
+<!--end--><!--if shell-->## Look at what you built
 
 A pass of the chain says the file is consistent. It does not say that your terms are in the
 model. Check that yourself:

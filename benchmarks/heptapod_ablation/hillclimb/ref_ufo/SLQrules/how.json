@@ -1,0 +1,64 @@
+{
+ "model_files": [
+  "/home/deck/code/heptapod/eval/reference_cache/SLQrules/SM.fr",
+  "/home/deck/code/heptapod/eval/reference_cache/SLQrules/SLQrules.fr"
+ ],
+ "load_sm": true,
+ "sm_file": "/home/deck/code/heptapod/eval/reference_cache/SLQrules/SM.fr",
+ "lagrangian": "LSM + LQall",
+ "seconds": 5091,
+ "ok": false,
+ "n_particles": 0,
+ "n_vertices": 0,
+ "n_bsm_vertices": 0,
+ "bsm_particles": [],
+ "example_bsm_vertex": null,
+ "evidence": "SLQrules.fr has no M$GaugeGroups and uses SM fields QL, LL, uR, dR, lR, Phi (e.g. :1389, :1481); SLQrules.fr:1699 'LQall := LQ2Phi + LQkin + LQf + LQ3Phi + LQ4Phi'.",
+ "notes": "Add-on. Loaded with the SM.fr of the reference directory through _tools/compile_multi.wl. LQall is the file's total for the leptoquark part; adding LSM is inferred.",
+ "extra_args": [],
+ "command": [
+  "wolframscript",
+  "-f",
+  "/home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/hillclimb/ref_ufo/_tools/compile_multi.wl",
+  "FeynRulesPath=/home/deck/hep-tools/feynrules-current",
+  "ModelFiles=/home/deck/code/heptapod/eval/reference_cache/SLQrules/SM.fr,/home/deck/code/heptapod/eval/reference_cache/SLQrules/SLQrules.fr",
+  "OutputDir=/home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/hillclimb/ref_ufo/SLQrules/UFO",
+  "Lagrangian=LSM + LQall"
+ ],
+ "problems": [
+  "missing particles.py",
+  "missing vertices.py",
+  "missing couplings.py",
+  "missing parameters.py"
+ ],
+ "last_log_lines": [
+  "For more information, type ModelInformation[].",
+  "   - Loading particle classes.",
+  "   - Loading gauge group classes.",
+  "   - Loading parameter classes.",
+  "Model SLQrules loaded.",
+  "[INFO] Lagrangian: LSM + LQall  FeynmanGauge=True  terms=22951",
+  " --- Universal FeynRules Output (UFO) v 1.1 ---",
+  "===== exit code 137, 5091 s"
+ ],
+ "attempts": [
+  {
+   "lagrangian": "LSM + LQall",
+   "load_sm": true,
+   "model_files": [
+    "/home/deck/code/heptapod/eval/reference_cache/SLQrules/SM.fr",
+    "/home/deck/code/heptapod/eval/reference_cache/SLQrules/SLQrules.fr"
+   ],
+   "extra": [],
+   "seconds": 5091,
+   "exit_code": 137,
+   "ok": false,
+   "problems": [
+    "missing particles.py",
+    "missing vertices.py",
+    "missing couplings.py",
+    "missing parameters.py"
+   ]
+  }
+ ]
+}

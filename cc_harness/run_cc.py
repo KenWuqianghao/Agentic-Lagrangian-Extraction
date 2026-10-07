@@ -187,7 +187,9 @@ def agent_cmd(rundir: Path, model: str, arm: C.Arm, sandbox: Path | None = None)
                "--mcp-config", str(rundir / "mcp.json"), "--strict-mcp-config",
                "--permission-mode", "bypassPermissions",
                "--append-system-prompt-file", str(rundir / "protocol.md"),
-               "--disallowedTools", "WebFetch,WebSearch,Task,Agent"]
+               # The wait tools let a headless agent end its turn "to wait"; the session then ends.
+               "--disallowedTools", "WebFetch,WebSearch,Task,Agent"
+               + (",Monitor,ScheduleWakeup,CronCreate" if arm.feedback == "cover" else "")]
         from hepval import STATE          # the kernel lock the wrapper and hepval share
         return isolation.isolate(cmd, sandbox, read_only=SHELL_READ_ONLY, read_write=(rundir, STATE),
                                  hidden=SHELL_HIDDEN)

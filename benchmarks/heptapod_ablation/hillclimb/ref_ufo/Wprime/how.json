@@ -1,0 +1,41 @@
+{
+ "model_files": [
+  "/home/deck/code/heptapod/eval/reference_cache/Wprime/weff.fr"
+ ],
+ "load_sm": true,
+ "sm_file": "/home/deck/hep-tools/feynrules-current/Models/SM/SM.fr",
+ "lagrangian": "LSM + LWprime",
+ "seconds": 57,
+ "ok": true,
+ "n_particles": 25,
+ "n_vertices": 199,
+ "n_bsm_vertices": 36,
+ "bsm_particles": [
+  "Wp__plus__"
+ ],
+ "example_bsm_vertex": [
+  "b__tilde__",
+  "c",
+  "Wp__minus__"
+ ],
+ "evidence": "weff.fr:3 header 'SM + Wprime'; weff.fr:27-41 declares only V[7] Wp; weff.fr:114 'LWprime := LWprimeTmp + HC[LWprimeTmp]' uses SM fields vl, l, uq, dq.",
+ "notes": "Add-on. Total LSM + LWprime is inferred (file has no total).",
+ "extra_args": [],
+ "command": "wolframscript -f /home/deck/code/hep-pr/validator-main/tools/feynrules/UFO_generator.wl FeynRulesPath=/home/deck/hep-tools/feynrules-current ModelPath=/home/deck/code/heptapod/eval/reference_cache/Wprime/weff.fr OutputDir=/home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/hillclimb/ref_ufo/Wprime/UFO Checks=false AddDecays=false LoadSM=true Lagrangian=LSM + LWprime",
+ "problems": [],
+ "last_log_lines": [],
+ "attempts": [
+  {
+   "lagrangian": "LSM + LWprime",
+   "load_sm": true,
+   "model_files": [
+    "/home/deck/code/heptapod/eval/reference_cache/Wprime/weff.fr"
+   ],
+   "extra": [],
+   "seconds": 57,
+   "exit_code": 0,
+   "ok": true,
+   "problems": []
+  }
+ ]
+}

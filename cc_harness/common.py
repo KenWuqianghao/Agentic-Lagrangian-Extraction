@@ -50,6 +50,8 @@ class Arm:
                rules, new particles without a vertex (not a pass), the
                disagreeing mass rows, UFO parameters defined twice
       real     opt plus statements cut at a line end (not a pass)
+      cover    real plus the coverage of the agent's own target list,
+               spec.json, by the UFO (an uncovered entry is not a pass)
 
     `shell`: the agent also has Bash, can read the outputs of its validate
     calls (UFO, FeynRules log) and can run wolframscript and MadGraph itself.
@@ -71,6 +73,7 @@ ARMS = {
     "full": Arm(TOOLS, "diag"),
     "opt": Arm(TOOLS, "opt"),
     "shell": Arm(TOOLS, "real", shell=True),
+    "cover": Arm((*TOOLS, "review_spec"), "cover", shell=True),
 }
 
 
@@ -93,11 +96,13 @@ def render_protocol(template: str, a: Arm, validate_budget: int, max_continuatio
     sees check verdicts), `checks_plain` (verdicts without the diagnostic
     sections) or `diag`. The SM-override recipe is outside every block: all arms get it."""
     flags = {*a.tools, *(["tools"] if a.tools else []),
-             {"import": "import", "checks": "checks_plain", "diag": "diag", "opt": "opt", "real": "opt"}.get(a.feedback, "")}
-    if a.feedback in ("opt", "real"):
+             {"import": "import", "checks": "checks_plain", "diag": "diag", "opt": "opt", "real": "opt", "cover": "opt"}.get(a.feedback, "")}
+    if a.feedback in ("opt", "real", "cover"):
         flags.add("diag")
-    if a.feedback in ("checks", "diag", "opt", "real"):
+    if a.feedback in ("checks", "diag", "opt", "real", "cover"):
         flags.add("checks")
+    if a.feedback == "cover":
+        flags.add("cover")
     if a.shell:
         flags.add("shell")
     if a.feedback in ("compile", "import"):

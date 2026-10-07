@@ -57,11 +57,11 @@ def test_full_arm_protocol_is_the_stored_harness_prompt():
 @pytest.mark.parametrize("arm", sorted(C.ARMS))
 def test_protocol_names_only_the_arms_tools_and_keeps_the_sm_override_recipe(arm):
     text = C.render_protocol(TEMPLATE, C.ARMS[arm], 6, 3)
-    for tool in C.TOOLS:
+    for tool in (*C.TOOLS, "review_spec"):
         assert (f"`{tool}`" in text) == (tool in C.ARMS[arm].tools), tool
     assert "LTotal := LSM - LHiggs + LScalar" in text
     assert not any(x in text for x in ("<!--", "{tool_list}", "{validate_budget}", "{max_continuations}"))
-    if C.ARMS[arm].feedback not in ("diag", "opt", "real"):
+    if C.ARMS[arm].feedback not in ("diag", "opt", "real", "cover"):
         assert "the report lists" not in text
 
 
@@ -69,8 +69,7 @@ def test_protocol_names_only_the_arms_tools_and_keeps_the_sm_override_recipe(arm
 def test_mcp_serves_only_the_arms_tools(env, arm):
     e = _arm_env(env, arm)
     out = _mcp(e, [("LIST", None), ("lint_model", {"path": "model.fr"})])
-    assert tuple(t["name"] for t in out[1]["result"]["tools"]) == tuple(
-        t for t in C.TOOLS if t in C.ARMS[arm].tools)
+    assert {t["name"] for t in out[1]["result"]["tools"]} == set(C.ARMS[arm].tools)
     assert out[2]["result"]["isError"] == ("lint_model" not in C.ARMS[arm].tools)
 
 
@@ -204,3 +203,63 @@ def test_shell_arm_has_bash_no_path_guard_and_sees_only_its_own_run(tmp_path, mo
     assert str(tmp_path) in bound and not any("benchmark_runs" in b for b in bound)
     protocol = (tmp_path / "protocol.md").read_text()
     assert f"{tmp_path}/validation/call<k>/round0/" in protocol and "There is no shell" not in protocol
+
+
+UFO_PARTICLES = """
+t = Particle(pdg_code = 6,
+             name = 't',
+             antiname = 't~',
+             spin = 2)
+
+t__tilde__ = t.anti()
+
+Zp = Particle(pdg_code = 9000001,
+              name = 'Zp',
+              antiname = 'Zp',
+              spin = 3)
+
+chi = Particle(pdg_code = 9000002,
+               name = 'chi',
+               antiname = 'chi~',
+               spin = 2)
+
+chi__tilde__ = chi.anti()
+"""
+
+
+def test_coverage_finds_listed_vertices_and_reports_what_the_ufo_lacks(tmp_path):
+    import coverage
+    (tmp_path / "particles.py").write_text(UFO_PARTICLES)
+    (tmp_path / "vertices.py").write_text("V_1 = Vertex(name = 'V_1',\n  particles = [ P.t__tilde__, P.t, P.Zp ],\n  color = [])\n")
+    sm = 'M$ClassesDescription = { F[3] == { ClassName -> uq, ClassMembers -> {u, c, t} } };'
+    model = 'M$ClassesDescription = { V[100] == { ClassName -> Zp }, F[100] == { ClassName -> chi } };'
+    spec = {"fields": ["Zp", "chi", "phi"], "interactions": [["Zp", "tbar", "t"], ["Zp", "uq", "uq"], ["Zp", "chibar", "chi"]]}
+    r = coverage.check(spec, tmp_path, model, sm)
+    assert r["missing_fields"] == ["phi"] and r["missing_interactions"] == [["Zp", "chibar", "chi"]]
+    assert r["complete"] is False
+    assert coverage.check({"fields": ["Zp"], "interactions": [["Zp", "t", "tbar"]]}, tmp_path, model, sm)["complete"] is True
+    removed = coverage.removed_entries(spec, {"fields": ["Zp", "chi"], "interactions": [["t", "tbar", "Zp"]]})
+    assert removed == {"fields": ["phi"], "interactions": [["Zp", "uq", "uq"], ["Zp", "chibar", "chi"]]}
+
+
+def test_cover_arm_does_not_accept_a_pass_that_leaves_the_spec_uncovered(env):
+    (env["tmp"] / "hepval.py").write_text(textwrap.dedent('''
+        import json, sys
+        from pathlib import Path
+        if sys.argv[1] == "lint":
+            print(json.dumps({"findings": []}))
+        else:
+            assert "--cover" in sys.argv
+            out = Path(sys.argv[sys.argv.index("--out") + 1])
+            (out / "call1").mkdir(parents=True)
+            (out / "call1" / "summary.json").write_text(json.dumps(
+                {"call": 1, "stage_reached": "pass", "full_chain_pass": True, "particles_without_vertex": [],
+                 "coverage": {"complete": False, "missing_interactions": [["Zp", "chibar", "chi"]]}}))
+            print("## Coverage of spec.json by the UFO")
+    '''))
+    e = {**env["env"], "CC_ARM": "cover"}
+    out = _mcp(e, [("LIST", None), ("validate_model", {"path": "model.fr"})])
+    assert "review_spec" in [t["name"] for t in out[1]["result"]["tools"]]
+    text = out[2]["result"]["content"][0]["text"]
+    assert "FULL CHAIN PASS" not in text and "spec.json is not covered" in text.splitlines()[0]
+    assert _stop(e, False)["decision"] == "block"

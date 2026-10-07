@@ -239,6 +239,8 @@ def _use_diag_driver(rb, fr: Path) -> None:
 def validate(args) -> int:
     rb = _load_validator()
     fr = Path(args.model).resolve()
+    if getattr(args, "cover", False):
+        args.real = True                  # the cover arm: the shell arm's report plus spec.json coverage
     if getattr(args, "real", False):
         args.opt = True                   # the shell arm: the optimisation report plus the cut-statement check
     if getattr(args, "opt", False):
@@ -294,6 +296,25 @@ def validate(args) -> int:
         opt_text, inert = opt_checks.report_sections(row, clog, real=getattr(args, "real", False),
                                                      fr_text=fr.read_text(errors="replace"))
         summary["particles_without_vertex"] = inert
+    if getattr(args, "cover", False):
+        import coverage  # noqa: E402  (cc_harness is on the path: --cover implies --opt)
+        spec, problem = coverage.load_spec(fr.parent / "spec.json")
+        first_file = out / "spec_first.json"
+        if spec and not first_file.is_file():
+            first_file.write_text(json.dumps(spec, indent=1))
+        if spec is None:
+            summary["coverage"] = {"complete": False, "problem": problem}
+            opt_text = "## Coverage of spec.json by the UFO\n" + problem + "\n\n" + opt_text
+        elif row.get("compile_ok") and row.get("ufo_dir"):
+            removed = coverage.removed_entries(json.loads(first_file.read_text()), spec)
+            result = coverage.check(spec, Path(row["ufo_dir"]), fr.read_text(errors="replace"),
+                                    (fr.parent / "SM.fr").read_text(errors="replace"))
+            result["removed"] = removed
+            result["complete"] = result["complete"] and not (removed["fields"] or removed["interactions"])
+            summary["coverage"] = result
+            opt_text = coverage.report(result, removed) + "\n" + opt_text
+        else:
+            summary["coverage"] = {"complete": False, "problem": "no UFO to check"}
     # The report path stays out of what the agent reads: it lies outside the
     # sandbox. The extension saves the agent's copy as validation/call<n>.md.
     (work / "summary.json").write_text(json.dumps({**summary, "report": str(work / "VALIDATION_REPORT.md"),
@@ -306,7 +327,7 @@ def validate(args) -> int:
         head = ("# Validation report: FULL CHAIN PASS (compile, all four checks, MadGraph import)\n\n"
                 "A pass says the file is consistent FeynRules. It does not say the file is the "
                 "paper's model: check that with review_model.")
-        if summary.get("particles_without_vertex"):
+        if summary.get("particles_without_vertex") or summary.get("coverage", {"complete": True})["complete"] is False:
             head = ("# Validation report: the chain passes, and the model is NOT done (see below)\n\n"
                     + opt_text)
             opt_text = ""
@@ -498,6 +519,9 @@ def main() -> int:
     p.add_argument("--real", action="store_true",
                    help="the shell arm's report: --opt plus statements cut at a line end; a model with a cut "
                         "statement or a vertex-less new particle is not a pass there; never used for scoring")
+    p.add_argument("--cover", action="store_true",
+                   help="the cover arm's report: --real plus the coverage of spec.json (next to the model) by "
+                        "the UFO; never used for scoring")
     p.add_argument("--view", choices=("compile", "import"),
                    help="print a generic build report instead of the full one (the ablation's "
                         "control arms): whether FeynRules wrote a UFO, and with `import` whether "

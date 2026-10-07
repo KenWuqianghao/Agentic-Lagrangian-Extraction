@@ -65,6 +65,13 @@ TOOL_SPECS = [
      "description": "{validate_description}",
      "inputSchema": {"type": "object", "properties": {"path": {"type": "string", "description": "the .fr file, e.g. model.fr"}},
                      "required": ["path"]}},
+    {"name": "review_spec",
+     "description": "An independent referee reads the paper and spec.json (your list of the new fields and of the "
+                    "interaction vertices the model must have) and lists what the paper has and the list lacks, "
+                    "and what the list has and the paper lacks. Run it once, after you write spec.json and "
+                    "before you write model.fr. Budget: 1 call.",
+     "inputSchema": {"type": "object", "properties": {"path": {"type": "string", "description": "spec.json"}},
+                     "required": ["path"]}},
     {"name": "massbasis",
      "description": "Symbolic quadratic-sector analysis of a scalar potential (sympy, about 1 s). Give the "
                     "potential V (the Lagrangian contains -V) in gauge-basis symbols, the substitutions "
@@ -150,7 +157,7 @@ def lint_model(args: dict) -> str:
 
 
 def _OPT() -> list:
-    return {"opt": ["--opt"], "real": ["--real"]}.get(C.arm().feedback, [])
+    return {"opt": ["--opt"], "real": ["--real"], "cover": ["--real"]}.get(C.arm().feedback, [])
 
 
 def _lint_text(raw: str) -> str:
@@ -181,7 +188,8 @@ def validate_model(args: dict) -> str:
     st["validations"] = n
     C.save_state(rd, st)
     arm = C.arm()
-    view = {"diag": ["--diag"], "opt": ["--opt"], "real": ["--real"], "checks": [], "compile": ["--view", "compile"],
+    view = {"diag": ["--diag"], "opt": ["--opt"], "real": ["--real"], "cover": ["--cover"], "checks": [],
+            "compile": ["--view", "compile"],
             "import": ["--view", "import"]}[arm.feedback]
     t0 = time.time()
     r = _run([C.PYTHON, str(C.HEPVAL), "validate", str(fr), "--out", str(rd / "validation"), *view])
@@ -202,10 +210,12 @@ def validate_model(args: dict) -> str:
                 f"Calls left: {st['validate_budget'] - n}.\n")
     else:
         # In the optimisation arm a chain pass with a vertex-less new particle is not a pass.
-        told_pass = bool(summ.get("full_chain_pass")) and not summ.get("particles_without_vertex")
+        covered = summ.get("coverage", {"complete": True})["complete"]
+        told_pass = bool(summ.get("full_chain_pass")) and not summ.get("particles_without_vertex") and covered
         if summ.get("full_chain_pass") and not told_pass:
-            stage = ("pass, but the model is not done: " + ", ".join(summ["particles_without_vertex"][:6])
-                     if arm.feedback == "real" else "pass, but new particles have no vertex")
+            stage = ("pass, but spec.json is not covered by the UFO" if not covered else
+                     "pass, but the model is not done: " + ", ".join(summ["particles_without_vertex"][:6])
+                     if arm.feedback in ("real", "cover") else "pass, but new particles have no vertex")
         head = (f"# validate_model call {n}/{st['validate_budget']}: stage reached = {stage}"
                 f"{' (FULL CHAIN PASS)' if told_pass else ''}\n"
                 f"Stages: compile -> checks -> mg5 -> pass. Calls left: {st['validate_budget'] - n}.\n")
@@ -237,6 +247,49 @@ def massbasis(args: dict) -> str:
     return r.stdout
 
 
+def _referee(rd: Path, target: Path, tag: str, prompt: str, frozen_name: str) -> str:
+    """A fresh `claude -p` in its own sandbox with the paper, SM.fr and a frozen copy of
+    `target`; writes review/<tag>.md and review/<tag>_meta.json and returns the text."""
+    rev = Path(tempfile.mkdtemp(prefix="cc-referee-"))
+    sb = C.sandbox()
+    for p in sb.rglob("*"):
+        if p.is_file() and (p.name == "SM.fr" or "/text/" in str(p)):
+            dst = rev / p.relative_to(sb)
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(p, dst)
+    shutil.copy2(target, rev / frozen_name)
+    (rd / "review").mkdir(parents=True, exist_ok=True)
+    settings = {"hooks": {"PreToolUse": [{"matcher": "*", "hooks": [
+        {"type": "command", "command": f"{C.PYTHON} {C.HERE / 'hooks' / 'pretool_guard.py'}"}]}]}}
+    (rd / "review" / f"{tag}_settings.json").write_text(json.dumps(settings))
+    (rd / "review" / f"{tag}_mcp.json").write_text('{"mcpServers": {}}')
+    model = os.environ.get("CC_REVIEW_MODEL") or os.environ.get("CC_AGENT_MODEL") or "claude-sonnet-5"
+    cmd = [C.CLAUDE, "-p", "--output-format", "json", "--model", model,
+           "--setting-sources", "", "--settings", str(rd / "review" / f"{tag}_settings.json"),
+           "--mcp-config", str(rd / "review" / f"{tag}_mcp.json"), "--strict-mcp-config",
+           "--tools", "Read,Glob,Grep", "--allowedTools", "Read,Glob,Grep",
+           "--permission-mode", "dontAsk",
+           "--disallowedTools", "Bash,WebFetch,WebSearch,Write,Edit,NotebookEdit,Task,Agent"]
+    env = {**os.environ, "CC_SANDBOX": str(rev), "CC_RUNDIR": str(rd / "review" / f"{tag}_run"),
+           "CC_ROLE": "referee", "CC_ARM": "full"}
+    t0 = time.time()
+    r = subprocess.run(cmd, cwd=str(rev), env=env, input=prompt.replace("MODEL_PATH", frozen_name),
+                       capture_output=True, text=True, timeout=3600)
+    try:
+        out = json.loads(r.stdout)
+    except json.JSONDecodeError:
+        out = {"result": r.stdout, "is_error": True}
+    text = out.get("result") or ""
+    (rd / "review" / f"{tag}.md").write_text(text)
+    (rd / "review" / f"{tag}_meta.json").write_text(json.dumps(
+        {"exit": r.returncode, "seconds": round(time.time() - t0, 1), "usage": out.get("usage"),
+         "total_cost_usd": out.get("total_cost_usd"), "model": model, "stderr": r.stderr[-800:],
+         "model_sha": C.sha(target)}, indent=1))
+    if r.returncode != 0 or not text:
+        raise ToolError(f"referee failed (exit {r.returncode}): {r.stderr[-800:]}")
+    return text
+
+
 def review_model(args: dict) -> str:
     rd = C.rundir()
     st = C.load_state(rd)
@@ -246,55 +299,49 @@ def review_model(args: dict) -> str:
     n = st["reviews"] + 1
     st["reviews"] = n
     C.save_state(rd, st)
-    # The referee works in its own sandbox with a frozen copy: the paper,
-    # SM.fr and the model under review, nothing else.
-    rev = Path(tempfile.mkdtemp(prefix="cc-referee-"))
-    sb = C.sandbox()
-    for p in sb.rglob("*"):
-        if p.is_file() and (p.name == "SM.fr" or "/text/" in str(p)):
-            dst = rev / p.relative_to(sb)
-            dst.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(p, dst)
-    shutil.copy2(fr, rev / "model_under_review.fr")
     (rd / "review").mkdir(parents=True, exist_ok=True)
     shutil.copy2(fr, rd / "review" / f"review{n}.fr")
-    settings = {"hooks": {"PreToolUse": [{"matcher": "*", "hooks": [
-        {"type": "command", "command": f"{C.PYTHON} {C.HERE / 'hooks' / 'pretool_guard.py'}"}]}]}}
-    (rd / "review" / f"review{n}_settings.json").write_text(json.dumps(settings))
-    (rd / "review" / f"review{n}_mcp.json").write_text('{"mcpServers": {}}')
-    model = os.environ.get("CC_REVIEW_MODEL") or os.environ.get("CC_AGENT_MODEL") or "claude-sonnet-5"
-    cmd = [C.CLAUDE, "-p", "--output-format", "json", "--model", model,
-           "--setting-sources", "", "--settings", str(rd / "review" / f"review{n}_settings.json"),
-           "--mcp-config", str(rd / "review" / f"review{n}_mcp.json"), "--strict-mcp-config",
-           "--tools", "Read,Glob,Grep", "--allowedTools", "Read,Glob,Grep",
-           "--permission-mode", "dontAsk",
-           "--disallowedTools", "Bash,WebFetch,WebSearch,Write,Edit,NotebookEdit,Task,Agent"]
-    env = {**os.environ, "CC_SANDBOX": str(rev), "CC_RUNDIR": str(rd / "review" / f"review{n}_run"),
-           "CC_ROLE": "referee"}
-    t0 = time.time()
-    r = subprocess.run(cmd, cwd=str(rev), env=env, input=REVIEW_PROMPT.replace("MODEL_PATH", "model_under_review.fr"),
-                       capture_output=True, text=True, timeout=3600)
-    try:
-        out = json.loads(r.stdout)
-    except json.JSONDecodeError:
-        out = {"result": r.stdout, "is_error": True}
-    text = out.get("result") or ""
-    (rd / "review" / f"review{n}.md").write_text(text)
-    (rd / "review" / f"review{n}_meta.json").write_text(json.dumps(
-        {"exit": r.returncode, "seconds": round(time.time() - t0, 1), "usage": out.get("usage"),
-         "total_cost_usd": out.get("total_cost_usd"), "model": model, "stderr": r.stderr[-800:],
-         "model_sha": C.sha(fr)}, indent=1))
+    text = _referee(rd, fr, f"review{n}", REVIEW_PROMPT, "model_under_review.fr")
     verdict = next((ln.strip() for ln in reversed(text.splitlines()) if ln.strip().upper().startswith("VERDICT:")), None)
     st = C.load_state(rd)
-    st["review_log"].append({"n": n, "model_sha": C.sha(fr), "verdict": verdict, "exit": r.returncode})
+    st["review_log"].append({"n": n, "model_sha": C.sha(fr), "verdict": verdict, "exit": 0})
     C.save_state(rd, st)
-    if r.returncode != 0 or not text:
-        raise ToolError(f"referee failed (exit {r.returncode}): {r.stderr[-800:]}")
     return f"review {n}/{st['review_budget']} of model.fr\n\n{text}"
 
 
+SPEC_REVIEW_PROMPT = """You are an independent referee. You did not write the list under review.
+
+Files in the working directory: the paper (LaTeX source under eval/benchmark_runs/*/text/), SM.fr (the Standard
+Model file a FeynRules add-on model is loaded on top of), and MODEL_PATH, a JSON list of the NEW fields and of
+the interaction vertices (by particle content) that an implementation of the paper's model must have.
+
+Read the paper's model-defining sections. Report:
+- every new field of the paper's model that is not in "fields";
+- every interaction term of the paper's Lagrangian whose particle content is not in "interactions" (name the
+  equation; give the particles);
+- every entry of the list that the paper does not have.
+Kinetic and mass terms need no entry. Gauge interactions of a new charged or coloured field DO need one
+(for example a coloured scalar with the gluon). Do not comment on names or format.
+Output a numbered list, each item with the paper equation or LaTeX line. End with one line:
+VERDICT: COMPLETE, or VERDICT: <n> MISSING, <m> EXTRA."""
+
+
+def review_spec(args: dict) -> str:
+    """The referee on spec.json, once, before the model is written: it is easier to see
+    what a short list leaves out than what a long model file leaves out."""
+    rd = C.rundir()
+    st = C.load_state(rd)
+    if st.get("spec_reviews", 0) >= 1:
+        raise ToolError("review_spec budget exhausted (1 call)")
+    spec = _path(args.get("path", "spec.json"))
+    st["spec_reviews"] = 1
+    C.save_state(rd, st)
+    text = _referee(rd, spec, "spec_review1", SPEC_REVIEW_PROMPT, "spec_under_review.json")
+    return "review of spec.json\n\n" + text
+
+
 HANDLERS = {"lint_model": lint_model, "validate_model": validate_model,
-            "massbasis": massbasis, "review_model": review_model}
+            "massbasis": massbasis, "review_model": review_model, "review_spec": review_spec}
 
 
 def _tool_list() -> list:
