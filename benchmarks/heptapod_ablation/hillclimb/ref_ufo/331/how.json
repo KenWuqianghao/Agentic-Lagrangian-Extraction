@@ -1,0 +1,76 @@
+{
+ "model_files": [
+  "/home/deck/code/heptapod/eval/reference_cache/331/331.fr"
+ ],
+ "load_sm": false,
+ "sm_file": null,
+ "lagrangian": "LThree",
+ "seconds": 1109,
+ "ok": true,
+ "n_particles": 47,
+ "n_vertices": 1897,
+ "n_bsm_vertices": 1786,
+ "bsm_particles": [
+  "Ee__plus__",
+  "Emu__plus__",
+  "Eta__plus__",
+  "GV__plus____plus__",
+  "GW__plus__",
+  "GY__plus__",
+  "GZ",
+  "GZP",
+  "H0",
+  "H2",
+  "H3",
+  "HV__plus____plus__",
+  "HW__plus__",
+  "HY__plus__",
+  "Jd",
+  "Js",
+  "Jt",
+  "V__plus____plus__",
+  "Y__plus__",
+  "ZP",
+  "ghVm",
+  "ghVp",
+  "ghYm",
+  "ghYp",
+  "ghZP"
+ ],
+ "example_bsm_vertex": [
+  "GW__plus__",
+  "GY__plus__",
+  "HV__minus____minus__"
+ ],
+ "evidence": "331.fr:40 M$GaugeGroups, :233-894 declare all fields; 331.fr:1741 'LThree:= LHiggs+LFermions+LYukawa+LGhost+LGauge'.",
+ "notes": "Full model, loaded alone. Total is the file's own LThree.",
+ "extra_args": [],
+ "command": [
+  "wolframscript",
+  "-f",
+  "/home/deck/code/hep-pr/validator-main/tools/feynrules/UFO_generator.wl",
+  "FeynRulesPath=/home/deck/hep-tools/feynrules-current",
+  "ModelPath=/home/deck/code/heptapod/eval/reference_cache/331/331.fr",
+  "OutputDir=/home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/hillclimb/ref_ufo/331/UFO",
+  "Checks=false",
+  "AddDecays=false",
+  "LoadSM=false",
+  "Lagrangian=LThree"
+ ],
+ "problems": [],
+ "last_log_lines": [],
+ "attempts": [
+  {
+   "lagrangian": "LThree",
+   "load_sm": false,
+   "model_files": [
+    "/home/deck/code/heptapod/eval/reference_cache/331/331.fr"
+   ],
+   "extra": [],
+   "seconds": 1109,
+   "exit_code": 0,
+   "ok": true,
+   "problems": []
+  }
+ ]
+}

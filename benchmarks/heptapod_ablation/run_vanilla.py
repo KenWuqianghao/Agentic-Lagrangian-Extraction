@@ -53,6 +53,14 @@ LOCK = Path(os.environ.get("HEPVAL_STATE", HOME / ".cache/ale-pi-harness")) / "w
 AGENT_TIMEOUT = int(os.environ.get("VANILLA_AGENT_TIMEOUT", str(2 * 3600)))
 NETWORK = re.compile(r"\b(curl|wget|git\s+clone|pip\s+install|pip3\s+install|scp|ssh|nc)\b")
 
+# Two rules of the scorer that the first vanilla run was not told (it cost that run up to four
+# papers). `--scorer-rules` adds them; the harness arms have always had them.
+SCORER_RULES = """
+  The scorer evaluates LTotal as written when it contains LSM, and LSM + LTotal when it does
+  not: so write LTotal := LSM + <your terms> (or LSM - <an SM term you replace> + ...), and
+  do not rebuild the Standard Model from its pieces. Define no other top-level L... := term
+  that LTotal does not use."""
+
 TASK = """\
 Implement the beyond-the-Standard-Model theory of the paper in this directory as a FeynRules
 model.
@@ -61,7 +69,7 @@ model.
   existing implementation of this model.
 - Write a FeynRules add-on file, model.fr, in this directory, with M$ModelName = "{page}_gen".
   It is loaded together with the Standard Model file SM.fr (in this directory; do not edit it),
-  as LoadModel["SM.fr", "model.fr"]. Define the total Lagrangian as LTotal.
+  as LoadModel["SM.fr", "model.fr"]. Define the total Lagrangian as LTotal.{rules}
 - The model must reproduce the paper's fields, interactions, parameters and benchmark values.
 - It is good when: FeynRules loads it and writes a UFO; FeynRules' CheckHermiticity,
   CheckDiagonalKineticTerms, CheckDiagonalMassTerms and CheckMassSpectrum pass on LTotal;
@@ -115,7 +123,7 @@ def run_agent(page: str, seed: int, args) -> dict:
     rundir.mkdir(parents=True)
     sandbox = make_sandbox(page, rundir)
     paper = run_pi.paper_file(page)
-    prompt = TASK.format(paper=paper.name, page=page, feynrules=FEYNRULES, mg5=MG5,
+    prompt = TASK.format(paper=paper.name, page=page, feynrules=FEYNRULES, mg5=MG5, rules=SCORER_RULES if args.scorer_rules else "",
                          src_note="LaTeX source" if paper.name.endswith("_source.tex") else "text from the PDF")
     (rundir / "prompt.txt").write_text(prompt)
     cmd = agent_cmd(sandbox, args.model)
@@ -176,6 +184,8 @@ def main() -> int:
     r.add_argument("--seeds", type=int, default=1)
     r.add_argument("--parallel", type=int, default=2)
     r.add_argument("--force", action="store_true")
+    r.add_argument("--scorer-rules", action="store_true",
+                   help="tell the agent the scorer's two interface rules (LSM, one total)")
     args = ap.parse_args()
     pages = (run_pi.SINGLE_MODEL if args.pages == "all" else args.pages).split(",")
     LOCK.parent.mkdir(parents=True, exist_ok=True)

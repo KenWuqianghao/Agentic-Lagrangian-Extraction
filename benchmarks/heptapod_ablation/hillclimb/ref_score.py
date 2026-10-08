@@ -82,6 +82,7 @@ def main() -> int:
     ap.add_argument("--group", action="append", required=True, metavar="NAME=ROOT:VARIANT[:UFOROOT]",
                     help="UFOROOT/<paper>/call1/round0/UFO is used when the run has no score_ufo/")
     ap.add_argument("--papers", default=",".join(PAPERS))
+    ap.add_argument("--seed", type=int, default=1)
     args = ap.parse_args()
     res = {}
     for g in args.group:
@@ -89,7 +90,7 @@ def main() -> int:
         root, variant, *ufo_root = rest.split(":")
         rows = []
         for p in args.papers.split(","):
-            d = Path(root) / p / "rerun" / variant / "s1"
+            d = Path(root) / p / "rerun" / variant / f"s{args.seed}"
             alt = Path(ufo_root[0]) / p / "call1" / "round0" / "UFO" if ufo_root else None
             rows.append(score_run(d, p, alt if alt and not (d / "score_ufo" / "vertices.py").is_file() else None))
         ok = [r for r in rows if r["metric"] is not None]
