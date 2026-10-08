@@ -9,6 +9,7 @@ that needs files from those trees must not use it).
 
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 
@@ -20,12 +21,19 @@ MG5 = HOME / "MG5_aMC" if MAC else HOME / "hep-tools" / "MG5_aMC"
 WOLFRAMSCRIPT = Path("/opt/homebrew/bin/wolframscript") if MAC else HOME / "hep-tools" / "bin" / "wolframscript"
 
 WRAPPER = """#!{python}
-# One Wolfram kernel at a time on this machine (licence limit); wait for it.
-import fcntl, os, sys
-fd = os.open("{lock}", os.O_RDWR | os.O_CREAT)
-fcntl.flock(fd, fcntl.LOCK_EX)
-os.set_inheritable(fd, True)          # the lock lives as long as wolframscript does
-os.execv("{real}", ["{real}", *sys.argv[1:]])
+# The licence runs {slots} Wolfram kernels at a time; wait for a slot (hepval takes them the same way).
+import fcntl, os, sys, time
+while True:
+    for i in range({slots}):
+        fd = os.open("{lock}." + str(i), os.O_RDWR | os.O_CREAT)
+        try:
+            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            os.close(fd)
+            continue
+        os.set_inheritable(fd, True)          # the slot is held as long as wolframscript runs
+        os.execv("{real}", ["{real}", *sys.argv[1:]])
+    time.sleep(2)
 """
 
 
@@ -33,7 +41,8 @@ def write_wolframscript_wrapper(sandbox: Path, lock: Path) -> Path:
     """`<sandbox>/.bin/wolframscript`: put `<sandbox>/.bin` first on PATH."""
     (sandbox / ".bin").mkdir(exist_ok=True)
     w = sandbox / ".bin" / "wolframscript"
-    w.write_text(WRAPPER.format(python=sys.executable, lock=lock, real=WOLFRAMSCRIPT))
+    w.write_text(WRAPPER.format(python=sys.executable, lock=lock, real=WOLFRAMSCRIPT,
+                                slots=os.environ.get("HEPVAL_KERNEL_SLOTS", "2")))
     w.chmod(0o755)
     return w.parent
 

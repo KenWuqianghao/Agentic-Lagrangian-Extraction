@@ -14,7 +14,6 @@ written, into validation_intent.json; validation_hepval.json is not touched.
 from __future__ import annotations
 
 import argparse
-import fcntl
 import json
 import sys
 import tempfile
@@ -41,8 +40,7 @@ def main() -> int:
         if not fr.is_file() or (d / "validation_intent.json").is_file():
             continue
         rb.OUTROOT = Path(tempfile.mkdtemp(prefix=f"intent-{page}-"))
-        with open(hepval.LOCK, "w") as fh:
-            fcntl.flock(fh, fcntl.LOCK_EX)
+        with hepval.kernel_slot():
             row = rb.validate("call1", fr, 0)
         v = {"status": row.get("status"), "compile_ok": row.get("compile_ok"), "timed_out": row.get("timed_out"),
              "seconds": row.get("seconds"), "checks": row.get("checks"), "madgraph_import_ok": row.get("madgraph_import_ok"),

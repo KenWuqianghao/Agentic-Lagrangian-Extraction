@@ -17,10 +17,12 @@ corrected check driver, verdicts from return values) with the benchmark's
 sit inside the tree they drive. ``config.py`` there carries the three tool
 paths and nothing else.
 
-Validation is serial: one Wolfram kernel on this machine. ``validate`` takes an
-exclusive flock, then waits until no other WolframKernel runs, before it starts
-FeynRules, so concurrent agents and other sessions queue instead of killing
-each other's kernels (the 2026-09-09 failure mode).
+The Wolfram licence here runs two kernels at a time (a third stops with "No
+valid password found"; measured 2026-10-08, and two FeynRules compiles side by
+side take the same time as one). ``validate`` takes one of HEPVAL_KERNEL_SLOTS
+lock files (default 2) before it starts FeynRules, so concurrent agents queue
+for a slot. Everything else that starts a kernel on this machine must take a
+slot the same way (``kernel_slot``; cc_harness/isolation.py does for agents).
 """
 
 from __future__ import annotations
@@ -45,7 +47,28 @@ HEPTAPOD = Path.home() / "Documents/Github/heptapod"
 HEPTAPOD_DEV = Path.home() / "Documents/Github/heptapod-dev"
 VALIDATOR = Path(os.environ.get("HEPVAL_ROOT", Path.home() / "Documents/Github/hep-pr/validator-main"))
 STATE = Path(os.environ.get("HEPVAL_STATE", Path.home() / ".cache/ale-pi-harness"))
-LOCK = STATE / "wolfram.lock"
+LOCK = STATE / "wolfram.lock"          # slot files are wolfram.lock.0, wolfram.lock.1, ...
+KERNEL_SLOTS = int(os.environ.get("HEPVAL_KERNEL_SLOTS", "2"))
+
+
+class kernel_slot:
+    """Hold one of the kernel slots for the length of a `with` block."""
+
+    def __enter__(self):
+        STATE.mkdir(parents=True, exist_ok=True)
+        while True:
+            for i in range(KERNEL_SLOTS):
+                fh = open(f"{LOCK}.{i}", "w")
+                try:
+                    fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                    self.fh = fh
+                    return self
+                except BlockingIOError:
+                    fh.close()
+            time.sleep(2)
+
+    def __exit__(self, *exc):
+        self.fh.close()
 # 900 s is what the September ablation used; 600 s turned a slow Monotops
 # compile into a timeout on re-scoring.
 COMPILE_TIMEOUT = os.environ.get("HEPVAL_COMPILE_TIMEOUT", "900")
@@ -253,13 +276,7 @@ def validate(args) -> int:
     n = len(list(out.glob("call*"))) + 1
     STATE.mkdir(parents=True, exist_ok=True)
     t_wait = time.time()
-    with open(LOCK, "w") as fh:
-        fcntl.flock(fh, fcntl.LOCK_EX)
-        # The lock orders this harness's calls; other sessions (open_bench,
-        # repair loops) start kernels without it. Holding the lock, any live
-        # kernel is theirs: wait for it, or the compiles slow each other down.
-        while subprocess.run(["pgrep", "-f", "[W]olframKernel"], capture_output=True).returncode == 0:
-            time.sleep(10)
+    with kernel_slot():
         waited = round(time.time() - t_wait, 1)
         t_start = time.time()
         row = rb.validate(f"call{n}", fr, 0)

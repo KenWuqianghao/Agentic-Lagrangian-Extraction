@@ -16,7 +16,6 @@ ValidateLagrangian.
 from __future__ import annotations
 
 import argparse
-import fcntl
 import json
 import re
 import sys
@@ -48,8 +47,7 @@ def main() -> int:
                     if n in terms and n != total and not vb._is_pure_alias(n, terms)) if total else []
     rows = []
     hepval.STATE.mkdir(parents=True, exist_ok=True)
-    with open(hepval.LOCK, "w") as fh:
-        fcntl.flock(fh, fcntl.LOCK_EX)
+    with hepval.kernel_slot():
         for b in blocks:
             log, rc, timed_out, dt = vb._run_driver(
                 [f"ModelPath={fr}", f"OutputDir={out / 'unused_UFO'}", "Checks=false", "ChecksOnly=true",
