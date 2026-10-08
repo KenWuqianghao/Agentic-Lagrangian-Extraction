@@ -207,7 +207,8 @@ def lint(args) -> int:
     if getattr(args, "opt", False) or getattr(args, "real", False):
         sys.path.insert(0, str(ALE / "cc_harness"))
         import opt_checks  # noqa: E402
-        findings += opt_checks.lint(Path(args.model).read_text(errors="replace"), real=getattr(args, "real", False))
+        findings += opt_checks.lint(Path(args.model).read_text(errors="replace"), real=getattr(args, "real", False),
+                                     chain_head=getattr(args, "chain_head", False))
     for f in findings:
         # The SM-override recipe redeclares Phi on purpose; say when that is fine.
         if f["rule"] == "sm_class_redeclared":
@@ -523,6 +524,8 @@ def main() -> int:
     p.add_argument("model")
     p.add_argument("--opt", action="store_true", help="add the optimisation arm's rules (cc_harness/opt_checks.py)")
     p.add_argument("--real", action="store_true", help="--opt plus the cut-statement rule (the shell arm)")
+    p.add_argument("--chain-head", action="store_true",
+                   help="with --real: also the rule for a fermion chain that starts with an unbarred field (arm plus)")
     p.set_defaults(fn=lint)
     p = sub.add_parser("validate")
     p.add_argument("model")

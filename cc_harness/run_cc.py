@@ -163,6 +163,11 @@ def write_configs(rundir: Path, sandbox: Path, args) -> dict:
     return env
 
 
+NO_GAUGE_GROUPS = "SM add-on => no M$GaugeGroups block; "
+GAUGE_GROUPS_ALLOWED = ("SM add-on: SM.fr declares the SM gauge groups; add an M$GaugeGroups block only for a gauge "
+                        "group that the paper adds (see the protocol); ")
+
+
 def task_prompt(page: str, arm: C.Arm, draft: bool = False) -> str:
     """run_pi's harness prompt; an arm without validate_model has no verdict
     to summarise, a run that starts from a draft is told so, and the shell
@@ -172,6 +177,10 @@ def task_prompt(page: str, arm: C.Arm, draft: bool = False) -> str:
         if run_pi.SANDBOX_NOTE not in prompt:
             raise ValueError("task prompt: the sandbox note is not where it was")
         prompt = prompt.replace(run_pi.SANDBOX_NOTE, SHELL_NOTE)
+    if arm.recipes:
+        if NO_GAUGE_GROUPS not in prompt:
+            raise ValueError("task prompt: the gauge-group rule is not where it was")
+        prompt = prompt.replace(NO_GAUGE_GROUPS, GAUGE_GROUPS_ALLOWED)
     if "validate_model" not in arm.tools:
         tail = " and the last validate_model verdict."
         if tail not in prompt:

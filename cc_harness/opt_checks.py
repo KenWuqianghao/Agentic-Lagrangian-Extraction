@@ -42,6 +42,7 @@ SM_PARTICLES = frozenset(json.loads(
     (ALE / "benchmarks" / "heptapod_ablation" / "sm_ufo_particles.json").read_text())["particles"])
 # Index counts of the SM.fr fermion classes; the first index is spin.
 SM_FERMION_INDICES = {"vl": 2, "l": 2, "uq": 3, "dq": 3, "LL": 3, "lR": 2, "QL": 4, "uR": 3, "dR": 3}
+SM_FERMION_MEMBERS = ("ve", "vm", "vt", "e", "mu", "ta", "u", "c", "t", "d", "s", "b")
 
 
 def _finding(rule: str, stage: str, line: int | None, message: str) -> dict:
@@ -86,7 +87,7 @@ def cut_lines(raw: str) -> list[dict]:
     return out
 
 
-def lint(raw: str, real: bool = False) -> list[dict]:
+def lint(raw: str, real: bool = False, chain_head: bool = False) -> list[dict]:
     text = fr_lint.strip_comments(raw)
     out: list[dict] = []
     if real:
@@ -118,6 +119,23 @@ def lint(raw: str, real: bool = False) -> list[dict]:
                     "fails hermiticity or drops out of the UFO. Write the field with no index inside the chain (use "
                     "the class members `e`, `mu`, `ta`, ... or a matrix coupling between two index-free fields), or "
                     "give every index."))
+
+    fermions = set(counts) | set(SM_FERMION_MEMBERS)
+    for c in classes:
+        if c["head"].startswith("F["):
+            fermions |= set(re.findall(r"[A-Za-z]\w*", (fr_lint._prop(c["body"], "ClassMembers") or "").strip("{} ")))
+    head = re.compile(r"(?<![\w.$\]])(" + "|".join(map(re.escape, sorted(fermions, key=len, reverse=True)))
+                      + r")(\[[^\[\]]*\])?\s*\.\s*[A-Za-z]")
+    for term in fr_lint.term_defs(text) if chain_head else ():
+        for m in head.finditer(term["body"]):
+            if m.group(1).endswith("bar"):
+                continue
+            out.append(_finding(
+                "unbarred_chain_head", "checks", term["line"] + term["body"].count("\n", 0, m.start()),
+                f"the fermion chain `{term['body'][m.start():m.end() + 30].strip()} ...` starts with `{m.group(1)}`, a "
+                f"fermion field with no bar. A chain is `<field>bar . <matrices> . <field>`: write `{m.group(1)}bar`, or "
+                "exchange the two fields. With an unbarred head, HC[] of the term is not a chain FeynRules can reduce: "
+                "hermiticity fails and the UFO couplings file can be invalid Python."))
 
     for m in re.finditer(r"^[ \t]*([SFVUTR]\[\s*\d+\s*\])\s*==\s*\{", text, re.M):
         if not block or not (block.end() <= m.start() <= list_end):

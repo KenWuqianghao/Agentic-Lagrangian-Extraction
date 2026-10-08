@@ -56,10 +56,15 @@ class Arm:
     `shell`: the agent also has Bash, can read the outputs of its validate
     calls (UFO, FeynRules log) and can run wolframscript and MadGraph itself.
     The run is isolated by isolation.py, not by the PreToolUse guard.
+
+    `recipes`: the protocol also has the recipes for a gauged U(1) and for an
+    added gauge group, the task allows `M$GaugeGroups` in the add-on, and
+    lint_model has the rule `unbarred_chain_head`.
     """
     tools: tuple
     feedback: str
     shell: bool = False
+    recipes: bool = False
 
 
 ARMS = {
@@ -74,6 +79,7 @@ ARMS = {
     "opt": Arm(TOOLS, "opt"),
     "shell": Arm(TOOLS, "real", shell=True),
     "cover": Arm((*TOOLS, "review_spec"), "cover", shell=True),
+    "plus": Arm(TOOLS, "real", shell=True, recipes=True),
 }
 
 
@@ -105,6 +111,8 @@ def render_protocol(template: str, a: Arm, validate_budget: int, max_continuatio
         flags.add("cover")
     if a.shell:
         flags.add("shell")
+    if a.recipes:
+        flags.add("recipes")
     if a.feedback in ("compile", "import"):
         flags.add("generic")
     if a.feedback != "compile" and a.tools:

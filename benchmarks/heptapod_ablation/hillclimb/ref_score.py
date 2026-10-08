@@ -26,6 +26,8 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import math
+import re
 import sys
 from pathlib import Path
 
@@ -38,13 +40,60 @@ HB = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(HB)
 
 
-def vertex_kinds(ufo: Path) -> set | None:
+# Three faults of the reference labels, found by reading the references against the papers
+# (results/gap_analysis.md). Each one made a correct delivered vertex count as wrong, in
+# every group alike. The fixes change labels of the REFERENCE only.
+REF_FIXES = {
+    # monotops.fr:40,43 has `Indices->{Colour}` (no Index[]) for the two coloured scalars, so
+    # the UFO gives them colour 1 while their vertices carry Epsilon(1,2,3). The paper: "i,j,k
+    # are color indices in the fundamental representation". (The reader gives an antiparticle
+    # the colour of its particle, as for the reference vector vc.)
+    "Monotops": {"color": {"phic": 3, "tphic": 3, "phic__tilde__": 3, "tphic__tilde__": 3}},
+    # The reference gives the SM-like Higgs the code 9900025, so it reads as a new scalar.
+    "B-L-SM": {"pdg": {9900025: 25}},
+    # 331.fr leaves beta a free symbol: the charges of the new states are expressions in beta
+    # and read as None. The paper's four benchmarks are beta = +-1/sqrt3, +-sqrt3; a delivered
+    # model is scored against the reference at the beta that fits it best.
+    "331": {"beta": [1 / math.sqrt(3), -1 / math.sqrt(3), math.sqrt(3), -math.sqrt(3)]},
+}
+_CHARGE = re.compile(r"(q=)(-?\d+\.\d+)")
+
+
+def _raw_charges(particles_py: Path) -> dict:
+    """UFO variable -> the charge expression as written (for charges that are not numbers)."""
+    text = particles_py.read_text(errors="replace")
+    raw = {}
+    for block in re.split(r"\n(?=\w+ = Particle\()", text):
+        m, c = re.match(r"(\w+) = Particle\(", block), re.search(r"charge = (.*?),\n", block)
+        if m and c:
+            raw[m.group(1)] = c.group(1)
+    for anti, part in re.findall(r"^(\w+) = (\w+)\.anti\(\)", text, re.M):
+        if part in raw:
+            raw[anti] = f"-({raw[part]})"
+    return raw
+
+
+def vertex_kinds(ufo: Path, fix: dict | None = None, beta: float | None = None) -> set | None:
     """The new-physics vertex kinds of a UFO; None when the UFO cannot be read."""
     parts = HB._ufo_particles(ufo / "particles.py")
     verts = HB._ufo_vertices(ufo / "vertices.py")
     if not parts or not verts:
         return None
-    ident = {n: HB._identity(p) for n, p in parts.items()}
+    fix = fix or {}
+    raw = _raw_charges(ufo / "particles.py") if beta is not None else {}
+    ident = {}
+    for n, p in parts.items():
+        p = dict(p)
+        if n in fix.get("color", {}):
+            p["color"] = fix["color"][n]
+        if abs(int(p.get("pdg_code") or 0)) in fix.get("pdg", {}):
+            p["pdg_code"] = fix["pdg"][abs(int(p["pdg_code"]))]
+        if p.get("charge") is None and n in raw:
+            p["charge"] = eval(raw[n].replace("Sqrt[3]", "math.sqrt(3)").replace("beta", repr(beta)),
+                               {"math": math, "__builtins__": {}})
+        k = HB._identity(p)
+        # one spelling for a charge: 2/3 from a rational and from sqrt arithmetic must agree
+        ident[n] = _CHARGE.sub(lambda m: m.group(1) + (f"{round(float(m.group(2)), 4):g}"), k) if k else k
     kinds = set()
     for v in verts:
         ids = [ident.get(n) for n in v]
@@ -52,6 +101,14 @@ def vertex_kinds(ufo: Path) -> set | None:
             continue
         kinds.add(tuple(sorted(HB._generation_blind(i) for i in ids)))
     return kinds
+
+
+def reference_kinds(paper: str, fixed: bool = True) -> list[set]:
+    """The reference's kinds: one set, or one per allowed beta."""
+    ufo = HERE / "ref_ufo" / paper / "UFO"
+    fix = REF_FIXES.get(paper, {}) if fixed else {}
+    sets = [vertex_kinds(ufo, fix, b) for b in fix["beta"]] if "beta" in fix else [vertex_kinds(ufo, fix)]
+    return [s for s in sets if s is not None]
 
 
 def f1(gen: set, ref: set) -> dict:
@@ -62,15 +119,16 @@ def f1(gen: set, ref: set) -> dict:
             "matched": tp, "generated": len(gen), "reference": len(ref)}
 
 
-def score_run(rundir: Path, paper: str, ufo: Path | None = None) -> dict:
-    ref = vertex_kinds(HERE / "ref_ufo" / paper / "UFO")
+def score_run(rundir: Path, paper: str, ufo: Path | None = None, fixed: bool = True) -> dict:
+    refs = reference_kinds(paper, fixed)
     v = json.loads((rundir / "validation_hepval.json").read_text()) if (rundir / "validation_hepval.json").is_file() else {}
     chain = bool(v.get("full_chain_pass"))
     ufo = ufo or rundir / "score_ufo"
     gen = vertex_kinds(ufo) if (ufo / "vertices.py").is_file() else None
-    out = {"paper": paper, "chain": chain, "has_ufo": gen is not None, "reference_ok": ref is not None}
-    if ref is None:
+    out = {"paper": paper, "chain": chain, "has_ufo": gen is not None, "reference_ok": bool(refs)}
+    if not refs:
         return {**out, "f1": None, "metric": None}
+    ref = max(refs, key=lambda r: f1(gen or set(), r)["f1"])
     s = f1(gen or set(), ref)
     return {**out, **s, "metric": s["f1"] if chain else 0.0,
             "missing": sorted(" ".join(k) for k in ref - (gen or set()))[:12],
@@ -83,6 +141,7 @@ def main() -> int:
                     help="UFOROOT/<paper>/call1/round0/UFO is used when the run has no score_ufo/")
     ap.add_argument("--papers", default=",".join(PAPERS))
     ap.add_argument("--seed", type=int, default=1)
+    ap.add_argument("--raw-reference", action="store_true", help="score without REF_FIXES (the first metric)")
     args = ap.parse_args()
     res = {}
     for g in args.group:
@@ -92,7 +151,8 @@ def main() -> int:
         for p in args.papers.split(","):
             d = Path(root) / p / "rerun" / variant / f"s{args.seed}"
             alt = Path(ufo_root[0]) / p / "call1" / "round0" / "UFO" if ufo_root else None
-            rows.append(score_run(d, p, alt if alt and not (d / "score_ufo" / "vertices.py").is_file() else None))
+            rows.append(score_run(d, p, alt if alt and not (d / "score_ufo" / "vertices.py").is_file() else None,
+                                  fixed=not args.raw_reference))
         ok = [r for r in rows if r["metric"] is not None]
         res[name] = {"papers_scored": len(ok), "chain_pass": sum(r["chain"] for r in ok),
                      "mean_metric": round(sum(r["metric"] for r in ok) / len(ok), 3) if ok else None,

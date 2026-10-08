@@ -114,6 +114,51 @@ model. Check that yourself:
 After a Higgs-doublet override that changes the vev, `mass_spectrum` can fail on the ghosts
 only (`ghWp`, `ghWm`, `ghZ`). Then put `FeynmanGauge = False;` at the top of model.fr.
 
+<!--end--><!--if recipes-->## Gauge sector recipes
+
+A new vector with an External mass and currents written by hand passes the chain, and it
+leaves out every vertex that the gauge symmetry gives: vector-vector-scalar, the gauge
+self-couplings, the scalar-scalar-vector vertices. When the paper gauges a symmetry, build
+these from the kinetic terms.
+
+**A new U(1) with a gauge boson `Zp`.** The `Zp` mass and the `Zp Zp h`, `Zp Z h`, `Zp Zp S`
+vertices come from the kinetic terms of the scalars that carry the charge:
+- a singlet `S` with charge `xS`: `(del[Sbar, mu] + I gp xS Zp[mu] Sbar) (del[S, mu] - I gp xS Zp[mu] S)`,
+  with `S` an Unphysical class whose `Definitions` hold its vev and the physical scalar;
+- the Higgs doublet with charge `xH`: `LSM` has `DC[Phibar[ii], mu] DC[Phi[ii], mu]` already.
+  Add the two terms that the longer covariant derivative gives,
+  `I gp xH Zp[mu] (Phibar[ii] DC[Phi[ii], mu] - DC[Phibar[ii], mu] Phi[ii]) + gp^2 xH^2 Zp[mu] Zp[mu] Phibar[ii] Phi[ii]`
+  (inside `ExpandIndices[...]`; take the sign of the first term from the paper's covariant
+  derivative);
+- make `MZp` consistent with these terms: the vev of `S` is an Internal function of `MZp`,
+  `gp` and the charges, so that `mass_spectrum` passes.
+When the paper also has a mixing of `S` with the Higgs, use the SM-override recipe below
+for `Phi`; the Yukawa and gauge vertices of the second scalar then follow from `LSM`. A
+doublet charge gives a `Z Zp` mass term. `mass_diagonal` reports it. Follow the paper: a
+default charge value where the term vanishes, or mass eigenstates as in the last line of
+this protocol. Say which in the summary.
+
+**An added gauge group (a second SU(2), a U(1) with its own field strength).** The task rule
+allows `M$GaugeGroups` in the add-on; FeynRules joins it with SM.fr's list:
+```
+M$GaugeGroups = {
+  SU2R == { Abelian -> False, CouplingConstant -> gR, GaugeBoson -> WRi,
+            StructureConstant -> Eps, Representations -> {TR, SU2RD}, AdjointIndex -> SU2RW,
+            Definitions -> {TR[a_, b_, c_] -> PauliSigma[a, b, c]/2} },
+  U1X  == { Abelian -> True, CouplingConstant -> gX, GaugeBoson -> BX, Charge -> QX }
+};
+```
+- Declare each new index (`IndexRange[Index[SU2RD]] = Unfold[Range[2]];` and
+  `IndexRange[Index[SU2RW]] = Unfold[Range[3]];`) and give the gauge boson the adjoint index. `gR`, `gX` are
+  parameters with an `InteractionOrder`.
+- The gauge-eigenstate boson is an Unphysical class with `Definitions` to the physical mass
+  eigenstates (as SM.fr does for `Wi` and `B`); the physical ones have the masses.
+- `-1/4 FS[WRi, mu, nu, a] FS[WRi, mu, nu, a]` then gives the self-couplings, and `DC[field, mu]`
+  includes the new group for every field that has its index or its charge in
+  `QuantumNumbers`. Wrap these terms in `ExpandIndices[..., FlavorExpand -> <the new indices>]`.
+- A model this size expands slowly. Test each block alone with wolframscript before a
+  `validate_model` call, and keep the scalar potential in terms of the physical fields.
+
 <!--end-->## Mass mixing with Standard Model fields (the SM-override recipe)
 
 The dominant failure of plain one-shot extraction is `mass_diagonal` (with

@@ -157,7 +157,8 @@ def lint_model(args: dict) -> str:
 
 
 def _OPT() -> list:
-    return {"opt": ["--opt"], "real": ["--real"], "cover": ["--real"]}.get(C.arm().feedback, [])
+    return ({"opt": ["--opt"], "real": ["--real"], "cover": ["--real"]}.get(C.arm().feedback, [])
+            + (["--chain-head"] if C.arm().recipes else []))
 
 
 def _lint_text(raw: str) -> str:

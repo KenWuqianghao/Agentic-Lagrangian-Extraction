@@ -263,3 +263,21 @@ def test_cover_arm_does_not_accept_a_pass_that_leaves_the_spec_uncovered(env):
     text = out[2]["result"]["content"][0]["text"]
     assert "FULL CHAIN PASS" not in text and "spec.json is not covered" in text.splitlines()[0]
     assert _stop(e, False)["decision"] == "block"
+
+
+def test_plus_arm_has_the_gauge_recipes_and_the_shell_arm_does_not():
+    template = (HERE / "prompts" / "protocol.md").read_text()
+    plus = C.render_protocol(template, C.ARMS["plus"], 10, 3)
+    shell = C.render_protocol(template, C.ARMS["shell"], 10, 3)
+    assert "## Gauge sector recipes" in plus and "M$GaugeGroups" in plus
+    assert "Gauge sector recipes" not in shell
+    assert "<!--" not in plus
+
+
+def test_chain_head_rule_reports_an_unbarred_fermion_at_the_head_of_a_chain():
+    import opt_checks
+    fr = ('M$ClassesDescription = {\n F[101] == { ClassName -> nH, SelfConjugate -> True }\n};\n'
+          'LBad := gw nH.Ga[mu].ProjP.l W[mu];\nLGood := gw nHbar.Ga[mu].ProjP.l W[mu];\n')
+    rules = [f["rule"] for f in opt_checks.lint(fr, real=True, chain_head=True)]
+    assert rules.count("unbarred_chain_head") == 1
+    assert "unbarred_chain_head" not in [f["rule"] for f in opt_checks.lint(fr, real=True)]
