@@ -25,6 +25,15 @@ ul{margin:.3em 0;padding-left:1.3em}li{margin:.25em 0}.k{color:var(--warn)}
 <div class="card verdict big"><b>结论：方向是对的，但是现在还不够主张「显著更强」。</b><br>
 名义上 p = 0.03。但是差距的四分之三来自 vanilla 的 3 次超时。vanilla 的时限是 2 小时，harness 是 4 小时。去掉这个因素，差距从 0.21 降到 0.08。</div>
 
+<div class="card good big"><b>10 月 9 日更新：用相同条件重跑了 vanilla 超时的 5 篇。</b><br>
+4 小时时限，2 个内核，不排队。vanilla 的 13 篇平均从 0.55 升到 <b>0.65</b>。工具组是 0.77。差 +0.11，高 5 篇、低 1 篇、平 7 篇，p ≈ 0.19，<b>不显著</b>。
+<table style="margin-top:8px"><tr><th>论文</th><th class="n">vanilla 上次</th><th class="n">vanilla 重跑</th><th class="n">命令行 + 工具</th></tr>
+<tr><td>331</td><td class="n">0.00（超时）</td><td class="n">0.54</td><td class="n">0.42</td></tr>
+<tr><td>Wprime</td><td class="n">0.00（超时）</td><td class="n">0.80</td><td class="n">0.80</td></tr>
+<tr><td>MDMmodel</td><td class="n">0.84</td><td class="n">0.79</td><td class="n">0.84</td></tr>
+<tr><td>EffLRSM</td><td class="n">0.00（超时）</td><td class="n">0.00（没有通过）</td><td class="n">0.90</td></tr>
+<tr><td>ALRM_general</td><td class="n">0.00（超时）</td><td class="n">0.00（没有通过）</td><td class="n">0.00</td></tr></table>
+<span class="mut" style="font-size:14px">下面第 4、5 节的图和表还是重跑之前的数据。看法 B（+0.08）和这次的结果（+0.11）接近。成本：vanilla 13 篇约 $206，工具组 $39。</span></div>
 <h2>1. 任务是什么</h2>
 <div class="flow">
 <div class="step"><b>论文</b>一篇新物理论文的 LaTeX 源文件</div>
