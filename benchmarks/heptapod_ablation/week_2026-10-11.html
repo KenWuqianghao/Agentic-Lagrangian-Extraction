@@ -1,0 +1,107 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>heptapod 消融实验：10 月 5 日 – 11 日 进度</title><style>
+:root{--bg:#0f1318;--card:#171d25;--line:#2a3441;--tx:#e6ebf1;--mut:#93a1b3;--v:#e0864a;--h:#8a93a3;--o:#5aa9e6;--s:#4fc48a;--p:#b58cf0;--bad:#e5645f;--warn:#e7b84b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.65 -apple-system,"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+main{max-width:1000px;margin:0 auto;padding:28px 18px 80px}h1{font-size:28px;margin:.2em 0}h2{font-size:21px;margin:2.2em 0 .5em;padding-top:.6em;border-top:1px solid var(--line)}
+h3{font-size:16px;margin:1.2em 0 .3em}p{margin:.5em 0}.mut{color:var(--mut)}.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:12px 0}
+.big{font-size:19px}.verdict{border-left:4px solid var(--warn)}.good{border-left:4px solid var(--s)}.badc{border-left:4px solid var(--bad)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--mut);font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}code{background:#222b36;padding:1px 5px;border-radius:4px;font-size:.9em}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch}.step{flex:1 1 130px;background:#1d2530;border:1px solid var(--line);border-radius:8px;padding:9px 10px;font-size:14px;position:relative}
+.step b{display:block;font-size:15px}.step:not(:last-child)::after{content:"→";position:absolute;right:-12px;top:38%;color:var(--mut);z-index:2}
+.chain{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:8px}.chain div{background:#1d2530;border:1px solid var(--line);border-radius:6px;padding:6px;font-size:13px;text-align:center}
+.ctl{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0;font-size:14.5px}.ctl label{cursor:pointer;user-select:none}
+.row{display:grid;grid-template-columns:150px 1fr;gap:8px;align-items:center;margin:7px 0}.row .nm{font-size:14px}.bars{display:flex;flex-direction:column;gap:2px}
+.bar{height:11px;border-radius:3px;min-width:2px;position:relative;transition:width .35s}.bw{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--mut)}
+.track{flex:1;background:#1b222b;border-radius:3px}.tag{font-size:11px;padding:0 5px;border-radius:8px;border:1px solid var(--bad);color:var(--bad)}
+.leg{display:flex;flex-wrap:wrap;gap:14px;font-size:14px;margin:6px 0}.sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+.means{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}.mean{background:#1d2530;border:1px solid var(--line);border-radius:8px;padding:8px 10px}.mean b{font-size:24px;display:block}
+ul{margin:.3em 0;padding-left:1.3em}li{margin:.25em 0}.k{color:var(--warn)}
+
+.tl{border-left:2px solid var(--line);margin:8px 0 8px 8px;padding-left:16px}.tl div{margin:10px 0;position:relative}.tl div::before{content:"";position:absolute;left:-22px;top:9px;width:9px;height:9px;border-radius:50%;background:var(--o)}
+.tl b{color:var(--tx)}.ver{display:grid;grid-template-columns:70px 1fr;gap:4px 12px}.ver>b{color:var(--warn)}.x{color:var(--bad)}.ok{color:var(--s)}</style></head><body><main>
+<h1>heptapod 消融实验：本周进度</h1>
+<p class="mut">2026-10-05 到 10-11 · 分支 <code>ablation/heptapod-arms</code>（没有 push）· 数据：<code>hillclimb/fixed_13.json</code>、<code>vanilla3_5.json</code>、<code>plus_6.json</code></p>
+
+<div class="card verdict big"><b>本周的结论。</b><br>
+命令行 + heptapod 工具得 <b>0.77</b>，相同条件下的 vanilla 得 <b>0.65</b>，9 月 30 日的 harness 得 <b>0.49</b>。<br>
+比旧 harness 的提升是显著的（p = 0.03）。比 vanilla 的优势是 +0.11，<b>还不显著</b>（p ≈ 0.19）。成本大约是 vanilla 的 1/5。<br>
+<span class="mut" style="font-size:15px">每组现在只有 1 次完整运行。每组 3 个 seed 的运行在 10 月 11 日启动，结果出来后这个结论会更新。</span></div>
+
+<h2>1. 任务</h2>
+<div class="flow">
+<div class="step"><b>论文</b>一篇新物理论文的 LaTeX 源文件</div>
+<div class="step"><b>agent</b>Claude Code + Sonnet</div>
+<div class="step"><b>model.fr</b>FeynRules 模型，加载在 SM.fr 上</div>
+<div class="step"><b>6 步检查链</b>编译、厄米性、动能项、质量项、质量谱、MadGraph 导入</div>
+<div class="step"><b>UFO</b>粒子和顶点</div>
+<div class="step"><b>和参考答案比</b>FeynRules 数据库里同一篇论文的模型</div></div>
+<p class="mut">16 篇论文，13 篇有可用的参考答案。</p>
+
+<h2>2. 这周做了什么</h2>
+<div class="tl">
+<div><b>回顾分析。</b>用脚本从保存的运行里算出：旧 harness 的检查链通过里有「空通过」，模型通过了，但是新粒子没有顶点。</div>
+<div><b>vanilla 基线。</b>只给命令行的 Claude Code。第 1 次 13 篇里通过 5 篇。</div>
+<div><b>四个组的比较和失败分析。</b>24 个失败案例，每个有原因和代码片段（<code>failures.html</code>）。发现「断行语句」：FeynRules 无声地丢掉以 + 开头的续行。</div>
+<div><b>找到参考答案。</b>从 FeynRules 数据库的参考 <code>.fr</code> 编译出 13 个参考 UFO。从这里开始有了真正的 ground truth。</div>
+<div><b>新指标。</b>顶点种类的 F1 × 检查链通过。</div>
+<div><b>第四组：命令行 + 工具。</b>agent 能读自己的 UFO。13 篇通过 12 篇。</div>
+<div><b>爬山实验。</b>cover（目标清单）和 plus（规范群配方）两个改动，各 +0.06，都在噪声里，没有采用。</div>
+<div><b>差距分析。</b>发现参考答案的 3 个标签错误，修正了评分器。发现剩下的差距来自任务格式和时间预算，不来自工具。</div>
+<div><b>公平性检查。</b>发现 vanilla 的时限是 2 小时而其他组是 4 小时。用相同条件重跑 5 篇，vanilla 从 0.55 升到 0.65。</div>
+<div><b>基础设施。</b>2 个 Mathematica 内核并行；Mac 可以从 SSH 跑 agent。</div></div>
+
+<h2>3. 指标的变化</h2>
+<div class="card ver">
+<b>v0</b><div><b>检查链通过数。</b>最初的指标。<span class="x">问题：</span>模型把物理内容删掉也能通过。旧 harness 的 9 个通过里，2 个的新物理顶点和参考答案完全不重合。</div>
+<b>v1</b><div><b>裁判模型打分（review）。</b>让另一个模型判断是否忠实于论文。<span class="x">问题：</span>同一个模型两次判断不一致。我先报告「11 个通过里 8 个忠实」，重新判断只有 2 个。已撤回。</div>
+<b>v2</b><div><b>场的 F1。</b>比较新粒子的集合。<span class="x">问题：</span>不看相互作用。它给出的结论「vanilla 最好」在换成顶点后不成立。已撤回。</div>
+<b>v3</b><div><b>顶点种类 F1 × 检查链通过。</b>现在的指标。粒子按「是什么」识别：SM 粒子用 PDG 编号（不分代），新粒子用（自旋、电荷、颜色）。只算至少有一个新粒子的顶点。链不通过得 0。<span class="mut">它不比较耦合的数值、符号和洛伦兹结构。</span></div>
+<b>v3.1</b><div><b>修正参考答案的 3 个标签。</b>
+<ul><li>Monotops：参考 <code>.fr</code> 第 40、43 行有笔误，带色标量得到颜色 1。论文说是基本表示。</li>
+<li>B-L-SM：参考把 SM Higgs 的编号写成 9900025，所以它被当成新粒子。</li>
+<li>331：参考的电荷是含 β 的符号式，174 种顶点里 98 种读成「未知」。现在用论文的 4 个 β 值里最匹配的一个。</li></ul>
+修正只改参考答案的标签，对每个组一样适用。<code>--raw-reference</code> 给出修正前的分数。</div>
+<b>条件</b><div><b>相同的运行条件。</b>不是指标本身，但是同样改变了数字：vanilla 的时限从 2 小时改成 4 小时，不再排队等内核。</div></div>
+<table><tr><th>组</th><th class="n">v0：链通过 (13 篇)</th><th class="n">v3</th><th class="n">v3.1</th></tr><tbody id="mt"></tbody></table>
+
+<h2>4. 现在的结果</h2>
+<div class="ctl"><label><input type="checkbox" id="fix" checked> 用修正后的参考答案 (v3.1)</label><label><input type="checkbox" id="showall"> 显示全部组</label></div>
+<div class="means" id="means"></div><div class="leg" id="leg"></div><div id="chart"></div>
+<p class="mut"><span class="tag">超时</span> = agent 到达时限。分数 0 = 检查链没有通过。plus 只跑了 6 篇。</p>
+
+<h3>统计（命令行 + 工具 对 其他组，13 篇配对）</h3>
+<table><tr><th>对手</th><th class="n">差</th><th>高 / 低 / 平</th><th>置换检验 p</th><th>成本 (13 篇)</th><th>判断</th></tr>
+<tr><td>9 月 30 日的 harness</td><td class="n">+0.28</td><td>6 / 1 / 6</td><td>0.03</td><td>$39 对 $43</td><td class="ok">站得住</td></tr>
+<tr><td>vanilla，相同条件</td><td class="n">+0.11</td><td>5 / 1 / 7</td><td>0.19，95% 区间 [0.00, +0.28]</td><td>$39 对 $206</td><td class="x">分数不够；成本站得住</td></tr>
+<tr><td>优化组（没有命令行）</td><td class="n">+0.12</td><td>3 / 3 / 7</td><td>0.38</td><td>$39 对 $35</td><td class="x">不够</td></tr></table>
+
+<h2>5. 学到的</h2>
+<ul>
+<li><b>检查链通过不等于模型正确。</b>这是 heptapod 现有验证的主要缺口。</li>
+<li><b>agent 看不到自己丢了什么。</b>给它命令行和 UFO 之后，空通过消失（第四组 0 个）。</li>
+<li><b>Sonnet 加一个命令行已经很强。</b>条件公平时 vanilla 得 0.65。它的弱点是成本：没有工具时它用 40 到 95 次 Mathematica 运行来试错。</li>
+<li><b>剩下的差距不在工具。</b>331 需要独立的完整模型。ALRM 的检查在时间预算里跑不完。3 篇的参考答案和论文不一致。估计上限 0.86。</li>
+<li><b>6 篇、1 个 seed 的比较分不出 0.06 的差。</b>seed 噪声是 0.10。</li></ul>
+
+<h2>6. 正在运行和下一步</h2>
+<table><tr><th>项目</th><th>内容</th><th>状态</th></tr>
+<tr><td>每组 3 个 seed</td><td>命令行 + 工具：seed 2、3（deck）。vanilla 相同条件：seed 2（Mac）、seed 3（deck）。共 44 次运行。</td><td>10 月 11 日启动，In progress</td></tr>
+<tr><td>主张 1：成本</td><td>「同样的分数水平，成本约 1/5」。3 个 seed 给出成本的范围。</td><td>等上面的运行</td></tr>
+<tr><td>主张 2：分数</td><td>+0.11 是真的还是噪声。3 个 seed 的平均把每篇的噪声降到约 0.6 倍。</td><td>等上面的运行；可能还是不显著</td></tr></table>
+<p class="mut">限制：工具和配方是看了这 13 篇之后改的，没有留出测试集。13 篇是很小的样本。Mac 的 Wolfram 许可 10 月 15 日到期。</p>
+</main><script>
+const D={"papers": ["331", "ALRM_general", "B-L-SM", "EffLRSM", "GeneralU1", "HeavyN", "MDMmodel", "Monotops", "SMWeinberg", "Top-Philic-Zprime", "Wprime", "pNG", "pSPSS"], "groups": {"vanilla1": {"rows": {"331": {"m": 0.0, "f1": 0.0, "chain": false, "P": 0.0, "R": 0.0, "raw": 0.0, "to": false, "min": 49}, "ALRM_general": {"m": 0.0, "f1": 0.0, "chain": false, "P": 0.0, "R": 0.0, "raw": 0.0, "to": false, "min": 52}, "B-L-SM": {"m": 0.0, "f1": 0.971, "chain": false, "P": 1.0, "R": 0.943, "raw": 0.0, "to": false, "min": 69}, "EffLRSM": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 16}, "GeneralU1": {"m": 0.0, "f1": 0.528, "chain": false, "P": 0.933, "R": 0.368, "raw": 0.0, "to": false, "min": 54}, "HeavyN": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 29}, "MDMmodel": {"m": 0.0, "f1": 0.816, "chain": false, "P": 1.0, "R": 0.69, "raw": 0.0, "to": false, "min": 24}, "Monotops": {"m": 0.0, "f1": 0.0, "chain": false, "P": 0.0, "R": 0.0, "raw": 0.0, "to": false, "min": 51}, "SMWeinberg": {"m": 0.0, "f1": 0.0, "chain": false, "P": 0.0, "R": 0.0, "raw": 0.0, "to": false, "min": 55}, "Top-Philic-Zprime": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 20}, "Wprime": {"m": 0.8, "f1": 0.8, "chain": true, "P": 0.667, "R": 1.0, "raw": 0.8, "to": false, "min": 51}, "pNG": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 49}, "pSPSS": {"m": 0.0, "f1": 0.0, "chain": false, "P": 0.0, "R": 0.0, "raw": 0.0, "to": false, "min": 27}}, "cost": 65}, "vanilla2": {"rows": {"331": {"m": 0.0, "f1": 0.213, "chain": false, "P": 1.0, "R": 0.119, "raw": 0.0, "to": true, "min": 120}, "ALRM_general": {"m": 0.0, "f1": 0.377, "chain": false, "P": 1.0, "R": 0.233, "raw": 0.0, "to": true, "min": 120}, "B-L-SM": {"m": 0.889, "f1": 0.889, "chain": true, "P": 1.0, "R": 0.8, "raw": 0.667, "to": false, "min": 105}, "EffLRSM": {"m": 0.0, "f1": 0.0, "chain": false, "P": 0.0, "R": 0.0, "raw": 0.0, "to": true, "min": 120}, "GeneralU1": {"m": 0.304, "f1": 0.304, "chain": true, "P": 0.875, "R": 0.184, "raw": 0.304, "to": false, "min": 92}, "HeavyN": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 94}, "MDMmodel": {"m": 0.84, "f1": 0.84, "chain": true, "P": 1.0, "R": 0.724, "raw": 0.84, "to": true, "min": 120}, "Monotops": {"m": 0.509, "f1": 0.509, "chain": true, "P": 0.341, "R": 1.0, "raw": 0.218, "to": false, "min": 82}, "SMWeinberg": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 37}, "Top-Philic-Zprime": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 10}, "Wprime": {"m": 0.0, "f1": 0.0, "chain": false, "P": 0.0, "R": 0.0, "raw": 0.0, "to": true, "min": 120}, "pNG": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 33}, "pSPSS": {"m": 0.667, "f1": 0.667, "chain": true, "P": 0.667, "R": 0.667, "raw": 0.667, "to": false, "min": 77}}, "cost": 244}, "harness": {"rows": {"331": {"m": 0.0, "f1": 0.424, "chain": false, "P": 1.0, "R": 0.269, "raw": 0.0, "to": false, "min": 235}, "ALRM_general": {"m": 0.0, "f1": 0.0, "chain": false, "P": 0.0, "R": 0.0, "raw": 0.0, "to": false, "min": 49}, "B-L-SM": {"m": 0.955, "f1": 0.955, "chain": true, "P": 1.0, "R": 0.914, "raw": 0.727, "to": false, "min": 65}, "EffLRSM": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 30}, "GeneralU1": {"m": 0.0, "f1": 0.5, "chain": false, "P": 0.778, "R": 0.368, "raw": 0.0, "to": false, "min": 166}, "HeavyN": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 7}, "MDMmodel": {"m": 0.64, "f1": 0.64, "chain": true, "P": 0.762, "R": 0.552, "raw": 0.64, "to": false, "min": 162}, "Monotops": {"m": 0.0, "f1": 0.0, "chain": true, "P": 0.0, "R": 0.0, "raw": 0.0, "to": false, "min": 129}, "SMWeinberg": {"m": 0.0, "f1": 0.0, "chain": false, "P": 0.0, "R": 0.0, "raw": 0.0, "to": false, "min": 134}, "Top-Philic-Zprime": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 39}, "Wprime": {"m": 0.8, "f1": 0.8, "chain": true, "P": 0.667, "R": 1.0, "raw": 0.8, "to": false, "min": 15}, "pNG": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 13}, "pSPSS": {"m": 0.0, "f1": 0.0, "chain": true, "P": 0.0, "R": 0.0, "raw": 0.0, "to": false, "min": 118}}, "cost": 43}, "opt": {"rows": {"331": {"m": 0.175, "f1": 0.175, "chain": true, "P": 0.655, "R": 0.101, "raw": 0.069, "to": false, "min": 185}, "ALRM_general": {"m": 0.0, "f1": 0.17, "chain": false, "P": 1.0, "R": 0.093, "raw": 0.0, "to": false, "min": 184}, "B-L-SM": {"m": 0.955, "f1": 0.955, "chain": true, "P": 1.0, "R": 0.914, "raw": 0.727, "to": false, "min": 102}, "EffLRSM": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 94}, "GeneralU1": {"m": 0.813, "f1": 0.813, "chain": true, "P": 1.0, "R": 0.684, "raw": 0.813, "to": false, "min": 101}, "HeavyN": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 36}, "MDMmodel": {"m": 0.0, "f1": 0.862, "chain": false, "P": 0.862, "R": 0.862, "raw": 0.0, "to": false, "min": 24}, "Monotops": {"m": 0.0, "f1": 0.0, "chain": true, "P": 0.0, "R": 0.0, "raw": 0.0, "to": false, "min": 74}, "SMWeinberg": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 35}, "Top-Philic-Zprime": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 38}, "Wprime": {"m": 0.8, "f1": 0.8, "chain": true, "P": 0.667, "R": 1.0, "raw": 0.8, "to": false, "min": 90}, "pNG": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 32}, "pSPSS": {"m": 0.75, "f1": 0.75, "chain": true, "P": 0.6, "R": 1.0, "raw": 0.75, "to": false, "min": 70}}, "cost": 35}, "shell": {"rows": {"331": {"m": 0.424, "f1": 0.424, "chain": true, "P": 1.0, "R": 0.269, "raw": 0.152, "to": false, "min": 78}, "ALRM_general": {"m": 0.0, "f1": 0.0, "chain": false, "P": 0.0, "R": 0.0, "raw": 0.0, "to": true, "min": 240}, "B-L-SM": {"m": 0.955, "f1": 0.955, "chain": true, "P": 1.0, "R": 0.914, "raw": 0.727, "to": false, "min": 64}, "EffLRSM": {"m": 0.9, "f1": 0.9, "chain": true, "P": 0.818, "R": 1.0, "raw": 0.9, "to": false, "min": 33}, "GeneralU1": {"m": 0.4, "f1": 0.4, "chain": true, "P": 0.833, "R": 0.263, "raw": 0.4, "to": false, "min": 56}, "HeavyN": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 70}, "MDMmodel": {"m": 0.84, "f1": 0.84, "chain": true, "P": 1.0, "R": 0.724, "raw": 0.84, "to": false, "min": 61}, "Monotops": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 0.429, "to": false, "min": 67}, "SMWeinberg": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 76}, "Top-Philic-Zprime": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 24}, "Wprime": {"m": 0.8, "f1": 0.8, "chain": true, "P": 0.667, "R": 1.0, "raw": 0.8, "to": false, "min": 35}, "pNG": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 28}, "pSPSS": {"m": 0.667, "f1": 0.667, "chain": true, "P": 0.667, "R": 0.667, "raw": 0.667, "to": false, "min": 99}}, "cost": 39}, "plus": {"rows": {"331": {"m": 0.456, "f1": 0.456, "chain": true, "P": 1.0, "R": 0.296, "raw": null, "to": false, "min": 55}, "ALRM_general": {"m": 0.0, "f1": 0.0, "chain": false, "P": 0.0, "R": 0.0, "raw": null, "to": true, "min": 240}, "B-L-SM": {"m": 0.955, "f1": 0.955, "chain": true, "P": 1.0, "R": 0.914, "raw": null, "to": false, "min": 62}, "EffLRSM": null, "GeneralU1": {"m": 0.586, "f1": 0.586, "chain": true, "P": 0.85, "R": 0.447, "raw": null, "to": false, "min": 88}, "HeavyN": null, "MDMmodel": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": null, "to": false, "min": 58}, "Monotops": null, "SMWeinberg": null, "Top-Philic-Zprime": null, "Wprime": null, "pNG": null, "pSPSS": {"m": 0.667, "f1": 0.667, "chain": true, "P": 0.667, "R": 0.667, "raw": null, "to": false, "min": 37}}, "cost": 41}, "fair": {"rows": {"331": {"m": 0.543, "f1": 0.543, "chain": true, "P": 1.0, "R": 0.372, "raw": 0.221, "to": false, "min": 86}, "ALRM_general": {"m": 0.0, "f1": 0.279, "chain": false, "P": 0.966, "R": 0.163, "raw": 0.0, "to": false, "min": 126}, "B-L-SM": {"m": 0.889, "f1": 0.889, "chain": true, "P": 1.0, "R": 0.8, "raw": 0.667, "to": false, "min": 105}, "EffLRSM": {"m": 0.0, "f1": 0.0, "chain": false, "P": 0.0, "R": 0.0, "raw": 0.0, "to": false, "min": 164}, "GeneralU1": {"m": 0.304, "f1": 0.304, "chain": true, "P": 0.875, "R": 0.184, "raw": 0.304, "to": false, "min": 92}, "HeavyN": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 94}, "MDMmodel": {"m": 0.792, "f1": 0.792, "chain": true, "P": 1.0, "R": 0.655, "raw": 0.792, "to": false, "min": 88}, "Monotops": {"m": 0.509, "f1": 0.509, "chain": true, "P": 0.341, "R": 1.0, "raw": 0.218, "to": false, "min": 82}, "SMWeinberg": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 37}, "Top-Philic-Zprime": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 10}, "Wprime": {"m": 0.8, "f1": 0.8, "chain": true, "P": 0.667, "R": 1.0, "raw": 0.8, "to": false, "min": 13}, "pNG": {"m": 1.0, "f1": 1.0, "chain": true, "P": 1.0, "R": 1.0, "raw": 1.0, "to": false, "min": 33}, "pSPSS": {"m": 0.667, "f1": 0.667, "chain": true, "P": 0.667, "R": 0.667, "raw": 0.667, "to": false, "min": 77}}, "cost": 206}}};
+const G={vanilla1:["vanilla 第 1 次","#b0683a"],fair:["vanilla（相同条件）","var(--v)"],harness:["9/30 harness","var(--h)"],opt:["优化","var(--o)"],shell:["命令行 + 工具","var(--s)"],plus:["plus","var(--p)"]};
+const $=id=>document.getElementById(id);
+const val=(g,p,fix)=>{const r=D.groups[g].rows[p];return r?(fix?r.m:(r.raw??r.m)):null};
+const mean=(g,fix)=>{const v=D.papers.map(p=>val(g,p,fix)).filter(x=>x!==null);return [v.reduce((a,b)=>a+b,0)/v.length,v.length]};
+$("mt").innerHTML=["vanilla1","fair","harness","opt","shell"].map(g=>`<tr><td><span class="sw" style="background:${G[g][1]}"></span>${G[g][0]}</td><td class="n">${D.papers.filter(p=>D.groups[g].rows[p].chain).length}</td><td class="n">${mean(g,false)[0].toFixed(2)}</td><td class="n"><b>${mean(g,true)[0].toFixed(2)}</b></td></tr>`).join("");
+function draw(){const fix=$("fix").checked;const gs=$("showall").checked?["vanilla1","fair","harness","opt","shell","plus"]:["fair","harness","shell"];
+ $("leg").innerHTML=gs.map(g=>`<span><span class="sw" style="background:${G[g][1]}"></span>${G[g][0]}</span>`).join("");
+ $("means").innerHTML=gs.map(g=>{const [m,n]=mean(g,fix);return `<div class="mean"><span class="mut">${G[g][0]}${n<13?"（"+n+" 篇）":""}</span><b style="color:${G[g][1]}">${m.toFixed(2)}</b></div>`}).join("");
+ const order=[...D.papers].sort((a,b)=>(val("shell",b,fix)-val("fair",b,fix))-(val("shell",a,fix)-val("fair",a,fix)));
+ $("chart").innerHTML=order.map(p=>`<div class="row"><div class="nm">${p}</div><div class="bars">`+gs.map(g=>{const m=val(g,p,fix);if(m===null)return "";const r=D.groups[g].rows[p];
+  return `<div class="bw"><div class="track"><div class="bar" style="width:${Math.max(m*100,.5)}%;background:${G[g][1]}"></div></div><span style="width:34px;text-align:right">${m.toFixed(2)}</span><span style="width:60px">${r.to?'<span class="tag">超时</span>':""}</span></div>`}).join("")+`</div></div>`).join("");}
+$("fix").onchange=draw;$("showall").onchange=draw;draw();
+</script></body></html>

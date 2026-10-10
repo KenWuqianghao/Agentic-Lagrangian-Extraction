@@ -181,7 +181,8 @@ def main() -> int:
     r.add_argument("--variant", default="cc_vanilla")
     r.add_argument("--pages", required=True)
     r.add_argument("--model", default="claude-sonnet-5")
-    r.add_argument("--seeds", type=int, default=1)
+    r.add_argument("--seeds", type=int, default=1, help="the last seed")
+    r.add_argument("--first-seed", type=int, default=1)
     r.add_argument("--parallel", type=int, default=2)
     r.add_argument("--force", action="store_true")
     r.add_argument("--scorer-rules", action="store_true",
@@ -189,7 +190,7 @@ def main() -> int:
     args = ap.parse_args()
     pages = (run_pi.SINGLE_MODEL if args.pages == "all" else args.pages).split(",")
     LOCK.parent.mkdir(parents=True, exist_ok=True)
-    jobs = [(p, k) for p in pages for k in range(1, args.seeds + 1)]
+    jobs = [(p, k) for p in pages for k in range(args.first_seed, args.seeds + 1)]
     with ThreadPoolExecutor(max_workers=max(1, args.parallel)) as ex:
         list(ex.map(lambda j: run_agent(j[0], j[1], args), jobs))
     return 0
