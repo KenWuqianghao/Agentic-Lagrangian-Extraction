@@ -113,6 +113,29 @@ def audit(stream: list[str]) -> dict:
             "madgraph_runs": sum("mg5_aMC" in c for c in cmds), "network_commands": net, "audit_ok": not net}
 
 
+def kill_tagged(tag: str) -> None:
+    """Kill what the agent left running (a hung wolframscript keeps a licence slot and starves every
+    later run; bubblewrap ends such processes on Linux, sandbox-exec on macOS does not). Every process
+    of a run inherits ALE_RUN_TAG in its environment."""
+    mark, pids = f"ALE_RUN_TAG={tag}", []
+    if sys.platform == "darwin":
+        out = subprocess.run(["ps", "-axEww", "-o", "pid=,command="], capture_output=True, text=True, errors="replace").stdout
+        pids = [int(ln.split()[0]) for ln in out.splitlines() if mark in ln]
+    else:
+        for env in Path("/proc").glob("[0-9]*/environ"):
+            try:
+                if mark.encode() in env.read_bytes():
+                    pids.append(int(env.parent.name))
+            except OSError:
+                pass
+    for pid in pids:
+        if pid != os.getpid():
+            try:
+                os.kill(pid, signal.SIGKILL)
+            except (ProcessLookupError, PermissionError):
+                pass
+
+
 def run_agent(page: str, seed: int, args) -> dict:
     rundir = run_cc.RUNS / page / "rerun" / args.variant / f"s{seed}"
     if (rundir / "run.json").is_file() and not args.force:
@@ -128,7 +151,8 @@ def run_agent(page: str, seed: int, args) -> dict:
     (rundir / "prompt.txt").write_text(prompt)
     cmd = agent_cmd(sandbox, args.model)
     (rundir / "command.json").write_text(json.dumps(cmd, indent=1))
-    env = {**os.environ, "PATH": f"{sandbox / '.bin'}:{os.environ['PATH']}",
+    tag = f"{page}-{seed}-{os.getpid()}-{int(time.time())}"
+    env = {**os.environ, "ALE_RUN_TAG": tag, "PATH": f"{sandbox / '.bin'}:{os.environ['PATH']}",
            "FEYNRULES_PATH": str(FEYNRULES), "MG5_PATH": str(MG5)}
     print(f"[vanilla] {args.variant} {page} s{seed} ...", flush=True)
     t0 = time.time()
@@ -148,6 +172,8 @@ def run_agent(page: str, seed: int, args) -> dict:
         p.stdin.write(prompt)
         p.stdin.close()
         rc = p.wait()
+        kill_tagged(tag)
+        isolation.kill_recorded(sandbox)
     secs = round(time.time() - t0, 1)
     lines = (rundir / "agent_stream.jsonl").read_text(errors="replace").splitlines()
     parsed = run_cc.parse_stream(lines)
