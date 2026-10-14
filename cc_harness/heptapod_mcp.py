@@ -55,79 +55,126 @@ If you find none, say "NO DISCREPANCIES". End with one line: VERDICT: NO DISCREP
 VERDICT: <n> PHYSICS-CHANGING, <m> COSMETIC."""
 
 TOOL_SPECS = [
-    {"name": "lint_model",
-     "description": "Deterministic lints for a FeynRules add-on .fr file (milliseconds). Each finding "
-                    "names the rule, the stage it predicts (compile, checks, mg5, harness, warn) and the "
-                    "line. Run it after every edit and before validate_model; it does not use the budget.",
-     "inputSchema": {"type": "object", "properties": {"path": {"type": "string", "description": "the .fr file, e.g. model.fr"}},
-                     "required": ["path"]}},
-    {"name": "validate_model",
-     "description": "{validate_description}",
-     "inputSchema": {"type": "object", "properties": {"path": {"type": "string", "description": "the .fr file, e.g. model.fr"}},
-                     "required": ["path"]}},
-    {"name": "review_spec",
-     "description": "An independent referee reads the paper and spec.json (your list of the new fields and of the "
-                    "interaction vertices the model must have) and lists what the paper has and the list lacks, "
-                    "and what the list has and the paper lacks. Run it once, after you write spec.json and "
-                    "before you write model.fr. Budget: 1 call.",
-     "inputSchema": {"type": "object", "properties": {"path": {"type": "string", "description": "spec.json"}},
-                     "required": ["path"]}},
-    {"name": "massbasis",
-     "description": "Symbolic quadratic-sector analysis of a scalar potential (sympy, about 1 s). Give the "
-                    "potential V (the Lagrangian contains -V) in gauge-basis symbols, the substitutions "
-                    "that express each gauge-basis field through the vev and the mass-basis REAL fields, "
-                    "the mixing angles as sine/cosine symbol pairs, the target physical masses, and the "
-                    "parameters to solve for. Returns the tadpoles, the mass-squared matrix at the vacuum, "
-                    "the non-zero off-diagonal entries, and with solve_for the inverted parametrisation in "
-                    "Mathematica syntax, verified. Example spec: {\"potential\": \"-muPsq/2*p**2 + "
-                    "lambdaP/8*p**4 - muSsq/2*s**2 + lambdaS/8*s**4 + lambdaPS/4*p**2*s**2\", "
-                    "\"substitutions\": {\"p\": \"vev + ct*H + st*h2\", \"s\": \"vs - st*H + ct*h2\"}, "
-                    "\"fields\": [\"H\", \"h2\"], \"angles\": {\"theta\": [\"st\", \"ct\"]}, \"targets\": "
-                    "{\"H\": \"MH\", \"h2\": \"Mh2\"}, \"solve_for\": [\"muPsq\", \"muSsq\", \"lambdaP\", "
-                    "\"lambdaS\", \"lambdaPS\"]}",
-     "inputSchema": {"type": "object", "properties": {"spec": {"type": "string", "description": "JSON object: potential, substitutions, fields, angles, targets, solve_for"}},
-                     "required": ["spec"]}},
-    {"name": "review_model",
-     "description": "An independent referee (a fresh agent that did not write the model) reads the paper and "
-                    "the .fr file and lists every place the model departs from the paper: missing or extra "
-                    "fields and terms, wrong coefficients, signs, normalisations, charges, mixing. Run it "
-                    "once the chain passes. Budget: {review_budget} calls per run. A physics-changing "
-                    "discrepancy must be fixed even if the chain passes.",
-     "inputSchema": {"type": "object", "properties": {"path": {"type": "string", "description": "the .fr file, e.g. model.fr"}},
-                     "required": ["path"]}},
+    {
+        "name": "lint_model",
+        "description": "Deterministic lints for a FeynRules add-on .fr file (milliseconds). Each finding "
+        "names the rule, the stage it predicts (compile, checks, mg5, harness, warn) and the "
+        "line. Run it after every edit and before validate_model; it does not use the budget.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "path": {"type": "string", "description": "the .fr file, e.g. model.fr"}
+            },
+            "required": ["path"],
+        },
+    },
+    {
+        "name": "validate_model",
+        "description": "{validate_description}",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "path": {"type": "string", "description": "the .fr file, e.g. model.fr"}
+            },
+            "required": ["path"],
+        },
+    },
+    {
+        "name": "review_spec",
+        "description": "An independent referee reads the paper and spec.json (your list of the new fields and of the "
+        "interaction vertices the model must have) and lists what the paper has and the list lacks, "
+        "and what the list has and the paper lacks. Run it once, after you write spec.json and "
+        "before you write model.fr. Budget: 1 call.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {"path": {"type": "string", "description": "spec.json"}},
+            "required": ["path"],
+        },
+    },
+    {
+        "name": "massbasis",
+        "description": "Symbolic quadratic-sector analysis of a scalar potential (sympy, about 1 s). Give the "
+        "potential V (the Lagrangian contains -V) in gauge-basis symbols, the substitutions "
+        "that express each gauge-basis field through the vev and the mass-basis REAL fields, "
+        "the mixing angles as sine/cosine symbol pairs, the target physical masses, and the "
+        "parameters to solve for. Returns the tadpoles, the mass-squared matrix at the vacuum, "
+        "the non-zero off-diagonal entries, and with solve_for the inverted parametrisation in "
+        'Mathematica syntax, verified. Example spec: {"potential": "-muPsq/2*p**2 + '
+        'lambdaP/8*p**4 - muSsq/2*s**2 + lambdaS/8*s**4 + lambdaPS/4*p**2*s**2", '
+        '"substitutions": {"p": "vev + ct*H + st*h2", "s": "vs - st*H + ct*h2"}, '
+        '"fields": ["H", "h2"], "angles": {"theta": ["st", "ct"]}, "targets": '
+        '{"H": "MH", "h2": "Mh2"}, "solve_for": ["muPsq", "muSsq", "lambdaP", '
+        '"lambdaS", "lambdaPS"]}',
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "spec": {
+                    "type": "string",
+                    "description": "JSON object: potential, substitutions, fields, angles, targets, solve_for",
+                }
+            },
+            "required": ["spec"],
+        },
+    },
+    {
+        "name": "review_model",
+        "description": "An independent referee (a fresh agent that did not write the model) reads the paper and "
+        "the .fr file and lists every place the model departs from the paper: missing or extra "
+        "fields and terms, wrong coefficients, signs, normalisations, charges, mixing. Run it "
+        "once the chain passes. Budget: {review_budget} calls per run. A physics-changing "
+        "discrepancy must be fixed even if the chain passes.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "path": {"type": "string", "description": "the .fr file, e.g. model.fr"}
+            },
+            "required": ["path"],
+        },
+    },
 ]
 
 
-_CHAIN = ("Run the scored chain on a .fr file: FeynRules compile (Wolfram), the four FeynRules "
-          "consistency checks (hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum), "
-          "then MadGraph 'import model'. 1 to 15 minutes; calls queue for one Wolfram kernel. "
-          "Budget: {budget} calls per run. The report states the call number, the stage the "
-          "chain reached (compile / checks / mg5 / pass), the verdicts")
+_CHAIN = (
+    "Run the scored chain on a .fr file: FeynRules compile (Wolfram), the four FeynRules "
+    "consistency checks (hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum), "
+    "then MadGraph 'import model'. 1 to 15 minutes; calls queue for one Wolfram kernel. "
+    "Budget: {budget} calls per run. The report states the call number, the stage the "
+    "chain reached (compile / checks / mg5 / pass), the verdicts"
+)
 VALIDATE_DESCRIPTIONS = {
-    "real": _CHAIN + (", the non-zero vertices of L - HC[L] with the Lagrangian block that holds them, the "
-                      "off-diagonal mass terms and tadpoles, the mass-spectrum rows that disagree, statements cut at "
-                      "a line end and new particles that are in no vertex of the UFO (a model with either is not a "
-                      "pass), UFO parameters defined twice, and for a MadGraph failure the UFO object that broke "
-                      "with the model.fr lines behind it."),
-    "opt": _CHAIN + (", the non-zero vertices "
-                     "of L - HC[L] with the Lagrangian block that holds them, the off-diagonal mass terms "
-                     "and tadpoles, the mass-spectrum rows that disagree, new particles that are in no "
-                     "vertex of the UFO (such a model is not a pass), UFO parameters defined twice, and "
-                     "for a MadGraph failure the UFO object that broke with the model.fr lines behind it."),
-    "diag": _CHAIN + (", the non-zero vertices "
-                      "of L - HC[L] with the Lagrangian block that holds them, the off-diagonal mass terms "
-                      "and tadpoles, and for a MadGraph failure the UFO object that broke with the model.fr "
-                      "lines behind it."),
+    "real": _CHAIN
+    + (
+        ", the non-zero vertices of L - HC[L] with the Lagrangian block that holds them, the "
+        "off-diagonal mass terms and tadpoles, the mass-spectrum rows that disagree, statements cut at "
+        "a line end and new particles that are in no vertex of the UFO (a model with either is not a "
+        "pass), UFO parameters defined twice, and for a MadGraph failure the UFO object that broke "
+        "with the model.fr lines behind it."
+    ),
+    "opt": _CHAIN
+    + (
+        ", the non-zero vertices "
+        "of L - HC[L] with the Lagrangian block that holds them, the off-diagonal mass terms "
+        "and tadpoles, the mass-spectrum rows that disagree, new particles that are in no "
+        "vertex of the UFO (such a model is not a pass), UFO parameters defined twice, and "
+        "for a MadGraph failure the UFO object that broke with the model.fr lines behind it."
+    ),
+    "diag": _CHAIN
+    + (
+        ", the non-zero vertices "
+        "of L - HC[L] with the Lagrangian block that holds them, the off-diagonal mass terms "
+        "and tadpoles, and for a MadGraph failure the UFO object that broke with the model.fr "
+        "lines behind it."
+    ),
     "checks": _CHAIN + ", FeynRules' own message for each failing check, and the MadGraph error.",
     "compile": "Run FeynRules (Wolfram) on a .fr file loaded on top of SM.fr and write the UFO. 1 to 15 "
-               "minutes; calls queue for one Wolfram kernel. Budget: {budget} calls per run. The report "
-               "states the call number and whether the UFO was written, with the FeynRules log when it "
-               "was not.",
+    "minutes; calls queue for one Wolfram kernel. Budget: {budget} calls per run. The report "
+    "states the call number and whether the UFO was written, with the FeynRules log when it "
+    "was not.",
     "import": "Run FeynRules (Wolfram) on a .fr file loaded on top of SM.fr, write the UFO, and run "
-              "MadGraph 'import model' on it. 1 to 15 minutes; calls queue for one Wolfram kernel. "
-              "Budget: {budget} calls per run. The report states the call number, whether the UFO was "
-              "written (with the FeynRules log when it was not) and whether MadGraph imported it (with "
-              "MadGraph's output when it did not).",
+    "MadGraph 'import model' on it. 1 to 15 minutes; calls queue for one Wolfram kernel. "
+    "Budget: {budget} calls per run. The report states the call number, whether the UFO was "
+    "written (with the FeynRules log when it was not) and whether MadGraph imported it (with "
+    "MadGraph's output when it did not).",
 }
 
 
@@ -138,7 +185,9 @@ class ToolError(Exception):
 def _path(arg: str) -> Path:
     ok, real = C.inside(arg or "model.fr", C.sandbox())
     if not ok:
-        raise ToolError(f"path {arg} is outside the sandbox; only files under the working directory exist")
+        raise ToolError(
+            f"path {arg} is outside the sandbox; only files under the working directory exist"
+        )
     if not real.is_file():
         raise ToolError(f"{arg} does not exist; write it first")
     return real
@@ -157,8 +206,9 @@ def lint_model(args: dict) -> str:
 
 
 def _OPT() -> list:
-    return ({"opt": ["--opt"], "real": ["--real"], "cover": ["--real"]}.get(C.arm().feedback, [])
-            + (["--chain-head"] if C.arm().recipes else []))
+    return {"opt": ["--opt"], "real": ["--real"], "cover": ["--real"]}.get(C.arm().feedback, []) + (
+        ["--chain-head"] if C.arm().recipes else []
+    )
 
 
 def _lint_text(raw: str) -> str:
@@ -172,7 +222,10 @@ def _lint_text(raw: str) -> str:
     order = {"harness": 0, "compile": 1, "mg5": 2, "checks": 3, "warn": 4}
     fs.sort(key=lambda f: (order.get(f.get("stage"), 9), f.get("line") or 0))
     lines = [f"lint: {len(fs)} finding(s)"]
-    lines += [f"- [{f.get('stage')}] {f.get('rule')} (line {f.get('line')}): {f.get('message')}" for f in fs]
+    lines += [
+        f"- [{f.get('stage')}] {f.get('rule')} (line {f.get('line')}): {f.get('message')}"
+        for f in fs
+    ]
     return "\n".join(lines)
 
 
@@ -183,15 +236,23 @@ def validate_model(args: dict) -> str:
     if st["validations"] >= st["validate_budget"]:
         C.log(rd, "tool_calls.jsonl", {"event": "budget", "tool": "validate_model"})
         lint = "Use lint_model, fix" if "lint_model" in C.arm().tools else "Fix"
-        raise ToolError(f"validation budget exhausted ({st['validate_budget']} calls). {lint} what "
-                        "the last report named, and finish.")
+        raise ToolError(
+            f"validation budget exhausted ({st['validate_budget']} calls). {lint} what "
+            "the last report named, and finish."
+        )
     n = st["validations"] + 1
     st["validations"] = n
     C.save_state(rd, st)
     arm = C.arm()
-    view = {"diag": ["--diag"], "opt": ["--opt"], "real": ["--real"], "cover": ["--cover"], "checks": [],
-            "compile": ["--view", "compile"],
-            "import": ["--view", "import"]}[arm.feedback]
+    view = {
+        "diag": ["--diag"],
+        "opt": ["--opt"],
+        "real": ["--real"],
+        "cover": ["--cover"],
+        "checks": [],
+        "compile": ["--view", "compile"],
+        "import": ["--view", "import"],
+    }[arm.feedback]
     t0 = time.time()
     r = _run([C.PYTHON, str(C.HEPVAL), "validate", str(fr), "--out", str(rd / "validation"), *view])
     if r.returncode != 0:
@@ -205,21 +266,41 @@ def validate_model(args: dict) -> str:
         # also all their Stop gate can ask for.
         compiled = bool(summ.get("compile_ok"))
         told_pass = compiled and (arm.feedback == "compile" or bool(summ.get("madgraph_import_ok")))
-        outcome = ("compile failed" if not compiled else "compiled" if arm.feedback == "compile" else
-                   "compiled and imported" if told_pass else "compiled, MadGraph import failed")
-        head = (f"# validate_model call {n}/{st['validate_budget']}: {outcome}\n"
-                f"Calls left: {st['validate_budget'] - n}.\n")
+        outcome = (
+            "compile failed"
+            if not compiled
+            else "compiled"
+            if arm.feedback == "compile"
+            else "compiled and imported"
+            if told_pass
+            else "compiled, MadGraph import failed"
+        )
+        head = (
+            f"# validate_model call {n}/{st['validate_budget']}: {outcome}\n"
+            f"Calls left: {st['validate_budget'] - n}.\n"
+        )
     else:
         # In the optimisation arm a chain pass with a vertex-less new particle is not a pass.
         covered = summ.get("coverage", {"complete": True})["complete"]
-        told_pass = bool(summ.get("full_chain_pass")) and not summ.get("particles_without_vertex") and covered
+        told_pass = (
+            bool(summ.get("full_chain_pass"))
+            and not summ.get("particles_without_vertex")
+            and covered
+        )
         if summ.get("full_chain_pass") and not told_pass:
-            stage = ("pass, but spec.json is not covered by the UFO" if not covered else
-                     "pass, but the model is not done: " + ", ".join(summ["particles_without_vertex"][:6])
-                     if arm.feedback in ("real", "cover") else "pass, but new particles have no vertex")
-        head = (f"# validate_model call {n}/{st['validate_budget']}: stage reached = {stage}"
-                f"{' (FULL CHAIN PASS)' if told_pass else ''}\n"
-                f"Stages: compile -> checks -> mg5 -> pass. Calls left: {st['validate_budget'] - n}.\n")
+            stage = (
+                "pass, but spec.json is not covered by the UFO"
+                if not covered
+                else "pass, but the model is not done: "
+                + ", ".join(summ["particles_without_vertex"][:6])
+                if arm.feedback in ("real", "cover")
+                else "pass, but new particles have no vertex"
+            )
+        head = (
+            f"# validate_model call {n}/{st['validate_budget']}: stage reached = {stage}"
+            f"{' (FULL CHAIN PASS)' if told_pass else ''}\n"
+            f"Stages: compile -> checks -> mg5 -> pass. Calls left: {st['validate_budget'] - n}.\n"
+        )
     report = head + "\n" + r.stdout + "\n"
     if "lint_model" in arm.tools:
         lint = _run([C.PYTHON, str(C.HEPVAL), "lint", str(fr), *_OPT()])
@@ -227,11 +308,18 @@ def validate_model(args: dict) -> str:
     (rd / "validation" / f"call{n}").mkdir(parents=True, exist_ok=True)
     (rd / "validation" / f"call{n}" / "agent_report.md").write_text(report)
     st = C.load_state(rd)
-    st["last_validation"] = {"call": n, "stage": stage, "full_chain_pass": bool(summ.get("full_chain_pass")),
-                             "told_pass": told_pass,
-                             "model_sha": C.sha(fr), "path": str(fr), "report": str(rd / "validation" / f"call{n}" / "agent_report.md"),
-                             "checks": summ.get("checks"), "madgraph_import_ok": summ.get("madgraph_import_ok"),
-                             "seconds": round(time.time() - t0, 1)}
+    st["last_validation"] = {
+        "call": n,
+        "stage": stage,
+        "full_chain_pass": bool(summ.get("full_chain_pass")),
+        "told_pass": told_pass,
+        "model_sha": C.sha(fr),
+        "path": str(fr),
+        "report": str(rd / "validation" / f"call{n}" / "agent_report.md"),
+        "checks": summ.get("checks"),
+        "madgraph_import_ok": summ.get("madgraph_import_ok"),
+        "seconds": round(time.time() - t0, 1),
+    }
     C.save_state(rd, st)
     return report
 
@@ -260,32 +348,86 @@ def _referee(rd: Path, target: Path, tag: str, prompt: str, frozen_name: str) ->
             shutil.copy2(p, dst)
     shutil.copy2(target, rev / frozen_name)
     (rd / "review").mkdir(parents=True, exist_ok=True)
-    settings = {"hooks": {"PreToolUse": [{"matcher": "*", "hooks": [
-        {"type": "command", "command": f"{C.PYTHON} {C.HERE / 'hooks' / 'pretool_guard.py'}"}]}]}}
+    settings = {
+        "hooks": {
+            "PreToolUse": [
+                {
+                    "matcher": "*",
+                    "hooks": [
+                        {
+                            "type": "command",
+                            "command": f"{C.PYTHON} {C.HERE / 'hooks' / 'pretool_guard.py'}",
+                        }
+                    ],
+                }
+            ]
+        }
+    }
     (rd / "review" / f"{tag}_settings.json").write_text(json.dumps(settings))
     (rd / "review" / f"{tag}_mcp.json").write_text('{"mcpServers": {}}')
-    model = os.environ.get("CC_REVIEW_MODEL") or os.environ.get("CC_AGENT_MODEL") or "claude-sonnet-5"
-    cmd = [C.CLAUDE, "-p", "--output-format", "json", "--model", model,
-           "--setting-sources", "", "--settings", str(rd / "review" / f"{tag}_settings.json"),
-           "--mcp-config", str(rd / "review" / f"{tag}_mcp.json"), "--strict-mcp-config",
-           "--tools", "Read,Glob,Grep", "--allowedTools", "Read,Glob,Grep",
-           "--permission-mode", "dontAsk",
-           "--disallowedTools", "Bash,WebFetch,WebSearch,Write,Edit,NotebookEdit,Task,Agent"]
-    env = {**os.environ, "CC_SANDBOX": str(rev), "CC_RUNDIR": str(rd / "review" / f"{tag}_run"),
-           "CC_ROLE": "referee", "CC_ARM": "full"}
+    model = (
+        os.environ.get("CC_REVIEW_MODEL") or os.environ.get("CC_AGENT_MODEL") or "claude-sonnet-5"
+    )
+    cmd = [
+        C.CLAUDE,
+        "-p",
+        "--output-format",
+        "json",
+        "--model",
+        model,
+        "--setting-sources",
+        "",
+        "--settings",
+        str(rd / "review" / f"{tag}_settings.json"),
+        "--mcp-config",
+        str(rd / "review" / f"{tag}_mcp.json"),
+        "--strict-mcp-config",
+        "--tools",
+        "Read,Glob,Grep",
+        "--allowedTools",
+        "Read,Glob,Grep",
+        "--permission-mode",
+        "dontAsk",
+        "--disallowedTools",
+        "Bash,WebFetch,WebSearch,Write,Edit,NotebookEdit,Task,Agent",
+    ]
+    env = {
+        **os.environ,
+        "CC_SANDBOX": str(rev),
+        "CC_RUNDIR": str(rd / "review" / f"{tag}_run"),
+        "CC_ROLE": "referee",
+        "CC_ARM": "full",
+    }
     t0 = time.time()
-    r = subprocess.run(cmd, cwd=str(rev), env=env, input=prompt.replace("MODEL_PATH", frozen_name),
-                       capture_output=True, text=True, timeout=3600)
+    r = subprocess.run(
+        cmd,
+        cwd=str(rev),
+        env=env,
+        input=prompt.replace("MODEL_PATH", frozen_name),
+        capture_output=True,
+        text=True,
+        timeout=3600,
+    )
     try:
         out = json.loads(r.stdout)
     except json.JSONDecodeError:
         out = {"result": r.stdout, "is_error": True}
     text = out.get("result") or ""
     (rd / "review" / f"{tag}.md").write_text(text)
-    (rd / "review" / f"{tag}_meta.json").write_text(json.dumps(
-        {"exit": r.returncode, "seconds": round(time.time() - t0, 1), "usage": out.get("usage"),
-         "total_cost_usd": out.get("total_cost_usd"), "model": model, "stderr": r.stderr[-800:],
-         "model_sha": C.sha(target)}, indent=1))
+    (rd / "review" / f"{tag}_meta.json").write_text(
+        json.dumps(
+            {
+                "exit": r.returncode,
+                "seconds": round(time.time() - t0, 1),
+                "usage": out.get("usage"),
+                "total_cost_usd": out.get("total_cost_usd"),
+                "model": model,
+                "stderr": r.stderr[-800:],
+                "model_sha": C.sha(target),
+            },
+            indent=1,
+        )
+    )
     if r.returncode != 0 or not text:
         raise ToolError(f"referee failed (exit {r.returncode}): {r.stderr[-800:]}")
     return text
@@ -303,7 +445,14 @@ def review_model(args: dict) -> str:
     (rd / "review").mkdir(parents=True, exist_ok=True)
     shutil.copy2(fr, rd / "review" / f"review{n}.fr")
     text = _referee(rd, fr, f"review{n}", REVIEW_PROMPT, "model_under_review.fr")
-    verdict = next((ln.strip() for ln in reversed(text.splitlines()) if ln.strip().upper().startswith("VERDICT:")), None)
+    verdict = next(
+        (
+            ln.strip()
+            for ln in reversed(text.splitlines())
+            if ln.strip().upper().startswith("VERDICT:")
+        ),
+        None,
+    )
     st = C.load_state(rd)
     st["review_log"].append({"n": n, "model_sha": C.sha(fr), "verdict": verdict, "exit": 0})
     C.save_state(rd, st)
@@ -341,8 +490,13 @@ def review_spec(args: dict) -> str:
     return "review of spec.json\n\n" + text
 
 
-HANDLERS = {"lint_model": lint_model, "validate_model": validate_model,
-            "massbasis": massbasis, "review_model": review_model, "review_spec": review_spec}
+HANDLERS = {
+    "lint_model": lint_model,
+    "validate_model": validate_model,
+    "massbasis": massbasis,
+    "review_model": review_model,
+    "review_spec": review_spec,
+}
 
 
 def _tool_list() -> list:
@@ -354,8 +508,12 @@ def _tool_list() -> list:
         if t["name"] not in arm.tools:
             continue
         t = dict(t)
-        t["description"] = (t["description"].replace("{validate_description}", VALIDATE_DESCRIPTIONS.get(arm.feedback, ""))
-                            .replace("{budget}", str(vb)).replace("{review_budget}", str(rb)))
+        t["description"] = (
+            t["description"]
+            .replace("{validate_description}", VALIDATE_DESCRIPTIONS.get(arm.feedback, ""))
+            .replace("{budget}", str(vb))
+            .replace("{review_budget}", str(rb))
+        )
         out.append(t)
     return out
 
@@ -368,8 +526,16 @@ def call_tool(name: str, arguments: dict) -> dict:
         if name not in HANDLERS or name not in C.arm().tools:
             raise ToolError(f"unknown tool {name}")
         text = HANDLERS[name](arguments or {})
-        C.log(rd, "tool_calls.jsonl", {"event": "result", "tool": name, "seconds": round(time.time() - t0, 1),
-                                       "head": text[:400]})
+        C.log(
+            rd,
+            "tool_calls.jsonl",
+            {
+                "event": "result",
+                "tool": name,
+                "seconds": round(time.time() - t0, 1),
+                "head": text[:400],
+            },
+        )
         return {"content": [{"type": "text", "text": text}], "isError": False}
     except (ToolError, subprocess.TimeoutExpired) as e:
         C.log(rd, "tool_calls.jsonl", {"event": "error", "tool": name, "error": str(e)[:800]})
@@ -378,12 +544,15 @@ def call_tool(name: str, arguments: dict) -> dict:
 
 def handle(msg: dict) -> dict | None:
     method, mid = msg.get("method"), msg.get("id")
-    if mid is None:                       # a notification: no response
+    if mid is None:  # a notification: no response
         return None
     if method == "initialize":
         pv = (msg.get("params") or {}).get("protocolVersion") or PROTOCOL_VERSION
-        res = {"protocolVersion": pv, "capabilities": {"tools": {"listChanged": False}},
-               "serverInfo": {"name": C.SERVER_NAME, "version": "1.0"}}
+        res = {
+            "protocolVersion": pv,
+            "capabilities": {"tools": {"listChanged": False}},
+            "serverInfo": {"name": C.SERVER_NAME, "version": "1.0"},
+        }
     elif method == "tools/list":
         res = {"tools": _tool_list()}
     elif method == "tools/call":
@@ -392,7 +561,11 @@ def handle(msg: dict) -> dict | None:
     elif method == "ping":
         res = {}
     else:
-        return {"jsonrpc": "2.0", "id": mid, "error": {"code": -32601, "message": f"method not found: {method}"}}
+        return {
+            "jsonrpc": "2.0",
+            "id": mid,
+            "error": {"code": -32601, "message": f"method not found: {method}"},
+        }
     return {"jsonrpc": "2.0", "id": mid, "result": res}
 
 

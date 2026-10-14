@@ -38,10 +38,23 @@ ALE = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ALE / "benchmarks"))
 import fr_lint  # noqa: E402
 
-SM_PARTICLES = frozenset(json.loads(
-    (ALE / "benchmarks" / "heptapod_ablation" / "sm_ufo_particles.json").read_text())["particles"])
+SM_PARTICLES = frozenset(
+    json.loads((ALE / "benchmarks" / "heptapod_ablation" / "sm_ufo_particles.json").read_text())[
+        "particles"
+    ]
+)
 # Index counts of the SM.fr fermion classes; the first index is spin.
-SM_FERMION_INDICES = {"vl": 2, "l": 2, "uq": 3, "dq": 3, "LL": 3, "lR": 2, "QL": 4, "uR": 3, "dR": 3}
+SM_FERMION_INDICES = {
+    "vl": 2,
+    "l": 2,
+    "uq": 3,
+    "dq": 3,
+    "LL": 3,
+    "lR": 2,
+    "QL": 4,
+    "uR": 3,
+    "dR": 3,
+}
 SM_FERMION_MEMBERS = ("ve", "vm", "vt", "e", "mu", "ta", "u", "c", "t", "d", "s", "b")
 
 
@@ -73,7 +86,13 @@ def cut_lines(raw: str) -> list[dict]:
     out, depth, prev, in_str = [], 0, "", False
     for n, line in enumerate(text.splitlines(), 1):
         s = line.strip()
-        if s and depth == 0 and re.match(r"[+\-]", s) and prev and not re.search(r"[+\-*/.,;=({\[&|^]$", prev):
+        if (
+            s
+            and depth == 0
+            and re.match(r"[+\-]", s)
+            and prev
+            and not re.search(r"[+\-*/.,;=({\[&|^]$", prev)
+        ):
             out.append({"line": n, "text": s[:100], "after": prev[:80]})
         for ch in line:
             if ch == '"':
@@ -92,58 +111,87 @@ def lint(raw: str, real: bool = False, chain_head: bool = False) -> list[dict]:
     out: list[dict] = []
     if real:
         for c in cut_lines(raw):
-            out.append(_finding(
-                "cut_statement", "checks", c["line"],
-                f"this line starts with `{c['text'][0]}`, and the line before it (`... {c['after'][-40:]}`) is already a "
-                "complete expression. Mathematica ends the statement at that line end; this line is a separate statement "
-                "and its terms are NOT in the model. Join the lines, end the earlier line with the operator, or put the "
-                "whole right-hand side in parentheses."))
+            out.append(
+                _finding(
+                    "cut_statement",
+                    "checks",
+                    c["line"],
+                    f"this line starts with `{c['text'][0]}`, and the line before it (`... {c['after'][-40:]}`) is already a "
+                    "complete expression. Mathematica ends the statement at that line end; this line is a separate statement "
+                    "and its terms are NOT in the model. Join the lines, end the earlier line with the operator, or put the "
+                    "whole right-hand side in parentheses.",
+                )
+            )
     block = re.search(r"M\$ClassesDescription\s*=\s*\{", text)
     list_end = fr_lint._matching(text, block.end() - 1) if block else -1
     classes = fr_lint._entries(fr_lint._block(text, "ClassesDescription"))
     params = fr_lint._entries(fr_lint._block(text, "Parameters"))
 
     counts = _fermion_indices(classes)
-    use = re.compile(r"(?<![A-Za-z0-9$])(" + "|".join(map(re.escape, counts)) + r")(bar)?\[([^\[\]]*)\]")
+    use = re.compile(
+        r"(?<![A-Za-z0-9$])(" + "|".join(map(re.escape, counts)) + r")(bar)?\[([^\[\]]*)\]"
+    )
     seen = set()
     for term in fr_lint.term_defs(text):
         for m in use.finditer(term["body"]):
             n = len([a for a in m.group(3).split(",") if a.strip()])
-            near = term["body"][max(0, m.start() - 2):m.end() + 2]
+            near = term["body"][max(0, m.start() - 2) : m.end() + 2]
             if 0 < n < counts[m.group(1)] and "." in near and m.group(0) not in seen:
                 seen.add(m.group(0))
-                out.append(_finding(
-                    "partial_index_fermion", "checks", term["line"] + term["body"].count("\n", 0, m.start()),
-                    f"`{m.group(0)}` gives {n} of the {counts[m.group(1)]} indices of `{m.group(1)}`; FeynRules fills "
-                    "them from the left and the first is spin, so this index is read as a spin index. The term then "
-                    "fails hermiticity or drops out of the UFO. Write the field with no index inside the chain (use "
-                    "the class members `e`, `mu`, `ta`, ... or a matrix coupling between two index-free fields), or "
-                    "give every index."))
+                out.append(
+                    _finding(
+                        "partial_index_fermion",
+                        "checks",
+                        term["line"] + term["body"].count("\n", 0, m.start()),
+                        f"`{m.group(0)}` gives {n} of the {counts[m.group(1)]} indices of `{m.group(1)}`; FeynRules fills "
+                        "them from the left and the first is spin, so this index is read as a spin index. The term then "
+                        "fails hermiticity or drops out of the UFO. Write the field with no index inside the chain (use "
+                        "the class members `e`, `mu`, `ta`, ... or a matrix coupling between two index-free fields), or "
+                        "give every index.",
+                    )
+                )
 
     fermions = set(counts) | set(SM_FERMION_MEMBERS)
     for c in classes:
         if c["head"].startswith("F["):
-            fermions |= set(re.findall(r"[A-Za-z]\w*", (fr_lint._prop(c["body"], "ClassMembers") or "").strip("{} ")))
-    head = re.compile(r"(?<![\w.$\]])(" + "|".join(map(re.escape, sorted(fermions, key=len, reverse=True)))
-                      + r")(\[[^\[\]]*\])?\s*\.\s*[A-Za-z]")
+            fermions |= set(
+                re.findall(
+                    r"[A-Za-z]\w*", (fr_lint._prop(c["body"], "ClassMembers") or "").strip("{} ")
+                )
+            )
+    head = re.compile(
+        r"(?<![\w.$\]])("
+        + "|".join(map(re.escape, sorted(fermions, key=len, reverse=True)))
+        + r")(\[[^\[\]]*\])?\s*\.\s*[A-Za-z]"
+    )
     for term in fr_lint.term_defs(text) if chain_head else ():
         for m in head.finditer(term["body"]):
             if m.group(1).endswith("bar"):
                 continue
-            out.append(_finding(
-                "unbarred_chain_head", "checks", term["line"] + term["body"].count("\n", 0, m.start()),
-                f"the fermion chain `{term['body'][m.start():m.end() + 30].strip()} ...` starts with `{m.group(1)}`, a "
-                f"fermion field with no bar. A chain is `<field>bar . <matrices> . <field>`: write `{m.group(1)}bar`, or "
-                "exchange the two fields. With an unbarred head, HC[] of the term is not a chain FeynRules can reduce: "
-                "hermiticity fails and the UFO couplings file can be invalid Python."))
+            out.append(
+                _finding(
+                    "unbarred_chain_head",
+                    "checks",
+                    term["line"] + term["body"].count("\n", 0, m.start()),
+                    f"the fermion chain `{term['body'][m.start() : m.end() + 30].strip()} ...` starts with `{m.group(1)}`, a "
+                    f"fermion field with no bar. A chain is `<field>bar . <matrices> . <field>`: write `{m.group(1)}bar`, or "
+                    "exchange the two fields. With an unbarred head, HC[] of the term is not a chain FeynRules can reduce: "
+                    "hermiticity fails and the UFO couplings file can be invalid Python.",
+                )
+            )
 
     for m in re.finditer(r"^[ \t]*([SFVUTR]\[\s*\d+\s*\])\s*==\s*\{", text, re.M):
         if not block or not (block.end() <= m.start() <= list_end):
-            out.append(_finding(
-                "class_outside_list", "checks", _line(text, m.start()),
-                f"the class `{m.group(1)}` is a statement outside M$ClassesDescription; FeynRules ignores it, with no "
-                "message. Put it inside the M$ClassesDescription list (this is how an SM class such as Phi is "
-                "redeclared)."))
+            out.append(
+                _finding(
+                    "class_outside_list",
+                    "checks",
+                    _line(text, m.start()),
+                    f"the class `{m.group(1)}` is a statement outside M$ClassesDescription; FeynRules ignores it, with no "
+                    "message. Put it inside the M$ClassesDescription list (this is how an SM class such as Phi is "
+                    "redeclared).",
+                )
+            )
 
     declared = {p["head"]: p for p in params}
     for c in classes:
@@ -152,33 +200,51 @@ def lint(raw: str, real: bool = False, chain_head: bool = False) -> list[dict]:
             for sym in re.findall(r"\{\s*([A-Za-z]\w*)\s*,", val):
                 p = declared.get(sym)
                 if p and "Internal" not in (fr_lint._prop(p["body"], "ParameterType") or ""):
-                    out.append(_finding(
-                        "duplicate_mass_parameter", "mg5", _line(text, text.find(sym + " ==")),
-                        f"`{sym}` is declared by `{key} -> {{{sym}, ...}}` of class "
-                        f"`{fr_lint._prop(c['body'], 'ClassName')}` and again in M$Parameters; the UFO then defines it "
-                        "twice and MadGraph stops with \"name ... define multiple time\". Remove the M$Parameters entry."))
+                    out.append(
+                        _finding(
+                            "duplicate_mass_parameter",
+                            "mg5",
+                            _line(text, text.find(sym + " ==")),
+                            f"`{sym}` is declared by `{key} -> {{{sym}, ...}}` of class "
+                            f"`{fr_lint._prop(c['body'], 'ClassName')}` and again in M$Parameters; the UFO then defines it "
+                            'twice and MadGraph stops with "name ... define multiple time". Remove the M$Parameters entry.',
+                        )
+                    )
 
     blocks: dict = {}
     for p in params:
-        if "External" in (fr_lint._prop(p["body"], "ParameterType") or "") and fr_lint._prop(p["body"], "Indices") \
-                and not fr_lint._prop(p["body"], "OrderBlock"):
+        if (
+            "External" in (fr_lint._prop(p["body"], "ParameterType") or "")
+            and fr_lint._prop(p["body"], "Indices")
+            and not fr_lint._prop(p["body"], "OrderBlock")
+        ):
             blocks.setdefault(fr_lint._prop(p["body"], "BlockName"), []).append(p["head"])
     for name, members in blocks.items():
         if name and len(members) > 1:
-            out.append(_finding(
-                "shared_lha_block", "mg5", None,
-                f"the indexed External parameters {', '.join(members)} share BlockName `{name}`; their components get "
-                "the same LHA codes, the UFO defines one name several times, and MadGraph rejects it. Give each "
-                "tensor its own BlockName."))
+            out.append(
+                _finding(
+                    "shared_lha_block",
+                    "mg5",
+                    None,
+                    f"the indexed External parameters {', '.join(members)} share BlockName `{name}`; their components get "
+                    "the same LHA codes, the UFO defines one name several times, and MadGraph rejects it. Give each "
+                    "tensor its own BlockName.",
+                )
+            )
 
     for p in params:
         order = fr_lint._prop(p["body"], "InteractionOrder") or ""
         if re.search(r",\s*(-\s*\d+|0)\s*\}", order):
-            out.append(_finding(
-                "nonpositive_order", "warn", _line(text, text.find(p["head"] + " ==")),
-                f"`{p['head']}` has InteractionOrder {order}; a product with another parameter can then have order 0, "
-                "FeynRules writes the coupling with order '1', and MadGraph rejects it. Check the orders of the couplings "
-                "that use it."))
+            out.append(
+                _finding(
+                    "nonpositive_order",
+                    "warn",
+                    _line(text, text.find(p["head"] + " ==")),
+                    f"`{p['head']}` has InteractionOrder {order}; a product with another parameter can then have order 0, "
+                    "FeynRules writes the coupling with order '1', and MadGraph rejects it. Check the orders of the couplings "
+                    "that use it.",
+                )
+            )
     return out
 
 
@@ -192,22 +258,35 @@ def particles_without_vertex(ufo: Path) -> list[str]:
     declared = set(re.findall(r"^(\w+) = Particle\(", text, re.M))
     anti = {p: a for a, p in re.findall(r"^(\w+) = (\w+)\.anti\(\)", text, re.M)}
     used = set(re.findall(r"P\.(\w+)", (ufo / "vertices.py").read_text(errors="replace")))
-    return sorted(n for n in declared - SM_PARTICLES
-                  if n not in used and anti.get(n) not in used and not n.startswith("gh"))
+    return sorted(
+        n
+        for n in declared - SM_PARTICLES
+        if n not in used and anti.get(n) not in used and not n.startswith("gh")
+    )
 
 
 def duplicate_ufo_parameters(ufo: Path) -> list[str]:
     f = ufo / "parameters.py"
-    names = re.findall(r"^(\w+) = Parameter\(", f.read_text(errors="replace"), re.M) if f.is_file() else []
+    names = (
+        re.findall(r"^(\w+) = Parameter\(", f.read_text(errors="replace"), re.M)
+        if f.is_file()
+        else []
+    )
     return sorted({n for n in names if names.count(n) > 1})
 
 
 def mass_rows(log: str) -> list[dict]:
-    rows = re.findall(r"^HEPTAPOD-MASS\|particle=([^|]*)\|derived=([^|]*)\|declared=([^|]*)\|agrees=(\w+)", log, re.M)
+    rows = re.findall(
+        r"^HEPTAPOD-MASS\|particle=([^|]*)\|derived=([^|]*)\|declared=([^|]*)\|agrees=(\w+)",
+        log,
+        re.M,
+    )
     return [{"particle": p, "derived": d, "declared": c} for p, d, c, ok in rows if ok != "True"]
 
 
-def report_sections(row: dict, log: str, real: bool = False, fr_text: str = "") -> tuple[str, list[str]]:
+def report_sections(
+    row: dict, log: str, real: bool = False, fr_text: str = ""
+) -> tuple[str, list[str]]:
     """Extra report text, and the new particles without a vertex (a model
     with any is not a pass in the `opt` and `shell` arms)."""
     parts: list[str] = []
@@ -215,36 +294,61 @@ def report_sections(row: dict, log: str, real: bool = False, fr_text: str = "") 
     inert = particles_without_vertex(ufo) if ufo and row.get("compile_ok") else []
     cut = cut_lines(fr_text) if real else []
     if cut:
-        parts += ["## Statements cut at a line end",
-                  "These lines start with `+` or `-` after a line that is already a complete expression. Mathematica ended "
-                  "the statement there, so the terms on these lines are not in the model that was just checked:", "",
-                  *[f"- line {c['line']}: `{c['text']}`" for c in cut[:12]],
-                  *([f"- ... and {len(cut) - 12} more"] if len(cut) > 12 else []),
-                  "", "A model with a cut statement is not done, whatever the chain says.", ""]
+        parts += [
+            "## Statements cut at a line end",
+            "These lines start with `+` or `-` after a line that is already a complete expression. Mathematica ended "
+            "the statement there, so the terms on these lines are not in the model that was just checked:",
+            "",
+            *[f"- line {c['line']}: `{c['text']}`" for c in cut[:12]],
+            *([f"- ... and {len(cut) - 12} more"] if len(cut) > 12 else []),
+            "",
+            "A model with a cut statement is not done, whatever the chain says.",
+            "",
+        ]
     if inert and real:
-        parts += ["## New particles that are in no vertex of the UFO",
-                  f"{', '.join(inert)}: declared, and no vertex of the UFO contains them. The terms that hold them did not "
-                  "reach the UFO. This report does not know why. Find out: the UFO and the FeynRules log of this call are "
-                  "on disk (see the protocol), and you can expand one Lagrangian block at a time with wolframscript and "
-                  "count its terms. The chain's checks pass such a model; it is not the paper's model.", ""]
+        parts += [
+            "## New particles that are in no vertex of the UFO",
+            f"{', '.join(inert)}: declared, and no vertex of the UFO contains them. The terms that hold them did not "
+            "reach the UFO. This report does not know why. Find out: the UFO and the FeynRules log of this call are "
+            "on disk (see the protocol), and you can expand one Lagrangian block at a time with wolframscript and "
+            "count its terms. The chain's checks pass such a model; it is not the paper's model.",
+            "",
+        ]
     elif inert:
-        parts += ["## New particles that are in no vertex of the UFO",
-                  f"{', '.join(inert)}: declared, and no interaction of the model contains them. FeynRules dropped the "
-                  "terms that hold them, with no message. The usual cause is a field written with a partial index list "
-                  "(lint rule partial_index_fermion) or an index that does not match the class. The chain's checks "
-                  "pass such a model; it is not the paper's model. Fix the terms until every new particle has a vertex.", ""]
+        parts += [
+            "## New particles that are in no vertex of the UFO",
+            f"{', '.join(inert)}: declared, and no interaction of the model contains them. FeynRules dropped the "
+            "terms that hold them, with no message. The usual cause is a field written with a partial index list "
+            "(lint rule partial_index_fermion) or an index that does not match the class. The chain's checks "
+            "pass such a model; it is not the paper's model. Fix the terms until every new particle has a vertex.",
+            "",
+        ]
     rows = mass_rows(log)
     if rows:
-        parts += ["## Mass spectrum: the rows that disagree", "", "| particle | mass from the Lagrangian | declared mass |",
-                  "|---|---|---|", *[f"| {r['particle']} | {r['derived']} | {r['declared']} |" for r in rows], ""]
+        parts += [
+            "## Mass spectrum: the rows that disagree",
+            "",
+            "| particle | mass from the Lagrangian | declared mass |",
+            "|---|---|---|",
+            *[f"| {r['particle']} | {r['derived']} | {r['declared']} |" for r in rows],
+            "",
+        ]
         if all(r["particle"].startswith("gh") or r["particle"] in ("G0", "GP") for r in rows):
-            parts += ["Only ghost or Goldstone rows disagree. That happens after a Higgs-doublet override that changes "
-                      "the vev in Feynman gauge (SM.fr's default). Put `FeynmanGauge = False;` at the top of model.fr: "
-                      "the model is then built in unitary gauge and these states are absent.", ""]
+            parts += [
+                "Only ghost or Goldstone rows disagree. That happens after a Higgs-doublet override that changes "
+                "the vev in Feynman gauge (SM.fr's default). Put `FeynmanGauge = False;` at the top of model.fr: "
+                "the model is then built in unitary gauge and these states are absent.",
+                "",
+            ]
     dup = duplicate_ufo_parameters(ufo) if ufo and row.get("compile_ok") else []
     if dup:
-        parts += ["## UFO parameters defined more than once",
-                  f"{', '.join(dup[:20])}{f' and {len(dup) - 20} more' if len(dup) > 20 else ''}: MadGraph rejects the UFO (\"name ... define multiple time\"). Each is either a "
-                  "mass or width named in a class and declared again in M$Parameters (remove that entry), or a "
-                  "component of tensors that share one BlockName (give each tensor its own BlockName).", ""]
-    return "\n".join(parts), inert + ([f"(cut statement, line {c['line']})" for c in cut] if real else [])
+        parts += [
+            "## UFO parameters defined more than once",
+            f'{", ".join(dup[:20])}{f" and {len(dup) - 20} more" if len(dup) > 20 else ""}: MadGraph rejects the UFO ("name ... define multiple time"). Each is either a '
+            "mass or width named in a class and declared again in M$Parameters (remove that entry), or a "
+            "component of tensors that share one BlockName (give each tensor its own BlockName).",
+            "",
+        ]
+    return "\n".join(parts), inert + (
+        [f"(cut statement, line {c['line']})" for c in cut] if real else []
+    )

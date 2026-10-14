@@ -17,7 +17,6 @@ Inside brackets the line end does not end the expression.
 from __future__ import annotations
 
 import json
-import re
 import sys
 from pathlib import Path
 
@@ -25,6 +24,9 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent.parent / "cc_harness"))
 from opt_checks import cut_lines  # noqa: E402,F401
 
-
 if __name__ == "__main__":
-    print(json.dumps({f: cut_lines(Path(f).read_text(errors="replace")) for f in sys.argv[1:]}, indent=1))
+    print(
+        json.dumps(
+            {f: cut_lines(Path(f).read_text(errors="replace")) for f in sys.argv[1:]}, indent=1
+        )
+    )

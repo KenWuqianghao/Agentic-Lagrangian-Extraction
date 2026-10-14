@@ -59,23 +59,39 @@ def decide(event: dict, sandbox: Path, rundir: Path) -> dict:
     elif not last:
         reason = "You have not run validate_model. Lint model.fr, then validate it, and fix what the report names."
     elif last.get("model_sha") != C.sha(model):
-        reason = (f"model.fr changed after the last validate_model (call {last.get('call')}), so its verdict "
-                  "does not apply to the file you would hand in. Validate the current model.fr.")
+        reason = (
+            f"model.fr changed after the last validate_model (call {last.get('call')}), so its verdict "
+            "does not apply to the file you would hand in. Validate the current model.fr."
+        )
     elif not last.get("told_pass"):
-        reason = (f"The last validate_model (call {last.get('call')}) did not pass: stage reached = "
-                  f"{last.get('stage')}. Fix the cause and validate again. Digest of that report:\n\n"
-                  + digest(last.get("report")))
-    rec = {"hook": "Stop", "stop_hook_active": bool(event.get("stop_hook_active")),
-           "continuations_before": k, "limit": limit,
-           "validations": st.get("validations"), "validate_budget": st.get("validate_budget"),
-           "last_call": (last or {}).get("call"), "last_stage": (last or {}).get("stage")}
+        reason = (
+            f"The last validate_model (call {last.get('call')}) did not pass: stage reached = "
+            f"{last.get('stage')}. Fix the cause and validate again. Digest of that report:\n\n"
+            + digest(last.get("report"))
+        )
+    rec = {
+        "hook": "Stop",
+        "stop_hook_active": bool(event.get("stop_hook_active")),
+        "continuations_before": k,
+        "limit": limit,
+        "validations": st.get("validations"),
+        "validate_budget": st.get("validate_budget"),
+        "last_call": (last or {}).get("call"),
+        "last_stage": (last or {}).get("stage"),
+    }
     if reason is None:
         rec.update(decision="allow", why="last validation passed and model.fr is unchanged")
     elif k >= limit:
-        rec.update(decision="allow", why=f"continuation limit reached ({limit}); stopping with: {reason[:200]}")
+        rec.update(
+            decision="allow",
+            why=f"continuation limit reached ({limit}); stopping with: {reason[:200]}",
+        )
         reason = None
     elif st.get("validations", 0) >= st.get("validate_budget", 10) and model.is_file() and last:
-        rec.update(decision="allow", why=f"validate_model budget spent; a block cannot produce a new verdict: {reason[:200]}")
+        rec.update(
+            decision="allow",
+            why=f"validate_model budget spent; a block cannot produce a new verdict: {reason[:200]}",
+        )
         reason = None
     else:
         gate["continuations"] = k + 1

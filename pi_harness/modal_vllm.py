@@ -51,11 +51,22 @@ COMMON = dict(
 
 
 def _serve(model: str, extra: list[str]) -> None:
-    cmd = ["vllm", "serve", model, "--host", "0.0.0.0", "--port", "8000",
-           "--enable-prefix-caching", "--enable-auto-tool-choice",
-           # vLLM defaults to 1024 sequences; Qwen3.8's linear-attention (Mamba)
-           # cache has room for ~855, so startup fails. Agents need at most ~16.
-           "--max-num-seqs", "32", *extra]
+    cmd = [
+        "vllm",
+        "serve",
+        model,
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "8000",
+        "--enable-prefix-caching",
+        "--enable-auto-tool-choice",
+        # vLLM defaults to 1024 sequences; Qwen3.8's linear-attention (Mamba)
+        # cache has room for ~855, so startup fails. Agents need at most ~16.
+        "--max-num-seqs",
+        "32",
+        *extra,
+    ]
     # The key comes from the secret's environment, not argv.
     subprocess.Popen(" ".join(cmd) + ' --api-key "$VLLM_API_KEY"', shell=True)
 
@@ -66,22 +77,41 @@ def _serve(model: str, extra: list[str]) -> None:
 @modal.concurrent(max_inputs=4)
 @modal.web_server(port=8000, startup_timeout=30 * 60)
 def qwen():
-    _serve("Qwen/Qwen3.8-27B-FP8", [
-        "--served-model-name", "qwen3.8-27b",
-        "--max-model-len", "262144", "--kv-cache-dtype", "fp8",
-        "--language-model-only",
-        "--reasoning-parser", "qwen3", "--tool-call-parser", "qwen3_xml",
-        # The checkpoint's own multi-token-prediction head (vLLM recipe).
-        "--speculative-config", "'{\"method\":\"mtp\",\"num_speculative_tokens\":3}'",
-    ])
+    _serve(
+        "Qwen/Qwen3.8-27B-FP8",
+        [
+            "--served-model-name",
+            "qwen3.8-27b",
+            "--max-model-len",
+            "262144",
+            "--kv-cache-dtype",
+            "fp8",
+            "--language-model-only",
+            "--reasoning-parser",
+            "qwen3",
+            "--tool-call-parser",
+            "qwen3_xml",
+            # The checkpoint's own multi-token-prediction head (vLLM recipe).
+            "--speculative-config",
+            '\'{"method":"mtp","num_speculative_tokens":3}\'',
+        ],
+    )
 
 
 @app.function(**COMMON)
 @modal.concurrent(max_inputs=16)
 @modal.web_server(port=8000, startup_timeout=30 * 60)
 def gptoss():
-    _serve("openai/gpt-oss-120b", [
-        "--served-model-name", "gpt-oss-120b",
-        "--max-model-len", "131072",
-        "--reasoning-parser", "openai_gptoss", "--tool-call-parser", "openai",
-    ])
+    _serve(
+        "openai/gpt-oss-120b",
+        [
+            "--served-model-name",
+            "gpt-oss-120b",
+            "--max-model-len",
+            "131072",
+            "--reasoning-parser",
+            "openai_gptoss",
+            "--tool-call-parser",
+            "openai",
+        ],
+    )

@@ -30,13 +30,25 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--variant", default="cc_vanilla")
     ap.add_argument("--model", default="claude-sonnet-5")
-    ap.add_argument("--source", default="", help="runs tree that holds the models (default: PI_HARNESS_RUNS)")
+    ap.add_argument(
+        "--source", default="", help="runs tree that holds the models (default: PI_HARNESS_RUNS)"
+    )
     ap.add_argument("--pages", default=run_pi.SINGLE_MODEL)
     args = ap.parse_args()
     for page in args.pages.split(","):
-        src = (Path(args.source) if args.source else run_pi.RUNS) / page / "rerun" / args.variant / "s1"
+        src = (
+            (Path(args.source) if args.source else run_pi.RUNS)
+            / page
+            / "rerun"
+            / args.variant
+            / "s1"
+        )
         d = run_pi.RUNS / page / "rerun" / args.variant / "s1"
-        score = json.loads((src / "validation_hepval.json").read_text()) if (src / "validation_hepval.json").is_file() else {}
+        score = (
+            json.loads((src / "validation_hepval.json").read_text())
+            if (src / "validation_hepval.json").is_file()
+            else {}
+        )
         if not score.get("full_chain_pass") or (d / "post_review" / "verdict.json").is_file():
             continue
         sb = Path(tempfile.mkdtemp(prefix="vanilla-referee-"))
@@ -45,14 +57,37 @@ def main() -> int:
         shutil.copy2(paper, sb / "eval" / "benchmark_runs" / page / "text" / paper.name)
         shutil.copy2(run_pi.SM_FR, sb / "SM.fr")
         shutil.copy2(src / "model" / f"{page}_gen.fr", sb / "model.fr")
-        os.environ.update({"CC_SANDBOX": str(sb), "CC_RUNDIR": str(d / "post_review"),
-                           "CC_REVIEW_BUDGET": "1", "CC_REVIEW_MODEL": args.model})
+        os.environ.update(
+            {
+                "CC_SANDBOX": str(sb),
+                "CC_RUNDIR": str(d / "post_review"),
+                "CC_REVIEW_BUDGET": "1",
+                "CC_REVIEW_MODEL": args.model,
+            }
+        )
         import common  # noqa: E402
         import heptapod_mcp  # noqa: E402
+
         out = heptapod_mcp.review_model({"path": "model.fr"})
-        verdict = next((x.strip() for x in reversed(out.splitlines()) if x.strip().upper().startswith("VERDICT:")), None)
-        (d / "post_review" / "verdict.json").write_text(json.dumps(
-            {"page": page, "verdict": verdict, "post_hoc": True, "model_sha": common.sha(src / "model" / f"{page}_gen.fr")}, indent=1))
+        verdict = next(
+            (
+                x.strip()
+                for x in reversed(out.splitlines())
+                if x.strip().upper().startswith("VERDICT:")
+            ),
+            None,
+        )
+        (d / "post_review" / "verdict.json").write_text(
+            json.dumps(
+                {
+                    "page": page,
+                    "verdict": verdict,
+                    "post_hoc": True,
+                    "model_sha": common.sha(src / "model" / f"{page}_gen.fr"),
+                },
+                indent=1,
+            )
+        )
         print(f"{page}: {verdict}", flush=True)
     return 0
 

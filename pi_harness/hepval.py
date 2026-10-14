@@ -45,9 +45,11 @@ ALE = HERE.parent
 BENCH = ALE / "benchmarks"
 HEPTAPOD = Path.home() / "Documents/Github/heptapod"
 HEPTAPOD_DEV = Path.home() / "Documents/Github/heptapod-dev"
-VALIDATOR = Path(os.environ.get("HEPVAL_ROOT", Path.home() / "Documents/Github/hep-pr/validator-main"))
+VALIDATOR = Path(
+    os.environ.get("HEPVAL_ROOT", Path.home() / "Documents/Github/hep-pr/validator-main")
+)
 STATE = Path(os.environ.get("HEPVAL_STATE", Path.home() / ".cache/ale-pi-harness"))
-LOCK = STATE / "wolfram.lock"          # slot files are wolfram.lock.0, wolfram.lock.1, ...
+LOCK = STATE / "wolfram.lock"  # slot files are wolfram.lock.0, wolfram.lock.1, ...
 KERNEL_SLOTS = int(os.environ.get("HEPVAL_KERNEL_SLOTS", "2"))
 
 
@@ -69,6 +71,8 @@ class kernel_slot:
 
     def __exit__(self, *exc):
         self.fh.close()
+
+
 # 900 s is what the September ablation used; 600 s turned a slow Monotops
 # compile into a timeout on re-scoring.
 COMPILE_TIMEOUT = os.environ.get("HEPVAL_COMPILE_TIMEOUT", "900")
@@ -78,13 +82,23 @@ COMPILE_TIMEOUT = os.environ.get("HEPVAL_COMPILE_TIMEOUT", "900")
 def setup(_args=None) -> int:
     if not (VALIDATOR / "tools/feynrules/UFO_generator.wl").is_file():
         subprocess.run(["git", "-C", str(HEPTAPOD_DEV), "fetch", "-q", "origin"], check=True)
-        subprocess.run(["git", "-C", str(HEPTAPOD_DEV), "worktree", "add", "--detach",
-                        str(VALIDATOR), "origin/main"], check=True)
+        subprocess.run(
+            [
+                "git",
+                "-C",
+                str(HEPTAPOD_DEV),
+                "worktree",
+                "add",
+                "--detach",
+                str(VALIDATOR),
+                "origin/main",
+            ],
+            check=True,
+        )
     # Only the three tool paths: heptapod's own config.py also holds API keys.
     cfg = (HEPTAPOD / "config.py").read_text()
     keys = ("feynrules_path", "wolframscript_path", "mg5_path")
-    lines = [m.group(0) for k in keys
-             for m in [re.search(rf"^{k}\s*=\s*.+$", cfg, re.M)] if m]
+    lines = [m.group(0) for k in keys for m in [re.search(rf"^{k}\s*=\s*.+$", cfg, re.M)] if m]
     if len(lines) != 3:
         raise SystemExit(f"could not read {keys} from {HEPTAPOD / 'config.py'}")
     (VALIDATOR / "config.py").write_text("\n".join(lines) + "\n")
@@ -93,8 +107,11 @@ def setup(_args=None) -> int:
     for name in ("validation_benchmark.py", "repair_benchmark.py"):
         shutil.copy2(BENCH / name, dst / name)
     STATE.mkdir(parents=True, exist_ok=True)
-    head = subprocess.run(["git", "-C", str(VALIDATOR), "rev-parse", "--short", "HEAD"],
-                          capture_output=True, text=True).stdout.strip()
+    head = subprocess.run(
+        ["git", "-C", str(VALIDATOR), "rev-parse", "--short", "HEAD"],
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
     print(json.dumps({"validator": str(VALIDATOR), "head": head, "state": str(STATE)}))
     return 0
 
@@ -123,6 +140,7 @@ def _load_validator():
     sys.path.insert(0, str(root))
     sys.path.insert(0, str(runs))
     import repair_benchmark as rb  # noqa: E402
+
     return rb
 
 
@@ -180,8 +198,17 @@ def unbalanced_brackets(text: str) -> list[dict]:
                 if stack and stack[-1][0] == _PAIRS[c]:
                     stack.pop()
                 else:
-                    bad.append({"line": line, "message": f"`{c}` closes "
-                                + (f"`{stack[-1][0]}` opened at line {stack[-1][1]}" if stack else "nothing")})
+                    bad.append(
+                        {
+                            "line": line,
+                            "message": f"`{c}` closes "
+                            + (
+                                f"`{stack[-1][0]}` opened at line {stack[-1][1]}"
+                                if stack
+                                else "nothing"
+                            ),
+                        }
+                    )
                     if stack:
                         stack.pop()
         i += 1
@@ -190,30 +217,45 @@ def unbalanced_brackets(text: str) -> list[dict]:
 
 
 def _structure_findings(text: str) -> list[dict]:
-    out = [{"rule": "unclosed_comment", "stage": "compile", "line": ln,
+    out = [
+        {
+            "rule": "unclosed_comment",
+            "stage": "compile",
+            "line": ln,
             "message": "this `(*` is never closed; comments nest, so everything "
-                       "after it is commented out and FeynRules sees no model"}
-           for ln in unclosed_comments(text)]
-    out += [{"rule": "unbalanced_bracket", "stage": "compile", **b}
-            for b in unbalanced_brackets(text)[:6]]
+            "after it is commented out and FeynRules sees no model",
+        }
+        for ln in unclosed_comments(text)
+    ]
+    out += [
+        {"rule": "unbalanced_bracket", "stage": "compile", **b}
+        for b in unbalanced_brackets(text)[:6]
+    ]
     return out
 
 
 def lint(args) -> int:
     sys.path.insert(0, str(BENCH))
     import fr_lint  # noqa: E402
+
     findings = [f.__dict__ for f in fr_lint.lint_file(args.model)]
     findings = _structure_findings(Path(args.model).read_text(errors="replace")) + findings
     if getattr(args, "opt", False) or getattr(args, "real", False):
         sys.path.insert(0, str(ALE / "cc_harness"))
         import opt_checks  # noqa: E402
-        findings += opt_checks.lint(Path(args.model).read_text(errors="replace"), real=getattr(args, "real", False),
-                                     chain_head=getattr(args, "chain_head", False))
+
+        findings += opt_checks.lint(
+            Path(args.model).read_text(errors="replace"),
+            real=getattr(args, "real", False),
+            chain_head=getattr(args, "chain_head", False),
+        )
     for f in findings:
         # The SM-override recipe redeclares Phi on purpose; say when that is fine.
         if f["rule"] == "sm_class_redeclared":
-            f["message"] += (" -- allowed only with the SM-override recipe: keep SM.fr's "
-                             "names and write the total as LSM - L<replaced SM term> + ...")
+            f["message"] += (
+                " -- allowed only with the SM-override recipe: keep SM.fr's "
+                "names and write the total as LSM - L<replaced SM term> + ..."
+            )
     print(json.dumps({"file": args.model, "n": len(findings), "findings": findings}, indent=1))
     return 0
 
@@ -247,16 +289,26 @@ def _use_diag_driver(rb, fr: Path) -> None:
     heptapod-dev main driver."""
     rb.vb.DRIVER = DIAG_DRIVER
     lag, _info = rb.vb.total_lag_symbol(fr)
-    terms = {t["name"]: t["expression"]
-             for t in rb.vb.parse_lagrangian_terms(fr.read_text(errors="replace"))}
+    terms = {
+        t["name"]: t["expression"]
+        for t in rb.vb.parse_lagrangian_terms(fr.read_text(errors="replace"))
+    }
     # The total and pure sums of other terms contain every field and locate
     # nothing; only the blocks that write physics are candidates.
-    blocks = sorted(n for n in rb.vb._reach(lag, terms)
-                    if n in terms and n != lag and not rb.vb._is_pure_alias(n, terms)) if lag else []
+    blocks = (
+        sorted(
+            n
+            for n in rb.vb._reach(lag, terms)
+            if n in terms and n != lag and not rb.vb._is_pure_alias(n, terms)
+        )
+        if lag
+        else []
+    )
     orig = rb.vb._run_driver
 
     def _run(dargs, timeout):
         return orig(list(dargs) + [f"HermBlocks={','.join(blocks)}"], timeout)
+
     rb.vb._run_driver = _run
 
 
@@ -264,11 +316,11 @@ def validate(args) -> int:
     rb = _load_validator()
     fr = Path(args.model).resolve()
     if getattr(args, "cover", False):
-        args.real = True                  # the cover arm: the shell arm's report plus spec.json coverage
+        args.real = True  # the cover arm: the shell arm's report plus spec.json coverage
     if getattr(args, "real", False):
-        args.opt = True                   # the shell arm: the optimisation report plus the cut-statement check
+        args.opt = True  # the shell arm: the optimisation report plus the cut-statement check
     if getattr(args, "opt", False):
-        args.diag = True                  # the optimisation arm reports on top of the located sections
+        args.diag = True  # the optimisation arm reports on top of the located sections
     if getattr(args, "diag", False):
         _use_diag_driver(rb, fr)
     out = Path(args.out).resolve()
@@ -286,36 +338,62 @@ def validate(args) -> int:
     work.mkdir(parents=True, exist_ok=True)
     shutil.copy2(fr, work / "model.fr")
     report = rb.build_report_md(row, work)
-    stage = ("pass" if row.get("full_pass") else
-             "no_lagrangian_symbol" if row.get("status") == "no_lagrangian_symbol" else
-             "compile_timeout" if row.get("timed_out") else
-             "compile_failed" if not row.get("compile_ok") else
-             "checks_failed" if not rb.vb.all_checks_pass(row.get("checks")) else
-             "madgraph_failed")
+    stage = (
+        "pass"
+        if row.get("full_pass")
+        else "no_lagrangian_symbol"
+        if row.get("status") == "no_lagrangian_symbol"
+        else "compile_timeout"
+        if row.get("timed_out")
+        else "compile_failed"
+        if not row.get("compile_ok")
+        else "checks_failed"
+        if not rb.vb.all_checks_pass(row.get("checks"))
+        else "madgraph_failed"
+    )
     summary = {
-        "call": n, "stage": stage, "full_chain_pass": bool(row.get("full_pass")),
-        "compile_ok": row.get("compile_ok"), "checks": row.get("checks"),
+        "call": n,
+        "stage": stage,
+        "full_chain_pass": bool(row.get("full_pass")),
+        "compile_ok": row.get("compile_ok"),
+        "checks": row.get("checks"),
         "madgraph_import_ok": row.get("madgraph_import_ok"),
         "lagrangian_expression": row.get("lagrangian_expression"),
-        "error_tags": row.get("error_tags"), "seconds": row.get("seconds"),
+        "error_tags": row.get("error_tags"),
+        "seconds": row.get("seconds"),
         "lock_wait_seconds": waited,
         # Wall-clock interval the Wolfram kernel was held: intervals of
         # different calls must not overlap (the lock's evidence).
-        "t_kernel_start": round(t_start, 3), "t_kernel_end": round(t_end, 3),
-        "stage_reached": ("pass" if row.get("full_pass") else "compile" if not row.get("compile_ok")
-                          else "checks" if not rb.vb.all_checks_pass(row.get("checks")) else "mg5"),
+        "t_kernel_start": round(t_start, 3),
+        "t_kernel_end": round(t_end, 3),
+        "stage_reached": (
+            "pass"
+            if row.get("full_pass")
+            else "compile"
+            if not row.get("compile_ok")
+            else "checks"
+            if not rb.vb.all_checks_pass(row.get("checks"))
+            else "mg5"
+        ),
         "driver": "diag" if getattr(args, "diag", False) else "scoring",
     }
     opt_text = ""
     if getattr(args, "opt", False):
         sys.path.insert(0, str(ALE / "cc_harness"))
         import opt_checks  # noqa: E402
-        clog = Path(row["compile_log"]).read_text(errors="replace") if row.get("compile_log") and Path(row["compile_log"]).is_file() else ""
-        opt_text, inert = opt_checks.report_sections(row, clog, real=getattr(args, "real", False),
-                                                     fr_text=fr.read_text(errors="replace"))
+
+        clog = (
+            Path(row["compile_log"]).read_text(errors="replace")
+            if row.get("compile_log") and Path(row["compile_log"]).is_file()
+            else ""
+        )
+        opt_text, inert = opt_checks.report_sections(
+            row, clog, real=getattr(args, "real", False), fr_text=fr.read_text(errors="replace")
+        )
         summary["particles_without_vertex"] = inert
     if getattr(args, "cover", False):
         import coverage  # noqa: E402  (cc_harness is on the path: --cover implies --opt)
+
         spec, problem = coverage.load_spec(fr.parent / "spec.json")
         first_file = out / "spec_first.json"
         if spec and not first_file.is_file():
@@ -325,29 +403,47 @@ def validate(args) -> int:
             opt_text = "## Coverage of spec.json by the UFO\n" + problem + "\n\n" + opt_text
         elif row.get("compile_ok") and row.get("ufo_dir"):
             removed = coverage.removed_entries(json.loads(first_file.read_text()), spec)
-            result = coverage.check(spec, Path(row["ufo_dir"]), fr.read_text(errors="replace"),
-                                    (fr.parent / "SM.fr").read_text(errors="replace"))
+            result = coverage.check(
+                spec,
+                Path(row["ufo_dir"]),
+                fr.read_text(errors="replace"),
+                (fr.parent / "SM.fr").read_text(errors="replace"),
+            )
             result["removed"] = removed
-            result["complete"] = result["complete"] and not (removed["fields"] or removed["interactions"])
+            result["complete"] = result["complete"] and not (
+                removed["fields"] or removed["interactions"]
+            )
             summary["coverage"] = result
             opt_text = coverage.report(result, removed) + "\n" + opt_text
         else:
             summary["coverage"] = {"complete": False, "problem": "no UFO to check"}
     # The report path stays out of what the agent reads: it lies outside the
     # sandbox. The extension saves the agent's copy as validation/call<n>.md.
-    (work / "summary.json").write_text(json.dumps({**summary, "report": str(work / "VALIDATION_REPORT.md"),
-                                                   "row": row}, indent=1, default=str))
+    (work / "summary.json").write_text(
+        json.dumps(
+            {**summary, "report": str(work / "VALIDATION_REPORT.md"), "row": row},
+            indent=1,
+            default=str,
+        )
+    )
     # What the agent reads: verdicts, FeynRules' own explanation per failing
     # check, and a de-duplicated log tail. The full report stays on disk.
     head = report.split("## FeynRules / Wolfram Engine output (tail)")[0].rstrip()
     if row.get("full_pass"):
         # build_report_md is written for failing models; say the verdict plainly.
-        head = ("# Validation report: FULL CHAIN PASS (compile, all four checks, MadGraph import)\n\n"
-                "A pass says the file is consistent FeynRules. It does not say the file is the "
-                "paper's model: check that with review_model.")
-        if summary.get("particles_without_vertex") or summary.get("coverage", {"complete": True})["complete"] is False:
-            head = ("# Validation report: the chain passes, and the model is NOT done (see below)\n\n"
-                    + opt_text)
+        head = (
+            "# Validation report: FULL CHAIN PASS (compile, all four checks, MadGraph import)\n\n"
+            "A pass says the file is consistent FeynRules. It does not say the file is the "
+            "paper's model: check that with review_model."
+        )
+        if (
+            summary.get("particles_without_vertex")
+            or summary.get("coverage", {"complete": True})["complete"] is False
+        ):
+            head = (
+                "# Validation report: the chain passes, and the model is NOT done (see below)\n\n"
+                + opt_text
+            )
             opt_text = ""
     if args.view:
         print(_generic_view(summary, row, fr, report, with_import=args.view == "import"))
@@ -358,22 +454,30 @@ def validate(args) -> int:
     if stage == "no_lagrangian_symbol":
         # The generic report says nothing here; say what the harness looked for.
         struct = _structure_findings(fr.read_text(errors="replace"))
-        body += ["", "## Why no total Lagrangian was found",
-                 "The harness looks for top-level `Name := expr;` statements (outside comments) "
-                 "and takes the one no other term uses as the total. It found none."]
+        body += [
+            "",
+            "## Why no total Lagrangian was found",
+            "The harness looks for top-level `Name := expr;` statements (outside comments) "
+            "and takes the one no other term uses as the total. It found none.",
+        ]
         body += [f"- line {f['line']}: {f['rule']}: {f['message']}" for f in struct]
     if not row.get("full_pass"):
-        log = Path(row["compile_log"]).read_text(errors="replace") if row.get("compile_log") and Path(row["compile_log"]).is_file() else ""
+        log = (
+            Path(row["compile_log"]).read_text(errors="replace")
+            if row.get("compile_log") and Path(row["compile_log"]).is_file()
+            else ""
+        )
         if getattr(args, "diag", False):
             sys.path.insert(0, str(ALE / "cc_harness"))
             import diagnose  # noqa: E402
+
             extra = diagnose.render_sections(row, log, fr.read_text(errors="replace"))
             if extra:
                 body += ["", extra.rstrip()]
             log = "\n".join(ln for ln in log.splitlines() if not ln.startswith("HEPTAPOD-"))
         body += ["", "## compile log, distinct lines (tail)", "```", _dedupe_tail(log, 3000), "```"]
         if "## MadGraph import output" in report:
-            body += ["", report[report.index("## MadGraph import output"):][:3500]]
+            body += ["", report[report.index("## MadGraph import output") :][:3500]]
     print("\n".join(body))
     return 0
 
@@ -383,31 +487,50 @@ def _generic_view(summary: dict, row: dict, fr: Path, report: str, with_import: 
     did not, with the log when it did not; with_import adds whether MadGraph
     imports the UFO, with MadGraph's output when it does not. No check
     verdict: the chain ran the checks, and they are in summary.json only."""
-    view = {"call": summary["call"], "compile_ok": bool(row.get("compile_ok")), "seconds": row.get("seconds")}
+    view = {
+        "call": summary["call"],
+        "compile_ok": bool(row.get("compile_ok")),
+        "seconds": row.get("seconds"),
+    }
     if with_import:
         view["madgraph_import_ok"] = bool(row.get("madgraph_import_ok"))
     if row.get("compile_ok"):
-        text = (json.dumps(view, indent=1) + "\n\n# Compile report: OK\n\n"
-                "FeynRules loaded model.fr on top of SM.fr and WriteUFO wrote the UFO "
-                f"({', '.join(row.get('ufo_files') or [])}).")
+        text = (
+            json.dumps(view, indent=1) + "\n\n# Compile report: OK\n\n"
+            "FeynRules loaded model.fr on top of SM.fr and WriteUFO wrote the UFO "
+            f"({', '.join(row.get('ufo_files') or [])})."
+        )
         if with_import and row.get("madgraph_import_ok"):
             text += "\n\n# MadGraph import: OK"
         elif with_import:
             text += "\n\n# MadGraph import: FAILED\n\n" + (
-                report[report.index("## MadGraph import output"):][:3500] if "## MadGraph import output" in report else "")
+                report[report.index("## MadGraph import output") :][:3500]
+                if "## MadGraph import output" in report
+                else ""
+            )
         return text
     body = [json.dumps(view, indent=1), "", "# Compile report: FAILED", ""]
     if row.get("status") == "no_lagrangian_symbol":
-        body += ["No total Lagrangian was found: the harness looks for top-level `Name := expr;` "
-                 "statements (outside comments) and takes the one no other term uses as the total."]
-        body += [f"- line {f['line']}: {f['rule']}: {f['message']}"
-                 for f in _structure_findings(fr.read_text(errors="replace"))]
+        body += [
+            "No total Lagrangian was found: the harness looks for top-level `Name := expr;` "
+            "statements (outside comments) and takes the one no other term uses as the total."
+        ]
+        body += [
+            f"- line {f['line']}: {f['rule']}: {f['message']}"
+            for f in _structure_findings(fr.read_text(errors="replace"))
+        ]
         return "\n".join(body)
     if row.get("timed_out"):
         body += [f"FeynRules did not finish within {COMPILE_TIMEOUT} s."]
-    log = Path(row["compile_log"]).read_text(errors="replace") if row.get("compile_log") and Path(row["compile_log"]).is_file() else ""
+    log = (
+        Path(row["compile_log"]).read_text(errors="replace")
+        if row.get("compile_log") and Path(row["compile_log"]).is_file()
+        else ""
+    )
     # A timeout can come after the checks printed: keep their lines out too.
-    log = "\n".join(ln for ln in log.splitlines() if not ln.startswith(("HEPTAPOD-", "Non diagonal ")))
+    log = "\n".join(
+        ln for ln in log.splitlines() if not ln.startswith(("HEPTAPOD-", "Non diagonal "))
+    )
     body += ["## FeynRules log, distinct lines (tail)", "```", _dedupe_tail(log, 3000), "```"]
     return "\n".join(body)
 
@@ -435,7 +558,12 @@ def massbasis(args) -> int:
     after substituting it back.
     """
     import sympy as sp
-    spec = json.loads(Path(args.spec).read_text()) if Path(args.spec).is_file() else json.loads(args.spec)
+
+    spec = (
+        json.loads(Path(args.spec).read_text())
+        if Path(args.spec).is_file()
+        else json.loads(args.spec)
+    )
 
     def P(s: str):
         e = sp.sympify(s, locals={"sqrt": sp.sqrt, "I": sp.I})
@@ -444,8 +572,10 @@ def massbasis(args) -> int:
     # Angles stay polynomial symbols (s, c) with the ideal s^2 + c^2 - 1: a
     # remainder modulo that ideal is exact and fast, where trigsimp on sin/cos
     # of a symbol took minutes on a two-field potential.
-    ideal = [sp.Symbol(s, real=True) ** 2 + sp.Symbol(c, real=True) ** 2 - 1
-             for s, c in (spec.get("angles") or {}).values()]
+    ideal = [
+        sp.Symbol(s, real=True) ** 2 + sp.Symbol(c, real=True) ** 2 - 1
+        for s, c in (spec.get("angles") or {}).values()
+    ]
     cvars = [sp.Symbol(c, real=True) for _s, c in (spec.get("angles") or {}).values()]
 
     def red(e):
@@ -467,10 +597,17 @@ def massbasis(args) -> int:
     M = [[red(sp.diff(V, fi, fj).subs(at0)) for fj in fields] for fi in fields]
     res = {
         "tadpoles": {k: str(v) for k, v in tad.items()},
-        "mass_matrix": {f"{fields[i]},{fields[j]}": str(M[i][j])
-                        for i in range(len(fields)) for j in range(i, len(fields))},
-        "off_diagonal_nonzero": [f"{fields[i]},{fields[j]}" for i in range(len(fields))
-                                 for j in range(i + 1, len(fields)) if M[i][j] != 0],
+        "mass_matrix": {
+            f"{fields[i]},{fields[j]}": str(M[i][j])
+            for i in range(len(fields))
+            for j in range(i, len(fields))
+        },
+        "off_diagonal_nonzero": [
+            f"{fields[i]},{fields[j]}"
+            for i in range(len(fields))
+            for j in range(i + 1, len(fields))
+            if M[i][j] != 0
+        ],
     }
     unknowns = [sp.Symbol(u, real=True) for u in spec.get("solve_for") or []]
     if unknowns:
@@ -489,25 +626,38 @@ def massbasis(args) -> int:
             sols = sp.solve(eqs, unknowns, dict=True)
         if not sols:
             res["solution"] = None
-            res["note"] = ("no solution for these unknowns; choose parameters that enter "
-                           "the tadpoles and the mass matrix linearly (quartics, mu^2 terms), "
-                           "as many unknowns as independent conditions")
+            res["note"] = (
+                "no solution for these unknowns; choose parameters that enter "
+                "the tadpoles and the mass matrix linearly (quartics, mu^2 terms), "
+                "as many unknowns as independent conditions"
+            )
         else:
             sol = {k: red(v) for k, v in sols[0].items()}
-            free = sorted({str(s) for v in sol.values() for s in v.free_symbols} & {str(u) for u in unknowns})
+            free = sorted(
+                {str(s) for v in sol.values() for s in v.free_symbols} & {str(u) for u in unknowns}
+            )
             Vs = sp.expand(V.subs(sol))
             resid = {
                 "tadpoles": [str(red(sp.diff(Vs, f).subs(at0))) for f in fields],
-                "off_diagonal": [str(red(sp.diff(Vs, fields[i], fields[j]).subs(at0)))
-                                 for i in range(len(fields)) for j in range(i + 1, len(fields))],
-                "diagonal_minus_target": {f: str(red(sp.diff(Vs, sp.Symbol(f, real=True), 2).subs(at0) - P(m) ** 2))
-                                          for f, m in (spec.get("targets") or {}).items()},
+                "off_diagonal": [
+                    str(red(sp.diff(Vs, fields[i], fields[j]).subs(at0)))
+                    for i in range(len(fields))
+                    for j in range(i + 1, len(fields))
+                ],
+                "diagonal_minus_target": {
+                    f: str(red(sp.diff(Vs, sp.Symbol(f, real=True), 2).subs(at0) - P(m) ** 2))
+                    for f, m in (spec.get("targets") or {}).items()
+                },
             }
             res["solution"] = {str(k): str(v) for k, v in sol.items()}
             res["solution_mathematica"] = {str(k): sp.mathematica_code(v) for k, v in sol.items()}
             res["residuals_after_solution"] = resid
-            res["verified"] = all(r == "0" for r in resid["tadpoles"] + resid["off_diagonal"]
-                                  + list(resid["diagonal_minus_target"].values()))
+            res["verified"] = all(
+                r == "0"
+                for r in resid["tadpoles"]
+                + resid["off_diagonal"]
+                + list(resid["diagonal_minus_target"].values())
+            )
             if free:
                 res["underdetermined_in"] = free
             if len(sols) > 1:
@@ -522,30 +672,54 @@ def main() -> int:
     sub.add_parser("setup").set_defaults(fn=setup)
     p = sub.add_parser("lint")
     p.add_argument("model")
-    p.add_argument("--opt", action="store_true", help="add the optimisation arm's rules (cc_harness/opt_checks.py)")
-    p.add_argument("--real", action="store_true", help="--opt plus the cut-statement rule (the shell arm)")
-    p.add_argument("--chain-head", action="store_true",
-                   help="with --real: also the rule for a fermion chain that starts with an unbarred field (arm plus)")
+    p.add_argument(
+        "--opt",
+        action="store_true",
+        help="add the optimisation arm's rules (cc_harness/opt_checks.py)",
+    )
+    p.add_argument(
+        "--real", action="store_true", help="--opt plus the cut-statement rule (the shell arm)"
+    )
+    p.add_argument(
+        "--chain-head",
+        action="store_true",
+        help="with --real: also the rule for a fermion chain that starts with an unbarred field (arm plus)",
+    )
     p.set_defaults(fn=lint)
     p = sub.add_parser("validate")
     p.add_argument("model")
     p.add_argument("--out", required=True)
-    p.add_argument("--diag", action="store_true",
-                   help="in-loop diagnostics (cc_harness driver copy): non-hermitian vertices, "
-                        "mass matrix, MadGraph back-trace; never used for scoring")
-    p.add_argument("--opt", action="store_true",
-                   help="the optimisation arm's report: --diag plus the sections of cc_harness/opt_checks.py; "
-                        "never used for scoring")
-    p.add_argument("--real", action="store_true",
-                   help="the shell arm's report: --opt plus statements cut at a line end; a model with a cut "
-                        "statement or a vertex-less new particle is not a pass there; never used for scoring")
-    p.add_argument("--cover", action="store_true",
-                   help="the cover arm's report: --real plus the coverage of spec.json (next to the model) by "
-                        "the UFO; never used for scoring")
-    p.add_argument("--view", choices=("compile", "import"),
-                   help="print a generic build report instead of the full one (the ablation's "
-                        "control arms): whether FeynRules wrote a UFO, and with `import` whether "
-                        "MadGraph imports it; summary.json keeps the full verdicts")
+    p.add_argument(
+        "--diag",
+        action="store_true",
+        help="in-loop diagnostics (cc_harness driver copy): non-hermitian vertices, "
+        "mass matrix, MadGraph back-trace; never used for scoring",
+    )
+    p.add_argument(
+        "--opt",
+        action="store_true",
+        help="the optimisation arm's report: --diag plus the sections of cc_harness/opt_checks.py; "
+        "never used for scoring",
+    )
+    p.add_argument(
+        "--real",
+        action="store_true",
+        help="the shell arm's report: --opt plus statements cut at a line end; a model with a cut "
+        "statement or a vertex-less new particle is not a pass there; never used for scoring",
+    )
+    p.add_argument(
+        "--cover",
+        action="store_true",
+        help="the cover arm's report: --real plus the coverage of spec.json (next to the model) by "
+        "the UFO; never used for scoring",
+    )
+    p.add_argument(
+        "--view",
+        choices=("compile", "import"),
+        help="print a generic build report instead of the full one (the ablation's "
+        "control arms): whether FeynRules wrote a UFO, and with `import` whether "
+        "MadGraph imports it; summary.json keeps the full verdicts",
+    )
     p.set_defaults(fn=validate)
     p = sub.add_parser("massbasis")
     p.add_argument("spec", help="JSON file or JSON string")

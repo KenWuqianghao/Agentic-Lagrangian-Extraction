@@ -50,9 +50,9 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 BENCH = HERE.parent
 PAPERS = Path.home() / "Documents/Github/heptapod/eval/benchmark_runs"
-HD = Path(os.environ.get("OB_HD", ""))                 # heptapod-dev origin/main worktree
-VENV_PY = Path(os.environ.get("OB_PY", ""))            # python with pydantic + jinja2
-OC_HOME = Path(os.environ.get("OB_OC_HOME", ""))       # isolated HOME for opencode
+HD = Path(os.environ.get("OB_HD", ""))  # heptapod-dev origin/main worktree
+VENV_PY = Path(os.environ.get("OB_PY", ""))  # python with pydantic + jinja2
+OC_HOME = Path(os.environ.get("OB_OC_HOME", ""))  # isolated HOME for opencode
 OPENCODE = Path.home() / ".opencode/bin/opencode"
 AGENT_TIMEOUT = int(os.environ.get("OB_AGENT_TIMEOUT", "3600"))
 
@@ -68,20 +68,41 @@ MODEL_LIMITS = {"mimo": {"context": 200000, "output": OUTPUT_MAX}}
 MAX_NUDGES = int(os.environ.get("OB_MAX_NUDGES", "3"))
 TOOLKIT_ARMS = ("toolkit", "toolkit2")
 NUDGE = {
-    "hand": ("You stopped before model.fr exists in the current directory. Write the complete "
-             ".fr file to model.fr now with your file-writing tool. If it is long, write a first "
-             "part and then append the rest with the edit tool."),
-    "toolkit": ("You stopped before spec.json exists in the current directory. Write the "
-                "FeynRulesModel JSON to spec.json now with your file-writing tool, then run "
-                "`./frgen spec.json` and fix what it reports."),
+    "hand": (
+        "You stopped before model.fr exists in the current directory. Write the complete "
+        ".fr file to model.fr now with your file-writing tool. If it is long, write a first "
+        "part and then append the rest with the edit tool."
+    ),
+    "toolkit": (
+        "You stopped before spec.json exists in the current directory. Write the "
+        "FeynRulesModel JSON to spec.json now with your file-writing tool, then run "
+        "`./frgen spec.json` and fix what it reports."
+    ),
 }
-PAGES16 = ["331", "ALRM_general", "B-L-SM", "ChernSimonsPortal", "EffLRSM", "GeneralU1",
-           "HeavyN", "MDMmodel", "Monotops", "NJLComposite", "SLQrules", "SMWeinberg",
-           "Top-Philic-Zprime", "Wprime", "pNG", "pSPSS"]
+PAGES16 = [
+    "331",
+    "ALRM_general",
+    "B-L-SM",
+    "ChernSimonsPortal",
+    "EffLRSM",
+    "GeneralU1",
+    "HeavyN",
+    "MDMmodel",
+    "Monotops",
+    "NJLComposite",
+    "SLQrules",
+    "SMWeinberg",
+    "Top-Philic-Zprime",
+    "Wprime",
+    "pNG",
+    "pSPSS",
+]
 
-USER_MSG = ("Your task is in the file TASK.md in the current directory. Read all of it first "
-            "(it is long; read it to the end), then do exactly what it says. Work only inside "
-            "the current directory.")
+USER_MSG = (
+    "Your task is in the file TASK.md in the current directory. Read all of it first "
+    "(it is long; read it to the end), then do exactly what it says. Work only inside "
+    "the current directory."
+)
 
 SANDBOX_NOTE = {
     "hand": """\
@@ -107,15 +128,19 @@ is OK and every remaining lint finding is one you have checked and judged harmle
 }
 
 OUTPUT_LINE = {
-    "hand": ('OUTPUT: write the complete .fr file to model.fr in the current directory with '
-             'your file-writing tool (ONLY the .fr content). Set M$ModelName = "{page}_gen". '
-             'Your final message: the self-audit table and one line saying model.fr is written. '
-             'model.fr as it is on disk when you stop is what gets scored.'),
-    "toolkit": ('OUTPUT: write the FeynRulesModel JSON object to spec.json in the current '
-                'directory with your file-writing tool (ONLY the JSON). Set model_name to '
-                '"{page}_gen". Run `./frgen spec.json` and iterate as described under TOOLKIT. '
-                'Your final message: the self-audit table and one line with the last ./frgen '
-                'result. spec.json as it is on disk when you stop is rendered and scored.'),
+    "hand": (
+        "OUTPUT: write the complete .fr file to model.fr in the current directory with "
+        'your file-writing tool (ONLY the .fr content). Set M$ModelName = "{page}_gen". '
+        "Your final message: the self-audit table and one line saying model.fr is written. "
+        "model.fr as it is on disk when you stop is what gets scored."
+    ),
+    "toolkit": (
+        "OUTPUT: write the FeynRulesModel JSON object to spec.json in the current "
+        "directory with your file-writing tool (ONLY the JSON). Set model_name to "
+        '"{page}_gen". Run `./frgen spec.json` and iterate as described under TOOLKIT. '
+        "Your final message: the self-audit table and one line with the last ./frgen "
+        "result. spec.json as it is on disk when you stop is rendered and scored."
+    ),
 }
 
 
@@ -154,36 +179,61 @@ def build_task(page: str, arm: str, paper_name: str) -> str:
     if arm == "hand":
         src = (BENCH / page / "rerun/v3s_notools/s1/prompt.txt").read_text()
         i = src.index("===== END PAPER =====")
-        t = src[i + len("===== END PAPER ====="):].lstrip()
-        t = _sub_once(t, r"^PAPER: .*$",
-                      f'PAPER: the paper\'s LaTeX source is the file "{paper_rel}" (read it '
-                      "completely with your file-reading tool; equations, fractions and roots "
-                      "are exact; it is authoritative).", "PAPER")
-        t = t.replace("It is loaded on top of SM.fr, included verbatim above between the SM.fr "
-                      "markers.", "It is loaded on top of SM.fr, the file SM.fr in the current "
-                      "directory.")
+        t = src[i + len("===== END PAPER =====") :].lstrip()
+        t = _sub_once(
+            t,
+            r"^PAPER: .*$",
+            f'PAPER: the paper\'s LaTeX source is the file "{paper_rel}" (read it '
+            "completely with your file-reading tool; equations, fractions and roots "
+            "are exact; it is authoritative).",
+            "PAPER",
+        )
+        t = t.replace(
+            "It is loaded on top of SM.fr, included verbatim above between the SM.fr markers.",
+            "It is loaded on top of SM.fr, the file SM.fr in the current directory.",
+        )
         t = _sub_once(t, r"^OUTPUT: .*$", OUTPUT_LINE["hand"].format(page=page), "OUTPUT")
-        t = re.sub(r"NO TOOLS: this run has no file.*?write the model\.\n",
-                   SANDBOX_NOTE["hand"].format(paper=paper_rel) + "\n", t, count=1, flags=re.S)
+        t = re.sub(
+            r"NO TOOLS: this run has no file.*?write the model\.\n",
+            SANDBOX_NOTE["hand"].format(paper=paper_rel) + "\n",
+            t,
+            count=1,
+            flags=re.S,
+        )
         if "NO TOOLS" in t or "SANDBOX:" not in t:
             raise ValueError("hand prompt: NO TOOLS note not replaced")
         return t
     src = (BENCH / page / "rerun/v3s_tools/s1/prompt.txt").read_text()
-    t = _sub_once(src, r"^PAPER: .*$",
-                  f'PAPER: the paper\'s LaTeX source is the file "{paper_rel}" (read it '
-                  "completely with your file-reading tool; equations, fractions and roots are "
-                  "exact; it is authoritative).", "PAPER")
-    t = _sub_once(t, r"^SCHEMA: .*$",
-                  "SCHEMA: read tools/frgen/frmodel.py (pydantic FeynRulesModel) before you "
-                  "write the spec.", "SCHEMA")
+    t = _sub_once(
+        src,
+        r"^PAPER: .*$",
+        f'PAPER: the paper\'s LaTeX source is the file "{paper_rel}" (read it '
+        "completely with your file-reading tool; equations, fractions and roots are "
+        "exact; it is authoritative).",
+        "PAPER",
+    )
+    t = _sub_once(
+        t,
+        r"^SCHEMA: .*$",
+        "SCHEMA: read tools/frgen/frmodel.py (pydantic FeynRulesModel) before you write the spec.",
+        "SCHEMA",
+    )
     t = _sub_once(t, r"^OUTPUT: .*$", OUTPUT_LINE["toolkit"].format(page=page), "OUTPUT")
-    t = re.sub(r"SANDBOX: the sandbox root is .*?may be read\.\n",
-               SANDBOX_NOTE["toolkit"].format(paper=paper_rel) + "\n", t, count=1, flags=re.S)
+    t = re.sub(
+        r"SANDBOX: the sandbox root is .*?may be read\.\n",
+        SANDBOX_NOTE["toolkit"].format(paper=paper_rel) + "\n",
+        t,
+        count=1,
+        flags=re.S,
+    )
     if "sandbox root is" in t or "TOOLKIT:" not in t:
         raise ValueError("toolkit prompt: SANDBOX note not replaced")
     if arm == "toolkit2":
-        t = t.replace(SANDBOX_NOTE["toolkit"].format(paper=paper_rel),
-                      SANDBOX_NOTE["toolkit"].format(paper=paper_rel) + "\n\n" + AUTO_CHECK_NOTE, 1)
+        t = t.replace(
+            SANDBOX_NOTE["toolkit"].format(paper=paper_rel),
+            SANDBOX_NOTE["toolkit"].format(paper=paper_rel) + "\n\n" + AUTO_CHECK_NOTE,
+            1,
+        )
         if "AUTOMATIC CHECK" not in t:
             raise ValueError("toolkit2 prompt: AUTOMATIC CHECK note not added")
     return t
@@ -202,18 +252,35 @@ def oc_config(arm: str, model: str | None = None) -> dict:
         "mcp": {},
         "plugin": [],
         "instructions": [],
-        "tools": {"webfetch": False, "websearch": False, "codesearch": False, "task": False,
-                  "skill": False},
-        "permission": {"bash": bash, "webfetch": "deny", "websearch": "deny",
-                       "external_directory": "deny", "doom_loop": "allow",
-                       "edit": {"*": "allow", "frgen": "deny", "tools/*": "deny",
-                                "paper/*": "deny", "SM.fr": "deny", "TASK.md": "deny"}},
+        "tools": {
+            "webfetch": False,
+            "websearch": False,
+            "codesearch": False,
+            "task": False,
+            "skill": False,
+        },
+        "permission": {
+            "bash": bash,
+            "webfetch": "deny",
+            "websearch": "deny",
+            "external_directory": "deny",
+            "doom_loop": "allow",
+            "edit": {
+                "*": "allow",
+                "frgen": "deny",
+                "tools/*": "deny",
+                "paper/*": "deny",
+                "SM.fr": "deny",
+                "TASK.md": "deny",
+            },
+        },
     }
     if arm == "toolkit2":
         cfg["plugin"] = [f"file://{HERE / 'frgen_hook.js'}"]
     if model in MODEL_LIMITS:
-        cfg["provider"] = {"opencode": {"models": {MODELS[model].split("/", 1)[1]:
-                                                   {"limit": MODEL_LIMITS[model]}}}}
+        cfg["provider"] = {
+            "opencode": {"models": {MODELS[model].split("/", 1)[1]: {"limit": MODEL_LIMITS[model]}}}
+        }
     return cfg
 
 
@@ -244,8 +311,10 @@ def prepare_one(page: str, model: str, arm: str, seed: int, force: bool) -> dict
         (fg / "__init__.py").write_text("")
         shutil.copy2(BENCH / "fr_lint.py", sb / "tools/fr_lint.py")
         wrapper = sb / "frgen"
-        wrapper.write_text("#!/bin/sh\n"
-                           f'FRGEN_TOOLKIT="$(pwd)/tools" exec "{VENV_PY}" "{HERE / "frgen_cli.py"}" "$@"\n')
+        wrapper.write_text(
+            "#!/bin/sh\n"
+            f'FRGEN_TOOLKIT="$(pwd)/tools" exec "{VENV_PY}" "{HERE / "frgen_cli.py"}" "$@"\n'
+        )
         wrapper.chmod(0o555)
     task = build_task(page, arm, paper.name)
     (sb / "TASK.md").write_text(task)
@@ -275,34 +344,62 @@ def _tool_calls(events: list[dict]) -> list[dict]:
         part = ev.get("part") or {}
         if ev.get("type") == "tool_use" or part.get("type") == "tool":
             st = part.get("state") or {}
-            calls.append({"tool": part.get("tool"), "input": st.get("input"),
-                          "status": st.get("status"),
-                          "output": (st.get("output") or st.get("error") or "")[:400]})
+            calls.append(
+                {
+                    "tool": part.get("tool"),
+                    "input": st.get("input"),
+                    "status": st.get("status"),
+                    "output": (st.get("output") or st.get("error") or "")[:400],
+                }
+            )
     return calls
 
 
 def _final_text(events: list[dict]) -> str:
-    texts = [(ev.get("part") or {}).get("text", "") for ev in events
-             if (ev.get("part") or {}).get("type") == "text"]
+    texts = [
+        (ev.get("part") or {}).get("text", "")
+        for ev in events
+        if (ev.get("part") or {}).get("type") == "text"
+    ]
     return texts[-1] if texts else ""
 
 
 def audit(calls: list[dict], sb: Path, arm: str, paper_name: str) -> dict:
     sbs = str(sb.resolve())
     escapes, forbidden, denied, read_paper, frgen_runs = [], [], [], False, 0
-    allowed = {"read", "write", "edit", "glob", "grep", "list", "todowrite", "todoread",
-               "patch", "multiedit", "apply_patch", "invalid", "bash"}
+    allowed = {
+        "read",
+        "write",
+        "edit",
+        "glob",
+        "grep",
+        "list",
+        "todowrite",
+        "todoread",
+        "patch",
+        "multiedit",
+        "apply_patch",
+        "invalid",
+        "bash",
+    }
     for c in calls:
         tool, inp = c["tool"] or "", c["input"] or {}
         if c["status"] != "completed":
-            if "prevents you from using" in (c.get("output") or "") or "rejected" in (c.get("output") or ""):
+            if "prevents you from using" in (c.get("output") or "") or "rejected" in (
+                c.get("output") or ""
+            ):
                 denied.append(f"{tool}:{json.dumps(inp)[:80]}")
             continue
         if tool not in allowed:
             forbidden.append(tool)
         # Paths only from the path-like arguments: file contents may quote anything.
-        blob = json.dumps({k: v for k, v in inp.items()
-                           if k in ("filePath", "path", "pattern", "include", "workdir", "command")})
+        blob = json.dumps(
+            {
+                k: v
+                for k, v in inp.items()
+                if k in ("filePath", "path", "pattern", "include", "workdir", "command")
+            }
+        )
         for m in re.findall(r'(/(?:Users|private|var|tmp|etc|opt|home)[^"\s\\]*)', blob):
             if not str(Path(m).resolve()).startswith(sbs) and c["status"] == "completed":
                 escapes.append(m)
@@ -316,9 +413,16 @@ def audit(calls: list[dict], sb: Path, arm: str, paper_name: str) -> dict:
                 frgen_runs += 1 if arm in TOOLKIT_ARMS else 0
             else:
                 forbidden.append(f"bash:{cmd[:80]}")
-    return {"tool_calls": len(calls), "read_paper": read_paper, "escapes": sorted(set(escapes)),
-            "forbidden": forbidden, "denied_attempts": denied, "frgen_runs": frgen_runs,
-            "contaminated": bool(escapes), "audit_ok": not escapes and not forbidden}
+    return {
+        "tool_calls": len(calls),
+        "read_paper": read_paper,
+        "escapes": sorted(set(escapes)),
+        "forbidden": forbidden,
+        "denied_attempts": denied,
+        "frgen_runs": frgen_runs,
+        "contaminated": bool(escapes),
+        "audit_ok": not escapes and not forbidden,
+    }
 
 
 RATE_LIMIT = re.compile(r'"statusCode":\s*429|Rate limit exceeded')
@@ -330,8 +434,7 @@ def _run_watched(cmd, sb, env, out, err, left, stream: Path):
     On a spent free-tier quota opencode retries the 429 for the whole hour and
     writes nothing, so the run measures the quota, not the model. Returns
     (exit code, timed out, rate limited)."""
-    p = subprocess.Popen(cmd, cwd=sb, env=env, stdout=out, stderr=err,
-                         stdin=subprocess.DEVNULL)
+    p = subprocess.Popen(cmd, cwd=sb, env=env, stdout=out, stderr=err, stdin=subprocess.DEVNULL)
     t_end = time.time() + left
     while True:
         try:
@@ -352,16 +455,27 @@ def _run_watched(cmd, sb, env, out, err, left, stream: Path):
 def run_one(page: str, model: str, arm: str, seed: int) -> dict:
     rd = rundir(page, model, arm, seed)
     sb = Path((rd / "sandbox_path.txt").read_text().strip())
-    env = {k: v for k, v in os.environ.items() if not k.startswith(("ANTHROPIC", "OPENAI", "CLAUDE"))}
-    env.update({"PWD": str(sb), "HOME": str(OC_HOME), "XDG_CONFIG_HOME": str(OC_HOME / ".config"),
-                "XDG_DATA_HOME": str(OC_HOME / ".local/share"),
-                "XDG_CACHE_HOME": str(OC_HOME / ".cache"),
-                "OPENCODE_CONFIG_CONTENT": json.dumps(oc_config(arm, model)),
-                "OPENCODE_DISABLE_CLAUDE_CODE": "1", "OPENCODE_DISABLE_EXTERNAL_SKILLS": "1",
-                "OPENCODE_DISABLE_PROJECT_CONFIG": "1", "OPENCODE_DISABLE_AUTOUPDATE": "1",
-                "OPENCODE_DISABLE_SHARE": "1", "OPENCODE_DISABLE_LSP_DOWNLOAD": "1",
-                "OPENCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX": str(OUTPUT_MAX),
-                "FRGEN_HOOK_LOG": str(rd / "hook_log.jsonl")})
+    env = {
+        k: v for k, v in os.environ.items() if not k.startswith(("ANTHROPIC", "OPENAI", "CLAUDE"))
+    }
+    env.update(
+        {
+            "PWD": str(sb),
+            "HOME": str(OC_HOME),
+            "XDG_CONFIG_HOME": str(OC_HOME / ".config"),
+            "XDG_DATA_HOME": str(OC_HOME / ".local/share"),
+            "XDG_CACHE_HOME": str(OC_HOME / ".cache"),
+            "OPENCODE_CONFIG_CONTENT": json.dumps(oc_config(arm, model)),
+            "OPENCODE_DISABLE_CLAUDE_CODE": "1",
+            "OPENCODE_DISABLE_EXTERNAL_SKILLS": "1",
+            "OPENCODE_DISABLE_PROJECT_CONFIG": "1",
+            "OPENCODE_DISABLE_AUTOUPDATE": "1",
+            "OPENCODE_DISABLE_SHARE": "1",
+            "OPENCODE_DISABLE_LSP_DOWNLOAD": "1",
+            "OPENCODE_EXPERIMENTAL_OUTPUT_TOKEN_MAX": str(OUTPUT_MAX),
+            "FRGEN_HOOK_LOG": str(rd / "hook_log.jsonl"),
+        }
+    )
     # Default plugins stay on: without them the free tier answers 403
     # "OpenCode's free tier can only be used from within OpenCode".
     # --dir and PWD both: opencode takes its project directory from PWD, not from the
@@ -380,15 +494,22 @@ def run_one(page: str, model: str, arm: str, seed: int) -> dict:
             if left <= 0:
                 timed_out = True
                 break
-            rc, timed_out, rate_limited = _run_watched(cmd, sb, env, out, err, left,
-                                                       rd / "agent_stream.jsonl")
+            rc, timed_out, rate_limited = _run_watched(
+                cmd, sb, env, out, err, left, rd / "agent_stream.jsonl"
+            )
             if timed_out or rate_limited:
                 break
             out.flush()
             if deliverable.is_file() or nudges >= MAX_NUDGES:
                 break
-            sid = next((e.get("sessionID") for e in _events(rd / "agent_stream.jsonl")
-                        if e.get("sessionID")), None)
+            sid = next(
+                (
+                    e.get("sessionID")
+                    for e in _events(rd / "agent_stream.jsonl")
+                    if e.get("sessionID")
+                ),
+                None,
+            )
             if not sid:
                 break
             # Same session, same nudge in both arms: the run stopped (output cap, or the
@@ -408,29 +529,50 @@ def run_one(page: str, model: str, arm: str, seed: int) -> dict:
     au["audit_ok"] = au["audit_ok"] and not au["tampered"]
     (rd / "audit.json").write_text(json.dumps(au, indent=1))
     tokens = {"input": 0, "output": 0, "reasoning": 0}
-    stops = [((ev.get("part") or {}).get("reason")) for ev in events
-             if (ev.get("part") or {}).get("type") == "step-finish"]
+    stops = [
+        ((ev.get("part") or {}).get("reason"))
+        for ev in events
+        if (ev.get("part") or {}).get("type") == "step-finish"
+    ]
     for ev in events:
         tk = (ev.get("part") or {}).get("tokens") or {}
         for k in tokens:
             tokens[k] += int(tk.get(k) or 0)
     fr = produce_fr(page, arm, rd, sb, final)
-    row = {"page": page, "model": model, "model_id": MODELS[model], "arm": arm, "seed": seed,
-           "variant": variant(model, arm), "harness": "opencode " + oc_version(),
-           "exit": rc, "timed_out": timed_out, "nudges": nudges, "seconds": secs, "tokens": tokens,
-           "rate_limited": rate_limited or bool(RATE_LIMIT.search(
-               (rd / "agent_stream.jsonl").read_text(errors="replace"))),
-           "output_max": OUTPUT_MAX,
-           "hook_runs": (sum(1 for _ in open(rd / "hook_log.jsonl"))
-                         if (rd / "hook_log.jsonl").is_file() else 0),
-           "n_events": len(events), "length_stops": stops.count("length"), "audit": au, **fr}
+    row = {
+        "page": page,
+        "model": model,
+        "model_id": MODELS[model],
+        "arm": arm,
+        "seed": seed,
+        "variant": variant(model, arm),
+        "harness": "opencode " + oc_version(),
+        "exit": rc,
+        "timed_out": timed_out,
+        "nudges": nudges,
+        "seconds": secs,
+        "tokens": tokens,
+        "rate_limited": rate_limited
+        or bool(RATE_LIMIT.search((rd / "agent_stream.jsonl").read_text(errors="replace"))),
+        "output_max": OUTPUT_MAX,
+        "hook_runs": (
+            sum(1 for _ in open(rd / "hook_log.jsonl")) if (rd / "hook_log.jsonl").is_file() else 0
+        ),
+        "n_events": len(events),
+        "length_stops": stops.count("length"),
+        "audit": au,
+        **fr,
+    }
     (rd / "run.json").write_text(json.dumps(row, indent=1))
-    print(f"[run] {page} {variant(model, arm)} s{seed}: {secs}s rc={rc} nudges={nudges} "
-          f"rate_limited={row['rate_limited']} "
-          f"length_stops={stops.count('length')} calls={au['tool_calls']} "
-          f"frgen={au['frgen_runs']} hook={row['hook_runs']} fr={fr.get('rendered')} "
-          f"({fr.get('reason', '')}) "
-          f"audit_ok={au['audit_ok']}", flush=True)
+    print(
+        f"[run] {page} {variant(model, arm)} s{seed}: {secs}s rc={rc} nudges={nudges} "
+        f"rate_limited={row['rate_limited']} "
+        f"length_stops={stops.count('length')} calls={au['tool_calls']} "
+        f"frgen={au['frgen_runs']} hook={row['hook_runs']} fr={fr.get('rendered')} "
+        f"({fr.get('reason', '')}) "
+        f"audit_ok={au['audit_ok']}",
+        flush=True,
+    )
     return row
 
 
@@ -440,7 +582,9 @@ _VER = None
 def oc_version() -> str:
     global _VER
     if _VER is None:
-        _VER = subprocess.run([str(OPENCODE), "--version"], capture_output=True, text=True).stdout.strip()
+        _VER = subprocess.run(
+            [str(OPENCODE), "--version"], capture_output=True, text=True
+        ).stdout.strip()
     return _VER
 
 
@@ -465,7 +609,9 @@ def produce_fr(page: str, arm: str, rd: Path, sb: Path, final: str) -> dict:
     spec = sb / "spec.json"
     source = "spec.json"
     if not (spec.is_file() and spec.stat().st_size > 0):
-        blocks = [b for t, b in _FENCE_RE.findall(final) if t.lower() == "json" or '"particles"' in b]
+        blocks = [
+            b for t, b in _FENCE_RE.findall(final) if t.lower() == "json" or '"particles"' in b
+        ]
         if not blocks:
             return {"rendered": False, "reason": "no_spec"}
         spec = rd / "spec_from_message.json"
@@ -483,19 +629,31 @@ def produce_fr(page: str, arm: str, rd: Path, sb: Path, final: str) -> dict:
         (pristine / "frgen/templates").mkdir(parents=True)
         for f in ("frmodel.py", "render.py"):
             shutil.copy2(HD / "tools/frgen" / f, pristine / "frgen" / f)
-        shutil.copy2(HD / "tools/frgen/templates/model.fr.j2", pristine / "frgen/templates/model.fr.j2")
+        shutil.copy2(
+            HD / "tools/frgen/templates/model.fr.j2", pristine / "frgen/templates/model.fr.j2"
+        )
         (pristine / "frgen/__init__.py").write_text("")
         shutil.copy2(BENCH / "fr_lint.py", pristine / "fr_lint.py")
     env["FRGEN_TOOLKIT"] = str(pristine)
-    p = subprocess.run([str(VENV_PY), str(HERE / "frgen_cli.py"), str(work / "spec.json")],
-                       capture_output=True, text=True, env=env)
+    p = subprocess.run(
+        [str(VENV_PY), str(HERE / "frgen_cli.py"), str(work / "spec.json")],
+        capture_output=True,
+        text=True,
+        env=env,
+    )
     (rd / "render_log.txt").write_text(p.stdout + p.stderr)
     shutil.rmtree(pristine)
     if (work / "model.fr").is_file():
         shutil.copy2(work / "model.fr", dst)
-        return {"rendered": True, "source": source, "fr": str(dst),
-                "final_lint_findings": p.stdout.count("\n- [")}
-    reason = "schema_validation_failed" if "SCHEMA VALIDATION FAILED" in p.stdout else "render_failed"
+        return {
+            "rendered": True,
+            "source": source,
+            "fr": str(dst),
+            "final_lint_findings": p.stdout.count("\n- ["),
+        }
+    reason = (
+        "schema_validation_failed" if "SCHEMA VALIDATION FAILED" in p.stdout else "render_failed"
+    )
     return {"rendered": False, "reason": reason, "source": source, "detail": p.stdout[:800]}
 
 
@@ -514,10 +672,15 @@ def validate_one(page: str, model: str, arm: str, seed: int) -> dict | None:
     out = Path(os.environ.get("VBENCH_OUT", "/tmp/rerun_bench"))
     env = dict(os.environ, VBENCH_OUT=str(out), VBENCH_COMPILE_TIMEOUT="900")
     while subprocess.run(["pgrep", "-f", "[W]olframKernel"], capture_output=True).returncode == 0:
-        time.sleep(20)                       # another session's compile: one kernel at a time
+        time.sleep(20)  # another session's compile: one kernel at a time
     t0 = time.time()
-    p = subprocess.run([sys.executable, str(HD / "eval/benchmark_runs/run_one_fr.py"), page,
-                        str(fr), tag], cwd=HD, env=env, capture_output=True, text=True)
+    p = subprocess.run(
+        [sys.executable, str(HD / "eval/benchmark_runs/run_one_fr.py"), page, str(fr), tag],
+        cwd=HD,
+        env=env,
+        capture_output=True,
+        text=True,
+    )
     res = out / tag / "result.json"
     if not res.is_file():
         val = {"status": "harness_error", "stderr": p.stderr[-2000:], "full_chain_pass": False}
@@ -532,6 +695,7 @@ def validate_one(page: str, model: str, arm: str, seed: int) -> dict | None:
     try:
         sys.path.insert(0, str(BENCH))
         import rerun_predicates  # noqa: WPS433
+
         checks = rerun_predicates.PREDICATES.get(page, [])
         txt = fr.read_text(errors="replace")
         pr = {"available": True, "results": {}}
@@ -542,9 +706,12 @@ def validate_one(page: str, model: str, arm: str, seed: int) -> dict | None:
         (rd / "predicates.json").write_text(json.dumps(pr, indent=1))
     except Exception as e:  # noqa: BLE001
         (rd / "predicates.json").write_text(json.dumps({"available": False, "error": str(e)}))
-    print(f"[validate] {page} {variant(model, arm)} s{seed}: {val.get('status')} "
-          f"checks={val.get('checks')} mg5={val.get('madgraph_import_ok')} "
-          f"full={val.get('full_chain_pass')} ({val['wall_seconds']}s)", flush=True)
+    print(
+        f"[validate] {page} {variant(model, arm)} s{seed}: {val.get('status')} "
+        f"checks={val.get('checks')} mg5={val.get('madgraph_import_ok')} "
+        f"full={val.get('full_chain_pass')} ({val['wall_seconds']}s)",
+        flush=True,
+    )
     return val
 
 
@@ -568,11 +735,17 @@ def main() -> int:
         for p in pages:
             prepare_one(p, a.model, a.arm, a.seed, a.force)
     elif a.cmd == "run":
-        todo = [p for p in pages if not (rundir(p, a.model, a.arm, a.seed) / "run.json").is_file()
-                and (rundir(p, a.model, a.arm, a.seed) / "sandbox_path.txt").is_file()]
+        todo = [
+            p
+            for p in pages
+            if not (rundir(p, a.model, a.arm, a.seed) / "run.json").is_file()
+            and (rundir(p, a.model, a.arm, a.seed) / "sandbox_path.txt").is_file()
+        ]
+
         def _go(ip):
-            time.sleep(3 * (ip[0] % a.jobs))    # stagger starts: opencode's sqlite setup races
+            time.sleep(3 * (ip[0] % a.jobs))  # stagger starts: opencode's sqlite setup races
             return run_one(ip[1], a.model, a.arm, a.seed)
+
         with ThreadPoolExecutor(a.jobs) as ex:
             list(ex.map(_go, enumerate(todo)))
     elif a.cmd == "reaudit":
@@ -581,18 +754,21 @@ def main() -> int:
             if not (rd / "run.json").is_file():
                 continue
             sb = Path((rd / "sandbox_path.txt").read_text().strip())
-            au = audit(json.loads((rd / "tool_calls.json").read_text()), sb, a.arm,
-                       paper_file(p).name)
+            au = audit(
+                json.loads((rd / "tool_calls.json").read_text()), sb, a.arm, paper_file(p).name
+            )
             au["tampered"] = json.loads((rd / "audit.json").read_text()).get("tampered", [])
             au["audit_ok"] = au["audit_ok"] and not au["tampered"]
             (rd / "audit.json").write_text(json.dumps(au, indent=1))
             run = json.loads((rd / "run.json").read_text())
             run["audit"] = au
             (rd / "run.json").write_text(json.dumps(run, indent=1))
-            print(f"[reaudit] {p} {variant(a.model, a.arm)}: ok={au['audit_ok']} "
-                  f"forbidden={au['forbidden']} denied={len(au['denied_attempts'])}")
+            print(
+                f"[reaudit] {p} {variant(a.model, a.arm)}: ok={au['audit_ok']} "
+                f"forbidden={au['forbidden']} denied={len(au['denied_attempts'])}"
+            )
     else:
-        for p in pages:                      # serial: one Wolfram kernel at a time
+        for p in pages:  # serial: one Wolfram kernel at a time
             if (rundir(p, a.model, a.arm, a.seed) / "run.json").is_file():
                 validate_one(p, a.model, a.arm, a.seed)
     return 0

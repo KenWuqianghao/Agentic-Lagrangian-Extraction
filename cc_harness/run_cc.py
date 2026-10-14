@@ -64,7 +64,9 @@ AGENT_TIMEOUT = int(os.environ.get("CC_AGENT_TIMEOUT", str(4 * 3600)))
 BUILTIN_TOOLS = "Read,Write,Edit,Glob,Grep"
 DISALLOWED = "Bash,WebFetch,WebSearch,Task,Agent,NotebookEdit"
 # The stored runs that drafts come from; RUNS may be a fresh tree (runs_root.sh).
-DRAFT_RUNS = Path(os.environ.get("CC_DRAFT_RUNS", Path.home() / "Documents/Github/heptapod/eval/benchmark_runs"))
+DRAFT_RUNS = Path(
+    os.environ.get("CC_DRAFT_RUNS", Path.home() / "Documents/Github/heptapod/eval/benchmark_runs")
+)
 DRAFT_NOTE = """\
 DRAFT: model.fr in the working directory is a first draft of this model from an earlier
 attempt. It does not pass the chain. Check it against the paper, repair it, and hand in the
@@ -78,16 +80,41 @@ def _pages(arg: str) -> list[str]:
 # ------------------------------------------------------------------ check
 def cmd_check(args) -> int:
     """A minimal `claude -p` with the absolute path: is the CLI logged in?"""
-    r = subprocess.run(["perl", "-e", "alarm 180; exec @ARGV", C.CLAUDE, "-p", "--model", args.model,
-                        "--output-format", "json", "Reply with the single word OK"],
-                       capture_output=True, text=True, cwd=tempfile.gettempdir(), stdin=subprocess.DEVNULL)
+    r = subprocess.run(
+        [
+            "perl",
+            "-e",
+            "alarm 180; exec @ARGV",
+            C.CLAUDE,
+            "-p",
+            "--model",
+            args.model,
+            "--output-format",
+            "json",
+            "Reply with the single word OK",
+        ],
+        capture_output=True,
+        text=True,
+        cwd=tempfile.gettempdir(),
+        stdin=subprocess.DEVNULL,
+    )
     try:
         out = json.loads(r.stdout)
     except json.JSONDecodeError:
         out = {}
     ok = r.returncode == 0 and not out.get("is_error") and "OK" in (out.get("result") or "")
-    print(json.dumps({"claude": C.CLAUDE, "model": args.model, "exit": r.returncode, "logged_in": ok,
-                      "result": (out.get("result") or r.stdout or r.stderr)[:300]}, indent=1))
+    print(
+        json.dumps(
+            {
+                "claude": C.CLAUDE,
+                "model": args.model,
+                "exit": r.returncode,
+                "logged_in": ok,
+                "result": (out.get("result") or r.stdout or r.stderr)[:300],
+            },
+            indent=1,
+        )
+    )
     return 0 if ok else 1
 
 
@@ -125,47 +152,94 @@ hypercharges from it), and what you write. You have a shell: wolframscript, Feyn
 # What the shell arm's agent may see of the repositories: the harness code its MCP server and
 # hooks run from, the validator tree, and its own run directory. No stored model.
 _VALIDATOR = Path.home() / "code" / "hep-pr" / "validator-main"
-SHELL_READ_ONLY = (HERE, HERE.parent / "pi_harness", HERE.parent / "benchmarks" / "fr_lint.py",
-                   HERE.parent / "benchmarks" / "heptapod_ablation" / "sm_ufo_particles.json",
-                   _VALIDATOR / "tools", _VALIDATOR / "eval", _VALIDATOR / "config.py")
+SHELL_READ_ONLY = (
+    HERE,
+    HERE.parent / "pi_harness",
+    HERE.parent / "benchmarks" / "fr_lint.py",
+    HERE.parent / "benchmarks" / "heptapod_ablation" / "sm_ufo_particles.json",
+    _VALIDATOR / "tools",
+    _VALIDATOR / "eval",
+    _VALIDATOR / "config.py",
+)
 SHELL_HIDDEN = (_VALIDATOR / "tools" / "feynrules" / "test_files" / "models" / "S1_LQ_RR.fr",)
 
 
 def write_configs(rundir: Path, sandbox: Path, args) -> dict:
-    env = {"CC_SANDBOX": str(sandbox), "CC_RUNDIR": str(rundir),
-           "CC_VALIDATE_BUDGET": str(args.validate_budget), "CC_REVIEW_BUDGET": str(args.review_budget),
-           "CC_MAX_CONTINUATIONS": str(args.max_continuations), "CC_AGENT_MODEL": args.model,
-           "CC_REVIEW_MODEL": args.review_model or args.model, "CC_PYTHON": sys.executable,
-           "CC_ARM": args.arm,
-           # The validator's settings (compile time limit, tree, lock) must be
-           # the runner's: the MCP server does not get them any other way.
-           **{k: v for k, v in os.environ.items() if k.startswith("HEPVAL_")}}
+    env = {
+        "CC_SANDBOX": str(sandbox),
+        "CC_RUNDIR": str(rundir),
+        "CC_VALIDATE_BUDGET": str(args.validate_budget),
+        "CC_REVIEW_BUDGET": str(args.review_budget),
+        "CC_MAX_CONTINUATIONS": str(args.max_continuations),
+        "CC_AGENT_MODEL": args.model,
+        "CC_REVIEW_MODEL": args.review_model or args.model,
+        "CC_PYTHON": sys.executable,
+        "CC_ARM": args.arm,
+        # The validator's settings (compile time limit, tree, lock) must be
+        # the runner's: the MCP server does not get them any other way.
+        **{k: v for k, v in os.environ.items() if k.startswith("HEPVAL_")},
+    }
     py = sys.executable
     arm = C.arm(args.arm)
     if arm.shell:
         # hepval's default validator path goes through ~/Documents, which the isolation hides.
         env["HEPVAL_ROOT"] = str(_VALIDATOR)
     # With a shell the PreToolUse guard cannot confine anything: isolation.py does.
-    hooks = {} if arm.shell else {"PreToolUse": [{"matcher": "*", "hooks": [
-        {"type": "command", "command": f"{py} {HERE / 'hooks' / 'pretool_guard.py'}"}]}]}
+    hooks = (
+        {}
+        if arm.shell
+        else {
+            "PreToolUse": [
+                {
+                    "matcher": "*",
+                    "hooks": [
+                        {
+                            "type": "command",
+                            "command": f"{py} {HERE / 'hooks' / 'pretool_guard.py'}",
+                        }
+                    ],
+                }
+            ]
+        }
+    )
     if "validate_model" in arm.tools:
         # The gate asks for a validate_model verdict; without the tool there is none to ask for.
-        hooks["Stop"] = [{"hooks": [
-            {"type": "command", "command": f"{py} {HERE / 'hooks' / 'stop_gate.py'}"}]}]
+        hooks["Stop"] = [
+            {"hooks": [{"type": "command", "command": f"{py} {HERE / 'hooks' / 'stop_gate.py'}"}]}
+        ]
     denied = ["WebFetch", "WebSearch", "Task", "Agent"] + ([] if arm.shell else ["Bash"])
     settings = {"env": env, "permissions": {"deny": denied}, "hooks": hooks}
-    servers = {C.SERVER_NAME: {"type": "stdio", "command": py,
-                               "args": [str(HERE / "heptapod_mcp.py")], "env": env}} if arm.tools else {}
+    servers = (
+        {
+            C.SERVER_NAME: {
+                "type": "stdio",
+                "command": py,
+                "args": [str(HERE / "heptapod_mcp.py")],
+                "env": env,
+            }
+        }
+        if arm.tools
+        else {}
+    )
     (rundir / "settings.json").write_text(json.dumps(settings, indent=1))
     (rundir / "mcp.json").write_text(json.dumps({"mcpServers": servers}, indent=1))
-    (rundir / "protocol.md").write_text(C.render_protocol(
-        PROTOCOL.read_text(), arm, args.validate_budget, args.max_continuations, rundir=str(rundir)))
+    (rundir / "protocol.md").write_text(
+        C.render_protocol(
+            PROTOCOL.read_text(),
+            arm,
+            args.validate_budget,
+            args.max_continuations,
+            rundir=str(rundir),
+        )
+    )
     return env
 
 
 NO_GAUGE_GROUPS = "SM add-on => no M$GaugeGroups block; "
-GAUGE_GROUPS_ALLOWED = ("SM add-on: SM.fr declares the SM gauge groups; add an M$GaugeGroups block only for a gauge "
-                        "group that the paper adds (see the protocol); ")
+GAUGE_GROUPS_ALLOWED = (
+    "SM add-on: SM.fr declares the SM gauge groups; add an M$GaugeGroups block only for a gauge "
+    "group that the paper adds (see the protocol); "
+)
 
 
 def task_prompt(page: str, arm: C.Arm, draft: bool = False) -> str:
@@ -191,26 +265,62 @@ def task_prompt(page: str, arm: C.Arm, draft: bool = False) -> str:
 
 def agent_cmd(rundir: Path, model: str, arm: C.Arm, sandbox: Path | None = None) -> list[str]:
     if arm.shell:
-        cmd = [C.CLAUDE, "-p", "--output-format", "stream-json", "--verbose", "--model", model,
-               "--setting-sources", "", "--settings", str(rundir / "settings.json"),
-               "--mcp-config", str(rundir / "mcp.json"), "--strict-mcp-config",
-               "--permission-mode", "bypassPermissions",
-               "--append-system-prompt-file", str(rundir / "protocol.md"),
-               # The wait tools let a headless agent end its turn "to wait"; the session then ends.
-               "--disallowedTools", "WebFetch,WebSearch,Task,Agent"
-               + (",Monitor,ScheduleWakeup,CronCreate" if arm.feedback == "cover" else "")]
-        from hepval import STATE          # the kernel lock the wrapper and hepval share
-        return isolation.isolate(cmd, sandbox, read_only=SHELL_READ_ONLY, read_write=(rundir, STATE),
-                                 hidden=SHELL_HIDDEN)
-    return [C.CLAUDE, "-p", "--output-format", "stream-json", "--verbose", "--model", model,
-            "--setting-sources", "", "--settings", str(rundir / "settings.json"),
-            "--mcp-config", str(rundir / "mcp.json"), "--strict-mcp-config",
-            "--tools", BUILTIN_TOOLS,
-            "--allowedTools", ",".join((BUILTIN_TOOLS, *C.mcp_tool_names(arm))),
-            "--permission-mode", "dontAsk",
-            "--append-system-prompt-file", str(rundir / "protocol.md"),
-            # Variadic: it must come last, and the prompt goes on stdin.
-            "--disallowedTools", DISALLOWED]
+        cmd = [
+            C.CLAUDE,
+            "-p",
+            "--output-format",
+            "stream-json",
+            "--verbose",
+            "--model",
+            model,
+            "--setting-sources",
+            "",
+            "--settings",
+            str(rundir / "settings.json"),
+            "--mcp-config",
+            str(rundir / "mcp.json"),
+            "--strict-mcp-config",
+            "--permission-mode",
+            "bypassPermissions",
+            "--append-system-prompt-file",
+            str(rundir / "protocol.md"),
+            # The wait tools let a headless agent end its turn "to wait"; the session then ends.
+            "--disallowedTools",
+            "WebFetch,WebSearch,Task,Agent"
+            + (",Monitor,ScheduleWakeup,CronCreate" if arm.feedback == "cover" else ""),
+        ]
+        from hepval import STATE  # the kernel lock the wrapper and hepval share
+
+        return isolation.isolate(
+            cmd, sandbox, read_only=SHELL_READ_ONLY, read_write=(rundir, STATE), hidden=SHELL_HIDDEN
+        )
+    return [
+        C.CLAUDE,
+        "-p",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        model,
+        "--setting-sources",
+        "",
+        "--settings",
+        str(rundir / "settings.json"),
+        "--mcp-config",
+        str(rundir / "mcp.json"),
+        "--strict-mcp-config",
+        "--tools",
+        BUILTIN_TOOLS,
+        "--allowedTools",
+        ",".join((BUILTIN_TOOLS, *C.mcp_tool_names(arm))),
+        "--permission-mode",
+        "dontAsk",
+        "--append-system-prompt-file",
+        str(rundir / "protocol.md"),
+        # Variadic: it must come last, and the prompt goes on stdin.
+        "--disallowedTools",
+        DISALLOWED,
+    ]
 
 
 # ------------------------------------------------------------------ stream
@@ -226,8 +336,12 @@ def parse_stream(lines: list[str]) -> dict:
             continue
         t = ev.get("type")
         if t == "system" and ev.get("subtype") == "init":
-            init = {"model": ev.get("model"), "tools": ev.get("tools"),
-                    "mcp_servers": ev.get("mcp_servers"), "permission_mode": ev.get("permissionMode")}
+            init = {
+                "model": ev.get("model"),
+                "tools": ev.get("tools"),
+                "mcp_servers": ev.get("mcp_servers"),
+                "permission_mode": ev.get("permissionMode"),
+            }
         elif t == "assistant":
             m = ev.get("message") or {}
             for b in m.get("content") or []:
@@ -243,21 +357,47 @@ def parse_stream(lines: list[str]) -> dict:
     # usage in the stream is a partial snapshot (output_tokens of 2 or 17).
     last = results[-1] if results else {}
     ru = last.get("usage") or {}
-    usage = {k: int(ru.get(k) or 0) for k in ("input_tokens", "cache_creation_input_tokens",
-                                                "cache_read_input_tokens", "output_tokens")}
-    usage["thinking_tokens"] = int((ru.get("output_tokens_details") or {}).get("thinking_tokens") or 0)
-    usage["input_total"] = usage["input_tokens"] + usage["cache_creation_input_tokens"] + usage["cache_read_input_tokens"]
-    usage["per_result_event"] = [{k: (r.get("usage") or {}).get(k) for k in
-                                  ("input_tokens", "cache_read_input_tokens", "output_tokens")} for r in results]
-    return {"tools": tools, "usage": usage, "n_api_calls": len(seen_msgs),
-            "cost_usd": float(last.get("total_cost_usd") or 0),
-            "result_usage": last.get("usage"), "num_turns": last.get("num_turns"),
-            "duration_ms": last.get("duration_ms"), "is_error": last.get("is_error"),
-            "result_subtype": last.get("subtype"), "n_result_events": len(results),
-            "final_text": last.get("result") or final, "init": init,
-            # A session that ends on an API error (the 64k output cap, a
-            # transport error) never reaches the Stop hook.
-            "api_error": (last.get("result") or "")[:300] if last.get("is_error") else None}
+    usage = {
+        k: int(ru.get(k) or 0)
+        for k in (
+            "input_tokens",
+            "cache_creation_input_tokens",
+            "cache_read_input_tokens",
+            "output_tokens",
+        )
+    }
+    usage["thinking_tokens"] = int(
+        (ru.get("output_tokens_details") or {}).get("thinking_tokens") or 0
+    )
+    usage["input_total"] = (
+        usage["input_tokens"]
+        + usage["cache_creation_input_tokens"]
+        + usage["cache_read_input_tokens"]
+    )
+    usage["per_result_event"] = [
+        {
+            k: (r.get("usage") or {}).get(k)
+            for k in ("input_tokens", "cache_read_input_tokens", "output_tokens")
+        }
+        for r in results
+    ]
+    return {
+        "tools": tools,
+        "usage": usage,
+        "n_api_calls": len(seen_msgs),
+        "cost_usd": float(last.get("total_cost_usd") or 0),
+        "result_usage": last.get("usage"),
+        "num_turns": last.get("num_turns"),
+        "duration_ms": last.get("duration_ms"),
+        "is_error": last.get("is_error"),
+        "result_subtype": last.get("subtype"),
+        "n_result_events": len(results),
+        "final_text": last.get("result") or final,
+        "init": init,
+        # A session that ends on an API error (the 64k output cap, a
+        # transport error) never reaches the Stop hook.
+        "api_error": (last.get("result") or "")[:300] if last.get("is_error") else None,
+    }
 
 
 # ------------------------------------------------------------------- agent
@@ -278,21 +418,42 @@ def run_agent(page: str, seed: int, args) -> dict:
     env_cc = write_configs(rundir, sandbox, args)
     cmd = agent_cmd(rundir, args.model, C.arm(args.arm), sandbox)
     (rundir / "command.json").write_text(json.dumps(cmd, indent=1))
-    env = {**os.environ, **env_cc,
-           # validate_model can hold the tool call for one queued compile plus
-           # its own (2 x 900 s): the default MCP tool timeout is far shorter.
-           "MCP_TOOL_TIMEOUT": str(3 * 3600 * 1000), "MCP_TIMEOUT": "60000"}
+    env = {
+        **os.environ,
+        **env_cc,
+        # validate_model can hold the tool call for one queued compile plus
+        # its own (2 x 900 s): the default MCP tool timeout is far shorter.
+        "MCP_TOOL_TIMEOUT": str(3 * 3600 * 1000),
+        "MCP_TIMEOUT": "60000",
+    }
     if C.arm(args.arm).shell:
         from hepval import LOCK
-        env.update({"PATH": f"{isolation.write_wolframscript_wrapper(sandbox, LOCK)}:{os.environ['PATH']}",
-                    "FEYNRULES_PATH": str(isolation.FEYNRULES), "MG5_PATH": str(isolation.MG5)})
+
+        env.update(
+            {
+                "PATH": f"{isolation.write_wolframscript_wrapper(sandbox, LOCK)}:{os.environ['PATH']}",
+                "FEYNRULES_PATH": str(isolation.FEYNRULES),
+                "MG5_PATH": str(isolation.MG5),
+            }
+        )
     if getattr(args, "max_output_tokens", None):
         env["CLAUDE_CODE_MAX_OUTPUT_TOKENS"] = str(args.max_output_tokens)
     print(f"[cc] {args.variant} {page} s{seed} ...", flush=True)
     t0 = time.time()
-    with open(rundir / "agent_stream.jsonl", "w") as out, open(rundir / "agent_stderr.txt", "w") as err:
-        p = subprocess.Popen(cmd, cwd=str(sandbox), env=env, stdin=subprocess.PIPE, stdout=out,
-                             stderr=err, start_new_session=True, text=True)
+    with (
+        open(rundir / "agent_stream.jsonl", "w") as out,
+        open(rundir / "agent_stderr.txt", "w") as err,
+    ):
+        p = subprocess.Popen(
+            cmd,
+            cwd=str(sandbox),
+            env=env,
+            stdin=subprocess.PIPE,
+            stdout=out,
+            stderr=err,
+            start_new_session=True,
+            text=True,
+        )
         killed = {"t": False}
 
         def _watchdog():
@@ -302,6 +463,7 @@ def run_agent(page: str, seed: int, args) -> dict:
                     os.killpg(os.getpgid(p.pid), signal.SIGTERM)
                     return
                 time.sleep(10)
+
         threading.Thread(target=_watchdog, daemon=True).start()
         p.stdin.write(prompt)
         p.stdin.close()
@@ -321,11 +483,19 @@ def _jsonl(path: Path) -> list[dict]:
     return out
 
 
-def finalize(page: str, seed: int, args, rundir: Path, sandbox: Path, rc: int,
-             secs: float | None, timed_out: bool) -> dict:
+def finalize(
+    page: str,
+    seed: int,
+    args,
+    rundir: Path,
+    sandbox: Path,
+    rc: int,
+    secs: float | None,
+    timed_out: bool,
+) -> dict:
     parsed = parse_stream((rundir / "agent_stream.jsonl").read_text(errors="replace").splitlines())
     if secs is None and parsed.get("duration_ms"):
-        secs = round(parsed["duration_ms"] / 1000, 1)     # finalize: the CLI's own wall time
+        secs = round(parsed["duration_ms"] / 1000, 1)  # finalize: the CLI's own wall time
     (rundir / "agent_out.md").write_text(parsed["final_text"] or "")
     fr_dst = rundir / "model" / f"{page}_gen.fr"
     fr_dst.parent.mkdir(parents=True, exist_ok=True)
@@ -338,55 +508,117 @@ def finalize(page: str, seed: int, args, rundir: Path, sandbox: Path, rc: int,
     denied = [h for h in hooks if h.get("decision") == "deny"]
     gate = _jsonl(rundir / "stop_gate_log.jsonl")
     reviews = []
-    for m in sorted((rundir / "review").glob("review*_meta.json")) if (rundir / "review").is_dir() else []:
+    for m in (
+        sorted((rundir / "review").glob("review*_meta.json"))
+        if (rundir / "review").is_dir()
+        else []
+    ):
         meta = json.loads(m.read_text())
         n = m.name.split("_")[0][6:]
-        txt = (rundir / "review" / f"review{n}.md").read_text() if (rundir / "review" / f"review{n}.md").is_file() else ""
-        verdict = next((ln.strip() for ln in reversed(txt.splitlines()) if ln.strip().upper().startswith("VERDICT:")), None)
-        reviews.append({"n": int(n), "verdict": verdict, "exit": meta.get("exit"), "seconds": meta.get("seconds"),
-                        "cost_usd": meta.get("total_cost_usd"), "usage": meta.get("usage"),
-                        "reviewed_final_model": meta.get("model_sha") == C.sha(src)})
+        txt = (
+            (rundir / "review" / f"review{n}.md").read_text()
+            if (rundir / "review" / f"review{n}.md").is_file()
+            else ""
+        )
+        verdict = next(
+            (
+                ln.strip()
+                for ln in reversed(txt.splitlines())
+                if ln.strip().upper().startswith("VERDICT:")
+            ),
+            None,
+        )
+        reviews.append(
+            {
+                "n": int(n),
+                "verdict": verdict,
+                "exit": meta.get("exit"),
+                "seconds": meta.get("seconds"),
+                "cost_usd": meta.get("total_cost_usd"),
+                "usage": meta.get("usage"),
+                "reviewed_final_model": meta.get("model_sha") == C.sha(src),
+            }
+        )
     names = parsed["tools"]
     counts = {n: names.count(n) for n in sorted(set(names))}
     short = {k.replace(f"mcp__{C.SERVER_NAME}__", ""): v for k, v in counts.items()}
     agent = {
-        "ok": rc == 0 and delivered and not timed_out, "exit": rc, "timed_out": timed_out,
-        "seconds": secs, "engine": "claude-code", "claude_bin": C.CLAUDE,
-        "claude_version": subprocess.run([C.CLAUDE, "--version"], capture_output=True, text=True).stdout.strip(),
-        "model": args.model, "review_model": args.review_model or args.model, "arm": "harness",
-        "ablation_arm": args.arm, "draft_from": getattr(args, "draft_from", "") or None,
+        "ok": rc == 0 and delivered and not timed_out,
+        "exit": rc,
+        "timed_out": timed_out,
+        "seconds": secs,
+        "engine": "claude-code",
+        "claude_bin": C.CLAUDE,
+        "claude_version": subprocess.run(
+            [C.CLAUDE, "--version"], capture_output=True, text=True
+        ).stdout.strip(),
+        "model": args.model,
+        "review_model": args.review_model or args.model,
+        "arm": "harness",
+        "ablation_arm": args.arm,
+        "draft_from": getattr(args, "draft_from", "") or None,
         "mode": "cc_harness",
         "tool_policy": "enforced (--tools allow-list, --disallowedTools, PreToolUse sandbox guard, strict MCP)",
         # A denied call never ran, so nothing outside the sandbox was read; the
         # audit is clean only if nothing had to be denied at all.
         "audit_ok": not denied,
         "n_path_denied": sum("outside the sandbox" in str(d.get("reason")) for d in denied),
-        "blocked": [{"tool": d.get("tool"), "reason": d.get("reason"), "input": d.get("input")} for d in denied][:30],
-        "n_blocked": len(denied), "contaminated": False,
-        "read_paper": any("text/" in json.dumps(h.get("input")) for h in hooks if h.get("tool") == "Read"),
-        "usage": parsed["usage"], "cost_usd": parsed["cost_usd"], "n_api_calls": parsed["n_api_calls"],
-        "num_turns": parsed["num_turns"], "result_subtype": parsed["result_subtype"],
-        "is_error": parsed["is_error"], "n_result_events": parsed["n_result_events"],
+        "blocked": [
+            {"tool": d.get("tool"), "reason": d.get("reason"), "input": d.get("input")}
+            for d in denied
+        ][:30],
+        "n_blocked": len(denied),
+        "contaminated": False,
+        "read_paper": any(
+            "text/" in json.dumps(h.get("input")) for h in hooks if h.get("tool") == "Read"
+        ),
+        "usage": parsed["usage"],
+        "cost_usd": parsed["cost_usd"],
+        "n_api_calls": parsed["n_api_calls"],
+        "num_turns": parsed["num_turns"],
+        "result_subtype": parsed["result_subtype"],
+        "is_error": parsed["is_error"],
+        "n_result_events": parsed["n_result_events"],
         "api_error": parsed["api_error"],
         "max_output_tokens": getattr(args, "max_output_tokens", None) or "CLI default (64000)",
-        "tool_counts": short, "n_tool_calls": len(names),
-        "n_validate": state.get("validations"), "n_review": state.get("reviews"),
-        "validate_budget": args.validate_budget, "review_budget": args.review_budget,
-        "last_inloop": state.get("last_validation"), "reviews": reviews,
-        "stop_gate": {"blocks": sum(g.get("decision") == "block" for g in gate),
-                      "decisions": [{k: g.get(k) for k in ("decision", "why", "stop_hook_active", "continuations_before")}
-                                    for g in gate]},
+        "tool_counts": short,
+        "n_tool_calls": len(names),
+        "n_validate": state.get("validations"),
+        "n_review": state.get("reviews"),
+        "validate_budget": args.validate_budget,
+        "review_budget": args.review_budget,
+        "last_inloop": state.get("last_validation"),
+        "reviews": reviews,
+        "stop_gate": {
+            "blocks": sum(g.get("decision") == "block" for g in gate),
+            "decisions": [
+                {
+                    k: g.get(k)
+                    for k in ("decision", "why", "stop_hook_active", "continuations_before")
+                }
+                for g in gate
+            ],
+        },
         "init": parsed["init"],
     }
-    row = {"page": page, "variant": args.variant, "seed": seed, "mode": agent["mode"],
-           "paper_source": "tex" if run_pi.paper_file(page).name.endswith("_source.tex") else "txt",
-           "paper_file": run_pi.paper_file(page).name, "agent": agent,
-           "render": {"rendered": delivered, "fr": str(fr_dst) if delivered else None}}
+    row = {
+        "page": page,
+        "variant": args.variant,
+        "seed": seed,
+        "mode": agent["mode"],
+        "paper_source": "tex" if run_pi.paper_file(page).name.endswith("_source.tex") else "txt",
+        "paper_file": run_pi.paper_file(page).name,
+        "agent": agent,
+        "render": {"rendered": delivered, "fr": str(fr_dst) if delivered else None},
+    }
     (rundir / "run.json").write_text(json.dumps(row, indent=1, default=str))
     u = parsed["usage"]
-    print(f"[cc]   {page} s{seed}: ok={agent['ok']} delivered={delivered} {secs}s "
-          f"validate={state.get('validations')} review={state.get('reviews')} gate_blocks={agent['stop_gate']['blocks']} "
-          f"in={u['input_total']:,} out={u['output_tokens']:,} ${parsed['cost_usd']:.2f}", flush=True)
+    print(
+        f"[cc]   {page} s{seed}: ok={agent['ok']} delivered={delivered} {secs}s "
+        f"validate={state.get('validations')} review={state.get('reviews')} gate_blocks={agent['stop_gate']['blocks']} "
+        f"in={u['input_total']:,} out={u['output_tokens']:,} ${parsed['cost_usd']:.2f}",
+        flush=True,
+    )
     return row
 
 
@@ -429,16 +661,35 @@ def cmd_usage(args) -> int:
         if not (d / "run.json").is_file():
             continue
         a = json.loads((d / "run.json").read_text())["agent"]
-        rev_in = sum(int((r.get("usage") or {}).get(k) or 0) for r in a.get("reviews") or []
-                     for k in ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens"))
-        rows.append({"page": page, "minutes": round((a.get("seconds") or 0) / 60, 1),
-                     "input_total": a["usage"]["input_total"], "input_uncached": a["usage"]["input_tokens"]
-                     + a["usage"]["cache_creation_input_tokens"], "output": a["usage"]["output_tokens"],
-                     "referee_input_total": rev_in, "cost_usd": round((a.get("cost_usd") or 0)
-                     + sum(float(r.get("cost_usd") or 0) for r in a.get("reviews") or []), 2),
-                     "validate": a.get("n_validate"), "review": a.get("n_review"),
-                     "gate_blocks": (a.get("stop_gate") or {}).get("blocks")})
-    med = {k: statistics.median([r[k] for r in rows]) for k in ("minutes", "input_total", "output")} if rows else {}
+        rev_in = sum(
+            int((r.get("usage") or {}).get(k) or 0)
+            for r in a.get("reviews") or []
+            for k in ("input_tokens", "cache_creation_input_tokens", "cache_read_input_tokens")
+        )
+        rows.append(
+            {
+                "page": page,
+                "minutes": round((a.get("seconds") or 0) / 60, 1),
+                "input_total": a["usage"]["input_total"],
+                "input_uncached": a["usage"]["input_tokens"]
+                + a["usage"]["cache_creation_input_tokens"],
+                "output": a["usage"]["output_tokens"],
+                "referee_input_total": rev_in,
+                "cost_usd": round(
+                    (a.get("cost_usd") or 0)
+                    + sum(float(r.get("cost_usd") or 0) for r in a.get("reviews") or []),
+                    2,
+                ),
+                "validate": a.get("n_validate"),
+                "review": a.get("n_review"),
+                "gate_blocks": (a.get("stop_gate") or {}).get("blocks"),
+            }
+        )
+    med = (
+        {k: statistics.median([r[k] for r in rows]) for k in ("minutes", "input_total", "output")}
+        if rows
+        else {}
+    )
     print(json.dumps({"variant": args.variant, "rows": rows, "median": med}, indent=1))
     return 0
 
@@ -451,23 +702,41 @@ def main() -> int:
     c.set_defaults(fn=cmd_check)
     r = sub.add_parser("run")
     r.add_argument("--variant", default="cc_sonnet_harness")
-    r.add_argument("--arm", default="full", choices=sorted(C.ARMS),
-                   help="ablation arm: the MCP tools the agent has and what validate_model shows")
-    r.add_argument("--draft-from", default="", metavar="VARIANT",
-                   help="start from the stored first draft of this variant (repair design)")
-    r.add_argument("--pages", required=True, help="comma-separated, or 'all' for the 16 single-model papers")
+    r.add_argument(
+        "--arm",
+        default="full",
+        choices=sorted(C.ARMS),
+        help="ablation arm: the MCP tools the agent has and what validate_model shows",
+    )
+    r.add_argument(
+        "--draft-from",
+        default="",
+        metavar="VARIANT",
+        help="start from the stored first draft of this variant (repair design)",
+    )
+    r.add_argument(
+        "--pages", required=True, help="comma-separated, or 'all' for the 16 single-model papers"
+    )
     r.add_argument("--model", default="claude-sonnet-5")
     r.add_argument("--review-model", default="")
     r.add_argument("--seeds", type=int, default=1)
-    r.add_argument("--first-seed", type=int, default=1,
-                   help="run seeds first-seed..seeds: a later batch must not touch the earlier seeds "
-                        "(a run that failed is run again when its seed is in range)")
+    r.add_argument(
+        "--first-seed",
+        type=int,
+        default=1,
+        help="run seeds first-seed..seeds: a later batch must not touch the earlier seeds "
+        "(a run that failed is run again when its seed is in range)",
+    )
     r.add_argument("--parallel", type=int, default=4)
     r.add_argument("--validate-budget", type=int, default=10)
     r.add_argument("--review-budget", type=int, default=2)
     r.add_argument("--max-continuations", type=int, default=3)
-    r.add_argument("--max-output-tokens", type=int, default=0,
-                   help="CLAUDE_CODE_MAX_OUTPUT_TOKENS for the agent; 0 = the CLI default (64000)")
+    r.add_argument(
+        "--max-output-tokens",
+        type=int,
+        default=0,
+        help="CLAUDE_CODE_MAX_OUTPUT_TOKENS for the agent; 0 = the CLI default (64000)",
+    )
     r.add_argument("--force", action="store_true")
     r.set_defaults(fn=cmd_run)
     f = sub.add_parser("finalize", help="rebuild run.json after a runner crash")

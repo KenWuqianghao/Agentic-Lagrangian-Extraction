@@ -50,7 +50,9 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-RUNS = Path(os.environ.get("PI_HARNESS_RUNS", Path.home() / "Documents/Github/heptapod/eval/benchmark_runs"))
+RUNS = Path(
+    os.environ.get("PI_HARNESS_RUNS", Path.home() / "Documents/Github/heptapod/eval/benchmark_runs")
+)
 SM_FR = Path.home() / "Documents/Github/heptapod/tools/feynrules/test_files/models/SM.fr"
 ADDENDUM = RUNS / "prompt_addendum_v3.txt"
 PI = os.environ.get("PI_BIN", str(Path.home() / ".hermes/node/bin/pi"))
@@ -63,8 +65,10 @@ AGENT_TIMEOUT = int(os.environ.get("PI_AGENT_TIMEOUT", str(4 * 3600)))
 HARNESS_TOOLS = "read,write,edit,grep,find,ls,lint_model,validate_model,massbasis,review_model"
 
 # The 16 single-model papers of ABLATION_2026-09-17.md, section 2.
-SINGLE_MODEL = ("331,ALRM_general,B-L-SM,ChernSimonsPortal,EffLRSM,GeneralU1,HeavyN,MDMmodel,"
-                "Monotops,NJLComposite,SLQrules,SMWeinberg,Top-Philic-Zprime,Wprime,pNG,pSPSS")
+SINGLE_MODEL = (
+    "331,ALRM_general,B-L-SM,ChernSimonsPortal,EffLRSM,GeneralU1,HeavyN,MDMmodel,"
+    "Monotops,NJLComposite,SLQrules,SMWeinberg,Top-Philic-Zprime,Wprime,pNG,pSPSS"
+)
 
 NOTOOLS_NOTE = """\
 NO TOOLS: this run has no file, shell, network or code tools. Everything you need is in
@@ -101,24 +105,35 @@ def _file_rules(base: str, page: str) -> str:
     """The no-tools arm's substitutions (rerun_extract.build_prompt, notools):
     no schema, the agent writes the whole .fr. Shared by both pi arms, so the
     task text is the same one the Claude Code arm had."""
-    base = _sub_once(base, r"^SCHEMA: .*$",
-                     "FORMAT: write a complete FeynRules .fr add-on model file yourself "
-                     "(M$ModelName, M$Information, M$InteractionOrderHierarchy, IndexRange "
-                     "declarations for new indices, M$Parameters, M$ClassesDescription, the "
-                     "Lagrangian terms and one LTotal). It is loaded on top of SM.fr, included "
-                     "verbatim above between the SM.fr markers.", "SCHEMA")
-    base = _sub_once(base, r"^3\. Include the main new-physics lagrangian_terms .*$",
-                     "3. Write the main new-physics Lagrangian terms (FeynRules/Mathematica "
-                     "syntax and idioms).", "TASK item 3")
-    base = _sub_once(base, r"^SCHEMA RULES: .*$",
-                     "FILE RULES: use FeynRules syntax for every value (rationals -1/3, decimals "
-                     "1500.); SM add-on => no M$GaugeGroups block; the indices Colour, Gluon, "
-                     "Generation, SU2D and SU2W are declared by SM.fr; any OTHER index (a "
-                     "colour-sextet index, a new-generation index) needs "
-                     "`IndexRange[Index[X]] = NoUnfold[Range[n]];` with the correct size; every "
-                     "class gets a unique label S[n]/F[n]/V[n] with n >= 100; "
-                     "SelfConjugate -> False for complex fields (distinct antiparticle), True for "
-                     "real/Majorana fields.", "SCHEMA RULES")
+    base = _sub_once(
+        base,
+        r"^SCHEMA: .*$",
+        "FORMAT: write a complete FeynRules .fr add-on model file yourself "
+        "(M$ModelName, M$Information, M$InteractionOrderHierarchy, IndexRange "
+        "declarations for new indices, M$Parameters, M$ClassesDescription, the "
+        "Lagrangian terms and one LTotal). It is loaded on top of SM.fr, included "
+        "verbatim above between the SM.fr markers.",
+        "SCHEMA",
+    )
+    base = _sub_once(
+        base,
+        r"^3\. Include the main new-physics lagrangian_terms .*$",
+        "3. Write the main new-physics Lagrangian terms (FeynRules/Mathematica syntax and idioms).",
+        "TASK item 3",
+    )
+    base = _sub_once(
+        base,
+        r"^SCHEMA RULES: .*$",
+        "FILE RULES: use FeynRules syntax for every value (rationals -1/3, decimals "
+        "1500.); SM add-on => no M$GaugeGroups block; the indices Colour, Gluon, "
+        "Generation, SU2D and SU2W are declared by SM.fr; any OTHER index (a "
+        "colour-sextet index, a new-generation index) needs "
+        "`IndexRange[Index[X]] = NoUnfold[Range[n]];` with the correct size; every "
+        "class gets a unique label S[n]/F[n]/V[n] with n >= 100; "
+        "SelfConjugate -> False for complex fields (distinct antiparticle), True for "
+        "real/Majorana fields.",
+        "SCHEMA RULES",
+    )
     return base
 
 
@@ -126,35 +141,57 @@ def build_prompt(page: str, arm: str) -> str:
     base = (RUNS / page / "prompt.txt").read_text()
     paper = paper_file(page)
     src = paper.name.endswith("_source.tex")
-    src_note = ("the paper's LaTeX source: equations, fractions and roots are exact"
-                if src else "text extracted from the PDF")
+    src_note = (
+        "the paper's LaTeX source: equations, fractions and roots are exact"
+        if src
+        else "text extracted from the PDF"
+    )
     addendum = ADDENDUM.read_text().strip()
     base = _file_rules(base, page)
     if arm == "plain":
-        base = _sub_once(base, r"^PAPER: .*$",
-                         f"PAPER: {src_note}, included verbatim above between the PAPER "
-                         "markers; it is authoritative.", "PAPER")
-        base = _sub_once(base, r"^OUTPUT: .*$",
-                         "OUTPUT: your FINAL message must contain exactly one fenced code block "
-                         "tagged mathematica containing ONLY the complete .fr file (no commentary "
-                         f'inside the fences). Set M$ModelName = "{page}_gen".', "OUTPUT")
+        base = _sub_once(
+            base,
+            r"^PAPER: .*$",
+            f"PAPER: {src_note}, included verbatim above between the PAPER "
+            "markers; it is authoritative.",
+            "PAPER",
+        )
+        base = _sub_once(
+            base,
+            r"^OUTPUT: .*$",
+            "OUTPUT: your FINAL message must contain exactly one fenced code block "
+            "tagged mathematica containing ONLY the complete .fr file (no commentary "
+            f'inside the fences). Set M$ModelName = "{page}_gen".',
+            "OUTPUT",
+        )
         base = base.rstrip() + "\n\n" + NOTOOLS_NOTE + "\n\n" + addendum + "\n"
-        docs = (f"===== BEGIN SM.fr (tools/feynrules/test_files/models/SM.fr) =====\n"
-                f"{SM_FR.read_text()}\n===== END SM.fr =====\n\n"
-                f"===== BEGIN PAPER ({paper.name}; {src_note}) =====\n"
-                f"{paper.read_text(errors='replace')}\n===== END PAPER =====\n\n")
+        docs = (
+            f"===== BEGIN SM.fr (tools/feynrules/test_files/models/SM.fr) =====\n"
+            f"{SM_FR.read_text()}\n===== END SM.fr =====\n\n"
+            f"===== BEGIN PAPER ({paper.name}; {src_note}) =====\n"
+            f"{paper.read_text(errors='replace')}\n===== END PAPER =====\n\n"
+        )
         return docs + base
     rel = f"eval/benchmark_runs/{page}/text/{paper.name}"
-    base = base.replace("included verbatim above between the SM.fr markers",
-                        "in the working directory as SM.fr")
-    base = _sub_once(base, r"^PAPER: .*$",
-                     f'PAPER: {src_note}, at "{rel}" in the working directory (read all of it '
-                     "with the read tool; it is authoritative).", "PAPER")
-    base = _sub_once(base, r"^OUTPUT: .*$",
-                     "OUTPUT: write the complete .fr file to model.fr in the working directory "
-                     f'with M$ModelName = "{page}_gen". model.fr as it stands when you stop is '
-                     "the deliverable. Your final message summarises the model and the last "
-                     "validate_model verdict.", "OUTPUT")
+    base = base.replace(
+        "included verbatim above between the SM.fr markers", "in the working directory as SM.fr"
+    )
+    base = _sub_once(
+        base,
+        r"^PAPER: .*$",
+        f'PAPER: {src_note}, at "{rel}" in the working directory (read all of it '
+        "with the read tool; it is authoritative).",
+        "PAPER",
+    )
+    base = _sub_once(
+        base,
+        r"^OUTPUT: .*$",
+        "OUTPUT: write the complete .fr file to model.fr in the working directory "
+        f'with M$ModelName = "{page}_gen". model.fr as it stands when you stop is '
+        "the deliverable. Your final message summarises the model and the last "
+        "validate_model verdict.",
+        "OUTPUT",
+    )
     return base.rstrip() + "\n\n" + SANDBOX_NOTE + "\n\n" + addendum + "\n"
 
 
@@ -174,15 +211,22 @@ def make_sandbox(page: str, rundir: Path) -> Path:
 # ------------------------------------------------------------------- agent
 def _agent_env(sandbox: Path, rundir: Path, args) -> dict:
     env = dict(os.environ)
-    env.update({
-        "PI_CODING_AGENT_DIR": str(AGENT_DIR),
-        "PATH": f"{Path(PI).parent}:{env.get('PATH', '')}",
-        "HEPTAPOD_SANDBOX": str(sandbox), "HEPTAPOD_RUNDIR": str(rundir),
-        "HEPTAPOD_HEPVAL": str(HEPVAL), "HEPTAPOD_PYTHON": sys.executable,
-        "HEPTAPOD_ROLE": "agent", "HEPTAPOD_ARM": args.arm, "HEPTAPOD_PI": PI, "HEPTAPOD_MODEL": args.model,
-        "HEPTAPOD_VALIDATE_BUDGET": str(args.validate_budget),
-        "HEPTAPOD_REVIEW_BUDGET": str(args.review_budget),
-    })
+    env.update(
+        {
+            "PI_CODING_AGENT_DIR": str(AGENT_DIR),
+            "PATH": f"{Path(PI).parent}:{env.get('PATH', '')}",
+            "HEPTAPOD_SANDBOX": str(sandbox),
+            "HEPTAPOD_RUNDIR": str(rundir),
+            "HEPTAPOD_HEPVAL": str(HEPVAL),
+            "HEPTAPOD_PYTHON": sys.executable,
+            "HEPTAPOD_ROLE": "agent",
+            "HEPTAPOD_ARM": args.arm,
+            "HEPTAPOD_PI": PI,
+            "HEPTAPOD_MODEL": args.model,
+            "HEPTAPOD_VALIDATE_BUDGET": str(args.validate_budget),
+            "HEPTAPOD_REVIEW_BUDGET": str(args.review_budget),
+        }
+    )
     if args.extra_ext:
         env["HEPTAPOD_REVIEW_EXTRA_EXT"] = args.extra_ext
     return env
@@ -225,8 +269,13 @@ def _parse_stream(lines: list[str]) -> dict:
             texts = [b.get("text", "") for b in m.get("content") or [] if b.get("type") == "text"]
             if texts:
                 final = "\n".join(texts)
-    return {"tools": tools, "usage": usage, "final_text": final, "n_turns": n_turns,
-            "errors": errors}
+    return {
+        "tools": tools,
+        "usage": usage,
+        "final_text": final,
+        "n_turns": n_turns,
+        "errors": errors,
+    }
 
 
 def _audit(rundir: Path, sandbox: Path, parsed: dict) -> dict:
@@ -238,17 +287,22 @@ def _audit(rundir: Path, sandbox: Path, parsed: dict) -> dict:
     blocked = [c for c in calls if c.get("event") == "blocked"]
     names = [t["tool"] for t in parsed["tools"]]
     return {
-        "n_tool_calls": len(names), "tool_names": sorted(set(names)),
+        "n_tool_calls": len(names),
+        "tool_names": sorted(set(names)),
         "tool_counts": {n: names.count(n) for n in sorted(set(names))},
-        "n_validate": names.count("validate_model"), "n_review": names.count("review_model"),
+        "n_validate": names.count("validate_model"),
+        "n_review": names.count("review_model"),
         "blocked": [{k: c.get(k) for k in ("tool", "path")} for c in blocked],
         # Paths the harness itself printed (its own output dir) are harness
         # leaks, not attempts to reach the answer key.
-        "blocked_harness_paths": sum(str(c.get("path") or "").startswith(str(rundir)) for c in blocked),
+        "blocked_harness_paths": sum(
+            str(c.get("path") or "").startswith(str(rundir)) for c in blocked
+        ),
         # A blocked call never executed, so nothing outside the sandbox was read.
         "contaminated": False,
-        "read_paper": any(t["tool"] == "read" and "text/" in json.dumps(t.get("args"))
-                          for t in parsed["tools"]),
+        "read_paper": any(
+            t["tool"] == "read" and "text/" in json.dumps(t.get("args")) for t in parsed["tools"]
+        ),
     }
 
 
@@ -278,14 +332,32 @@ def run_agent(page: str, seed: int, args) -> dict:
     sandbox = make_sandbox(page, rundir)
     prompt = build_prompt(page, args.arm)
     (rundir / "prompt.txt").write_text(prompt)
-    cmd = [PI, "-p", "--mode", "json", "--session-dir", str(rundir / "session"),
-           "--no-extensions", "--no-skills", "--no-prompt-templates", "--no-context-files",
-           "--no-themes", "--model", args.model]
+    cmd = [
+        PI,
+        "-p",
+        "--mode",
+        "json",
+        "--session-dir",
+        str(rundir / "session"),
+        "--no-extensions",
+        "--no-skills",
+        "--no-prompt-templates",
+        "--no-context-files",
+        "--no-themes",
+        "--model",
+        args.model,
+    ]
     if args.thinking:
         cmd += ["--thinking", args.thinking]
     if args.arm == "harness":
-        cmd += ["-e", str(EXTENSION), "--tools", HARNESS_TOOLS,
-                "--append-system-prompt", str(PROTOCOL)]
+        cmd += [
+            "-e",
+            str(EXTENSION),
+            "--tools",
+            HARNESS_TOOLS,
+            "--append-system-prompt",
+            str(PROTOCOL),
+        ]
         for ext in filter(None, (args.extra_ext or "").split(",")):
             cmd += ["-e", ext]
     else:
@@ -302,10 +374,21 @@ def run_agent(page: str, seed: int, args) -> dict:
     env = _agent_env(sandbox, rundir, args)
     print(f"[pi] {args.variant} {page} s{seed} ...", flush=True)
     t0 = time.time()
-    with open(rundir / "agent_stream.jsonl", "w") as out, open(rundir / "agent_stderr.txt", "w") as err:
-        p = subprocess.Popen(cmd, cwd=str(sandbox), env=env, stdout=subprocess.PIPE, stderr=err,
-                             stdin=subprocess.DEVNULL, start_new_session=True, text=True,
-                             errors="replace")
+    with (
+        open(rundir / "agent_stream.jsonl", "w") as out,
+        open(rundir / "agent_stderr.txt", "w") as err,
+    ):
+        p = subprocess.Popen(
+            cmd,
+            cwd=str(sandbox),
+            env=env,
+            stdout=subprocess.PIPE,
+            stderr=err,
+            stdin=subprocess.DEVNULL,
+            start_new_session=True,
+            text=True,
+            errors="replace",
+        )
         killed = {"t": False}
 
         def _watchdog():
@@ -315,6 +398,7 @@ def run_agent(page: str, seed: int, args) -> dict:
                     os.killpg(os.getpgid(p.pid), signal.SIGTERM)
                     return
                 time.sleep(10)
+
         threading.Thread(target=_watchdog, daemon=True).start()
         for line in p.stdout:
             # message_update carries the whole message so far on every token:
@@ -328,8 +412,16 @@ def run_agent(page: str, seed: int, args) -> dict:
 _STREAM_DROP = re.compile(r'^\{"type":"(message_update|tool_execution_update)"')
 
 
-def finalize(page: str, seed: int, args, rundir: Path, sandbox: Path, rc: int,
-             secs: float | None, timed_out: bool) -> dict:
+def finalize(
+    page: str,
+    seed: int,
+    args,
+    rundir: Path,
+    sandbox: Path,
+    rc: int,
+    secs: float | None,
+    timed_out: bool,
+) -> dict:
     """Build run.json from what the agent left: the filtered event stream,
     the extension's tool log and the sandbox. Also rebuilds a run whose
     runner died (``run_pi.py finalize``)."""
@@ -344,33 +436,58 @@ def finalize(page: str, seed: int, args, rundir: Path, sandbox: Path, rc: int,
         if delivered:
             shutil.copy2(src, fr_dst)
         if (sandbox / "validation").is_dir():
-            shutil.copytree(sandbox / "validation", rundir / "validation_agent_view", dirs_exist_ok=True)
+            shutil.copytree(
+                sandbox / "validation", rundir / "validation_agent_view", dirs_exist_ok=True
+            )
     else:
         body = _fr_block(parsed["final_text"])
         delivered = body is not None
         if delivered:
             fr_dst.write_text(body.rstrip() + "\n")
     agent = {
-        "ok": rc == 0 and delivered and not timed_out, "exit": rc, "timed_out": timed_out,
-        "seconds": secs, "engine": "pi", "pi_version": subprocess.run([PI, "--version"], capture_output=True, text=True).stdout.strip(),
-        "model": args.model, "thinking": args.thinking, "arm": args.arm,
+        "ok": rc == 0 and delivered and not timed_out,
+        "exit": rc,
+        "timed_out": timed_out,
+        "seconds": secs,
+        "engine": "pi",
+        "pi_version": subprocess.run(
+            [PI, "--version"], capture_output=True, text=True
+        ).stdout.strip(),
+        "model": args.model,
+        "thinking": args.thinking,
+        "arm": args.arm,
         "mode": "pi_harness" if args.arm == "harness" else "notools",
-        "tool_policy": "enforced (pi --tools allowlist + sandbox guard)" if args.arm == "harness" else "enforced (--no-tools)",
-        "audit_ok": not audit["blocked"], "audit_problems": audit["blocked"],
+        "tool_policy": "enforced (pi --tools allowlist + sandbox guard)"
+        if args.arm == "harness"
+        else "enforced (--no-tools)",
+        "audit_ok": not audit["blocked"],
+        "audit_problems": audit["blocked"],
         "paper_inlined": args.arm == "plain",
-        "usage": parsed["usage"], "n_turns": parsed["n_turns"], "errors": parsed["errors"][:3],
-        "validate_budget": args.validate_budget, "review_budget": args.review_budget,
+        "usage": parsed["usage"],
+        "n_turns": parsed["n_turns"],
+        "errors": parsed["errors"][:3],
+        "validate_budget": args.validate_budget,
+        "review_budget": args.review_budget,
         **audit,
     }
     if args.arm == "plain":
         agent["read_paper"] = True
-    row = {"page": page, "variant": args.variant, "seed": seed, "mode": agent["mode"],
-           "paper_source": "tex" if paper_file(page).name.endswith("_source.tex") else "txt",
-           "paper_file": paper_file(page).name, "agent": agent,
-           "render": {"rendered": delivered, "fr": str(fr_dst) if delivered else None}}
+    row = {
+        "page": page,
+        "variant": args.variant,
+        "seed": seed,
+        "mode": agent["mode"],
+        "paper_source": "tex" if paper_file(page).name.endswith("_source.tex") else "txt",
+        "paper_file": paper_file(page).name,
+        "agent": agent,
+        "render": {"rendered": delivered, "fr": str(fr_dst) if delivered else None},
+    }
     (rundir / "run.json").write_text(json.dumps(row, indent=1, default=str))
-    print(f"[pi]   {page} s{seed}: ok={agent['ok']} delivered={delivered} {secs}s "
-          f"tools={audit['tool_counts']} cost=${parsed['usage']['cost']:.2f}", flush=True)
+    print(
+        f"[pi]   {page} s{seed}: ok={agent['ok']} delivered={delivered} {secs}s "
+        f"tools={audit['tool_counts']} cost=${parsed['usage']['cost']:.2f}",
+        flush=True,
+    )
     return row
 
 
@@ -388,7 +505,11 @@ def cmd_finalize(args) -> int:
                     if not _STREAM_DROP.match(line):
                         dst.write(line)
             tmp.replace(stream)
-        log = [json.loads(x) for x in (rundir / "tool_calls.jsonl").read_text().splitlines() if x.strip()]
+        log = [
+            json.loads(x)
+            for x in (rundir / "tool_calls.jsonl").read_text().splitlines()
+            if x.strip()
+        ]
         secs = round(log[-1]["t"] - log[0]["t"], 1) if len(log) > 1 else None
         ended = any(r.get("event") == "agent_end" for r in log) or args.arm == "plain"
         finalize(page, args.seed, args, rundir, sandbox, 0 if ended else -1, secs, False)
@@ -417,35 +538,51 @@ def cmd_score(args) -> int:
                     continue
                 print(f"[score] {variant} {page} s{k} ...", flush=True)
                 work = Path(tempfile.mkdtemp(prefix=f"score-{page}-"))
-                r = subprocess.run([sys.executable, str(HEPVAL), "validate", str(fr), "--out", str(work)],
-                                   capture_output=True, text=True)
+                r = subprocess.run(
+                    [sys.executable, str(HEPVAL), "validate", str(fr), "--out", str(work)],
+                    capture_output=True,
+                    text=True,
+                )
                 summ = work / "call1" / "summary.json"
                 if not summ.is_file():
                     print(f"[score]   validator error: {r.stderr[-400:]}", flush=True)
                     continue
                 s = json.loads(summ.read_text())
                 row = s["row"]
-                v = {"status": row.get("status"), "compile_ok": row.get("compile_ok"),
-                     "timed_out": row.get("timed_out"), "seconds": row.get("seconds"),
-                     "checks": row.get("checks"), "madgraph_import_ok": row.get("madgraph_import_ok"),
-                     "full_chain_pass": bool(row.get("full_pass")),
-                     "lagrangian_expression": row.get("lagrangian_expression"),
-                     "lag_symbol": row.get("lag_symbol"), "error_tags": row.get("error_tags"),
-                     "scorer": "hepval (heptapod-dev main 4bcbcf2 driver + ALE validation_benchmark)",
-                     "scored_at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+                v = {
+                    "status": row.get("status"),
+                    "compile_ok": row.get("compile_ok"),
+                    "timed_out": row.get("timed_out"),
+                    "seconds": row.get("seconds"),
+                    "checks": row.get("checks"),
+                    "madgraph_import_ok": row.get("madgraph_import_ok"),
+                    "full_chain_pass": bool(row.get("full_pass")),
+                    "lagrangian_expression": row.get("lagrangian_expression"),
+                    "lag_symbol": row.get("lag_symbol"),
+                    "error_tags": row.get("error_tags"),
+                    "scorer": "hepval (heptapod-dev main 4bcbcf2 driver + ALE validation_benchmark)",
+                    "scored_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+                }
                 out.write_text(json.dumps(v, indent=1, default=str))
                 if variant.startswith("pi_"):
                     # ablation_report reads validation.json; the pi arms have no other.
                     (d / "validation.json").write_text(json.dumps(v, indent=1, default=str))
-                shutil.copy2(work / "call1" / "VALIDATION_REPORT.md", d / "VALIDATION_REPORT_final.md")
+                shutil.copy2(
+                    work / "call1" / "VALIDATION_REPORT.md", d / "VALIDATION_REPORT_final.md"
+                )
                 # The scored UFO's particle and vertex lists: a pass whose new
                 # particles have no vertex is visible only there.
                 for name in ("particles.py", "vertices.py"):
                     if (work / "call1" / "round0" / "UFO" / name).is_file():
                         (d / "score_ufo").mkdir(exist_ok=True)
-                        shutil.copy2(work / "call1" / "round0" / "UFO" / name, d / "score_ufo" / name)
-                print(f"[score]   -> {v['status']} full_chain={v['full_chain_pass']} "
-                      f"checks={v['checks']} mg5={v['madgraph_import_ok']}", flush=True)
+                        shutil.copy2(
+                            work / "call1" / "round0" / "UFO" / name, d / "score_ufo" / name
+                        )
+                print(
+                    f"[score]   -> {v['status']} full_chain={v['full_chain_pass']} "
+                    f"checks={v['checks']} mg5={v['madgraph_import_ok']}",
+                    flush=True,
+                )
     return 0
 
 
@@ -467,18 +604,33 @@ def cmd_report(args) -> int:
                 continue
             r = json.loads(f.read_text())
             c = r.get("checks") or {}
-            mark = "".join({"pass": "✓", "fail": "✗", "inconclusive": "?"}.get(c.get(k), "·")
-                           for k in ("hermiticity", "kinetic_diagonal", "mass_diagonal", "mass_spectrum"))
-            cells.append(("**PASS**" if r.get("full_chain_pass") else r.get("status") or "fail")
-                         + f" {mark} mg5={'✓' if r.get('madgraph_import_ok') else '✗'}")
+            mark = "".join(
+                {"pass": "✓", "fail": "✗", "inconclusive": "?"}.get(c.get(k), "·")
+                for k in ("hermiticity", "kinetic_diagonal", "mass_diagonal", "mass_spectrum")
+            )
+            cells.append(
+                ("**PASS**" if r.get("full_chain_pass") else r.get("status") or "fail")
+                + f" {mark} mg5={'✓' if r.get('madgraph_import_ok') else '✗'}"
+            )
             tot[v][0] += bool(r.get("full_chain_pass"))
             tot[v][1] += 1
             run = d / "run.json"
             if run.is_file():
-                tot[v][2] += float(((json.loads(run.read_text()).get("agent") or {}).get("usage") or {}).get("cost") or 0)
+                tot[v][2] += float(
+                    ((json.loads(run.read_text()).get("agent") or {}).get("usage") or {}).get(
+                        "cost"
+                    )
+                    or 0
+                )
         lines.append(f"| {page} | " + " | ".join(cells) + " |")
-    lines.append("| **full chain** | " + " | ".join(f"**{tot[v][0]}/{len(pages)}**" for v in variants) + " |")
-    lines.append("| agent cost (pi arms) | " + " | ".join(f"${tot[v][2]:.2f}" if v.startswith("pi_") else "—" for v in variants) + " |")
+    lines.append(
+        "| **full chain** | " + " | ".join(f"**{tot[v][0]}/{len(pages)}**" for v in variants) + " |"
+    )
+    lines.append(
+        "| agent cost (pi arms) | "
+        + " | ".join(f"${tot[v][2]:.2f}" if v.startswith("pi_") else "—" for v in variants)
+        + " |"
+    )
     print("\n".join(lines))
     return 0
 
@@ -489,7 +641,9 @@ def main() -> int:
     r = sub.add_parser("run")
     r.add_argument("--arm", choices=("harness", "plain"), required=True)
     r.add_argument("--variant", required=True)
-    r.add_argument("--pages", required=True, help="comma-separated, or 'all' for the 16 single-model papers")
+    r.add_argument(
+        "--pages", required=True, help="comma-separated, or 'all' for the 16 single-model papers"
+    )
     r.add_argument("--model", default="anthropic/claude-sonnet-5")
     r.add_argument("--thinking", default="", help="pi thinking level; empty = pi default")
     r.add_argument("--seeds", type=int, default=1)

@@ -24,7 +24,7 @@ STORED_PROTOCOL_SHA256 = "925ada087732e355f195d4cb5ef1c165d6c91146120c894bcd6021
 
 # A fake chain: the compile is good and hermiticity fails. Each view prints
 # what hepval's view prints: no verdict, the verdict, or the verdict located.
-FAKE_HEPVAL_ARMS = textwrap.dedent('''
+FAKE_HEPVAL_ARMS = textwrap.dedent("""
     import json, sys
     from pathlib import Path
     if sys.argv[1] == "lint":
@@ -41,7 +41,7 @@ FAKE_HEPVAL_ARMS = textwrap.dedent('''
             print("## FeynRules check `hermiticity`: fail")
             if "--diag" in sys.argv:
                 print("- vertex 1: fields H H2; block: LScalar")
-''')
+""")
 
 
 def _arm_env(env, arm):
@@ -60,7 +60,9 @@ def test_protocol_names_only_the_arms_tools_and_keeps_the_sm_override_recipe(arm
     for tool in (*C.TOOLS, "review_spec"):
         assert (f"`{tool}`" in text) == (tool in C.ARMS[arm].tools), tool
     assert "LTotal := LSM - LHiggs + LScalar" in text
-    assert not any(x in text for x in ("<!--", "{tool_list}", "{validate_budget}", "{max_continuations}"))
+    assert not any(
+        x in text for x in ("<!--", "{tool_list}", "{validate_budget}", "{max_continuations}")
+    )
     if C.ARMS[arm].feedback not in ("diag", "opt", "real", "cover"):
         assert "the report lists" not in text
 
@@ -84,7 +86,7 @@ def test_compile_arm_hides_the_checks_and_its_gate_accepts_a_compiled_model(env)
 
 
 def test_import_arm_gate_also_needs_the_madgraph_import(env):
-    e = _arm_env(env, "import")           # the fake chain compiles and has no MadGraph result
+    e = _arm_env(env, "import")  # the fake chain compiles and has no MadGraph result
     text = _mcp(e, [("validate_model", {"path": "model.fr"})])[1]["result"]["content"][0]["text"]
     assert "MadGraph import failed" in text.splitlines()[0] and "hermiticity" not in text
     assert _stop(e, False)["decision"] == "block"
@@ -101,9 +103,19 @@ def test_check_arms_show_verdicts_and_their_gate_blocks_a_failing_chain(env, arm
 
 
 def test_no_tools_arm_has_no_server_no_gate_and_no_verdict_to_report(tmp_path, monkeypatch):
-    monkeypatch.setattr(run_cc.run_pi, "build_prompt", lambda page, arm: "OUTPUT: summarise the model and the last validate_model verdict.")
-    args = SimpleNamespace(arm="none", validate_budget=6, review_budget=2, max_continuations=3,
-                           model="m", review_model="")
+    monkeypatch.setattr(
+        run_cc.run_pi,
+        "build_prompt",
+        lambda page, arm: "OUTPUT: summarise the model and the last validate_model verdict.",
+    )
+    args = SimpleNamespace(
+        arm="none",
+        validate_budget=6,
+        review_budget=2,
+        max_continuations=3,
+        model="m",
+        review_model="",
+    )
     run_cc.write_configs(tmp_path, tmp_path, args)
     assert json.loads((tmp_path / "mcp.json").read_text()) == {"mcpServers": {}}
     assert "Stop" not in json.loads((tmp_path / "settings.json").read_text())["hooks"]
@@ -122,7 +134,9 @@ def test_a_run_from_a_draft_starts_with_that_file_and_is_told_so(tmp_path, monke
     monkeypatch.setattr(run_cc, "DRAFT_RUNS", tmp_path / "stored")
     monkeypatch.setattr(run_cc.run_pi, "paper_file", lambda page: paper)
     monkeypatch.setattr(run_cc.run_pi, "SM_FR", paper)
-    monkeypatch.setattr(run_cc.run_pi, "build_prompt", lambda page, arm: "TASK and the last validate_model verdict.")
+    monkeypatch.setattr(
+        run_cc.run_pi, "build_prompt", lambda page, arm: "TASK and the last validate_model verdict."
+    )
     rundir = tmp_path / "run"
     rundir.mkdir()
     sb = run_cc.make_sandbox("X", rundir, run_cc.draft_file("X", "v_oneshot"))
@@ -132,7 +146,7 @@ def test_a_run_from_a_draft_starts_with_that_file_and_is_told_so(tmp_path, monke
     assert not (run_cc.make_sandbox("X", rundir) / "model.fr").exists()
 
 
-BAD_FR = '''M$ClassesDescription = {
+BAD_FR = """M$ClassesDescription = {
   F[101] == { ClassName -> Nh, SelfConjugate -> True, Mass -> {MN, 300.} }
 };
 S[11] == { ClassName -> Phi, Unphysical -> True };
@@ -144,22 +158,38 @@ M$Parameters = {
 LCC := VlN[ff] Nhbar.Ga[mu].ProjM.l[ff] W[mu];
 LOK := Nhbar.Ga[mu].ProjM.e W[mu] + yl[ff1, ff2] LLbar[sp1, ii, ff1].lR[sp1, ff2] Phi[ii];
 LTotal := LSM + LCC + LOK;
-'''
+"""
 
 
 def test_optimisation_lint_names_the_four_silent_mistakes_and_not_the_good_forms():
     import opt_checks
+
     found = {f["rule"]: f for f in opt_checks.lint(BAD_FR)}
-    assert set(found) == {"partial_index_fermion", "class_outside_list", "duplicate_mass_parameter", "shared_lha_block"}
-    assert "l[ff]" in found["partial_index_fermion"]["message"] and found["partial_index_fermion"]["line"] == 10
-    good = BAD_FR.replace("};\nS[11] == { ClassName -> Phi, Unphysical -> True };", ",\n  S[11] == { ClassName -> Phi }\n};") \
-        .replace("  MN == { ParameterType -> External, Value -> 300. },\n", "").replace("BlockName -> NPV }\n", "BlockName -> NPW }\n") \
+    assert set(found) == {
+        "partial_index_fermion",
+        "class_outside_list",
+        "duplicate_mass_parameter",
+        "shared_lha_block",
+    }
+    assert (
+        "l[ff]" in found["partial_index_fermion"]["message"]
+        and found["partial_index_fermion"]["line"] == 10
+    )
+    good = (
+        BAD_FR.replace(
+            "};\nS[11] == { ClassName -> Phi, Unphysical -> True };",
+            ",\n  S[11] == { ClassName -> Phi }\n};",
+        )
+        .replace("  MN == { ParameterType -> External, Value -> 300. },\n", "")
+        .replace("BlockName -> NPV }\n", "BlockName -> NPW }\n")
         .replace("VlN[ff] Nhbar.Ga[mu].ProjM.l[ff]", "Nhbar.Ga[mu].ProjM.mu")
+    )
     assert opt_checks.lint(good) == []
 
 
 def test_optimisation_arm_does_not_accept_a_chain_pass_with_a_vertexless_particle(env):
-    (env["tmp"] / "hepval.py").write_text(textwrap.dedent('''
+    (env["tmp"] / "hepval.py").write_text(
+        textwrap.dedent("""
         import json, sys
         from pathlib import Path
         if sys.argv[1] == "lint":
@@ -171,7 +201,8 @@ def test_optimisation_arm_does_not_accept_a_chain_pass_with_a_vertexless_particl
             (out / "call1" / "summary.json").write_text(json.dumps(
                 {"call": 1, "stage_reached": "pass", "full_chain_pass": True, "particles_without_vertex": ["n4"]}))
             print("## New particles that are in no vertex of the UFO")
-    '''))
+    """)
+    )
     e = {**env["env"], "CC_ARM": "opt"}
     text = _mcp(e, [("validate_model", {"path": "model.fr"})])[1]["result"]["content"][0]["text"]
     assert "FULL CHAIN PASS" not in text and "no vertex" in text.splitlines()[0]
@@ -181,28 +212,48 @@ def test_optimisation_arm_does_not_accept_a_chain_pass_with_a_vertexless_particl
 
 def test_cut_statement_is_found_only_where_the_line_end_ends_the_expression():
     import opt_checks
+
     cut = "LTotal := LSM + LKin\n  + LYuk;\n"
     assert [c["line"] for c in opt_checks.cut_lines(cut)] == [2]
     assert "cut_statement" in {f["rule"] for f in opt_checks.lint(cut, real=True)}
-    assert "cut_statement" not in {f["rule"] for f in opt_checks.lint(cut)}          # the opt arm ran without it
-    for whole in ("LTotal := LSM + LKin +\n  LYuk;\n", "LTotal := (LSM + LKin\n  + LYuk);\n",
-                  "LA := Block[{mu},\n  a\n  + b];\n", "LA := x;\n-1 (* next statement *) ;\n"):
+    assert "cut_statement" not in {
+        f["rule"] for f in opt_checks.lint(cut)
+    }  # the opt arm ran without it
+    for whole in (
+        "LTotal := LSM + LKin +\n  LYuk;\n",
+        "LTotal := (LSM + LKin\n  + LYuk);\n",
+        "LA := Block[{mu},\n  a\n  + b];\n",
+        "LA := x;\n-1 (* next statement *) ;\n",
+    ):
         assert opt_checks.cut_lines(whole) == [], whole
 
 
 def test_shell_arm_has_bash_no_path_guard_and_sees_only_its_own_run(tmp_path, monkeypatch):
     monkeypatch.setattr(run_cc.isolation, "MAC", False)
-    args = SimpleNamespace(arm="shell", validate_budget=10, review_budget=2, max_continuations=3, model="m", review_model="")
+    args = SimpleNamespace(
+        arm="shell",
+        validate_budget=10,
+        review_budget=2,
+        max_continuations=3,
+        model="m",
+        review_model="",
+    )
     run_cc.write_configs(tmp_path, tmp_path, args)
     settings = json.loads((tmp_path / "settings.json").read_text())
     assert "PreToolUse" not in settings["hooks"] and "Stop" in settings["hooks"]
     assert "Bash" not in settings["permissions"]["deny"]
     cmd = run_cc.agent_cmd(tmp_path, "m", C.ARMS["shell"], tmp_path)
-    assert cmd[0] == "bwrap" and ["--tmpfs", str(Path.home() / "code")] == cmd[cmd.index("--tmpfs"):cmd.index("--tmpfs") + 2]
+    assert (
+        cmd[0] == "bwrap"
+        and ["--tmpfs", str(Path.home() / "code")]
+        == cmd[cmd.index("--tmpfs") : cmd.index("--tmpfs") + 2]
+    )
     bound = [cmd[i + 1] for i, x in enumerate(cmd) if x in ("--bind", "--ro-bind")]
     assert str(tmp_path) in bound and not any("benchmark_runs" in b for b in bound)
     protocol = (tmp_path / "protocol.md").read_text()
-    assert f"{tmp_path}/validation/call<k>/round0/" in protocol and "There is no shell" not in protocol
+    assert (
+        f"{tmp_path}/validation/call<k>/round0/" in protocol and "There is no shell" not in protocol
+    )
 
 
 UFO_PARTICLES = """
@@ -229,21 +280,40 @@ chi__tilde__ = chi.anti()
 
 def test_coverage_finds_listed_vertices_and_reports_what_the_ufo_lacks(tmp_path):
     import coverage
+
     (tmp_path / "particles.py").write_text(UFO_PARTICLES)
-    (tmp_path / "vertices.py").write_text("V_1 = Vertex(name = 'V_1',\n  particles = [ P.t__tilde__, P.t, P.Zp ],\n  color = [])\n")
-    sm = 'M$ClassesDescription = { F[3] == { ClassName -> uq, ClassMembers -> {u, c, t} } };'
-    model = 'M$ClassesDescription = { V[100] == { ClassName -> Zp }, F[100] == { ClassName -> chi } };'
-    spec = {"fields": ["Zp", "chi", "phi"], "interactions": [["Zp", "tbar", "t"], ["Zp", "uq", "uq"], ["Zp", "chibar", "chi"]]}
+    (tmp_path / "vertices.py").write_text(
+        "V_1 = Vertex(name = 'V_1',\n  particles = [ P.t__tilde__, P.t, P.Zp ],\n  color = [])\n"
+    )
+    sm = "M$ClassesDescription = { F[3] == { ClassName -> uq, ClassMembers -> {u, c, t} } };"
+    model = (
+        "M$ClassesDescription = { V[100] == { ClassName -> Zp }, F[100] == { ClassName -> chi } };"
+    )
+    spec = {
+        "fields": ["Zp", "chi", "phi"],
+        "interactions": [["Zp", "tbar", "t"], ["Zp", "uq", "uq"], ["Zp", "chibar", "chi"]],
+    }
     r = coverage.check(spec, tmp_path, model, sm)
     assert r["missing_fields"] == ["phi"] and r["missing_interactions"] == [["Zp", "chibar", "chi"]]
     assert r["complete"] is False
-    assert coverage.check({"fields": ["Zp"], "interactions": [["Zp", "t", "tbar"]]}, tmp_path, model, sm)["complete"] is True
-    removed = coverage.removed_entries(spec, {"fields": ["Zp", "chi"], "interactions": [["t", "tbar", "Zp"]]})
-    assert removed == {"fields": ["phi"], "interactions": [["Zp", "uq", "uq"], ["Zp", "chibar", "chi"]]}
+    assert (
+        coverage.check(
+            {"fields": ["Zp"], "interactions": [["Zp", "t", "tbar"]]}, tmp_path, model, sm
+        )["complete"]
+        is True
+    )
+    removed = coverage.removed_entries(
+        spec, {"fields": ["Zp", "chi"], "interactions": [["t", "tbar", "Zp"]]}
+    )
+    assert removed == {
+        "fields": ["phi"],
+        "interactions": [["Zp", "uq", "uq"], ["Zp", "chibar", "chi"]],
+    }
 
 
 def test_cover_arm_does_not_accept_a_pass_that_leaves_the_spec_uncovered(env):
-    (env["tmp"] / "hepval.py").write_text(textwrap.dedent('''
+    (env["tmp"] / "hepval.py").write_text(
+        textwrap.dedent("""
         import json, sys
         from pathlib import Path
         if sys.argv[1] == "lint":
@@ -256,7 +326,8 @@ def test_cover_arm_does_not_accept_a_pass_that_leaves_the_spec_uncovered(env):
                 {"call": 1, "stage_reached": "pass", "full_chain_pass": True, "particles_without_vertex": [],
                  "coverage": {"complete": False, "missing_interactions": [["Zp", "chibar", "chi"]]}}))
             print("## Coverage of spec.json by the UFO")
-    '''))
+    """)
+    )
     e = {**env["env"], "CC_ARM": "cover"}
     out = _mcp(e, [("LIST", None), ("validate_model", {"path": "model.fr"})])
     assert "review_spec" in [t["name"] for t in out[1]["result"]["tools"]]
@@ -276,8 +347,11 @@ def test_plus_arm_has_the_gauge_recipes_and_the_shell_arm_does_not():
 
 def test_chain_head_rule_reports_an_unbarred_fermion_at_the_head_of_a_chain():
     import opt_checks
-    fr = ('M$ClassesDescription = {\n F[101] == { ClassName -> nH, SelfConjugate -> True }\n};\n'
-          'LBad := gw nH.Ga[mu].ProjP.l W[mu];\nLGood := gw nHbar.Ga[mu].ProjP.l W[mu];\n')
+
+    fr = (
+        "M$ClassesDescription = {\n F[101] == { ClassName -> nH, SelfConjugate -> True }\n};\n"
+        "LBad := gw nH.Ga[mu].ProjP.l W[mu];\nLGood := gw nHbar.Ga[mu].ProjP.l W[mu];\n"
+    )
     rules = [f["rule"] for f in opt_checks.lint(fr, real=True, chain_head=True)]
     assert rules.count("unbarred_chain_head") == 1
     assert "unbarred_chain_head" not in [f["rule"] for f in opt_checks.lint(fr, real=True)]

@@ -3,9 +3,8 @@
 
 from pathlib import Path
 
-import pytest
-
 import fr_lint
+import pytest
 
 RUNS = Path.home() / "Documents/Github/heptapod/eval/benchmark_runs"
 
@@ -28,8 +27,14 @@ CLASSES = """M$ClassesDescription = {
 
 
 def test_quantum_number_with_underscore_is_an_mg5_finding():
-    bad = CLASSES % "S[100] == { ClassName -> chi, SelfConjugate -> False, QuantumNumbers -> {B_L -> 2}, Mass -> {Mchi, 100.} }"
-    good = CLASSES % "S[100] == { ClassName -> chi, SelfConjugate -> False, QuantumNumbers -> {BL -> 2}, Mass -> {Mchi, 100.} }"
+    bad = (
+        CLASSES
+        % "S[100] == { ClassName -> chi, SelfConjugate -> False, QuantumNumbers -> {B_L -> 2}, Mass -> {Mchi, 100.} }"
+    )
+    good = (
+        CLASSES
+        % "S[100] == { ClassName -> chi, SelfConjugate -> False, QuantumNumbers -> {BL -> 2}, Mass -> {Mchi, 100.} }"
+    )
     hits = _rules(bad).get("pattern_symbol_name", [])
     assert [f.stage for f in hits] == ["mg5"]
     assert "B_L" in hits[0].message
@@ -38,16 +43,28 @@ def test_quantum_number_with_underscore_is_an_mg5_finding():
 
 def test_underscore_in_a_parameter_name_is_only_a_warning():
     # aSRh_u-style names passed the whole chain (Monotops, pi Qwen harness).
-    text = PARAMS % "aSRh_u == { ParameterType -> External, Value -> 0.1, InteractionOrder -> {NP, 1} }"
+    text = (
+        PARAMS
+        % "aSRh_u == { ParameterType -> External, Value -> 0.1, InteractionOrder -> {NP, 1} }"
+    )
     assert [f.stage for f in _rules(text)["pattern_symbol_name"]] == ["warn"]
 
 
 def test_orderblock_on_a_tensor_parameter():
-    bad = PARAMS % """WpLeR == { ParameterType -> External, BlockName -> WPRIME, OrderBlock -> 7,
+    bad = (
+        PARAMS
+        % """WpLeR == { ParameterType -> External, BlockName -> WPRIME, OrderBlock -> 7,
     Indices -> {Index[Generation]}, Value -> {WpLeR[1] -> 1., WpLeR[2] -> 1., WpLeR[3] -> 1.} }"""
-    good_tensor = PARAMS % """WpLeR == { ParameterType -> External, BlockName -> WPRIME,
+    )
+    good_tensor = (
+        PARAMS
+        % """WpLeR == { ParameterType -> External, BlockName -> WPRIME,
     Indices -> {Index[Generation]}, Value -> {WpLeR[1] -> 1., WpLeR[2] -> 1., WpLeR[3] -> 1.} }"""
-    good_scalar = PARAMS % "gWp == { ParameterType -> External, BlockName -> WPRIME, OrderBlock -> 1, Value -> 0.6 }"
+    )
+    good_scalar = (
+        PARAMS
+        % "gWp == { ParameterType -> External, BlockName -> WPRIME, OrderBlock -> 1, Value -> 0.6 }"
+    )
     hits = _rules(bad)["tensor_orderblock"]
     assert len(hits) == 1 and hits[0].stage == "mg5" and hits[0].line is not None
     assert "tensor_orderblock" not in _rules(good_tensor)
@@ -68,17 +85,22 @@ def test_same_explicit_spin_index_across_a_dirac_matrix():
 def test_numeric_index_in_the_spin_slot_of_a_fermion():
     bad = "LW := Block[{mu}, -g Ymix[1,1] NR1bar.Ga[mu].l[1] WR[mu]];\n"
     good_implicit = "LW := Block[{mu}, -g NR1bar.Ga[mu].ProjP.l WR[mu]];\n"
-    good_member = "LW := Block[{mu}, -g NR1bar.Ga[mu].ProjP.e WR[mu]];\n"      # class member, no index
+    good_member = "LW := Block[{mu}, -g NR1bar.Ga[mu].ProjP.e WR[mu]];\n"  # class member, no index
     hits = _rules(bad)["numeric_spin_slot"]
     assert len(hits) == 1 and hits[0].stage == "checks" and "spin index" in hits[0].message
     for ok in (good_implicit, good_member):
         assert "numeric_spin_slot" not in _rules(ok), ok
 
 
-@pytest.mark.parametrize("page,rule", [("B-L-SM", "pattern_symbol_name"),
-                                       ("Wprime", "tensor_orderblock"),
-                                       ("HeavyN", "explicit_spin_in_chain"),
-                                       ("EffLRSM", "numeric_spin_slot")])
+@pytest.mark.parametrize(
+    "page,rule",
+    [
+        ("B-L-SM", "pattern_symbol_name"),
+        ("Wprime", "tensor_orderblock"),
+        ("HeavyN", "explicit_spin_in_chain"),
+        ("EffLRSM", "numeric_spin_slot"),
+    ],
+)
 def test_rule_names_the_stored_mg5_failure(page, rule):
     fr = RUNS / page / "rerun" / "pi_qwen_harness" / "s1" / "model" / f"{page}_gen.fr"
     if not fr.is_file():

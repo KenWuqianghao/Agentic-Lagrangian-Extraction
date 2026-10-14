@@ -36,7 +36,7 @@ def partial_index_uses(text: str) -> list[dict]:
             continue
         for m in _USE.finditer(line):
             n = len([a for a in m.group(3).split(",") if a.strip()])
-            near = line[max(0, m.start() - 2):m.end() + 2]
+            near = line[max(0, m.start() - 2) : m.end() + 2]
             if 0 < n < N_INDICES[m.group(1)] and "." in near:
                 out.append({"line": ln, "use": m.group(0)})
     return out
@@ -54,22 +54,39 @@ def main() -> int:
                     continue
                 uses = partial_index_uses(fr.read_text(errors="replace"))
                 inert = retro.particles_without_vertex(Path(c["ufo"])) if c["ufo"] else []
-                rows.append({"arm": arm, "paper": paper, "call": c["call"], "flagged": bool(uses),
-                             "uses": sorted({u["use"] for u in uses})[:4],
-                             "hermiticity_fail": c["state"]["hermiticity"] == "fail",
-                             "inert_new_particle": bool(inert), "old_rule": any(
-                                 f["rule"] == "numeric_spin_slot" for f in c["lint"])})
+                rows.append(
+                    {
+                        "arm": arm,
+                        "paper": paper,
+                        "call": c["call"],
+                        "flagged": bool(uses),
+                        "uses": sorted({u["use"] for u in uses})[:4],
+                        "hermiticity_fail": c["state"]["hermiticity"] == "fail",
+                        "inert_new_particle": bool(inert),
+                        "old_rule": any(f["rule"] == "numeric_spin_slot" for f in c["lint"]),
+                    }
+                )
     flagged = [r for r in rows if r["flagged"]]
     clean = [r for r in rows if not r["flagged"]]
     bad = lambda r: r["hermiticity_fail"] or r["inert_new_particle"]  # noqa: E731
-    print(json.dumps({
-        "snapshots_compiled": len(rows), "flagged": len(flagged),
-        "flagged_with_hermiticity_fail_or_inert_particle": sum(bad(r) for r in flagged),
-        "flagged_papers": sorted({f"{r['arm']}:{r['paper']}" for r in flagged}),
-        "flagged_and_fine": [f"{r['arm']}:{r['paper']}:call{r['call']}" for r in flagged if not bad(r)],
-        "not_flagged": len(clean), "not_flagged_with_hermiticity_fail_or_inert_particle": sum(bad(r) for r in clean),
-        "flagged_where_the_stored_rule_was_silent": sum(not r["old_rule"] for r in flagged),
-        "rows": flagged}, indent=1))
+    print(
+        json.dumps(
+            {
+                "snapshots_compiled": len(rows),
+                "flagged": len(flagged),
+                "flagged_with_hermiticity_fail_or_inert_particle": sum(bad(r) for r in flagged),
+                "flagged_papers": sorted({f"{r['arm']}:{r['paper']}" for r in flagged}),
+                "flagged_and_fine": [
+                    f"{r['arm']}:{r['paper']}:call{r['call']}" for r in flagged if not bad(r)
+                ],
+                "not_flagged": len(clean),
+                "not_flagged_with_hermiticity_fail_or_inert_particle": sum(bad(r) for r in clean),
+                "flagged_where_the_stored_rule_was_silent": sum(not r["old_rule"] for r in flagged),
+                "rows": flagged,
+            },
+            indent=1,
+        )
+    )
     return 0
 
 

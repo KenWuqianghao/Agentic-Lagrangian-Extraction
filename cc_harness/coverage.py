@@ -51,8 +51,13 @@ def class_table(*fr_texts: str) -> dict:
             if not cls or "True" in (fr_lint._prop(body, "Unphysical") or ""):
                 continue
             members = _names(fr_lint._prop(body, "ClassMembers")) or [cls]
-            pnames = [x.strip('" ') for x in re.findall(r'"[^"]*"|[A-Za-z][\w+\-~]*',
-                                                         (fr_lint._prop(body, "ParticleName") or "").strip("{} "))]
+            pnames = [
+                x.strip('" ')
+                for x in re.findall(
+                    r'"[^"]*"|[A-Za-z][\w+\-~]*',
+                    (fr_lint._prop(body, "ParticleName") or "").strip("{} "),
+                )
+            ]
             ufo = pnames if len(pnames) == len(members) else members
             table[cls] = set(ufo)
             for m, u in zip(members, ufo):
@@ -76,7 +81,9 @@ def ufo_families(ufo: Path) -> tuple[dict, list[list[str]]]:
     for a, p in re.findall(r"^(\w+) = (\w+)\.anti\(\)", text, re.M):
         var_family[a] = var_family.get(p, p)
     vertices = []
-    for m in re.finditer(r"particles\s*=\s*\[([^\]]*)\]", (ufo / "vertices.py").read_text(errors="replace")):
+    for m in re.finditer(
+        r"particles\s*=\s*\[([^\]]*)\]", (ufo / "vertices.py").read_text(errors="replace")
+    ):
         vertices.append([var_family.get(v, v) for v in re.findall(r"P\.(\w+)", m.group(1))])
     return name_family, vertices
 
@@ -86,7 +93,12 @@ def _families(token: str, table: dict, name_family: dict) -> set:
     base = _ANTI.sub("", token.strip())
     out = set()
     for ufo_name in table.get(base, {base}):
-        for cand in (ufo_name, ufo_name + "~", ufo_name.rstrip("+-") + "+", ufo_name.rstrip("+-") + "-"):
+        for cand in (
+            ufo_name,
+            ufo_name + "~",
+            ufo_name.rstrip("+-") + "+",
+            ufo_name.rstrip("+-") + "-",
+        ):
             if cand in name_family:
                 out.add(name_family[cand])
     return out
@@ -104,14 +116,19 @@ def _covered(legs: list[set], vertices: list[list[str]]) -> bool:
 
 def load_spec(path: Path) -> tuple[dict | None, str]:
     if not path.is_file():
-        return None, ("spec.json does not exist. Write it from the paper before the model: every new field and every "
-                      "interaction term (see the protocol).")
+        return None, (
+            "spec.json does not exist. Write it from the paper before the model: every new field and every "
+            "interaction term (see the protocol)."
+        )
     try:
         spec = json.loads(path.read_text())
         fields = [f["name"] for f in spec["fields"]]
         inter = [list(i["particles"]) for i in spec["interactions"]]
     except (json.JSONDecodeError, KeyError, TypeError) as e:
-        return None, f"spec.json is not in the required form ({type(e).__name__}: {e}). See the protocol."
+        return (
+            None,
+            f"spec.json is not in the required form ({type(e).__name__}: {e}). See the protocol.",
+        )
     if not fields or not inter:
         return None, "spec.json lists no field or no interaction."
     return {"fields": fields, "interactions": inter}, ""
@@ -125,39 +142,66 @@ def check(spec: dict, ufo: Path, model_fr: str, sm_fr: str) -> dict:
     for legs in spec["interactions"]:
         fams = [_families(t, table, name_family) for t in legs]
         if not all(fams):
-            unknown.append({"particles": legs, "not_in_ufo": [t for t, f in zip(legs, fams) if not f]})
+            unknown.append(
+                {"particles": legs, "not_in_ufo": [t for t, f in zip(legs, fams) if not f]}
+            )
         elif not _covered(fams, vertices):
             missing.append(legs)
-    return {"fields": len(spec["fields"]), "interactions": len(spec["interactions"]),
-            "missing_fields": missing_fields, "missing_interactions": missing, "unknown_particles": unknown,
-            "complete": not (missing_fields or missing or unknown)}
+    return {
+        "fields": len(spec["fields"]),
+        "interactions": len(spec["interactions"]),
+        "missing_fields": missing_fields,
+        "missing_interactions": missing,
+        "unknown_particles": unknown,
+        "complete": not (missing_fields or missing or unknown),
+    }
 
 
 def removed_entries(first: dict, now: dict) -> dict:
     """Entries of the first validated spec that are not in the current one."""
     key = lambda legs: tuple(sorted(_ANTI.sub("", t) for t in legs))  # noqa: E731
     now_keys = {key(i) for i in now["interactions"]}
-    return {"fields": [f for f in first["fields"] if f not in now["fields"]],
-            "interactions": [i for i in first["interactions"] if key(i) not in now_keys]}
+    return {
+        "fields": [f for f in first["fields"] if f not in now["fields"]],
+        "interactions": [i for i in first["interactions"] if key(i) not in now_keys],
+    }
 
 
 def report(result: dict, removed: dict) -> str:
-    out = ["## Coverage of spec.json by the UFO",
-           f"{result['fields']} fields and {result['interactions']} interactions are listed."]
+    out = [
+        "## Coverage of spec.json by the UFO",
+        f"{result['fields']} fields and {result['interactions']} interactions are listed.",
+    ]
     if result["complete"] and not (removed["fields"] or removed["interactions"]):
-        return "\n".join(out + ["Every listed field is a particle of the UFO and every listed interaction has a vertex.", ""])
+        return "\n".join(
+            out
+            + [
+                "Every listed field is a particle of the UFO and every listed interaction has a vertex.",
+                "",
+            ]
+        )
     for f in result["missing_fields"]:
         out.append(f"- field `{f}` is listed and is not a particle of the UFO")
     for u in result["unknown_particles"]:
-        out.append(f"- interaction {u['particles']}: {u['not_in_ufo']} is not a particle of the UFO (use the model's class "
-                   "or member names)")
+        out.append(
+            f"- interaction {u['particles']}: {u['not_in_ufo']} is not a particle of the UFO (use the model's class "
+            "or member names)"
+        )
     for i in result["missing_interactions"]:
         out.append(f"- interaction {i} is listed and no vertex of the UFO has these particles")
     for f in removed["fields"]:
-        out.append(f"- field `{f}` was in the spec at the first validation and is gone from spec.json")
+        out.append(
+            f"- field `{f}` was in the spec at the first validation and is gone from spec.json"
+        )
     for i in removed["interactions"]:
-        out.append(f"- interaction {i} was in the spec at the first validation and is gone from spec.json")
-    out += ["", "The model is not done while this list is not empty. A missing vertex means the term did not reach the UFO: "
-            "expand that Lagrangian block alone with wolframscript and look at what it gives. Remove a spec entry only "
-            "when the paper does not have it, and say so in your summary.", ""]
+        out.append(
+            f"- interaction {i} was in the spec at the first validation and is gone from spec.json"
+        )
+    out += [
+        "",
+        "The model is not done while this list is not empty. A missing vertex means the term did not reach the UFO: "
+        "expand that Lagrangian block alone with wolframscript and look at what it gives. Remove a spec entry only "
+        "when the paper does not have it, and say so in your summary.",
+        "",
+    ]
     return "\n".join(out)

@@ -80,17 +80,23 @@ BASES = {
 
 # Original agent files with the physicist-confirmed findings (FINDINGS_2026-09.md).
 REAL = {
-    "EffLRSM": ("model/EffLRSM_gen.fr",
-                "Light neutrino written as the bare field `ve` where the paper has "
-                "the charge conjugate nu^c (lepton number); and the Z_R coupling "
-                "MULTIPLIES by Sqrt[1 - tan^2/kappa^2] where Eq. (8) DIVIDES."),
-    "GeneralU1": ("model/GeneralU1_gen.fr",
-                  "Neutrino Dirac Yukawa contracts LLbar[ii] with Phibar[ii] on a "
-                  "shared index (no Eps, not an SU(2) singlet); Higgs U(1)_X charge "
-                  "has the wrong sign (-xH/2 instead of +xH/2)."),
-    "368sextets": ("model/368sextets_gen.fr",
-                   "Dimension-5 and -6 sextet operators carry no 1/Lambda, "
-                   "1/Lambda^2 suppression; couplings absorb the cutoff."),
+    "EffLRSM": (
+        "model/EffLRSM_gen.fr",
+        "Light neutrino written as the bare field `ve` where the paper has "
+        "the charge conjugate nu^c (lepton number); and the Z_R coupling "
+        "MULTIPLIES by Sqrt[1 - tan^2/kappa^2] where Eq. (8) DIVIDES.",
+    ),
+    "GeneralU1": (
+        "model/GeneralU1_gen.fr",
+        "Neutrino Dirac Yukawa contracts LLbar[ii] with Phibar[ii] on a "
+        "shared index (no Eps, not an SU(2) singlet); Higgs U(1)_X charge "
+        "has the wrong sign (-xH/2 instead of +xH/2).",
+    ),
+    "368sextets": (
+        "model/368sextets_gen.fr",
+        "Dimension-5 and -6 sextet operators carry no 1/Lambda, "
+        "1/Lambda^2 suppression; couplings absorb the cutoff.",
+    ),
 }
 
 
@@ -132,6 +138,7 @@ def _is_kin(name: str) -> bool:
 
 # Every operator returns (new_text, term_name, tokens, description) or None.
 
+
 def op_drop_eps(text):
     for name, s, e in _term_spans(text):
         body = text[s:e]
@@ -139,7 +146,7 @@ def op_drop_eps(text):
         if not m:
             continue
         a, b = m.group(1), m.group(2)
-        nb = body[:m.start()] + body[m.end():]
+        nb = body[: m.start()] + body[m.end() :]
         nb = re.sub(rf"\b{b}\b", a, nb)
 
         def _dedupe(mm):
@@ -149,11 +156,16 @@ def op_drop_eps(text):
                     seen.add(v)
                     keep.append(v)
             return "Block[{" + ", ".join(keep) + "}"
+
         nb = re.sub(r"Block\[\{([^}]*)\}", _dedupe, nb, count=1)
-        return (text[:s] + nb + text[e:], name, [name, "Eps", a],
-                f"SU(2) epsilon contraction removed from `{name}`: `Eps[{a}, {b}]` "
-                f"dropped and both doublets contracted on the shared index `{a}` "
-                "(the term is no longer an SU(2) singlet).")
+        return (
+            text[:s] + nb + text[e:],
+            name,
+            [name, "Eps", a],
+            f"SU(2) epsilon contraction removed from `{name}`: `Eps[{a}, {b}]` "
+            f"dropped and both doublets contracted on the shared index `{a}` "
+            "(the term is no longer an SU(2) singlet).",
+        )
     return None
 
 
@@ -171,11 +183,15 @@ def op_flip_charge(text):
                 q, v = mm.group(1), mm.group(2)
                 nv = v[1:] if v.startswith("-") else "-" + v
                 entries[i] = f"{q} -> {nv}"
-                cls = re.findall(r"ClassName\s*->\s*(\w+)", text[:m.start()])
+                cls = re.findall(r"ClassName\s*->\s*(\w+)", text[: m.start()])
                 cls = cls[-1] if cls else "?"
-                new = text[:m.start(1)] + ", ".join(entries) + text[m.end(1):]
-                return (new, cls, [cls, q],
-                        f"Quantum number `{q}` of class `{cls}` flipped from {v} to {nv}.")
+                new = text[: m.start(1)] + ", ".join(entries) + text[m.end(1) :]
+                return (
+                    new,
+                    cls,
+                    [cls, q],
+                    f"Quantum number `{q}` of class `{cls}` flipped from {v} to {nv}.",
+                )
     return None
 
 
@@ -185,11 +201,15 @@ def op_drop_cutoff(text):
         m = re.search(r"/\s*\(?\s*(Lam\w*|Lambda\w*)\s*(\^\s*\d+)?\s*\)?", body)
         if not m:
             continue
-        nb = body[:m.start()] + body[m.end():]
-        return (text[:s] + nb + text[e:], name, [name, m.group(1)],
-                f"Cutoff factor `{m.group(0).strip()}` removed from `{name}`; the "
-                "operator is no longer suppressed by the cutoff and its coefficient "
-                "changes mass dimension.")
+        nb = body[: m.start()] + body[m.end() :]
+        return (
+            text[:s] + nb + text[e:],
+            name,
+            [name, m.group(1)],
+            f"Cutoff factor `{m.group(0).strip()}` removed from `{name}`; the "
+            "operator is no longer suppressed by the cutoff and its coefficient "
+            "changes mass dimension.",
+        )
     return None
 
 
@@ -199,31 +219,43 @@ def op_drop_cc(text):
         m = re.search(r"CC\[(\w+)\]", body)
         if not m:
             continue
-        nb = body[:m.start()] + m.group(1) + body[m.end():]
-        return (text[:s] + nb + text[e:], name, [name, "CC", m.group(1)],
-                f"Charge conjugation dropped in `{name}`: `CC[{m.group(1)}]` -> "
-                f"`{m.group(1)}` (the fermion-number-violating structure becomes "
-                "a fermion-number-conserving one).")
+        nb = body[: m.start()] + m.group(1) + body[m.end() :]
+        return (
+            text[:s] + nb + text[e:],
+            name,
+            [name, "CC", m.group(1)],
+            f"Charge conjugation dropped in `{name}`: `CC[{m.group(1)}]` -> "
+            f"`{m.group(1)}` (the fermion-number-violating structure becomes "
+            "a fermion-number-conserving one).",
+        )
     return None
 
 
 def op_sqrt_swap(text):
     m = re.search(r"Value\s*->\s*(Sqrt\[[^\]]*\])\s*,", text)
     if m:
-        cls = re.findall(r"(\w+)\s*==\s*\{", text[:m.start()])
+        cls = re.findall(r"(\w+)\s*==\s*\{", text[: m.start()])
         cls = cls[-1] if cls else "?"
-        new = text[:m.start(1)] + "1/" + m.group(1) + text[m.end(1):]
-        return (new, cls, [cls, "Sqrt"],
-                f"Parameter `{cls}`: `{m.group(1)}` replaced by `1/{m.group(1)}` "
-                "(a normalisation that divides now multiplies).")
+        new = text[: m.start(1)] + "1/" + m.group(1) + text[m.end(1) :]
+        return (
+            new,
+            cls,
+            [cls, "Sqrt"],
+            f"Parameter `{cls}`: `{m.group(1)}` replaced by `1/{m.group(1)}` "
+            "(a normalisation that divides now multiplies).",
+        )
     for name, s, e in _term_spans(text):
         body = text[s:e]
         m = re.search(r"/\s*(Sqrt\[[^\]]*\])", body)
         if not m:
             continue
-        nb = body[:m.start()] + " " + m.group(1) + body[m.end():]
-        return (text[:s] + nb + text[e:], name, [name, "Sqrt"],
-                f"In `{name}` a factor `/{m.group(1)}` became `*{m.group(1)}`.")
+        nb = body[: m.start()] + " " + m.group(1) + body[m.end() :]
+        return (
+            text[:s] + nb + text[e:],
+            name,
+            [name, "Sqrt"],
+            f"In `{name}` a factor `/{m.group(1)}` became `*{m.group(1)}`.",
+        )
     return None
 
 
@@ -234,14 +266,17 @@ def op_factor2(text):
     name, s, e = spans[0]
     body = text[s:e]
     m = re.match(r"(L\w+\s*:=\s*)", body)
-    rest = body[m.end():].rstrip()
+    rest = body[m.end() :].rstrip()
     trailing = ""
     if rest.endswith(";"):
         rest, trailing = rest[:-1], ";"
     nb = m.group(1) + "2 (" + rest + ")" + trailing + "\n"
-    return (text[:s] + nb + text[e:], name, [name, "2"],
-            f"Whole term `{name}` multiplied by 2 (coupling normalisation off by "
-            "a factor of two).")
+    return (
+        text[:s] + nb + text[e:],
+        name,
+        [name, "2"],
+        f"Whole term `{name}` multiplied by 2 (coupling normalisation off by a factor of two).",
+    )
 
 
 def op_drop_term(text):
@@ -250,8 +285,11 @@ def op_drop_term(text):
     if not tot:
         return None
     tname, ts, te = tot[-1]
-    cands = [x for x in spans if x[0] != tname and not _is_kin(x[0])
-             and re.search(rf"\b{x[0]}\b", text[ts:te])]
+    cands = [
+        x
+        for x in spans
+        if x[0] != tname and not _is_kin(x[0]) and re.search(rf"\b{x[0]}\b", text[ts:te])
+    ]
     if not cands:
         return None
     name, s, e = cands[-1]
@@ -265,9 +303,13 @@ def op_drop_term(text):
         new = text[:s] + text[e:ts] + total2 + text[te:]
     else:
         new = text[:ts] + total2 + text[te:s] + text[e:]
-    return (new, name, [name],
-            f"Interaction term `{name}` deleted from the model and from the total "
-            "Lagrangian (a whole interaction is missing).")
+    return (
+        new,
+        name,
+        [name],
+        f"Interaction term `{name}` deleted from the model and from the total "
+        "Lagrangian (a whole interaction is missing).",
+    )
 
 
 def op_swap_chirality(text):
@@ -275,14 +317,22 @@ def op_swap_chirality(text):
         body = text[s:e]
         if "ProjP" in body:
             nb = body.replace("ProjP", "ProjM", 1)
-            return (text[:s] + nb + text[e:], name, [name, "ProjM", "ProjP"],
-                    f"First `ProjP` in `{name}` changed to `ProjM` (a right-handed "
-                    "current became left-handed).")
+            return (
+                text[:s] + nb + text[e:],
+                name,
+                [name, "ProjM", "ProjP"],
+                f"First `ProjP` in `{name}` changed to `ProjM` (a right-handed "
+                "current became left-handed).",
+            )
         if "ProjM" in body:
             nb = body.replace("ProjM", "ProjP", 1)
-            return (text[:s] + nb + text[e:], name, [name, "ProjM", "ProjP"],
-                    f"First `ProjM` in `{name}` changed to `ProjP` (a left-handed "
-                    "current became right-handed).")
+            return (
+                text[:s] + nb + text[e:],
+                name,
+                [name, "ProjM", "ProjP"],
+                f"First `ProjM` in `{name}` changed to `ProjP` (a left-handed "
+                "current became right-handed).",
+            )
     return None
 
 
@@ -316,9 +366,19 @@ def build_cases(out: Path) -> list:
             print(f"[prepare] {page}: no base .fr under {run}", file=sys.stderr)
             continue
         base = Path(frs[0]).read_text()
-        cases.append({"id": f"{page}__control", "page": page, "kind": "control",
-                      "source": frs[0], "operator": None, "term": None,
-                      "tokens": [], "defect": None, "text": base})
+        cases.append(
+            {
+                "id": f"{page}__control",
+                "page": page,
+                "kind": "control",
+                "source": frs[0],
+                "operator": None,
+                "term": None,
+                "tokens": [],
+                "defect": None,
+                "text": base,
+            }
+        )
         for opname, fn in OPERATORS.items():
             res = fn(base)
             if res is None:
@@ -326,16 +386,35 @@ def build_cases(out: Path) -> list:
             new, term, tokens, desc = res
             if new == base or sanitize.sanitize_fr(new)[0] == sanitize.sanitize_fr(base)[0]:
                 continue  # the change landed in a comment: not a mutant
-            cases.append({"id": f"{page}__{opname}", "page": page, "kind": "mutant",
-                          "source": frs[0], "operator": opname, "term": term,
-                          "tokens": tokens, "defect": desc, "text": new})
+            cases.append(
+                {
+                    "id": f"{page}__{opname}",
+                    "page": page,
+                    "kind": "mutant",
+                    "source": frs[0],
+                    "operator": opname,
+                    "term": term,
+                    "tokens": tokens,
+                    "defect": desc,
+                    "text": new,
+                }
+            )
     for page, (rel, desc) in REAL.items():
         p = HERE / page / rel
         if p.is_file():
-            cases.append({"id": f"{page}__real", "page": page, "kind": "real",
-                          "source": str(p), "operator": "physicist_finding",
-                          "term": None, "tokens": [], "defect": desc,
-                          "text": p.read_text()})
+            cases.append(
+                {
+                    "id": f"{page}__real",
+                    "page": page,
+                    "kind": "real",
+                    "source": str(p),
+                    "operator": "physicist_finding",
+                    "term": None,
+                    "tokens": [],
+                    "defect": desc,
+                    "text": p.read_text(),
+                }
+            )
     return cases
 
 
@@ -345,7 +424,8 @@ RECON_POLICY = (
     "file, sanitized.fr. Tool policy: use only the Read tool, and only on files "
     "under {sandbox}; then use the Write tool exactly once to write your document "
     "to {output}. No shell, no search, no web, no other files or directories. "
-    "After writing, reply with the single line DONE.\n\n")
+    "After writing, reply with the single line DONE.\n\n"
+)
 
 CROSS_POLICY = (
     "RUN-TAG: {tag}\n\n"
@@ -354,12 +434,15 @@ CROSS_POLICY = (
     "and only on files under {sandbox} (paper.tex is long: read it completely, in "
     "chunks with offset and limit); then use the Write tool exactly once to write "
     "your document to {output}. No shell, no search, no web, no other files or "
-    "directories. After writing, reply with the single line DONE.\n\n")
+    "directories. After writing, reply with the single line DONE.\n\n"
+)
 
 
 def _rewrite_final(p: str, output: str) -> str:
-    return p.replace("Your final message must be the complete markdown document and nothing else.",
-                     f"Write the complete markdown document to {output}.")
+    return p.replace(
+        "Your final message must be the complete markdown document and nothing else.",
+        f"Write the complete markdown document to {output}.",
+    )
 
 
 def prepare_recon(args):
@@ -385,18 +468,23 @@ def prepare_recon(args):
         if output.is_file() and not args.force:
             continue
         tag = f"XM-RECON-{c['id']}"
-        prompt = RECON_POLICY.format(tag=tag, sandbox=sb, output=output) + \
-            _rewrite_final(prompts.RECONSTRUCT_PROMPT, str(output))
+        prompt = RECON_POLICY.format(tag=tag, sandbox=sb, output=output) + _rewrite_final(
+            prompts.RECONSTRUCT_PROMPT, str(output)
+        )
         (d / "prompt_recon.txt").write_text(prompt)
-        manifest.append({"id": c["id"], "tag": tag, "sandbox": str(sb),
-                         "output": str(output), "prompt": prompt})
+        manifest.append(
+            {"id": c["id"], "tag": tag, "sandbox": str(sb), "output": str(output), "prompt": prompt}
+        )
     (out / "manifest_recon.json").write_text(json.dumps(manifest, indent=2))
-    (out / "cases.json").write_text(json.dumps(
-        [{k: v for k, v in c.items() if k != "text"} for c in cases], indent=2))
+    (out / "cases.json").write_text(
+        json.dumps([{k: v for k, v in c.items() if k != "text"} for c in cases], indent=2)
+    )
     kinds = {}
     for c in cases:
         kinds[c["kind"]] = kinds.get(c["kind"], 0) + 1
-    print(f"[prepare-recon] {len(cases)} cases {kinds}; {len(manifest)} to run -> {out/'manifest_recon.json'}")
+    print(
+        f"[prepare-recon] {len(cases)} cases {kinds}; {len(manifest)} to run -> {out / 'manifest_recon.json'}"
+    )
     return 0
 
 
@@ -423,13 +511,15 @@ def prepare_cross(args):
         if output.is_file() and not args.force:
             continue
         tag = f"XM-CROSS-{c['id']}"
-        prompt = CROSS_POLICY.format(tag=tag, sandbox=sb, output=output) + \
-            _rewrite_final(prompts.CROSSCHECK_PROMPT, str(output))
+        prompt = CROSS_POLICY.format(tag=tag, sandbox=sb, output=output) + _rewrite_final(
+            prompts.CROSSCHECK_PROMPT, str(output)
+        )
         (d / "prompt_cross.txt").write_text(prompt)
-        manifest.append({"id": c["id"], "tag": tag, "sandbox": str(sb),
-                         "output": str(output), "prompt": prompt})
+        manifest.append(
+            {"id": c["id"], "tag": tag, "sandbox": str(sb), "output": str(output), "prompt": prompt}
+        )
     (out / "manifest_cross.json").write_text(json.dumps(manifest, indent=2))
-    print(f"[prepare-cross] {len(manifest)} to run -> {out/'manifest_cross.json'}")
+    print(f"[prepare-cross] {len(manifest)} to run -> {out / 'manifest_cross.json'}")
     return 0
 
 
@@ -483,11 +573,12 @@ def prepare_judge(args):
         (d / "prompt_judge.txt").write_text(prompt)
         manifest.append({"id": c["id"], "tag": tag, "output": str(output), "prompt": prompt})
     (out / "manifest_judge.json").write_text(json.dumps(manifest, indent=2))
-    print(f"[prepare-judge] {len(manifest)} to run -> {out/'manifest_judge.json'}")
+    print(f"[prepare-judge] {len(manifest)} to run -> {out / 'manifest_judge.json'}")
     return 0
 
 
 # --------------------------------------------------------------------- audit
+
 
 def audit(args):
     """Check every subagent transcript that carries one of our RUN-TAGs: every
@@ -497,7 +588,12 @@ def audit(args):
     by_tag = {}
     for c in cases:
         d = out / c["id"]
-        by_tag[f"XM-RECON-{c['id']}"] = (c["id"], "recon", d / "recon_sandbox", d / "reconstruction.md")
+        by_tag[f"XM-RECON-{c['id']}"] = (
+            c["id"],
+            "recon",
+            d / "recon_sandbox",
+            d / "reconstruction.md",
+        )
         by_tag[f"XM-CROSS-{c['id']}"] = (c["id"], "cross", d / "cross_sandbox", d / "crosscheck.md")
         by_tag[f"XM-JUDGE-{c['id']}"] = (c["id"], "judge", d, d / "judge.json")
     report = {}
@@ -505,11 +601,15 @@ def audit(args):
         lines = Path(path).read_text(errors="replace").splitlines()
         tag = None
         for ln in lines[:5]:
-            m = re.search(r"XM-(?:RECON|CROSS|JUDGE)-[\w\-]+", ln) or \
-                re.search(r"crosscheck_mutation/([\w\-]+)/prompt_(recon|cross|judge)\.txt", ln)
+            m = re.search(r"XM-(?:RECON|CROSS|JUDGE)-[\w\-]+", ln) or re.search(
+                r"crosscheck_mutation/([\w\-]+)/prompt_(recon|cross|judge)\.txt", ln
+            )
             if m:
-                tag = m.group(0) if m.group(0).startswith("XM-") else \
-                    f"XM-{m.group(2).upper()}-{m.group(1)}"
+                tag = (
+                    m.group(0)
+                    if m.group(0).startswith("XM-")
+                    else f"XM-{m.group(2).upper()}-{m.group(1)}"
+                )
                 break
         if tag is None or tag not in by_tag:
             continue
@@ -529,9 +629,13 @@ def audit(args):
                 tools.append(name)
                 p = inp.get("file_path") or inp.get("path") or ""
                 if name == "Read":
-                    if Path(p).name in ("prompt_recon.txt", "prompt_cross.txt", "prompt_judge.txt",
-                                        "case.json", "crosscheck.md") and \
-                            Path(p).resolve().parent in (sb.resolve().parent, sb.resolve()):
+                    if Path(p).name in (
+                        "prompt_recon.txt",
+                        "prompt_cross.txt",
+                        "prompt_judge.txt",
+                        "case.json",
+                        "crosscheck.md",
+                    ) and Path(p).resolve().parent in (sb.resolve().parent, sb.resolve()):
                         continue
                     if not str(Path(p).resolve()).startswith(str(sb.resolve())):
                         problems.append(f"Read outside sandbox: {p}")
@@ -540,17 +644,25 @@ def audit(args):
                         problems.append(f"Write to unexpected path: {p}")
                 else:
                     problems.append(f"tool {name} not allowed")
-        report.setdefault(cid, {})[phase] = {"transcript": path, "n_tools": len(tools),
-                                             "problems": problems, "audit_ok": not problems}
+        report.setdefault(cid, {})[phase] = {
+            "transcript": path,
+            "n_tools": len(tools),
+            "problems": problems,
+            "audit_ok": not problems,
+        }
     (out / "audit.json").write_text(json.dumps(report, indent=2))
     bad = sum(1 for c in report.values() for ph in c.values() if not ph["audit_ok"])
-    print(f"[audit] {len(report)} cases with transcripts, {bad} phase(s) with policy problems -> {out/'audit.json'}")
+    print(
+        f"[audit] {len(report)} cases with transcripts, {bad} phase(s) with policy problems -> {out / 'audit.json'}"
+    )
     return 0
 
 
 # --------------------------------------------------------------------- score
 
-VERDICT_RE = re.compile(r"\*{0,2}(agree|disagree|missing-in-reconstruction|extra-in-reconstruction)\*{0,2}", re.I)
+VERDICT_RE = re.compile(
+    r"\*{0,2}(agree|disagree|missing-in-reconstruction|extra-in-reconstruction)\*{0,2}", re.I
+)
 
 
 def _rows(md: str):
@@ -575,7 +687,9 @@ def _rows(md: str):
 def _flags(md: str):
     """Non-agree rows plus the severity list after the table."""
     rows = [r for r in _rows(md) if r["verdict"] != "agree"]
-    sev = re.findall(r"^\s*(?:[-*]|\d+\.)\s*(.*?(substantive|convention|cosmetic).*)$", md, re.M | re.I)
+    sev = re.findall(
+        r"^\s*(?:[-*]|\d+\.)\s*(.*?(substantive|convention|cosmetic).*)$", md, re.M | re.I
+    )
     return rows, [s[0] for s in sev]
 
 
@@ -620,52 +734,79 @@ def score(args):
     mut = [r for r in results if r["kind"] == "mutant" and r.get("has_cross")]
     ctl = [r for r in results if r["kind"] == "control" and r.get("has_cross")]
     real = [r for r in results if r["kind"] == "real" and r.get("has_cross")]
-    lines = ["# Crosscheck mutation test — rule-based scoring", "",
-             f"cases scored: {len(mut)} mutants, {len(ctl)} controls, {len(real)} real-finding files", ""]
+    lines = [
+        "# Crosscheck mutation test — rule-based scoring",
+        "",
+        f"cases scored: {len(mut)} mutants, {len(ctl)} controls, {len(real)} real-finding files",
+        "",
+    ]
     if mut:
         det = sum(1 for r in mut if r["rule_detected"])
-        lines.append(f"- mutants where a flagged row or severity line names the mutated symbol: **{det}/{len(mut)}**")
+        lines.append(
+            f"- mutants where a flagged row or severity line names the mutated symbol: **{det}/{len(mut)}**"
+        )
     if ctl:
-        lines.append("- controls: flagged rows / substantive lines per file: " +
-                     ", ".join(f"{r['page']} {r['n_flagged']}/{r['n_substantive']}" for r in ctl))
+        lines.append(
+            "- controls: flagged rows / substantive lines per file: "
+            + ", ".join(f"{r['page']} {r['n_flagged']}/{r['n_substantive']}" for r in ctl)
+        )
     judged = [r for r in results if isinstance(r.get("judge"), dict) and "named" in r["judge"]]
     if judged:
         jm = [r for r in judged if r["kind"] == "mutant"]
         jr = [r for r in judged if r["kind"] == "real"]
         jc = [r for r in judged if r["kind"] == "control"]
         cnt = lambda rs, v: sum(1 for r in rs if r["judge"].get("named") == v)
-        lines += ["", "## Judge (subagent reading crosscheck.md against the defect description)", "",
-                  f"- mutants named: yes {cnt(jm,'yes')}, partial {cnt(jm,'partial')}, no {cnt(jm,'no')} of {len(jm)}",
-                  f"- real findings named: yes {cnt(jr,'yes')}, partial {cnt(jr,'partial')}, no {cnt(jr,'no')} of {len(jr)}",
-                  f"- other substantive disagreements per file: mutants mean "
-                  f"{(sum(int(r['judge'].get('other_substantive') or 0) for r in jm)/max(1,len(jm))):.1f}, "
-                  f"controls mean {(sum(int(r['judge'].get('other_substantive') or 0) for r in jc)/max(1,len(jc))):.1f}"]
+        lines += [
+            "",
+            "## Judge (subagent reading crosscheck.md against the defect description)",
+            "",
+            f"- mutants named: yes {cnt(jm, 'yes')}, partial {cnt(jm, 'partial')}, no {cnt(jm, 'no')} of {len(jm)}",
+            f"- real findings named: yes {cnt(jr, 'yes')}, partial {cnt(jr, 'partial')}, no {cnt(jr, 'no')} of {len(jr)}",
+            f"- other substantive disagreements per file: mutants mean "
+            f"{(sum(int(r['judge'].get('other_substantive') or 0) for r in jm) / max(1, len(jm))):.1f}, "
+            f"controls mean {(sum(int(r['judge'].get('other_substantive') or 0) for r in jc) / max(1, len(jc))):.1f}",
+        ]
         by_op = {}
         for r in jm:
             by_op.setdefault(r["operator"], []).append(r["judge"].get("named"))
         lines += ["", "| operator | yes | partial | no |", "|---|---|---|---|"]
         for op, vs in sorted(by_op.items()):
             lines.append(f"| {op} | {vs.count('yes')} | {vs.count('partial')} | {vs.count('no')} |")
-    lines += ["", "| case | kind | operator | term | flagged rows | substantive | rule hit | judge | other subst. |", "|---|---|---|---|---|---|---|---|---|"]
+    lines += [
+        "",
+        "| case | kind | operator | term | flagged rows | substantive | rule hit | judge | other subst. |",
+        "|---|---|---|---|---|---|---|---|---|",
+    ]
     for r in results:
         if not r.get("has_cross"):
-            lines.append(f"| {r['id']} | {r['kind']} | {r['operator'] or ''} | {r['term'] or ''} | — | — | no crosscheck | | |")
+            lines.append(
+                f"| {r['id']} | {r['kind']} | {r['operator'] or ''} | {r['term'] or ''} | — | — | no crosscheck | | |"
+            )
             continue
         j = r.get("judge") or {}
-        lines.append(f"| {r['id']} | {r['kind']} | {r['operator'] or ''} | {r['term'] or ''} | "
-                     f"{r['n_flagged']}/{r['n_rows']} | {r['n_substantive']} | "
-                     f"{'yes' if r.get('rule_detected') else ('n/a' if r['kind']!='mutant' else 'no')} | "
-                     f"{j.get('named','')} | {j.get('other_substantive','')} |")
+        lines.append(
+            f"| {r['id']} | {r['kind']} | {r['operator'] or ''} | {r['term'] or ''} | "
+            f"{r['n_flagged']}/{r['n_rows']} | {r['n_substantive']} | "
+            f"{'yes' if r.get('rule_detected') else ('n/a' if r['kind'] != 'mutant' else 'no')} | "
+            f"{j.get('named', '')} | {j.get('other_substantive', '')} |"
+        )
     (out / "score_rule.md").write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
     return 0
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap = argparse.ArgumentParser(
+        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+    )
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for name, fn in (("prepare-recon", prepare_recon), ("prepare-cross", prepare_cross),
-                     ("prepare-judge", prepare_judge), ("audit", audit), ("score", score)):
+    for name, fn in (
+        ("prepare-recon", prepare_recon),
+        ("prepare-cross", prepare_cross),
+        ("prepare-judge", prepare_judge),
+        ("audit", audit),
+        ("score", score),
+    ):
         p = sub.add_parser(name)
         p.add_argument("--out", default=str(HERE / "crosscheck_mutation"))
         p.add_argument("--force", action="store_true")

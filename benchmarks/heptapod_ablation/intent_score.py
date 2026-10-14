@@ -42,18 +42,28 @@ def main() -> int:
         rb.OUTROOT = Path(tempfile.mkdtemp(prefix=f"intent-{page}-"))
         with hepval.kernel_slot():
             row = rb.validate("call1", fr, 0)
-        v = {"status": row.get("status"), "compile_ok": row.get("compile_ok"), "timed_out": row.get("timed_out"),
-             "seconds": row.get("seconds"), "checks": row.get("checks"), "madgraph_import_ok": row.get("madgraph_import_ok"),
-             "full_chain_pass": bool(row.get("full_pass")), "lagrangian_expression": "LTotal",
-             "scorer": "intent_score.py: the common chain on LTotal as written, no LSM added",
-             "scored_at": time.strftime("%Y-%m-%dT%H:%M:%S")}
+        v = {
+            "status": row.get("status"),
+            "compile_ok": row.get("compile_ok"),
+            "timed_out": row.get("timed_out"),
+            "seconds": row.get("seconds"),
+            "checks": row.get("checks"),
+            "madgraph_import_ok": row.get("madgraph_import_ok"),
+            "full_chain_pass": bool(row.get("full_pass")),
+            "lagrangian_expression": "LTotal",
+            "scorer": "intent_score.py: the common chain on LTotal as written, no LSM added",
+            "scored_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+        }
         (d / "validation_intent.json").write_text(json.dumps(v, indent=1, default=str))
         ufo = rb.OUTROOT / "call1" / "round0" / "UFO"
         for name in ("particles.py", "vertices.py"):
             if (ufo / name).is_file():
                 (d / "intent_ufo").mkdir(exist_ok=True)
                 (d / "intent_ufo" / name).write_bytes((ufo / name).read_bytes())
-        print(f"{page}: {v['status']} full_chain={v['full_chain_pass']} checks={v['checks']} mg5={v['madgraph_import_ok']}", flush=True)
+        print(
+            f"{page}: {v['status']} full_chain={v['full_chain_pass']} checks={v['checks']} mg5={v['madgraph_import_ok']}",
+            flush=True,
+        )
     return 0
 
 

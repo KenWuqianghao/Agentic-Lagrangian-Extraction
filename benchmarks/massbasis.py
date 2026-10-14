@@ -38,7 +38,7 @@ def higgs_singlet():
     sg = sp.sin(a) * h + sp.cos(a) * H2
     phi2 = (v + hg) ** 2 / 2  # |Phi|^2 in unitary gauge, neutral component
     chi2 = (x + sg) ** 2 / 2
-    V = -mu1s * phi2 + lam1 * phi2 ** 2 - mu2s * chi2 + lam2 * chi2 ** 2 + lam3 * phi2 * chi2
+    V = -mu1s * phi2 + lam1 * phi2**2 - mu2s * chi2 + lam2 * chi2**2 + lam3 * phi2 * chi2
     V = sp.expand(V)
 
     # tadpoles vanish
@@ -51,8 +51,9 @@ def higgs_singlet():
     q_hh = sp.diff(Vm, h, 2).subs({h: 0, H2: 0}) / 1  # coefficient of h^2/2 -> mass^2
     q_HH = sp.diff(Vm, H2, 2).subs({h: 0, H2: 0})
     q_hH = sp.diff(Vm, h, H2).subs({h: 0, H2: 0})
-    sol = sp.solve([sp.Eq(q_hh, mh ** 2), sp.Eq(q_HH, mH ** 2), sp.Eq(q_hH, 0)],
-                   [lam1, lam2, lam3], dict=True)[0]
+    sol = sp.solve(
+        [sp.Eq(q_hh, mh**2), sp.Eq(q_HH, mH**2), sp.Eq(q_hH, 0)], [lam1, lam2, lam3], dict=True
+    )[0]
     sol = {k: sp.simplify(sp.trigsimp(vv)) for k, vv in sol.items()}
     mus = {k: sp.simplify(vv.subs(sol)) for k, vv in mus.items()}
 
@@ -60,8 +61,8 @@ def higgs_singlet():
     Vchk = sp.expand(V.subs(mus).subs(sol))
     cross = sp.simplify(sp.diff(Vchk, h, H2).subs({h: 0, H2: 0}))
     assert cross == 0, cross
-    assert sp.simplify(sp.diff(Vchk, h, 2).subs({h: 0, H2: 0}) - mh ** 2) == 0
-    assert sp.simplify(sp.diff(Vchk, H2, 2).subs({h: 0, H2: 0}) - mH ** 2) == 0
+    assert sp.simplify(sp.diff(Vchk, h, 2).subs({h: 0, H2: 0}) - mh**2) == 0
+    assert sp.simplify(sp.diff(Vchk, H2, 2).subs({h: 0, H2: 0}) - mH**2) == 0
     return sol, mus
 
 
@@ -69,6 +70,7 @@ def to_feynrules(sol, mus) -> str:
     def mma(e):
         s = sp.mathematica_code(e)
         return s.replace("Sin[alpha]", "sa").replace("Cos[alpha]", "ca")
+
     lines = []
     for name, expr, desc in [
         ("lam1BL", sol[sp.Symbol("lam1BL", real=True)], "doublet quartic, from (MH, MH2, alpha)"),

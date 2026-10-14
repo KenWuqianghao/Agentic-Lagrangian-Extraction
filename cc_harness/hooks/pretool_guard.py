@@ -21,8 +21,17 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import common as C  # noqa: E402
 
-DENY_TOOLS = {"Bash", "BashOutput", "KillShell", "WebFetch", "WebSearch", "Task", "Agent",
-              "PowerShell", "REPL"}
+DENY_TOOLS = {
+    "Bash",
+    "BashOutput",
+    "KillShell",
+    "WebFetch",
+    "WebSearch",
+    "Task",
+    "Agent",
+    "PowerShell",
+    "REPL",
+}
 FILE_TOOLS = {"Read", "Write", "Edit", "MultiEdit", "NotebookEdit", "Glob", "Grep", "LS"}
 PATH_KEYS = ("file_path", "path", "notebook_path")
 
@@ -42,9 +51,14 @@ def decide(event: dict, sandbox: Path) -> tuple[bool, str]:
     inp = event.get("tool_input") or {}
     cwd = Path(event.get("cwd") or sandbox)
     if tool in DENY_TOOLS:
-        return False, f"{tool} is not available in this harness (no shell, no network, no subagents); use the file tools and the heptapod tools"
+        return (
+            False,
+            f"{tool} is not available in this harness (no shell, no network, no subagents); use the file tools and the heptapod tools",
+        )
     if tool.startswith("mcp__"):
-        return tool in C.mcp_tool_names(C.arm()), f"only the {C.SERVER_NAME} MCP tools are available"
+        return tool in C.mcp_tool_names(
+            C.arm()
+        ), f"only the {C.SERVER_NAME} MCP tools are available"
     if tool not in FILE_TOOLS:
         return True, "not a file tool"
     paths = [inp[k] for k in PATH_KEYS if isinstance(inp.get(k), str) and inp.get(k)]
@@ -57,7 +71,10 @@ def decide(event: dict, sandbox: Path) -> tuple[bool, str]:
     for p in paths or ["."]:
         ok, real = C.inside(p, sandbox, cwd)
         if not ok:
-            return False, f"path {p} is outside the sandbox; only files under {sandbox} exist for this task"
+            return (
+                False,
+                f"path {p} is outside the sandbox; only files under {sandbox} exist for this task",
+            )
     return True, "inside the sandbox"
 
 
@@ -69,15 +86,31 @@ def main() -> int:
     sb = C.sandbox()
     allow, reason = decide(event, sb)
     try:
-        C.log(C.rundir(), "hook_log.jsonl", {"hook": "PreToolUse", "tool": event.get("tool_name"),
-                                              "decision": "allow" if allow else "deny", "reason": reason,
-                                              "input": event.get("tool_input")})
+        C.log(
+            C.rundir(),
+            "hook_log.jsonl",
+            {
+                "hook": "PreToolUse",
+                "tool": event.get("tool_name"),
+                "decision": "allow" if allow else "deny",
+                "reason": reason,
+                "input": event.get("tool_input"),
+            },
+        )
     except (KeyError, OSError):
         pass
     if not allow:
-        print(json.dumps({"hookSpecificOutput": {"hookEventName": "PreToolUse",
-                                                 "permissionDecision": "deny",
-                                                 "permissionDecisionReason": reason}}))
+        print(
+            json.dumps(
+                {
+                    "hookSpecificOutput": {
+                        "hookEventName": "PreToolUse",
+                        "permissionDecision": "deny",
+                        "permissionDecisionReason": reason,
+                    }
+                }
+            )
+        )
     return 0
 
 

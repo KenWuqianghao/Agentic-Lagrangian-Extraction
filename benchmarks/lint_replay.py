@@ -45,13 +45,24 @@ def outcome(v: dict) -> dict:
         return o
     o["compile"] = bool(v.get("compile_ok")) and not v.get("timed_out")
     if not o["compile"]:
-        o["label"] = "compile_timeout" if (v.get("timed_out") or st == "compile_timeout") else "compile_failed"
+        o["label"] = (
+            "compile_timeout"
+            if (v.get("timed_out") or st == "compile_timeout")
+            else "compile_failed"
+        )
         return o
     checks = v.get("checks") or {}
     o["checks"] = not any(x == "fail" for x in checks.values())
     o["mg5"] = bool(v.get("madgraph_import_ok"))
-    o["label"] = "pass" if (o["checks"] and o["mg5"]) else \
-        ("checks+mg5_failed" if not o["checks"] and not o["mg5"] else ("checks_failed" if not o["checks"] else "mg5_failed"))
+    o["label"] = (
+        "pass"
+        if (o["checks"] and o["mg5"])
+        else (
+            "checks+mg5_failed"
+            if not o["checks"] and not o["mg5"]
+            else ("checks_failed" if not o["checks"] else "mg5_failed")
+        )
+    )
     return o
 
 
@@ -78,8 +89,15 @@ def inventory():
             continue
         v = json.load(open(vpath))
         rel = os.path.relpath(d, HERE)
-        items.append({"id": rel, "fr": frs[0], "outcome": outcome(v), "checks": v.get("checks") or {},
-                      "source": "rerun"})
+        items.append(
+            {
+                "id": rel,
+                "fr": frs[0],
+                "outcome": outcome(v),
+                "checks": v.get("checks") or {},
+                "source": "rerun",
+            }
+        )
     rep = json.load(open(HERE / "repair_repair_corrected_report.json"))["results"]
     for r in rep:
         for rd in r["rounds"]:
@@ -89,8 +107,15 @@ def inventory():
             v = dict(rd)
             if "madgraph_import_ok" not in v:
                 v["madgraph_import_ok"] = bool(v.get("full_pass")) or v.get("mg5_ok")
-            items.append({"id": f"{r['page']}/repair_corrected/round{rd['round']}", "fr": str(local),
-                          "outcome": outcome(v), "checks": v.get("checks") or {}, "source": "repair"})
+            items.append(
+                {
+                    "id": f"{r['page']}/repair_corrected/round{rd['round']}",
+                    "fr": str(local),
+                    "outcome": outcome(v),
+                    "checks": v.get("checks") or {},
+                    "source": "repair",
+                }
+            )
     return items
 
 
@@ -105,15 +130,24 @@ def main():
 
     n = len(rows)
     oc = Counter(r["outcome"]["label"] for r in rows)
-    lines = ["# Lint replay over stored agent models", "",
-             f"{n} files ({dict(Counter(r['source'] for r in rows))}), outcomes: " +
-             ", ".join(f"{k} {v}" for k, v in sorted(oc.items())), "",
-             "A rule predicts one stage. Precision counts only files that REACHED that stage "
-             "(compiled, for checks and MadGraph); a file that never compiled says nothing "
-             "about its UFO.", ""]
+    lines = [
+        "# Lint replay over stored agent models",
+        "",
+        f"{n} files ({dict(Counter(r['source'] for r in rows))}), outcomes: "
+        + ", ".join(f"{k} {v}" for k, v in sorted(oc.items())),
+        "",
+        "A rule predicts one stage. Precision counts only files that REACHED that stage "
+        "(compiled, for checks and MadGraph); a file that never compiled says nothing "
+        "about its UFO.",
+        "",
+    ]
 
-    lines += ["## Per rule", "", "| rule | stage | files flagged | reached the stage | failed it | precision |",
-              "|---|---|---|---|---|---|"]
+    lines += [
+        "## Per rule",
+        "",
+        "| rule | stage | files flagged | reached the stage | failed it | precision |",
+        "|---|---|---|---|---|---|",
+    ]
     per_rule = defaultdict(list)
     for r in rows:
         seen = set()
@@ -129,10 +163,16 @@ def main():
             continue
         rch = [o for o in outs if reached(o, stage)]
         fl = sum(1 for o in rch if failed(o, stage))
-        prec = f"{fl/len(rch):.2f}" if rch else "n/a"
+        prec = f"{fl / len(rch):.2f}" if rch else "n/a"
         lines.append(f"| {rule} | {stage} | {nf} | {len(rch)} | {fl} | {prec} |")
 
-    lines += ["", "## Recall per failure stage", "", "| failure stage | files failing it | with a lint predicting it | with any error-level lint |", "|---|---|---|---|"]
+    lines += [
+        "",
+        "## Recall per failure stage",
+        "",
+        "| failure stage | files failing it | with a lint predicting it | with any error-level lint |",
+        "|---|---|---|---|",
+    ]
     for stage in ("harness", "compile", "checks", "mg5"):
         fails = [r for r in rows if failed(r["outcome"], stage)]
         if not fails:
@@ -149,16 +189,22 @@ def main():
     for r in passes:
         errs = [f for f in r["findings"] if f["stage"] != "warn"]
         if errs:
-            lines.append(f"- `{r['id']}`: " + "; ".join(f"{f['rule']} ({f['message'][:90]})" for f in errs))
+            lines.append(
+                f"- `{r['id']}`: " + "; ".join(f"{f['rule']} ({f['message'][:90]})" for f in errs)
+            )
     # the mass-mixing lint against the mass_diagonal verdict
     mix = [r for r in rows if any(f["rule"] == "mixing_in_definitions" for f in r["findings"])]
     md_fail = [r for r in rows if r["checks"].get("mass_diagonal") == "fail"]
-    lines += ["", "## mixing_in_definitions vs CheckDiagonalMassTerms", "",
-              f"- files flagged: {len(mix)}; of those with a check verdict, mass_diagonal fail: "
-              f"{sum(1 for r in mix if r['checks'].get('mass_diagonal')=='fail')}, pass: "
-              f"{sum(1 for r in mix if r['checks'].get('mass_diagonal')=='pass')}",
-              f"- files with mass_diagonal fail: {len(md_fail)}; flagged by the lint: "
-              f"{sum(1 for r in md_fail if any(f['rule']=='mixing_in_definitions' for f in r['findings']))}"]
+    lines += [
+        "",
+        "## mixing_in_definitions vs CheckDiagonalMassTerms",
+        "",
+        f"- files flagged: {len(mix)}; of those with a check verdict, mass_diagonal fail: "
+        f"{sum(1 for r in mix if r['checks'].get('mass_diagonal') == 'fail')}, pass: "
+        f"{sum(1 for r in mix if r['checks'].get('mass_diagonal') == 'pass')}",
+        f"- files with mass_diagonal fail: {len(md_fail)}; flagged by the lint: "
+        f"{sum(1 for r in md_fail if any(f['rule'] == 'mixing_in_definitions' for f in r['findings']))}",
+    ]
     out = "\n".join(lines) + "\n"
     (HERE / "lint_replay.md").write_text(out)
     print(out)

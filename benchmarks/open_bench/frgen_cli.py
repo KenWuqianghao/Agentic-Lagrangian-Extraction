@@ -25,9 +25,9 @@ HERE = Path(__file__).resolve().parent
 TOOLKIT = Path(os.environ["FRGEN_TOOLKIT"])  # dir holding frgen/ and fr_lint.py
 sys.path.insert(0, str(TOOLKIT))
 
+import fr_lint  # noqa: E402
 from frgen.frmodel import FeynRulesModel  # noqa: E402
 from frgen.render import render_model  # noqa: E402
-import fr_lint  # noqa: E402
 
 
 def main(argv: list[str]) -> int:
@@ -49,8 +49,10 @@ def main(argv: list[str]) -> int:
     try:
         model = FeynRulesModel(**data)
     except Exception as e:  # noqa: BLE001  (pydantic ValidationError, validator ValueError)
-        print("SCHEMA VALIDATION FAILED. Fix the fields named below and run ./frgen again.\n"
-              "Remember: numeric values are strings (\"-1/3\", \"1500.\").\n")
+        print(
+            "SCHEMA VALIDATION FAILED. Fix the fields named below and run ./frgen again.\n"
+            'Remember: numeric values are strings ("-1/3", "1500.").\n'
+        )
         print(str(e))
         return 0
     try:
@@ -60,17 +62,21 @@ def main(argv: list[str]) -> int:
         return 0
     out = spec.parent / "model.fr"
     out.write_text(fr_text)
-    print(f"SCHEMA OK: {len(model.particles)} particle classes, {len(model.parameters)} parameters, "
-          f"Lagrangian terms {[t.name for t in model.lagrangian_terms]}")
+    print(
+        f"SCHEMA OK: {len(model.particles)} particle classes, {len(model.parameters)} parameters, "
+        f"Lagrangian terms {[t.name for t in model.lagrangian_terms]}"
+    )
     print(f"RENDERED: {out.name} ({len(fr_text.splitlines())} lines). You may read it.")
     findings = fr_lint.lint_text(fr_text)
     if not findings:
         print("LINT: no findings.")
         return 0
-    print(f"LINT: {len(findings)} finding(s). Each names the stage it predicts will fail "
-          "(compile, checks = a FeynRules consistency check, mg5 = MadGraph import, "
-          "harness = the total Lagrangian cannot be identified, warn = may still pass). "
-          "Fix the ones that are real defects; do not remove paper physics just to silence one.")
+    print(
+        f"LINT: {len(findings)} finding(s). Each names the stage it predicts will fail "
+        "(compile, checks = a FeynRules consistency check, mg5 = MadGraph import, "
+        "harness = the total Lagrangian cannot be identified, warn = may still pass). "
+        "Fix the ones that are real defects; do not remove paper physics just to silence one."
+    )
     for f in findings:
         loc = f" (model.fr line {f.line})" if f.line else ""
         print(f"- [{f.stage}] {f.rule}: {f.message}{loc}")

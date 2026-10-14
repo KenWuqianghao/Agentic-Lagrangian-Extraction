@@ -24,9 +24,22 @@ sys.path.insert(0, str(HERE / "hillclimb"))
 import ref_score as R  # noqa: E402
 
 RUNS = HERE / "runs"
-PAPERS = ("HeavyN", "Top-Philic-Zprime", "pNG", "SMWeinberg", "EffLRSM", "B-L-SM", "MDMmodel", "Monotops",
-          "Wprime", "pSPSS", "GeneralU1", "331", "ALRM_general")   # the 13 papers with a usable reference
-MODELS = [   # folder, (group, variant) pairs, seeds
+PAPERS = (
+    "HeavyN",
+    "Top-Philic-Zprime",
+    "pNG",
+    "SMWeinberg",
+    "EffLRSM",
+    "B-L-SM",
+    "MDMmodel",
+    "Monotops",
+    "Wprime",
+    "pSPSS",
+    "GeneralU1",
+    "331",
+    "ALRM_general",
+)  # the 13 papers with a usable reference
+MODELS = [  # folder, (group, variant) pairs, seeds
     ("sonnet-5", (("tools", "cc_sonnet_shell"), ("vanilla", "cc_vanilla_fair")), (1, 2, 3)),
     ("haiku-5.5", (("tools", "cc_haiku_shell"), ("vanilla", "cc_haiku_vanilla")), (1, 2, 3)),
     ("sonnet-5.5", (("tools", "cc_sonnet55_shell"), ("vanilla", "cc_sonnet55_vanilla")), (1,)),
@@ -81,17 +94,26 @@ def fence(text: str, lang: str = "") -> str:
 def result_text(content) -> str:
     if isinstance(content, str):
         return content
-    return "\n".join(b.get("text", "") if b.get("type") == "text" else f"[{b.get('type')} block]" for b in content or [])
+    return "\n".join(
+        b.get("text", "") if b.get("type") == "text" else f"[{b.get('type')} block]"
+        for b in content or []
+    )
 
 
 def trace_md(sdir: Path, title: str, score: dict, agent: dict) -> str:
-    out = [f"# {title}\n",
-           f"Score {score.get('metric')} · check chain {'passed' if score['chain'] else 'failed'} · "
-           f"{round((agent.get('seconds') or 0) / 60)} min · ${round(agent.get('cost_usd') or 0, 2)}"
-           f"{' · hit the 4-hour limit' if agent.get('timed_out') else ''}\n",
-           "## Task\n", fence((sdir / "prompt.txt").read_text(errors="replace"), "text")]
+    out = [
+        f"# {title}\n",
+        f"Score {score.get('metric')} · check chain {'passed' if score['chain'] else 'failed'} · "
+        f"{round((agent.get('seconds') or 0) / 60)} min · ${round(agent.get('cost_usd') or 0, 2)}"
+        f"{' · hit the 4-hour limit' if agent.get('timed_out') else ''}\n",
+        "## Task\n",
+        fence((sdir / "prompt.txt").read_text(errors="replace"), "text"),
+    ]
     if (sdir / "protocol.md").is_file():
-        out += ["## Protocol (added to the system prompt)\n", fence((sdir / "protocol.md").read_text(errors="replace"), "markdown")]
+        out += [
+            "## Protocol (added to the system prompt)\n",
+            fence((sdir / "protocol.md").read_text(errors="replace"), "markdown"),
+        ]
     out.append("## Trace\n")
     names, step = {}, 0
     for line in (sdir / "agent_stream.jsonl").read_text(errors="replace").splitlines():
@@ -109,14 +131,23 @@ def trace_md(sdir: Path, title: str, score: dict, agent: dict) -> str:
                     name = b["name"].replace("mcp__heptapod-tools__", "heptapod: ")
                     names[b["id"]] = name
                     inp = b["input"]
-                    body = inp["command"] if "command" in inp and set(inp) <= {"command", "description", "timeout"} \
+                    body = (
+                        inp["command"]
+                        if "command" in inp and set(inp) <= {"command", "description", "timeout"}
                         else json.dumps(inp, indent=1, ensure_ascii=False)
-                    out += [f"### {step}. Tool call: {name}\n", fence(body, "bash" if name == "Bash" else "json")]
+                    )
+                    out += [
+                        f"### {step}. Tool call: {name}\n",
+                        fence(body, "bash" if name == "Bash" else "json"),
+                    ]
         elif ev.get("type") == "user" and isinstance(ev["message"]["content"], list):
             for b in ev["message"]["content"]:
                 if b.get("type") == "tool_result":
                     err = " (error)" if b.get("is_error") else ""
-                    out += [f"Result of {names.get(b.get('tool_use_id'), 'tool')}{err}:\n", fence(result_text(b.get("content")), "text")]
+                    out += [
+                        f"Result of {names.get(b.get('tool_use_id'), 'tool')}{err}:\n",
+                        fence(result_text(b.get("content")), "text"),
+                    ]
                 elif b.get("type") == "text" and b["text"].startswith("Stop hook feedback"):
                     step += 1
                     out += [f"### {step}. Stop gate (harness)\n", fence(b["text"], "text")]
@@ -156,19 +187,37 @@ def main() -> int:
                         if frs:
                             put(z, f"{base}_model.fr", frs[0].read_text(errors="replace"))
                         s = R.score_run(sdir, paper)
-                        put(z, f"{base}_trace.md", trace_md(sdir, f"{paper} · {model} · {group} · seed {k}", s, agent))
-                        rows.append({"model": model, "paper": paper, "group": group, "seed": k, "delivered": bool(frs),
-                                     "chain_pass": s["chain"], "score": s.get("metric"), "f1": s.get("f1"),
-                                     "precision": s.get("precision"), "recall": s.get("recall"),
-                                     "minutes": round((agent.get("seconds") or 0) / 60),
-                                     "timed_out": bool(agent.get("timed_out")), "cost_usd": round(agent.get("cost_usd") or 0, 2)})
+                        put(
+                            z,
+                            f"{base}_trace.md",
+                            trace_md(sdir, f"{paper} · {model} · {group} · seed {k}", s, agent),
+                        )
+                        rows.append(
+                            {
+                                "model": model,
+                                "paper": paper,
+                                "group": group,
+                                "seed": k,
+                                "delivered": bool(frs),
+                                "chain_pass": s["chain"],
+                                "score": s.get("metric"),
+                                "f1": s.get("f1"),
+                                "precision": s.get("precision"),
+                                "recall": s.get("recall"),
+                                "minutes": round((agent.get("seconds") or 0) / 60),
+                                "timed_out": bool(agent.get("timed_out")),
+                                "cost_usd": round(agent.get("cost_usd") or 0, 2),
+                            }
+                        )
         buf = io.StringIO()
         w = csv.DictWriter(buf, fieldnames=list(rows[0]))
         w.writeheader()
         w.writerows(rows)
         put(z, "scores.csv", buf.getvalue())
         put(z, "README.md", README)
-    print(json.dumps({"zip": str(out), "runs": len(rows), "mb": round(out.stat().st_size / 1e6, 1)}))
+    print(
+        json.dumps({"zip": str(out), "runs": len(rows), "mb": round(out.stat().st_size / 1e6, 1)})
+    )
     return 0
 
 

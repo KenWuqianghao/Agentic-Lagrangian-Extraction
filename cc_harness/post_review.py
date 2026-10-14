@@ -34,29 +34,58 @@ def main() -> int:
     ap.add_argument("--pages", required=True)
     ap.add_argument("--model", default="claude-sonnet-5")
     ap.add_argument("--seeds", type=int, default=1)
-    ap.add_argument("--chain-pass-only", action="store_true",
-                    help="skip runs whose scored file does not pass the full chain, and runs already refereed")
+    ap.add_argument(
+        "--chain-pass-only",
+        action="store_true",
+        help="skip runs whose scored file does not pass the full chain, and runs already refereed",
+    )
     args = ap.parse_args()
     pages = (SINGLE_MODEL if args.pages == "all" else args.pages).split(",")
     for page, k in ((p, k) for p in pages for k in range(1, args.seeds + 1)):
         d = RUNS / page / "rerun" / args.variant / f"s{k}"
         final = d / "model" / f"{page}_gen.fr"
         if args.chain_pass_only:
-            score = json.loads((d / "validation_hepval.json").read_text()) if (d / "validation_hepval.json").is_file() else {}
+            score = (
+                json.loads((d / "validation_hepval.json").read_text())
+                if (d / "validation_hepval.json").is_file()
+                else {}
+            )
             if not score.get("full_chain_pass") or (d / "post_review" / "verdict.json").is_file():
                 continue
         sb = Path((d / "sandbox_path.txt").read_text().strip())
         if (sb / "model.fr").read_bytes() != final.read_bytes():
             raise SystemExit(f"{page} s{k}: sandbox model.fr differs from the delivered model")
-        os.environ.update({"CC_SANDBOX": str(sb), "CC_RUNDIR": str(d / "post_review"),
-                           "CC_REVIEW_BUDGET": "1", "CC_REVIEW_MODEL": args.model})
+        os.environ.update(
+            {
+                "CC_SANDBOX": str(sb),
+                "CC_RUNDIR": str(d / "post_review"),
+                "CC_REVIEW_BUDGET": "1",
+                "CC_REVIEW_MODEL": args.model,
+            }
+        )
         import common  # noqa: E402  (reads the environment at call time)
         import heptapod_mcp  # noqa: E402
+
         out = heptapod_mcp.review_model({"path": "model.fr"})
-        verdict = next((ln.strip() for ln in reversed(out.splitlines()) if ln.strip().upper().startswith("VERDICT:")), None)
-        (d / "post_review" / "verdict.json").write_text(json.dumps(
-            {"page": page, "verdict": verdict, "post_hoc": True,
-             "model_sha": common.sha(final)}, indent=1))
+        verdict = next(
+            (
+                ln.strip()
+                for ln in reversed(out.splitlines())
+                if ln.strip().upper().startswith("VERDICT:")
+            ),
+            None,
+        )
+        (d / "post_review" / "verdict.json").write_text(
+            json.dumps(
+                {
+                    "page": page,
+                    "verdict": verdict,
+                    "post_hoc": True,
+                    "model_sha": common.sha(final),
+                },
+                indent=1,
+            )
+        )
         print(f"{page} s{k}: {verdict}", flush=True)
     return 0
 

@@ -28,16 +28,36 @@ import open_bench as ob  # noqa: E402
 def probe(model: str) -> bool:
     d = ob.OC_HOME / "probe"
     d.mkdir(parents=True, exist_ok=True)
-    env = dict(os.environ, PWD=str(d), HOME=str(ob.OC_HOME),
-               XDG_CONFIG_HOME=str(ob.OC_HOME / ".config"),
-               XDG_DATA_HOME=str(ob.OC_HOME / ".local/share"),
-               XDG_CACHE_HOME=str(ob.OC_HOME / ".cache"),
-               OPENCODE_DISABLE_CLAUDE_CODE="1")
+    env = dict(
+        os.environ,
+        PWD=str(d),
+        HOME=str(ob.OC_HOME),
+        XDG_CONFIG_HOME=str(ob.OC_HOME / ".config"),
+        XDG_DATA_HOME=str(ob.OC_HOME / ".local/share"),
+        XDG_CACHE_HOME=str(ob.OC_HOME / ".cache"),
+        OPENCODE_DISABLE_CLAUDE_CODE="1",
+    )
     try:
-        p = subprocess.run([str(ob.OPENCODE), "run", "--pure", "--format", "json", "--dir", str(d),
-                            "-m", ob.MODELS[model], "Reply with the single word OK."],
-                           cwd=d, env=env, capture_output=True, text=True, timeout=300,
-                           stdin=subprocess.DEVNULL)
+        p = subprocess.run(
+            [
+                str(ob.OPENCODE),
+                "run",
+                "--pure",
+                "--format",
+                "json",
+                "--dir",
+                str(d),
+                "-m",
+                ob.MODELS[model],
+                "Reply with the single word OK.",
+            ],
+            cwd=d,
+            env=env,
+            capture_output=True,
+            text=True,
+            timeout=300,
+            stdin=subprocess.DEVNULL,
+        )
     except subprocess.TimeoutExpired:
         return False
     return '"reason":"stop"' in p.stdout and not ob.RATE_LIMIT.search(p.stdout)
@@ -77,18 +97,51 @@ def main() -> int:
             print(f"[supervise] {a.model} {a.arm}: all {len(ob.PAGES16)} pages done", flush=True)
             return 0
         if not probe(a.model):
-            print(f"[supervise] {time.strftime('%H:%M')} {a.model}: probe refused, "
-                  f"{len(todo)} pages left; waiting 30 min", flush=True)
+            print(
+                f"[supervise] {time.strftime('%H:%M')} {a.model}: probe refused, "
+                f"{len(todo)} pages left; waiting 30 min",
+                flush=True,
+            )
             time.sleep(1800)
             continue
-        print(f"[supervise] {time.strftime('%H:%M')} {a.model}: probe ok, running "
-              f"{len(todo)} pages: {','.join(todo)}", flush=True)
+        print(
+            f"[supervise] {time.strftime('%H:%M')} {a.model}: probe ok, running "
+            f"{len(todo)} pages: {','.join(todo)}",
+            flush=True,
+        )
         pages = ",".join(todo)
         cli = [sys.executable, str(HERE / "open_bench.py")]
-        subprocess.run(cli + ["prepare", "--model", a.model, "--arm", a.arm, "--pages", pages,
-                              "--seed", str(a.seed)], check=True)
-        subprocess.run(cli + ["run", "--model", a.model, "--arm", a.arm, "--pages", pages,
-                              "--seed", str(a.seed), "--jobs", str(a.jobs)])
+        subprocess.run(
+            cli
+            + [
+                "prepare",
+                "--model",
+                a.model,
+                "--arm",
+                a.arm,
+                "--pages",
+                pages,
+                "--seed",
+                str(a.seed),
+            ],
+            check=True,
+        )
+        subprocess.run(
+            cli
+            + [
+                "run",
+                "--model",
+                a.model,
+                "--arm",
+                a.arm,
+                "--pages",
+                pages,
+                "--seed",
+                str(a.seed),
+                "--jobs",
+                str(a.jobs),
+            ]
+        )
         moved = archive_rate_limited(a.model, a.arm, a.seed)
         if moved:
             print(f"[supervise] rate-limited, archived for retry: {','.join(moved)}", flush=True)

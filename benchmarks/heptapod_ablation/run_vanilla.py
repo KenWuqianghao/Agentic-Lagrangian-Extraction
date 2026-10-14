@@ -42,10 +42,9 @@ ALE = HERE.parent.parent
 sys.path.insert(0, str(ALE / "cc_harness"))
 sys.path.insert(0, str(ALE / "pi_harness"))
 import common as C  # noqa: E402
+import isolation  # noqa: E402
 import run_cc  # noqa: E402
 import run_pi  # noqa: E402
-
-import isolation  # noqa: E402
 
 HOME = Path.home()
 FEYNRULES, MG5 = isolation.FEYNRULES, isolation.MG5
@@ -80,6 +79,7 @@ This machine has: wolframscript (Wolfram Engine) on the PATH; FeynRules 2.3.49 i
 stands when you stop is the deliverable.
 """
 
+
 def make_sandbox(page: str, rundir: Path) -> Path:
     sb = Path(tempfile.mkdtemp(prefix=f"vanilla-{page}-")).resolve()
     paper = run_pi.paper_file(page)
@@ -91,10 +91,24 @@ def make_sandbox(page: str, rundir: Path) -> Path:
 
 
 def agent_cmd(sandbox: Path, model: str) -> list[str]:
-    claude = [C.CLAUDE, "-p", "--output-format", "stream-json", "--verbose", "--model", model,
-              "--setting-sources", "", "--strict-mcp-config", "--mcp-config", '{"mcpServers": {}}',
-              "--permission-mode", "bypassPermissions",
-              "--disallowedTools", "WebFetch,WebSearch,Task,Agent"]
+    claude = [
+        C.CLAUDE,
+        "-p",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        model,
+        "--setting-sources",
+        "",
+        "--strict-mcp-config",
+        "--mcp-config",
+        '{"mcpServers": {}}',
+        "--permission-mode",
+        "bypassPermissions",
+        "--disallowedTools",
+        "WebFetch,WebSearch,Task,Agent",
+    ]
     return isolation.isolate(claude, sandbox, read_write=(LOCK.parent,))
 
 
@@ -105,12 +119,21 @@ def audit(stream: list[str]) -> dict:
             ev = json.loads(line)
         except json.JSONDecodeError:
             continue
-        for b in ((ev.get("message") or {}).get("content") or []) if ev.get("type") == "assistant" else []:
+        for b in (
+            ((ev.get("message") or {}).get("content") or [])
+            if ev.get("type") == "assistant"
+            else []
+        ):
             if b.get("type") == "tool_use" and b.get("name") == "Bash":
                 cmds.append((b.get("input") or {}).get("command") or "")
     net = [c[:300] for c in cmds if NETWORK.search(c)]
-    return {"shell_commands": len(cmds), "wolframscript_runs": sum("wolframscript" in c for c in cmds),
-            "madgraph_runs": sum("mg5_aMC" in c for c in cmds), "network_commands": net, "audit_ok": not net}
+    return {
+        "shell_commands": len(cmds),
+        "wolframscript_runs": sum("wolframscript" in c for c in cmds),
+        "madgraph_runs": sum("mg5_aMC" in c for c in cmds),
+        "network_commands": net,
+        "audit_ok": not net,
+    }
 
 
 def kill_tagged(tag: str) -> None:
@@ -119,7 +142,12 @@ def kill_tagged(tag: str) -> None:
     of a run inherits ALE_RUN_TAG in its environment."""
     mark, pids = f"ALE_RUN_TAG={tag}", []
     if sys.platform == "darwin":
-        out = subprocess.run(["ps", "-axEww", "-o", "pid=,command="], capture_output=True, text=True, errors="replace").stdout
+        out = subprocess.run(
+            ["ps", "-axEww", "-o", "pid=,command="],
+            capture_output=True,
+            text=True,
+            errors="replace",
+        ).stdout
         pids = [int(ln.split()[0]) for ln in out.splitlines() if mark in ln]
     else:
         for env in Path("/proc").glob("[0-9]*/environ"):
@@ -146,20 +174,42 @@ def run_agent(page: str, seed: int, args) -> dict:
     rundir.mkdir(parents=True)
     sandbox = make_sandbox(page, rundir)
     paper = run_pi.paper_file(page)
-    prompt = TASK.format(paper=paper.name, page=page, feynrules=FEYNRULES, mg5=MG5, rules=SCORER_RULES if args.scorer_rules else "",
-                         src_note="LaTeX source" if paper.name.endswith("_source.tex") else "text from the PDF")
+    prompt = TASK.format(
+        paper=paper.name,
+        page=page,
+        feynrules=FEYNRULES,
+        mg5=MG5,
+        rules=SCORER_RULES if args.scorer_rules else "",
+        src_note="LaTeX source" if paper.name.endswith("_source.tex") else "text from the PDF",
+    )
     (rundir / "prompt.txt").write_text(prompt)
     cmd = agent_cmd(sandbox, args.model)
     (rundir / "command.json").write_text(json.dumps(cmd, indent=1))
     tag = f"{page}-{seed}-{os.getpid()}-{int(time.time())}"
-    env = {**os.environ, "ALE_RUN_TAG": tag, "PATH": f"{sandbox / '.bin'}:{os.environ['PATH']}",
-           "FEYNRULES_PATH": str(FEYNRULES), "MG5_PATH": str(MG5)}
+    env = {
+        **os.environ,
+        "ALE_RUN_TAG": tag,
+        "PATH": f"{sandbox / '.bin'}:{os.environ['PATH']}",
+        "FEYNRULES_PATH": str(FEYNRULES),
+        "MG5_PATH": str(MG5),
+    }
     print(f"[vanilla] {args.variant} {page} s{seed} ...", flush=True)
     t0 = time.time()
     timed_out = {"t": False}
-    with open(rundir / "agent_stream.jsonl", "w") as out, open(rundir / "agent_stderr.txt", "w") as err:
-        p = subprocess.Popen(cmd, cwd=str(sandbox), env=env, stdin=subprocess.PIPE, stdout=out, stderr=err,
-                             start_new_session=True, text=True)
+    with (
+        open(rundir / "agent_stream.jsonl", "w") as out,
+        open(rundir / "agent_stderr.txt", "w") as err,
+    ):
+        p = subprocess.Popen(
+            cmd,
+            cwd=str(sandbox),
+            env=env,
+            stdin=subprocess.PIPE,
+            stdout=out,
+            stderr=err,
+            start_new_session=True,
+            text=True,
+        )
 
         def watchdog():
             while p.poll() is None:
@@ -168,6 +218,7 @@ def run_agent(page: str, seed: int, args) -> dict:
                     os.killpg(os.getpgid(p.pid), signal.SIGTERM)
                     return
                 time.sleep(10)
+
         threading.Thread(target=watchdog, daemon=True).start()
         p.stdin.write(prompt)
         p.stdin.close()
@@ -184,19 +235,41 @@ def run_agent(page: str, seed: int, args) -> dict:
     if delivered:
         shutil.copy2(sandbox / "model.fr", fr)
     names = parsed["tools"]
-    agent = {"ok": delivered and not parsed["is_error"], "exit": rc, "timed_out": timed_out["t"], "seconds": secs,
-             "engine": "claude-code", "model": args.model, "arm": "vanilla", "mode": "cc_vanilla",
-             "tool_policy": "shell allowed; bubblewrap hides the repositories and stored runs; no web tools",
-             "usage": parsed["usage"], "cost_usd": parsed["cost_usd"], "num_turns": parsed["num_turns"],
-             "api_error": parsed["api_error"], "tool_counts": {n: names.count(n) for n in sorted(set(names))},
-             **audit(lines), "init": parsed["init"]}
-    row = {"page": page, "variant": args.variant, "seed": seed, "mode": "cc_vanilla", "paper_file": paper.name,
-           "agent": agent, "render": {"rendered": delivered, "fr": str(fr) if delivered else None}}
+    agent = {
+        "ok": delivered and not parsed["is_error"],
+        "exit": rc,
+        "timed_out": timed_out["t"],
+        "seconds": secs,
+        "engine": "claude-code",
+        "model": args.model,
+        "arm": "vanilla",
+        "mode": "cc_vanilla",
+        "tool_policy": "shell allowed; bubblewrap hides the repositories and stored runs; no web tools",
+        "usage": parsed["usage"],
+        "cost_usd": parsed["cost_usd"],
+        "num_turns": parsed["num_turns"],
+        "api_error": parsed["api_error"],
+        "tool_counts": {n: names.count(n) for n in sorted(set(names))},
+        **audit(lines),
+        "init": parsed["init"],
+    }
+    row = {
+        "page": page,
+        "variant": args.variant,
+        "seed": seed,
+        "mode": "cc_vanilla",
+        "paper_file": paper.name,
+        "agent": agent,
+        "render": {"rendered": delivered, "fr": str(fr) if delivered else None},
+    }
     (rundir / "run.json").write_text(json.dumps(row, indent=1, default=str))
     u = parsed["usage"]
-    print(f"[vanilla]   {page} s{seed}: delivered={delivered} {secs}s timed_out={timed_out['t']} "
-          f"wolfram={agent['wolframscript_runs']} mg5={agent['madgraph_runs']} net={len(agent['network_commands'])} "
-          f"in={u['input_total']:,} out={u['output_tokens']:,} ${parsed['cost_usd']:.2f}", flush=True)
+    print(
+        f"[vanilla]   {page} s{seed}: delivered={delivered} {secs}s timed_out={timed_out['t']} "
+        f"wolfram={agent['wolframscript_runs']} mg5={agent['madgraph_runs']} net={len(agent['network_commands'])} "
+        f"in={u['input_total']:,} out={u['output_tokens']:,} ${parsed['cost_usd']:.2f}",
+        flush=True,
+    )
     return row
 
 
@@ -211,8 +284,11 @@ def main() -> int:
     r.add_argument("--first-seed", type=int, default=1)
     r.add_argument("--parallel", type=int, default=2)
     r.add_argument("--force", action="store_true")
-    r.add_argument("--scorer-rules", action="store_true",
-                   help="tell the agent the scorer's two interface rules (LSM, one total)")
+    r.add_argument(
+        "--scorer-rules",
+        action="store_true",
+        help="tell the agent the scorer's two interface rules (LSM, one total)",
+    )
     args = ap.parse_args()
     pages = (run_pi.SINGLE_MODEL if args.pages == "all" else args.pages).split(",")
     LOCK.parent.mkdir(parents=True, exist_ok=True)

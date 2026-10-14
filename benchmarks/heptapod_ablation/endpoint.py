@@ -42,8 +42,15 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import retro  # noqa: E402
 
-CONTRASTS = (("diag", "import"), ("heptapod", "import"), ("diag", "heptapod"),
-             ("heptapod", "compile"), ("full", "compile"), ("compile", "none"), ("full", "heptapod"))
+CONTRASTS = (
+    ("diag", "import"),
+    ("heptapod", "import"),
+    ("diag", "heptapod"),
+    ("heptapod", "compile"),
+    ("full", "compile"),
+    ("compile", "none"),
+    ("full", "heptapod"),
+)
 
 
 def run_outcome(d: Path, paper: str) -> dict:
@@ -56,13 +63,26 @@ def run_outcome(d: Path, paper: str) -> dict:
     changing = retro.physics_changing(post.get("verdict")) if reviewed else None
     ufo = d / "score_ufo"
     inert = retro.particles_without_vertex(ufo) if (ufo / "vertices.py").is_file() else None
-    missing = [what for what, absent in (("score", fr.is_file() and score is None),
-                                         ("referee", chain and changing is None),
-                                         ("score_ufo", chain and inert is None)) if absent]
-    return {"paper": paper, "ran": (d / "run.json").is_file(), "delivered": fr.is_file(), "chain": chain,
-            "stage": retro.stage_of(state) if state else "no_model",
-            "physics_changing": changing, "particles_without_vertex": inert, "missing": missing,
-            "endpoint": chain and changing == 0 and inert == []}
+    missing = [
+        what
+        for what, absent in (
+            ("score", fr.is_file() and score is None),
+            ("referee", chain and changing is None),
+            ("score_ufo", chain and inert is None),
+        )
+        if absent
+    ]
+    return {
+        "paper": paper,
+        "ran": (d / "run.json").is_file(),
+        "delivered": fr.is_file(),
+        "chain": chain,
+        "stage": retro.stage_of(state) if state else "no_model",
+        "physics_changing": changing,
+        "particles_without_vertex": inert,
+        "missing": missing,
+        "endpoint": chain and changing == 0 and inert == [],
+    }
 
 
 def exact_stratified(strata: list[tuple[int, int, int, int]]) -> dict:
@@ -79,12 +99,18 @@ def exact_stratified(strata: list[tuple[int, int, int, int]]) -> dict:
         k, n = a + b, na + nb
         observed += a
         mean += k * na / n
-        pmf = {x: comb(k, x) * comb(n - k, na - x) / comb(n, na)
-               for x in range(max(0, k - nb), min(k, na) + 1)}
+        pmf = {
+            x: comb(k, x) * comb(n - k, na - x) / comb(n, na)
+            for x in range(max(0, k - nb), min(k, na) + 1)
+        }
         dist = _convolve(dist, pmf)
     gap = abs(observed - mean) - 1e-9
-    return {"passes_a": observed, "passes_b": sum(s[2] for s in strata), "expected_a_under_null": round(mean, 3),
-            "p": min(1.0, sum(p for t, p in dist.items() if abs(t - mean) >= gap))}
+    return {
+        "passes_a": observed,
+        "passes_b": sum(s[2] for s in strata),
+        "expected_a_under_null": round(mean, 3),
+        "p": min(1.0, sum(p for t, p in dist.items() if abs(t - mean) >= gap)),
+    }
 
 
 def _convolve(d1: dict, d2: dict) -> dict:
@@ -98,11 +124,23 @@ def _convolve(d1: dict, d2: dict) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--arms", required=True, help="comma-separated arm names")
-    ap.add_argument("--variant", required=True, help="variant name with {arm}, and {source} for the repair design")
-    ap.add_argument("--units", required=True, help="comma-separated papers, or source:paper for the repair design")
+    ap.add_argument(
+        "--variant",
+        required=True,
+        help="variant name with {arm}, and {source} for the repair design",
+    )
+    ap.add_argument(
+        "--units",
+        required=True,
+        help="comma-separated papers, or source:paper for the repair design",
+    )
     ap.add_argument("--seeds", type=int, required=True)
-    ap.add_argument("--runs", default=os.environ.get(
-        "PI_HARNESS_RUNS", str(Path.home() / "Documents/Github/heptapod/eval/benchmark_runs")))
+    ap.add_argument(
+        "--runs",
+        default=os.environ.get(
+            "PI_HARNESS_RUNS", str(Path.home() / "Documents/Github/heptapod/eval/benchmark_runs")
+        ),
+    )
     args = ap.parse_args()
     arms = args.arms.split(",")
     units = args.units.split(",")
@@ -110,25 +148,48 @@ def main() -> int:
     def outcomes(arm: str, unit: str) -> list[dict]:
         source, _, paper = unit.rpartition(":")
         variant = args.variant.format(arm=arm, source=source)
-        return [run_outcome(Path(args.runs) / paper / "rerun" / variant / f"s{k}", paper) for k in range(1, args.seeds + 1)]
+        return [
+            run_outcome(Path(args.runs) / paper / "rerun" / variant / f"s{k}", paper)
+            for k in range(1, args.seeds + 1)
+        ]
 
     rows = {arm: {u: outcomes(arm, u) for u in units} for arm in arms}
     res = {"units": units, "seeds": args.seeds, "arms": {}, "contrasts": [], "incomplete": []}
     for arm, per in rows.items():
         flat = [(u, r) for u, rs in per.items() for r in rs]
-        res["incomplete"] += [f"{arm}/{u}: {'not run' if not r['ran'] else ', '.join(r['missing'])}"
-                              for u, r in flat if not r["ran"] or r["missing"]]
-        res["arms"][arm] = {"runs": len(flat), "delivered": sum(r["delivered"] for _u, r in flat),
-                            "chain_pass": sum(r["chain"] for _u, r in flat), "endpoint": sum(r["endpoint"] for _u, r in flat),
-                            "per_unit_endpoint": {u: sum(r["endpoint"] for r in rs) for u, rs in per.items()},
-                            "per_unit_chain": {u: sum(r["chain"] for r in rs) for u, rs in per.items()}}
+        res["incomplete"] += [
+            f"{arm}/{u}: {'not run' if not r['ran'] else ', '.join(r['missing'])}"
+            for u, r in flat
+            if not r["ran"] or r["missing"]
+        ]
+        res["arms"][arm] = {
+            "runs": len(flat),
+            "delivered": sum(r["delivered"] for _u, r in flat),
+            "chain_pass": sum(r["chain"] for _u, r in flat),
+            "endpoint": sum(r["endpoint"] for _u, r in flat),
+            "per_unit_endpoint": {u: sum(r["endpoint"] for r in rs) for u, rs in per.items()},
+            "per_unit_chain": {u: sum(r["chain"] for r in rs) for u, rs in per.items()},
+        }
     for a, b in CONTRASTS:
         if a in rows and b in rows:
             for key in ("endpoint", "chain"):
-                strata = [(sum(r[key] for r in rows[a][u]), args.seeds, sum(r[key] for r in rows[b][u]), args.seeds)
-                          for u in units]
-                res["contrasts"].append({"a": a, "b": b, "outcome": "primary endpoint" if key == "endpoint" else "full chain",
-                                         **exact_stratified(strata)})
+                strata = [
+                    (
+                        sum(r[key] for r in rows[a][u]),
+                        args.seeds,
+                        sum(r[key] for r in rows[b][u]),
+                        args.seeds,
+                    )
+                    for u in units
+                ]
+                res["contrasts"].append(
+                    {
+                        "a": a,
+                        "b": b,
+                        "outcome": "primary endpoint" if key == "endpoint" else "full chain",
+                        **exact_stratified(strata),
+                    }
+                )
     print(json.dumps(res, indent=1))
     return 1 if res["incomplete"] else 0
 

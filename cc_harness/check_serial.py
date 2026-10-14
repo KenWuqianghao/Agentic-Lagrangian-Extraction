@@ -29,15 +29,25 @@ def main() -> int:
     for f in files:
         s = json.loads(f.read_text())
         if s.get("t_kernel_start") and s.get("t_kernel_end"):
-            iv.append((s["t_kernel_start"], s["t_kernel_end"], str(f), s.get("lock_wait_seconds") or 0))
+            iv.append(
+                (s["t_kernel_start"], s["t_kernel_end"], str(f), s.get("lock_wait_seconds") or 0)
+            )
     iv.sort()
     overlaps = [(a[2], b[2], round(a[1] - b[0], 1)) for a, b in zip(iv, iv[1:]) if b[0] < a[1]]
     waited = [x for x in iv if x[3] > 0]
-    print(json.dumps({"intervals": len(iv), "overlaps": overlaps,
-                      "calls_that_waited_for_the_lock_or_a_kernel": len(waited),
-                      "max_wait_seconds": max((x[3] for x in iv), default=0),
-                      "kernel_hours": round(sum(b - a for a, b, _f, _w in iv) / 3600, 2),
-                      "span_hours": round((iv[-1][1] - iv[0][0]) / 3600, 2) if iv else 0}, indent=1))
+    print(
+        json.dumps(
+            {
+                "intervals": len(iv),
+                "overlaps": overlaps,
+                "calls_that_waited_for_the_lock_or_a_kernel": len(waited),
+                "max_wait_seconds": max((x[3] for x in iv), default=0),
+                "kernel_hours": round(sum(b - a for a, b, _f, _w in iv) / 3600, 2),
+                "span_hours": round((iv[-1][1] - iv[0][0]) / 3600, 2) if iv else 0,
+            },
+            indent=1,
+        )
+    )
     return 1 if overlaps else 0
 
 
