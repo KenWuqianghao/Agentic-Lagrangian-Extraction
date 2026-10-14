@@ -2,8 +2,8 @@
 
 Each one names a defect that the stored runs show the chain does not name
 (benchmarks/heptapod_ablation/HEPTAPOD_FIXES.md has the evidence). They are
-candidates for heptapod upstream; here they run only in the `opt` arm, so the
-`full` arm stays the stored harness.
+candidates for heptapod upstream; here they run only in the arms with
+feedback `opt`, `real` or `cover`, so the `full` arm stays the stored harness.
 
 Lint rules, on the .fr text:
   partial_index_fermion   `l[ff]` on a field with indices (spin, generation):
@@ -116,10 +116,11 @@ def lint(raw: str, real: bool = False, chain_head: bool = False) -> list[dict]:
                     "cut_statement",
                     "checks",
                     c["line"],
-                    f"this line starts with `{c['text'][0]}`, and the line before it (`... {c['after'][-40:]}`) is already a "
-                    "complete expression. Mathematica ends the statement at that line end; this line is a separate statement "
-                    "and its terms are NOT in the model. Join the lines, end the earlier line with the operator, or put the "
-                    "whole right-hand side in parentheses.",
+                    f"this line starts with `{c['text'][0]}`, and the line before it (`... "
+                    f"{c['after'][-40:]}`) is already a complete expression. Mathematica ends the "
+                    "statement at that line end; this line is a separate statement and its terms "
+                    "are NOT in the model. Join the lines, end the earlier line with the operator, "
+                    "or put the whole right-hand side in parentheses.",
                 )
             )
     block = re.search(r"M\$ClassesDescription\s*=\s*\{", text)
@@ -143,11 +144,12 @@ def lint(raw: str, real: bool = False, chain_head: bool = False) -> list[dict]:
                         "partial_index_fermion",
                         "checks",
                         term["line"] + term["body"].count("\n", 0, m.start()),
-                        f"`{m.group(0)}` gives {n} of the {counts[m.group(1)]} indices of `{m.group(1)}`; FeynRules fills "
-                        "them from the left and the first is spin, so this index is read as a spin index. The term then "
-                        "fails hermiticity or drops out of the UFO. Write the field with no index inside the chain (use "
-                        "the class members `e`, `mu`, `ta`, ... or a matrix coupling between two index-free fields), or "
-                        "give every index.",
+                        f"`{m.group(0)}` gives {n} of the {counts[m.group(1)]} indices of "
+                        f"`{m.group(1)}`; FeynRules fills them from the left and the first is "
+                        "spin, so this index is read as a spin index. The term then fails "
+                        "hermiticity or drops out of the UFO. Write the field with no index "
+                        "inside the chain (use the class members `e`, `mu`, `ta`, ... or a matrix "
+                        "coupling between two index-free fields), or give every index.",
                     )
                 )
 
@@ -173,10 +175,12 @@ def lint(raw: str, real: bool = False, chain_head: bool = False) -> list[dict]:
                     "unbarred_chain_head",
                     "checks",
                     term["line"] + term["body"].count("\n", 0, m.start()),
-                    f"the fermion chain `{term['body'][m.start() : m.end() + 30].strip()} ...` starts with `{m.group(1)}`, a "
-                    f"fermion field with no bar. A chain is `<field>bar . <matrices> . <field>`: write `{m.group(1)}bar`, or "
-                    "exchange the two fields. With an unbarred head, HC[] of the term is not a chain FeynRules can reduce: "
-                    "hermiticity fails and the UFO couplings file can be invalid Python.",
+                    f"the fermion chain `{term['body'][m.start() : m.end() + 30].strip()} ...` "
+                    f"starts with `{m.group(1)}`, a fermion field with no bar. A chain is "
+                    f"`<field>bar . <matrices> . <field>`: write `{m.group(1)}bar`, or exchange "
+                    "the two fields. With an unbarred head, HC[] of the term is not a chain "
+                    "FeynRules can reduce: hermiticity fails and the UFO couplings file can be "
+                    "invalid Python.",
                 )
             )
 
@@ -187,9 +191,9 @@ def lint(raw: str, real: bool = False, chain_head: bool = False) -> list[dict]:
                     "class_outside_list",
                     "checks",
                     _line(text, m.start()),
-                    f"the class `{m.group(1)}` is a statement outside M$ClassesDescription; FeynRules ignores it, with no "
-                    "message. Put it inside the M$ClassesDescription list (this is how an SM class such as Phi is "
-                    "redeclared).",
+                    f"the class `{m.group(1)}` is a statement outside M$ClassesDescription; "
+                    "FeynRules ignores it, with no message. Put it inside the M$ClassesDescription "
+                    "list (this is how an SM class such as Phi is redeclared).",
                 )
             )
 
@@ -206,8 +210,9 @@ def lint(raw: str, real: bool = False, chain_head: bool = False) -> list[dict]:
                             "mg5",
                             _line(text, text.find(sym + " ==")),
                             f"`{sym}` is declared by `{key} -> {{{sym}, ...}}` of class "
-                            f"`{fr_lint._prop(c['body'], 'ClassName')}` and again in M$Parameters; the UFO then defines it "
-                            'twice and MadGraph stops with "name ... define multiple time". Remove the M$Parameters entry.',
+                            f"`{fr_lint._prop(c['body'], 'ClassName')}` and again in "
+                            "M$Parameters; the UFO then defines it twice and MadGraph stops with "
+                            '"name ... define multiple time". Remove the M$Parameters entry.',
                         )
                     )
 
@@ -226,9 +231,9 @@ def lint(raw: str, real: bool = False, chain_head: bool = False) -> list[dict]:
                     "shared_lha_block",
                     "mg5",
                     None,
-                    f"the indexed External parameters {', '.join(members)} share BlockName `{name}`; their components get "
-                    "the same LHA codes, the UFO defines one name several times, and MadGraph rejects it. Give each "
-                    "tensor its own BlockName.",
+                    f"the indexed External parameters {', '.join(members)} share BlockName "
+                    f"`{name}`; their components get the same LHA codes, the UFO defines one name "
+                    "several times, and MadGraph rejects it. Give each tensor its own BlockName.",
                 )
             )
 
@@ -240,15 +245,14 @@ def lint(raw: str, real: bool = False, chain_head: bool = False) -> list[dict]:
                     "nonpositive_order",
                     "warn",
                     _line(text, text.find(p["head"] + " ==")),
-                    f"`{p['head']}` has InteractionOrder {order}; a product with another parameter can then have order 0, "
-                    "FeynRules writes the coupling with order '1', and MadGraph rejects it. Check the orders of the couplings "
-                    "that use it.",
+                    f"`{p['head']}` has InteractionOrder {order}; a product with another parameter "
+                    "can then have order 0, FeynRules writes the coupling with order '1', and "
+                    "MadGraph rejects it. Check the orders of the couplings that use it.",
                 )
             )
     return out
 
 
-# ------------------------------------------------------------ the chain's outputs
 def particles_without_vertex(ufo: Path) -> list[str]:
     """New particles (not in the UFO of SM.fr alone) that no vertex contains.
     Ghosts are skipped."""
@@ -296,8 +300,9 @@ def report_sections(
     if cut:
         parts += [
             "## Statements cut at a line end",
-            "These lines start with `+` or `-` after a line that is already a complete expression. Mathematica ended "
-            "the statement there, so the terms on these lines are not in the model that was just checked:",
+            "These lines start with `+` or `-` after a line that is already a complete expression. "
+            "Mathematica ended the statement there, so the terms on these lines are not in the "
+            "model that was just checked:",
             "",
             *[f"- line {c['line']}: `{c['text']}`" for c in cut[:12]],
             *([f"- ... and {len(cut) - 12} more"] if len(cut) > 12 else []),
@@ -308,19 +313,21 @@ def report_sections(
     if inert and real:
         parts += [
             "## New particles that are in no vertex of the UFO",
-            f"{', '.join(inert)}: declared, and no vertex of the UFO contains them. The terms that hold them did not "
-            "reach the UFO. This report does not know why. Find out: the UFO and the FeynRules log of this call are "
-            "on disk (see the protocol), and you can expand one Lagrangian block at a time with wolframscript and "
-            "count its terms. The chain's checks pass such a model; it is not the paper's model.",
+            f"{', '.join(inert)}: declared, and no vertex of the UFO contains them. The terms that "
+            "hold them did not reach the UFO. This report does not know why. Find out: the UFO and "
+            "the FeynRules log of this call are on disk (see the protocol), and you can expand one "
+            "Lagrangian block at a time with wolframscript and count its terms. The chain's checks "
+            "pass such a model; it is not the paper's model.",
             "",
         ]
     elif inert:
         parts += [
             "## New particles that are in no vertex of the UFO",
-            f"{', '.join(inert)}: declared, and no interaction of the model contains them. FeynRules dropped the "
-            "terms that hold them, with no message. The usual cause is a field written with a partial index list "
-            "(lint rule partial_index_fermion) or an index that does not match the class. The chain's checks "
-            "pass such a model; it is not the paper's model. Fix the terms until every new particle has a vertex.",
+            f"{', '.join(inert)}: declared, and no interaction of the model contains them. "
+            "FeynRules dropped the terms that hold them, with no message. The usual cause is a "
+            "field written with a partial index list (lint rule partial_index_fermion) or an index "
+            "that does not match the class. The chain's checks pass such a model; it is not the "
+            "paper's model. Fix the terms until every new particle has a vertex.",
             "",
         ]
     rows = mass_rows(log)
@@ -335,20 +342,20 @@ def report_sections(
         ]
         if all(r["particle"].startswith("gh") or r["particle"] in ("G0", "GP") for r in rows):
             parts += [
-                "Only ghost or Goldstone rows disagree. That happens after a Higgs-doublet override that changes "
-                "the vev in Feynman gauge (SM.fr's default). Put `FeynmanGauge = False;` at the top of model.fr: "
-                "the model is then built in unitary gauge and these states are absent.",
+                "Only ghost or Goldstone rows disagree. That happens after a Higgs-doublet "
+                "override that changes the vev in Feynman gauge (SM.fr's default). Put "
+                "`FeynmanGauge = False;` at the top of model.fr: the model is then built in "
+                "unitary gauge and these states are absent.",
                 "",
             ]
     dup = duplicate_ufo_parameters(ufo) if ufo and row.get("compile_ok") else []
     if dup:
         parts += [
             "## UFO parameters defined more than once",
-            f'{", ".join(dup[:20])}{f" and {len(dup) - 20} more" if len(dup) > 20 else ""}: MadGraph rejects the UFO ("name ... define multiple time"). Each is either a '
-            "mass or width named in a class and declared again in M$Parameters (remove that entry), or a "
+            f"{', '.join(dup[:20])}{f' and {len(dup) - 20} more' if len(dup) > 20 else ''}: "
+            'MadGraph rejects the UFO ("name ... define multiple time"). Each is either a mass or '
+            "width named in a class and declared again in M$Parameters (remove that entry), or a "
             "component of tensors that share one BlockName (give each tensor its own BlockName).",
             "",
         ]
-    return "\n".join(parts), inert + (
-        [f"(cut statement, line {c['line']})" for c in cut] if real else []
-    )
+    return "\n".join(parts), inert + [f"(cut statement, line {c['line']})" for c in cut]

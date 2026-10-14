@@ -117,8 +117,8 @@ def _covered(legs: list[set], vertices: list[list[str]]) -> bool:
 def load_spec(path: Path) -> tuple[dict | None, str]:
     if not path.is_file():
         return None, (
-            "spec.json does not exist. Write it from the paper before the model: every new field and every "
-            "interaction term (see the protocol)."
+            "spec.json does not exist. Write it from the paper before the model: every new field "
+            "and every interaction term (see the protocol)."
         )
     try:
         spec = json.loads(path.read_text())
@@ -159,7 +159,10 @@ def check(spec: dict, ufo: Path, model_fr: str, sm_fr: str) -> dict:
 
 def removed_entries(first: dict, now: dict) -> dict:
     """Entries of the first validated spec that are not in the current one."""
-    key = lambda legs: tuple(sorted(_ANTI.sub("", t) for t in legs))  # noqa: E731
+
+    def key(legs: list[str]) -> tuple:
+        return tuple(sorted(_ANTI.sub("", t) for t in legs))
+
     now_keys = {key(i) for i in now["interactions"]}
     return {
         "fields": [f for f in first["fields"] if f not in now["fields"]],
@@ -176,7 +179,8 @@ def report(result: dict, removed: dict) -> str:
         return "\n".join(
             out
             + [
-                "Every listed field is a particle of the UFO and every listed interaction has a vertex.",
+                "Every listed field is a particle of the UFO and every listed interaction has a "
+                "vertex.",
                 "",
             ]
         )
@@ -184,8 +188,8 @@ def report(result: dict, removed: dict) -> str:
         out.append(f"- field `{f}` is listed and is not a particle of the UFO")
     for u in result["unknown_particles"]:
         out.append(
-            f"- interaction {u['particles']}: {u['not_in_ufo']} is not a particle of the UFO (use the model's class "
-            "or member names)"
+            f"- interaction {u['particles']}: {u['not_in_ufo']} is not a particle of the UFO (use "
+            "the model's class or member names)"
         )
     for i in result["missing_interactions"]:
         out.append(f"- interaction {i} is listed and no vertex of the UFO has these particles")
@@ -199,9 +203,10 @@ def report(result: dict, removed: dict) -> str:
         )
     out += [
         "",
-        "The model is not done while this list is not empty. A missing vertex means the term did not reach the UFO: "
-        "expand that Lagrangian block alone with wolframscript and look at what it gives. Remove a spec entry only "
-        "when the paper does not have it, and say so in your summary.",
+        "The model is not done while this list is not empty. A missing vertex means the term did "
+        "not reach the UFO: expand that Lagrangian block alone with wolframscript and look at what "
+        "it gives. Remove a spec entry only when the paper does not have it, and say so in your "
+        "summary.",
         "",
     ]
     return "\n".join(out)

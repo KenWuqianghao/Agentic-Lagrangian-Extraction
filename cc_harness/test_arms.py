@@ -16,7 +16,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import common as C  # noqa: E402
 import run_cc  # noqa: E402
-from test_cc_harness import _mcp, _stop, env  # noqa: E402,F401
+from test_cc_harness import _mcp, _stop  # noqa: E402
 
 TEMPLATE = (HERE / "prompts" / "protocol.md").read_text()
 # cc_harness/prompts/protocol.md at 9d0643b: the prompt of the stored cc_sonnet_harness runs.
@@ -199,7 +199,8 @@ def test_optimisation_arm_does_not_accept_a_chain_pass_with_a_vertexless_particl
             out = Path(sys.argv[sys.argv.index("--out") + 1])
             (out / "call1").mkdir(parents=True)
             (out / "call1" / "summary.json").write_text(json.dumps(
-                {"call": 1, "stage_reached": "pass", "full_chain_pass": True, "particles_without_vertex": ["n4"]}))
+                {"call": 1, "stage_reached": "pass", "full_chain_pass": True,
+                 "particles_without_vertex": ["n4"]}))
             print("## New particles that are in no vertex of the UFO")
     """)
     )
@@ -323,8 +324,10 @@ def test_cover_arm_does_not_accept_a_pass_that_leaves_the_spec_uncovered(env):
             out = Path(sys.argv[sys.argv.index("--out") + 1])
             (out / "call1").mkdir(parents=True)
             (out / "call1" / "summary.json").write_text(json.dumps(
-                {"call": 1, "stage_reached": "pass", "full_chain_pass": True, "particles_without_vertex": [],
-                 "coverage": {"complete": False, "missing_interactions": [["Zp", "chibar", "chi"]]}}))
+                {"call": 1, "stage_reached": "pass", "full_chain_pass": True,
+                 "particles_without_vertex": [],
+                 "coverage": {"complete": False,
+                              "missing_interactions": [["Zp", "chibar", "chi"]]}}))
             print("## Coverage of spec.json by the UFO")
     """)
     )

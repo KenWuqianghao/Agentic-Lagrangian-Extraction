@@ -52,14 +52,14 @@ model does not implement the paper's model. Check, term by term:
 Do not comment on FeynRules syntax or style. Output a numbered list of discrepancies, each with the
 paper equation or LaTeX line and the model line, and a severity (physics-changing / cosmetic).
 If you find none, say "NO DISCREPANCIES". End with one line: VERDICT: NO DISCREPANCIES, or
-VERDICT: <n> PHYSICS-CHANGING, <m> COSMETIC."""
+VERDICT: <n> PHYSICS-CHANGING, <m> COSMETIC."""  # noqa: E501
 
 TOOL_SPECS = [
     {
         "name": "lint_model",
-        "description": "Deterministic lints for a FeynRules add-on .fr file (milliseconds). Each finding "
-        "names the rule, the stage it predicts (compile, checks, mg5, harness, warn) and the "
-        "line. Run it after every edit and before validate_model; it does not use the budget.",
+        "description": "Deterministic lints for a FeynRules add-on .fr file (milliseconds). Each "
+        "finding names the rule, the stage it predicts (compile, checks, mg5, harness, warn) and "
+        "the line. Run it after every edit and before validate_model; it does not use the budget.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -81,8 +81,9 @@ TOOL_SPECS = [
     },
     {
         "name": "review_spec",
-        "description": "An independent referee reads the paper and spec.json (your list of the new fields and of the "
-        "interaction vertices the model must have) and lists what the paper has and the list lacks, "
+        "description": "An independent referee reads the paper and spec.json (your list of the "
+        "new fields and of the interaction vertices the model must have) and lists what the "
+        "paper has and the list lacks, "
         "and what the list has and the paper lacks. Run it once, after you write spec.json and "
         "before you write model.fr. Budget: 1 call.",
         "inputSchema": {
@@ -93,24 +94,24 @@ TOOL_SPECS = [
     },
     {
         "name": "massbasis",
-        "description": "Symbolic quadratic-sector analysis of a scalar potential (sympy, about 1 s). Give the "
-        "potential V (the Lagrangian contains -V) in gauge-basis symbols, the substitutions "
-        "that express each gauge-basis field through the vev and the mass-basis REAL fields, "
-        "the mixing angles as sine/cosine symbol pairs, the target physical masses, and the "
-        "parameters to solve for. Returns the tadpoles, the mass-squared matrix at the vacuum, "
+        "description": "Symbolic quadratic-sector analysis of a scalar potential (sympy, about 1 "
+        "s). Give the potential V (the Lagrangian contains -V) in gauge-basis symbols, the "
+        "substitutions that express each gauge-basis field through the vev and the mass-basis REAL "
+        "fields, the mixing angles as sine/cosine symbol pairs, the target physical masses, and "
+        "the parameters to solve for. Returns the tadpoles, the mass-squared matrix at the vacuum, "
         "the non-zero off-diagonal entries, and with solve_for the inverted parametrisation in "
-        'Mathematica syntax, verified. Example spec: {"potential": "-muPsq/2*p**2 + '
-        'lambdaP/8*p**4 - muSsq/2*s**2 + lambdaS/8*s**4 + lambdaPS/4*p**2*s**2", '
-        '"substitutions": {"p": "vev + ct*H + st*h2", "s": "vs - st*H + ct*h2"}, '
-        '"fields": ["H", "h2"], "angles": {"theta": ["st", "ct"]}, "targets": '
-        '{"H": "MH", "h2": "Mh2"}, "solve_for": ["muPsq", "muSsq", "lambdaP", '
-        '"lambdaS", "lambdaPS"]}',
+        'Mathematica syntax, verified. Example spec: {"potential": "-muPsq/2*p**2 + lambdaP/8*p**4 '
+        '- muSsq/2*s**2 + lambdaS/8*s**4 + lambdaPS/4*p**2*s**2", "substitutions": {"p": "vev + '
+        'ct*H + st*h2", "s": "vs - st*H + ct*h2"}, "fields": ["H", "h2"], "angles": {"theta": '
+        '["st", "ct"]}, "targets": {"H": "MH", "h2": "Mh2"}, "solve_for": ["muPsq", "muSsq", '
+        '"lambdaP", "lambdaS", "lambdaPS"]}',
         "inputSchema": {
             "type": "object",
             "properties": {
                 "spec": {
                     "type": "string",
-                    "description": "JSON object: potential, substitutions, fields, angles, targets, solve_for",
+                    "description": "JSON object: potential, substitutions, fields, angles, "
+                    "targets, solve_for",
                 }
             },
             "required": ["spec"],
@@ -118,11 +119,11 @@ TOOL_SPECS = [
     },
     {
         "name": "review_model",
-        "description": "An independent referee (a fresh agent that did not write the model) reads the paper and "
-        "the .fr file and lists every place the model departs from the paper: missing or extra "
-        "fields and terms, wrong coefficients, signs, normalisations, charges, mixing. Run it "
-        "once the chain passes. Budget: {review_budget} calls per run. A physics-changing "
-        "discrepancy must be fixed even if the chain passes.",
+        "description": "An independent referee (a fresh agent that did not write the model) reads "
+        "the paper and the .fr file and lists every place the model departs from the paper: "
+        "missing or extra fields and terms, wrong coefficients, signs, normalisations, charges, "
+        "mixing. Run it once the chain passes. Budget: {review_budget} calls per run. A "
+        "physics-changing discrepancy must be fixed even if the chain passes.",
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -145,10 +146,10 @@ VALIDATE_DESCRIPTIONS = {
     "real": _CHAIN
     + (
         ", the non-zero vertices of L - HC[L] with the Lagrangian block that holds them, the "
-        "off-diagonal mass terms and tadpoles, the mass-spectrum rows that disagree, statements cut at "
-        "a line end and new particles that are in no vertex of the UFO (a model with either is not a "
-        "pass), UFO parameters defined twice, and for a MadGraph failure the UFO object that broke "
-        "with the model.fr lines behind it."
+        "off-diagonal mass terms and tadpoles, the mass-spectrum rows that disagree, statements "
+        "cut at a line end and new particles that are in no vertex of the UFO (a model with "
+        "either is not a pass), UFO parameters defined twice, and for a MadGraph failure the UFO "
+        "object that broke with the model.fr lines behind it."
     ),
     "opt": _CHAIN
     + (
@@ -166,12 +167,12 @@ VALIDATE_DESCRIPTIONS = {
         "lines behind it."
     ),
     "checks": _CHAIN + ", FeynRules' own message for each failing check, and the MadGraph error.",
-    "compile": "Run FeynRules (Wolfram) on a .fr file loaded on top of SM.fr and write the UFO. 1 to 15 "
-    "minutes; calls queue for one Wolfram kernel. Budget: {budget} calls per run. The report "
-    "states the call number and whether the UFO was written, with the FeynRules log when it "
-    "was not.",
-    "import": "Run FeynRules (Wolfram) on a .fr file loaded on top of SM.fr, write the UFO, and run "
-    "MadGraph 'import model' on it. 1 to 15 minutes; calls queue for one Wolfram kernel. "
+    "compile": "Run FeynRules (Wolfram) on a .fr file loaded on top of SM.fr and write the UFO. 1 "
+    "to 15 minutes; calls queue for one Wolfram kernel. Budget: {budget} calls per run. The report "
+    "states the call number and whether the UFO was written, with the FeynRules log when it was "
+    "not.",
+    "import": "Run FeynRules (Wolfram) on a .fr file loaded on top of SM.fr, write the UFO, and "
+    "run MadGraph 'import model' on it. 1 to 15 minutes; calls queue for one Wolfram kernel. "
     "Budget: {budget} calls per run. The report states the call number, whether the UFO was "
     "written (with the FeynRules log when it was not) and whether MadGraph imported it (with "
     "MadGraph's output when it did not).",
@@ -199,16 +200,16 @@ def _run(cmd: list[str], **kw) -> subprocess.CompletedProcess:
 
 def lint_model(args: dict) -> str:
     fr = _path(args.get("path", "model.fr"))
-    r = _run([C.PYTHON, str(C.HEPVAL), "lint", str(fr), *_OPT()])
+    r = _run([C.PYTHON, str(C.HEPVAL), "lint", str(fr), *_lint_flags()])
     if r.returncode != 0:
         raise ToolError(r.stderr[-1500:] or "lint failed")
     return _lint_text(r.stdout)
 
 
-def _OPT() -> list:
-    return {"opt": ["--opt"], "real": ["--real"], "cover": ["--real"]}.get(C.arm().feedback, []) + (
-        ["--chain-head"] if C.arm().recipes else []
-    )
+def _lint_flags() -> list[str]:
+    arm = C.arm()
+    flags = {"opt": ["--opt"], "real": ["--real"], "cover": ["--real"]}.get(arm.feedback, [])
+    return flags + (["--chain-head"] if arm.recipes else [])
 
 
 def _lint_text(raw: str) -> str:
@@ -303,7 +304,7 @@ def validate_model(args: dict) -> str:
         )
     report = head + "\n" + r.stdout + "\n"
     if "lint_model" in arm.tools:
-        lint = _run([C.PYTHON, str(C.HEPVAL), "lint", str(fr), *_OPT()])
+        lint = _run([C.PYTHON, str(C.HEPVAL), "lint", str(fr), *_lint_flags()])
         report += "\n## lint findings\n" + _lint_text(lint.stdout) + "\n"
     (rd / "validation" / f"call{n}").mkdir(parents=True, exist_ok=True)
     (rd / "validation" / f"call{n}" / "agent_report.md").write_text(report)
@@ -445,16 +446,10 @@ def review_model(args: dict) -> str:
     (rd / "review").mkdir(parents=True, exist_ok=True)
     shutil.copy2(fr, rd / "review" / f"review{n}.fr")
     text = _referee(rd, fr, f"review{n}", REVIEW_PROMPT, "model_under_review.fr")
-    verdict = next(
-        (
-            ln.strip()
-            for ln in reversed(text.splitlines())
-            if ln.strip().upper().startswith("VERDICT:")
-        ),
-        None,
-    )
     st = C.load_state(rd)
-    st["review_log"].append({"n": n, "model_sha": C.sha(fr), "verdict": verdict, "exit": 0})
+    st["review_log"].append(
+        {"n": n, "model_sha": C.sha(fr), "verdict": C.verdict_line(text), "exit": 0}
+    )
     C.save_state(rd, st)
     return f"review {n}/{st['review_budget']} of model.fr\n\n{text}"
 
@@ -473,7 +468,7 @@ Read the paper's model-defining sections. Report:
 Kinetic and mass terms need no entry. Gauge interactions of a new charged or coloured field DO need one
 (for example a coloured scalar with the gluon). Do not comment on names or format.
 Output a numbered list, each item with the paper equation or LaTeX line. End with one line:
-VERDICT: COMPLETE, or VERDICT: <n> MISSING, <m> EXTRA."""
+VERDICT: COMPLETE, or VERDICT: <n> MISSING, <m> EXTRA."""  # noqa: E501
 
 
 def review_spec(args: dict) -> str:
@@ -525,7 +520,7 @@ def call_tool(name: str, arguments: dict) -> dict:
     try:
         if name not in HANDLERS or name not in C.arm().tools:
             raise ToolError(f"unknown tool {name}")
-        text = HANDLERS[name](arguments or {})
+        text = HANDLERS[name](arguments)
         C.log(
             rd,
             "tool_calls.jsonl",

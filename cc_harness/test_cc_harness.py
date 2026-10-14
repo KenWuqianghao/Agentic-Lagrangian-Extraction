@@ -5,73 +5,18 @@ PreToolUse sandbox guard, the Stop gate, and the report diagnostics."""
 from __future__ import annotations
 
 import json
-import os
 import subprocess
 import sys
-import textwrap
 from pathlib import Path
 
 import pytest
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+import common as C  # noqa: E402
 import diagnose  # noqa: E402
 
 PY = sys.executable
-
-FAKE_HEPVAL = textwrap.dedent("""
-    import json, os, sys
-    from pathlib import Path
-    cmd = sys.argv[1]
-    if cmd == "lint":
-        print(json.dumps({"findings": [{"rule": "tensor_orderblock", "stage": "mg5", "line": 7,
-                                        "message": "remove the OrderBlock"}]}))
-    elif cmd == "validate":
-        out = Path(sys.argv[sys.argv.index("--out") + 1]); out.mkdir(parents=True, exist_ok=True)
-        n = len(list(out.glob("call*"))) + 1
-        stage = os.environ.get("FAKE_STAGE", "checks")
-        (out / f"call{n}").mkdir()
-        (out / f"call{n}" / "summary.json").write_text(json.dumps(
-            {"call": n, "stage_reached": stage, "full_chain_pass": stage == "pass",
-             "checks": {"hermiticity": "fail"}, "madgraph_import_ok": False,
-             "diag": "--diag" in sys.argv}))
-        print("## FeynRules check `hermiticity`: fail\\n- vertex 1: fields H H2; block: LScalar")
-    elif cmd == "massbasis":
-        print(json.dumps({"tadpoles": {}, "spec_seen": json.loads(sys.argv[2])}))
-""")
-
-FAKE_CLAUDE = textwrap.dedent("""
-    import json, sys
-    sys.stdin.read()
-    print(json.dumps({"result": "1. none\\nVERDICT: NO DISCREPANCIES", "is_error": False,
-                      "usage": {"input_tokens": 10, "output_tokens": 5}, "total_cost_usd": 0.01}))
-""")
-
-
-@pytest.fixture()
-def env(tmp_path):
-    sb = tmp_path / "sandbox"
-    rd = tmp_path / "run"
-    (sb / "eval/benchmark_runs/X/text").mkdir(parents=True)
-    (sb / "eval/benchmark_runs/X/text/paper_source.tex").write_text("\\section{Model}")
-    (sb / "SM.fr").write_text("(* SM *)")
-    (sb / "model.fr").write_text('M$ModelName = "X_gen";\n')
-    rd.mkdir()
-    (tmp_path / "hepval.py").write_text(FAKE_HEPVAL)
-    (tmp_path / "claude").write_text(f"#!{PY}\n" + FAKE_CLAUDE)
-    os.chmod(tmp_path / "claude", 0o755)
-    e = {
-        **os.environ,
-        "CC_SANDBOX": str(sb),
-        "CC_RUNDIR": str(rd),
-        "CC_HEPVAL": str(tmp_path / "hepval.py"),
-        "CC_CLAUDE_BIN": str(tmp_path / "claude"),
-        "CC_PYTHON": PY,
-        "CC_VALIDATE_BUDGET": "2",
-        "CC_REVIEW_BUDGET": "1",
-        "CC_MAX_CONTINUATIONS": "3",
-    }
-    return {"sb": sb, "rd": rd, "env": e, "tmp": tmp_path}
 
 
 def _mcp(env: dict, calls: list) -> list:
@@ -115,7 +60,6 @@ def _text(resp: dict) -> str:
     return resp["result"]["content"][0]["text"]
 
 
-# ------------------------------------------------------------------ MCP
 def test_mcp_lists_the_four_tools_with_budgets(env):
     out = _mcp(env["env"], [("LIST", None)])
     assert out[0]["result"]["serverInfo"]["name"] == "heptapod-tools"
@@ -174,7 +118,6 @@ def test_review_model_runs_a_sandboxed_referee_within_budget(env):
     assert meta["exit"] == 0 and meta["total_cost_usd"] == 0.01
 
 
-# ---------------------------------------------------------------- guard
 def _guard(env: dict, event: dict) -> dict | None:
     r = subprocess.run(
         [PY, str(HERE / "hooks" / "pretool_guard.py")],
@@ -198,6 +141,8 @@ def _guard(env: dict, event: dict) -> dict | None:
         ("Write", {"file_path": "new/../../escape.fr", "content": "x"}, False),
         ("Glob", {"pattern": "/Users/**/*.fr"}, False),
         ("Glob", {"pattern": "**/*.fr"}, True),
+        ("Glob", {"pattern": "~/code/**/*.fr"}, False),
+        ("Glob", {"pattern": "**/../../*.fr"}, False),
         ("Grep", {"pattern": "LTotal", "path": "/"}, False),
         ("Bash", {"command": "ls"}, False),
         ("WebFetch", {"url": "https://example.com"}, False),
@@ -222,7 +167,6 @@ def test_guard_confines_tools_to_the_sandbox(env, tool, inp, allowed):
     assert log[-1]["decision"] == ("allow" if allowed else "deny")
 
 
-# ----------------------------------------------------------------- stop
 def _stop(env: dict, active: bool) -> dict | None:
     r = subprocess.run(
         [PY, str(HERE / "hooks" / "stop_gate.py")],
@@ -236,9 +180,6 @@ def _stop(env: dict, active: bool) -> dict | None:
 
 
 def _state(env, **last):
-    sys.path.insert(0, str(HERE))
-    import common as C
-
     st = C.load_state(env["rd"])
     st["validations"] = last.pop("validations", 1)
     st["validate_budget"] = last.pop("budget", 10)
@@ -291,7 +232,6 @@ def test_stop_gate_allows_a_passing_model_and_a_spent_budget(env):
     assert "budget spent" in log[-1]["why"]
 
 
-# ------------------------------------------------------------ diagnose
 def test_hermiticity_vertices_are_located_in_their_block():
     log = "\n".join(
         [
@@ -322,7 +262,8 @@ def test_report_sections_for_mass_terms_and_hermiticity():
     log = (
         "HEPTAPOD-MASSTERM|fields=H,H2|coefficient=ca sa lam3 vev xBL|numeric=2967.3\n"
         "HEPTAPOD-TADPOLE|field=H|coefficient=muH^2 vev - lam vev^3|numeric=-5.97*^6\n"
-        "HEPTAPOD-HERM|i=1|fields=H,H2|expr=I lam3\nHEPTAPOD-HERMBLOCK|block=LScalar|contents=H H2\n"
+        "HEPTAPOD-HERM|i=1|fields=H,H2|expr=I lam3\nHEPTAPOD-HERMBLOCK|block=LScalar|contents=H "
+        "H2\n"
     )
     row = {
         "checks": {"hermiticity": "fail", "mass_diagonal": "fail"},

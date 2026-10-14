@@ -150,10 +150,7 @@ def render_protocol(
 
 
 def env_int(name: str, default: int) -> int:
-    try:
-        return int(os.environ.get(name, default))
-    except ValueError:
-        return default
+    return int(os.environ.get(name, default))
 
 
 def sandbox() -> Path:
@@ -178,7 +175,7 @@ def inside(path: str, root: Path, cwd: Path | None = None) -> tuple[bool, Path]:
     p = Path(os.path.normpath(str(p)))
     try:
         real = p.resolve(strict=True)
-    except (FileNotFoundError, RuntimeError, OSError):
+    except (OSError, RuntimeError):
         parent = p.parent
         while not parent.exists() and parent != parent.parent:
             parent = parent.parent
@@ -194,16 +191,25 @@ def sha(path: Path) -> str | None:
     return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
 
 
+def verdict_line(text: str) -> str | None:
+    """The referee's last `VERDICT:` line."""
+    return next(
+        (
+            ln.strip()
+            for ln in reversed(text.splitlines())
+            if ln.strip().upper().startswith("VERDICT:")
+        ),
+        None,
+    )
+
+
 STATE = "cc_state.json"
 
 
 def load_state(rd: Path) -> dict:
     f = rd / STATE
     if f.is_file():
-        try:
-            return json.loads(f.read_text())
-        except json.JSONDecodeError:
-            pass
+        return json.loads(f.read_text())
     return {
         "validations": 0,
         "reviews": 0,

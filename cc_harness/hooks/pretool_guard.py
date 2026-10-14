@@ -15,6 +15,7 @@ to CC_RUNDIR/hook_log.jsonl.
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -53,7 +54,8 @@ def decide(event: dict, sandbox: Path) -> tuple[bool, str]:
     if tool in DENY_TOOLS:
         return (
             False,
-            f"{tool} is not available in this harness (no shell, no network, no subagents); use the file tools and the heptapod tools",
+            f"{tool} is not available in this harness (no shell, no network, no subagents); "
+            "use the file tools and the heptapod tools",
         )
     if tool.startswith("mcp__"):
         return tool in C.mcp_tool_names(
@@ -63,14 +65,16 @@ def decide(event: dict, sandbox: Path) -> tuple[bool, str]:
         return True, "not a file tool"
     paths = [inp[k] for k in PATH_KEYS if isinstance(inp.get(k), str) and inp.get(k)]
     if tool == "Glob" and isinstance(inp.get("pattern"), str):
-        root = _glob_root(inp["pattern"])
+        pattern = os.path.expanduser(inp["pattern"])
+        root = _glob_root(pattern)
+        if ".." in Path(pattern).parts[len(Path(root).parts) if root else 0 :]:
+            return False, "a Glob pattern may not use `..` after a wildcard"
         if root and (Path(root).is_absolute() or ".." in Path(root).parts):
             paths.append(root)
     if tool == "Grep" and isinstance(inp.get("glob"), str) and ".." in inp["glob"]:
         return False, "a Grep glob may not leave the working directory"
     for p in paths or ["."]:
-        ok, real = C.inside(p, sandbox, cwd)
-        if not ok:
+        if not C.inside(p, sandbox, cwd)[0]:
             return (
                 False,
                 f"path {p} is outside the sandbox; only files under {sandbox} exist for this task",
@@ -79,12 +83,10 @@ def decide(event: dict, sandbox: Path) -> tuple[bool, str]:
 
 
 def main() -> int:
-    try:
-        event = json.load(sys.stdin)
-    except json.JSONDecodeError:
-        event = {}
-    sb = C.sandbox()
-    allow, reason = decide(event, sb)
+    event = json.load(sys.stdin)
+    allow, reason = decide(event, C.sandbox())
+    # A hook that exits non-zero has its output ignored: a failed log write must not turn a
+    # denial into an allow.
     try:
         C.log(
             C.rundir(),
@@ -97,7 +99,7 @@ def main() -> int:
                 "input": event.get("tool_input"),
             },
         )
-    except (KeyError, OSError):
+    except OSError:
         pass
     if not allow:
         print(

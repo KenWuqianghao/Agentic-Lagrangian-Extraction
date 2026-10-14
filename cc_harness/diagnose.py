@@ -100,7 +100,6 @@ def localize_herm(herm: list[dict], blocks: dict[str, list[list[str]] | None]) -
     return out
 
 
-# ------------------------------------------------------------------ MadGraph
 _UFO_OBJ = re.compile(
     r"^(\w+)\s*=\s*(Parameter|Coupling|Particle|Vertex|Lorentz|CouplingOrder|Decay)\("
 )
@@ -169,7 +168,6 @@ _PY_WORDS = {
     "PYList",
     "ClassAttributeCreation",
     "Spin",
-    "Lorentz",
     "Ext",
     "Int",
     "I",
@@ -203,6 +201,15 @@ _FR_HEADS = {
     "Module",
     "Block",
 }
+
+
+def _words(text: str) -> list[str]:
+    """Identifiers in a UFO line that can name a model symbol."""
+    return [
+        w
+        for w in re.findall(r"\b[A-Za-z]\w*\b", text)
+        if w not in _PY_WORDS and not w.startswith(("GC_", "L_", "V_"))
+    ]
 
 
 def _ufo_object(lines: list[str], lineno: int) -> tuple[str | None, int, int]:
@@ -365,22 +372,17 @@ def mg5_backtrace(row: dict, fr_text: str) -> list[dict]:
         obj, a, b = _ufo_object(lines, ln) if lines else (None, 0, 0)
         text = "\n".join(lines[a:b])[:1800] if lines else ""
         bad_line = lines[ln - 1] if 0 < ln <= len(lines) else ""
-        words = lambda t: [
-            w
-            for w in re.findall(r"\b[A-Za-z]\w*\b", t)
-            if w not in _PY_WORDS and not w.startswith(("GC_", "L_", "V_"))
-        ]
         # The broken line's own identifiers first: in a Particle object the
         # break is one attribute (a quantum number named B_L), not the particle.
         idents = list(
-            dict.fromkeys(name_errs + words(bad_line) + ([obj] if obj else []) + words(text))
+            dict.fromkeys(name_errs + _words(bad_line) + ([obj] if obj else []) + _words(text))
         )
         particles = _vertex_particles(ufo_dir, obj) if obj and obj.startswith("GC_") else []
         cands: list[str] = []
         for t in idents + particles:
             cands += _fr_candidates(t, sym)
         # Anything else that is a word of the .fr: quantum-number keys, index names.
-        for t in name_errs + words(bad_line):
+        for t in name_errs + _words(bad_line):
             if len(t) < 2 or t in _FR_HEADS:
                 continue
             if t not in cands and re.search(rf"(?<![\w$]){re.escape(t)}(?![\w$])", fr_text):
@@ -404,7 +406,6 @@ def mg5_backtrace(row: dict, fr_text: str) -> list[dict]:
     return out
 
 
-# ------------------------------------------------------------------ report
 def render_sections(row: dict, log: str, fr_text: str) -> str:
     d = parse_diag_lines(log)
     parts: list[str] = []
@@ -430,10 +431,10 @@ def render_sections(row: dict, log: str, fr_text: str) -> str:
             if v.get("unreduced"):
                 parts.append(
                     f"  UNREDUCED: FeynRules could not strip {', '.join(v['unreduced'])} from this "
-                    "vertex; its coefficient still holds a spinor chain (Ga[0] from the conjugate). "
-                    "The usual cause is an explicit spin or flavour index on the spinors of that "
-                    "chain (see lint rule explicit_spin_in_chain); write the chain with implicit "
-                    "indices (`Xbar.Ga[mu].ProjP.Y`)."
+                    "vertex; its coefficient still holds a spinor chain (Ga[0] from the "
+                    "conjugate). The usual cause is an explicit spin or flavour index on the "
+                    "spinors of that chain (see lint rule explicit_spin_in_chain); write the chain "
+                    "with implicit indices (`Xbar.Ga[mu].ProjP.Y`)."
                 )
             parts.append(f"  coefficient: `{v['expr'][:500]}`")
         if len(herm) > 25:
@@ -499,14 +500,3 @@ def render_sections(row: dict, log: str, fr_text: str) -> str:
                     )
                 parts.append("")
     return "\n".join(parts).rstrip() + ("\n" if parts else "")
-
-
-def stage_reached(row: dict, all_checks_pass) -> str:
-    """The furthest stage of the chain: compile, checks, mg5, or pass."""
-    if row.get("full_pass"):
-        return "pass"
-    if not row.get("compile_ok"):
-        return "compile"
-    if not all_checks_pass(row.get("checks")):
-        return "checks"
-    return "mg5"

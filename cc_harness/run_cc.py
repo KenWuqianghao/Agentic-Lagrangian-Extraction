@@ -77,7 +77,6 @@ def _pages(arg: str) -> list[str]:
     return [p for p in (run_pi.SINGLE_MODEL if arg == "all" else arg).split(",") if p]
 
 
-# ------------------------------------------------------------------ check
 def cmd_check(args) -> int:
     """A minimal `claude -p` with the absolute path: is the CLI logged in?"""
     r = subprocess.run(
@@ -118,7 +117,6 @@ def cmd_check(args) -> int:
     return 0 if ok else 1
 
 
-# ----------------------------------------------------------------- sandbox
 def draft_file(page: str, variant: str) -> Path:
     """The first file a stored run had validated, or the file it delivered."""
     d = DRAFT_RUNS / page / "rerun" / variant / "s1"
@@ -323,7 +321,6 @@ def agent_cmd(rundir: Path, model: str, arm: C.Arm, sandbox: Path | None = None)
     ]
 
 
-# ------------------------------------------------------------------ stream
 def parse_stream(lines: list[str]) -> dict:
     tools: list[str] = []
     seen_msgs: dict = {}
@@ -400,7 +397,6 @@ def parse_stream(lines: list[str]) -> dict:
     }
 
 
-# ------------------------------------------------------------------- agent
 def run_agent(page: str, seed: int, args) -> dict:
     rundir = RUNS / page / "rerun" / args.variant / f"s{seed}"
     if (rundir / "run.json").is_file() and not args.force:
@@ -413,10 +409,11 @@ def run_agent(page: str, seed: int, args) -> dict:
     rundir.mkdir(parents=True)
     draft = draft_file(page, args.draft_from) if args.draft_from else None
     sandbox = make_sandbox(page, rundir, draft)
-    prompt = task_prompt(page, C.arm(args.arm), draft=bool(draft))
+    arm = C.arm(args.arm)
+    prompt = task_prompt(page, arm, draft=bool(draft))
     (rundir / "prompt.txt").write_text(prompt)
     env_cc = write_configs(rundir, sandbox, args)
-    cmd = agent_cmd(rundir, args.model, C.arm(args.arm), sandbox)
+    cmd = agent_cmd(rundir, args.model, arm, sandbox)
     (rundir / "command.json").write_text(json.dumps(cmd, indent=1))
     env = {
         **os.environ,
@@ -426,17 +423,18 @@ def run_agent(page: str, seed: int, args) -> dict:
         "MCP_TOOL_TIMEOUT": str(3 * 3600 * 1000),
         "MCP_TIMEOUT": "60000",
     }
-    if C.arm(args.arm).shell:
+    if arm.shell:
         from hepval import LOCK
 
+        wrapper_dir = isolation.write_wolframscript_wrapper(sandbox, LOCK)
         env.update(
             {
-                "PATH": f"{isolation.write_wolframscript_wrapper(sandbox, LOCK)}:{os.environ['PATH']}",
+                "PATH": f"{wrapper_dir}:{os.environ['PATH']}",
                 "FEYNRULES_PATH": str(isolation.FEYNRULES),
                 "MG5_PATH": str(isolation.MG5),
             }
         )
-    if getattr(args, "max_output_tokens", None):
+    if args.max_output_tokens:
         env["CLAUDE_CODE_MAX_OUTPUT_TOKENS"] = str(args.max_output_tokens)
     print(f"[cc] {args.variant} {page} s{seed} ...", flush=True)
     t0 = time.time()
@@ -468,6 +466,13 @@ def run_agent(page: str, seed: int, args) -> dict:
         p.stdin.write(prompt)
         p.stdin.close()
         rc = p.wait()
+        if arm.shell:
+            # A background job of the agent outlives it and can hold a kernel slot.
+            try:
+                os.killpg(p.pid, signal.SIGKILL)
+            except ProcessLookupError:
+                pass
+            isolation.kill_recorded(sandbox)
     return finalize(page, seed, args, rundir, sandbox, rc, round(time.time() - t0, 1), killed["t"])
 
 
@@ -495,7 +500,8 @@ def finalize(
 ) -> dict:
     parsed = parse_stream((rundir / "agent_stream.jsonl").read_text(errors="replace").splitlines())
     if secs is None and parsed.get("duration_ms"):
-        secs = round(parsed["duration_ms"] / 1000, 1)  # finalize: the CLI's own wall time
+        # A rebuilt run.json has no runner clock: take the CLI's own wall time.
+        secs = round(parsed["duration_ms"] / 1000, 1)
     (rundir / "agent_out.md").write_text(parsed["final_text"] or "")
     fr_dst = rundir / "model" / f"{page}_gen.fr"
     fr_dst.parent.mkdir(parents=True, exist_ok=True)
@@ -520,18 +526,10 @@ def finalize(
             if (rundir / "review" / f"review{n}.md").is_file()
             else ""
         )
-        verdict = next(
-            (
-                ln.strip()
-                for ln in reversed(txt.splitlines())
-                if ln.strip().upper().startswith("VERDICT:")
-            ),
-            None,
-        )
         reviews.append(
             {
                 "n": int(n),
-                "verdict": verdict,
+                "verdict": C.verdict_line(txt),
                 "exit": meta.get("exit"),
                 "seconds": meta.get("seconds"),
                 "cost_usd": meta.get("total_cost_usd"),
@@ -558,7 +556,8 @@ def finalize(
         "ablation_arm": args.arm,
         "draft_from": getattr(args, "draft_from", "") or None,
         "mode": "cc_harness",
-        "tool_policy": "enforced (--tools allow-list, --disallowedTools, PreToolUse sandbox guard, strict MCP)",
+        "tool_policy": "enforced (--tools allow-list, --disallowedTools, PreToolUse sandbox guard, "
+        "strict MCP)",
         # A denied call never ran, so nothing outside the sandbox was read; the
         # audit is clean only if nothing had to be denied at all.
         "audit_ok": not denied,
@@ -615,8 +614,9 @@ def finalize(
     u = parsed["usage"]
     print(
         f"[cc]   {page} s{seed}: ok={agent['ok']} delivered={delivered} {secs}s "
-        f"validate={state.get('validations')} review={state.get('reviews')} gate_blocks={agent['stop_gate']['blocks']} "
-        f"in={u['input_total']:,} out={u['output_tokens']:,} ${parsed['cost_usd']:.2f}",
+        f"validate={state.get('validations')} review={state.get('reviews')} "
+        f"gate_blocks={agent['stop_gate']['blocks']} in={u['input_total']:,} "
+        f"out={u['output_tokens']:,} ${parsed['cost_usd']:.2f}",
         flush=True,
     )
     return row
@@ -637,7 +637,6 @@ def cmd_finalize(args) -> int:
     return 0
 
 
-# ------------------------------------------------------------------- score
 def cmd_score(args) -> int:
     """run_pi's scorer, unchanged. run_pi writes validation.json only for
     pi_ variants; the cc arm gets the same copy so ablation_report reads it."""
@@ -762,7 +761,7 @@ def main() -> int:
     p = sub.add_parser("report")
     p.add_argument("--variants", required=True)
     p.add_argument("--pages", required=True)
-    p.set_defaults(fn=lambda a: run_pi.cmd_report(a))
+    p.set_defaults(fn=run_pi.cmd_report)
     args = ap.parse_args()
     return args.fn(args)
 

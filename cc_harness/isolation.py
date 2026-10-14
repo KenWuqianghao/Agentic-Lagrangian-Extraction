@@ -10,6 +10,7 @@ that needs files from those trees must not use it).
 from __future__ import annotations
 
 import os
+import signal
 import sys
 from pathlib import Path
 
@@ -23,7 +24,8 @@ WOLFRAMSCRIPT = (
 )
 
 WRAPPER = """#!{python}
-# The licence runs {slots} Wolfram kernels at a time; wait for a slot (hepval takes them the same way).
+# The licence runs {slots} Wolfram kernels at a time; wait for a slot
+# (hepval takes them the same way).
 import fcntl, os, sys, time
 while True:
     for i in range({slots}):
@@ -38,9 +40,9 @@ while True:
     time.sleep(2)
 """
 
-# macOS: sandbox-exec does not end what a run leaves behind, and `ps` hides the environment, so the
-# wrapper stays as the parent and records each wolframscript it starts (its own process group, kernel
-# and subkernels included) in `.bin/pids`; kill_recorded() ends them when the run is over.
+# macOS: sandbox-exec does not end what a run leaves behind, and `ps` hides the environment, so
+# the wrapper stays as the parent and records each wolframscript it starts (its own process group,
+# kernel and subkernels included) in `.bin/pids`; kill_recorded() ends them when the run is over.
 WRAPPER_TRACKED = """#!{python}
 import fcntl, os, signal, subprocess, sys, time
 def slot():
@@ -70,8 +72,6 @@ sys.exit(p.wait())
 
 def kill_recorded(sandbox: Path) -> None:
     """End every wolframscript the tracked wrapper started in this sandbox."""
-    import signal
-
     pids = sandbox / ".bin" / "pids"
     for pid in pids.read_text().split() if pids.is_file() else ():
         try:

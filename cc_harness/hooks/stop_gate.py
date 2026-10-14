@@ -42,26 +42,27 @@ def digest(report_path: str | None, limit: int = 2500) -> str:
 
 def decide(event: dict, sandbox: Path, rundir: Path) -> dict:
     st = C.load_state(rundir)
-    gate = {"continuations": 0}
     gf = rundir / "stop_gate.json"
-    if gf.is_file():
-        try:
-            gate = json.loads(gf.read_text())
-        except json.JSONDecodeError:
-            pass
+    gate = json.loads(gf.read_text()) if gf.is_file() else {"continuations": 0}
     k = int(gate.get("continuations", 0))
     limit = C.env_int("CC_MAX_CONTINUATIONS", 3)
     model = sandbox / "model.fr"
     last = st.get("last_validation")
     reason = None
     if not model.is_file():
-        reason = "model.fr does not exist in the working directory. Write the model to model.fr, lint it and validate it."
+        reason = (
+            "model.fr does not exist in the working directory. Write the model to model.fr, "
+            "lint it and validate it."
+        )
     elif not last:
-        reason = "You have not run validate_model. Lint model.fr, then validate it, and fix what the report names."
+        reason = (
+            "You have not run validate_model. Lint model.fr, then validate it, and fix what the "
+            "report names."
+        )
     elif last.get("model_sha") != C.sha(model):
         reason = (
-            f"model.fr changed after the last validate_model (call {last.get('call')}), so its verdict "
-            "does not apply to the file you would hand in. Validate the current model.fr."
+            f"model.fr changed after the last validate_model (call {last.get('call')}), so its "
+            "verdict does not apply to the file you would hand in. Validate the current model.fr."
         )
     elif not last.get("told_pass"):
         reason = (
@@ -90,7 +91,8 @@ def decide(event: dict, sandbox: Path, rundir: Path) -> dict:
     elif st.get("validations", 0) >= st.get("validate_budget", 10) and model.is_file() and last:
         rec.update(
             decision="allow",
-            why=f"validate_model budget spent; a block cannot produce a new verdict: {reason[:200]}",
+            why="validate_model budget spent; a block cannot produce a new verdict: "
+            + reason[:200],
         )
         reason = None
     else:
@@ -103,10 +105,7 @@ def decide(event: dict, sandbox: Path, rundir: Path) -> dict:
 
 
 def main() -> int:
-    try:
-        event = json.load(sys.stdin)
-    except json.JSONDecodeError:
-        event = {}
+    event = json.load(sys.stdin)
     d = decide(event, C.sandbox(), C.rundir())
     if d["block"]:
         print(json.dumps({"decision": "block", "reason": d["reason"]}))

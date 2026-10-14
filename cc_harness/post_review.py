@@ -25,6 +25,8 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent / "pi_harness"))
+import common as C  # noqa: E402
+import heptapod_mcp  # noqa: E402
 from run_pi import RUNS, SINGLE_MODEL  # noqa: E402
 
 
@@ -63,25 +65,15 @@ def main() -> int:
                 "CC_REVIEW_MODEL": args.model,
             }
         )
-        import common  # noqa: E402  (reads the environment at call time)
-        import heptapod_mcp  # noqa: E402
-
-        out = heptapod_mcp.review_model({"path": "model.fr"})
-        verdict = next(
-            (
-                ln.strip()
-                for ln in reversed(out.splitlines())
-                if ln.strip().upper().startswith("VERDICT:")
-            ),
-            None,
-        )
+        # review_model reads these from the environment at call time.
+        verdict = C.verdict_line(heptapod_mcp.review_model({"path": "model.fr"}))
         (d / "post_review" / "verdict.json").write_text(
             json.dumps(
                 {
                     "page": page,
                     "verdict": verdict,
                     "post_hoc": True,
-                    "model_sha": common.sha(final),
+                    "model_sha": C.sha(final),
                 },
                 indent=1,
             )
