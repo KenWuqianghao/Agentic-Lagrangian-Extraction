@@ -12,3 +12,13 @@ def normalize_arxiv_id(arxiv_id: str | None) -> str | None:
     if not arxiv_id:
         return None
     return ARXIV_VERSION_SUFFIX.sub("", arxiv_id.strip())
+
+
+def quote_search_term(term: str) -> str:
+    """Quote multi-word search terms for API query strings."""
+    stripped = term.strip()
+    if not stripped:
+        return '""'
+    if " " in stripped or "-" in stripped:
+        return f'"{stripped}"'
+    return stripped

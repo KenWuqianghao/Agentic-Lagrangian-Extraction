@@ -27,7 +27,23 @@ def test_arxiv_search_parses_atom_feed() -> None:
 
 
 def test_arxiv_build_query() -> None:
-    q = ArxivClient.build_query("scalar leptoquark", ["BSM"])
+    from datetime import date
+
+    q = ArxivClient.build_query("scalar leptoquark", ["BSM"], since=date(2015, 1, 1))
     assert 'ti:"scalar leptoquark"' in q
     assert "abs:BSM" in q
-    assert q.startswith("cat:hep-ph")
+    assert "ti:BSM" in q
+    assert "cat:hep-ph" in q
+    assert "submittedDate:[20150101 TO 20991231]" in q
+
+
+def test_arxiv_build_query_with_negation_and_author() -> None:
+    q = ArxivClient.build_query(
+        "scalar leptoquark",
+        exclude_keywords=["supersymmetry"],
+        authors=["Crivellin"],
+        semantic=True,
+    )
+    assert 'all:"scalar leptoquark"' in q
+    assert "ANDNOT (ti:supersymmetry OR abs:supersymmetry)" in q
+    assert 'au:"Crivellin"' in q

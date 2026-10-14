@@ -11,7 +11,7 @@ from urllib.parse import urlencode
 from lagrangian_extraction.clients._http import RateLimitedClient
 from lagrangian_extraction.config import ARXIV_BASE_URL
 from lagrangian_extraction.models import Author, PaperRecord
-from lagrangian_extraction.utils import normalize_arxiv_id
+from lagrangian_extraction.utils import normalize_arxiv_id, quote_search_term
 
 ATOM_NS = {"atom": "http://www.w3.org/2005/Atom", "arxiv": "http://arxiv.org/schemas/atom"}
 
@@ -23,12 +23,63 @@ class ArxivClient:
         self._http = http
 
     @staticmethod
-    def build_query(model_name: str, keywords: list[str]) -> str:
-        model_clause = f'(ti:"{model_name}" OR abs:"{model_name}")'
+    def _keyword_match_clause(keyword: str) -> str:
+        """Match a keyword in title or abstract."""
+        term = quote_search_term(keyword)
+        return f"(ti:{term} OR abs:{term})"
+
+    @staticmethod
+    def build_query(
+        model_name: str,
+        keywords: list[str] | None = None,
+        *,
+        exclude_keywords: list[str] | None = None,
+        authors: list[str] | None = None,
+        exclude_authors: list[str] | None = None,
+        since: date | None = None,
+        until: date | None = None,
+        theory_only: bool = True,
+        semantic: bool = False,
+    ) -> str:
+        clauses: list[str] = []
+
+        if theory_only:
+            category_clause = "cat:hep-ph"
+            for category in ("hep-ex", "nucl-ex"):
+                category_clause += f" ANDNOT cat:{category}"
+            clauses.append(f"({category_clause})")
+
+        if semantic:
+            model_clause = f'all:"{model_name}"'
+        else:
+            model_term = quote_search_term(model_name)
+            model_clause = f"(ti:{model_term} OR abs:{model_term})"
+        clauses.append(model_clause)
+
         if keywords:
-            kw_clause = " OR ".join(f"abs:{kw}" for kw in keywords)
-            return f"cat:hep-ph AND {model_clause} AND ({kw_clause})"
-        return f"cat:hep-ph AND {model_clause}"
+            keyword_clause = " OR ".join(
+                ArxivClient._keyword_match_clause(keyword) for keyword in keywords
+            )
+            clauses.append(f"({keyword_clause})")
+
+        if exclude_keywords:
+            for keyword in exclude_keywords:
+                clauses.append(f"ANDNOT {ArxivClient._keyword_match_clause(keyword)}")
+
+        if authors:
+            author_clause = " AND ".join(f'au:"{author}"' for author in authors)
+            clauses.append(f"({author_clause})")
+
+        if exclude_authors:
+            for author in exclude_authors:
+                clauses.append(f'ANDNOT au:"{author}"')
+
+        if since or until:
+            start = since.strftime("%Y%m%d") if since else "19910101"
+            end = until.strftime("%Y%m%d") if until else "20991231"
+            clauses.append(f"submittedDate:[{start} TO {end}]")
+
+        return " AND ".join(clauses)
 
     def search(
         self,
