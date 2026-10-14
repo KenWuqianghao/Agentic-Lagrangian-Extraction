@@ -47,6 +47,9 @@ SKIP_FILES = {"sandbox_path.txt", "command.json", "mcp.json", "settings.json"}
 EMAIL = re.compile(rb"[\w.+-]+@[\w-]+(\.[\w-]+)+")
 README = """# heptapod ablation: results and agent traces
 
+Start with `quick_en.html` (or `quick_zh.html`): the result, how the score is computed, and the
+workflow figures (also in `figures/`). Open it in a browser.
+
 Groups 1 to 5 and x use claude-sonnet-5. Groups 6 and 7 use claude-haiku-5-5 and claude-sonnet-5-5.
 
 One folder per group, then per paper, then per seed (`s1`, `s2`, ...).
@@ -106,6 +109,10 @@ def main() -> int:
         z.writestr("scores.csv", buf.getvalue())
         z.writestr("README.md", README.format(groups="\n".join(f"- `{f}`: {what}" for f, _r, _v, what in GROUPS)))
         z.write(HERE / "hillclimb" / "ref_score.py", "ref_score.py")
+        for page in ("quick_en.html", "quick_zh.html"):
+            z.write(HERE / page, page)
+        for fig in sorted((HERE / "figures").glob("workflow_*.png")):
+            z.write(fig, f"figures/{fig.name}")
         for how in sorted((HERE / "hillclimb" / "ref_ufo").glob("*/how.json")):
             z.write(how, f"reference_models/{how.parent.name}/how.json")
             for name in ("particles.py", "vertices.py"):
