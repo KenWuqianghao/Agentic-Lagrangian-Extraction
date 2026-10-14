@@ -13,6 +13,11 @@ table{border-collapse:collapse;width:100%;font-size:14.5px}td,th{padding:5px 8px
 .why{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:10px}.why div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px}.why b{display:block;color:var(--b);margin-bottom:2px}
 ul.lim li{margin:4px 0}.tag{font-size:12.5px;padding:1px 8px;border-radius:9px;margin-right:6px}.t-r{background:#4a2423;color:#ffb3ae}.t-y{background:#4a3c1c;color:#ffe09a}.t-g{background:#1d3e2d;color:#a8f0c8}
 ol.opt li{margin:6px 0}code{background:#222b36;padding:1px 5px;border-radius:4px;font-size:.9em}
+.pipe{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin:6px 0 4px}.pipe div{flex:1 1 130px;background:#1d2530;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:14px}.pipe div b{display:block;color:var(--b)}.pipe .gate{border-color:var(--y)}.pipe .gate b{color:var(--y)}
+.steps{counter-reset:s;margin:0;padding:0;list-style:none}.steps>li{counter-increment:s;position:relative;padding:10px 14px 10px 46px;margin:8px 0;background:var(--card);border:1px solid var(--line);border-radius:10px;font-size:15px}.steps>li:before{content:counter(s);position:absolute;left:12px;top:10px;width:24px;height:24px;border-radius:50%;background:var(--b);color:#0f1318;font-weight:700;text-align:center;line-height:24px;font-size:14px}.steps h3{margin:0 0 4px;font-size:16px}
+.chk{display:grid;grid-template-columns:150px 1fr;gap:2px 12px;font-size:14.5px;margin:6px 0}.chk b{color:var(--tx)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.chip{font:13px/1.4 ui-monospace,Menlo,monospace;padding:3px 8px;border-radius:6px;border:1px solid}.c-ok{background:#1d3e2d;border-color:#2f6b4b;color:#a8f0c8}.c-ex{background:#4a3c1c;border-color:#7a6326;color:#ffe09a}.c-mi{background:#4a2423;border-color:#7a3a37;color:#ffb3ae}
+.calc{font:15px/1.7 ui-monospace,Menlo,monospace;background:#11161c;border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:6px 0}
 </style></head><body><main>
 <h1>一页看懂：heptapod 工具有没有用</h1>
 <p class="mut">2026-10-14 · 数据：<code>hillclimb/models_all.json</code> · 3 个模型，13 篇论文，182 次运行 · <a href="quick_en.html" style="color:var(--b)">English</a></p>
@@ -31,27 +36,69 @@ ol.opt li{margin:6px 0}code{background:#222b36;padding:1px 5px;border-radius:4px
 <b style="color:var(--g)">工具组</b>：Claude Code + heptapod 的验证工具 + 我们的协议和结束门 + 命令行。<br>
 <b style="color:var(--o)">vanilla</b>：同一个 Claude Code，只有命令行。它自己运行 Mathematica 和 MadGraph。<br>
 <b>任务</b>：读一篇新物理论文，写出 FeynRules 模型 <code>model.fr</code>。<br>
-<b>分数</b>：模型通过 6 步检查链时，分数 = 新物理顶点种类和参考模型的 F1（0 到 1）。检查链不通过时，分数 = 0。<br>
+<b>分数</b>：模型通过 6 步检查链时，分数 = 新物理顶点种类和参考模型的 F1（0 到 1）。检查链不通过时，分数 = 0。第 2 节详细解释。<br>
 <b>条件</b>：两组相同。4 小时时限，每台机器 2 个 Wolfram 内核和 2 个 agent。</div>
 
-<h2>2. 三个模型：分数和成本</h2>
+<h2>2. 分数怎么算</h2>
+<p class="mut" style="margin-top:0">写给不了解这个项目的读者。简单说：先过一道「能不能用」的门（像「能编译、测试通过」），再和标准答案做集合比较。</p>
+<div class="pipe">
+<div><b>model.fr</b>agent 写的文件</div>
+<div class="gate"><b>6 项检查（门）</b>一项失败 → 0 分</div>
+<div><b>UFO</b>粒子表 + 顶点表</div>
+<div><b>顶点种类</b>每个顶点只看粒子「是什么」</div>
+<div><b>和参考模型比 F1</b>0 到 1 的分数</div></div>
+<ol class="steps">
+<li><h3>agent 交什么</h3>
+一篇物理论文用 <b>拉格朗日量</b> 定义一个模型：一个公式给出所有粒子和它们怎样相互作用。agent 把拉格朗日量写成 <b>FeynRules</b> 文件 <code>model.fr</code>。FeynRules 是一个 Mathematica 包。它从拉格朗日量算出费曼规则，然后导出 <b>UFO</b>（Universal FeynRules Output）。UFO 是一组 Python 文件：<code>particles.py</code> 列出粒子，<code>vertices.py</code> 列出 <b>顶点</b>。顶点是能在费曼图的一个点上相遇的一组粒子，例如「W′⁺ → e⁺ ν」。MadGraph 这样的事例产生器读 UFO 来模拟对撞。</li>
+<li><h3>门：6 项检查，全部要通过</h3>
+<div class="chk">
+<b>1. 编译</b><span>FeynRules 加载模型，没有错误。</span>
+<b>2. 厄米性</b><span>拉格朗日量等于它的厄米共轭（L = L†）。否则概率不守恒。</span>
+<b>3. 动能项</b><span>动能项里没有两个场混合。</span>
+<b>4. 质量项</b><span>质量项里没有两个场混合：模型声明为物理粒子的场，真的有确定的质量。</span>
+<b>5. 质量谱</b><span>每个粒子声明的质量，和从拉格朗日量算出的质量一致，误差在 0.1% 以内。</span>
+<b>6. MadGraph 导入</b><span>MadGraph 5 加载 UFO，没有错误。</span></div>
+有一项失败，分数就是 <b>0</b>。一个「差不多对」但是跑不起来的模型，物理学家用不了。两组用同一个评分器检查。agent 自己说「通过了」不算数。</li>
+<li><h3>把每个顶点变成一个「种类」</h3>
+agent 和参考模型给粒子起的名字不同（「Wp」或「Wprime」）。所以分数比较粒子 <i>是什么</i>，不比较名字：
+<ul style="margin:4px 0">
+<li><b>标准模型粒子</b> 变成它的 PDG 编号（标准的粒子编号），去掉代数。电子、μ 子、τ 子都变成 <code>sm:cl</code>（带电轻子）。上、粲、顶夸克都变成 <code>sm:uq</code>。</li>
+<li><b>新粒子</b> 变成（自旋，电荷，颜色）。W′⁺ 变成 <code>bsm:spin3,q=1,col=1</code>。「spin3」是 UFO 的写法 2s+1，所以 s = 1，是矢量玻色子。col=1 表示没有色荷。</li>
+<li>去掉鬼场和 Goldstone 玻色子。它们来自规范选择，不是物理粒子。</li>
+<li>只保留至少有一个新粒子的顶点。每个模型加载同一个标准模型，所以 SM 顶点不提供信息。</li></ul>
+顶点里粒子的顺序不重要，相同的种类只算一次。结果是每个模型的一个顶点种类 <b>集合</b>。</li>
+<li><h3>用 F1 比较两个集合</h3>
+<b>参考模型</b>（标准答案）是公开的 FeynRules 模型数据库里同一篇论文的模型，用同样的方法编译成 UFO。
+<div class="calc">precision（精确率）= 匹配数 ÷ agent 模型的种类数<br>recall（召回率）&nbsp;&nbsp;&nbsp;= 匹配数 ÷ 参考模型的种类数<br>F1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= 2 · precision · recall ÷ (precision + recall)</div>
+<b>例子：Wprime</b>（一次真实运行，工具组，Sonnet 5，seed 1）。ℓ = 任意带电轻子，d 和 u = 任意下型和上型夸克（代数已去掉）。绿色 = 两边都有。黄色 = 只有 agent 的模型有。
+<div class="chips">
+<span class="chip c-ok">W′⁺ · ℓ · ν</span><span class="chip c-ok">W′⁻ · ℓ · ν</span><span class="chip c-ok">W′⁺ · d · u</span><span class="chip c-ok">W′⁻ · d · u</span>
+<span class="chip c-ex">W′⁺ · N · ℓ</span><span class="chip c-ex">W′⁻ · N · ℓ</span></div>
+<div class="calc">precision = 4 ÷ 6 = 0.67 &nbsp; recall = 4 ÷ 4 = 1.00 &nbsp; F1 = 0.80</div>
+论文里有右手中微子 N，agent 把它写进去了。参考模型没有 N。所以在这篇论文上，完全照论文写的模型得 0.80，不是 1。</li>
+<li><h3>平均</h3>
+一次运行在每篇论文上得一个分数。第 3 节的表先对 13 篇有可用参考模型的论文求平均（16 篇里有 3 篇没有），再对 seed 求平均。</li></ol>
+<div class="card"><b>分数不衡量什么。</b>它检查模型的 <i>结构</i>：有哪些粒子，哪些粒子相互作用。它不比较耦合常数的数值和符号，也不比较顶点的洛伦兹结构。它不数副本：自旋、电荷、颜色都相同的三个重中微子算一个种类。顶点都对、耦合常数错了的模型，也得满分。<br>
+<b>为什么这样设计。</b>门让「物理都在、但是跑不起来」的模型得 0。召回率让「为了通过检查而删掉物理」的模型得低分。以前的 harness 有这种「空通过」：新粒子一个顶点都没有，检查却通过了。<br>
+<b>对标准答案的修正。</b>我们在参考模型里发现 3 个标注错误：Monotops（两个标量的颜色）、B-L-SM（Higgs 用了非标准的 PDG 编号）、331（自由参数 β；我们试论文用的 4 个值，取最好的一个）。我们只改了参考模型的标注。修正对所有组都一样。</div>
+<h2>3. 三个模型：分数和成本</h2>
 <div class="tabs" id="tabs"><button data-k="score" class="on">分数</button><button data-k="cost">每次运行的成本</button><button data-k="chain">检查链通过率</button></div>
 <div class="card"><svg id="chart" viewBox="0 0 900 330" width="100%"></svg>
 <div class="legend"><span><i style="background:var(--g)"></i>工具组</span><span><i style="background:var(--o)"></i>vanilla</span><span><i style="background:#fff;border-radius:50%;width:8px;height:8px"></i>每个 seed</span></div>
 <p id="cap" class="mut" style="margin:.4em 0 0;font-size:14.5px"></p></div>
 <table id="mt"></table>
 
-<h2>3. 每篇论文：工具组比 vanilla 高多少</h2>
+<h2>4. 每篇论文：工具组比 vanilla 高多少</h2>
 <p class="mut" style="margin-top:0">绿色 = 工具组高，红色 = vanilla 高，灰色 = 一样。数字是两组平均分的差。</p>
 <div class="card" style="overflow-x:auto"><table id="pt"></table></div>
 
-<h2>4. 为什么工具有用</h2>
+<h2>5. 为什么工具有用</h2>
 <div class="why">
 <div><b>结束门挡住「以为通过」</b>vanilla 有时在总结里写「全部通过」，但是评分器的检查失败了。工具组的 agent 想结束而验证没有通过时，结束门要它继续（最多 3 次）。</div>
 <div><b>更稳定</b>vanilla 在同一篇论文上有时满分，有时 0 分。工具组的 0 分少很多：检查链通过 82 / 91 对 68 / 91。</div>
 <div><b>更便宜</b>vanilla 自己反复试错，读很长的日志。工具给出短的报告和下一步。所以每个模型上 vanilla 都花 2.7 到 3.8 倍的钱。</div></div>
 
-<h2>5. 限制：哪些地方还不可靠</h2>
+<h2>6. 限制：哪些地方还不可靠</h2>
 <ul class="lim">
 <li><span class="tag t-r">最大的弱点</span>没有留出测试。工具和协议是看了这 13 篇的失败以后改的。在新论文上是否成立，没有测试。</li>
 <li><span class="tag t-y">Haiku 单独不显著</span>Haiku 5.5：+0.09，p = 0.16。seed 2 是反向的（0.57 对 0.69）。Haiku 工具组的 5 次失败有同一个模式：结束门给出 3 次「继续」以后，agent 停了。那时验证没有通过，验证次数还有剩余。这是不是主要原因，没有确认（见下一步第 2 项）。</li>
@@ -61,7 +108,7 @@ ol.opt li{margin:6px 0}code{background:#222b36;padding:1px 5px;border-radius:4px
 <li><span class="tag t-g">运行中的问题，已处理</span>Mac 上两个卡住的 Wolfram 内核占了两个位置。受影响的 11 次运行作废并重跑。Haiku vanilla s1 的 Monotops 可能也受影响；去掉它以后 Haiku 的差是 +0.08。</li>
 <li><span class="tag t-g">重试规则，两组相同</span>Sonnet 5.5 上，两组的 ALRM_general 和 MDMmodel 第一次都到了 4 小时时限。两组都重跑了一次，用第二次的结果。</li></ul>
 
-<h2>6. 下一步（要你决定）</h2>
+<h2>7. 下一步（要你决定）</h2>
 <ol class="opt">
 <li><b>留出测试（推荐）</b>：选 5 到 8 篇新论文，两组各跑 1 到 2 次。结果：补上最大的弱点。成本：选论文和参考模型 1 到 2 天，运行约 $150 到 $300（Sonnet 5），用 Sonnet 5.5 或 Haiku 会便宜很多。</li>
 <li><b>给弱模型更多「继续」</b>：把结束门的上限从 3 提到 6，只重跑 Haiku 工具组。结果：确认 Haiku 的 5 次失败是不是这个原因。成本约 $15（2 个 seed）。</li>

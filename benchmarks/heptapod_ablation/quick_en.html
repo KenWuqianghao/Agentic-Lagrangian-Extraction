@@ -13,6 +13,11 @@ table{border-collapse:collapse;width:100%;font-size:14.5px}td,th{padding:5px 8px
 .why{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:10px}.why div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:15px}.why b{display:block;color:var(--b);margin-bottom:2px}
 ul.lim li{margin:4px 0}.tag{font-size:12.5px;padding:1px 8px;border-radius:9px;margin-right:6px;white-space:nowrap}.t-r{background:#4a2423;color:#ffb3ae}.t-y{background:#4a3c1c;color:#ffe09a}.t-g{background:#1d3e2d;color:#a8f0c8}
 ol.opt li{margin:6px 0}code{background:#222b36;padding:1px 5px;border-radius:4px;font-size:.9em}
+.pipe{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin:6px 0 4px}.pipe div{flex:1 1 130px;background:#1d2530;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:14px}.pipe div b{display:block;color:var(--b)}.pipe .gate{border-color:var(--y)}.pipe .gate b{color:var(--y)}
+.steps{counter-reset:s;margin:0;padding:0;list-style:none}.steps>li{counter-increment:s;position:relative;padding:10px 14px 10px 46px;margin:8px 0;background:var(--card);border:1px solid var(--line);border-radius:10px;font-size:15px}.steps>li:before{content:counter(s);position:absolute;left:12px;top:10px;width:24px;height:24px;border-radius:50%;background:var(--b);color:#0f1318;font-weight:700;text-align:center;line-height:24px;font-size:14px}.steps h3{margin:0 0 4px;font-size:16px}
+.chk{display:grid;grid-template-columns:150px 1fr;gap:2px 12px;font-size:14.5px;margin:6px 0}.chk b{color:var(--tx)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.chip{font:13px/1.4 ui-monospace,Menlo,monospace;padding:3px 8px;border-radius:6px;border:1px solid}.c-ok{background:#1d3e2d;border-color:#2f6b4b;color:#a8f0c8}.c-ex{background:#4a3c1c;border-color:#7a6326;color:#ffe09a}.c-mi{background:#4a2423;border-color:#7a3a37;color:#ffb3ae}
+.calc{font:15px/1.7 ui-monospace,Menlo,monospace;background:#11161c;border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:6px 0}
 </style></head><body><main>
 <h1>One page: do the heptapod tools help?</h1>
 <p class="mut">2026-10-14 · Data: <code>hillclimb/models_all.json</code> · 3 models, 13 papers, 182 runs · <a href="quick_zh.html" style="color:var(--b)">中文</a></p>
@@ -31,27 +36,69 @@ All three models together: the score is <b>+0.14</b> higher. The tools group is 
 <b style="color:var(--g)">Tools group</b>: Claude Code + the heptapod validation tools + our protocol and stop gate + a shell.<br>
 <b style="color:var(--o)">Vanilla</b>: the same Claude Code with a shell only. It runs Mathematica and MadGraph itself.<br>
 <b>Task</b>: read a new-physics paper and write a FeynRules model, <code>model.fr</code>.<br>
-<b>Score</b>: if the model passes the 6-step check chain, the score is the F1 of the new-physics vertex kinds against the reference model (0 to 1). If the check chain fails, the score is 0.<br>
+<b>Score</b>: if the model passes the 6-step check chain, the score is the F1 of the new-physics vertex kinds against the reference model (0 to 1). If the check chain fails, the score is 0. Section 2 explains this in detail.<br>
 <b>Conditions</b>: the same for both groups. 4-hour time limit; on each machine, 2 Wolfram kernels and 2 agents.</div>
 
-<h2>2. Three models: score and cost</h2>
+<h2>2. How the score is computed</h2>
+<p class="mut" style="margin-top:0">For a reader who does not know this project. Short version: a pass/fail gate (like "it builds and the tests pass"), then a set comparison against an answer key.</p>
+<div class="pipe">
+<div><b>model.fr</b>The file that the agent writes</div>
+<div class="gate"><b>6 checks (gate)</b>One failure → score 0</div>
+<div><b>UFO</b>Particle list + vertex list</div>
+<div><b>Vertex kinds</b>Each vertex reduced to what its particles are</div>
+<div><b>F1 against the reference</b>Score from 0 to 1</div></div>
+<ol class="steps">
+<li><h3>What the agent delivers</h3>
+A physics paper defines a model by its <b>Lagrangian</b>: one formula that gives all the particles and how they interact. The agent writes this Lagrangian as a <b>FeynRules</b> file, <code>model.fr</code>. FeynRules is a Mathematica package. It turns a Lagrangian into Feynman rules and exports them as a <b>UFO</b> (Universal FeynRules Output). A UFO is a set of Python files: <code>particles.py</code> lists the particles, and <code>vertices.py</code> lists the <b>vertices</b>. A vertex is a set of particles that can meet at one point of a Feynman diagram, for example "W′⁺ → e⁺ ν". Event generators such as MadGraph read the UFO to simulate collisions.</li>
+<li><h3>The gate: 6 checks, all must pass</h3>
+<div class="chk">
+<b>1. Compile</b><span>FeynRules loads the model with no error.</span>
+<b>2. Hermiticity</b><span>The Lagrangian equals its Hermitian conjugate (L = L†). If not, probabilities are not conserved.</span>
+<b>3. Kinetic terms</b><span>No two fields mix in their kinetic terms.</span>
+<b>4. Mass terms</b><span>No two fields mix in their mass terms: each field that the model declares as a physical particle really has a definite mass.</span>
+<b>5. Mass spectrum</b><span>For each particle, the mass that the model declares agrees with the mass that comes from the Lagrangian, within 0.1%.</span>
+<b>6. MadGraph import</b><span>MadGraph 5 loads the UFO with no error.</span></div>
+If one check fails, the score is <b>0</b>. A physicist cannot use a model that is "almost right" but does not run. The same scorer checks both groups. The agent's own claims are not used.</li>
+<li><h3>Reduce each vertex to a "kind"</h3>
+The agent and the reference use different names ("Wp" or "Wprime"). So the score compares what the particles <i>are</i>, not their names:
+<ul style="margin:4px 0">
+<li>A <b>Standard Model particle</b> becomes its PDG code (the standard particle ID number), with the generation removed. Electron, muon and tau all become <code>sm:cl</code> (charged lepton). Up, charm and top all become <code>sm:uq</code>.</li>
+<li>A <b>new particle</b> becomes (spin, electric charge, colour). The W′⁺ becomes <code>bsm:spin3,q=1,col=1</code>. Here "spin3" is the UFO convention 2s+1, so s = 1, a vector boson. col=1 means no colour charge.</li>
+<li>Ghosts and Goldstone bosons are removed. They come from the gauge choice and are not physical particles.</li>
+<li>Only vertices with at least one new particle are kept. Every model loads the same Standard Model, so the SM vertices give no information.</li></ul>
+The order inside a vertex does not matter, and identical kinds count once. The result is a <b>set</b> of vertex kinds for each model.</li>
+<li><h3>Compare the two sets with F1</h3>
+The <b>reference</b> (the answer key) is the model of the same paper in the public FeynRules model database, compiled to a UFO in the same way.
+<div class="calc">precision = matched ÷ kinds in the agent's model<br>recall&nbsp;&nbsp;&nbsp; = matched ÷ kinds in the reference<br>F1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; = 2 · precision · recall ÷ (precision + recall)</div>
+<b>Example: Wprime</b> (a real run, tools group, Sonnet 5, seed 1). ℓ = any charged lepton, d and u = any down-type and up-type quark (the generation is removed). Green = in both. Yellow = only in the agent's model.
+<div class="chips">
+<span class="chip c-ok">W′⁺ · ℓ · ν</span><span class="chip c-ok">W′⁻ · ℓ · ν</span><span class="chip c-ok">W′⁺ · d · u</span><span class="chip c-ok">W′⁻ · d · u</span>
+<span class="chip c-ex">W′⁺ · N · ℓ</span><span class="chip c-ex">W′⁻ · N · ℓ</span></div>
+<div class="calc">precision = 4 ÷ 6 = 0.67 &nbsp; recall = 4 ÷ 4 = 1.00 &nbsp; F1 = 0.80</div>
+The paper has a right-handed neutrino N, and the agent put it in. The reference leaves N out. So on this paper, a model that follows the paper exactly gets 0.80, not 1.</li>
+<li><h3>Average</h3>
+One run gives one score per paper. The tables in section 3 give the mean over the 13 papers that have a usable reference (3 of the 16 papers do not), then the mean over seeds.</li></ol>
+<div class="card"><b>What the score does not measure.</b> It checks the <i>structure</i> of the model: which particles exist and which ones interact. It does not compare coupling values, signs, or the Lorentz structure of a vertex. It does not count copies: three heavy neutrinos with the same spin, charge and colour are one kind. A model with the correct vertices and a wrong coupling constant gets full marks.<br>
+<b>Why this design.</b> The gate gives 0 to a model that keeps the physics but does not run. Recall gives a low score to a model that passes the checks because it left the physics out. An earlier harness had such "empty passes": a new particle with no vertex at all.<br>
+<b>Fixes to the answer key.</b> We found 3 label errors in the references: Monotops (colour of two scalars), B-L-SM (the Higgs has a non-standard PDG code), and 331 (a free parameter β; we try the 4 values that the paper uses and keep the best). We changed only the reference labels. The same fix applies to every group.</div>
+<h2>3. Three models: score and cost</h2>
 <div class="tabs" id="tabs"><button data-k="score" class="on">Score</button><button data-k="cost">Cost per run</button><button data-k="chain">Check-chain pass rate</button></div>
 <div class="card"><svg id="chart" viewBox="0 0 900 330" width="100%"></svg>
 <div class="legend"><span><i style="background:var(--g)"></i>Tools group</span><span><i style="background:var(--o)"></i>Vanilla</span><span><i style="background:#fff;border-radius:50%;width:8px;height:8px"></i>One seed</span></div>
 <p id="cap" class="mut" style="margin:.4em 0 0;font-size:14.5px"></p></div>
 <table id="mt"></table>
 
-<h2>3. Each paper: how much higher the tools group is</h2>
+<h2>4. Each paper: how much higher the tools group is</h2>
 <p class="mut" style="margin-top:0">Green = tools group higher. Red = vanilla higher. Grey = equal. The number is the difference of the two group means.</p>
 <div class="card" style="overflow-x:auto"><table id="pt"></table></div>
 
-<h2>4. Why the tools help</h2>
+<h2>5. Why the tools help</h2>
 <div class="why">
 <div><b>The stop gate catches "I think it passed"</b>Vanilla sometimes writes "all checks pass" in its summary, but the scorer's checks fail. In the tools group, if the agent tries to stop and the last validation did not pass, the stop gate tells it to continue (up to 3 times).</div>
 <div><b>More stable</b>On the same paper, vanilla sometimes gets full marks and sometimes 0. The tools group gets 0 much less often: the check chain passes in 82 / 91 runs against 68 / 91.</div>
 <div><b>Cheaper</b>Vanilla finds errors by trial and reads long logs. The tools give a short report and the next step. On each model, vanilla costs 2.7 to 3.8 times more.</div></div>
 
-<h2>5. Limits: what is not yet reliable</h2>
+<h2>6. Limits: what is not yet reliable</h2>
 <ul class="lim">
 <li><span class="tag t-r">Largest weakness</span>There is no held-out test. We changed the tools and the protocol after we read the failures on these 13 papers. We did not test if the result holds on new papers.</li>
 <li><span class="tag t-y">Haiku alone is not significant</span>Haiku 5.5: +0.09, p = 0.16. Seed 2 goes the other way (0.57 against 0.69). The 5 failures of the Haiku tools group have one pattern: after the stop gate gave 3 "continue" messages, the agent stopped. At that time the validation had not passed, and validation calls were still available. Not confirmed that this is the main cause (see next step 2).</li>
@@ -61,7 +108,7 @@ All three models together: the score is <b>+0.14</b> higher. The tools group is 
 <li><span class="tag t-g">Run problem, fixed</span>On the Mac, two hung Wolfram kernels held both kernel slots. We discarded the 11 runs that this affected and ran them again. Haiku vanilla s1 Monotops possibly had the same problem. Without that run, the Haiku difference is +0.08.</li>
 <li><span class="tag t-g">Retry rule, same for both groups</span>On Sonnet 5.5, ALRM_general and MDMmodel hit the 4-hour limit in both groups on the first attempt. Both groups got one more attempt. We use the second result.</li></ul>
 
-<h2>6. Next steps (your decision)</h2>
+<h2>7. Next steps (your decision)</h2>
 <ol class="opt">
 <li><b>Held-out test (recommended)</b>: choose 5 to 8 new papers and run each group 1 to 2 times. Result: this removes the largest weakness. Cost: 1 to 2 days to choose the papers and build the reference models; about $150 to $300 for the runs on Sonnet 5. Sonnet 5.5 or Haiku costs much less.</li>
 <li><b>Give weaker models more "continue" messages</b>: change the stop gate limit from 3 to 6 and run the Haiku tools group again. Result: this shows if the 5 Haiku failures come from this limit. Cost: about $15 (2 seeds).</li>
