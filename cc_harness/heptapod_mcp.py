@@ -254,12 +254,15 @@ def validate_model(args: dict) -> str:
         "compile": ["--view", "compile"],
         "import": ["--view", "import"],
     }[arm.feedback]
+    # hepval numbers its call directories itself; `n` runs ahead of that once a call
+    # fails before hepval makes its directory.
+    k = len(list((rd / "validation").glob("call*"))) + 1
     t0 = time.time()
     r = _run([C.PYTHON, str(C.HEPVAL), "validate", str(fr), "--out", str(rd / "validation"), *view])
     if r.returncode != 0:
         C.log(rd, "tool_calls.jsonl", {"event": "validator_error", "n": n, "err": r.stderr[-800:]})
         raise ToolError(f"validator error (not a model verdict): {r.stderr[-1500:]}")
-    summ_file = rd / "validation" / f"call{n}" / "summary.json"
+    summ_file = rd / "validation" / f"call{k}" / "summary.json"
     summ = json.loads(summ_file.read_text()) if summ_file.is_file() else {}
     stage = summ.get("stage_reached") or "unknown"
     if arm.feedback in ("compile", "import"):
@@ -306,8 +309,8 @@ def validate_model(args: dict) -> str:
     if "lint_model" in arm.tools:
         lint = _run([C.PYTHON, str(C.HEPVAL), "lint", str(fr), *_lint_flags()])
         report += "\n## lint findings\n" + _lint_text(lint.stdout) + "\n"
-    (rd / "validation" / f"call{n}").mkdir(parents=True, exist_ok=True)
-    (rd / "validation" / f"call{n}" / "agent_report.md").write_text(report)
+    (rd / "validation" / f"call{k}").mkdir(parents=True, exist_ok=True)
+    (rd / "validation" / f"call{k}" / "agent_report.md").write_text(report)
     st = C.load_state(rd)
     st["last_validation"] = {
         "call": n,
@@ -316,7 +319,7 @@ def validate_model(args: dict) -> str:
         "told_pass": told_pass,
         "model_sha": C.sha(fr),
         "path": str(fr),
-        "report": str(rd / "validation" / f"call{n}" / "agent_report.md"),
+        "report": str(rd / "validation" / f"call{k}" / "agent_report.md"),
         "checks": summ.get("checks"),
         "madgraph_import_ok": summ.get("madgraph_import_ok"),
         "seconds": round(time.time() - t0, 1),

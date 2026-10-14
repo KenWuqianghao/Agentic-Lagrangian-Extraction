@@ -57,6 +57,8 @@ def cuts(d: Path, calls: list[dict], budget: int) -> dict | None:
             elif open_call is not None:
                 waits.append((open_call, e["t"]))
                 open_call = None
+    if not v_start or len(v_end) < len(calls):  # tool_calls.jsonl missing or cut short
+        return None
 
     def active(t):
         return (t - t0) - sum(min(b, t) - a for a, b in waits if a < t)

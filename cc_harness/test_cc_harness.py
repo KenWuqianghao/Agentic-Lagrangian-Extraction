@@ -100,6 +100,23 @@ def test_validate_model_reports_call_number_stage_and_enforces_budget(env):
     assert any(r["event"] == "budget" for r in log)
 
 
+def test_validate_model_reads_the_verdict_of_its_own_call_after_a_validator_error(env):
+    # The first validate fails before hepval makes call1/; the second is hepval's call1.
+    hepval = env["tmp"] / "hepval.py"
+    real = hepval.read_text()
+    hepval.write_text(
+        "import sys\nfrom pathlib import Path\nflag = Path(__file__).with_name('failed')\n"
+        "if sys.argv[1] == 'validate' and not flag.exists():\n"
+        "    flag.touch(); sys.exit('validator tree not set up')\n" + real
+    )
+    out = _mcp({**env["env"], "FAKE_STAGE": "pass"}, [("validate_model", {"path": "model.fr"})] * 2)
+    assert out[1]["result"]["isError"] and "validator error" in _text(out[1])
+    assert _text(out[2]).startswith("# validate_model call 2/2: stage reached = pass")
+    st = json.loads((env["rd"] / "cc_state.json").read_text())
+    assert st["last_validation"]["told_pass"] is True
+    assert st["last_validation"]["report"].endswith("call1/agent_report.md")
+
+
 def test_massbasis_passes_the_spec_and_rejects_bad_json(env):
     out = _mcp(
         env["env"],

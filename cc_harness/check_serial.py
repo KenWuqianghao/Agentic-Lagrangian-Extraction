@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Evidence that Wolfram validation stayed serial while papers ran in
 parallel: every hepval call summary records the interval it held the kernel
-(t_kernel_start, t_kernel_end). No two intervals may overlap.
+(t_kernel_start, t_kernel_end). At no moment may more intervals be open than
+there are kernel slots (HEPVAL_KERNEL_SLOTS, default 2).
 
     check_serial.py [--variant cc_sonnet_harness] [extra summary dirs ...]
 """
@@ -10,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -33,12 +35,23 @@ def main() -> int:
                 (s["t_kernel_start"], s["t_kernel_end"], str(f), s.get("lock_wait_seconds") or 0)
             )
     iv.sort()
-    overlaps = [(a[2], b[2], round(a[1] - b[0], 1)) for a, b in zip(iv, iv[1:]) if b[0] < a[1]]
+    slots = int(os.environ.get("HEPVAL_KERNEL_SLOTS", "2"))
+    # At equal times an end sorts before a start: back-to-back calls do not overlap.
+    events = sorted([(a, 1, f) for a, _b, f, _w in iv] + [(b, -1, f) for _a, b, f, _w in iv])
+    held, overlaps = set(), []
+    for t, d, f in events:
+        if d == -1:
+            held.discard(f)
+            continue
+        held.add(f)
+        if len(held) > slots:
+            overlaps.append({"t": t, "concurrent": sorted(held)})
     waited = [x for x in iv if x[3] > 0]
     print(
         json.dumps(
             {
                 "intervals": len(iv),
+                "slots": slots,
                 "overlaps": overlaps,
                 "calls_that_waited_for_the_lock_or_a_kernel": len(waited),
                 "max_wait_seconds": max((x[3] for x in iv), default=0),

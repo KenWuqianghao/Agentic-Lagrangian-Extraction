@@ -60,7 +60,14 @@ def probe(model: str) -> bool:
         )
     except subprocess.TimeoutExpired:
         return False
-    return '"reason":"stop"' in p.stdout and not ob.RATE_LIMIT.search(p.stdout)
+    (d / "events.jsonl").write_text(p.stdout)
+    events = ob._events(d / "events.jsonl")
+    stopped = any(
+        (e.get("part") or {}).get("type") == "step-finish"
+        and (e.get("part") or {}).get("reason") == "stop"
+        for e in events
+    )
+    return p.returncode == 0 and stopped and not ob.RATE_LIMIT.search(p.stdout)
 
 
 def clean_done(page: str, model: str, arm: str, seed: int) -> bool:
@@ -113,7 +120,7 @@ def main() -> int:
         args = ["--model", a.model, "--arm", a.arm, "--seed", str(a.seed)]
         args += ["--pages", ",".join(todo)]
         subprocess.run([*cli, "prepare", *args], check=True)
-        subprocess.run([*cli, "run", *args, "--jobs", str(a.jobs)])
+        subprocess.run([*cli, "run", *args, "--jobs", str(a.jobs)], check=True)
         moved = archive_rate_limited(a.model, a.arm, a.seed)
         if moved:
             print(f"[supervise] rate-limited, archived for retry: {','.join(moved)}", flush=True)
