@@ -8,7 +8,7 @@ block is good when the driver reports its term count.
 
     compile_bisect.py MODEL.fr --out DIR
 
-Serial under hepval's Wolfram lock. Prints one JSON object. This is the
+Serial in one hepval kernel slot. Prints one JSON object. This is the
 prototype of the per-block localisation proposed for heptapod's
 ValidateLagrangian.
 """
@@ -26,9 +26,9 @@ sys.path.insert(0, str(HERE.parent.parent / "pi_harness"))
 import hepval  # noqa: E402
 
 _NOISE = re.compile(
-    r"^(\[INFO\]|\[WARN\]|HEPTAPOD-| - FeynRules|Version:|Authors:|Please cite|\s+- |http|The FeynRules palette"
-    r"|Merging model-files|This model implementation|Model Version|For more information|Model .* loaded"
-    r"|From kernel|General::stop|heptapod extraction|\s*$)"
+    r"^(\[INFO\]|\[WARN\]|HEPTAPOD-| - FeynRules|Version:|Authors:|Please cite|\s+- |http"
+    r"|The FeynRules palette|Merging model-files|This model implementation|Model Version"
+    r"|For more information|Model .* loaded|From kernel|General::stop|heptapod extraction|\s*$)"
 )
 
 
@@ -58,7 +58,6 @@ def main() -> int:
         else []
     )
     rows = []
-    hepval.STATE.mkdir(parents=True, exist_ok=True)
     with hepval.kernel_slot():
         for b in blocks:
             log, rc, timed_out, dt = vb._run_driver(

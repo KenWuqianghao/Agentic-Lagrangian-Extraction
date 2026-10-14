@@ -22,7 +22,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent.parent / "cc_harness"))
-from opt_checks import cut_lines  # noqa: E402,F401
+from opt_checks import cut_lines  # noqa: E402
 
 if __name__ == "__main__":
     print(

@@ -5,7 +5,7 @@ source ~/hep-tools/env.sh
 cd /home/deck/code/ALE-ablation
 export PI_HARNESS_RUNS=/home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/runs
 export HEPVAL_COMPILE_TIMEOUT=1350 VANILLA_AGENT_TIMEOUT=14400
-L=$PI_HARNESS_RUNS/logs; M=kenwu@100.117.115.6
+L=$PI_HARNESS_RUNS/logs; M=${ALE_MAC_HOST:?set ALE_MAC_HOST to the ssh target of the Mac}
 P13=331,ALRM_general,B-L-SM,EffLRSM,GeneralU1,HeavyN,MDMmodel,Monotops,SMWeinberg,Top-Philic-Zprime,Wprime,pNG,pSPSS
 python cc_harness/run_cc.py run --arm shell --variant cc_sonnet_shell --pages $P13 --model claude-sonnet-5 \
   --validate-budget 10 --review-budget 2 --max-continuations 3 --parallel 2 --seeds 3 --first-seed 2 >> $L/seeds_shell_run.log 2>&1

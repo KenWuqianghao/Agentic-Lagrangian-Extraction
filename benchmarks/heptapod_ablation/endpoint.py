@@ -18,10 +18,15 @@ a paper's runs are exchangeable, so the passes of arm A in a paper follow a
 hypergeometric law; the statistic is the total over papers. It answers "is A
 better than B on these papers"; it does not generalise to other papers.
 
+End to end, a unit is a paper:
+
     endpoint.py --arms compile,heptapod,full --variant 'cc_abl_{arm}' --seeds 3 \\
-                --units B-L-SM,ChernSimonsPortal,...                      # end to end: a unit is a paper
+                --units B-L-SM,ChernSimonsPortal,...
+
+Repair, a unit is source:paper:
+
     endpoint.py --arms import,heptapod,diag --variant 'cc_rep_{arm}_from_{source}' --seeds 2 \\
-                --units cc_sonnet_harness:B-L-SM,v3s_notools:HeavyN,...   # repair: a unit is source:paper
+                --units cc_sonnet_harness:B-L-SM,v3s_notools:HeavyN,...
 
 The contrasts are tested in a fixed order (a later one is confirmatory only
 if every earlier one is significant at 0.05). Repair design: diag vs import,
@@ -40,6 +45,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+sys.path.insert(0, str(HERE.parent.parent / "cc_harness"))
+import common  # noqa: E402
 import retro  # noqa: E402
 
 CONTRASTS = (
@@ -59,7 +66,7 @@ def run_outcome(d: Path, paper: str) -> dict:
     state = retro.score_state(score)
     chain = bool(state and retro.is_pass(state))
     post = retro._json(d / "post_review" / "verdict.json") or {}
-    reviewed = bool(post) and post.get("model_sha") == retro.hepval_sha(fr)
+    reviewed = bool(post) and post.get("model_sha") == common.sha(fr)
     changing = retro.physics_changing(post.get("verdict")) if reviewed else None
     ufo = d / "score_ufo"
     inert = retro.particles_without_vertex(ufo) if (ufo / "vertices.py").is_file() else None

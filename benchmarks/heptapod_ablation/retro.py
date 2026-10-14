@@ -41,7 +41,9 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 ALE = HERE.parent.parent
 sys.path.insert(0, str(ALE / "benchmarks"))
+sys.path.insert(0, str(ALE / "cc_harness"))
 sys.path.insert(0, str(ALE / "pi_harness"))
+import common  # noqa: E402
 import fr_lint  # noqa: E402
 import hepval  # noqa: E402
 
@@ -98,7 +100,6 @@ def _jsonl(path: Path) -> list[dict]:
     return out
 
 
-# ------------------------------------------------------------------ states
 def chain_state(compile_ok, checks, mg5_ok) -> dict:
     """A verdict per item. Inconclusive counts as fail: the scorer's
     all_checks_pass accepts only "pass"."""
@@ -164,7 +165,6 @@ def mg5_kind(row: dict) -> str:
     return "other"
 
 
-# -------------------------------------------------------------------- lint
 def lint_findings(fr: Path) -> list[dict]:
     """hepval's lint (fr_lint plus the comment/bracket structure rules) on a
     stored file, error level only (a stage is predicted)."""
@@ -185,7 +185,6 @@ def lint_items(findings: list[dict]) -> set:
     return {i for f in findings for i in rule_items(f)}
 
 
-# ----------------------------------------------------------------- reports
 def report_signals(report: str) -> dict:
     """What the report the agent read contained beyond the verdicts."""
     sig = {}
@@ -231,7 +230,6 @@ def named(item: str, sig: dict) -> bool:
     return False
 
 
-# -------------------------------------------------------------------- runs
 def load_calls(d: Path) -> list[dict]:
     calls = []
     k = 1
@@ -265,7 +263,7 @@ def load_calls(d: Path) -> list[dict]:
                 "diag_driver": s.get("driver") == "diag",
                 "signals": report_signals(report),
                 "lint": lint_findings(fr) if fr.is_file() else [],
-                "sha": hepval_sha(fr),
+                "sha": common.sha(fr),
                 "lines": len(fr.read_text(errors="replace").splitlines()) if fr.is_file() else 0,
                 "ufo": str(cd / "round0" / "UFO")
                 if (cd / "round0" / "UFO" / "vertices.py").is_file()
@@ -300,12 +298,6 @@ def particles_without_vertex(ufo: Path) -> list[str]:
         for n in ufo_particles(ufo) - SM_PARTICLES
         if n not in used and n + "__tilde__" not in used and not n.startswith("gh")
     )
-
-
-def hepval_sha(path: Path) -> str | None:
-    import hashlib
-
-    return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
 
 
 def tool_segments(d: Path, n_calls: int) -> list[dict]:
@@ -405,7 +397,7 @@ def referee(d: Path, agent: dict, final_sha: str | None) -> dict | None:
         else []
     )
     for v in reversed(views):
-        if hepval_sha(v.with_name(v.name.replace(".review.md", ".fr"))) == final_sha:
+        if common.sha(v.with_name(v.name.replace(".review.md", ".fr"))) == final_sha:
             line = next(
                 (
                     x.strip()
@@ -465,7 +457,10 @@ def usage_of(agent: dict, d: Path) -> dict:
             "cost_usd": None,
             "seconds": None,
         }
-    tot = lambda k: sum(int(x.get(k) or 0) for x in per_msg.values())  # noqa: E731
+
+    def tot(k: str) -> int:
+        return sum(int(x.get(k) or 0) for x in per_msg.values())
+
     return {
         "input_total": tot("input_tokens")
         + tot("cache_creation_input_tokens")
@@ -483,7 +478,7 @@ def load_run(runs: Path, paper: str, arm: str, scored_ufo: Path | None = None) -
     agent = run.get("agent") or {}
     score = _json(d / "validation_hepval.json")
     fr = d / "model" / f"{paper}_gen.fr"
-    final_sha = hepval_sha(fr)
+    final_sha = common.sha(fr)
     calls = load_calls(d)
     segs = tool_segments(d, len(calls))
     st = score_state(score)
@@ -524,7 +519,6 @@ def load_run(runs: Path, paper: str, arm: str, scored_ufo: Path | None = None) -
     }
 
 
-# ---------------------------------------------------------------- analyses
 def budget_curve(runs: list[dict], budgets=BUDGETS) -> dict:
     """Passes that survive a validate budget of B, two readings.
 
@@ -589,7 +583,8 @@ def end_state(r: dict) -> list[dict]:
                 "named_by_lint": item in lint_now,
                 "lint_rules": sorted({f["rule"] for f in r["final_lint"] if item in rule_items(f)}),
                 "last_report_is_for_scored_file": same,
-                # A lint rule of the item's stage is a weak signal: it can be about another construct.
+                # A lint rule of the item's stage is a weak signal: it can be about another
+                # construct.
                 "class": "located_by_report"
                 if diag
                 else "lint_rule_of_that_item"
@@ -843,7 +838,6 @@ def analyse(runs_dir: Path, scored_ufo: dict | None = None) -> dict:
     return res
 
 
-# ------------------------------------------------------------------ report
 def _table(head: list[str], rows: list[list]) -> list[str]:
     return [
         "| " + " | ".join(head) + " |",
@@ -913,7 +907,8 @@ def render(res: dict) -> str:
             [[i, f1[i], fs[i]] for i in ITEMS],
         )
         L += [
-            f"Runs with at least one call: {a['first_call']['runs_with_a_call']}. First-call stage: "
+            f"Runs with at least one call: {a['first_call']['runs_with_a_call']}. First-call "
+            "stage: "
             + "; ".join(f"{s} {len(p)}" for s, p in a["first_call"]["stage"].items())
             + ".",
             "",
@@ -922,7 +917,8 @@ def render(res: dict) -> str:
         L += [
             "### What changed between consecutive calls, and what the agent had just been told",
             "",
-            f"{t['fixed']} item verdicts went fail to pass and {t['broken']} went pass to fail. A fix can have "
+            f"{t['fixed']} item verdicts went fail to pass and {t['broken']} went pass to fail. "
+            "A fix can have "
             "more than one source, so a row can sum to more than its count.",
             "",
         ]
@@ -935,13 +931,16 @@ def render(res: dict) -> str:
             + [["all", t["fixed"], *[t["fixed_by_source"][s] for s in SOURCES]]],
         )
         L += [
-            f"Fixes with a source only the ALE wrapper has (diag_report, lint or massbasis): {t['fixed_ale_only_source']}. "
-            f"Fixes where the agent had only what heptapod-dev origin/main also returns: {t['fixed_upstream_info']}.",
+            "Fixes with a source only the ALE wrapper has (diag_report, lint or massbasis): "
+            f"{t['fixed_ale_only_source']}. "
+            "Fixes where the agent had only what heptapod-dev origin/main also returns: "
+            f"{t['fixed_upstream_info']}.",
             "",
         ]
         cb = a["calls_by_failure"]
         L += [
-            "Validate calls that ended with each failure (a call with two failing items counts in both rows):",
+            "Validate calls that ended with each failure (a call with two failing items counts "
+            "in both rows):",
             "",
         ]
         L += _table(
@@ -1000,14 +999,20 @@ def render(res: dict) -> str:
             ],
         )
         fd, c = a["fidelity"], a["cost"]
+        cost = (
+            f"${c['total_cost_usd']}" if c["total_cost_usd"] is not None else "not billed per token"
+        )
         L += [
             "### Fidelity and cost",
             "",
-            f"- passes {fd['pass']}; referee verdict on the scored file for {fd['pass_with_referee_verdict']}; "
-            f"no physics-changing finding: {len(fd['pass_no_physics_change'])} ({', '.join(fd['pass_no_physics_change'])}); "
+            f"- passes {fd['pass']}; referee verdict on the scored file for "
+            f"{fd['pass_with_referee_verdict']}; "
+            f"no physics-changing finding: {len(fd['pass_no_physics_change'])} "
+            f"({', '.join(fd['pass_no_physics_change'])}); "
             f"physics-changing: {', '.join(fd['pass_physics_changing']) or 'none'}; "
             f"no verdict the script can read: {', '.join(fd['pass_not_reviewed']) or 'none'}",
-            f"- UFO of the scored file inspected for {fd['pass_ufo_inspected']} passes; a new particle with no vertex: "
+            f"- UFO of the scored file inspected for {fd['pass_ufo_inspected']} passes; a new "
+            "particle with no vertex: "
             + (
                 "; ".join(
                     f"{p} ({', '.join(v)})"
@@ -1019,11 +1024,11 @@ def render(res: dict) -> str:
             f"{len(fd['pass_faithful_and_all_new_particles_interact'])}",
             "- probe calls (not counted as passes): "
             + ("; ".join(f"{p} calls {v}" for p, v in a["probes"].items()) or "none"),
-            f"- total input tokens {c['total_input']:,}, output {c['total_output']:,}, cost "
-            f"{'$' + str(c['total_cost_usd']) if c['total_cost_usd'] is not None else 'not billed per token'}",
+            f"- total input tokens {c['total_input']:,}, output {c['total_output']:,}, cost {cost}",
             f"- per pass: input {c['input_per_pass']:,}, output {c['output_per_pass']:,}"
             + (
-                f", ${c['cost_per_pass_usd']}; per pass without a physics-changing finding ${c.get('cost_per_faithful_pass_usd')}"
+                f", ${c['cost_per_pass_usd']}; per pass without a physics-changing finding "
+                f"${c.get('cost_per_faithful_pass_usd')}"
                 if c["cost_per_pass_usd"] is not None
                 else ""
             ),
@@ -1041,8 +1046,10 @@ def render(res: dict) -> str:
     L += [
         "## What a feedback loop could have seen in the first drafts",
         "",
-        "The first draft is the scored file of a one-shot arm, or the file at the first validate call of a loop arm. "
-        "A failing draft is seen by a feedback level when at least one of its failing items is in that level's report.",
+        "The first draft is the scored file of a one-shot arm, or the file at the first validate "
+        "call of a loop arm. "
+        "A failing draft is seen by a feedback level when at least one of its failing items is "
+        "in that level's report.",
         "",
     ]
     levels = list(FEEDBACK_SEES)
@@ -1071,10 +1078,14 @@ def render(res: dict) -> str:
         L += [
             f"## Lint alone on {arm}",
             "",
-            f"{lo['scored']} scored files, {lo['failing']} fail. The lint names at least one failing item in "
-            f"{lo['failing_with_a_hit']}; names every failing item in {len(lo['failing_all_failures_flagged'])} "
-            f"({', '.join(lo['failing_all_failures_flagged']) or 'none'}); has no error-level finding on "
-            f"{len(lo['failing_no_finding'])} ({', '.join(lo['failing_no_finding']) or 'none'}). Passing files with an "
+            f"{lo['scored']} scored files, {lo['failing']} fail. The lint names at least one "
+            "failing item in "
+            f"{lo['failing_with_a_hit']}; names every failing item in "
+            f"{len(lo['failing_all_failures_flagged'])} "
+            f"({', '.join(lo['failing_all_failures_flagged']) or 'none'}); has no error-level "
+            "finding on "
+            f"{len(lo['failing_no_finding'])} ({', '.join(lo['failing_no_finding']) or 'none'}). "
+            "Passing files with an "
             f"error-level finding: {', '.join(lo['passing_with_false_alarm']) or 'none'}.",
             "",
         ]
@@ -1100,7 +1111,8 @@ def render(res: dict) -> str:
         c = a["cost"]
         if c["runs_with_usage"]:
             L += [
-                f"Tokens ({c['runs_with_usage']} runs with usage): input {c['total_input']:,}, output {c['total_output']:,}; "
+                f"Tokens ({c['runs_with_usage']} runs with usage): input {c['total_input']:,}, "
+                f"output {c['total_output']:,}; "
                 f"per pass: "
                 + (
                     f"input {c['input_per_pass']:,}, output {c['output_per_pass']:,}"

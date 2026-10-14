@@ -61,7 +61,8 @@ def main() -> int:
                 (d / "intent_ufo").mkdir(exist_ok=True)
                 (d / "intent_ufo" / name).write_bytes((ufo / name).read_bytes())
         print(
-            f"{page}: {v['status']} full_chain={v['full_chain_pass']} checks={v['checks']} mg5={v['madgraph_import_ok']}",
+            f"{page}: {v['status']} full_chain={v['full_chain_pass']} checks={v['checks']} "
+            f"mg5={v['madgraph_import_ok']}",
             flush=True,
         )
     return 0

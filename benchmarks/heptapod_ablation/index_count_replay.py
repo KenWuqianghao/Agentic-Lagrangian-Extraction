@@ -68,7 +68,10 @@ def main() -> int:
                 )
     flagged = [r for r in rows if r["flagged"]]
     clean = [r for r in rows if not r["flagged"]]
-    bad = lambda r: r["hermiticity_fail"] or r["inert_new_particle"]  # noqa: E731
+
+    def bad(r: dict) -> bool:
+        return r["hermiticity_fail"] or r["inert_new_particle"]
+
     print(
         json.dumps(
             {

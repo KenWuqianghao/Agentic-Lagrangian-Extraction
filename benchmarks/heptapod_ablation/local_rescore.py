@@ -6,7 +6,7 @@ assumed.
 
     HEPVAL_COMPILE_TIMEOUT=3600 local_rescore.py --arm cc_sonnet_harness --out /tmp/rescore
 
-Serial (hepval holds the one Wolfram kernel). Resumable: a paper with a
+Serial: one hepval validate at a time. Resumable: a paper with a
 result in --out is skipped. Writes <out>/<paper>/call1/summary.json and
 prints one JSON object: per paper the stored and local verdicts and seconds,
 and the median time ratio.
@@ -78,7 +78,8 @@ def main() -> int:
             }
         )
         print(
-            f"{paper}: agree={rows[-1]['agree']} {stored.get('seconds')} s -> {local.get('seconds')} s",
+            f"{paper}: agree={rows[-1]['agree']} {stored.get('seconds')} s -> "
+            f"{local.get('seconds')} s",
             file=sys.stderr,
             flush=True,
         )

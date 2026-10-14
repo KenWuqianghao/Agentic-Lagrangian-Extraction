@@ -2,6 +2,7 @@
 """Workflow flowcharts as SVG, Chinese and English. Usage: make_figs.py OUTDIR"""
 
 import sys
+from functools import partial
 from html import escape
 from pathlib import Path
 
@@ -34,16 +35,17 @@ class Fig:
         tr = f' transform="rotate({rot} {x} {y})"' if rot else ""
         fw = ' font-weight="700"' if bold else ""
         self.o.append(
-            f'<text x="{x}" y="{y}" font-size="{fs}" fill="{fill}" text-anchor="{anchor}"{fw}{tr}>{escape(s)}</text>'
+            f'<text x="{x}" y="{y}" font-size="{fs}" fill="{fill}" '
+            f'text-anchor="{anchor}"{fw}{tr}>{escape(s)}</text>'
         )
 
     def box(self, x, y, w, h, kind, title, lines=(), align="middle", dash=False, tfs=17, lfs=14):
         f, s = C[kind]
         d = ' stroke-dasharray="6 5"' if dash else ""
         self.o.append(
-            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="9" fill="{f}" stroke="{s}" stroke-width="2"{d}/>'
+            f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="9" fill="{f}" stroke="{s}" '
+            f'stroke-width="2"{d}/>'
         )
-        n = (1 if title else 0) + len(lines)
         lh = lfs * 1.45
         top = y + h / 2 - ((tfs * 1.3 if title else 0) + lh * len(lines)) / 2
         tx = x + w / 2 if align == "middle" else x + 16
@@ -59,7 +61,8 @@ class Fig:
     def diamond(self, cx, cy, hw, hh, lines, kind="neutral", fs=15):
         f, s = C[kind]
         self.o.append(
-            f'<polygon points="{cx},{cy - hh} {cx + hw},{cy} {cx},{cy + hh} {cx - hw},{cy}" fill="{f}" stroke="{s}" stroke-width="2"/>'
+            f'<polygon points="{cx},{cy - hh} {cx + hw},{cy} {cx},{cy + hh} {cx - hw},{cy}" '
+            f'fill="{f}" stroke="{s}" stroke-width="2"/>'
         )
         lh = fs * 1.35
         y0 = cy - lh * (len(lines) - 1) / 2 + fs * 0.35
@@ -70,7 +73,8 @@ class Fig:
         d = " ".join(f"{'M' if i == 0 else 'L'}{x},{y}" for i, (x, y) in enumerate(pts))
         da = ' stroke-dasharray="6 5"' if dash else ""
         self.o.append(
-            f'<path d="{d}" fill="none" stroke="{color}" stroke-width="2"{da} marker-end="url(#ah)"/>'
+            f'<path d="{d}" fill="none" stroke="{color}" stroke-width="2"{da} '
+            'marker-end="url(#ah)"/>'
         )
         if label:
             x, y = at or ((pts[0][0] + pts[1][0]) / 2, (pts[0][1] + pts[1][1]) / 2)
@@ -80,15 +84,17 @@ class Fig:
         w = tw(s, fs) + 12
         if rot:
             self.o.append(
-                f'<rect x="{x - fs * 0.8}" y="{y - w / 2}" width="{fs * 1.6}" height="{w}" rx="4" fill="{BG}"/>'
+                f'<rect x="{x - fs * 0.8}" y="{y - w / 2}" width="{fs * 1.6}" height="{w}" '
+                f'rx="4" fill="{BG}"/>'
             )
         else:
             self.o.append(
-                f'<rect x="{x - w / 2}" y="{y - fs * 0.85}" width="{w}" height="{fs * 1.6}" rx="4" fill="{BG}"/>'
+                f'<rect x="{x - w / 2}" y="{y - fs * 0.85}" width="{w}" height="{fs * 1.6}" '
+                f'rx="4" fill="{BG}"/>'
             )
         self.text(
             x,
-            y + fs * 0.35 - (0 if rot else fs * 0.05) + (0 if not rot else 0),
+            y + fs * 0.35 - (0 if rot else fs * 0.05),
             s,
             fs,
             fill,
@@ -101,16 +107,19 @@ class Fig:
         for kind, name in items:
             f, s = C[kind]
             self.o.append(
-                f'<rect x="{x}" y="{y - 12}" width="16" height="16" rx="3" fill="{f}" stroke="{s}" stroke-width="2"/>'
+                f'<rect x="{x}" y="{y - 12}" width="16" height="16" rx="3" fill="{f}" '
+                f'stroke="{s}" stroke-width="2"/>'
             )
             self.text(x + 22, y + 1, name, 13.5, MUT, "start")
             x += 22 + tw(name, 13.5) + 22
 
     def svg(self):
         return (
-            f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {self.w} {self.h}" width="{self.w}" height="{self.h}" '
+            f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {self.w} {self.h}" '
+            f'width="{self.w}" height="{self.h}" '
             f"font-family='{self.font}'>"
-            '<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">'
+            '<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" '
+            'markerHeight="8" orient="auto-start-reverse">'
             '<path d="M0,0 L10,5 L0,10 z" fill="#8a97a8"/></marker></defs>'
             f'<rect width="{self.w}" height="{self.h}" fill="{BG}"/>' + "".join(self.o) + "</svg>"
         )
@@ -121,7 +130,7 @@ def T(lang, zh, en):
 
 
 def fig_overview(lang):
-    t = lambda zh, en: T(lang, zh, en)
+    t = partial(T, lang)
     f = Fig(1300, 580, lang)
     f.text(
         40,
@@ -299,7 +308,7 @@ def fig_overview(lang):
 
 
 def fig_tools(lang):
-    t = lambda zh, en: T(lang, zh, en)
+    t = partial(T, lang)
     f = Fig(1300, 1040, lang)
     f.text(
         40,
@@ -482,7 +491,7 @@ def fig_tools(lang):
 
 
 def fig_vanilla(lang):
-    t = lambda zh, en: T(lang, zh, en)
+    t = partial(T, lang)
     f = Fig(1300, 470, lang)
     f.text(
         40,

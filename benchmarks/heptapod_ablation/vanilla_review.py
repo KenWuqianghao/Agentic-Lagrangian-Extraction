@@ -3,8 +3,10 @@
 prompt and model as post_review.py, on a staged copy (paper, SM.fr, model).
 
     vanilla_review.py --variant cc_vanilla
-    vanilla_review.py --variant cc_sonnet_harness --source STORED_RUNS --pages A,B   # verdicts go to the
-                                                   # writable runs tree; the stored tree is not touched
+    vanilla_review.py --variant cc_sonnet_harness --source STORED_RUNS --pages A,B
+
+With --source, the verdicts go to the writable runs tree (PI_HARNESS_RUNS); the
+stored tree is not touched.
 
 A fresh referee run is the only verdict that is the same kind in every group:
 an in-loop review is the verdict the agent worked against.
@@ -23,6 +25,8 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent.parent / "cc_harness"))
 sys.path.insert(0, str(HERE.parent.parent / "pi_harness"))
+import common  # noqa: E402
+import heptapod_mcp  # noqa: E402
 import run_pi  # noqa: E402
 
 
@@ -65,9 +69,6 @@ def main() -> int:
                 "CC_REVIEW_MODEL": args.model,
             }
         )
-        import common  # noqa: E402
-        import heptapod_mcp  # noqa: E402
-
         out = heptapod_mcp.review_model({"path": "model.fr"})
         verdict = next(
             (

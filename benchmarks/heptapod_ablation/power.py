@@ -155,7 +155,8 @@ def main() -> int:
     ap.add_argument("--sims", type=int, default=4000)
     ap.add_argument("--md", action="store_true")
     args = ap.parse_args()
-    pred = predictions(json.loads(Path(args.retro).read_text()))
+    retro_json = json.loads(Path(args.retro).read_text())
+    pred = predictions(retro_json)
     rng = random.Random(20261006)
     expected = {
         name: {
@@ -175,7 +176,7 @@ def main() -> int:
         for name, (r, f) in SCENARIOS.items()
         for s in SEEDS
     ]
-    units = repair_units(json.loads(Path(args.retro).read_text()))
+    units = repair_units(retro_json)
     repair = [
         {
             "rates": name,

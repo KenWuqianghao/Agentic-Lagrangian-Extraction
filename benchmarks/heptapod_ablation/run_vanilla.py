@@ -42,13 +42,13 @@ ALE = HERE.parent.parent
 sys.path.insert(0, str(ALE / "cc_harness"))
 sys.path.insert(0, str(ALE / "pi_harness"))
 import common as C  # noqa: E402
+import hepval  # noqa: E402
 import isolation  # noqa: E402
 import run_cc  # noqa: E402
 import run_pi  # noqa: E402
 
-HOME = Path.home()
 FEYNRULES, MG5 = isolation.FEYNRULES, isolation.MG5
-LOCK = Path(os.environ.get("HEPVAL_STATE", HOME / ".cache/ale-pi-harness")) / "wolfram.lock"
+LOCK = hepval.LOCK
 AGENT_TIMEOUT = int(os.environ.get("VANILLA_AGENT_TIMEOUT", str(2 * 3600)))
 NETWORK = re.compile(r"\b(curl|wget|git\s+clone|pip\s+install|pip3\s+install|scp|ssh|nc)\b")
 
@@ -137,9 +137,9 @@ def audit(stream: list[str]) -> dict:
 
 
 def kill_tagged(tag: str) -> None:
-    """Kill what the agent left running (a hung wolframscript keeps a licence slot and starves every
-    later run; bubblewrap ends such processes on Linux, sandbox-exec on macOS does not). Every process
-    of a run inherits ALE_RUN_TAG in its environment."""
+    """Kill what the agent left running (a hung wolframscript keeps a licence slot and starves
+    every later run; bubblewrap ends such processes on Linux, sandbox-exec on macOS does not).
+    Every process of a run inherits ALE_RUN_TAG in its environment."""
     mark, pids = f"ALE_RUN_TAG={tag}", []
     if sys.platform == "darwin":
         out = subprocess.run(
@@ -244,7 +244,8 @@ def run_agent(page: str, seed: int, args) -> dict:
         "model": args.model,
         "arm": "vanilla",
         "mode": "cc_vanilla",
-        "tool_policy": "shell allowed; bubblewrap hides the repositories and stored runs; no web tools",
+        "tool_policy": "shell allowed; bubblewrap hides the repositories and stored runs; "
+        "no web tools",
         "usage": parsed["usage"],
         "cost_usd": parsed["cost_usd"],
         "num_turns": parsed["num_turns"],
@@ -266,7 +267,8 @@ def run_agent(page: str, seed: int, args) -> dict:
     u = parsed["usage"]
     print(
         f"[vanilla]   {page} s{seed}: delivered={delivered} {secs}s timed_out={timed_out['t']} "
-        f"wolfram={agent['wolframscript_runs']} mg5={agent['madgraph_runs']} net={len(agent['network_commands'])} "
+        f"wolfram={agent['wolframscript_runs']} mg5={agent['madgraph_runs']} "
+        f"net={len(agent['network_commands'])} "
         f"in={u['input_total']:,} out={u['output_tokens']:,} ${parsed['cost_usd']:.2f}",
         flush=True,
     )

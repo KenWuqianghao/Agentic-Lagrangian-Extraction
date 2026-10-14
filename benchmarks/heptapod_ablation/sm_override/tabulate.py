@@ -2,7 +2,9 @@
 """Run the SM-override test models through the scored chain and tabulate what
 reached the UFO.
 
-    tabulate.py --out DIR [--run]     # --run validates each .fr first (serial, about 2 minutes each)
+    tabulate.py --out DIR [--run]
+
+--run validates each .fr first (serial, about 2 minutes each).
 
 Each model adds one free real scalar H2 to SM.fr and tries one way to put it
 into the Higgs doublet, Phi[2] -> (vev + ca H - sa H2 + I G0)/Sqrt[2]. The
