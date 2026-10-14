@@ -116,7 +116,7 @@ def test_no_tools_arm_has_no_server_no_gate_and_no_verdict_to_report(tmp_path, m
         model="m",
         review_model="",
     )
-    run_cc.write_configs(tmp_path, tmp_path, args)
+    run_cc.write_configs(tmp_path, args, run_cc.cc_env(tmp_path, tmp_path, args))
     assert json.loads((tmp_path / "mcp.json").read_text()) == {"mcpServers": {}}
     assert "Stop" not in json.loads((tmp_path / "settings.json").read_text())["hooks"]
     cmd = run_cc.agent_cmd(tmp_path, "m", C.ARMS["none"])
@@ -229,7 +229,7 @@ def test_cut_statement_is_found_only_where_the_line_end_ends_the_expression():
         assert opt_checks.cut_lines(whole) == [], whole
 
 
-def test_shell_arm_has_bash_no_path_guard_and_sees_only_its_own_run(tmp_path, monkeypatch):
+def test_shell_arm_reaches_its_harness_only_through_the_broker(tmp_path, monkeypatch):
     monkeypatch.setattr(run_cc.isolation, "MAC", False)
     args = SimpleNamespace(
         arm="shell",
@@ -239,18 +239,21 @@ def test_shell_arm_has_bash_no_path_guard_and_sees_only_its_own_run(tmp_path, mo
         model="m",
         review_model="",
     )
-    run_cc.write_configs(tmp_path, tmp_path, args)
+    env = run_cc.cc_env(tmp_path, tmp_path, args)
+    with run_cc.isolation.Broker(run_cc.harness_commands(), env, tmp_path / "log") as broker:
+        run_cc.write_configs(tmp_path, args, env, broker)
+        cmd = run_cc.agent_cmd(tmp_path, "m", C.ARMS["shell"], tmp_path, broker.dir)
+        ctl = str(broker.dir)
     settings = json.loads((tmp_path / "settings.json").read_text())
-    assert "PreToolUse" not in settings["hooks"] and "Stop" in settings["hooks"]
-    assert "Bash" not in settings["permissions"]["deny"]
-    cmd = run_cc.agent_cmd(tmp_path, "m", C.ARMS["shell"], tmp_path)
-    assert (
-        cmd[0] == "bwrap"
-        and ["--tmpfs", str(Path.home() / "code")]
-        == cmd[cmd.index("--tmpfs") : cmd.index("--tmpfs") + 2]
-    )
-    bound = [cmd[i + 1] for i, x in enumerate(cmd) if x in ("--bind", "--ro-bind")]
-    assert str(tmp_path) in bound and not any("benchmark_runs" in b for b in bound)
+    assert "PreToolUse" not in settings["hooks"] and "Bash" not in settings["permissions"]["deny"]
+    assert ctl in settings["hooks"]["Stop"][0]["hooks"][0]["command"]
+    server = json.loads((tmp_path / "mcp.json").read_text())["mcpServers"][C.SERVER_NAME]
+    assert ctl in " ".join(server["args"]) and "env" not in server
+    assert cmd[0] == "bwrap" and "--unshare-pid" in cmd
+    read_only = [cmd[i + 1] for i, x in enumerate(cmd) if x == "--ro-bind"]
+    read_write = [cmd[i + 1] for i, x in enumerate(cmd) if x == "--bind"]
+    assert str(tmp_path) in read_only and ctl in read_only
+    assert not any("validator" in b or "cc_harness" in b for b in read_only + read_write)
     protocol = (tmp_path / "protocol.md").read_text()
     assert (
         f"{tmp_path}/validation/call<k>/round0/" in protocol and "There is no shell" not in protocol

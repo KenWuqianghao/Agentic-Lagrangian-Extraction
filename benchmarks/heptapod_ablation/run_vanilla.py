@@ -10,9 +10,8 @@ heptapod would.
     cc_harness/run_cc.py score --variants cc_vanilla --pages all      # the same scorer as every arm
 
 Isolation, so the agent cannot read a stored answer:
-  - on Linux bubblewrap hides ~/code, ~/Documents and the session's /tmp; on
-    macOS sandbox-exec denies reads under ~/Documents and ~/code; the working
-    directory holds the paper and SM.fr only;
+  - isolation.py hides the repositories, the stored runs and other runs; the
+    working directory holds the paper and SM.fr only;
   - WebFetch and WebSearch are off, and the task forbids downloads; every
     shell command is in the stream, and `audit` in run.json lists the ones
     that reach for the network.
@@ -28,11 +27,8 @@ import json
 import os
 import re
 import shutil
-import signal
-import subprocess
 import sys
 import tempfile
-import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -136,34 +132,6 @@ def audit(stream: list[str]) -> dict:
     }
 
 
-def kill_tagged(tag: str) -> None:
-    """Kill what the agent left running (a hung wolframscript keeps a licence slot and starves
-    every later run; bubblewrap ends such processes on Linux, sandbox-exec on macOS does not).
-    Every process of a run inherits ALE_RUN_TAG in its environment."""
-    mark, pids = f"ALE_RUN_TAG={tag}", []
-    if sys.platform == "darwin":
-        out = subprocess.run(
-            ["ps", "-axEww", "-o", "pid=,command="],
-            capture_output=True,
-            text=True,
-            errors="replace",
-        ).stdout
-        pids = [int(ln.split()[0]) for ln in out.splitlines() if mark in ln]
-    else:
-        for env in Path("/proc").glob("[0-9]*/environ"):
-            try:
-                if mark.encode() in env.read_bytes():
-                    pids.append(int(env.parent.name))
-            except OSError:
-                pass
-    for pid in pids:
-        if pid != os.getpid():
-            try:
-                os.kill(pid, signal.SIGKILL)
-            except (ProcessLookupError, PermissionError):
-                pass
-
-
 def run_agent(page: str, seed: int, args) -> dict:
     rundir = run_cc.RUNS / page / "rerun" / args.variant / f"s{seed}"
     if (rundir / "run.json").is_file() and not args.force:
@@ -185,46 +153,19 @@ def run_agent(page: str, seed: int, args) -> dict:
     (rundir / "prompt.txt").write_text(prompt)
     cmd = agent_cmd(sandbox, args.model)
     (rundir / "command.json").write_text(json.dumps(cmd, indent=1))
-    tag = f"{page}-{seed}-{os.getpid()}-{int(time.time())}"
     env = {
         **os.environ,
-        "ALE_RUN_TAG": tag,
         "PATH": f"{sandbox / '.bin'}:{os.environ['PATH']}",
         "FEYNRULES_PATH": str(FEYNRULES),
         "MG5_PATH": str(MG5),
     }
     print(f"[vanilla] {args.variant} {page} s{seed} ...", flush=True)
     t0 = time.time()
-    timed_out = {"t": False}
     with (
         open(rundir / "agent_stream.jsonl", "w") as out,
         open(rundir / "agent_stderr.txt", "w") as err,
     ):
-        p = subprocess.Popen(
-            cmd,
-            cwd=str(sandbox),
-            env=env,
-            stdin=subprocess.PIPE,
-            stdout=out,
-            stderr=err,
-            start_new_session=True,
-            text=True,
-        )
-
-        def watchdog():
-            while p.poll() is None:
-                if time.time() - t0 > AGENT_TIMEOUT:
-                    timed_out["t"] = True
-                    os.killpg(os.getpgid(p.pid), signal.SIGTERM)
-                    return
-                time.sleep(10)
-
-        threading.Thread(target=watchdog, daemon=True).start()
-        p.stdin.write(prompt)
-        p.stdin.close()
-        rc = p.wait()
-        kill_tagged(tag)
-        isolation.kill_recorded(sandbox)
+        rc, timed_out = isolation.run(cmd, sandbox, env, prompt, out, err, AGENT_TIMEOUT)
     secs = round(time.time() - t0, 1)
     lines = (rundir / "agent_stream.jsonl").read_text(errors="replace").splitlines()
     parsed = run_cc.parse_stream(lines)
@@ -238,7 +179,7 @@ def run_agent(page: str, seed: int, args) -> dict:
     agent = {
         "ok": delivered and not parsed["is_error"],
         "exit": rc,
-        "timed_out": timed_out["t"],
+        "timed_out": timed_out,
         "seconds": secs,
         "engine": "claude-code",
         "model": args.model,
@@ -266,7 +207,7 @@ def run_agent(page: str, seed: int, args) -> dict:
     (rundir / "run.json").write_text(json.dumps(row, indent=1, default=str))
     u = parsed["usage"]
     print(
-        f"[vanilla]   {page} s{seed}: delivered={delivered} {secs}s timed_out={timed_out['t']} "
+        f"[vanilla]   {page} s{seed}: delivered={delivered} {secs}s timed_out={timed_out} "
         f"wolfram={agent['wolframscript_runs']} mg5={agent['madgraph_runs']} "
         f"net={len(agent['network_commands'])} "
         f"in={u['input_total']:,} out={u['output_tokens']:,} ${parsed['cost_usd']:.2f}",

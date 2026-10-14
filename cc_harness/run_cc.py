@@ -38,15 +38,15 @@ scorer.
 from __future__ import annotations
 
 import argparse
+import contextlib
 import json
 import os
+import shlex
 import shutil
-import signal
 import statistics
 import subprocess
 import sys
 import tempfile
-import threading
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -147,23 +147,11 @@ SANDBOX: the working directory contains the paper (under eval/benchmark_runs/), 
 Standard Model file this add-on is loaded on top of: take field names, index conventions and
 hypercharges from it), and what you write. You have a shell: wolframscript, FeynRules
 ($FEYNRULES_PATH) and MadGraph ($MG5_PATH) are installed. Do not use the network."""
-# What the shell arm's agent may see of the repositories: the harness code its MCP server and
-# hooks run from, the validator tree, and its own run directory. No stored model.
-_VALIDATOR = Path.home() / "code" / "hep-pr" / "validator-main"
-SHELL_READ_ONLY = (
-    HERE,
-    HERE.parent / "pi_harness",
-    HERE.parent / "benchmarks" / "fr_lint.py",
-    HERE.parent / "benchmarks" / "heptapod_ablation" / "sm_ufo_particles.json",
-    _VALIDATOR / "tools",
-    _VALIDATOR / "eval",
-    _VALIDATOR / "config.py",
-)
-SHELL_HIDDEN = (_VALIDATOR / "tools" / "feynrules" / "test_files" / "models" / "S1_LQ_RR.fr",)
 
 
-def write_configs(rundir: Path, sandbox: Path, args) -> dict:
-    env = {
+def cc_env(rundir: Path, sandbox: Path, args) -> dict:
+    """The settings that the MCP server and the hooks read from their environment."""
+    return {
         "CC_SANDBOX": str(sandbox),
         "CC_RUNDIR": str(rundir),
         "CC_VALIDATE_BUDGET": str(args.validate_budget),
@@ -177,11 +165,25 @@ def write_configs(rundir: Path, sandbox: Path, args) -> dict:
         # the runner's: the MCP server does not get them any other way.
         **{k: v for k, v in os.environ.items() if k.startswith("HEPVAL_")},
     }
+
+
+def harness_commands() -> dict[str, list[str]]:
+    """What a shell arm's Broker serves: the MCP server and the Stop hook."""
+    py = sys.executable
+    return {
+        "mcp": [py, str(HERE / "heptapod_mcp.py")],
+        "stop": [py, str(HERE / "hooks" / "stop_gate.py")],
+    }
+
+
+def write_configs(rundir: Path, args, env: dict, broker: isolation.Broker | None = None) -> None:
+    """settings.json, mcp.json and protocol.md. A shell arm reaches its MCP
+    server and Stop hook through `broker`, because inside its sandbox it could
+    change their state."""
     py = sys.executable
     arm = C.arm(args.arm)
-    if arm.shell:
-        # hepval's default validator path goes through ~/Documents, which the isolation hides.
-        env["HEPVAL_ROOT"] = str(_VALIDATOR)
+    if arm.shell and broker is None:
+        raise ValueError("a shell arm needs a Broker")
     # With a shell the PreToolUse guard cannot confine anything: isolation.py does.
     hooks = (
         {}
@@ -202,23 +204,18 @@ def write_configs(rundir: Path, sandbox: Path, args) -> dict:
     )
     if "validate_model" in arm.tools:
         # The gate asks for a validate_model verdict; without the tool there is none to ask for.
-        hooks["Stop"] = [
-            {"hooks": [{"type": "command", "command": f"{py} {HERE / 'hooks' / 'stop_gate.py'}"}]}
-        ]
+        stop = broker.shell_command("stop") if arm.shell else shlex.join(harness_commands()["stop"])
+        hooks["Stop"] = [{"hooks": [{"type": "command", "command": stop}]}]
     denied = ["WebFetch", "WebSearch", "Task", "Agent"] + ([] if arm.shell else ["Bash"])
     settings = {"env": env, "permissions": {"deny": denied}, "hooks": hooks}
-    servers = (
-        {
-            C.SERVER_NAME: {
-                "type": "stdio",
-                "command": py,
-                "args": [str(HERE / "heptapod_mcp.py")],
-                "env": env,
-            }
-        }
-        if arm.tools
-        else {}
-    )
+    if not arm.tools:
+        servers = {}
+    elif arm.shell:
+        proxy = broker.command("mcp")
+        servers = {C.SERVER_NAME: {"type": "stdio", "command": proxy[0], "args": proxy[1:]}}
+    else:
+        mcp = harness_commands()["mcp"]
+        servers = {C.SERVER_NAME: {"type": "stdio", "command": mcp[0], "args": mcp[1:], "env": env}}
     (rundir / "settings.json").write_text(json.dumps(settings, indent=1))
     (rundir / "mcp.json").write_text(json.dumps({"mcpServers": servers}, indent=1))
     (rundir / "protocol.md").write_text(
@@ -230,7 +227,6 @@ def write_configs(rundir: Path, sandbox: Path, args) -> dict:
             rundir=str(rundir),
         )
     )
-    return env
 
 
 NO_GAUGE_GROUPS = "SM add-on => no M$GaugeGroups block; "
@@ -261,7 +257,11 @@ def task_prompt(page: str, arm: C.Arm, draft: bool = False) -> str:
     return prompt + ("\n" + DRAFT_NOTE + "\n" if draft else "")
 
 
-def agent_cmd(rundir: Path, model: str, arm: C.Arm, sandbox: Path | None = None) -> list[str]:
+def agent_cmd(
+    rundir: Path, model: str, arm: C.Arm, sandbox: Path | None = None, ctl: Path | None = None
+) -> list[str]:
+    """The claude command line; a shell arm's runs in isolation and reads its run directory
+    and the Broker's directory `ctl` but cannot write them."""
     if arm.shell:
         cmd = [
             C.CLAUDE,
@@ -289,9 +289,7 @@ def agent_cmd(rundir: Path, model: str, arm: C.Arm, sandbox: Path | None = None)
         ]
         from hepval import STATE  # the kernel lock the wrapper and hepval share
 
-        return isolation.isolate(
-            cmd, sandbox, read_only=SHELL_READ_ONLY, read_write=(rundir, STATE), hidden=SHELL_HIDDEN
-        )
+        return isolation.isolate(cmd, sandbox, read_only=(rundir, ctl), read_write=(STATE,))
     return [
         C.CLAUDE,
         "-p",
@@ -412,9 +410,7 @@ def run_agent(page: str, seed: int, args) -> dict:
     arm = C.arm(args.arm)
     prompt = task_prompt(page, arm, draft=bool(draft))
     (rundir / "prompt.txt").write_text(prompt)
-    env_cc = write_configs(rundir, sandbox, args)
-    cmd = agent_cmd(rundir, args.model, arm, sandbox)
-    (rundir / "command.json").write_text(json.dumps(cmd, indent=1))
+    env_cc = cc_env(rundir, sandbox, args)
     env = {
         **os.environ,
         **env_cc,
@@ -436,44 +432,26 @@ def run_agent(page: str, seed: int, args) -> dict:
         )
     if args.max_output_tokens:
         env["CLAUDE_CODE_MAX_OUTPUT_TOKENS"] = str(args.max_output_tokens)
+    broker = (
+        isolation.Broker(
+            harness_commands(), {**os.environ, **env_cc}, rundir / "harness_stderr.txt"
+        )
+        if arm.shell
+        else contextlib.nullcontext()
+    )
     print(f"[cc] {args.variant} {page} s{seed} ...", flush=True)
     t0 = time.time()
     with (
+        broker,
         open(rundir / "agent_stream.jsonl", "w") as out,
         open(rundir / "agent_stderr.txt", "w") as err,
     ):
-        p = subprocess.Popen(
-            cmd,
-            cwd=str(sandbox),
-            env=env,
-            stdin=subprocess.PIPE,
-            stdout=out,
-            stderr=err,
-            start_new_session=True,
-            text=True,
-        )
-        killed = {"t": False}
-
-        def _watchdog():
-            while p.poll() is None:
-                if time.time() - t0 > AGENT_TIMEOUT:
-                    killed["t"] = True
-                    os.killpg(os.getpgid(p.pid), signal.SIGTERM)
-                    return
-                time.sleep(10)
-
-        threading.Thread(target=_watchdog, daemon=True).start()
-        p.stdin.write(prompt)
-        p.stdin.close()
-        rc = p.wait()
-        if arm.shell:
-            # A background job of the agent outlives it and can hold a kernel slot.
-            try:
-                os.killpg(p.pid, signal.SIGKILL)
-            except ProcessLookupError:
-                pass
-            isolation.kill_recorded(sandbox)
-    return finalize(page, seed, args, rundir, sandbox, rc, round(time.time() - t0, 1), killed["t"])
+        ctl = broker.dir if arm.shell else None
+        write_configs(rundir, args, env_cc, broker if arm.shell else None)
+        cmd = agent_cmd(rundir, args.model, arm, sandbox, ctl)
+        (rundir / "command.json").write_text(json.dumps(cmd, indent=1))
+        rc, timed_out = isolation.run(cmd, sandbox, env, prompt, out, err, AGENT_TIMEOUT)
+    return finalize(page, seed, args, rundir, sandbox, rc, round(time.time() - t0, 1), timed_out)
 
 
 def _jsonl(path: Path) -> list[dict]:
