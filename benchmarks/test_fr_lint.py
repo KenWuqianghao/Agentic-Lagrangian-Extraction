@@ -27,14 +27,12 @@ CLASSES = """M$ClassesDescription = {
 
 
 def test_quantum_number_with_underscore_is_an_mg5_finding():
-    bad = (
-        CLASSES
-        % "S[100] == { ClassName -> chi, SelfConjugate -> False, QuantumNumbers -> {B_L -> 2}, Mass -> {Mchi, 100.} }"
+    cls = (
+        "S[100] == { ClassName -> chi, SelfConjugate -> False, QuantumNumbers -> {%s -> 2}, "
+        "Mass -> {Mchi, 100.} }"
     )
-    good = (
-        CLASSES
-        % "S[100] == { ClassName -> chi, SelfConjugate -> False, QuantumNumbers -> {BL -> 2}, Mass -> {Mchi, 100.} }"
-    )
+    bad = CLASSES % (cls % "B_L")
+    good = CLASSES % (cls % "BL")
     hits = _rules(bad).get("pattern_symbol_name", [])
     assert [f.stage for f in hits] == ["mg5"]
     assert "B_L" in hits[0].message
@@ -74,7 +72,10 @@ def test_orderblock_on_a_tensor_parameter():
 def test_same_explicit_spin_index_across_a_dirac_matrix():
     bad = "LNZ := Block[{mu, sp, ff}, -(gw/(2 cw)) Z[mu] VlN[ff] NLbar[sp].Ga[mu].vl[sp, ff]];\n"
     implicit = "LNZ := Block[{mu, ff}, -(gw/(2 cw)) Z[mu] VlN[ff] NLbar.Ga[mu].vl[ff]];\n"
-    threaded = "LY := Block[{sp1, sp2, ff1, ff2}, y[ff1, ff2] lbar[sp1, ff1].ProjM[sp1, sp2].uq[sp2, ff2, cc] S];\n"
+    threaded = (
+        "LY := Block[{sp1, sp2, ff1, ff2}, "
+        "y[ff1, ff2] lbar[sp1, ff1].ProjM[sp1, sp2].uq[sp2, ff2, cc] S];\n"
+    )
     no_matrix = "LY := Block[{sp, ii, ff}, y QLbar[sp, ii, ff, cc].uR[sp, ff, cc] Phibar[ii]];\n"
     hits = _rules(bad)["explicit_spin_in_chain"]
     assert len(hits) == 1 and hits[0].stage == "mg5" and hits[0].line == 1
@@ -106,3 +107,21 @@ def test_rule_names_the_stored_mg5_failure(page, rule):
     if not fr.is_file():
         pytest.skip(f"stored run not present: {fr}")
     assert any(f.rule == rule for f in fr_lint.lint_file(str(fr)))
+
+
+def test_interaction_order_is_inherited_along_a_chain_of_internal_parameters():
+    # Five Internal parameters in a chain: a single pass over a set resolved
+    # the chain only when the set happened to iterate in chain order.
+    chain = ",\n  ".join(
+        f"c{i} == {{ ParameterType -> Internal, Value -> 2 {'gX' if i == 1 else f'c{i - 1}'} }}"
+        for i in range(1, 6)
+    )
+    text = (
+        PARAMS
+        % (
+            "gX == { ParameterType -> External, Value -> 0.1, InteractionOrder -> {NP, 1} },\n  "
+            + chain
+        )
+        + "LInt := c5 S S;\n"
+    )
+    assert "missing_interaction_order" not in _rules(text)

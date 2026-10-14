@@ -48,7 +48,7 @@ def higgs_singlet():
     Vm = sp.expand(V.subs(mus))
 
     # quadratic sector must be diagonal with the physical masses
-    q_hh = sp.diff(Vm, h, 2).subs({h: 0, H2: 0}) / 1  # coefficient of h^2/2 -> mass^2
+    q_hh = sp.diff(Vm, h, 2).subs({h: 0, H2: 0})  # coefficient of h^2/2 -> mass^2
     q_HH = sp.diff(Vm, H2, 2).subs({h: 0, H2: 0})
     q_hH = sp.diff(Vm, h, H2).subs({h: 0, H2: 0})
     sol = sp.solve(

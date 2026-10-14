@@ -8,13 +8,12 @@ repair_repair_corrected_report.json. Both were validated with the corrected
 harness (checks read from return values, 2026-09-13 onward).
 
 Outcome per file, in stage order:
-  compile_failed | compile_timeout | harness (no/ambiguous total) |
-  checks_failed | mg5_failed | pass
+  harness (no/ambiguous total) | compile_failed | compile_timeout |
+  checks_failed | mg5_failed | checks+mg5_failed | pass
 
-A rule that predicts stage S is a true positive on a file when the file
-failed at S or at an earlier stage that hides S (a compile failure hides a
-MadGraph failure). Precision is reported both ways: strict (failed exactly at
-the predicted stage) and reached (failed at or before it).
+A rule that predicts stage S is a true positive on a file that failed S.
+Precision counts only the flagged files that reached S: a file that never
+compiled says nothing about its checks or its UFO.
 """
 
 from __future__ import annotations
@@ -69,9 +68,7 @@ def outcome(v: dict) -> dict:
 def failed(o: dict, stage: str) -> bool:
     if stage == "harness":
         return o["harness"]
-    if stage == "compile":
-        return o["compile"] is False
-    return o.get(stage) is False
+    return o[stage] is False
 
 
 def reached(o: dict, stage: str) -> bool:
@@ -170,7 +167,8 @@ def main():
         "",
         "## Recall per failure stage",
         "",
-        "| failure stage | files failing it | with a lint predicting it | with any error-level lint |",
+        "| failure stage | files failing it | with a lint predicting it "
+        "| with any error-level lint |",
         "|---|---|---|---|",
     ]
     for stage in ("harness", "compile", "checks", "mg5"):
@@ -195,15 +193,15 @@ def main():
     # the mass-mixing lint against the mass_diagonal verdict
     mix = [r for r in rows if any(f["rule"] == "mixing_in_definitions" for f in r["findings"])]
     md_fail = [r for r in rows if r["checks"].get("mass_diagonal") == "fail"]
+    md_fail_flagged = sum(1 for r in mix if r["checks"].get("mass_diagonal") == "fail")
     lines += [
         "",
         "## mixing_in_definitions vs CheckDiagonalMassTerms",
         "",
         f"- files flagged: {len(mix)}; of those with a check verdict, mass_diagonal fail: "
-        f"{sum(1 for r in mix if r['checks'].get('mass_diagonal') == 'fail')}, pass: "
+        f"{md_fail_flagged}, pass: "
         f"{sum(1 for r in mix if r['checks'].get('mass_diagonal') == 'pass')}",
-        f"- files with mass_diagonal fail: {len(md_fail)}; flagged by the lint: "
-        f"{sum(1 for r in md_fail if any(f['rule'] == 'mixing_in_definitions' for f in r['findings']))}",
+        f"- files with mass_diagonal fail: {len(md_fail)}; flagged by the lint: {md_fail_flagged}",
     ]
     out = "\n".join(lines) + "\n"
     (HERE / "lint_replay.md").write_text(out)

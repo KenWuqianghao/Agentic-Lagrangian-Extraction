@@ -24,7 +24,10 @@
  *   HEPTAPOD_PYTHON    python interpreter (default python3)
  *   HEPTAPOD_ROLE      "agent" (all tools) or "reviewer" (guard only)
  *   HEPTAPOD_VALIDATE_BUDGET, HEPTAPOD_REVIEW_BUDGET   calls allowed per run
- *   HEPTAPOD_REVIEW_MODEL   model for the reviewer (default: same as agent)
+ *   HEPTAPOD_PI        pi binary for the reviewer (default pi)
+ *   HEPTAPOD_MODEL     the agent's model
+ *   HEPTAPOD_REVIEW_MODEL   model for the reviewer (default: HEPTAPOD_MODEL)
+ *   HEPTAPOD_REVIEW_EXTRA_EXT   extra extensions for the reviewer, comma-separated (tests)
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
@@ -76,7 +79,7 @@ function sandboxPath(p: string): string {
 	return r.abs;
 }
 
-function run(cmd: string, args: string[], opts: { cwd?: string; env?: NodeJS.ProcessEnv; signal?: AbortSignal; input?: string } = {}): Promise<{ code: number; out: string; err: string }> {
+function run(cmd: string, args: string[], opts: { cwd?: string; env?: NodeJS.ProcessEnv; signal?: AbortSignal } = {}): Promise<{ code: number; out: string; err: string }> {
 	return new Promise((res) => {
 		const child = spawn(cmd, args, { cwd: opts.cwd, env: opts.env ?? env, stdio: ["pipe", "pipe", "pipe"] });
 		let out = "";
@@ -89,8 +92,7 @@ function run(cmd: string, args: string[], opts: { cwd?: string; env?: NodeJS.Pro
 			opts.signal?.removeEventListener("abort", kill);
 			res({ code: code ?? -1, out, err });
 		});
-		if (opts.input !== undefined) child.stdin.end(opts.input);
-		else child.stdin.end();
+		child.stdin.end();
 	});
 }
 
@@ -117,7 +119,6 @@ paper equation or LaTeX line and the model line, and a severity (physics-changin
 If you find none, say "NO DISCREPANCIES".`;
 
 export default function (pi: ExtensionAPI) {
-	// ----------------------------------------------------------- guards
 	pi.on("tool_call", async (event, ctx) => {
 		if (!SANDBOX) return undefined;
 		if (event.toolName === "bash") {
@@ -141,7 +142,6 @@ export default function (pi: ExtensionAPI) {
 	let validations = 0;
 	let reviews = 0;
 
-	// ------------------------------------------------------------- lint
 	pi.registerTool({
 		name: "lint_model",
 		label: "Lint model",
@@ -158,7 +158,6 @@ export default function (pi: ExtensionAPI) {
 		},
 	});
 
-	// --------------------------------------------------------- validate
 	pi.registerTool({
 		name: "validate_model",
 		label: "Validate model",
@@ -185,7 +184,6 @@ export default function (pi: ExtensionAPI) {
 		},
 	});
 
-	// -------------------------------------------------------- massbasis
 	pi.registerTool({
 		name: "massbasis",
 		label: "Mass basis",
@@ -207,7 +205,6 @@ export default function (pi: ExtensionAPI) {
 		},
 	});
 
-	// ----------------------------------------------------------- review
 	pi.registerTool({
 		name: "review_model",
 		label: "Independent review",

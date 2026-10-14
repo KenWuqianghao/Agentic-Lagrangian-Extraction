@@ -91,19 +91,6 @@ _i = _SM_TEXT.find("M$Parameters")
 SM_PARAMS: set[str] = (
     set(re.findall(r"^\s*(\w+)\s*==\s*\{", _SM_TEXT[_i:], re.M)) if _i >= 0 else set()
 )
-SM_GAUGE = {"U1Y", "SU2L", "SU3C"}
-SM_INDICES = {
-    "Generation",
-    "Colour",
-    "Gluon",
-    "SU2D",
-    "SU2W",
-    "Lorentz",
-    "Spin",
-    "Spin1",
-    "Spin2",
-    "Sextet",
-}
 SM_FIELDS_ALL = SM_CLASSES | SM_MEMBERS | {c + "bar" for c in SM_CLASSES | SM_MEMBERS}
 SM_MASSES = {
     "MZ",
@@ -208,9 +195,6 @@ class Finding:
     line: int | None = None
 
 
-# ------------------------------------------------------------------ parsing
-
-
 def strip_comments(text: str) -> str:
     out, depth, i = [], 0, 0
     while i < len(text):
@@ -293,9 +277,6 @@ def _line_of(text: str, needle: str) -> int | None:
     return text[:i].count("\n") + 1 if i >= 0 else None
 
 
-# -------------------------------------------------------------------- lints
-
-
 def lint_text(raw: str) -> list[Finding]:
     text = strip_comments(raw)
     F: list[Finding] = []
@@ -303,7 +284,6 @@ def lint_text(raw: str) -> list[Finding]:
     params = _entries(_block(text, "Parameters"))
     terms = term_defs(text)
     term_names = {t["name"] for t in terms}
-    term_bodies = "\n".join(t["body"] for t in terms)
 
     class_names, class_idx = {}, {}
     for c in classes:
@@ -316,7 +296,7 @@ def lint_text(raw: str) -> list[Finding]:
     param_names = {p["head"]: p for p in params}
     index_decls = dict(re.findall(r"IndexRange\[\s*Index\[(\w+)\]\s*\]\s*=\s*([^;\n]+)", text))
 
-    # --- rule 10: names -------------------------------------------------
+    # Rule 10: names.
     for name in list(class_names) + list(param_names) + list(index_decls):
         if name in FR_SYMBOLS:
             F.append(
@@ -374,7 +354,8 @@ def lint_text(raw: str) -> list[Finding]:
                 Finding(
                     "low_class_index",
                     "warn",
-                    f"class `{cn}` uses index {class_idx[cn][0]}[{class_idx[cn][1]}]; SM.fr uses the low indices",
+                    f"class `{cn}` uses index {class_idx[cn][0]}[{class_idx[cn][1]}]; "
+                    "SM.fr uses the low indices",
                     _line_of(text, c["head"]),
                 )
             )
@@ -402,23 +383,11 @@ def lint_text(raw: str) -> list[Finding]:
                 )
                 break
 
-    # --- rule 11: interaction orders --------------------------------------
+    # Rule 11: interaction orders.
     hierarchy = _block(text, "InteractionOrderHierarchy")
     orders_declared = set(re.findall(r"\{\s*(\w+)\s*,\s*-?\d+\s*\}", hierarchy))
     for pn, p in param_names.items():
-        body = p["body"]
-        ptype = (_prop(body, "ParameterType") or "External").strip()
-        io = _prop(body, "InteractionOrder")
-        used = re.search(rf"\b{re.escape(pn)}\b", term_bodies) is not None
-        is_mass = (
-            any(
-                re.search(rf"Mass\s*->\s*\{{\s*{re.escape(pn)}\b", c["body"])
-                or re.search(rf"Width\s*->\s*\{{\s*{re.escape(pn)}\b", c["body"])
-                for c in classes
-            )
-            or re.match(r"^(M|W)[A-Z]", pn)
-            and not io
-        )
+        io = _prop(p["body"], "InteractionOrder")
         if io:
             oname = re.findall(r"\{\s*(\w+)\s*,", io)
             for o in oname:
@@ -427,7 +396,8 @@ def lint_text(raw: str) -> list[Finding]:
                         Finding(
                             "order_not_in_hierarchy",
                             "warn",
-                            f"parameter `{pn}` uses InteractionOrder `{o}` not listed in M$InteractionOrderHierarchy",
+                            f"parameter `{pn}` uses InteractionOrder `{o}` not listed in "
+                            "M$InteractionOrderHierarchy",
                             _line_of(text, pn),
                         )
                     )
@@ -437,11 +407,19 @@ def lint_text(raw: str) -> list[Finding]:
         for pn, p in param_names.items()
         if (_prop(p["body"], "ParameterType") or "External").strip() == "Internal"
     }
-    # an Internal parameter inherits the orders of the parameters in its Value
-    for pn in list(internal):
-        val = _prop(param_names[pn]["body"], "Value") or ""
-        if any(re.search(rf"\b{re.escape(o)}\b", val) for o in ordered):
-            ordered.add(pn)
+    # An Internal parameter inherits the orders of the parameters in its Value,
+    # also through other Internal parameters: repeat until nothing changes, so
+    # the result does not depend on the set's iteration order.
+    values = {pn: _prop(param_names[pn]["body"], "Value") or "" for pn in internal}
+    grew = True
+    while grew:
+        new = {
+            pn
+            for pn, val in values.items()
+            if pn not in ordered and any(re.search(rf"\b{re.escape(o)}\b", val) for o in ordered)
+        }
+        ordered |= new
+        grew = bool(new)
     for t in terms:
         if _is_kin_name(t["name"]):
             continue
@@ -451,34 +429,32 @@ def lint_text(raw: str) -> list[Finding]:
             used_params
             and not (used_params & ordered)
             and not any(re.search(rf"\b{c}\b", t["body"]) for c in sm_couplings)
-            and not any(re.search(r"\b(DC|FS)\[", t["body"]) for _ in [0])
+            and not re.search(r"\b(DC|FS)\[", t["body"])
         ):
             F.append(
                 Finding(
                     "missing_interaction_order",
                     "mg5",
-                    f"`{t['name']}`: none of its parameters ({', '.join(sorted(used_params))}) carries an InteractionOrder",
+                    f"`{t['name']}`: none of its parameters "
+                    f"({', '.join(sorted(used_params))}) carries an InteractionOrder",
                     t["line"],
                 )
             )
 
-    # --- rule 12: pattern rules on tensor parameters -----------------------
+    # Rule 12: pattern rules on tensor parameters.
     for pn, p in param_names.items():
         if re.search(r"\w+\[[^\]]*_[^\]]*\]\s*:?->", p["body"]) or "_?NumericQ" in p["body"]:
             F.append(
                 Finding(
                     "pattern_rule_definition",
                     "mg5",
-                    f"parameter `{pn}` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+                    f"parameter `{pn}` uses a pattern rule in Definitions/Value; FeynRules "
+                    "exports it verbatim as a UFO name",
                     _line_of(text, pn),
                 )
             )
-    for cn, c in class_names.items():
-        d = _prop(c["body"], "Definitions") or ""
-        if re.search(r"\w+\[[^\]]*_[^\]]*\]\s*:>", d) and not re.search(r"\w+\[[^\]]*_\s*[,\]]", d):
-            pass  # `X[mu_] :> ...` is the normal FeynRules idiom; leave it
 
-    # --- rule 13: explicit indices ------------------------------------------
+    # Rule 13: explicit indices.
     for t in terms:
         b = t["body"]
         for m in re.finditer(r"DC\[\s*(\w+)\[([^\]]*)\]\s*,", b):
@@ -490,7 +466,8 @@ def lint_text(raw: str) -> list[Finding]:
                     Finding(
                         "explicit_index_in_dc",
                         "compile",
-                        f"`{t['name']}`: covariant derivative on `{fld}` with an explicit colour-type index",
+                        f"`{t['name']}`: covariant derivative on `{fld}` with an explicit "
+                        "colour-type index",
                         t["line"],
                     )
                 )
@@ -499,7 +476,8 @@ def lint_text(raw: str) -> list[Finding]:
                     Finding(
                         "explicit_index_in_dc",
                         "warn",
-                        f"`{t['name']}`: covariant derivative on an explicitly indexed field `{fld}`",
+                        f"`{t['name']}`: covariant derivative on an explicitly indexed "
+                        f"field `{fld}`",
                         t["line"],
                     )
                 )
@@ -523,12 +501,13 @@ def lint_text(raw: str) -> list[Finding]:
                 Finding(
                     "explicit_flavour_sum",
                     "mg5",
-                    f"`{t['name']}`: flavour matrix `{m.group(1)}` with explicit generation indices instead of matrix form",
+                    f"`{t['name']}`: flavour matrix `{m.group(1)}` with explicit generation "
+                    "indices instead of matrix form",
                     t["line"],
                 )
             )
 
-    # --- rule 14: one declared total ---------------------------------------
+    # Rule 14: one declared total.
     roots = []
     for t in terms:
         if not any(re.search(rf"\b{t['name']}\b", u["body"]) for u in terms if u is not t):
@@ -575,7 +554,7 @@ def lint_text(raw: str) -> list[Finding]:
                 Finding("fieldless_term", "mg5", f"`{t['name']}` contains no field", t["line"])
             )
 
-    # --- rule 15: declarations -----------------------------------------------
+    # Rule 15: declarations.
     for cn, c in class_names.items():
         sc = (_prop(c["body"], "SelfConjugate") or "").strip()
         qn = _prop(c["body"], "QuantumNumbers")
@@ -588,8 +567,6 @@ def lint_text(raw: str) -> list[Finding]:
                     _line_of(text, f"ClassName -> {cn}"),
                 )
             )
-        if sc == "True" and _prop(c["body"], "AntiParticleName"):
-            pass
     # Majorana mass normalisation
     for cn, c in class_names.items():
         if (_prop(c["body"], "SelfConjugate") or "").strip() == "True" and c["head"].startswith(
@@ -655,8 +632,6 @@ def lint_text(raw: str) -> list[Finding]:
         for m in re.finditer(r"ClassMembers\s*->\s*\{([^}]*)\}", c["body"]):
             for mem in [x.strip() for x in m.group(1).split(",") if x.strip()]:
                 declared |= {mem, mem + "bar"}
-        for m in re.finditer(r"Unphysical\s*->\s*True", c["body"]):
-            pass
     for t in terms:
         b = re.sub(r'"[^"]*"', "", t["body"])
         locals_ = set()
@@ -671,8 +646,6 @@ def lint_text(raw: str) -> list[Finding]:
                 s,
             ):
                 continue
-            if s in ("ExpandIndices", "FlavorExpand", "Index", "Sqrt", "HC"):
-                continue
             if s[0].isupper() and re.search(rf"\b{re.escape(s)}\s*[\[.]", b):
                 F.append(
                     Finding(
@@ -684,7 +657,7 @@ def lint_text(raw: str) -> list[Finding]:
                 )
                 break
 
-    # --- rule 9: non-fundamental colour representations -----------------------
+    # Rule 9: non-fundamental colour representations.
     for iname, rng in index_decls.items():
         if re.search(r"Range\[\s*6\s*\]", rng) and "AddGaugeRepresentation" not in text:
             F.append(
@@ -696,7 +669,7 @@ def lint_text(raw: str) -> list[Finding]:
                 )
             )
 
-    # --- mass mixing written into Definitions (the dominant check failure) ----
+    # Mass mixing written into Definitions (the dominant check failure).
     phys_new = {
         cn
         for cn, c in class_names.items()
@@ -715,7 +688,8 @@ def lint_text(raw: str) -> list[Finding]:
                 Finding(
                     "mixing_in_definitions",
                     "checks",
-                    f"class `{cn}` is defined as a mixture of {sorted(fields_in)}; the mass basis of the partner fields declared in SM.fr is unchanged",
+                    f"class `{cn}` is defined as a mixture of {sorted(fields_in)}; the mass "
+                    "basis of the partner fields declared in SM.fr is unchanged",
                     _line_of(text, f"ClassName -> {cn}"),
                 )
             )
@@ -823,8 +797,9 @@ def _mg5_leak_rules(text: str, classes: list[dict], params: list[dict]) -> list[
                 Finding(
                     "numeric_spin_slot",
                     "checks",
-                    f"`{m.group(0).lstrip('. ')}`: the first index of the fermion `{name}` is its spin "
-                    f"index, so `{m.group(3)}` is read as a spin index, not a generation; FeynRules "
+                    f"`{m.group(0).lstrip('. ')}`: the first index of the fermion `{name}` is "
+                    f"its spin index, so `{m.group(3)}` is read as a spin index, not a "
+                    "generation; FeynRules "
                     f"cannot reduce the spinor chain and hermiticity fails. Give every index "
                     f"(`{name}[sp, {m.group(3)}]` with the spin index threaded) or none",
                     text[: m.start()].count("\n") + 1,

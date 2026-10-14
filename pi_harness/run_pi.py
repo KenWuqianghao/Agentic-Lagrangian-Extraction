@@ -83,7 +83,6 @@ conventions and hypercharges from it), and what you write. Nothing else exists a
 outside the working directory may be read. There is no shell."""
 
 
-# ------------------------------------------------------------------ prompt
 def paper_file(page: str) -> Path:
     texs = sorted((RUNS / page / "text").glob("*_source.tex"))
     if texs:
@@ -101,7 +100,7 @@ def _sub_once(text: str, pattern: str, repl: str, what: str) -> str:
     return new
 
 
-def _file_rules(base: str, page: str) -> str:
+def _file_rules(base: str) -> str:
     """The no-tools arm's substitutions (rerun_extract.build_prompt, notools):
     no schema, the agent writes the whole .fr. Shared by both pi arms, so the
     task text is the same one the Claude Code arm had."""
@@ -147,7 +146,7 @@ def build_prompt(page: str, arm: str) -> str:
         else "text extracted from the PDF"
     )
     addendum = ADDENDUM.read_text().strip()
-    base = _file_rules(base, page)
+    base = _file_rules(base)
     if arm == "plain":
         base = _sub_once(
             base,
@@ -208,7 +207,6 @@ def make_sandbox(page: str, rundir: Path) -> Path:
     return sb
 
 
-# ------------------------------------------------------------------- agent
 def _agent_env(sandbox: Path, rundir: Path, args) -> dict:
     env = dict(os.environ)
     env.update(
@@ -278,7 +276,7 @@ def _parse_stream(lines: list[str]) -> dict:
     }
 
 
-def _audit(rundir: Path, sandbox: Path, parsed: dict) -> dict:
+def _audit(rundir: Path, parsed: dict) -> dict:
     """Server-side facts: the extension's own log of every call and block."""
     calls = []
     f = rundir / "tool_calls.jsonl"
@@ -358,19 +356,16 @@ def run_agent(page: str, seed: int, args) -> dict:
             "--append-system-prompt",
             str(PROTOCOL),
         ]
-        for ext in filter(None, (args.extra_ext or "").split(",")):
-            cmd += ["-e", ext]
     else:
         cmd += ["--no-tools"]
-        for ext in filter(None, (args.extra_ext or "").split(",")):
-            cmd += ["-e", ext]
+    for ext in filter(None, args.extra_ext.split(",")):
+        cmd += ["-e", ext]
     # The prompt is 100-200 KB in the plain arm: pass it as an @file, not argv.
-    pfile = sandbox / "TASK.md" if args.arm == "harness" else rundir / "prompt.txt"
     if args.arm == "harness":
-        pfile.write_text(prompt)
-        cmd += [f"@{pfile}", "Your task is in TASK.md (attached above). Do it."]
+        (sandbox / "TASK.md").write_text(prompt)
+        cmd += [f"@{sandbox / 'TASK.md'}", "Your task is in TASK.md (attached above). Do it."]
     else:
-        cmd += [f"@{pfile}", "Do the task above."]
+        cmd += [f"@{rundir / 'prompt.txt'}", "Do the task above."]
     env = _agent_env(sandbox, rundir, args)
     print(f"[pi] {args.variant} {page} s{seed} ...", flush=True)
     t0 = time.time()
@@ -427,7 +422,7 @@ def finalize(
     runner died (``run_pi.py finalize``)."""
     parsed = _parse_stream((rundir / "agent_stream.jsonl").read_text(errors="replace").splitlines())
     (rundir / "agent_out.md").write_text(parsed["final_text"])
-    audit = _audit(rundir, sandbox, parsed)
+    audit = _audit(rundir, parsed)
     fr_dst = rundir / "model" / f"{page}_gen.fr"
     fr_dst.parent.mkdir(parents=True, exist_ok=True)
     if args.arm == "harness":
@@ -505,11 +500,13 @@ def cmd_finalize(args) -> int:
                     if not _STREAM_DROP.match(line):
                         dst.write(line)
             tmp.replace(stream)
-        log = [
-            json.loads(x)
-            for x in (rundir / "tool_calls.jsonl").read_text().splitlines()
-            if x.strip()
-        ]
+        # The plain arm loads no extension, so it has no tool log.
+        calls = rundir / "tool_calls.jsonl"
+        log = (
+            [json.loads(x) for x in calls.read_text().splitlines() if x.strip()]
+            if calls.is_file()
+            else []
+        )
         secs = round(log[-1]["t"] - log[0]["t"], 1) if len(log) > 1 else None
         ended = any(r.get("event") == "agent_end" for r in log) or args.arm == "plain"
         finalize(page, args.seed, args, rundir, sandbox, 0 if ended else -1, secs, False)
@@ -525,7 +522,6 @@ def cmd_run(args) -> int:
     return 0
 
 
-# ------------------------------------------------------------------- score
 def cmd_score(args) -> int:
     pages = [p for p in (SINGLE_MODEL if args.pages == "all" else args.pages).split(",") if p]
     for variant in args.variants.split(","):
@@ -560,7 +556,9 @@ def cmd_score(args) -> int:
                     "lagrangian_expression": row.get("lagrangian_expression"),
                     "lag_symbol": row.get("lag_symbol"),
                     "error_tags": row.get("error_tags"),
-                    "scorer": "hepval (heptapod-dev main 4bcbcf2 driver + ALE validation_benchmark)",
+                    "scorer": (
+                        "hepval (heptapod-dev main 4bcbcf2 driver + ALE validation_benchmark)"
+                    ),
                     "scored_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
                 }
                 out.write_text(json.dumps(v, indent=1, default=str))
@@ -586,12 +584,11 @@ def cmd_score(args) -> int:
     return 0
 
 
-# ------------------------------------------------------------------ report
 def cmd_report(args) -> int:
     pages = [p for p in (SINGLE_MODEL if args.pages == "all" else args.pages).split(",") if p]
     variants = args.variants.split(",")
     lines = ["| page | " + " | ".join(variants) + " |", "|---|" + "---|" * len(variants)]
-    tot = {v: [0, 0, 0.0] for v in variants}
+    tot = {v: [0, 0.0] for v in variants}
     for page in pages:
         cells = []
         for v in variants:
@@ -599,8 +596,6 @@ def cmd_report(args) -> int:
             f = d / "validation_hepval.json"
             if not f.is_file():
                 cells.append("no model" if (d / "run.json").is_file() else "—")
-                if (d / "run.json").is_file():
-                    tot[v][1] += 1
                 continue
             r = json.loads(f.read_text())
             c = r.get("checks") or {}
@@ -613,10 +608,9 @@ def cmd_report(args) -> int:
                 + f" {mark} mg5={'✓' if r.get('madgraph_import_ok') else '✗'}"
             )
             tot[v][0] += bool(r.get("full_chain_pass"))
-            tot[v][1] += 1
             run = d / "run.json"
             if run.is_file():
-                tot[v][2] += float(
+                tot[v][1] += float(
                     ((json.loads(run.read_text()).get("agent") or {}).get("usage") or {}).get(
                         "cost"
                     )
@@ -628,7 +622,7 @@ def cmd_report(args) -> int:
     )
     lines.append(
         "| agent cost (pi arms) | "
-        + " | ".join(f"${tot[v][2]:.2f}" if v.startswith("pi_") else "—" for v in variants)
+        + " | ".join(f"${tot[v][1]:.2f}" if v.startswith("pi_") else "—" for v in variants)
         + " |"
     )
     print("\n".join(lines))

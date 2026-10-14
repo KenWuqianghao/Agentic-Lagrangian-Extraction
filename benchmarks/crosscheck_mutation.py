@@ -23,6 +23,8 @@ Usage (from ALE benchmarks/):
   # spawn one subagent per entry of <out>/manifest_recon.json
   crosscheck_mutation.py prepare-cross --out crosscheck_mutation
   # spawn one subagent per entry of <out>/manifest_cross.json
+  crosscheck_mutation.py prepare-judge --out crosscheck_mutation
+  # spawn one subagent per entry of <out>/manifest_judge.json
   crosscheck_mutation.py audit --out crosscheck_mutation --transcripts-dir <session>/subagents
   crosscheck_mutation.py score --out crosscheck_mutation
 """
@@ -37,6 +39,7 @@ import os
 import re
 import shutil
 import sys
+import types
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -51,8 +54,6 @@ def _load(name: str, rel: str):
     return mod
 
 
-import types
-
 fr_parser = _load("fr_parser", "tools/frgen/fr_parser.py")
 # sanitize.py imports tools.frgen.fr_parser; the frgen package __init__ pulls
 # in orchestral, so register the parser under that name without the package.
@@ -61,8 +62,6 @@ for name in ("tools", "tools.frgen"):
 sys.modules["tools.frgen.fr_parser"] = fr_parser
 sanitize = _load("sanitize", "tools/reverse/sanitize.py")
 prompts = _load("reverse_prompts", "tools/reverse/prompts.py")
-
-# --------------------------------------------------------------------- cases
 
 # (page, stored run) -> base file. Every base resolved all of its physicist
 # predicates in ablation_report*.json, so a defect found in a mutant is the
@@ -358,7 +357,7 @@ def _paper_tex(page: str) -> Path:
     return txts[0]
 
 
-def build_cases(out: Path) -> list:
+def build_cases() -> list:
     cases = []
     for page, run in BASES.items():
         frs = sorted(glob.glob(str(HERE / page / run / "model" / "*.fr")))
@@ -448,7 +447,7 @@ def _rewrite_final(p: str, output: str) -> str:
 def prepare_recon(args):
     out = Path(args.out).resolve()
     out.mkdir(parents=True, exist_ok=True)
-    cases = build_cases(out)
+    cases = build_cases()
     manifest = []
     for c in cases:
         d = out / c["id"]
@@ -483,7 +482,8 @@ def prepare_recon(args):
     for c in cases:
         kinds[c["kind"]] = kinds.get(c["kind"], 0) + 1
     print(
-        f"[prepare-recon] {len(cases)} cases {kinds}; {len(manifest)} to run -> {out / 'manifest_recon.json'}"
+        f"[prepare-recon] {len(cases)} cases {kinds}; {len(manifest)} to run "
+        f"-> {out / 'manifest_recon.json'}"
     )
     return 0
 
@@ -499,9 +499,8 @@ def prepare_cross(args):
             print(f"[prepare-cross] {c['id']}: no reconstruction.md, skipped", file=sys.stderr)
             continue
         sb = d / "cross_sandbox"
-        if sb.exists() and not args.force:
-            pass  # a run may be in flight on it; rebuild only with --force
-        else:
+        # A run may be in flight on an existing sandbox; rebuild it only with --force.
+        if not sb.exists() or args.force:
             if sb.exists():
                 shutil.rmtree(sb)
             sb.mkdir()
@@ -522,8 +521,6 @@ def prepare_cross(args):
     print(f"[prepare-cross] {len(manifest)} to run -> {out / 'manifest_cross.json'}")
     return 0
 
-
-# --------------------------------------------------------------------- judge
 
 JUDGE_PROMPT = """\
 RUN-TAG: {tag}
@@ -577,9 +574,6 @@ def prepare_judge(args):
     return 0
 
 
-# --------------------------------------------------------------------- audit
-
-
 def audit(args):
     """Check every subagent transcript that carries one of our RUN-TAGs: every
     Read/Write path must sit inside that case's sandbox or be its output."""
@@ -618,7 +612,7 @@ def audit(args):
         for ln in lines:
             try:
                 ev = json.loads(ln)
-            except Exception:
+            except json.JSONDecodeError:
                 continue
             msg = ev.get("message") or {}
             for blk in (msg.get("content") or []) if isinstance(msg.get("content"), list) else []:
@@ -653,12 +647,11 @@ def audit(args):
     (out / "audit.json").write_text(json.dumps(report, indent=2))
     bad = sum(1 for c in report.values() for ph in c.values() if not ph["audit_ok"])
     print(
-        f"[audit] {len(report)} cases with transcripts, {bad} phase(s) with policy problems -> {out / 'audit.json'}"
+        f"[audit] {len(report)} cases with transcripts, {bad} phase(s) with policy problems "
+        f"-> {out / 'audit.json'}"
     )
     return 0
 
-
-# --------------------------------------------------------------------- score
 
 VERDICT_RE = re.compile(
     r"\*{0,2}(agree|disagree|missing-in-reconstruction|extra-in-reconstruction)\*{0,2}", re.I
@@ -726,11 +719,10 @@ def score(args):
                 txt = jp.read_text()
                 m = re.search(r"\{.*\}", txt, re.S)
                 r["judge"] = json.loads(m.group(0) if m else txt)
-            except Exception as e:  # noqa: BLE001
+            except json.JSONDecodeError as e:
                 r["judge"] = {"error": str(e)}
         results.append(r)
     (out / "results.json").write_text(json.dumps(results, indent=2))
-    # summary
     mut = [r for r in results if r["kind"] == "mutant" and r.get("has_cross")]
     ctl = [r for r in results if r["kind"] == "control" and r.get("has_cross")]
     real = [r for r in results if r["kind"] == "real" and r.get("has_cross")]
@@ -743,7 +735,8 @@ def score(args):
     if mut:
         det = sum(1 for r in mut if r["rule_detected"])
         lines.append(
-            f"- mutants where a flagged row or severity line names the mutated symbol: **{det}/{len(mut)}**"
+            "- mutants where a flagged row or severity line names the mutated symbol: "
+            f"**{det}/{len(mut)}**"
         )
     if ctl:
         lines.append(
@@ -755,16 +748,26 @@ def score(args):
         jm = [r for r in judged if r["kind"] == "mutant"]
         jr = [r for r in judged if r["kind"] == "real"]
         jc = [r for r in judged if r["kind"] == "control"]
-        cnt = lambda rs, v: sum(1 for r in rs if r["judge"].get("named") == v)
+
+        def named(rs):
+            n = [r["judge"].get("named") for r in rs]
+            return (
+                f"yes {n.count('yes')}, partial {n.count('partial')}, no {n.count('no')} "
+                f"of {len(rs)}"
+            )
+
+        def other_mean(rs):
+            total = sum(int(r["judge"].get("other_substantive") or 0) for r in rs)
+            return f"{total / max(1, len(rs)):.1f}"
+
         lines += [
             "",
             "## Judge (subagent reading crosscheck.md against the defect description)",
             "",
-            f"- mutants named: yes {cnt(jm, 'yes')}, partial {cnt(jm, 'partial')}, no {cnt(jm, 'no')} of {len(jm)}",
-            f"- real findings named: yes {cnt(jr, 'yes')}, partial {cnt(jr, 'partial')}, no {cnt(jr, 'no')} of {len(jr)}",
-            f"- other substantive disagreements per file: mutants mean "
-            f"{(sum(int(r['judge'].get('other_substantive') or 0) for r in jm) / max(1, len(jm))):.1f}, "
-            f"controls mean {(sum(int(r['judge'].get('other_substantive') or 0) for r in jc) / max(1, len(jc))):.1f}",
+            f"- mutants named: {named(jm)}",
+            f"- real findings named: {named(jr)}",
+            f"- other substantive disagreements per file: mutants mean {other_mean(jm)}, "
+            f"controls mean {other_mean(jc)}",
         ]
         by_op = {}
         for r in jm:
@@ -774,13 +777,15 @@ def score(args):
             lines.append(f"| {op} | {vs.count('yes')} | {vs.count('partial')} | {vs.count('no')} |")
     lines += [
         "",
-        "| case | kind | operator | term | flagged rows | substantive | rule hit | judge | other subst. |",
+        "| case | kind | operator | term | flagged rows | substantive | rule hit | judge "
+        "| other subst. |",
         "|---|---|---|---|---|---|---|---|---|",
     ]
     for r in results:
         if not r.get("has_cross"):
             lines.append(
-                f"| {r['id']} | {r['kind']} | {r['operator'] or ''} | {r['term'] or ''} | — | — | no crosscheck | | |"
+                f"| {r['id']} | {r['kind']} | {r['operator'] or ''} | {r['term'] or ''} "
+                "| — | — | no crosscheck | | |"
             )
             continue
         j = r.get("judge") or {}

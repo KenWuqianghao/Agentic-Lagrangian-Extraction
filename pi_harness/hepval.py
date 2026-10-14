@@ -78,8 +78,7 @@ class kernel_slot:
 COMPILE_TIMEOUT = os.environ.get("HEPVAL_COMPILE_TIMEOUT", "900")
 
 
-# ------------------------------------------------------------------ setup
-def setup(_args=None) -> int:
+def setup(_args) -> int:
     if not (VALIDATOR / "tools/feynrules/UFO_generator.wl").is_file():
         subprocess.run(["git", "-C", str(HEPTAPOD_DEV), "fetch", "-q", "origin"], check=True)
         subprocess.run(
@@ -139,12 +138,11 @@ def _load_validator():
     os.environ.setdefault("VBENCH_OUT", str(STATE / "scratch"))
     sys.path.insert(0, str(root))
     sys.path.insert(0, str(runs))
-    import repair_benchmark as rb  # noqa: E402
+    import repair_benchmark as rb
 
     return rb
 
 
-# ------------------------------------------------------------------- lint
 def unclosed_comments(text: str) -> list[int]:
     """Line numbers of ``(*`` that are never closed. Mathematica comments
     nest, so one missing ``*)`` comments out the rest of the file and
@@ -236,18 +234,18 @@ def _structure_findings(text: str) -> list[dict]:
 
 def lint(args) -> int:
     sys.path.insert(0, str(BENCH))
-    import fr_lint  # noqa: E402
+    import fr_lint
 
     findings = [f.__dict__ for f in fr_lint.lint_file(args.model)]
     findings = _structure_findings(Path(args.model).read_text(errors="replace")) + findings
-    if getattr(args, "opt", False) or getattr(args, "real", False):
+    if args.opt or args.real:
         sys.path.insert(0, str(ALE / "cc_harness"))
-        import opt_checks  # noqa: E402
+        import opt_checks
 
         findings += opt_checks.lint(
             Path(args.model).read_text(errors="replace"),
-            real=getattr(args, "real", False),
-            chain_head=getattr(args, "chain_head", False),
+            real=args.real,
+            chain_head=args.chain_head,
         )
     for f in findings:
         # The SM-override recipe redeclares Phi on purpose; say when that is fine.
@@ -260,7 +258,6 @@ def lint(args) -> int:
     return 0
 
 
-# --------------------------------------------------------------- validate
 _NOISE = re.compile(r"^(From kernel \d+ \(Local\):|General::stop: .*)$")
 
 
@@ -315,19 +312,18 @@ def _use_diag_driver(rb, fr: Path) -> None:
 def validate(args) -> int:
     rb = _load_validator()
     fr = Path(args.model).resolve()
-    if getattr(args, "cover", False):
+    if args.cover:
         args.real = True  # the cover arm: the shell arm's report plus spec.json coverage
-    if getattr(args, "real", False):
+    if args.real:
         args.opt = True  # the shell arm: the optimisation report plus the cut-statement check
-    if getattr(args, "opt", False):
+    if args.opt:
         args.diag = True  # the optimisation arm reports on top of the located sections
-    if getattr(args, "diag", False):
+    if args.diag:
         _use_diag_driver(rb, fr)
     out = Path(args.out).resolve()
     out.mkdir(parents=True, exist_ok=True)
     rb.OUTROOT = out
     n = len(list(out.glob("call*"))) + 1
-    STATE.mkdir(parents=True, exist_ok=True)
     t_wait = time.time()
     with kernel_slot():
         waited = round(time.time() - t_wait, 1)
@@ -375,12 +371,12 @@ def validate(args) -> int:
             if not rb.vb.all_checks_pass(row.get("checks"))
             else "mg5"
         ),
-        "driver": "diag" if getattr(args, "diag", False) else "scoring",
+        "driver": "diag" if args.diag else "scoring",
     }
     opt_text = ""
-    if getattr(args, "opt", False):
+    if args.opt:
         sys.path.insert(0, str(ALE / "cc_harness"))
-        import opt_checks  # noqa: E402
+        import opt_checks
 
         clog = (
             Path(row["compile_log"]).read_text(errors="replace")
@@ -388,11 +384,11 @@ def validate(args) -> int:
             else ""
         )
         opt_text, inert = opt_checks.report_sections(
-            row, clog, real=getattr(args, "real", False), fr_text=fr.read_text(errors="replace")
+            row, clog, real=args.real, fr_text=fr.read_text(errors="replace")
         )
         summary["particles_without_vertex"] = inert
-    if getattr(args, "cover", False):
-        import coverage  # noqa: E402  (cc_harness is on the path: --cover implies --opt)
+    if args.cover:
+        import coverage  # cc_harness is on the path: --cover implies --opt
 
         spec, problem = coverage.load_spec(fr.parent / "spec.json")
         first_file = out / "spec_first.json"
@@ -467,9 +463,9 @@ def validate(args) -> int:
             if row.get("compile_log") and Path(row["compile_log"]).is_file()
             else ""
         )
-        if getattr(args, "diag", False):
+        if args.diag:
             sys.path.insert(0, str(ALE / "cc_harness"))
-            import diagnose  # noqa: E402
+            import diagnose
 
             extra = diagnose.render_sections(row, log, fr.read_text(errors="replace"))
             if extra:
@@ -535,7 +531,6 @@ def _generic_view(summary: dict, row: dict, fr: Path, report: str, with_import: 
     return "\n".join(body)
 
 
-# -------------------------------------------------------------- massbasis
 def massbasis(args) -> int:
     """Symbolic quadratic-sector analysis of a real-field potential.
 
@@ -618,7 +613,6 @@ def massbasis(args) -> int:
         eqs += [M[i][j] for i in range(len(fields)) for j in range(i + 1, len(fields))]
         eqs = [sp.numer(sp.together(e)) for e in eqs if e != 0]
         linear = all(sp.Poly(e, *unknowns).total_degree() <= 1 for e in eqs)
-        sols = []
         if linear:
             ls = sp.linsolve(eqs, unknowns)
             sols = [dict(zip(unknowns, t)) for t in ls]
@@ -683,7 +677,8 @@ def main() -> int:
     p.add_argument(
         "--chain-head",
         action="store_true",
-        help="with --real: also the rule for a fermion chain that starts with an unbarred field (arm plus)",
+        help="with --real: also the rule for a fermion chain that starts with an unbarred "
+        "field (arm plus)",
     )
     p.set_defaults(fn=lint)
     p = sub.add_parser("validate")
