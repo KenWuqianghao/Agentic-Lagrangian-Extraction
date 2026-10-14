@@ -19,19 +19,26 @@ table{border-collapse:collapse;width:100%;font-size:14.5px}td,th{padding:6px 8px
 .flow{display:flex;flex-wrap:wrap;gap:8px}.fl{flex:1 1 180px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14.5px}.fl b{display:block;color:var(--b)}
 </style></head><body><main>
 <h1>heptapod 项目状况图</h1>
-<p class="mut">2026-10-11 · 一页看完：我们在问什么、现在的答案、答案有多可靠、接下来的决定。点击柱子和论文可以看细节。</p>
+<p class="mut">2026-10-14 · 一页看完：我们在问什么、现在的答案、答案有多可靠、接下来的决定。点击柱子和论文可以看细节。</p>
 
 <div class="flow">
 <div class="fl"><b>问题</b>heptapod 的工具能不能让 agent 更好地把论文变成可用的 FeynRules 模型？</div>
-<div class="fl"><b>现在的答案</b>能。分数高 0.14，成本约 1/4。优势主要来自稳定性。</div>
-<div class="fl"><b>可靠程度</b>3 个 seed，p = 0.014。样本是 13 篇，没有留出测试集。</div>
+<div class="fl"><b>现在的答案</b>能。三个模型（Sonnet 5、Haiku 5.5、Sonnet 5.5）上都更高、更便宜。合并：+0.14，成本约 1/4 到 1/3。优势主要来自稳定性。</div>
+<div class="fl"><b>可靠程度</b>Sonnet 5 三个 seed：p = 0.014。三个模型合并：p = 0.004。样本是 13 篇，没有留出测试集。</div>
 <div class="fl"><b>还差什么</b>新论文上的验证；扩展规范群的论文（331）。</div></div>
 
 <div class="kpis" style="margin-top:12px">
-<div class="kpi"><b style="color:var(--g)">0.76</b><span>命令行 + 工具，3 个 seed 的平均</span></div>
+<div class="kpi"><b style="color:var(--g)">0.76</b><span>命令行 + 工具，Sonnet 5，3 个 seed 的平均</span></div>
 <div class="kpi"><b style="color:#e0864a">0.62</b><span>vanilla，相同条件，3 个 seed</span></div>
 <div class="kpi"><b>36 / 32</b><span>39 次运行里检查链通过的次数</span></div>
-<div class="kpi"><b>$4 / $18</b><span>每次通过的成本：工具组 / vanilla</span></div></div>
+<div class="kpi"><b>$4 / $18</b><span>Sonnet 5 每次通过的成本：工具组 / vanilla</span></div></div>
+<div class="card" style="margin-top:12px"><b>换模型（10 月 12–14 日）</b>
+<table style="margin-top:6px"><tr><th>模型</th><th>工具组</th><th>vanilla</th><th>差</th><th>高 / 低</th><th>p</th><th>检查链通过</th><th>成本</th></tr>
+<tr><td>Sonnet 5，3 个 seed</td><td>0.76</td><td>0.62</td><td><b>+0.14</b></td><td>8 / 1</td><td>0.014</td><td>36 / 32（共 39）</td><td>$152 / $581</td></tr>
+<tr><td>Haiku 5.5，3 个 seed</td><td>0.68</td><td>0.59</td><td><b>+0.09</b></td><td>6 / 2</td><td>0.16</td><td>34 / 26（共 39）</td><td>$18 / $58</td></tr>
+<tr><td>Sonnet 5.5，1 个 seed</td><td>0.82</td><td>0.63</td><td><b>+0.20</b></td><td>5 / 2</td><td>0.094</td><td>12 / 10（共 13）</td><td>$8 / $22</td></tr>
+<tr><td><b>合并</b></td><td></td><td></td><td><b>+0.14</b></td><td>10 / 1</td><td><b>0.004</b></td><td>82 / 68（共 91）</td><td>$178 / $661</td></tr></table>
+<p class="mut" style="margin:.4em 0 0;font-size:14px">合并：每篇论文先算三个模型的差的平均，再对 13 篇做配对置换检验。下面的阶梯和热图是 Sonnet 5 的数据。中文速览：<code>quick_zh.html</code>。</p></div>
 
 <h2>1. 阶梯：每一步加了什么</h2>
 <div class="card"><div class="ladder" id="ladder"></div><div id="rinfo" class="mut" style="margin-top:10px"></div></div>
@@ -44,7 +51,9 @@ table{border-collapse:collapse;width:100%;font-size:14.5px}td,th{padding:6px 8px
 <h2>3. 主张板：每个主张有多可靠</h2>
 <div class="claims">
 <div class="claim g"><b>比 vanilla 的分数高</b><div class="meter"><i style="width:75%;background:var(--g)"></i></div><span>+0.14，高 8 低 1，p = 0.014。每个 seed 的差都是正的。只用 seed 2、3 时 p = 0.059。</span></div>
-<div class="claim g"><b>比 vanilla 便宜</b><div class="meter"><i style="width:90%;background:var(--g)"></i></div><span>$152 对 $581。3 个 seed 里每一个都是 3 到 5 倍。</span></div>
+<div class="claim g"><b>比 vanilla 便宜</b><div class="meter"><i style="width:90%;background:var(--g)"></i></div><span>Sonnet 5：$152 对 $581。三个模型上 vanilla 都花 2.7 到 3.8 倍的钱。</span></div>
+<div class="claim g"><b>换模型也成立</b><div class="meter"><i style="width:70%;background:var(--g)"></i></div><span>三个模型的差都是正的，合并 p = 0.004。Haiku 单独 p = 0.16，seed 2 反向；Sonnet 5.5 只有 1 个 seed。</span></div>
+<div class="claim y"><b>弱模型停得太早</b><div class="meter"><i style="width:35%;background:var(--y)"></i></div><span>Haiku 工具组的 5 次失败：结束门给了 3 次「继续」以后 agent 停了，验证没有通过，验证次数还有剩余。提高上限是否有用，没有测试。</span></div>
 <div class="claim g"><b>更稳定</b><div class="meter"><i style="width:80%;background:var(--g)"></i></div><span>vanilla 在 5 篇上有时满分有时 0。我读了其中一次（Wprime 第 2 次）：agent 在总结里写「全部通过」，而评分器的质量谱检查失败。工具组的结束门挡住这种情况。</span></div>
 <div class="claim g"><b>比 9 月 30 日的 harness 强</b><div class="meter"><i style="width:65%;background:var(--g)"></i></div><span>0.77 对 0.49，p = 0.03。旧 harness 只有 1 次运行。</span></div>
 <div class="claim y"><b>命令行是关键的一步</b><div class="meter"><i style="width:45%;background:var(--y)"></i></div><span>优化组 0.65 → 加命令行 0.77。但是优化组只有 1 次运行，p = 0.38。方向清楚，没有确认。</span></div>
@@ -56,7 +65,8 @@ table{border-collapse:collapse;width:100%;font-size:14.5px}td,th{padding:6px 8px
 <table>
 <tr><th>东西</th><th>位置</th><th>状态</th></tr>
 <tr><td>代码和所有分析</td><td><code>~/code/ALE-ablation</code>，分支 <code>ablation/heptapod-arms</code></td><td>已提交，<b>没有 push</b></td></tr>
-<tr><td>所有运行和 trace</td><td><code>~/hep-share/heptapod_ablation_results_2026-10-11.zip</code>（154 次运行）</td><td>Done</td></tr>
+<tr><td>所有运行和 trace</td><td><code>~/hep-share/heptapod_ablation_results_2026-10-14.zip</code>（258 次运行，邮箱地址已替换为 <code>&lt;email&gt;</code>）</td><td>Done</td></tr>
+<tr><td>中文速览</td><td><code>~/hep-share/quick_zh.html</code></td><td>Done</td></tr>
 <tr><td>本周进度页面</td><td><code>~/hep-share/week_2026-10-11.html</code></td><td>Done</td></tr>
 <tr><td>24 个失败案例</td><td><code>benchmarks/heptapod_ablation/failures.html</code></td><td>Done（seed 1 的数据）</td></tr>
 <tr><td>给 heptapod 的修改建议</td><td><code>HEPTAPOD_FIXES.md</code></td><td>写了，没有发给 Tony</td></tr>
@@ -67,6 +77,7 @@ table{border-collapse:collapse;width:100%;font-size:14.5px}td,th{padding:6px 8px
 <tr><th>决定</th><th>为什么重要</th><th>代价</th></tr>
 <tr><td><b>A. 留出测试</b>：找 5 到 8 篇新论文，两个组各跑 1 到 2 次</td><td>这是现在最大的弱点。通过了，主张就完整。</td><td>选论文和编译参考答案 1 到 2 天；运行约 $150 到 $300</td></tr>
 <tr><td><b>B. 把改进送回 heptapod</b>：和 Tony 讨论 <code>HEPTAPOD_FIXES.md</code></td><td>现在的改进在我们的 harness 里，不在 heptapod 工具里。「heptapod 更强」严格说是「我们的 harness + heptapod 的验证器更强」。</td><td>你的时间；需要你同意我才会联系他或开 PR</td></tr>
+<tr><td><b>A2. 给弱模型更多「继续」</b>：结束门上限 3 → 6，重跑 Haiku 工具组 2 个 seed</td><td>确认 Haiku 的 5 次失败是不是这个原因。</td><td>约 $15</td></tr>
 <tr><td><b>C. 331 类论文</b>：允许交独立模型</td><td>唯一一篇 vanilla 稳定更高的论文。</td><td>较大的工程，只影响 2 篇</td></tr>
 <tr><td><b>D. 写成报告</b></td><td>数据已经够写一个有限制说明的结论。</td><td>不花钱</td></tr></table>
 </main><script>
