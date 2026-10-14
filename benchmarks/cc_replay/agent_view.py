@@ -21,6 +21,13 @@ import diagnose  # noqa: E402
 import heptapod_mcp  # noqa: E402
 
 PAGES = ("B-L-SM", "HeavyN", "Wprime", "EffLRSM", "SMWeinberg", "pSPSS")
+NON_DIAG_PREFIXES = (
+    "HEPTAPOD-CHECK",
+    "HEPTAPOD-GAUGE",
+    "HEPTAPOD-LAG",
+    "HEPTAPOD-RESID",
+    "HEPTAPOD-MASS|",
+)
 
 
 def main() -> int:
@@ -34,11 +41,10 @@ def main() -> int:
         s = json.loads(calls[-1].read_text())
         row = s["row"]
         fr = HERE / p / "model.fr"
-        log = (
-            Path(row["compile_log"]).read_text(errors="replace")
-            if Path(row.get("compile_log") or "").is_file()
-            else ""
-        )
+        # row["compile_log"] is an absolute path on the machine that ran the replay;
+        # the same log is stored in this call's directory.
+        log_rel = Path(row["compile_log"]).parts[-2:]
+        log = calls[-1].parent.joinpath(*log_rel).read_text(errors="replace")
         lint = subprocess.run(
             [sys.executable, str(ALE / "pi_harness" / "hepval.py"), "lint", str(fr)],
             capture_output=True,
@@ -57,9 +63,13 @@ def main() -> int:
             + "\n"
         )
         (HERE / p / "agent_view.md").write_text(view)
+        diag = sum(
+            ln.startswith("HEPTAPOD-") and not ln.startswith(NON_DIAG_PREFIXES)
+            for ln in log.splitlines()
+        )
         print(
             f"==== {p}: stage {s.get('stage_reached')}, {len(view)} chars, "
-            f"diag lines in log: {sum(ln.startswith('HEPTAPOD-') and not ln.startswith(('HEPTAPOD-CHECK', 'HEPTAPOD-GAUGE', 'HEPTAPOD-LAG', 'HEPTAPOD-RESID', 'HEPTAPOD-MASS|')) for ln in log.splitlines())}"
+            f"diag lines in log: {diag}"
         )
     return 0
 

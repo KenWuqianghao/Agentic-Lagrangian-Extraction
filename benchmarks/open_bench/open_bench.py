@@ -4,7 +4,7 @@
 The same 16 single-model papers, the same v3 physics rules and the same
 corrected FeynRules -> UFO -> MadGraph chain as ABLATION_2026-09-17, but the
 agent is an open-weights model driven by opencode (MIT, github.com/sst/opencode)
-instead of Claude Code. Two arms, identical except for the toolkit:
+instead of Claude Code. Three arms, identical except for the toolkit:
 
   hand     the agent reads the paper and SM.fr in its sandbox and writes the
            complete model.fr itself. No shell.
@@ -18,13 +18,14 @@ instead of Claude Code. Two arms, identical except for the toolkit:
            plugin (frgen_hook.js) runs ./frgen after every change to spec.json
            and appends the report to that tool result.
 
-Neither arm has Wolfram, MadGraph, the web or anything outside its sandbox.
+No arm has Wolfram, MadGraph, the web or anything outside its sandbox.
 Validation runs afterwards, serially, in the harness (``validate``).
 
     open_bench.py prepare  --model nemotron --arm hand --pages all
     open_bench.py run      --model nemotron --arm hand --pages all --jobs 4
     open_bench.py validate --model nemotron --arm hand --pages all
-    open_bench.py report
+    open_bench.py reaudit  --model nemotron --arm hand --pages all
+    report.py
 
 Outputs per run: benchmarks/<page>/rerun/v3o_<model>_<arm>/s<seed>/
     TASK.md  agent_stream.jsonl  agent_out.md  agent_stderr.txt
@@ -35,6 +36,7 @@ Outputs per run: benchmarks/<page>/rerun/v3o_<model>_<arm>/s<seed>/
 from __future__ import annotations
 
 import argparse
+import functools
 import hashlib
 import json
 import os
@@ -144,7 +146,6 @@ OUTPUT_LINE = {
 }
 
 
-# ------------------------------------------------------------------ helpers
 def _sub_once(text: str, pattern: str, repl: str, what: str) -> str:
     new, n = re.subn(pattern, lambda _m: repl, text, count=1, flags=re.M)
     if n != 1:
@@ -239,8 +240,8 @@ def build_task(page: str, arm: str, paper_name: str) -> str:
     return t
 
 
-def oc_config(arm: str, model: str | None = None) -> dict:
-    # The same config in both arms. The free tier answers 403 to a request whose tool
+def oc_config(arm: str, model: str) -> dict:
+    # The same permissions in every arm. The free tier answers 403 to a request whose tool
     # list lacks bash, and a blanket "deny" drops bash from the list, so bash stays
     # listed with one allowed command. The hand sandbox has no ./frgen, so there the
     # command only prints "no such file". Denied calls return an error and the run goes on.
@@ -284,16 +285,26 @@ def oc_config(arm: str, model: str | None = None) -> dict:
     return cfg
 
 
+def _install_toolkit(root: Path) -> None:
+    """Copy the frgen schema, renderer, template and fr_lint.py to root/."""
+    fg = root / "frgen"
+    (fg / "templates").mkdir(parents=True)
+    for f in ("frmodel.py", "render.py"):
+        shutil.copy2(HD / "tools/frgen" / f, fg / f)
+    shutil.copy2(HD / "tools/frgen/templates/model.fr.j2", fg / "templates/model.fr.j2")
+    (fg / "__init__.py").write_text("")
+    shutil.copy2(BENCH / "fr_lint.py", root / "fr_lint.py")
+
+
 def _sha(p: Path) -> str:
     return hashlib.sha256(p.read_bytes()).hexdigest() if p.is_file() else ""
 
 
-# ------------------------------------------------------------------ prepare
-def prepare_one(page: str, model: str, arm: str, seed: int, force: bool) -> dict | None:
+def prepare_one(page: str, model: str, arm: str, seed: int, force: bool) -> None:
     rd = rundir(page, model, arm, seed)
     if (rd / "run.json").is_file() and not force:
         print(f"[prepare] skip {page} {variant(model, arm)} s{seed}: run.json exists")
-        return None
+        return
     if rd.exists():
         shutil.rmtree(rd)
     rd.mkdir(parents=True)
@@ -303,13 +314,7 @@ def prepare_one(page: str, model: str, arm: str, seed: int, force: bool) -> dict
     shutil.copy2(paper, sb / "paper" / paper.name)
     shutil.copy2(HD / "tools/feynrules/test_files/models/SM.fr", sb / "SM.fr")
     if arm in TOOLKIT_ARMS:
-        fg = sb / "tools/frgen"
-        (fg / "templates").mkdir(parents=True)
-        for f in ("frmodel.py", "render.py"):
-            shutil.copy2(HD / "tools/frgen" / f, fg / f)
-        shutil.copy2(HD / "tools/frgen/templates/model.fr.j2", fg / "templates/model.fr.j2")
-        (fg / "__init__.py").write_text("")
-        shutil.copy2(BENCH / "fr_lint.py", sb / "tools/fr_lint.py")
+        _install_toolkit(sb / "tools")
         wrapper = sb / "frgen"
         wrapper.write_text(
             "#!/bin/sh\n"
@@ -322,10 +327,8 @@ def prepare_one(page: str, model: str, arm: str, seed: int, force: bool) -> dict
     (rd / "sandbox_path.txt").write_text(str(sb))
     hashes = {str(p.relative_to(sb)): _sha(p) for p in sb.rglob("*") if p.is_file()}
     (rd / "sandbox_hashes.json").write_text(json.dumps(hashes, indent=1))
-    return {"page": page, "rundir": str(rd), "sandbox": str(sb)}
 
 
-# ---------------------------------------------------------------------- run
 def _events(path: Path) -> list[dict]:
     out = []
     for line in path.read_text(errors="replace").splitlines():
@@ -385,9 +388,7 @@ def audit(calls: list[dict], sb: Path, arm: str, paper_name: str) -> dict:
     for c in calls:
         tool, inp = c["tool"] or "", c["input"] or {}
         if c["status"] != "completed":
-            if "prevents you from using" in (c.get("output") or "") or "rejected" in (
-                c.get("output") or ""
-            ):
+            if "prevents you from using" in c["output"] or "rejected" in c["output"]:
                 denied.append(f"{tool}:{json.dumps(inp)[:80]}")
             continue
         if tool not in allowed:
@@ -401,7 +402,7 @@ def audit(calls: list[dict], sb: Path, arm: str, paper_name: str) -> dict:
             }
         )
         for m in re.findall(r'(/(?:Users|private|var|tmp|etc|opt|home)[^"\s\\]*)', blob):
-            if not str(Path(m).resolve()).startswith(sbs) and c["status"] == "completed":
+            if not str(Path(m).resolve()).startswith(sbs):
                 escapes.append(m)
         if "reference_cache" in blob:
             escapes.append("reference_cache")
@@ -441,7 +442,6 @@ def _run_watched(cmd, sb, env, out, err, left, stream: Path):
             return p.wait(timeout=10), False, False
         except subprocess.TimeoutExpired:
             pass
-        out.flush()
         if RATE_LIMIT.search(stream.read_text(errors="replace")):
             p.terminate()
             p.wait()
@@ -499,7 +499,6 @@ def run_one(page: str, model: str, arm: str, seed: int) -> dict:
             )
             if timed_out or rate_limited:
                 break
-            out.flush()
             if deliverable.is_file() or nudges >= MAX_NUDGES:
                 break
             sid = next(
@@ -576,16 +575,11 @@ def run_one(page: str, model: str, arm: str, seed: int) -> dict:
     return row
 
 
-_VER = None
-
-
+@functools.cache
 def oc_version() -> str:
-    global _VER
-    if _VER is None:
-        _VER = subprocess.run(
-            [str(OPENCODE), "--version"], capture_output=True, text=True
-        ).stdout.strip()
-    return _VER
+    return subprocess.run(
+        [str(OPENCODE), "--version"], capture_output=True, text=True
+    ).stdout.strip()
 
 
 _FENCE_RE = re.compile(r"```[ \t]*([A-Za-z0-9_+-]*)[ \t]*\n(.*?)```", re.S)
@@ -622,24 +616,15 @@ def produce_fr(page: str, arm: str, rd: Path, sb: Path, final: str) -> dict:
     work = rd / "render"
     work.mkdir(exist_ok=True)
     shutil.copy2(spec, work / "spec.json")
-    env = dict(os.environ, FRGEN_TOOLKIT=str(sb / "tools"))
     # Render with the pristine toolkit copy, not the sandbox's (tamper-proof).
     pristine = rd / "toolkit"
     if not pristine.exists():
-        (pristine / "frgen/templates").mkdir(parents=True)
-        for f in ("frmodel.py", "render.py"):
-            shutil.copy2(HD / "tools/frgen" / f, pristine / "frgen" / f)
-        shutil.copy2(
-            HD / "tools/frgen/templates/model.fr.j2", pristine / "frgen/templates/model.fr.j2"
-        )
-        (pristine / "frgen/__init__.py").write_text("")
-        shutil.copy2(BENCH / "fr_lint.py", pristine / "fr_lint.py")
-    env["FRGEN_TOOLKIT"] = str(pristine)
+        _install_toolkit(pristine)
     p = subprocess.run(
         [str(VENV_PY), str(HERE / "frgen_cli.py"), str(work / "spec.json")],
         capture_output=True,
         text=True,
-        env=env,
+        env=dict(os.environ, FRGEN_TOOLKIT=str(pristine)),
     )
     (rd / "render_log.txt").write_text(p.stdout + p.stderr)
     shutil.rmtree(pristine)
@@ -657,8 +642,7 @@ def produce_fr(page: str, arm: str, rd: Path, sb: Path, final: str) -> dict:
     return {"rendered": False, "reason": reason, "source": source, "detail": p.stdout[:800]}
 
 
-# ----------------------------------------------------------------- validate
-def validate_one(page: str, model: str, arm: str, seed: int) -> dict | None:
+def validate_one(page: str, model: str, arm: str, seed: int) -> dict:
     rd = rundir(page, model, arm, seed)
     run = json.loads((rd / "run.json").read_text())
     if (rd / "validation.json").is_file():
@@ -694,7 +678,7 @@ def validate_one(page: str, model: str, arm: str, seed: int) -> dict | None:
     (rd / "validation.json").write_text(json.dumps(val, indent=1, default=str))
     try:
         sys.path.insert(0, str(BENCH))
-        import rerun_predicates  # noqa: WPS433
+        import rerun_predicates
 
         checks = rerun_predicates.PREDICATES.get(page, [])
         txt = fr.read_text(errors="replace")
@@ -715,7 +699,6 @@ def validate_one(page: str, model: str, arm: str, seed: int) -> dict | None:
     return val
 
 
-# ---------------------------------------------------------------------- cli
 def _pages(s: str) -> list[str]:
     return PAGES16 if s == "all" else [p for p in s.split(",") if p]
 

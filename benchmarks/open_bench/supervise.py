@@ -109,39 +109,11 @@ def main() -> int:
             f"{len(todo)} pages: {','.join(todo)}",
             flush=True,
         )
-        pages = ",".join(todo)
         cli = [sys.executable, str(HERE / "open_bench.py")]
-        subprocess.run(
-            cli
-            + [
-                "prepare",
-                "--model",
-                a.model,
-                "--arm",
-                a.arm,
-                "--pages",
-                pages,
-                "--seed",
-                str(a.seed),
-            ],
-            check=True,
-        )
-        subprocess.run(
-            cli
-            + [
-                "run",
-                "--model",
-                a.model,
-                "--arm",
-                a.arm,
-                "--pages",
-                pages,
-                "--seed",
-                str(a.seed),
-                "--jobs",
-                str(a.jobs),
-            ]
-        )
+        args = ["--model", a.model, "--arm", a.arm, "--seed", str(a.seed)]
+        args += ["--pages", ",".join(todo)]
+        subprocess.run([*cli, "prepare", *args], check=True)
+        subprocess.run([*cli, "run", *args, "--jobs", str(a.jobs)])
         moved = archive_rate_limited(a.model, a.arm, a.seed)
         if moved:
             print(f"[supervise] rate-limited, archived for retry: {','.join(moved)}", flush=True)

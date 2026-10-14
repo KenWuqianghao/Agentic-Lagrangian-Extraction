@@ -21,7 +21,6 @@ import os
 import sys
 from pathlib import Path
 
-HERE = Path(__file__).resolve().parent
 TOOLKIT = Path(os.environ["FRGEN_TOOLKIT"])  # dir holding frgen/ and fr_lint.py
 sys.path.insert(0, str(TOOLKIT))
 

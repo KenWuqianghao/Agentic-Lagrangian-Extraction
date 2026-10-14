@@ -8,6 +8,7 @@ for p in B-L-SM HeavyN Wprime EffLRSM SMWeinberg pSPSS; do
   cp $fr $OUT/$p/model.fr
   echo "[replay] $p start $(date +%H:%M:%S)"
   /opt/homebrew/bin/python3 $HOME/Documents/Github/Agentic-Lagrangian-Extraction/pi_harness/hepval.py validate $fr --out $OUT/$p/validation --diag > $OUT/$p/report.md 2> $OUT/$p/stderr.txt
-  echo "[replay] $p done $(date +%H:%M:%S) exit=$?"
+  rc=$?
+  echo "[replay] $p done $(date +%H:%M:%S) exit=$rc"
 done
 echo "[replay] ALL DONE"

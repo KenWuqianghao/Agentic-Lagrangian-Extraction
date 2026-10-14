@@ -10,8 +10,10 @@ model whether it succeeded. Writes open_bench/report.json and report.md.
 
 from __future__ import annotations
 
+import importlib.util
 import json
 import sys
+import types
 from math import comb
 from pathlib import Path
 
@@ -22,13 +24,10 @@ sys.path.insert(0, str(BENCH))
 sys.path.insert(0, str(HEPTAPOD))
 sys.path.insert(0, str(HERE))
 
-# tools/frgen/__init__ imports orchestral; load only the parser the scorer needs.
-import importlib.util  # noqa: E402
-import types  # noqa: E402
-
 import rerun_predicates  # noqa: E402
 from open_bench import PAGES16  # noqa: E402
 
+# tools/frgen/__init__ imports orchestral; load only the parser the scorer needs.
 for _name in ("tools", "tools.frgen"):
     sys.modules.setdefault(_name, types.ModuleType(_name))
 _spec = importlib.util.spec_from_file_location(
@@ -70,8 +69,7 @@ def fisher_two_sided(a: int, n1: int, b: int, n2: int) -> float:
 
 def _cands() -> dict:
     d = json.loads((BENCH / "db_candidates.json").read_text())
-    items = d if isinstance(d, list) else d.get("candidates", d.get("models", []))
-    return {c.get("page") or c.get("name"): c for c in items if isinstance(c, dict)}
+    return {c["page"]: c for c in d["candidates"]}
 
 
 def collect(page: str, var: str, cands: dict) -> dict:
@@ -133,9 +131,9 @@ def collect(page: str, var: str, cands: dict) -> dict:
             except Exception:  # noqa: BLE001
                 ok = False
             preds[name] = bool(ok)
-        row["predicates_all"] = bool(preds) and all(preds.values()) if preds else None
+        row["predicates_all"] = all(preds.values()) if preds else None
         cand = cands.get(page)
-        if score and cand and cand.get("reference_fr"):
+        if cand and cand.get("reference_fr"):
             try:
                 s = score(str(fr), str(HEPTAPOD / cand["reference_fr"]), sm_fr=SM_FR)
                 if cand.get("n_new_fields"):
