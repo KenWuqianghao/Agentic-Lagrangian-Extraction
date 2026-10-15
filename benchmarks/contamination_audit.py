@@ -10,14 +10,24 @@ Did the extraction agent read the answer key?
 The original benchmark fleet (db_launch.sh) ran codex with the whole repo
 visible, and the physicist reference .fr files sit under
 eval/reference_cache/<page>/. This audit walks each run's codex_events.jsonl
-for shell commands that READ (cat/sed/head/grep/...) a reference file, and
-classifies the run:
+for shell commands that read a reference file, and classifies the run:
 
     OWN REFERENCE READ    the agent read its own model's reference -> the
                           extraction score measures copying, not extraction
     other reference read  read some other model's reference (idiom leakage)
     listed only           reference paths appeared in a listing, never read
     clean                 no reference path in any command
+
+What counts as a read: each command is split into its pipeline and list
+stages (a heredoc stays one stage). A stage reads a reference when it names a
+reference path and runs a command that shows or copies file contents (READ):
+cat, sed, rg, diff, cp, an inline python script, find -exec cat. cp counts
+because later reads of the copy name no reference path. A stage that only
+lists or measures (ls, find, wc, stat) is "listed". A path to the cache itself
+(eval/reference_cache, reference_cache/*) names every model's reference,
+including the run's own. A script file the agent runs (python3 x.py) can open
+paths that its command line does not name; the audit cannot see into it and
+counts those runs in script_runs.
 
 Writes contamination_audit.json next to this file.
 
@@ -28,11 +38,15 @@ from __future__ import annotations
 
 import json
 import re
+import shlex
 from collections import Counter
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-READ = re.compile(r"\b(cat|sed|head|tail|less|more|awk|grep|rg|python3?|bat|nl)\b")
+READ = re.compile(r"\b(cat|sed|head|tail|less|more|awk|grep|rg|python3?|bat|nl|diff|cmp|cp)\b")
+REF = re.compile(r"reference_cache(?:/([^/\s'\"]+))?")
+SCRIPT = re.compile(r"\b(?:python3?|sh|bash|zsh)\s+(?!-)\S+\.(?:py|sh)\b")
+SEPARATORS = {"|", "||", "&&", ";", "&"}
 
 
 def commands(events_path: Path) -> list[str]:
@@ -55,6 +69,42 @@ def commands(events_path: Path) -> list[str]:
     return out
 
 
+def stages(cmd: str) -> list[str]:
+    """The pipeline and list stages of `cmd`, after unwrapping `sh -lc "..."`."""
+    try:
+        words = shlex.split(cmd)
+        if len(words) == 3 and words[1] in ("-c", "-lc"):
+            cmd = words[2]
+        if "<<" in cmd:  # a heredoc body is code, not shell: keep it whole
+            return [cmd]
+        lex = shlex.shlex(cmd, posix=True, punctuation_chars=True)
+        lex.whitespace_split = True
+        tokens = list(lex)
+    except ValueError:
+        return [cmd]
+    out: list[list[str]] = [[]]
+    for t in tokens:
+        if t in SEPARATORS:
+            out.append([])
+        else:
+            out[-1].append(t)
+    return [" ".join(st) for st in out if st]
+
+
+def refs(stage: str) -> set[str]:
+    """Pages whose reference the stage names; "*" for the whole cache."""
+    return {m.group(1) if m.group(1) and not re.search(r"[*?\[]", m.group(1)) else "*"
+            for m in REF.finditer(stage)}
+
+
+def reads(cmd: str) -> tuple[set[str], set[str]]:
+    """(pages read, pages only listed) by `cmd`."""
+    read, listed = set(), set()
+    for st in stages(cmd):
+        (read if READ.search(st) else listed).update(refs(st))
+    return read, listed - read
+
+
 def audit() -> list[dict]:
     cands = json.loads((HERE / "db_candidates.json").read_text())["candidates"]
     rows = []
@@ -65,14 +115,15 @@ def audit() -> list[dict]:
             rows.append({"page": page, "verdict": "no log"})
             continue
         cmds = commands(ev)
-        own = f"reference_cache/{page}/"
-        own_read = [x for x in cmds if own in x and READ.search(x)]
-        other_read = [x for x in cmds if "reference_cache/" in x and READ.search(x) and own not in x]
-        listed = [x for x in cmds if "reference_cache" in x and not READ.search(x)]
+        seen = [(x, *reads(x)) for x in cmds]
+        own_read = [x for x, r, _ in seen if page in r or "*" in r]
+        other_read = [x for x, r, _ in seen if r - {page} and x not in own_read]
+        listed = [x for x, r, ls in seen if ls and not r]
         verdict = ("OWN REFERENCE READ" if own_read else "other reference read" if other_read
                    else "listed only" if listed else "clean")
         rows.append({"page": page, "verdict": verdict, "own_read": len(own_read),
                      "other_read": len(other_read), "listed": len(listed),
+                     "script_runs": sum(1 for x in cmds if SCRIPT.search(x)),
                      "example": (own_read or other_read or [""])[0][:200]})
     return rows
 

@@ -5,14 +5,16 @@
   "own_read": 0,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": ""
  },
  {
   "page": "368sextets",
   "verdict": "OWN REFERENCE READ",
-  "own_read": 4,
+  "own_read": 6,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '260,620p' eval/reference_cache/368sextets/368sextets.fr\""
  },
  {
@@ -21,6 +23,7 @@
   "own_read": 0,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": ""
  },
  {
@@ -29,14 +32,16 @@
   "own_read": 0,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": ""
  },
  {
   "page": "CHEIDI",
   "verdict": "OWN REFERENCE READ",
-  "own_read": 4,
-  "other_read": 2,
+  "own_read": 6,
+  "other_read": 0,
   "listed": 4,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,320p' eval/reference_cache/CHEIDI/HEIDI_bundle.fr\""
  },
  {
@@ -45,6 +50,7 @@
   "own_read": 4,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,260p' eval/reference_cache/ChernSimonsPortal/Chern-Simons-Portal.fr\""
  },
  {
@@ -53,6 +59,7 @@
   "own_read": 8,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,260p' eval/reference_cache/DMsimp/dm_s_spin0.fr\""
  },
  {
@@ -61,15 +68,17 @@
   "own_read": 0,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": ""
  },
  {
   "page": "GeneralU1",
-  "verdict": "other reference read",
-  "own_read": 0,
+  "verdict": "OWN REFERENCE READ",
+  "own_read": 2,
   "other_read": 4,
   "listed": 0,
-  "example": "/bin/zsh -lc \"sed -n '30,90p' eval/reference_cache/LeptoQuark/Zprime.fr && sed -n '54,230p' eval/reference_cache/LeptoQuark/Zprime.fr && sed -n '234,252p' eval/reference_cache/LeptoQuark/Zprime.fr\""
+  "script_runs": 0,
+  "example": "/bin/zsh -lc \"rg -n \\\"GeneralU1|U1X|xH|xPhi|xPhi|Zprime|Zp|Right|N_R|N\\\\[|MZp|g1p|gX|g'|Phi\\\" eval/reference_cache eval/benchmark_runs/GeneralU1 -S\""
  },
  {
   "page": "HNLs",
@@ -77,6 +86,7 @@
   "own_read": 16,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"rg -n \\\"M\\\\\"'$ClassesDescription|F'\"\\\\[|S\\\\[|V\\\\[|M\\\\\"'$Parameters|M'\"\\\\\"'$InteractionOrderHierarchy|Heavy|N4|fpi|Ue4|Umu4|Utau4|Mix|L[A-Za-z]\" eval/reference_cache/HNLs/effective_HeavyN"
  },
  {
@@ -85,6 +95,7 @@
   "own_read": 6,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,260p' eval/reference_cache/HeavyN/heavyN.fr\""
  },
  {
@@ -93,14 +104,16 @@
   "own_read": 16,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,260p' eval/reference_cache/HiggsCharacterisation/HiggsCharacterisation.fr\""
  },
  {
   "page": "LeptoQuark",
   "verdict": "OWN REFERENCE READ",
-  "own_read": 12,
-  "other_read": 2,
+  "own_read": 14,
+  "other_read": 0,
   "listed": 2,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,260p' eval/reference_cache/LeptoQuark/VLferm.fr\""
  },
  {
@@ -109,6 +122,7 @@
   "own_read": 12,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '260,620p' eval/reference_cache/MDMmodel/MDM.fr\""
  },
  {
@@ -117,6 +131,7 @@
   "own_read": 10,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,260p' eval/reference_cache/MSSMD/MSSMD.fr\""
  },
  {
@@ -125,6 +140,7 @@
   "own_read": 4,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,260p' eval/reference_cache/Monotops/monotops.fr\""
  },
  {
@@ -133,6 +149,7 @@
   "own_read": 0,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": ""
  },
  {
@@ -141,6 +158,7 @@
   "own_read": 0,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": ""
  },
  {
@@ -149,6 +167,7 @@
   "own_read": 4,
   "other_read": 2,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,260p' eval/reference_cache/SMWeinberg/weinberg_NLO.fr\""
  },
  {
@@ -157,6 +176,7 @@
   "own_read": 4,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,260p' eval/reference_cache/Sextets/SextetDiquarks.fr\""
  },
  {
@@ -165,6 +185,7 @@
   "own_read": 0,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": ""
  },
  {
@@ -173,6 +194,7 @@
   "own_read": 6,
   "other_read": 0,
   "listed": 2,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,260p' eval/reference_cache/Triplets/TripletDiquarks.fr\""
  },
  {
@@ -181,6 +203,7 @@
   "own_read": 10,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,260p' eval/reference_cache/VLC_LN/VLC.fr\""
  },
  {
@@ -189,6 +212,7 @@
   "own_read": 8,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,220p' eval/reference_cache/VLQ/VLQ_Chromomagnetic.fr\""
  },
  {
@@ -197,6 +221,7 @@
   "own_read": 0,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": ""
  },
  {
@@ -205,6 +230,7 @@
   "own_read": 6,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,260p' eval/reference_cache/pNG/SM_with_pNG.fr\""
  },
  {
@@ -213,6 +239,7 @@
   "own_read": 0,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": ""
  },
  {
@@ -221,6 +248,7 @@
   "own_read": 10,
   "other_read": 0,
   "listed": 0,
+  "script_runs": 0,
   "example": "/bin/zsh -lc \"sed -n '1,260p' eval/reference_cache/topBSM/topBSM.fr\""
  }
 ]

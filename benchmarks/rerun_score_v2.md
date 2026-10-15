@@ -8,7 +8,7 @@
 | ChernSimonsPortal | OWN REFERENCE READ | 1.00 | 0.12 | 0.12 | {'reference': 1, 'generated': 16, 'reference_raw': 1, 'generated_raw': 16}/1 | True | False | scored |
 | DMsimp | OWN REFERENCE READ | 0.67 | 0.67 | 0.89 | {'reference': 4, 'generated': 5, 'reference_raw': 4, 'generated_raw': 5}/4 | True | False | scored |
 | EffLRSM | clean | 1.00 | 1.00 | 1.00 | {'reference': 3, 'generated': 3, 'reference_raw': 3, 'generated_raw': 3}/3 | True | False | scored |
-| GeneralU1 | other reference read | 0.50 | 0.50 | 0.50 | {'reference': 15, 'generated': 5, 'reference_raw': 41, 'generated_raw': 5}/15 | True | False | scored |
+| GeneralU1 | OWN REFERENCE READ | 0.50 | 0.50 | 0.50 | {'reference': 15, 'generated': 5, 'reference_raw': 41, 'generated_raw': 5}/15 | True | False | scored |
 | HeavyN | OWN REFERENCE READ | 1.00 | 1.00 | 1.00 | {'reference': 3, 'generated': 3, 'reference_raw': 3, 'generated_raw': 3}/3 | True | False | scored |
 | HNLs | OWN REFERENCE READ | 0.98 | — | — | —/— | True | False | render_failed |
 | B-L-SM | clean | 0.62 | 0.75 | 0.75 | {'reference': 10, 'generated': 6, 'reference_raw': 30, 'generated_raw': 6}/10 | True | False | scored |
@@ -41,5 +41,5 @@
 - **mean_field_f1_original_same_models**: 0.73
 - **mean_field_f1_sandboxed_where_original_clean**: 0.771
 - **mean_field_f1_original_where_original_clean**: 0.646
-- **mean_field_f1_sandboxed_where_original_read_own_ref**: 0.561
-- **mean_field_f1_original_where_original_read_own_ref**: 0.791
+- **mean_field_f1_sandboxed_where_original_read_own_ref**: 0.558
+- **mean_field_f1_original_where_original_read_own_ref**: 0.774
