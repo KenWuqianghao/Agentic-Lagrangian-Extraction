@@ -39,6 +39,9 @@ class Case:
     required_tools: List[str] = field(default_factory=list)
     timeout_s: int = 900
     needs_external: List[str] = field(default_factory=list)
+    # The file name the prompt asks for. The .fr scorer scores only files of
+    # this name when it is set, and any .fr in the workdir when it is not.
+    expected_file: str | None = None
     scorer: Optional[Scorer] = None
 
     def score(self, workdir: Path, ctx: Dict[str, Any]) -> Dict[str, Any]:
@@ -46,7 +49,7 @@ class Case:
             return {"scored": False,
                     "reason": "no scorer; inspect the artifacts by hand"}
         try:
-            return self.scorer(workdir, ctx)
+            return self.scorer(workdir, {**ctx, "expected_file": self.expected_file})
         except Exception as e:                              # noqa: BLE001
             return {"scored": False, "passed": False,
                     "reason": f"scorer raised {type(e).__name__}: {e}"}
@@ -54,17 +57,26 @@ class Case:
 
 # --------------------------------------------------------------- scorers
 def _fr_renders(workdir: Path, ctx: Dict[str, Any]) -> Dict[str, Any]:
-    """A .fr exists and contains the constructs FeynRules requires."""
-    frs = sorted(workdir.rglob("*.fr"))
+    """A .fr exists and contains the constructs FeynRules requires.
+
+    With ``expected_file`` set, only files of that name count. Without it,
+    the case passes when any .fr has every construct.
+    """
+    expected = ctx.get("expected_file")
+    frs = sorted(workdir.rglob(expected or "*.fr"))
     if not frs:
-        return {"scored": True, "passed": False, "reason": "no .fr produced"}
-    text = frs[0].read_text(encoding="utf-8", errors="replace")
+        return {"scored": True, "passed": False,
+                "reason": f"no {expected or '.fr'} produced"}
     need = ["M$ModelName", "M$ClassesDescription", "M$Parameters"]
-    missing = [n for n in need if n not in text]
+    checked = []
+    for fr in frs:
+        text = fr.read_text(encoding="utf-8", errors="replace")
+        checked.append((fr, text, [n for n in need if n not in text]))
+    fr, text, missing = next((c for c in checked if not c[2]), checked[0])
     return {
         "scored": True,
         "passed": not missing,
-        "artifact": str(frs[0].relative_to(workdir)),
+        "artifact": str(fr.relative_to(workdir)),
         "reason": "ok" if not missing else f"missing {missing}",
         "bytes": len(text),
     }
@@ -152,6 +164,7 @@ def default_cases() -> List[Case]:
             ),
             required_tools=["GenerateFeynRulesModelTool"],
             timeout_s=600,
+            expected_file="S1_bench.fr",
             scorer=_fr_renders,
         ),
         Case(

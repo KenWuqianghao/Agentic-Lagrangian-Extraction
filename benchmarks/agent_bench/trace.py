@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import asdict, dataclass, field
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional
 
@@ -131,14 +132,19 @@ def from_toolbase_log(lines: Iterable[str], *, since: float = 0.0,
             rec = json.loads(line)
         except json.JSONDecodeError:
             continue
-        ts = _num(rec.get("ts") or rec.get("timestamp") or rec.get("time"))
-        if ts is not None:
+        ts = _epoch(rec.get("ts") or rec.get("timestamp") or rec.get("time"))
+        if ts is None:
+            # A record with no time cannot be placed inside a window, so it
+            # could belong to another run.
+            if since or until is not None:
+                continue
+        else:
             if ts < since:
                 continue
             if until is not None and ts > until:
                 continue
         seq += 1
-        ok = rec.get("ok")
+        ok = rec.get("ok", rec.get("success"))
         if ok is None and "error" in rec:
             ok = not rec.get("error")
         events.append(Event(
@@ -271,6 +277,20 @@ def _num(v: Any) -> Optional[float]:
         return float(v) if v is not None else None
     except (TypeError, ValueError):
         return None
+
+
+def _epoch(v: Any) -> float | None:
+    """Seconds since the epoch from a number or an ISO 8601 string.
+
+    toolbase writes ``datetime.now().isoformat()``: naive local time, which
+    ``timestamp()`` reads as local time, so it compares with ``time.time()``.
+    """
+    if isinstance(v, str):
+        try:
+            return datetime.fromisoformat(v).timestamp()
+        except ValueError:
+            pass
+    return _num(v)
 
 
 def _content_blocks(rec: Dict[str, Any]) -> List[Dict[str, Any]]:
