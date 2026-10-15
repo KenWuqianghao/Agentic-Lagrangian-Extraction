@@ -7,11 +7,16 @@ through, with no need to open a `.fr` or a log.
 pages: verbatim Lagrangian terms, blank-slate reconstruction, term-by-term
 paper cross-check, sign-off). This script fills the seven gaps:
 
-  331, B-L-SM, VLC_LN   passed validation, but the reverse run died on agent
-                        transport errors, so REVIEW.pdf is 2-3 empty pages
+  331, B-L-SM, VLC_LN   the reverse run died on agent transport errors, so
+                        REVIEW.pdf is 2-3 empty pages
   CHEIDI                reconstruction present, cross-check never ran
-  ALRM_general, HNLs,   never cleared the chain, so no review package exists
-  SLQrules              at all
+  ALRM_general, HNLs,   never cleared the repair loop, so no review package
+  SLQrules              exists at all
+
+The bundle that was sent (ian_review_bundle/, 25 models) was built from the
+withdrawn pre-2026-09-13 verdicts. A rebuild labels each dossier's chain status
+from the post-fix revalidation (revalidation_report.json): pass, fail or not
+scored.
 
 For each it writes a DOSSIER.md and compiles it with the same
 pandoc -> xelatex path the real review packages use, so the typography
@@ -37,6 +42,9 @@ sys.path.insert(0, str(HEPTAPOD))
 
 from tools.frgen.fr_parser import parse_lagrangian_terms  # noqa: E402
 from tools.reverse.pdf_build import compile_review_pdf  # noqa: E402
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import build_review_bundle as rb  # noqa: E402
 
 # model -> (why the review package is incomplete, physicist-facing note)
 INCOMPLETE = {
@@ -138,7 +146,16 @@ def _fence(text: str, lang: str = "mathematica") -> list[str]:
     return ["```" + lang, text.rstrip(), "```", ""]
 
 
-def dossier_md(model: str, status: str, note: str, failing: bool) -> str:
+def chain_status() -> dict[str, str]:
+    """model -> "pass", "fail" or "not scored" from the post-fix revalidation."""
+    passing, failing, unscored = rb._verdicts()
+    out = {m: "pass" for m in passing}
+    out.update({m: "fail" for m in failing})
+    out.update({m: "not scored" for m in unscored})
+    return out
+
+
+def dossier_md(model: str, status: str, note: str, chain: str) -> str:
     fr_path, provenance = _final_fr(model)
     fr_text = _read(fr_path) if fr_path else ""
     terms = parse_lagrangian_terms(fr_text) if fr_text else []
@@ -157,13 +174,22 @@ def dossier_md(model: str, status: str, note: str, failing: bool) -> str:
         "| item | value |",
         "|---|---|",
         f"| model | `{model}` |",
-        f"| chain status | {'did not pass' if failing else 'passed the full chain'} |",
+        f"| chain status | {chain} |",
         f"| Lagrangian source | `{provenance}` |",
         f"| Lagrangian terms found | {len(terms)} |",
         "",
     ]
 
-    if failing:
+    if chain == "not scored":
+        L += [
+            "## Why this model has no verdict",
+            "",
+            "The harness could not score this model: it does not declare "
+            "which Lagrangian is the total, so there is nothing defensible to "
+            "compile. It is neither passed nor failed.",
+            "",
+        ]
+    elif chain == "fail":
         L += [
             "## Why this model matters to you",
             "",
@@ -210,11 +236,12 @@ def dossier_md(model: str, status: str, note: str, failing: bool) -> str:
             # the start of round N — the failure it was asked to fix, not the
             # outcome. Labelling it "final result" would contradict the status
             # line for every model that went on to pass.
-            outcome = ("The model **passed** after this round; the report "
-                       "below is the state that was repaired, not the final "
-                       "one."
-                       if not failing else
-                       "The model still did not pass after this round.")
+            outcome = {
+                "pass": "The model **passed** after this round; the report "
+                "below is the state that was repaired, not the final one.",
+                "fail": "The model still did not pass after this round.",
+            }.get(chain, "The model has no pass or fail verdict after the "
+                  "2026-09-13 correction.")
             L += [
                 "## The last failure the loop worked on",
                 "",
@@ -283,15 +310,15 @@ def main() -> int:
             print(f"  {m:24} {name:16} {pages:3} pages")
         return 0
 
-    targets = [(m, s, n, False) for m, (s, n) in INCOMPLETE.items()]
-    targets += [(m, s, n, True) for m, (s, n) in FAILING.items()]
+    chain = chain_status()
+    targets = [(m, s, n) for m, (s, n) in (INCOMPLETE | FAILING).items()]
 
     rc = 0
-    for model, status, note, failing in targets:
+    for model, status, note in targets:
         out_dir = HERE / model / "dossier"
         out_dir.mkdir(parents=True, exist_ok=True)
         md = out_dir / "DOSSIER.md"
-        md.write_text(dossier_md(model, status, note, failing), encoding="utf-8")
+        md.write_text(dossier_md(model, status, note, chain[model]), encoding="utf-8")
         res = compile_review_pdf(str(md), str(out_dir / "DOSSIER.pdf"))
         if res.get("ok"):
             pages = _pages(out_dir / "DOSSIER.pdf")

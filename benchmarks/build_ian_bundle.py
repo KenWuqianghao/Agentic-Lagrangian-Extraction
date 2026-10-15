@@ -11,6 +11,10 @@ reconstruction -> paper cross-check -> REVIEW.pdf) against the model's own
 paper, then assemble ian_review_bundle/<model>/{<model>.fr, REVIEW.pdf} plus
 a README inventory, and zip it.
 
+The bundle that was sent (ian_review_bundle/, 25 models) was built from the
+withdrawn pre-2026-09-13 verdicts. A rebuild selects from the post-fix
+revalidation (revalidation_report.json `full_chain_ok`).
+
 Resumable: a model is skipped on re-run when its REVIEW.pdf exists and its
 reverse check finished (crosscheck.md, or reconstruction.md with no paper).
 An aborted run still writes REVIEW.pdf, so the PDF alone is not enough.
@@ -40,7 +44,7 @@ import config  # noqa: E402
 from tools.reverse.reverse_tool import ReverseLagrangianTool  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-import validation_benchmark as vb  # noqa: E402
+import build_review_bundle as rb  # noqa: E402
 
 BUNDLE = HERE / "ian_review_bundle"
 DEFAULT_AGENT = ("codex exec --sandbox read-only --skip-git-repo-check "
@@ -48,24 +52,22 @@ DEFAULT_AGENT = ("codex exec --sandbox read-only --skip-git-repo-check "
                  "--output-last-message {output}")
 
 
+PHASE_TAG = {"repair": "repaired (phase 1)", "repair2": "repaired (phase 2)",
+             "repair3": "repaired (phase 3)"}
+
+
 def passing_models() -> list[tuple[str, Path, str]]:
-    """(page, final .fr path, provenance) for every full-chain-passing model."""
+    """(page, scored .fr path, provenance) for every model that passes the full
+    chain in the post-fix revalidation."""
+    passing, _, _ = rb._verdicts()
+    sources = rb._fr_sources()
     out: list[tuple[str, Path, str]] = []
-    rep = json.loads((HERE / "validation_benchmark_report.json").read_text())
-    for r in rep["rows"]:
-        if (r.get("status") == "compiled" and r.get("madgraph_import_ok")
-                and vb.all_checks_pass(r.get("checks"))):
-            out.append((r["page"], HERE / r["page"] / "model" / f"{r['page']}_gen.fr",
-                        "passed one-shot"))
-    for fn, sub, tag in (("repair_benchmark_report.json", "repair", "repaired (phase 1)"),
-                         ("repair_benchmark_phase2_report.json", "repair2", "repaired (phase 2)"),
-                         ("repair_benchmark_phase3_report.json", "repair3", "repaired (phase 3)")):
-        p = HERE / fn
-        if not p.is_file():
-            continue
-        for r in json.loads(p.read_text())["results"]:
-            if r.get("final_status") == "pass_repaired":
-                out.append((r["page"], HERE / r["page"] / sub / "final.fr", tag))
+    for page in passing:
+        src = sources[page]
+        if src == "one-shot":
+            out.append((page, HERE / page / "model" / f"{page}_gen.fr", "passed one-shot"))
+        else:
+            out.append((page, HERE / page / src, PHASE_TAG[src.split("/")[0]]))
     return out
 
 
@@ -149,13 +151,14 @@ def assemble(results: dict[str, dict]) -> Path:
         lines.append(f"| {page} | {arxiv} | {tag} | {status} |")
     lines += [
         "",
-        "Benchmark context: 28 models attempted; 15 passed one-shot; the closed "
-        "repair loop recovered 10 more (25/28). Full analysis is included as "
-        "REPAIR_BENCHMARK_ANALYSIS.md.",
+        f"Benchmark context: {len(rows)} of 28 models pass the full chain with the "
+        "check verdicts after the 2026-09-13 correction (CORRECTION_2026-09-13.md). "
+        "Full analysis is included as REPAIR_BENCHMARK_ANALYSIS.md.",
         "",
     ]
     (BUNDLE / "README.md").write_text("\n".join(lines))
-    shutil.copy2(HERE / "REPAIR_BENCHMARK_ANALYSIS.md", BUNDLE / "REPAIR_BENCHMARK_ANALYSIS.md")
+    for top in ("REPAIR_BENCHMARK_ANALYSIS.md", "CORRECTION_2026-09-13.md"):
+        shutil.copy2(HERE / top, BUNDLE / top)
 
     zpath = HERE / "ian_review_bundle.zip"
     if zpath.exists():

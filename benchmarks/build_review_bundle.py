@@ -8,9 +8,11 @@ Produces `review_bundle/` and `review_bundle.zip`:
     CONVENTION_DISAGREEMENTS.md      graded reconstruction-vs-paper rows
     REPAIR_BENCHMARK_ANALYSIS.md     full write-up and error taxonomy
     reports/                         the four machine-generated reports
-    passing/<model>/                 validated .fr + one PDF      (18 models)
-    failing/<model>/                 best .fr + failure log        (1 model)
-    unscored/<model>/                .fr + dossier, no declared total (9)
+    passing/<model>/                 validated .fr + one PDF
+    failing/<model>/                 scored .fr + failure log
+    unscored/<model>/                .fr + dossier, no declared total
+
+The grouping comes from revalidation_report.json (post-2026-09-13 verdicts).
 
 Reads only files in this directory. No FeynRules, no agent, no network.
 
@@ -73,6 +75,12 @@ def _verdicts() -> tuple[list[str], list[str], list[str]]:
     unscored = sorted(known - set(scored))
     return passing, failing, unscored
 
+
+def _fr_sources() -> dict[str, str]:
+    """page -> the file the revalidation scored: "one-shot" or "<phase>/final.fr"."""
+    rows = json.loads((HERE / "revalidation_report.json").read_text())["rows"]
+    return {r["page"]: r["fr_source"] for r in rows}
+
 REPORTS = (
     "validation_benchmark_report.md",
     "repair_benchmark_report.md",
@@ -111,13 +119,23 @@ def _crosscheck_counts() -> dict:
     return json.loads(p.read_text())
 
 
-def _last_round_label(model: str) -> str:
-    rd = _last_round(model)
-    return f"{rd.parent.name}/{rd.name}" if rd else "no repair round recorded"
+def _draft_name(model: str, rd: Path) -> str:
+    """Bundle name of a repair draft that ships next to the scored one-shot file."""
+    return f"{model}_{rd.parent.name}_{rd.name}.fr"
 
 
-def _place(model: str, dst: Path, have_review: set,
-           pdf_pages: dict) -> None:
+def _shipped_label(model: str, have_review: set, sources: dict) -> str:
+    """What `<model>.fr` is in the bundle, and the draft name if one ships too."""
+    src = sources.get(model)
+    if src != "one-shot":
+        return f"`{src}`" if src else "—"
+    rd = None if model in have_review else _last_round(model)
+    if rd:
+        return f"the one-shot file; last repair draft: `{_draft_name(model, rd)}`"
+    return "the one-shot file"
+
+
+def _place(model: str, dst: Path, have_review: set, pdf_pages: dict, sources: dict) -> None:
     """One model directory: the .fr files plus exactly one PDF to open.
 
     Where the reverse run finished, that PDF is the completed REVIEW.pdf.
@@ -137,7 +155,10 @@ def _place(model: str, dst: Path, have_review: set,
     else:
         rd = _last_round(model)
         if rd:
-            shutil.copy2(rd / "model.fr", dst / f"{model}.fr")
+            # When the one-shot file is the scored artifact, it ships as
+            # <model>.fr and the draft keeps its own name.
+            fr_name = _draft_name(model, rd) if sources.get(model) == "one-shot" else f"{model}.fr"
+            shutil.copy2(rd / "model.fr", dst / fr_name)
             for name in ("VALIDATION_REPORT.md", "REPAIR_HISTORY.md"):
                 if (rd / name).is_file():
                     shutil.copy2(rd / name, dst / name)
@@ -166,15 +187,16 @@ def assemble() -> None:
     # empty review, so each model directory holds exactly one PDF to open.
     passing, failing, unscored = _verdicts()
     have_review = set(_passing_models())
+    sources = _fr_sources()
     pdf_pages: dict[str, tuple[str, int]] = {}
 
     for group, members in (("passing", passing), ("failing", failing),
                            ("unscored", unscored)):
         (BUNDLE / group).mkdir()
         for m in members:
-            _place(m, BUNDLE / group / m, have_review, pdf_pages)
+            _place(m, BUNDLE / group / m, have_review, pdf_pages, sources)
 
-    fail_rows = [(m, _last_round_label(m)) for m in failing]
+    fail_rows = [(m, _shipped_label(m, have_review, sources)) for m in failing]
 
     # ---- reports and analysis ----------------------------------------
     (BUNDLE / "reports").mkdir()
@@ -182,7 +204,8 @@ def assemble() -> None:
         if (HERE / r).is_file():
             shutil.copy2(HERE / r, BUNDLE / "reports" / r)
     for top in ("REPAIR_BENCHMARK_ANALYSIS.md", "CONVENTION_DISAGREEMENTS.md",
-                "LAGRANGIAN_AMBIGUITY.md", "CORRECTION_2026-08.md"):
+                "LAGRANGIAN_AMBIGUITY.md", "CORRECTION_2026-08.md",
+                "CORRECTION_2026-09-13.md"):
         if (HERE / top).is_file():
             shutil.copy2(HERE / top, BUNDLE / top)
 
@@ -200,6 +223,20 @@ def assemble() -> None:
     print(f"[bundle] {len(passing)} passing, {len(failing)} failing, "
           f"{len(unscored)} unscored")
     print(f"[bundle] {n} files -> {ZIP.name} ({ZIP.stat().st_size // 1024} KB)")
+
+
+_WHY_FAIL_DEFAULT = (
+    "Passed before the 2026-09-13 correction and fails a FeynRules check "
+    "after it; see `CORRECTION_2026-09-13.md`."
+)
+_WHY_FAIL = {
+    "SLQrules": "A syntax error at line 660 stops FeynRules loading the model, so "
+    "its total Lagrangian is never defined. The repair loop never "
+    "produced a working version, so the scored file is the one-shot file. "
+    "Behind it sits a residual SU(2)-multiplet covariant-derivative "
+    "Hermiticity violation that survived nine rounds — genuinely hard "
+    "physics rather than a tooling gap.",
+}
 
 
 def _readme(passing: list[str], fail_rows: list[tuple[str, str]],
@@ -220,12 +257,15 @@ def _readme(passing: list[str], fail_rows: list[tuple[str, str]],
         "",
         "| outcome | models |",
         "|---|---:|",
-        "| clear the full chain | **18** |",
-        "| fail the full chain | 1 |",
-        "| cannot be scored — see below | 9 |",
-        "| **total** | **28** |",
+        f"| clear the full chain | **{len(passing)}** |",
+        f"| fail the full chain | {len(fail_rows)} |",
+        f"| cannot be scored — see below | {len(unscored)} |",
+        f"| **total** | **{len(passing) + len(fail_rows) + len(unscored)}** |",
         "",
         "## Read this first",
+        "",
+        "These counts use the FeynRules check verdicts after the 2026-09-13 "
+        "correction. `CORRECTION_2026-09-13.md` gives each verdict that changed.",
         "",
         "An earlier version of this bundle reported 25 of 28 passing. That "
         "number was wrong and is withdrawn.",
@@ -325,25 +365,26 @@ def _readme(passing: list[str], fail_rows: list[tuple[str, str]],
                  if m in no_cc else "full term-by-term cross-check")
         L.append(f"| {m} | `{name}` | {pages} | {state} |")
 
+    L.append("")
+    n_no_cc = sum(m in no_cc for m in passing)
+    if n_no_cc:
+        L += [
+            f"{n_no_cc} of these have no cross-check. Their reverse runs hit "
+            "agent-transport failures, not a physics result. Treat them as not "
+            "yet reviewed — their `DOSSIER.pdf` says so on page 1.",
+            "",
+        ]
     L += [
-        "",
-        f"{len(no_cc)} of these have no cross-check. Their reverse runs hit "
-        "agent-transport failures, not a physics result. Treat them as not "
-        "yet reviewed — their `DOSSIER.pdf` says so on page 1.",
-        "",
         f"### failing/ ({len(fail_rows)} models)",
         "",
         "Scored, and did not clear the chain.",
         "",
-        "| model | best attempt | why |",
+        "| model | `<model>.fr` is | why |",
         "|---|---|---|",
-        "| SLQrules | " + dict(fail_rows).get("SLQrules", "—") +
-        " | A syntax error at line 660 stops FeynRules loading the model, so "
-        "its total Lagrangian is never defined. The repair loop never "
-        "produced a working version, so this is the one-shot file. Behind it "
-        "sits a residual SU(2)-multiplet covariant-derivative Hermiticity "
-        "violation that survived nine rounds — genuinely hard physics rather "
-        "than a tooling gap. |",
+    ]
+    for m, shipped in fail_rows:
+        L.append(f"| {m} | {shipped} | {_WHY_FAIL.get(m, _WHY_FAIL_DEFAULT)} |")
+    L += [
         "",
         f"### unscored/ ({len(unscored)} models)",
         "",
