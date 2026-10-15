@@ -110,7 +110,7 @@ def stages(cmd: str) -> list[str]:
     try:
         words = shlex.split(cmd)
         i = command(words)
-        if len(words) == i + 3 and Path(words[i]).name in SHELLS and words[i + 1] in ("-c", "-lc"):
+        if len(words) >= i + 3 and Path(words[i]).name in SHELLS and words[i + 1] in ("-c", "-lc"):
             cmd = words[i + 2]
         head, here, body = cmd.partition("<<")  # a heredoc body is code, not shell
         # The lexer drops quotes, so hide find's quoted ; from the separators.
