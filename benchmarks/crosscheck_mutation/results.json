@@ -535,8 +535,11 @@
     "n_rows": 24,
     "n_flagged": 6,
     "n_substantive": 1,
-    "rule_hits": [],
-    "rule_detected": false,
+    "rule_hits": [
+      "\u03a6_u ~ (**6**, **1**, +1/3), L = \u22121 \u2014 Table X | \u03a6_u: colour **6**, SU(2) singlet, Q = +1/3, **Y = \u22121/3**, L = \u22121 | **disagree** | The paper fixes Y_{\u03a6_u} = +1/3. The reconstruction reports Y = \u22121/3 in the file, with Q = +1/3. The sign of Y is opposite to the paper.",
+      "baryon number (not assigned in the paper) | B = \u22121/3 for all four fields, marked as implied | extra-in-reconstruction | The value is consistent with the operators, but the paper assigns only L and Y."
+    ],
+    "rule_detected": true,
     "judge": {
       "named": "yes",
       "quote": "\u03a6_u ~ (**6**, **1**, +1/3), L = \u22121 \u2014 Table X | \u03a6_u: colour **6**, SU(2) singlet, Q = +1/3, **Y = \u22121/3**, L = \u22121 | **disagree** | The paper fixes Y_{\u03a6_u} = +1/3. The reconstruction reports Y = \u22121/3 in the file, with Q = +1/3. The sign of Y is opposite to the paper.",
@@ -932,8 +935,15 @@
     "n_rows": 44,
     "n_flagged": 16,
     "n_substantive": 3,
-    "rule_hits": [],
-    "rule_detected": false,
+    "rule_hits": [
+      "Photon coupling of `Y`: `A Y^{+Q_Y} Y^{-Q_Y} = i a_+ e / 2` (Table `gauges`) | absent; `FS[Yp]` is the plain curl, `Yp` is not in `DC` | **missing-in-reconstruction** | See D3.",
+      "`Z`, `Z'` couplings of `Y` and `V`, and `V-W-Y` triple coupling (Table `gauges`) | absent | **missing-in-reconstruction** | See D3.",
+      "Hypercharge of `D`: `Y = Q = -1/3` for a `T^3 = 0` state; confirmed by `Dbar D A = -i(3sqrt(3)beta-1)e/6 = -ie/3` (Table `gauge-fermion`) | `Y_DQ = +1/3` | **disagree** | Sign flip. See D1. This is the most serious item.",
+      "`Tbar b Y^{-Q_Y}`, `g_L = -i e V_tb/(sqrt(2) s_W)` (Table `gauge-fermion`) | none | **missing-in-reconstruction** | See D7.",
+      "`ebar E_e Y^{+Q_Y}`, `mubar E_mu Y`, `taubar E_tau Y`, `g_L = -i g/sqrt(2)` (Table `gauge-fermion`) | none | **missing-in-reconstruction** | See D8.",
+      "*D8. The lepton currents through `Y'` and `V'` are absent. Severity: substantive.**"
+    ],
+    "rule_detected": true,
     "judge": {
       "named": "yes",
       "quote": "Hypercharge of `D`: `Y = Q = -1/3` for a `T^3 = 0` state; confirmed by `Dbar D A = -i(3sqrt(3)beta-1)e/6 = -ie/3` (Table `gauge-fermion`) | `Y_DQ = +1/3` | **disagree** | Sign flip. See D1. This is the most serious item.",
@@ -1113,8 +1123,10 @@
     "n_rows": 23,
     "n_flagged": 7,
     "n_substantive": 2,
-    "rule_hits": [],
-    "rule_detected": false,
+    "rule_hits": [
+      "$Q_\\varphi=+2/3$, fixed by both $\\varphi$ terms in Eq. (1) and by the RPV up-squark reading in Sec. \"Beyond the Standard Model Explorations\" | declared `Q -> -2/3` (\u00a72 field table) | **disagree** | Sign flip. The reconstruction detects the same problem on its own and states that both interaction ter"
+    ],
+    "rule_detected": true,
     "judge": {
       "named": "yes",
       "quote": "Electric charge of $\\varphi$ is $-2/3$ instead of $+2/3$ \u2014 substantive. A human should check the `QuantumNumbers -> {Q -> ...}` line of the `vphi` class against Eq. (1): both $\\varphi$ vertices and the paper's own RPV up-squark reading need $+2/3$, so the declared value breaks electric-charge conservation and flips the sign of the $\\varphi$\u2013photon coupling.",

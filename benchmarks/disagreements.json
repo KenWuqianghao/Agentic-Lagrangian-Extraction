@@ -29,9 +29,9 @@
   "VLC_LN"
  ],
  "counts": {
-  "convention": 45,
-  "substantive": 79,
-  "cosmetic": 13,
+  "convention": 41,
+  "substantive": 82,
+  "cosmetic": 14,
   "unclassified": 0
  },
  "per_model": {
@@ -82,7 +82,7 @@
    },
    {
     "issue": "Second gauge-covariant \\(c_2\\) operator differs in Higgs conjugation/order",
-    "severity": "convention",
+    "severity": "substantive",
     "check": "",
     "theme": "Hermitian conjugation and complex phases"
    },
@@ -164,7 +164,7 @@
   "EffLRSM": [
    {
     "issue": "Light-neutrino charged-current conjugation",
-    "severity": "convention",
+    "severity": "substantive",
     "check": "a human should check the original implementation\u2019s particle class and FeynRules conventions to see whether the field is actually the charge-conjugated light neutrino or whether the reconstruction normalized it away incorrectly.",
     "theme": "Hermitian conjugation and complex phases"
    },
@@ -378,7 +378,7 @@
    },
    {
     "issue": "Missing Eq. (5) scalar-parameter relations",
-    "severity": "convention",
+    "severity": "substantive",
     "check": "A human should check the implementation definitions of \\(\\mu_S^2,\\mu_H^2,\\lambda_H,\\lambda_S,\\kappa\\) against the paper\u2019s formulas, especially the sign and absolute-value conventions.",
     "theme": "Overall sign / term ordering"
    },
@@ -396,7 +396,7 @@
    },
    {
     "issue": "Extra Goldstone/full-doublet conventions",
-    "severity": "convention",
+    "severity": "cosmetic",
     "check": "A human should check only that the \\(-iG^+\\) and \\(+iG^0\\) phase conventions are used consistently in the implementation\u2019s gauge fixing and Feynman rules.",
     "theme": "Hermitian conjugation and complex phases"
    },

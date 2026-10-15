@@ -66,9 +66,12 @@ term. Those graded rows are collected in
 
 | grade | rows | meaning |
 |---|---:|---|
-| convention | 45 | probably the same physics written differently |
-| substantive | 79 | a real difference in content — read these |
-| cosmetic | 13 | presentation only |
+| convention | 41 | probably the same physics written differently |
+| substantive | 82 | a real difference in content — read these |
+| cosmetic | 14 | presentation only |
+
+The counts were corrected on 2026-10-15. The grade parser had read the first
+severity word in a row instead of the stated grade.
 
 **These grades come from an agent, not a physicist. They are the question
 list, not the answer.**

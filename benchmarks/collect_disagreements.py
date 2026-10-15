@@ -76,7 +76,16 @@ def _is_separator(line: str) -> bool:
     return bool(re.fullmatch(r"[\s|:\-]+", line.strip())) and "-" in line
 
 
+GRADE_LEAD_RE = re.compile(r"^[\s*_`(\[]*(convention|substantive|cosmetic)\b", re.I)
+SEVERITY_FIELD_RE = re.compile(
+    r"\b(?:severity|grade|verdict)\b[\s*_`:=\-—]*(convention|substantive|cosmetic)\b", re.I)
+
+
 def _classify(text: str) -> str:
+    """The stated grade (leading word or `severity:` field), else the first grade word."""
+    m = GRADE_LEAD_RE.match(text) or SEVERITY_FIELD_RE.search(text)
+    if m:
+        return m.group(1).lower()
     low = text.lower()
     for s in SEVERITIES:
         if s in low:

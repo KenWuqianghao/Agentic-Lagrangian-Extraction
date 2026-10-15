@@ -704,7 +704,8 @@ def score(args):
             r["n_rows"] = len(_rows(md))
             r["n_flagged"] = len(rows)
             r["n_substantive"] = sum(1 for s in sev if re.search(r"substantive", s, re.I))
-            toks = [t for t in c["tokens"] if len(t) > 1]
+            # identifiers of any length (quantum numbers Q, Y); not "?" or a bare factor "2"
+            toks = [t for t in c["tokens"] if re.fullmatch(r"[A-Za-z_]\w*", t)]
             hit = []
             for row in rows:
                 blob = " | ".join(row["cells"])

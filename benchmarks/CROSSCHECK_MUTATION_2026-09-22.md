@@ -41,13 +41,17 @@ Code: `crosscheck_mutation.py`. Data: `crosscheck_mutation/<case>/` with
 
 | set | n | named by the reviewer (judge) | named by the rule |
 |---|---|---|---|
-| mutants | 31 | 31 yes | 19 |
+| mutants | 31 | 31 yes | 21 |
 | real findings | 3 | 2 yes, 1 partial | — |
 | controls | 8 | — | — |
 
 By operator, all named: drop epsilon 1/1, flip charge 5/5, drop cutoff 1/1,
 drop conjugation 2/2, invert root 3/3, factor of two 8/8, delete term 8/8,
 swap chirality 3/3.
+
+The rule count was corrected on 2026-10-15 from 19 to 21: the scorer had dropped
+one-letter quantum-number tokens (`Q`, `Y`), and the old 19 also counted the
+excluded comment-only mutant (`score_rule.md` counts all 32: 22/32).
 
 The rule undercounts because the reviewer writes in physics, not in `.fr`
 symbols; the judge reads the physics. Two examples of what "named" means:

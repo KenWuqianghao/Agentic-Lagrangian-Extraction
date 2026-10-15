@@ -15,9 +15,9 @@ Grade meanings, as the cross-check agent used them:
 
 | grade | rows |
 |---|---:|
-| convention | 45 |
-| substantive | 79 |
-| cosmetic | 13 |
+| convention | 41 |
+| substantive | 82 |
+| cosmetic | 14 |
 | unclassified | 0 |
 
 Parsed from 21 cross-check reports.
@@ -31,7 +31,7 @@ These models are in the bundle with a `.fr` and a `REVIEW.pdf`, but the reverse 
 - `CHEIDI`
 - `VLC_LN`
 
-## Convention disagreements (45)
+## Convention disagreements (41)
 
 ### Chirality and projectors
 
@@ -52,19 +52,14 @@ These models are in the bundle with a `.fr` and a `REVIEW.pdf`, but the reverse 
 ### Hermitian conjugation and complex phases
 
 - **368sextets** — Scalar operators are written with \(\Phi^\dagger\) and reordered barred spinors rather than the paper’s \(\Phi(q_R^c\sigma\ell_R)\)
-- **ChernSimonsPortal** — Second gauge-covariant \(c_2\) operator differs in Higgs conjugation/order
 - **DMsimp** — Complex scalar dark matter \(X_c\)
   - *check:* A human should check whether the implementation file was expected to include scalar-DM options beyond the paper’s explicit Lagrangian.
 - **DMsimp** — Complex scalar vector-current coupling to \(Y_1\)
   - *check:* A human should check whether this is an implementation extension for scalar DM rather than a mismatch with the fermionic paper model.
-- **EffLRSM** — Light-neutrino charged-current conjugation
-  - *check:* a human should check the original implementation’s particle class and FeynRules conventions to see whether the field is actually the charge-conjugated light neutrino or whether the reconstruction normalized it away incorrectly.
 - **HeavyN** — The reconstruction uses \(N_i\) directly, while Eq. (9) writes \(N^c\).
   - *check:* For Majorana heavy neutrinos this is usually equivalent, but check the implementation’s Majorana/self-conjugate declaration and fermion-flow conventions.
 - **HiggsCharacterisation** — Charged spin-0 derivative \(W\) term uses the complex coefficient on the charge-conjugate structure relative to eq. (2.4).
   - *check:* Check the implementation’s definition of `kHdw`; it may be the complex conjugate of the paper’s \(\kappa_{H\partial W}\).
-- **MDMmodel** — Extra Goldstone/full-doublet conventions
-  - *check:* A human should check only that the \(-iG^+\) and \(+iG^0\) phase conventions are used consistently in the implementation’s gauge fixing and Feynman rules.
 - **Monotops** — Real neutral scalar/vector assumptions
   - *check:* A human should check whether `SMET` and `VMET` are explicitly self-conjugate in the implementation, since the paper only identifies them as neutral invisible bosonic states.
 - **pSPSS** — Real versus complex active-sterile mixings
@@ -120,8 +115,6 @@ These models are in the bundle with a `.fr` and a `REVIEW.pdf`, but the reverse 
 - **368sextets** — Color tensor \(\mathcal C\) is not named \(J\) and is expressed through \(K\)-type tensors
 - **HeavyN** — The charged-current and neutral-current heavy-neutrino terms have the opposite displayed overall sign from Eq. (9).
   - *check:* Check the FeynRules sign convention, field ordering, and whether a field or mixing-parameter phase redefinition makes the signs equivalent in generated vertices.
-- **MDMmodel** — Missing Eq. (5) scalar-parameter relations
-  - *check:* A human should check the implementation definitions of \(\mu_S^2,\mu_H^2,\lambda_H,\lambda_S,\kappa\) against the paper’s formulas, especially the sign and absolute-value conventions.
 - **MSSMD** — Majorana assignment for \(n_1\) and \(n_D\)
   - *check:* Check the underlying dark SUSY model reference or implementation, since the paper calls them neutralinos but does not explicitly state the Majorana convention in the supplied text.
 - **Monotops** — Extra electroweak quantum numbers
@@ -140,7 +133,7 @@ These models are in the bundle with a `.fr` and a `REVIEW.pdf`, but the reverse 
 
 - **MDMmodel** — Top-partner mass mapping \(M\leftrightarrow M_\Delta=M_{T'}c_l\)
 
-## Substantive disagreements (79)
+## Substantive disagreements (82)
 
 ### Chirality and projectors
 
@@ -170,8 +163,11 @@ These models are in the bundle with a `.fr` and a `REVIEW.pdf`, but the reverse 
 
 ### Hermitian conjugation and complex phases
 
+- **ChernSimonsPortal** — Second gauge-covariant \(c_2\) operator differs in Higgs conjugation/order
 - **ChernSimonsPortal** — Broken \(XW^+W^-\) term lacks an explicit antisymmetrized or Hermitian-conjugate contribution
   - *check:* A human should check the generated Feynman rule and confirm whether it produces the paper’s \((k_2-k_1)\) momentum structure in Eq. (28).
+- **EffLRSM** — Light-neutrino charged-current conjugation
+  - *check:* a human should check the original implementation’s particle class and FeynRules conventions to see whether the field is actually the charge-conjugated light neutrino or whether the reconstruction normalized it away incorrectly.
 - **GeneralU1** — Dirac neutrino Yukawa uses \(H^\dagger\) in the reconstruction instead of the Higgs contraction appearing in Eq. (1).
   - *check:* Check the original implementation’s \(SU(2)\), hypercharge, and \(U(1)_X\) conventions, because with Table I charges the reconstructed \(H^\dagger\) term is not gauge invariant for general \(x_H\).
 - **GeneralU1** — SM Higgs potential terms \(-m_h^2H^\dagger H+\lambda(H^\dagger H)^2\) from Eq. (2) are absent.
@@ -315,6 +311,8 @@ These models are in the bundle with a `.fr` and a `REVIEW.pdf`, but the reverse 
   - *check:* Check whether the implementation defines `kw4` with an implicit minus sign relative to the paper.
 - **LeptoQuark** — Missing \(G'\) mass term
   - *check:* A human should check whether the coloron mass is included elsewhere in the implementation or only assigned as a particle property.
+- **MDMmodel** — Missing Eq. (5) scalar-parameter relations
+  - *check:* A human should check the implementation definitions of \(\mu_S^2,\mu_H^2,\lambda_H,\lambda_S,\kappa\) against the paper’s formulas, especially the sign and absolute-value conventions.
 - **Sextets** — Missing \(SU(2)_L\) triplet \(QQ\) electroweak option
   - *check:* A human should check whether Table 1 is meant as required model content for this implementation or only a catalogue of possible diquark assignments.
 
@@ -323,12 +321,17 @@ These models are in the bundle with a `.fr` and a `REVIEW.pdf`, but the reverse 
 - **topBSM** — Missing \(O^{(1,3)}_{u\phi}\), Eq. (3).
   - *check:* Check whether the implementation contains a \(tuh\) FCNC Yukawa vertex under another name.
 
-## Cosmetic disagreements (13)
+## Cosmetic disagreements (14)
 
 ### Gauge, metric and derivative convention
 
 - **GeneralU1** — Reconstruction includes explicit \(G_{Z'}\) and unphysical \(\Phi_X\) fields not shown in the paper’s Eq. (3).
   - *check:* Check the gauge choice in the implementation; this is likely just an implementation-basis detail.
+
+### Hermitian conjugation and complex phases
+
+- **MDMmodel** — Extra Goldstone/full-doublet conventions
+  - *check:* A human should check only that the \(-iG^+\) and \(+iG^0\) phase conventions are used consistently in the implementation’s gauge fixing and Feynman rules.
 
 ### Index, flavour and generation labels
 
@@ -370,14 +373,14 @@ These models are in the bundle with a `.fr` and a `REVIEW.pdf`, but the reverse 
 | model | convention | substantive | cosmetic | unclassified |
 |---|---:|---:|---:|---:|
 | 368sextets | 3 | 2 | 1 | 0 |
-| ChernSimonsPortal | 4 | 3 | 1 | 0 |
+| ChernSimonsPortal | 3 | 4 | 1 | 0 |
 | DMsimp | 3 | 2 | 1 | 0 |
-| EffLRSM | 2 | 0 | 0 | 0 |
+| EffLRSM | 1 | 1 | 0 | 0 |
 | GeneralU1 | 3 | 3 | 2 | 0 |
 | HeavyN | 2 | 4 | 1 | 0 |
 | HiggsCharacterisation | 3 | 7 | 0 | 0 |
 | LeptoQuark | 0 | 4 | 2 | 0 |
-| MDMmodel | 4 | 2 | 0 | 0 |
+| MDMmodel | 2 | 3 | 1 | 0 |
 | MSSMD | 3 | 5 | 0 | 0 |
 | Monotops | 3 | 2 | 1 | 0 |
 | NJLComposite | 1 | 3 | 0 | 0 |
