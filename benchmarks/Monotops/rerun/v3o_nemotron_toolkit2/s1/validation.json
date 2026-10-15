@@ -1,0 +1,28 @@
+{
+ "page": "Monotops",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/rerun/v3o_nemotron_toolkit2/s1/model/Monotops_gen.fr",
+ "lag_symbol": "LTotal",
+ "lag_resolution": {
+  "roots": [
+   "LTotal"
+  ],
+  "legacy_symbol": "LTotal",
+  "n_terms_defined": 15,
+  "ambiguous": false,
+  "changed_from_legacy": false
+ },
+ "t0": 1790300448.457382,
+ "compile_ok": false,
+ "lagrangian_expression": "LSM + LTotal",
+ "timed_out": true,
+ "exit": -1,
+ "seconds": 900.2,
+ "ufo_files": [],
+ "checks": {},
+ "protected_symbol_errors": 0,
+ "log_tail": "xpected.\n\nPart::partw: Part 2 of {Index[Spin2]} does not exist.\n\nGeneral::stop: Further output of Part::partw will be suppressed during this calculation.\n\nIdentity::argx: Identity called with 2 arguments; 1 argument is expected.\n\nGeneral::stop: Further output of Identity::argx will be suppressed during this calculation.\n[INFO] Lagrangian: LSM + LTotal\nHEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)\nHEPTAPOD-LAGRANGIAN|expression=LSM + LTotal|symbols=LSM,LTotal|terms=1665\nHEPTAPOD-RESIDUAL|count=1|fields=eps3\n[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum\n\nInner::incom: Length 3 of dimension 1 in {Colour, Colour, Colour} is incommensurate with length 2 of dimension 1 in {Index[Colour, 1], Index[Colour, 1]}.\n\nInner::incom: Length 3 of dimension 1 in {Colour, Colour, Colour} is incommensurate with length 2 of dimension 1 in {Index[Colour, 1], Index[Colour, 1]}.\n\nInner::incom: Length 3 of dimension 1 in {Colour, Colour, Colour} is incommensurate with length 2 of dimension 1 in {Index[Colour, 1], Index[Colour, 1]}.\n\nGeneral::stop: Further output of Inner::incom will be suppressed during this calculation.\n",
+ "status": "compile_timeout",
+ "full_chain_pass": false,
+ "seconds_total": 900.1709921360016,
+ "wall_seconds": 900.3
+}

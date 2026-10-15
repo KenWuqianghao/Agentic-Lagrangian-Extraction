@@ -1,0 +1,41 @@
+{
+ "model_files": [
+  "/home/deck/code/heptapod/eval/reference_cache/Top-Philic-Zprime/Top_Philic.fr"
+ ],
+ "load_sm": true,
+ "sm_file": "/home/deck/hep-tools/feynrules-current/Models/SM/SM.fr",
+ "lagrangian": "LSM + Lv1",
+ "seconds": 34,
+ "ok": true,
+ "n_particles": 25,
+ "n_vertices": 76,
+ "n_bsm_vertices": 1,
+ "bsm_particles": [
+  "v1"
+ ],
+ "example_bsm_vertex": [
+  "t__tilde__",
+  "t",
+  "v1"
+ ],
+ "evidence": "Top_Philic.fr:58-72 declares only V[7] v1 and no gauge group; Top_Philic.fr:120 'Lv1 := ct1 tbar.Ga[mu]...t v1[mu]' uses the SM field t and is the only Lagrangian symbol. Top_Philic.fr:26 sets FeynmanGauge = False.",
+ "notes": "Add-on. Total LSM + Lv1 is inferred (file has no total). Unitary gauge comes from the file itself.",
+ "extra_args": [],
+ "command": "wolframscript -f /home/deck/code/hep-pr/validator-main/tools/feynrules/UFO_generator.wl FeynRulesPath=/home/deck/hep-tools/feynrules-current ModelPath=/home/deck/code/heptapod/eval/reference_cache/Top-Philic-Zprime/Top_Philic.fr OutputDir=/home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/hillclimb/ref_ufo/Top-Philic-Zprime/UFO Checks=false AddDecays=false LoadSM=true Lagrangian=LSM + Lv1",
+ "problems": [],
+ "last_log_lines": [],
+ "attempts": [
+  {
+   "lagrangian": "LSM + Lv1",
+   "load_sm": true,
+   "model_files": [
+    "/home/deck/code/heptapod/eval/reference_cache/Top-Philic-Zprime/Top_Philic.fr"
+   ],
+   "extra": [],
+   "seconds": 34,
+   "exit_code": 0,
+   "ok": true,
+   "problems": []
+  }
+ ]
+}

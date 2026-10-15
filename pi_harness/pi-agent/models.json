@@ -1,0 +1,103 @@
+{
+  "providers": {
+    "anthropic": {
+      "api": "anthropic-messages",
+      "models": [
+        {
+          "id": "claude-sonnet-5",
+          "name": "Claude Sonnet 5",
+          "api": "anthropic-messages",
+          "compat": {
+            "forceAdaptiveThinking": true,
+            "supportsTemperature": false
+          },
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 3,
+            "output": 15,
+            "cacheRead": 0.3,
+            "cacheWrite": 3.75
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 64000
+        },
+        {
+          "id": "claude-opus-5-5",
+          "name": "Claude Opus 5.5",
+          "api": "anthropic-messages",
+          "compat": {
+            "forceAdaptiveThinking": true,
+            "supportsTemperature": false
+          },
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 5,
+            "output": 25,
+            "cacheRead": 0.5,
+            "cacheWrite": 6.25
+          },
+          "contextWindow": 1000000,
+          "maxTokens": 128000
+        }
+      ]
+    },
+    "modal-qwen": {
+      "baseUrl": "https://kenwuuuuu--ale-pi-harness-vllm-qwen.modal.run/v1",
+      "api": "openai-completions",
+      "apiKey": "!cat /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/pi_harness/pi-agent/vllm_key",
+      "compat": {
+        "supportsDeveloperRole": false,
+        "thinkingFormat": "qwen-chat-template"
+      },
+      "models": [
+        {
+          "id": "qwen3.8-27b",
+          "name": "Qwen3.8-27B FP8 (Modal vLLM)",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 262144,
+          "maxTokens": 65536
+        }
+      ]
+    },
+    "modal-gptoss": {
+      "baseUrl": "https://kenwuuuuu--ale-pi-harness-vllm-gptoss.modal.run/v1",
+      "api": "openai-completions",
+      "apiKey": "!cat /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/pi_harness/pi-agent/vllm_key",
+      "models": [
+        {
+          "id": "gpt-oss-120b",
+          "name": "gpt-oss-120b (Modal vLLM)",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 131072,
+          "maxTokens": 32768
+        }
+      ]
+    }
+  }
+}

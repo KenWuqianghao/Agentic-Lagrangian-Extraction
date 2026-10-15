@@ -1,0 +1,67 @@
+{
+  "model_name": "Top-Philic-Zprime_gen",
+  "info": {
+    "authors": ["automated extraction from arXiv:1604.07421"],
+    "version": "1.0",
+    "date": "2026-09-24"
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "ct",
+      "parameter_type": "External",
+      "value": "2.",
+      "block_name": "TOPPHILIC",
+      "interaction_order": ["NP", 1],
+      "description": "overall V1-top coupling c_t, Eq.(1); benchmark 2.0"
+    },
+    {
+      "name": "theta",
+      "parameter_type": "External",
+      "value": "Pi/2",
+      "block_name": "TOPPHILIC",
+      "description": "chirality angle, tan[theta] = cR/cL, Eq.(1); benchmark Pi/2"
+    },
+    {
+      "name": "WV1",
+      "parameter_type": "Internal",
+      "value": "ct^2 MV1/(8 Pi) Sqrt[1 - 4 MT^2/MV1^2] (1 - MT^2/MV1^2 (1 - 3 Sin[2 theta]))",
+      "description": "V1 total width into ttbar [GeV], Eq.(2)"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "V",
+      "class_index": 100,
+      "class_name": "V1",
+      "self_conjugate": true,
+      "mass": {"sym": "MV1", "value": "1500."},
+      "width": {"sym": "WV1", "value": "Internal"},
+      "pdg": 9000001,
+      "particle_name": "V1",
+      "full_name": "top-philic color-singlet vector",
+      "propagator_label": "V1",
+      "propagator_type": "Sine",
+      "propagator_arrow": "None"
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "LV1kin",
+      "expression": "-1/4 FS[V1, mu, nu] FS[V1, mu, nu] + 1/2 MV1^2 V1[mu] V1[mu]",
+      "delayed": true
+    },
+    {
+      "name": "LNV1t",
+      "expression": "ct Cos[theta] tbar.Ga[mu].ProjM.t V1[mu] + ct Sin[theta] tbar.Ga[mu].ProjP.t V1[mu]",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "LV1kin + LNV1t",
+      "delayed": true
+    }
+  ]
+}

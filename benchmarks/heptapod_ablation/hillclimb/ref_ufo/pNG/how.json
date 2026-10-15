@@ -1,0 +1,53 @@
+{
+ "model_files": [
+  "/home/deck/code/heptapod/eval/reference_cache/pNG/SM_with_pNG.fr"
+ ],
+ "load_sm": false,
+ "sm_file": null,
+ "lagrangian": "LSM + LpNG",
+ "seconds": 39,
+ "ok": true,
+ "n_particles": 26,
+ "n_vertices": 103,
+ "n_bsm_vertices": 28,
+ "bsm_particles": [
+  "h2"
+ ],
+ "example_bsm_vertex": [
+  "h",
+  "h",
+  "h2",
+  "h2"
+ ],
+ "evidence": "SM_with_pNG.fr:68 M$GaugeGroups and :129-464 declare the SM fields itself ('Model file based on: Models/SM/SM.fr', line 5); :834 'LSM:= LGauge + LFermions + LHiggs + LYukawa + LGhost'; :851 'LpNG := LS + Lint + Lsoft'; :28 FeynmanGauge = False.",
+ "notes": "Full model, loaded alone. Total LSM + LpNG is inferred (file defines both pieces and no total).",
+ "extra_args": [],
+ "command": [
+  "wolframscript",
+  "-f",
+  "/home/deck/code/hep-pr/validator-main/tools/feynrules/UFO_generator.wl",
+  "FeynRulesPath=/home/deck/hep-tools/feynrules-current",
+  "ModelPath=/home/deck/code/heptapod/eval/reference_cache/pNG/SM_with_pNG.fr",
+  "OutputDir=/home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/hillclimb/ref_ufo/pNG/UFO",
+  "Checks=false",
+  "AddDecays=false",
+  "LoadSM=false",
+  "Lagrangian=LSM + LpNG"
+ ],
+ "problems": [],
+ "last_log_lines": [],
+ "attempts": [
+  {
+   "lagrangian": "LSM + LpNG",
+   "load_sm": false,
+   "model_files": [
+    "/home/deck/code/heptapod/eval/reference_cache/pNG/SM_with_pNG.fr"
+   ],
+   "extra": [],
+   "seconds": 39,
+   "exit_code": 0,
+   "ok": true,
+   "problems": []
+  }
+ ]
+}

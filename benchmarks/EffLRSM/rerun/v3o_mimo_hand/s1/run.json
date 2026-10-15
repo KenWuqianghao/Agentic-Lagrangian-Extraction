@@ -1,0 +1,35 @@
+{
+ "page": "EffLRSM",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "hand",
+ "seed": 1,
+ "variant": "v3o_mimo_hand",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3600.0,
+ "tokens": {
+  "input": 175094,
+  "output": 5602,
+  "reasoning": 99355
+ },
+ "output_max": 128000,
+ "n_events": 34,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 12,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "model.fr",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3o_mimo_hand/s1/model/EffLRSM_gen.fr"
+}

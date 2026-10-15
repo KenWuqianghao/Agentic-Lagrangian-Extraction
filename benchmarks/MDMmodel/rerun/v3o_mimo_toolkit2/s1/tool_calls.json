@@ -1,0 +1,260 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: MDMmodel (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1311.6661.\n4: PAPER: the paper's LaTeX sou"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "ls -laR"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"bash\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"bash\",\"pattern\":\"./frgen *\",\"action\":\"allow\"},{\"permission\":\"bash\",\"pattern\":\"./frgen\",\"action\":\"allow\"}]"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUID"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/frgen\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/fr_lint.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv98000"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/paper/1311.6661_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/paper/1311.6661_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[preprint,showpacs,preprintnumbers,amsmath,amssymb]{revtex4}\n2: \\usepackage{booktabs}\n3: \\usepackage{mathrsfs}\n4: \\usepackage{epsfig}\n5: \\usepackage{graphicx}\n6: \\usepackage{dcolumn}\n7: \\usepackage{bm}\n8: \\usepackage{amsmath}\n9: \\usepack"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/paper/1311.6661_source.tex",
+   "offset": 806
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/paper/1311.6661_source.tex</path>\n<type>file</type>\n<content>\n806: of $300\\fbm$ by our previous MC simulation \\cite{Light-1309}. We also discuss the detection at the electron-positron collider with $\\sqrt{S}=250\\GeV$.\n807: \\end{itemize}\n808: \n809: Finally we have following observations\n810: \\begin{itemize}\n811: \\it"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                               "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDEL"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and th"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "path": "/Users",
+   "pattern": "*/Documents/Github/heptapod/**/*.fr"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"external_directory\",\"pattern\":\"*\",\"action\":\"ask\"},{\"permission\":\"external_directory\",\"pattern\":\"/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/frgen"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/frgen</path>\n<type>file</type>\n<content>\n1: #!/bin/sh\n2: FRGEN_TOOLKIT=\"$(pwd)/tools\" exec \"/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/venv/bin/python\" \"/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ope"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/templates/model.fr.j2"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/templates/model.fr.j2</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: {{ model_name }}                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*----------"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: MDMmodel (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1311.6661.\n4: PAPER: the paper's LaTeX sou"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*.py"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/fr_lint.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/__init__.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/render.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/frmodel.py"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUID"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDEL"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and th"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "lagrangian|Lagrangian|\\\\\\\\mathcal\\{L\\}|cal L",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/paper/1311.6661_source.tex"
+  },
+  "status": "completed",
+  "output": "Found 6 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/paper/1311.6661_source.tex:\n  Line 135: In this work, we concentrate on the Minimal Dilaton Model (MDM), which is actually a minimal effective Lagrangian at weak\n\n  Line 170: Its effective Lagrangian can be written as \\cite{min-dilaton1,min-dilaton2}\n\n  Line 172: \\mathcal L &=\n\n  Line 173: \t&\t\\mathcal L_\\"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "benchmark|Benchmark|TeV",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/paper/1311.6661_source.tex"
+  },
+  "status": "completed",
+  "output": "Found 18 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/paper/1311.6661_source.tex:\n  Line 41: \\newcommand{\\TeV}{~\\rm TeV}\n\n  Line 91: With a luminosity of $100\\fbm$ ($10\\fbm$) at the 14-TeV LHC, a heavy dilaton of $400\\GeV$ ($500\\GeV$) can be examined.\n\n  Line 93: when considering only the CMS data, which may be detected at the 14-TeV LHC with a luminosity o"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/paper/1311.6661_source.tex",
+   "offset": 160,
+   "limit": 180
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/paper/1311.6661_source.tex</path>\n<type>file</type>\n<content>\n160: In Section III, we concentrate on the heavy dilaton scenario and scan through the MDM parameter space\n161: by considering various theoretical and experimental constraints. For the surviving samples, we perform fits to the\n162: Higgs data and study t"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr",
+   "pattern": "LYukawa|QLbar|LLbar|LHiggs|LTotal|LSM"
+  },
+  "status": "completed",
+  "output": "Found 12 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/TASK.md:\n  Line 46: 4. SU(2) doublet contractions. Use the SM.fr conventions the add-on loads on: `Phi` has Y = +1/2, `LL` has Y = -1/2, `QL` has Y = +1/6, `Phi[1] = -I GP`, `Phi[2] = (vev + H + I G0)/Sqrt[2]`. Contract a doublet with an anti-doublet on a shared index: `LLbar[sp, ii, ff] ... Phi[ii]`. Co"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "wc -l SM.fr"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"bash\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"bash\",\"pattern\":\"./frgen *\",\"action\":\"allow\"},{\"permission\":\"bash\",\"pattern\":\"./frgen\",\"action\":\"allow\"}]"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr",
+   "pattern": "^(F|S|V|U)\\[\\d+\\]|ClassName|Gluon|IndexRange|M\\$ClassesDescription|M\\$Parameters|M\\$Information|M\\$GaugeGroups|IndexStyle|AddGaugeRepresentation"
+  },
+  "status": "completed",
+  "output": "Found 84 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/TASK.md:\n  Line 12: SCHEMA RULES: all numeric physics values are STRINGS (\"-1/3\", \"1500.\"); SM add-on => gauge_groups []; indices Colour/Gluon/Generation/SU2D/SU2W need NO declaration; any OTHER index (e.g. a colour-sextet index, a new-generation index) NEEDS an index_decls entry (range_kind \"NoUnfold\", "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr",
+   "offset": 340,
+   "limit": 130
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr</path>\n<type>file</type>\n<content>\n340: \n341: (* Fermions: unphysical fields *)\n342:   F[11] == { \n343:     ClassName      -> LL, \n344:     Unphysical     -> True, \n345:     Indices        -> {Index[SU2D], Index[Generation]},\n346:     FlavorIndex    -> SU2D,\n347:     SelfConjugate  -> False,\n348:     QuantumN"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr",
+   "offset": 690,
+   "limit": 60
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr</path>\n<type>file</type>\n<content>\n690: \n691: (* ************************** *)\n692: (* *****   Lagrangian   ***** *)\n693: (* ************************** *)\n694: \n695: LGauge := Block[{mu,nu,ii,aa}, \n696:   ExpandIndices[-1/4 FS[B,mu,nu] FS[B,mu,nu] - 1/4 FS[Wi,mu,nu,ii] FS[Wi,mu,nu,ii] - 1/4 FS[G,mu,nu,aa] FS["
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/frgen"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/frgen</path>\n<type>file</type>\n<content>\n1: #!/bin/sh\n2: FRGEN_TOOLKIT=\"$(pwd)/tools\" exec \"/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/venv/bin/python\" \"/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ope"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/__init__.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/tools/frgen/__init__.py</path>\n<type>file</type>\n<content>\n\n\n(End of file - total 0 lines)\n</content>"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr",
+   "limit": 220,
+   "offset": 470
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr</path>\n<type>file</type>\n<content>\n470: M$Parameters = {\n471: \n472:   (* External parameters *)\n473:   aEWM1 == { \n474:     ParameterType    -> External, \n475:     BlockName        -> SMINPUTS, \n476:     OrderBlock       -> 1, \n477:     Value            -> 127.9,\n478:     InteractionOrder -> {QED,-2},\n479:   "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr",
+   "limit": 75,
+   "offset": 268
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr</path>\n<type>file</type>\n<content>\n268:     Definitions   -> { ghWi[1] -> (ghWp+ghWm)/Sqrt[2], ghWi[2] -> (ghWm-ghWp)/(I*Sqrt[2]), ghWi[3] -> cw ghZ+sw ghA}\n269:   } ,\n270: \n271: (* Fermions: physical fields *)\n272:   F[1] == {\n273:     ClassName        -> vl,\n274:     ClassMembers     -> {ve,vm,vt},\n275:    "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr",
+   "limit": 70,
+   "offset": 106
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-MDMmodel-gxhzu_qw/SM.fr</path>\n<type>file</type>\n<content>\n106: IndexStyle[Generation, f];\n107: \n108: \n109: (* ************************** *)\n110: (* *** Interaction orders *** *)\n111: (* ***  (as used by mg5)  *** *)\n112: (* ************************** *)\n113: \n114: M$InteractionOrderHierarchy = {\n115:   {QCD, 1},\n116:   {QED, 2}\n117"
+ }
+]

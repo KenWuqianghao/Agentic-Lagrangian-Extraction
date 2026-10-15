@@ -1,0 +1,98 @@
+<!doctype html><html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>heptapod 项目状况图</title>
+<style>
+:root{--bg:#0f1318;--card:#171d25;--line:#2a3441;--tx:#e6ebf1;--mut:#93a1b3;--g:#4fc48a;--y:#e7b84b;--r:#e5645f;--b:#5aa9e6}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 -apple-system,"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
+main{max-width:1060px;margin:0 auto;padding:26px 18px 80px}h1{font-size:27px;margin:0 0 4px}h2{font-size:20px;margin:2em 0 .5em}.mut{color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:10px 0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}.kpi b{font-size:30px;display:block;line-height:1.2}.kpi span{font-size:13.5px;color:var(--mut)}
+.ladder{display:flex;gap:8px;align-items:flex-end;height:250px;margin-top:8px}.rung{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%;cursor:pointer}
+.rung .col{border-radius:8px 8px 0 0;display:flex;align-items:flex-start;justify-content:center;font-weight:700;font-size:20px;padding-top:6px;color:#0f1318;transition:height .4s}
+.rung .lab{font-size:13.5px;text-align:center;padding:6px 2px;border-top:2px solid var(--line);min-height:62px}.rung.sel .lab{border-top-color:var(--b);color:#fff}.rung .lab small{display:block;color:var(--mut)}
+#rinfo{min-height:74px}
+.grid{display:grid;grid-template-columns:150px repeat(3,22px) 12px repeat(3,22px) 12px 22px 22px 1fr;gap:3px 3px;align-items:center;font-size:13.5px}
+.cell{width:22px;height:22px;border-radius:4px}.prow{display:contents;cursor:pointer}.prow:hover .pn{color:#fff;text-decoration:underline}.pn{color:var(--tx)}.hd{font-size:12px;color:var(--mut);text-align:center}
+.tagp{font-size:12px;padding:1px 8px;border-radius:9px;border:1px solid var(--line);color:var(--mut);justify-self:start;margin-left:8px}
+.claims{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px}.claim{border-left:4px solid;padding:10px 14px;background:var(--card);border-radius:0 10px 10px 0}
+.claim.g{border-color:var(--g)}.claim.y{border-color:var(--y)}.claim.r{border-color:var(--r)}.claim b{display:block}.claim span{font-size:14px;color:var(--mut)}
+.meter{height:6px;background:#222b36;border-radius:3px;margin:6px 0 4px}.meter i{display:block;height:6px;border-radius:3px}
+table{border-collapse:collapse;width:100%;font-size:14.5px}td,th{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--mut)}code{background:#222b36;padding:1px 5px;border-radius:4px;font-size:.9em}
+.flow{display:flex;flex-wrap:wrap;gap:8px}.fl{flex:1 1 180px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14.5px}.fl b{display:block;color:var(--b)}
+</style></head><body><main>
+<h1>heptapod 项目状况图</h1>
+<p class="mut">2026-10-14 · 一页看完：我们在问什么、现在的答案、答案有多可靠、接下来的决定。点击柱子和论文可以看细节。</p>
+
+<div class="flow">
+<div class="fl"><b>问题</b>heptapod 的工具能不能让 agent 更好地把论文变成可用的 FeynRules 模型？</div>
+<div class="fl"><b>现在的答案</b>能。三个模型（Sonnet 5、Haiku 5.5、Sonnet 5.5）上都更高、更便宜。合并：+0.14，成本约 1/4 到 1/3。优势主要来自稳定性。</div>
+<div class="fl"><b>可靠程度</b>Sonnet 5 三个 seed：p = 0.014。三个模型合并：p = 0.004。样本是 13 篇，没有留出测试集。</div>
+<div class="fl"><b>还差什么</b>新论文上的验证；扩展规范群的论文（331）。</div></div>
+
+<div class="kpis" style="margin-top:12px">
+<div class="kpi"><b style="color:var(--g)">0.76</b><span>命令行 + 工具，Sonnet 5，3 个 seed 的平均</span></div>
+<div class="kpi"><b style="color:#e0864a">0.62</b><span>vanilla，相同条件，3 个 seed</span></div>
+<div class="kpi"><b>36 / 32</b><span>39 次运行里检查链通过的次数</span></div>
+<div class="kpi"><b>$4 / $18</b><span>Sonnet 5 每次通过的成本：工具组 / vanilla</span></div></div>
+<div class="card" style="margin-top:12px"><b>换模型（10 月 12–14 日）</b>
+<table style="margin-top:6px"><tr><th>模型</th><th>工具组</th><th>vanilla</th><th>差</th><th>高 / 低</th><th>p</th><th>检查链通过</th><th>成本</th></tr>
+<tr><td>Sonnet 5，3 个 seed</td><td>0.76</td><td>0.62</td><td><b>+0.14</b></td><td>8 / 1</td><td>0.014</td><td>36 / 32（共 39）</td><td>$152 / $581</td></tr>
+<tr><td>Haiku 5.5，3 个 seed</td><td>0.68</td><td>0.59</td><td><b>+0.09</b></td><td>6 / 2</td><td>0.16</td><td>34 / 26（共 39）</td><td>$18 / $58</td></tr>
+<tr><td>Sonnet 5.5，1 个 seed</td><td>0.82</td><td>0.63</td><td><b>+0.20</b></td><td>5 / 2</td><td>0.094</td><td>12 / 10（共 13）</td><td>$8 / $22</td></tr>
+<tr><td><b>合并</b></td><td></td><td></td><td><b>+0.14</b></td><td>10 / 1</td><td><b>0.004</b></td><td>82 / 68（共 91）</td><td>$178 / $661</td></tr></table>
+<p class="mut" style="margin:.4em 0 0;font-size:14px">合并：每篇论文先算三个模型的差的平均，再对 13 篇做配对置换检验。下面的阶梯和热图是 Sonnet 5 的数据。中文速览：<code>quick_zh.html</code>。</p></div>
+
+<h2>1. 阶梯：每一步加了什么</h2>
+<div class="card"><div class="ladder" id="ladder"></div><div id="rinfo" class="mut" style="margin-top:10px"></div></div>
+
+<h2>2. 分数从哪里来：13 篇 × 每次运行</h2>
+<div class="card"><div class="grid" id="grid"></div>
+<p class="mut" style="font-size:13.5px;margin:10px 0 0">颜色：<span class="cell" style="display:inline-block;vertical-align:-5px;background:#2b3340"></span> 0（没有通过）→ <span class="cell" style="display:inline-block;vertical-align:-5px;background:hsl(45,70%,50%)"></span> 0.5 → <span class="cell" style="display:inline-block;vertical-align:-5px;background:hsl(145,55%,48%)"></span> 1.0。H = 9/30 harness，O = 优化组（各 1 次运行）。</p></div>
+<div class="card" id="pinfo"><span class="mut">点击一篇论文。</span></div>
+
+<h2>3. 主张板：每个主张有多可靠</h2>
+<div class="claims">
+<div class="claim g"><b>比 vanilla 的分数高</b><div class="meter"><i style="width:75%;background:var(--g)"></i></div><span>+0.14，高 8 低 1，p = 0.014。每个 seed 的差都是正的。只用 seed 2、3 时 p = 0.059。</span></div>
+<div class="claim g"><b>比 vanilla 便宜</b><div class="meter"><i style="width:90%;background:var(--g)"></i></div><span>Sonnet 5：$152 对 $581。三个模型上 vanilla 都花 2.7 到 3.8 倍的钱。</span></div>
+<div class="claim g"><b>换模型也成立</b><div class="meter"><i style="width:70%;background:var(--g)"></i></div><span>三个模型的差都是正的，合并 p = 0.004。Haiku 单独 p = 0.16，seed 2 反向；Sonnet 5.5 只有 1 个 seed。</span></div>
+<div class="claim y"><b>弱模型停得太早</b><div class="meter"><i style="width:35%;background:var(--y)"></i></div><span>Haiku 工具组的 5 次失败：结束门给了 3 次「继续」以后 agent 停了，验证没有通过，验证次数还有剩余。提高上限是否有用，没有测试。</span></div>
+<div class="claim g"><b>更稳定</b><div class="meter"><i style="width:80%;background:var(--g)"></i></div><span>vanilla 在 5 篇上有时满分有时 0。我读了其中一次（Wprime 第 2 次）：agent 在总结里写「全部通过」，而评分器的质量谱检查失败。工具组的结束门挡住这种情况。</span></div>
+<div class="claim g"><b>比 9 月 30 日的 harness 强</b><div class="meter"><i style="width:65%;background:var(--g)"></i></div><span>0.77 对 0.49，p = 0.03。旧 harness 只有 1 次运行。</span></div>
+<div class="claim y"><b>命令行是关键的一步</b><div class="meter"><i style="width:45%;background:var(--y)"></i></div><span>优化组 0.65 → 加命令行 0.77。但是优化组只有 1 次运行，p = 0.38。方向清楚，没有确认。</span></div>
+<div class="claim y"><b>配方（plus）有用</b><div class="meter"><i style="width:25%;background:var(--y)"></i></div><span>6 篇上 +0.06，在噪声里。没有采用。</span></div>
+<div class="claim r"><b>在新论文上也成立</b><div class="meter"><i style="width:8%;background:var(--r)"></i></div><span>没有测试。工具是看了这 13 篇的失败之后改的。</span></div>
+<div class="claim r"><b>模型的数值正确</b><div class="meter"><i style="width:8%;background:var(--r)"></i></div><span>指标只看顶点在不在，不看耦合的数值和符号。</span></div></div>
+
+<h2>4. 东西在哪里</h2>
+<table>
+<tr><th>东西</th><th>位置</th><th>状态</th></tr>
+<tr><td>代码和所有分析</td><td><code>~/code/ALE-ablation</code>，分支 <code>ablation/heptapod-arms</code></td><td>已提交，<b>没有 push</b></td></tr>
+<tr><td>所有运行和 trace</td><td><code>~/hep-share/heptapod_ablation_results_2026-10-14.zip</code>（258 次运行，邮箱地址已替换为 <code>&lt;email&gt;</code>）</td><td>Done</td></tr>
+<tr><td>中文速览</td><td><code>~/hep-share/quick_zh.html</code></td><td>Done</td></tr>
+<tr><td>本周进度页面</td><td><code>~/hep-share/week_2026-10-11.html</code></td><td>Done</td></tr>
+<tr><td>24 个失败案例</td><td><code>benchmarks/heptapod_ablation/failures.html</code></td><td>Done（seed 1 的数据）</td></tr>
+<tr><td>给 heptapod 的修改建议</td><td><code>HEPTAPOD_FIXES.md</code></td><td>写了，没有发给 Tony</td></tr>
+<tr><td>heptapod-dev 本身</td><td>Tony 的仓库</td><td>没有改动。所有改进都在我们的 harness 里。</td></tr></table>
+
+<h2>5. 接下来要你决定的</h2>
+<table>
+<tr><th>决定</th><th>为什么重要</th><th>代价</th></tr>
+<tr><td><b>A. 留出测试</b>：找 5 到 8 篇新论文，两个组各跑 1 到 2 次</td><td>这是现在最大的弱点。通过了，主张就完整。</td><td>选论文和编译参考答案 1 到 2 天；运行约 $150 到 $300</td></tr>
+<tr><td><b>B. 把改进送回 heptapod</b>：和 Tony 讨论 <code>HEPTAPOD_FIXES.md</code></td><td>现在的改进在我们的 harness 里，不在 heptapod 工具里。「heptapod 更强」严格说是「我们的 harness + heptapod 的验证器更强」。</td><td>你的时间；需要你同意我才会联系他或开 PR</td></tr>
+<tr><td><b>A2. 给弱模型更多「继续」</b>：结束门上限 3 → 6，重跑 Haiku 工具组 2 个 seed</td><td>确认 Haiku 的 5 次失败是不是这个原因。</td><td>约 $15</td></tr>
+<tr><td><b>C. 331 类论文</b>：允许交独立模型</td><td>唯一一篇 vanilla 稳定更高的论文。</td><td>较大的工程，只影响 2 篇</td></tr>
+<tr><td><b>D. 写成报告</b></td><td>数据已经够写一个有限制说明的结论。</td><td>不花钱</td></tr></table>
+</main><script>
+const D={"papers": ["HeavyN", "Top-Philic-Zprime", "pNG", "SMWeinberg", "EffLRSM", "B-L-SM", "MDMmodel", "Monotops", "Wprime", "pSPSS", "GeneralU1", "331", "ALRM_general"], "shell": {"HeavyN": [1.0, 1.0, 1.0], "Top-Philic-Zprime": [1.0, 1.0, 1.0], "pNG": [1.0, 1.0, 1.0], "SMWeinberg": [1.0, 1.0, 1.0], "EffLRSM": [0.9, 1.0, 1.0], "B-L-SM": [0.955, 0.955, 0.955], "MDMmodel": [0.84, 0.926, 0.926], "Monotops": [1.0, 0.667, 0.933], "Wprime": [0.8, 0.8, 0.8], "pSPSS": [0.667, 0.0, 0.857], "GeneralU1": [0.4, 0.423, 0.519], "331": [0.424, 0.183, 0.39], "ALRM_general": [0.0, 0.0, 0.485]}, "vanilla": {"HeavyN": [1.0, 1.0, 1.0], "Top-Philic-Zprime": [1.0, 1.0, 1.0], "pNG": [1.0, 1.0, 1.0], "SMWeinberg": [1.0, 1.0, 0.0], "EffLRSM": [0.0, 1.0, 1.0], "B-L-SM": [0.889, 0.0, 0.955], "MDMmodel": [0.792, 0.545, 0.84], "Monotops": [0.509, 0.824, 0.824], "Wprime": [0.8, 0.0, 0.0], "pSPSS": [0.667, 0.0, 0.667], "GeneralU1": [0.304, 0.34, 0.431], "331": [0.543, 0.368, 0.5], "ALRM_general": [0.0, 0.242, 0.236]}, "harness": {"331": 0.0, "ALRM_general": 0.0, "B-L-SM": 0.955, "EffLRSM": 1.0, "GeneralU1": 0.0, "HeavyN": 1.0, "MDMmodel": 0.64, "Monotops": 0.0, "SMWeinberg": 0.0, "Top-Philic-Zprime": 1.0, "Wprime": 0.8, "pNG": 1.0, "pSPSS": 0.0}, "opt": {"331": 0.175, "ALRM_general": 0.0, "B-L-SM": 0.955, "EffLRSM": 1.0, "GeneralU1": 0.813, "HeavyN": 1.0, "MDMmodel": 0.0, "Monotops": 0.0, "SMWeinberg": 1.0, "Top-Philic-Zprime": 1.0, "Wprime": 0.8, "pNG": 1.0, "pSPSS": 0.75}, "plus": {"GeneralU1": 0.586, "ALRM_general": 0.0, "331": 0.456, "pSPSS": 0.667, "MDMmodel": 1.0, "B-L-SM": 0.955}, "notes": {"HeavyN": ["简单", "重中微子，在质量基里写流。所有组、所有 seed 都是满分。"], "Top-Philic-Zprime": ["简单", "一个只和顶夸克耦合的 Z′。所有组都是满分。"], "pNG": ["简单", "一个赝 Goldstone 标量。所有组都是满分。"], "SMWeinberg": ["工具组更稳", "工具组 3 次满分。旧 harness 没有通过。vanilla 第 3 次厄米性检查失败，MadGraph 也不能导入。"], "EffLRSM": ["工具组更稳", "工具组 3 次通过。vanilla 第 1 次没有产生能用的 UFO，后两次满分。"], "B-L-SM": ["工具组更稳", "工具组 3 次都是 0.95。vanilla 第 2 次质量谱检查失败，得 0。"], "MDMmodel": ["工具组更稳", "工具组 0.84 到 0.93。第三组（没有命令行）失败。vanilla 有一次只做出一部分顶点。"], "Monotops": ["评分器修正过", "参考答案有颜色笔误，已修正。旧 harness 和第三组是「空通过」：通过了检查，但是新粒子没有顶点。有了命令行之后工具组得 0.67 到 1.00。"], "Wprime": ["上限 0.80", "论文有右手中微子，参考答案没有，所以忠实的模型最高 0.80。工具组 3 次都到上限。vanilla 后两次质量谱检查失败。第 2 次的总结里它写了「全部通过」。"], "pSPSS": ["不稳定", "两个组的第 2 次都是 0。上限 0.86（参考答案缺一个论文里有的顶点）。这是噪声最大的一篇。"], "GeneralU1": ["都低", "两个组都只有 0.3 到 0.5。缺 Higgs–Z′ 的顶点。参考答案里有一部分混合是论文没有写的。配方（plus）把它提到 0.59。"], "331": ["vanilla 更高", "SU(3)_L 扩展规范群。SM 的 SU(2)_L 在它里面，所以 add-on 格式做不出完整模型。vanilla 三次都比工具组高，原因没有确认。上限约 0.9。"], "ALRM_general": ["时间预算", "完整模型的检查超过验证时限。工具组第 3 次第一次通过（0.48）。vanilla 交了较小的模型，两次通过（0.24）。"]}};const $=id=>document.getElementById(id);
+const mean=a=>a.reduce((x,y)=>x+y,0)/a.length;
+const col=v=>v<=0?"#2b3340":`hsl(${45+100*Math.max(0,(v-.5)*2)},${v<.5?70:60}%,${v<.5?30+40*v:50}%)`;
+const gm=g=>mean(D.papers.map(p=>Array.isArray(D[g][p])?mean(D[g][p]):D[g][p]));
+const L=[["vanilla","vanilla","只有命令行",gm("vanilla"),"#e0864a","3 个 seed","Claude Code 只有命令行，自己运行 Mathematica 和 MadGraph。能力不差，但是不稳定：同一篇论文有时满分，有时 0 分，而且它自己不知道失败了。成本最高，因为它用 20 到 90 次 Mathematica 运行来试错。"],
+["harness","9/30 harness","工具 + 协议 + 结束门，没有命令行",gm("harness"),"#8a93a3","1 次运行","heptapod 的验证工具加协议。检查链通过 9 篇，但是其中 2 篇是「空通过」：模型通过了检查，新粒子却没有任何顶点。agent 看不到自己的 UFO，所以不知道。"],
+["opt","优化","+ 更多 lint，+「没有顶点不算通过」",gm("opt"),"#5aa9e6","1 次运行","把「新粒子没有顶点」变成不通过，加了 5 条 lint 规则。分数升到 0.65。但是 agent 还是只能通过工具的报告看模型。"],
+["shell","命令行 + 工具","+ 命令行：能读自己的 UFO 和日志",gm("shell"),"#4fc48a","3 个 seed","现在最好的组。agent 既有工具的检查和结束门，又能自己打开 UFO 看每个顶点在不在。空通过消失。分数最高，成本只比旧 harness 高一点。"]];
+function ladder(sel){$("ladder").innerHTML=L.map((l,i)=>`<div class="rung ${i==sel?"sel":""}" onclick="ladder(${i})"><div class="col" style="height:${l[3]*100}%;background:${l[4]}">${l[3].toFixed(2)}</div><div class="lab">${l[1]}<small>${l[2]}</small><small>${l[5]}</small></div></div>`).join("");$("rinfo").innerHTML=`<b style="color:#fff">${L[sel][1]}</b>：${L[sel][6]}`;}
+function grid(){let h=`<div></div><div class="hd" style="grid-column:span 3">工具组</div><div></div><div class="hd" style="grid-column:span 3">vanilla</div><div></div><div class="hd">H</div><div class="hd">O</div><div></div>`;
+ for(const p of D.papers){h+=`<div class="prow" onclick="pick('${p}')"><div class="pn">${p}</div>`+D.shell[p].map(v=>`<div class="cell" title="${v.toFixed(2)}" style="background:${col(v)}"></div>`).join("")+`<div></div>`+D.vanilla[p].map(v=>`<div class="cell" title="${v.toFixed(2)}" style="background:${col(v)}"></div>`).join("")+`<div></div><div class="cell" title="${D.harness[p].toFixed(2)}" style="background:${col(D.harness[p])}"></div><div class="cell" title="${D.opt[p].toFixed(2)}" style="background:${col(D.opt[p])}"></div><div class="tagp">${D.notes[p][0]}</div></div>`;}
+ $("grid").innerHTML=h;}
+function pick(p){const f=a=>a.map(v=>v.toFixed(2)).join("  ");$("pinfo").innerHTML=`<b style="font-size:18px">${p}</b> <span class="tagp">${D.notes[p][0]}</span><p>${D.notes[p][1]}</p><p class="mut" style="font-size:14.5px">工具组：${f(D.shell[p])}（平均 ${mean(D.shell[p]).toFixed(2)}） · vanilla：${f(D.vanilla[p])}（平均 ${mean(D.vanilla[p]).toFixed(2)}） · 9/30 harness：${D.harness[p].toFixed(2)} · 优化：${D.opt[p].toFixed(2)}${D.plus[p]!==undefined?" · plus："+D.plus[p].toFixed(2):""}</p>`;}
+ladder(3);grid();pick("Wprime");
+</script></body></html>

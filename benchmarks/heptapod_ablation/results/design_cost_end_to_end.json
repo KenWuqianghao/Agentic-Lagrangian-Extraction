@@ -1,0 +1,299 @@
+{
+ "papers": 11,
+ "budget": 6,
+ "local_time_ratio": 1.46,
+ "per_seed": {
+  "none": {
+   "agent_usd": 15.5,
+   "post_hoc_referee_usd_at_most": 7.2,
+   "validate_calls": 0,
+   "kernel_hours": 0.42
+  },
+  "compile": {
+   "agent_usd": 16.6,
+   "post_hoc_referee_usd_at_most": 7.2,
+   "validate_calls": 16,
+   "kernel_hours": 0.88
+  },
+  "heptapod": {
+   "agent_usd": 22.4,
+   "post_hoc_referee_usd_at_most": 7.2,
+   "validate_calls": 37,
+   "kernel_hours": 1.76
+  },
+  "full": {
+   "agent_usd": 29.9,
+   "post_hoc_referee_usd_at_most": 7.2,
+   "validate_calls": 37,
+   "kernel_hours": 1.76
+  }
+ },
+ "all_arms_one_seed_usd": 113.2,
+ "all_arms_one_seed_kernel_hours": 4.8,
+ "rows": [
+  {
+   "paper": "B-L-SM",
+   "stored_usd": 4.42,
+   "stored_minutes": 65,
+   "usd": {
+    "none": 2.39,
+    "compile": 2.39,
+    "heptapod": 2.92,
+    "full": 4.42
+   },
+   "validate_calls": {
+    "none": 0,
+    "compile": 1,
+    "heptapod": 3,
+    "full": 3
+   },
+   "kernel_seconds": {
+    "none": 0,
+    "compile": 164.3,
+    "heptapod": 508.0,
+    "full": 508.0
+   },
+   "score_seconds": 168.3
+  },
+  {
+   "paper": "ChernSimonsPortal",
+   "stored_usd": 2.39,
+   "stored_minutes": 36,
+   "usd": {
+    "none": 0.91,
+    "compile": 0.91,
+    "heptapod": 1.02,
+    "full": 2.39
+   },
+   "validate_calls": {
+    "none": 0,
+    "compile": 1,
+    "heptapod": 1,
+    "full": 1
+   },
+   "kernel_seconds": {
+    "none": 0,
+    "compile": 71.2,
+    "heptapod": 71.2,
+    "full": 71.2
+   },
+   "score_seconds": 68.5
+  },
+  {
+   "paper": "EffLRSM",
+   "stored_usd": 1.99,
+   "stored_minutes": 30,
+   "usd": {
+    "none": 0.99,
+    "compile": 0.99,
+    "heptapod": 1.63,
+    "full": 1.99
+   },
+   "validate_calls": {
+    "none": 0,
+    "compile": 1,
+    "heptapod": 3,
+    "full": 3
+   },
+   "kernel_seconds": {
+    "none": 0,
+    "compile": 115.4,
+    "heptapod": 318.7,
+    "full": 318.7
+   },
+   "score_seconds": 103.2
+  },
+  {
+   "paper": "HeavyN",
+   "stored_usd": 1.03,
+   "stored_minutes": 7,
+   "usd": {
+    "none": 0.67,
+    "compile": 0.67,
+    "heptapod": 0.71,
+    "full": 1.03
+   },
+   "validate_calls": {
+    "none": 0,
+    "compile": 1,
+    "heptapod": 1,
+    "full": 1
+   },
+   "kernel_seconds": {
+    "none": 0,
+    "compile": 79.8,
+    "heptapod": 79.8,
+    "full": 79.8
+   },
+   "score_seconds": 80.6
+  },
+  {
+   "paper": "MDMmodel",
+   "stored_usd": 5.87,
+   "stored_minutes": 162,
+   "usd": {
+    "none": 2.31,
+    "compile": 2.31,
+    "heptapod": 4.2,
+    "full": 4.72
+   },
+   "validate_calls": {
+    "none": 0,
+    "compile": 1,
+    "heptapod": 6,
+    "full": 6
+   },
+   "kernel_seconds": {
+    "none": 0,
+    "compile": 82.0,
+    "heptapod": 532.0,
+    "full": 532.0
+   },
+   "score_seconds": 81.0
+  },
+  {
+   "paper": "Monotops",
+   "stored_usd": 4.19,
+   "stored_minutes": 129,
+   "usd": {
+    "none": 2.01,
+    "compile": 2.01,
+    "heptapod": 3.58,
+    "full": 4.19
+   },
+   "validate_calls": {
+    "none": 0,
+    "compile": 1,
+    "heptapod": 6,
+    "full": 6
+   },
+   "kernel_seconds": {
+    "none": 0,
+    "compile": 70.1,
+    "heptapod": 420.4,
+    "full": 420.4
+   },
+   "score_seconds": 69.0
+  },
+  {
+   "paper": "NJLComposite",
+   "stored_usd": 4.63,
+   "stored_minutes": 180,
+   "usd": {
+    "none": 2.11,
+    "compile": 3.21,
+    "heptapod": 3.21,
+    "full": 4.09
+   },
+   "validate_calls": {
+    "none": 0,
+    "compile": 6,
+    "heptapod": 6,
+    "full": 6
+   },
+   "kernel_seconds": {
+    "none": 0,
+    "compile": 151.7,
+    "heptapod": 151.7,
+    "full": 151.7
+   },
+   "score_seconds": 95.8
+  },
+  {
+   "paper": "Top-Philic-Zprime",
+   "stored_usd": 0.77,
+   "stored_minutes": 39,
+   "usd": {
+    "none": 0.45,
+    "compile": 0.45,
+    "heptapod": 0.54,
+    "full": 0.77
+   },
+   "validate_calls": {
+    "none": 0,
+    "compile": 1,
+    "heptapod": 2,
+    "full": 2
+   },
+   "kernel_seconds": {
+    "none": 0,
+    "compile": 68.5,
+    "heptapod": 143.5,
+    "full": 143.5
+   },
+   "score_seconds": 68.1
+  },
+  {
+   "paper": "Wprime",
+   "stored_usd": 1.34,
+   "stored_minutes": 15,
+   "usd": {
+    "none": 0.83,
+    "compile": 0.83,
+    "heptapod": 0.92,
+    "full": 1.34
+   },
+   "validate_calls": {
+    "none": 0,
+    "compile": 1,
+    "heptapod": 2,
+    "full": 2
+   },
+   "kernel_seconds": {
+    "none": 0,
+    "compile": 150.1,
+    "heptapod": 298.7,
+    "full": 298.7
+   },
+   "score_seconds": 148.1
+  },
+  {
+   "paper": "pNG",
+   "stored_usd": 1.56,
+   "stored_minutes": 13,
+   "usd": {
+    "none": 1.07,
+    "compile": 1.07,
+    "heptapod": 1.13,
+    "full": 1.56
+   },
+   "validate_calls": {
+    "none": 0,
+    "compile": 1,
+    "heptapod": 1,
+    "full": 1
+   },
+   "kernel_seconds": {
+    "none": 0,
+    "compile": 83.7,
+    "heptapod": 83.7,
+    "full": 83.7
+   },
+   "score_seconds": 80.0
+  },
+  {
+   "paper": "pSPSS",
+   "stored_usd": 4.68,
+   "stored_minutes": 118,
+   "usd": {
+    "none": 1.78,
+    "compile": 1.78,
+    "heptapod": 2.58,
+    "full": 3.43
+   },
+   "validate_calls": {
+    "none": 0,
+    "compile": 1,
+    "heptapod": 6,
+    "full": 6
+   },
+   "kernel_seconds": {
+    "none": 0,
+    "compile": 91.4,
+    "heptapod": 706.6,
+    "full": 706.6
+   },
+   "score_seconds": 74.9
+  }
+ ]
+}

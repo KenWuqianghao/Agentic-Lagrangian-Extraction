@@ -1,0 +1,167 @@
+{
+  "model_name": "Wprime_gen",
+  "info": {
+    "authors": ["Zack Sullivan (original paper), extracted by benchmark"],
+    "version": "1.0",
+    "date": "2026-09-24",
+    "institutions": ["Fermilab"],
+    "emails": []
+  },
+  "interaction_order_hierarchy": [
+    ["QCD", 1],
+    ["QED", 2],
+    ["NP", 1]
+  ],
+  "interaction_order_limit": [
+    ["NP", 1]
+  ],
+  "feynman_gauge": true,
+  "vevs": [],
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "Mwp",
+      "parameter_type": "External",
+      "value": "500.",
+      "block_name": "Wprime",
+      "order_block": 1,
+      "interaction_order": ["NP", 0],
+      "description": "W' boson mass [GeV]"
+    },
+    {
+      "name": "Wwp",
+      "parameter_type": "External",
+      "value": "10.",
+      "block_name": "Wprime",
+      "order_block": 6,
+      "interaction_order": ["NP", 0],
+      "description": "W' boson width [GeV]"
+    },
+    {
+      "name": "gL",
+      "parameter_type": "External",
+      "value": "0.65",
+      "block_name": "Wprime",
+      "order_block": 2,
+      "interaction_order": ["NP", 1],
+      "description": "Left-handed W' gauge coupling"
+    },
+    {
+      "name": "gR",
+      "parameter_type": "External",
+      "value": "0.65",
+      "block_name": "Wprime",
+      "order_block": 3,
+      "interaction_order": ["NP", 1],
+      "description": "Right-handed W' gauge coupling"
+    },
+    {
+      "name": "zeta",
+      "parameter_type": "External",
+      "value": "0.01",
+      "block_name": "Wprime",
+      "order_block": 4,
+      "interaction_order": ["NP", 1],
+      "description": "Left-right mixing angle"
+    },
+    {
+      "name": "omega",
+      "parameter_type": "External",
+      "value": "0.",
+      "block_name": "Wprime",
+      "order_block": 5,
+      "interaction_order": ["NP", 1],
+      "description": "CP-violating phase in right-handed sector"
+    },
+    {
+      "name": "VpL",
+      "parameter_type": "Internal",
+      "indices": ["Generation", "Generation"],
+      "unitary": true,
+      "value_rules": [
+        {"lhs": "VpL[1,1]", "rhs": "Cos[cabi]", "delayed": false},
+        {"lhs": "VpL[1,2]", "rhs": "Sin[cabi]", "delayed": false},
+        {"lhs": "VpL[1,3]", "rhs": "0", "delayed": false},
+        {"lhs": "VpL[2,1]", "rhs": "-Sin[cabi]", "delayed": false},
+        {"lhs": "VpL[2,2]", "rhs": "Cos[cabi]", "delayed": false},
+        {"lhs": "VpL[2,3]", "rhs": "0", "delayed": false},
+        {"lhs": "VpL[3,1]", "rhs": "0", "delayed": false},
+        {"lhs": "VpL[3,2]", "rhs": "0", "delayed": false},
+        {"lhs": "VpL[3,3]", "rhs": "1", "delayed": false}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Left-handed generalized CKM matrix for W' couplings (defaults to SM CKM)"
+    },
+    {
+      "name": "VpR",
+      "parameter_type": "Internal",
+      "indices": ["Generation", "Generation"],
+      "unitary": true,
+      "value_rules": [
+        {"lhs": "VpR[1,1]", "rhs": "Cos[cabi]", "delayed": false},
+        {"lhs": "VpR[1,2]", "rhs": "Sin[cabi]", "delayed": false},
+        {"lhs": "VpR[1,3]", "rhs": "0", "delayed": false},
+        {"lhs": "VpR[2,1]", "rhs": "-Sin[cabi]", "delayed": false},
+        {"lhs": "VpR[2,2]", "rhs": "Cos[cabi]", "delayed": false},
+        {"lhs": "VpR[2,3]", "rhs": "0", "delayed": false},
+        {"lhs": "VpR[3,1]", "rhs": "0", "delayed": false},
+        {"lhs": "VpR[3,2]", "rhs": "0", "delayed": false},
+        {"lhs": "VpR[3,3]", "rhs": "1", "delayed": false}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Right-handed generalized CKM matrix for W' couplings (defaults to SM CKM)"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "V",
+      "class_index": 100,
+      "class_name": "Wp",
+      "self_conjugate": false,
+      "indices": [],
+      "mass": {
+        "massless": false,
+        "sym": "Mwp",
+        "value": "500."
+      },
+      "width": {
+        "massless": false,
+        "sym": "Wwp",
+        "value": "10."
+      },
+      "quantum_numbers": {
+        "Q": "1"
+      },
+      "pdg": 9900024,
+      "particle_name": "Wp+",
+      "antiparticle_name": "Wp-",
+      "full_name": "W prime",
+      "propagator_label": "Wp",
+      "propagator_type": "Sine",
+      "propagator_arrow": "Forward"
+    }
+  ],
+  "gauge_xi": [
+    ["V[100]", "GaugeXi[Wp]"]
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "LWpKinMass",
+      "expression": "-1/2 FS[Wpbar, mu, nu] FS[Wp, mu, nu] + Mwp^2 Wpbar[mu] Wp[mu]",
+      "delayed": true
+    },
+    {
+      "name": "LWpInt",
+      "expression": "1/Sqrt[2] * (uqbar[ff1, cc].Ga[mu].(gL*Sin[zeta]*VpL[ff1, ff2]*ProjM + gR*Cos[zeta]*Exp[I*omega]*VpR[ff1, ff2]*ProjP).dq[ff2, cc] + vlbar[ff1].Ga[mu].(gL*Sin[zeta]*VpL[ff1, ff2]*ProjM + gR*Cos[zeta]*Exp[I*omega]*VpR[ff1, ff2]*ProjP).l[ff2]) * Wp[mu]",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "LWpKinMass + LWpInt + HC[LWpInt]",
+      "delayed": true
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}

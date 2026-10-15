@@ -1,0 +1,43 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-HeavyN-wuwg65x5/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-HeavyN-wuwg65x5/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: HeavyN (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1602.06957.\n4: PAPER: the paper's LaTeX source"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-HeavyN-wuwg65x5/paper/1602.06957_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-HeavyN-wuwg65x5/paper/1602.06957_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[aps,prl,twocolumn,showpacs,superscriptaddress,groupedaddress,nofootinbib]{revtex4}\n2: \\usepackage{amsmath,amsfonts,amssymb,array}\n3: \\usepackage{bm,bbm,bbm,bbold}\n4: \\usepackage{enumerate}\n5: \\usepackage{dsfont}\n6: \\usepackage{float}\n7: "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-HeavyN-wuwg65x5/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-HeavyN-wuwg65x5/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                 "
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-HeavyN-wuwg65x5/model.fr",
+   "content": "(* HeavyN_gen.fr - Heavy Neutrino add-on for SM.fr *)\n(* Based on arXiv:1602.06957 *)\n\nM$ModelName = \"HeavyN_gen\";\n\nM$Information = {\n  Authors -> {\"[Auto-generated from arXiv:1602.06957]\"},\n  Version -> \"1.0\",\n  Date -> \"2026-09-24\",\n  Institutions -> {},\n  Emails -> {},\n  URLs -> \"https://arxiv.org/abs/1602.06957\"\n};\n\n(* Interaction orders *)\nM$InteractionOrderHierarchy = {\n  {QCD, 1},\n  {QED, 2},\n  {NP, 1}\n};\n\n(* New index for heavy neutrino generations *)\nIndexRange[Index[HeavyGeneration]] = NoUnfold[Range[1]];\nIndexStyle[HeavyGeneration, hg];\n\n(* Parameters *)\nM$Parameters = {\n  (* Heavy neutrino mass *)\n  MNuH == {\n    ParameterType -> External,\n    BlockName -> HEAVYN,\n    OrderBlock -> 1,\n    Value -> 1000.,\n    InteractionOrder -> {NP, 0},\n    TeX -> Subscript[M, N],\n    Description -> \"Heavy neutrino mass [GeV]\"\n  },\n  (* Active-heavy mixing matrix V_{lN} *)\n  Vmix == {\n    ParameterType -> External,\n    BlockName -> HEAVYNMIX,\n    Indices -> {Index[Generation], Index[HeavyGeneration]},\n    Value -> {Vmix[1,1] -> 1.*^-3, Vmix[2,1] -> 1.*^-3, Vmix[3,1] -> 1.*^-3},\n    InteractionOrder -> {NP, 1},\n    TeX -> Subscript[V, lN],\n    Description -> \"Active-heavy neutrino mixing matrix\"\n  }\n};\n\n(* Particle classes *)\nM$ClassesDescription = {\n  (* Heavy neutrino: Majorana fermion, SM singlet *)\n  F[100] == {\n    ClassName -> NuH,\n    ClassMembers -> {N1},\n    Indices -> {Index[HeavyGeneration]},\n    FlavorIndex -> HeavyGeneration,\n    SelfConjugate -> True,\n    Mass -> {MNuH, 1000.},\n    Width -> {WNuH, 0.},\n    QuantumNumbers -> {},\n    PropagatorLabel -> \"NuH\",\n    PropagatorType -> S,\n    PropagatorArrow -> Forward,\n    PDG -> 9900012,\n    ParticleName -> \"N\",\n    AntiParticleName -> \"N\",\n    FullName -> \"Heavy Neutrino\"\n  }\n};\n\n(* Lagrangian *)\n\n(* Kinetic and mass term for heavy neutrino (Majorana) *)\nLNKin := Block[{mu, hg},\n  ExpandIndices[\n    I/2 * bar[NuH[hg]].Ga[mu].DC[NuH[hg], mu] - 1/2 * MNuH * bar[NuH[hg]].NuH[hg],\n    FlavorExpand -> HeavyGeneration\n  ]\n];\n\n(* Interaction terms from Eq. (2.4) of arXiv:1602.06957 *)\n(* Using physical fields: W, Z, H, vl, l, NuH *)\n\nLIntW := Block[{mu, ff, hg},\n  ExpandIndices[\n    -gw/Sqrt[2] * W[mu] * bar[CC[NuH[hg]]].Ga[mu].ProjM.l[ff] * Conjugate[Vmix[ff, hg]],\n    FlavorExpand -> {Generation, HeavyGeneration}\n  ]\n];\n\nLIntZ := Block[{mu, ff, hg},\n  ExpandIndices[\n    -gw/(2*cw) * Z[mu] * bar[CC[NuH[hg]]].Ga[mu].ProjM.vl[ff] * Conjugate[Vmix[ff, hg]],\n    FlavorExpand -> {Generation, HeavyGeneration}\n  ]\n];\n\nLIntH := Block[{ff, hg},\n  ExpandIndices[\n    -gw*MNuH/(2*MW) * H * bar[CC[NuH[hg]]].ProjM.vl[ff] * Conjugate[Vmix[ff, hg]],\n    FlavorExpand -> {Generation, HeavyGeneration}\n  ]\n];\n\nLInt := LIntW + LIntZ + LIntH;\n\n(* Total Lagrangian *)\nLTotal := LNKin + LInt + HC[LInt];"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-HeavyN-wuwg65x5/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-HeavyN-wuwg65x5/model.fr</path>\n<type>file</type>\n<content>\n1: (* HeavyN_gen.fr - Heavy Neutrino add-on for SM.fr *)\n2: (* Based on arXiv:1602.06957 *)\n3: \n4: M$ModelName = \"HeavyN_gen\";\n5: \n6: M$Information = {\n7:   Authors -> {\"[Auto-generated from arXiv:1602.06957]\"},\n8:   Version -> \"1.0\",\n9:   Date -> \"2026-09-24\",\n10:   Instit"
+ }
+]

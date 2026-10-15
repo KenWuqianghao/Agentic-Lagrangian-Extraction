@@ -1,0 +1,346 @@
+(* ************************************************************* *)
+(* FeynRules add-on: minimal U(1)_X model of arXiv:2104.10902     *)
+(* Das, Dev, Hosotani, Mandal - "Probing the minimal U(1)_X model" *)
+(* Loaded on top of SM.fr                                          *)
+(* ************************************************************* *)
+
+M$ModelName = "GeneralU1_gen";
+
+M$Information = {
+  Authors      -> {"heptapod-extraction"},
+  Version      -> "1.0",
+  Date         -> "2026-09-30",
+  Institutions -> {"n/a"},
+  Emails       -> {"n/a"},
+  References   -> {"arXiv:2104.10902"}
+};
+
+(* ************************************************************* *)
+(* Interaction orders                                             *)
+(* ************************************************************* *)
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP,  1}
+};
+
+(* ************************************************************* *)
+(* Particle classes                                               *)
+(* ************************************************************* *)
+M$ClassesDescription = {
+
+  (* New massive neutral vector: Z' of U(1)_X.
+     Implemented as an independent massive real vector with hand-written
+     fermion currents (Eq. (Lag1) of the paper), since a genuine new
+     M$GaugeGroups entry is not allowed for an SM add-on. *)
+  V[101] == {
+    ClassName       -> Zp,
+    SelfConjugate   -> True,
+    Mass            -> {MZp, 7500.},
+    Width           -> {WZp, 200.},
+    ParticleName    -> "zp",
+    PDG             -> 32,
+    PropagatorLabel -> "Zp",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "Zprime"
+  },
+
+  (* New heavy CP-even scalar, mass eigenstate mixing with the SM Higgs
+     through the portal coupling lambda' (H^dag H)(Phi^dag Phi). *)
+  S[101] == {
+    ClassName       -> h2,
+    SelfConjugate   -> True,
+    Mass            -> {Mh2, 5000.},
+    Width           -> {Wh2, 50.},
+    ParticleName    -> "h2",
+    PDG             -> 35,
+    PropagatorLabel -> "h2",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    FullName        -> "Heavy singlet-like scalar"
+  },
+
+  (* Three generations of heavy Majorana neutrinos (right-handed neutrinos
+     of the paper, after acquiring a Majorana mass from <Phi>). *)
+  F[101] == {
+    ClassName        -> NM,
+    ClassMembers     -> {n1, n2, n3},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> True,
+    Mass             -> {MNM, {MN1,1000.}, {MN2,1500.}, {MN3,2000.}},
+    Width            -> 0,
+    PropagatorLabel  -> {"NM","NM1","NM2","NM3"},
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> None,
+    PDG              -> {9900012, 9900014, 9900016},
+    ParticleName     -> {"n1", "n2", "n3"},
+    FullName         -> {"Heavy Majorana neutrino 1", "Heavy Majorana neutrino 2", "Heavy Majorana neutrino 3"}
+  },
+  S[11] == {
+    ClassName      -> Phi,
+    Unphysical     -> True,
+    Indices        -> {Index[SU2D]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 1/2},
+    Definitions    -> { Phi[1] -> -I GP, Phi[2] -> (vev + ca*H - sa*h2 + I G0)/Sqrt[2] }
+  }
+};
+
+(* ************************************************************* *)
+(* Parameters                                                     *)
+(* ************************************************************* *)
+M$Parameters = {
+
+  (* ----- U(1)_X charge parameters (External, per Table 1) ----- *)
+  xH == {
+    ParameterType -> External,
+    Value         -> -1.,
+    BlockName     -> U1XINPUTS,
+    OrderBlock    -> 1,
+    Description   -> "U(1)_X charge parameter x_H (Table 1/2 of 2104.10902), benchmark x_H=-1"
+  },
+  xPhi == {
+    ParameterType -> External,
+    Value         -> 1.,
+    BlockName     -> U1XINPUTS,
+    OrderBlock    -> 2,
+    Description   -> "U(1)_X charge parameter x_Phi (fixed to 1 without loss of generality, Sec.II)"
+  },
+  gp == {
+    ParameterType    -> External,
+    Value            -> 0.4,
+    BlockName        -> U1XINPUTS,
+    OrderBlock       -> 3,
+    InteractionOrder -> {NP, 1},
+    Description      -> "U(1)_X gauge coupling g' (paper benchmark 0.4 for M_Zp=7.5 TeV)"
+  },
+
+  (* MZp, WZp, Mh2, Wh2 are declared via the ClassesDescription Mass/Width
+     entries above (auto-created External parameters, same convention as
+     SM.fr's MZ, WZ for the Z class); not redeclared here to avoid a
+     duplicate-parameter UFO error. *)
+
+  alpha == {
+    ParameterType -> External,
+    Value         -> 0.01,
+    BlockName     -> U1XINPUTS,
+    OrderBlock    -> 4,
+    Description   -> "H-Phi scalar mixing angle [rad] (paper: negligible in the small lambda' limit, Sec.II)"
+  },
+
+
+  (* ----- Dirac neutrino Yukawa matrix Y_nu (Eq. LYk), taken diagonal ----- *)
+  Ynu == {
+    ParameterType    -> External,
+    Indices          -> {Index[Generation], Index[Generation]},
+    InteractionOrder -> {NP, 1},
+    Value            -> { Ynu[1,1] -> 1.*^-6, Ynu[1,2] -> 0., Ynu[1,3] -> 0.,
+                           Ynu[2,1] -> 0.,     Ynu[2,2] -> 1.*^-6, Ynu[2,3] -> 0.,
+                           Ynu[3,1] -> 0.,     Ynu[3,2] -> 0.,     Ynu[3,3] -> 1.*^-6 },
+    BlockName        -> NEWYUKAWA,
+    Description      -> "Dirac neutrino Yukawa matrix Y_nu^{alpha beta} (Eq. LYk)"
+  },
+
+  (* ----- Internal: U(1)_X charges of SM/new fermions (Table 1/2) ----- *)
+  xqL == {
+    ParameterType -> Internal,
+    Value         -> xH/6 + xPhi/3,
+    Description   -> "U(1)_X charge of q_L (Table 1)"
+  },
+  xuR == {
+    ParameterType -> Internal,
+    Value         -> 2*xH/3 + xPhi/3,
+    Description   -> "U(1)_X charge of u_R (Table 1)"
+  },
+  xdR == {
+    ParameterType -> Internal,
+    Value         -> -xH/3 + xPhi/3,
+    Description   -> "U(1)_X charge of d_R (Table 1)"
+  },
+  xlL == {
+    ParameterType -> Internal,
+    Value         -> -xH/2 - xPhi,
+    Description   -> "U(1)_X charge of l_L (Table 1)"
+  },
+  xeR == {
+    ParameterType -> Internal,
+    Value         -> -xH - xPhi,
+    Description   -> "U(1)_X charge of e_R (Table 1)"
+  },
+  xNR == {
+    ParameterType -> Internal,
+    Value         -> -xPhi,
+    Description   -> "U(1)_X charge of N_R (Table 1)"
+  },
+
+  (* ----- Internal: Phi VEV, from the exact paper relation
+     M_Zp = g' Sqrt[4 vPhi^2 + xH^2 vev^2 /4]  (Sec.II) ----- *)
+  vPhi == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[ (MZp/gp)^2/4 - xH^2*vev^2/16 ],
+    Description   -> "U(1)_X-breaking VEV of Phi [GeV], from M_Zp = g' Sqrt[4 vPhi^2+xH^2 vev^2/4]"
+  },
+
+  (* ----- MN1,MN2,MN3: physical heavy Majorana masses, declared via the
+     ClassesDescription Mass entry above (External, TeV-scale benchmarks). ----- *)
+
+  (* ----- Internal: Majorana Yukawas Y_N^alpha = Sqrt[2] MN^alpha / vPhi (Eq. LYk) ----- *)
+  yN1 == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[2]*MN1/vPhi,
+    Description   -> "Majorana Yukawa Y_N^1 = Sqrt[2] MN1/vPhi (Eq. LYk)"
+  },
+  yN2 == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[2]*MN2/vPhi,
+    Description   -> "Majorana Yukawa Y_N^2 = Sqrt[2] MN2/vPhi (Eq. LYk)"
+  },
+  yN3 == {
+    ParameterType -> Internal,
+    Value         -> Sqrt[2]*MN3/vPhi,
+    Description   -> "Majorana Yukawa Y_N^3 = Sqrt[2] MN3/vPhi (Eq. LYk)"
+  },
+
+  (* ----- Internal: diagonal matrix form of Y_N, for matrix-product Yukawa ----- *)
+  yNmat == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    InteractionOrder -> {NP, 1},
+    Value            -> { yNmat[1,1] -> yN1, yNmat[1,2] -> 0., yNmat[1,3] -> 0.,
+                           yNmat[2,1] -> 0., yNmat[2,2] -> yN2, yNmat[2,3] -> 0.,
+                           yNmat[3,1] -> 0., yNmat[3,2] -> 0., yNmat[3,3] -> yN3 },
+    Description      -> "Diagonal matrix form of the Majorana Yukawa couplings Y_N^alpha"
+  },
+
+  (* ----- Internal: active-heavy mixing V_lN = Y_nu vev/(Sqrt[2] MN), diagonal ----- *)
+  VlN == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    InteractionOrder -> {NP, 1},
+    Value            -> { VlN[1,1] -> Ynu[1,1]*vev/(Sqrt[2]*MN1), VlN[1,2] -> 0., VlN[1,3] -> 0.,
+                           VlN[2,1] -> 0., VlN[2,2] -> Ynu[2,2]*vev/(Sqrt[2]*MN2), VlN[2,3] -> 0.,
+                           VlN[3,1] -> 0., VlN[3,2] -> 0., VlN[3,3] -> Ynu[3,3]*vev/(Sqrt[2]*MN3) },
+    Description      -> "Active-heavy neutrino mixing V_lN[n,f] = Y_nu[f,n] vev/(Sqrt[2] MN[n])"
+  },
+
+  (* ----- Internal: mixing angle sine/cosine ----- *)
+  sa == {
+    ParameterType -> Internal,
+    Value         -> Sin[alpha],
+    Description   -> "Sine of the H-Phi mixing angle"
+  },
+  ca == {
+    ParameterType -> Internal,
+    Value         -> Cos[alpha],
+    Description   -> "Cosine of the H-Phi mixing angle"
+  },
+
+  (* ----- Internal: scalar potential couplings, inverted parametrisation
+     (verified with the massbasis tool) ----- *)
+  muHsq == {
+    ParameterType -> Internal,
+    Value         -> (MH^2*ca*sa*vPhi - MH^2*sa^2*vev + MH^2*vev - Mh2^2*ca*sa*vPhi + Mh2^2*sa^2*vev)/(2*vev),
+    Description   -> "Higgs doublet mass-squared parameter (mass basis, mixed with Phi)"
+  },
+  muPsq == {
+    ParameterType -> Internal,
+    Value         -> -(MH^2*ca*sa*vev + MH^2*sa^2*vPhi - Mh2^2*ca*sa*vev - Mh2^2*sa^2*vPhi + Mh2^2*vPhi)/(2*vPhi),
+    Description   -> "Phi mass-squared parameter (mass basis, mixed with H)"
+  },
+  lamH == {
+    ParameterType    -> Internal,
+    Value            -> -(MH^2*sa^2 - MH^2 - Mh2^2*sa^2)/(2*vev^2),
+    InteractionOrder -> {QED, 2},
+    Description      -> "Higgs doublet quartic coupling (mass basis)"
+  },
+  lamP == {
+    ParameterType    -> Internal,
+    Value            -> (MH^2*sa^2 - Mh2^2*sa^2 + Mh2^2)/(2*vPhi^2),
+    InteractionOrder -> {NP, 1},
+    Description      -> "Phi quartic self-coupling lambda_Phi (mass basis)"
+  },
+  lamHP == {
+    ParameterType    -> Internal,
+    Value            -> ca*sa*(MH - Mh2)*(MH + Mh2)/(vPhi*vev),
+    InteractionOrder -> {NP, 1},
+    Description      -> "Portal quartic coupling lambda' (mass basis)"
+  }
+};
+
+(* ************************************************************* *)
+(* Lagrangian                                                     *)
+(* ************************************************************* *)
+
+(* Redeclare the SM Higgs doublet to carry the H-h2 mixing.
+   Same class, same index/name conventions as SM.fr, with vev, H replaced
+   by the rotated combination. *)
+
+(* Scalar sector, as three separate named pieces (mirroring SM.fr's own
+   modular style). LDoubletKin uses the redefined Phi (mixing built into
+   its Definitions above). LSingletKin is the manual chain-rule kinetic
+   term of the singlet fluctuation (vPhi+sa H+ca h2); its ca,sa cross-term
+   cancels LDoubletKin's exactly (orthogonal rotation), giving canonically
+   normalised H, h2 kinetic terms. LScalarPot is the full potential (SM
+   part included), written as an explicitly-expanded polynomial in H,h2
+   using the massbasis-verified inverted parametrisation (muHsq,muPsq,
+   lamH,lamP,lamHP). *)
+LDoubletKin := Block[{ii,mu}, ExpandIndices[DC[Phibar[ii],mu] DC[Phi[ii],mu], FlavorExpand -> SU2D]];
+
+LSingletKin := Block[{nu}, Simplify[ (1/2) (sa del[H,nu] + ca del[h2,nu])*(sa del[H,nu] + ca del[h2,nu]) ]];
+
+LScalarPot := Simplify[Expand[
+    muHsq ((vev+ca*H-sa*h2)^2/2) - lamH ((vev+ca*H-sa*h2)^2/2)^2
+    - (muPsq/2) (vPhi+sa*H+ca*h2)^2 - (lamP/4) (vPhi+sa*H+ca*h2)^4
+    - (lamHP/2) ((vev+ca*H-sa*h2)^2/2) (vPhi+sa*H+ca*h2)^2
+  ]];
+
+LScalar := LDoubletKin + LSingletKin + LScalarPot;
+
+(* Kinetic term for the heavy Majorana neutrinos (gauge singlets, ordinary derivative). *)
+LNMkin := Block[{mu}, ExpandIndices[(I/2) NMbar.Ga[mu].del[NM,mu], FlavorExpand -> Generation]];
+
+(* Majorana Yukawa: -Y_N Phi \bar{N_R^c} N_R + H.c., generating m_N = Y_N vPhi/Sqrt[2].
+   NM is declared SelfConjugate -> True, so NMbar.yNmat.NM already encodes the
+   psi^c structure without an explicit CC[] call (idiom for a Majorana mass term). *)
+LYukawaN := Block[{yuk}, yuk = -(1/4) ((vPhi+sa*H+ca*h2)/Sqrt[2]) NMbar.yNmat.NM; yuk + HC[yuk]];
+
+(* Dirac neutrino Yukawa: interaction piece only (dynamical H, h2), matching
+   paper's "- Y_nu lLbar H NR" term written in SM.fr's Phibar/Eps convention
+   (paper's plain "H" corresponds to SM.fr's Phibar, see summary). The vev
+   piece is not written explicitly here: it is re-expressed through the
+   active-heavy mixing V_lN in the CC/NC currents below (HeavyN mass-basis
+   recipe), so that vl remains exactly massless and mass_diagonal passes. *)
+LYukawaNu := Block[{yuk},
+  yuk = -(1/Sqrt[2]) (ca*H - sa*h2) vlbar.Ynu.ProjM.NM;
+  yuk + HC[yuk]
+];
+
+(* Z' kinetic and mass term (independent massive real vector, SM singlet). *)
+LZpKinMass := Block[{mu,nu}, -1/4 FS[Zp,mu,nu] FS[Zp,mu,nu] + (1/2) MZp^2 Zp[mu] Zp[mu]];
+
+(* Z' currents with SM quarks and leptons, Eq. (Lag1) of 2104.10902.
+   The N-N-Z' current is purely axial (ProjP-ProjM), as required for a
+   Majorana pair coupling to a vector boson (matches the (1-4mN^2/MZp^2)^(3/2)
+   phase-space factor of Eq. (2N) in the paper). *)
+LZpFermions := Block[{mu},
+  ExpandIndices[
+    -gp uqbar.Ga[mu].(xqL*ProjM+xuR*ProjP).uq Zp[mu]
+    -gp dqbar.Ga[mu].(xqL*ProjM+xdR*ProjP).dq Zp[mu]
+    -gp lbar.Ga[mu].(xlL*ProjM+xeR*ProjP).l Zp[mu]
+    -gp xlL vlbar.Ga[mu].ProjM.vl Zp[mu]
+    -(gp*xNR/2) NMbar.Ga[mu].(ProjP-ProjM).NM Zp[mu]
+  , FlavorExpand -> Generation]
+];
+
+(* Active-heavy neutrino mixing currents (CC via W, NC via Z), HeavyN-style
+   mass-basis parametrisation of the Dirac Yukawa's mass-mixing content. *)
+LMixingCurrents := Block[{mu,ccterm,ncterm},
+  ccterm = ExpandIndices[ (gw/Sqrt[2]) NMbar.VlN.Ga[mu].ProjM.l W[mu], FlavorExpand -> Generation];
+  ncterm = ExpandIndices[ (gw/(2 cw)) NMbar.VlN.Ga[mu].ProjM.vl Z[mu], FlavorExpand -> Generation];
+  ccterm + HC[ccterm] + ncterm + HC[ncterm]
+];
+
+LTotal := LSM - LHiggs + LScalar + LNMkin + LYukawaN + LYukawaNu + LZpKinMass + LZpFermions + LMixingCurrents;

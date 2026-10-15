@@ -1,0 +1,207 @@
+(***********************************************************************)
+(******          FeynRules add-on: Wprime model (Wprime_gen)     ******)
+(******   Extracted from arXiv:hep-ph/0207290 (Zack Sullivan)     ******)
+(******   Load on top of SM.fr (no M$GaugeGroups block)           ******)
+(***********************************************************************)
+
+(* All indices (Colour, Gluon, Generation, SU2D, SU2W) are declared by SM.fr;
+   this model introduces no new index. *)
+
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+
+M$ModelName = "Wprime_gen";
+
+M$Information = {
+  Authors      -> {"Extracted from hep-ph/0207290"},
+  Version      -> "1.0",
+  Date         -> "2026",
+  Institutions -> {"arXiv:hep-ph/0207290"},
+  Emails       -> {"na"},
+  URLs          -> "https://arxiv.org/abs/hep-ph/0207290"
+};
+
+(* ************************** *)
+(* ***** Interaction orders ***** *)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP,  1}
+};
+
+(* ************************** *)
+(* ***** Particle classes **** *)
+(* ************************** *)
+
+M$ClassesDescription = {
+
+(* New heavy charged gauge boson W' (colour and SU(2) singlet, Q = +1) *)
+  V[100] == {
+    ClassName        -> Wp,
+    SelfConjugate    -> False,
+    Mass             -> {MWp, 500.},
+    Width            -> {WWp, 16.195},
+    QuantumNumbers   -> {Q -> 1},
+    PDG              -> 34,
+    PropagatorLabel  -> "Wp",
+    PropagatorType   -> Sine,
+    PropagatorArrow  -> Forward,
+    ParticleName     -> "Wp",
+    AntiParticleName -> "Wpbar",
+    FullName         -> "W prime"
+  },
+
+(* Right-handed neutrinos, one per generation (mass eigenstates nu_R) *)
+  F[100] == {
+    ClassName        -> nur,
+    ClassMembers     -> {nur1, nur2, nur3},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {Mnur, 0.},
+    Width            -> 0,
+    QuantumNumbers   -> {LeptonNumber -> 1},
+    PDG              -> {18, 20, 22},
+    PropagatorLabel  -> {"Nur", "Nur1", "Nur2", "Nur3"},
+    PropagatorType   -> S,
+    PropagatorArrow  -> Forward,
+    ParticleName     -> {"Nur1", "Nur2", "Nur3"},
+    AntiParticleName -> {"Nur1bar", "Nur2bar", "Nur3bar"},
+    FullName         -> {"Right-handed neutrino 1", "Right-handed neutrino 2", "Right-handed neutrino 3"}
+  }
+};
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+
+M$Parameters = {
+
+(* New gauge couplings, mixing angle and CP phase of Eq.(2) *)
+  gR == {
+    ParameterType    -> External,
+    BlockName        -> WPRIME,
+    OrderBlock       -> 1,
+    Value            -> 0.653,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[g, R],
+    Description      -> "Right-handed W' gauge coupling, Eq.(2); g = Sqrt[8 mW^2 GF/Sqrt[2]] = 0.653"
+  },
+  gL == {
+    ParameterType    -> External,
+    BlockName        -> WPRIME,
+    OrderBlock       -> 2,
+    Value            -> 0.653,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[g, L],
+    Description      -> "Left-handed W' gauge coupling, Eq.(2)"
+  },
+  zeta == {
+    ParameterType -> External,
+    BlockName     -> WPRIME,
+    OrderBlock    -> 3,
+    Value         -> 0.,
+    TeX           -> \[Zeta],
+    Description   -> "Left-right mixing angle, Eq.(2); paper: |zeta| smaller than a few 10^-5 to 10^-2; 0 = purely right-handed benchmark"
+  },
+  omega == {
+    ParameterType -> External,
+    BlockName     -> WPRIME,
+    OrderBlock    -> 4,
+    Value         -> 0.,
+    TeX           -> \[Omega],
+    Description   -> "CP-violating phase of Eq.(2), absorbable into V^R"
+  },
+
+(* Generalised CKM (GCKM) matrices of Eq.(2): quark sector, Eq.(16) benchmark *)
+  VLq == {
+    ParameterType -> External,
+    Indices       -> {Index[Generation], Index[Generation]},
+    BlockName     -> VLBLOCK,
+    OrderBlock    -> 1,
+    Value         -> {
+      VLq[1,1] -> 0.9751, VLq[1,2] -> 0.2215, VLq[1,3] -> 0.0035,
+      VLq[2,1] -> 0.2210, VLq[2,2] -> 0.9743, VLq[2,3] -> 0.0410,
+      VLq[3,1] -> 0.0090, VLq[3,2] -> 0.0400, VLq[3,3] -> 1.0000
+    },
+    TeX           -> Superscript[V, Lq],
+    Description   -> "Left-handed GCKM matrix, quarks; benchmark = Eq.(16)"
+  },
+  VRq == {
+    ParameterType -> External,
+    Indices       -> {Index[Generation], Index[Generation]},
+    BlockName     -> VRBLOCK,
+    OrderBlock    -> 1,
+    Value         -> {
+      VRq[1,1] -> 0.9751, VRq[1,2] -> 0.2215, VRq[1,3] -> 0.0035,
+      VRq[2,1] -> 0.2210, VRq[2,2] -> 0.9743, VRq[2,3] -> 0.0410,
+      VRq[3,1] -> 0.0090, VRq[3,2] -> 0.0400, VRq[3,3] -> 1.0000
+    },
+    TeX           -> Superscript[V, Rq],
+    Description   -> "Right-handed GCKM matrix, quarks; benchmark = Eq.(16)"
+  },
+
+(* Generalised CKM (GCKM) matrices of Eq.(2): lepton sector, identity benchmark *)
+  VLl == {
+    ParameterType -> External,
+    Indices       -> {Index[Generation], Index[Generation]},
+    BlockName     -> VLBLOCK,
+    OrderBlock    -> 2,
+    Value         -> {
+      VLl[1,1] -> 1., VLl[1,2] -> 0., VLl[1,3] -> 0.,
+      VLl[2,1] -> 0., VLl[2,2] -> 1., VLl[2,3] -> 0.,
+      VLl[3,1] -> 0., VLl[3,2] -> 0., VLl[3,3] -> 1.
+    },
+    TeX           -> Superscript[V, Ll],
+    Description   -> "Left-handed GCKM matrix, leptons; benchmark = identity matrix"
+  },
+  VRl == {
+    ParameterType -> External,
+    Indices       -> {Index[Generation], Index[Generation]},
+    BlockName     -> VRBLOCK,
+    OrderBlock    -> 2,
+    Value         -> {
+      VRl[1,1] -> 1., VRl[1,2] -> 0., VRl[1,3] -> 0.,
+      VRl[2,1] -> 0., VRl[2,2] -> 1., VRl[2,3] -> 0.,
+      VRl[3,1] -> 0., VRl[3,2] -> 0., VRl[3,3] -> 1.
+    },
+    TeX           -> Superscript[V, Rl],
+    Description   -> "Right-handed GCKM matrix, leptons; benchmark = identity matrix"
+  }
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+(* Free kinetic and mass term of the W' (complex vector, gauge singlet) *)
+LWpkin := Block[{mu, nu},
+  -1/2 FS[Wpbar, mu, nu] FS[Wp, mu, nu] + MWp^2 Wpbar[mu] Wp[mu]
+];
+
+(* Free kinetic and mass term of the right-handed neutrinos (Dirac fermions) *)
+Lnurkin := Block[{mu},
+  I nurbar.Ga[mu].DC[nur, mu] - Mnur nurbar.nur
+];
+
+(* W' couplings to fermions, Eqs.(1)-(2):
+   L = 1/Sqrt[2] fbar_i gamma_mu (gR e^{i omega} Cos[zeta] V^R_ij P_R
+       + gL Sin[zeta] V^L_ij P_L) W' f_j + H.c.
+   Right-handed leptonic current uses the new nu_R field (W' -> l nu_R),
+   left-handed leptonic current uses the SM neutrino (W' -> l nu). *)
+LWpF := Block[{mu, LWpint},
+  LWpint = ExpandIndices[
+    (1/Sqrt[2]) Wp[mu] (
+      gR Cos[zeta] Exp[I omega] (uqbar.VRq.Ga[mu].ProjP.dq + nurbar.VRl.Ga[mu].ProjP.l)
+      + gL Sin[zeta] (uqbar.VLq.Ga[mu].ProjM.dq + vlbar.VLl.Ga[mu].ProjM.l)
+    ),
+    FlavorExpand -> Generation
+  ];
+  LWpint + HC[LWpint]
+];
+
+(* Total Lagrangian *)
+LTotal := LWpkin + Lnurkin + LWpF;

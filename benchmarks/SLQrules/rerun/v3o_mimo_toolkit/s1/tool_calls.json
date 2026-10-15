@@ -1,0 +1,589 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: SLQrules (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:2105.04844.\n4: PAPER: the paper's LaTeX so"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/frgen\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv98000"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1: \n2: \n3: \n4: \n5: \n6: \n7: \n8: \n9: \n10: \n11: \n12: \\documentclass[preprint,12pt]{elsarticle}\n13: \n14: \n15: \n16: \n17: \n18: \n19: \n20: \n21: \n22: \n23: \n24: \n25: \n26: \n27: \n28: \n29: \n30: \n31: \n32: \n33: \n34: \n35: \n36: \\usepackage{mathbbol}\n37: \\usepackage{amss"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUID"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                               "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "offset": 1049
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1049:     3 \\otimes 3 \\otimes 3 &= 1 \\oplus 8 \\oplus 8 \\oplus 10 \\\\\n1050:     \\overline{3} \\otimes \\overline{3} \\otimes \\overline{3} &= 1 \\oplus 8 \\oplus 8 \\oplus \\overline{10}\n1051:     \\end{aligned}\n1052: \\end{align}\n1053: \n1054: \n1055: are the only t"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "offset": 2596
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n2596: \\section{Scalar LQ Feynman Rules}\n2597: \\label{sec:LQInteractions}\n2598: In this section we state the Feynman rules for all LQ interactions. We write $\\Phi^q_a$ with $q \\in \\{-\\frac{4}{3}, -\\frac{1}{3}, +\\frac{2}{3},+\\frac{5}{3} \\}$ and $a \\in \\{1"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: SLQrules (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:2105.04844.\n4: PAPER: the paper's LaTeX so"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUID"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/frgen\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv98000"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "wc -l /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"bash\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"bash\",\"pattern\":\"./frgen *\",\"action\":\"allow\"},{\"permission\":\"bash\",\"pattern\":\"./frgen\",\"action\":\"allow\"}]"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 400
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1: \n2: \n3: \n4: \n5: \n6: \n7: \n8: \n9: \n10: \n11: \n12: \\documentclass[preprint,12pt]{elsarticle}\n13: \n14: \n15: \n16: \n17: \n18: \n19: \n20: \n21: \n22: \n23: \n24: \n25: \n26: \n27: \n28: \n29: \n30: \n31: \n32: \n33: \n34: \n35: \n36: \\usepackage{mathbbol}\n37: \\usepackage{amss"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 400,
+   "offset": 401
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n401:     \\begin{aligned}\n402:         W^\\pm_\\mu &= \\frac{1}{\\sqrt{2}} \\left( W^1_\\mu \\mp i W^2_\\mu \\right) \\,. \\label{eq:EWMixing2}\n403:         \\end{aligned}\n404: \\end{align}\n405: \n406: \n407: In the following, $\\cos \\theta_w, \\sin \\theta_w$ will be abb"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr",
+   "limit": 500
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                               "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 400,
+   "offset": 801
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n801:     \\end{aligned}\n802: \\end{equation}\n803: \n804: \n805: and\n806: \n807: \n808: \\begin{align}\n809: \t\\begin{aligned}\n810: \t\t\\hat{\\mathbb{\\Gamma}}^q &= W^q \\mathbb{\\Gamma}^q \\left(W^{q}\\right)^\\dagger \\text{ for } q \\in Q \\,, \\\\\n811: \t\t\\hat{\\mathbb{\\Lamb"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr",
+   "limit": 250,
+   "offset": 501
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr</path>\n<type>file</type>\n<content>\n501:     BlockName     -> YUKAWA,\n502:     OrderBlock    -> 1,\n503:     Value         -> 5.04*^-3,\n504:     Description   -> \"Down Yukawa mass\"\n505:   },\n506:   ymup == {\n507:     ParameterType -> External,\n508:     BlockName     -> YUKAWA,\n509:     OrderBlock    -> 2,\n510: "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 500,
+   "offset": 1201
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1201: \\clearpage\n1202: \\section{Methods}\n1203: \\label{sec:methods}\n1204: \n1205: The determination of the Feynman rules to be presented in Chapters \\ref{sec:SMInteractions} and \\ref{sec:LQInteractions} is carried out using the Mathematica package FeynRul"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and th"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDEL"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/frgen/templates/model.fr.j2"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/frgen/templates/model.fr.j2</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: {{ model_name }}                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*----------"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/frgen"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/frgen</path>\n<type>file</type>\n<content>\n1: #!/bin/sh\n2: FRGEN_TOOLKIT=\"$(pwd)/tools\" exec \"/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/venv/bin/python\" \"/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ope"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 400,
+   "offset": 2601
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n2601: \\subsection{External Fields}\n2602: In this subsection, the Feynman rules for the external legs are listed. The circles denote the generic reminder of the Feynman diagram. \n2603: \\begin{center}\n2604: \\begin{table}[!ht]\n2605:     \\centering\\begin{ta"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "benchmark|Benchmark|1000|5000|benchmark point|Benchmarks",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex"
+  },
+  "status": "completed",
+  "output": "No files found"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "section\\{|appendix|Charge conjug|charge-conjug",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex"
+  },
+  "status": "completed",
+  "output": "Found 75 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex:\n  Line 242: \\section{Introduction}\n\n  Line 251: In Sections~\\ref{sec:SMLagrangian} and \\ref{sec:LQLagrangian}, we present our conventions by defining the complete Lagrangian for the SM extended with all five scalar LQ representations. Sec.~\\ref{sec:methods} gives an overview "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 250,
+   "offset": 4835
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n4835: \\subsection{LQ Triple Interactions}\n4836: The LQ self-interactions involving three LQs are given below. \n4837: \n4838: \\begin{center}\n4839: \\begin{table}[!ht]\n4840:     \\centering\\begin{tabular}{>{\\centering\\arraybackslash}m{4.5cm} m{8.5cm}} \n4841:"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 200,
+   "offset": 5279
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n5279: \\subsection{LQ Quartic Interactions}\n5280: \\label{sec:LQQuartic}\n5281: In the following, the Feynman rules for the LQ self-interactions involving four LQs are listed. If $n_a$ or $n_b$ are equal to zero, $W^q_{n_a n_b}$ should be set to zero (i.e."
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 150,
+   "offset": 6068
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n6068: \\section{Conclusions}\n6069: \\label{sec:Conclusions}\n6070: In this article we provided the complete scalar LQ Lagrangian, including all interactions with SM fermions, gauge bosons and the Higgs. After EW symmetry breaking the mass terms of the Lagr"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 150,
+   "offset": 6598
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n6598: The Feynman rules for LQ interactions with the charge-conjugate SM fermions are given below. \n6599: \n6600: \n6601: \n6602: \n6603: \n6604: \n6605: \\begin{center}\n6606: \\begin{table}[!ht]\n6607:     \\centering\\begin{tabular}{>{\\centering\\arraybackslash}m"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 200,
+   "offset": 3011
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n3011: \\subsection{Interactions with SM Gauge Bosons}\n3012: The Feynman rules for the LQ interactions with the SM gauge bosons are given below.\n3013: \\label{sec:LQGaugeBosons}\n3014: \n3015: \\subsubsection{Charge 1/3}\n3016: \n3017: \n3018: \n3019: \n3020: \n302"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 120,
+   "offset": 4034
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n4034: \\subsection{Higgs Interactions}\n4035: The Feynman rules for LQ interactions with the SM Higgs field are given below. \n4036: \\label{sec:LQHiggs}\n4037: \n4038: \n4039: \n4040: \n4041: \n4042: \n4043: \n4044: \\subsubsection{Charge 1/3}\n4045: \n4046: \\begin{c"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 80,
+   "offset": 6748
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n6748: \n\n(End of file - total 6748 lines)\n</content>"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 100,
+   "offset": 6068
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n6068: \\section{Conclusions}\n6069: \\label{sec:Conclusions}\n6070: In this article we provided the complete scalar LQ Lagrangian, including all interactions with SM fermions, gauge bosons and the Higgs. After EW symmetry breaking the mass terms of the Lagr"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: SLQrules (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:2105.04844.\n4: PAPER: the paper's LaTeX so"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/frgen\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv98000"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 450
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1: \n2: \n3: \n4: \n5: \n6: \n7: \n8: \n9: \n10: \n11: \n12: \\documentclass[preprint,12pt]{elsarticle}\n13: \n14: \n15: \n16: \n17: \n18: \n19: \n20: \n21: \n22: \n23: \n24: \n25: \n26: \n27: \n28: \n29: \n30: \n31: \n32: \n33: \n34: \n35: \n36: \\usepackage{mathbbol}\n37: \\usepackage{amss"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "offset": 450,
+   "limit": 450
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n450: \\ell_{i, L}^\\prime &\\equiv U^{\\ell L}_{ij} \\ell_{j, L}  \\,, & \\ell_{i, R}^\\prime &\\equiv U^{\\ell R}_{ij} \\ell_{j, R}\\,,\n451: \\end{aligned}\n452: \\label{eq:fermionRotation}\n453: \\end{equation}\n454: \n455: \n456: where $U^{uL}, U^{uR}, U^{dL}, U^{dR}$, "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 400,
+   "offset": 900
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n900:         \\mathbbm{Z}^{+2/3} &= \n901:                 \\renewcommand{\\arraystretch}{1.0}\n902:                 \\begin{pmatrix}\n903:                     -\\dfrac{1}{2} - \\dfrac{2}{3}s_w^2 & 0 & 0 \\\\\n904:                     0 & \\dfrac{1}{2} - \\dfrac{2}{3"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUID"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                               "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and th"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDEL"
+ },
+ {
+  "tool": "invalid",
+  "input": {
+   "tool": "write",
+   "error": "Invalid input for tool write: JSON parsing failed: Text: {\"content\": \"{\\n  \\\"model_name\\\": \\\"SLQrules_gen\\\",\\n  \\\"info\\\": {\\n    \\\"authors\\\": [\\\"A. Crivellin\\\", \\\"L. Schnell\\\"],\\n    \\\"version\\\": \\\"1.0\\\",\\n    \\\"date\\\": \\\"2021\\\",\\n    \\\"institutions\\\": [\\\"CERN\\\", \\\"University of Zurich\\\", \\\"ETH Zurich\\\", \\\"PSI\\\", \\\"Sorbonne University\\\"]\\n  },\\n  \\\"interaction_order_hierarchy\\\": [[\\\"QCD\\\", 1], [\\\"QED\\\", 2], [\\\"NP\\\", 1]],\\n  \\\"feynman_gauge\\\": true,\\n  \\\"gauge_groups\\\": [],\\n  \\\"index_decls\\\": [],\\n  \\\"parameters\\\": [\\n    {\\\"name\\\": \\\"m1\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1500.\\\", \\\"block_name\\\": \\\"SLQMASSES\\\", \\\"order_block\\\": 1, \\\"description\\\": \\\"Phi1 gauge-basis mass squared root [GeV]\\\"},\\n    {\\\"name\\\": \\\"mt1\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1500.\\\", \\\"block_name\\\": \\\"SLQMASSES\\\", \\\"order_block\\\": 2, \\\"description\\\": \\\"Phi1t gauge-basis mass [GeV]\\\"},\\n    {\\\"name\\\": \\\"m2\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1500.\\\", \\\"block_name\\\": \\\"SLQMASSES\\\", \\\"order_block\\\": 3, \\\"description\\\": \\\"Phi2 gauge-basis mass [GeV]\\\"},\\n    {\\\"name\\\": \\\"mt2\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1500.\\\", \\\"block_name\\\": \\\"SLQMASSES\\\", \\\"order_block\\\": 4, \\\"description\\\": \\\"Phi2t gauge-basis mass [GeV]\\\"},\\n    {\\\"name\\\": \\\"m3\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1500.\\\", \\\"block_name\\\": \\\"SLQMASSES\\\", \\\"order_block\\\": 5, \\\"description\\\": \\\"Phi3 gauge-basis mass [GeV]\\\"},\\n\\n    {\\\"name\\\": \\\"MS1m13\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1500.\\\", \\\"block_name\\\": \\\"SLQMASSES\\\", \\\"order_block\\\": 11, \\\"description\\\": \\\"Physical Q=-1/3 state 1 mass [GeV]\\\"},\\n    {\\\"name\\\": \\\"MR2tm13\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1600.\\\", \\\"block_name\\\": \\\"SLQMASSES\\\", \\\"order_block\\\": 12, \\\"description\\\": \\\"Physical Q=-1/3 state 2 mass [GeV]\\\"},\\n    {\\\"name\\\": \\\"MS3m13\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1700.\\\", \\\"block_name\\\": \\\"SLQMASSES\\\", \\\"order_block\\\": 13, \\\"description\\\": \\\"Physical Q=-1/3 state 3 mass [GeV]\\\"},\\n    {\\\"name\\\": \\\"MS2p23\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1500.\\\", \\\"block_name\\\": \\\"SLQMASSES\\\", \\\"order_block\\\": 14, \\\"description\\\": \\\"Physical Q=+2/3 state 1 mass [GeV]\\\"},\\n    {\\\"name\\\": \\\"MR2tp23\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1600.\\\", \\\"block_name\\\": \\\"SLQMASSES\\\", \\\"order_block\\\": 15, \\\"description\\\": \\\"Physical Q=+2/3 state 2 mass [GeV]\\\"},\\n    {\\\"name\\\": \\\"MS3p23\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1700.\\\", \\\"block_name\\\": \\\"SLQMASSES\\\", \\\"order_block\\\": 16, \\\"description\\\": \\\"Physical Q=+2/3 state 3 mass [GeV]\\\"},\\n    {\\\"name\\\": \\\"MR1tm43\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1500.\\\", \\\"block_name\\\": \\\"SLQMASSES\\\", \\\"order_block\\\": 17, \\\"description\\\": \\\"Physical Q=-4/3 state 1 mass [GeV]\\\"},\\n    {\\\"name\\\": \\\"MS3m43\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1700.\\\", \\\"block_name\\\": \\\"SLQMASSES\\\", \\\"order_block\\\": 18, \\\"description\\\": \\\"Physical Q=-4/3 state 2 mass [GeV]\\\"},\\n    {\\\"name\\\": \\\"MS2p53\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1500.\\\", \\\"block_name\\\": \\\"SLQMASSES\\\", \\\"order_block\\\": 19, \\\"description\\\": \\\"Physical Q=+5/3 mass [GeV]\\\"},\\n\\n    {\\\"name\\\": \\\"Y1\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"block_name\\\": \\\"SLQYUK\\\", \\\"order_block\\\": 1, \\\"description\\\": \\\"Phi1 Higgs portal Y1, Eq. LQ_mixing\\\"},\\n    {\\\"name\\\": \\\"Yt1\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"block_name\\\": \\\"SLQYUK\\\", \\\"order_block\\\": 2, \\\"description\\\": \\\"Phi1t Higgs portal Y_t1\\\"},\\n    {\\\"name\\\": \\\"Y2\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"block_name\\\": \\\"SLQYUK\\\", \\\"order_block\\\": 3, \\\"description\\\": \\\"Phi2 Higgs portal Y2\\\"},\\n    {\\\"name\\\": \\\"Yt2\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"block_name\\\": \\\"SLQYUK\\\", \\\"order_block\\\": 4, \\\"description\\\": \\\"Phi2t Higgs portal Y_t2\\\"},\\n    {\\\"name\\\": \\\"Y3\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"block_name\\\": \\\"SLQYUK\\\", \\\"order_block\\\": 5, \\\"description\\\": \\\"Phi3 Higgs portal Y3\\\"},\\n    {\\\"name\\\": \\\"Y22\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"block_name\\\": \\\"SLQYUK\\\", \\\"order_block\\\": 6, \\\"description\\\": \\\"Phi2 double-portal Y22\\\"},\\n    {\\\"name\\\": \\\"Yt2t2\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"block_name\\\": \\\"SLQYUK\\\", \\\"order_block\\\": 7, \\\"description\\\": \\\"Phi2t double-portal Y_t2t2\\\"},\\n    {\\\"name\\\": \\\"Y33\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"block_name\\\": \\\"SLQYUK\\\", \\\"order_block\\\": 8, \\\"description\\\": \\\"Phi3 portal Y33\\\"},\\n\\n    {\\\"name\\\": \\\"A1t2\\\", \\\"parameter_type\\\": \\\"Internal\\\", \\\"value\\\": \\\"0.\\\", \\\"complex\\\": true, \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Phi1-Phi2t mixing A_1t2 mass dimension 1\\\"},\\n    {\\\"name\\\": \\\"At23\\\", \\\"parameter_type\\\": \\\"Internal\\\", \\\"value\\\": \\\"0.\\\", \\\"complex\\\": true, \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Phi2t-Phi3 mixing A_t23 mass dimension 1\\\"},\\n    {\\\"name\\\": \\\"Y13\\\", \\\"parameter_type\\\": \\\"Internal\\\", \\\"value\\\": \\\"0.\\\", \\\"complex\\\": true, \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Phi1-Phi3 portal Y13\\\"},\\n    {\\\"name\\\": \\\"Yt13\\\", \\\"parameter_type\\\": \\\"Internal\\\", \\\"value\\\": \\\"0.\\\", \\\"complex\\\": true, \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Phi1t-Phi3 portal Y_t13\\\"},\\n    {\\\"name\\\": \\\"Y2t2\\\", \\\"parameter_type\\\": \\\"Internal\\\", \\\"value\\\": \\\"0.\\\", \\\"complex\\\": true, \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Phi2-Phi2t portal Y_2t2\\\"},\\n\\n    {\\\"name\\\": \\\"Y1RR\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"indices\\\": [\\\"Generation\\\", \\\"Generation\\\"], \\\"interaction_order\\\": [\\\"NP\\\", 1],\\n     \\\"value_rules\\\": [\\n       {\\\"lhs\\\": \\\"Y1RR[1,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1RR[1,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1RR[1,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y1RR[2,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1RR[2,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1RR[2,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y1RR[3,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1RR[3,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1RR[3,3]\\\", \\\"rhs\\\": \\\"1.\\\"}\\n     ], \\\"description\\\": \\\"Y1 RR quark-leptoquark Yukawa 3x3\\\"},\\n    {\\\"name\\\": \\\"Y1LL\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"indices\\\": [\\\"Generation\\\", \\\"Generation\\\"], \\\"interaction_order\\\": [\\\"NP\\\", 1],\\n     \\\"value_rules\\\": [\\n       {\\\"lhs\\\": \\\"Y1LL[1,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1LL[1,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1LL[1,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y1LL[2,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1LL[2,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1LL[2,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y1LL[3,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1LL[3,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1LL[3,3]\\\", \\\"rhs\\\": \\\"1.\\\"}\\n     ], \\\"description\\\": \\\"Y1 LL quark-leptoquark Yukawa 3x3\\\"},\\n    {\\\"name\\\": \\\"Y1QLL\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"indices\\\": [\\\"Generation\\\", \\\"Generation\\\"], \\\"interaction_order\\\": [\\\"NP\\\", 1],\\n     \\\"value_rules\\\": [\\n       {\\\"lhs\\\": \\\"Y1QLL[1,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1QLL[1,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1QLL[1,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y1QLL[2,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1QLL[2,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1QLL[2,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y1QLL[3,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1QLL[3,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1QLL[3,3]\\\", \\\"rhs\\\": \\\"1.\\\"}\\n     ], \\\"description\\\": \\\"Y1 QLL symmetric diquark Yukawa\\\"},\\n    {\\\"name\\\": \\\"Y1QRR\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"indices\\\": [\\\"Generation\\\", \\\"Generation\\\"], \\\"interaction_order\\\": [\\\"NP\\\", 1],\\n     \\\"value_rules\\\": [\\n       {\\\"lhs\\\": \\\"Y1QRR[1,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1QRR[1,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1QRR[1,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y1QRR[2,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1QRR[2,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1QRR[2,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y1QRR[3,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1QRR[3,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y1QRR[3,3]\\\", \\\"rhs\\\": \\\"1.\\\"}\\n     ], \\\"description\\\": \\\"Y1 QRR diquark Yukawa\\\"},\\n    {\\\"name\\\": \\\"Yt1RR\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"indices\\\": [\\\"Generation\\\", \\\"Generation\\\"], \\\"interaction_order\\\": [\\\"NP\\\", 1],\\n     \\\"value_rules\\\": [\\n       {\\\"lhs\\\": \\\"Yt1RR[1,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Yt1RR[1,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Yt1RR[1,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Yt1RR[2,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Yt1RR[2,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Yt1RR[2,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Yt1RR[3,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Yt1RR[3,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Yt1RR[3,3]\\\", \\\"rhs\\\": \\\"1.\\\"}\\n     ], \\\"description\\\": \\\"Y_t1 RR Yukawa\\\"},\\n    {\\\"name\\\": \\\"Yt1QRR\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"indices\\\": [\\\"Generation\\\", \\\"Generation\\\"], \\\"interaction_order\\\": [\\\"NP\\\", 1],\\n     \\\"value_rules\\\": [\\n       {\\\"lhs\\\": \\\"Yt1QRR[1,1]\\\", \\\"rhs\\\": \\\"0.\\\"}, {\\\"lhs\\\": \\\"Yt1QRR[1,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Yt1QRR[1,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Yt1QRR[2,1]\\\", \\\"rhs\\\": \\\"-1.\\\"}, {\\\"lhs\\\": \\\"Yt1QRR[2,2]\\\", \\\"rhs\\\": \\\"0.\\\"}, {\\\"lhs\\\": \\\"Yt1QRR[2,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Yt1QRR[3,1]\\\", \\\"rhs\\\": \\\"-1.\\\"}, {\\\"lhs\\\": \\\"Yt1QRR[3,2]\\\", \\\"rhs\\\": \\\"-1.\\\"}, {\\\"lhs\\\": \\\"Yt1QRR[3,3]\\\", \\\"rhs\\\": \\\"0.\\\"}\\n     ], \\\"description\\\": \\\"Y_t1 QRR antisymmetric diquark Yukawa\\\"},\\n    {\\\"name\\\": \\\"Y2RL\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"indices\\\": [\\\"Generation\\\", \\\"Generation\\\"], \\\"interaction_order\\\": [\\\"NP\\\", 1],\\n     \\\"value_rules\\\": [\\n       {\\\"lhs\\\": \\\"Y2RL[1,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y2RL[1,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y2RL[1,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y2RL[2,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y2RL[2,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y2RL[2,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y2RL[3,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y2RL[3,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y2RL[3,3]\\\", \\\"rhs\\\": \\\"1.\\\"}\\n     ], \\\"description\\\": \\\"Y2 RL Yukawa\\\"},\\n    {\\\"name\\\": \\\"Y2LR\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"indices\\\": [\\\"Generation\\\", \\\"Generation\\\"], \\\"interaction_order\\\": [\\\"NP\\\", 1],\\n     \\\"value_rules\\\": [\\n       {\\\"lhs\\\": \\\"Y2LR[1,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y2LR[1,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y2LR[1,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y2LR[2,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y2LR[2,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y2LR[2,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y2LR[3,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y2LR[3,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y2LR[3,3]\\\", \\\"rhs\\\": \\\"1.\\\"}\\n     ], \\\"description\\\": \\\"Y2 LR Yukawa\\\"},\\n    {\\\"name\\\": \\\"Yt2RL\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"indices\\\": [\\\"Generation\\\", \\\"Generation\\\"], \\\"interaction_order\\\": [\\\"NP\\\", 1],\\n     \\\"value_rules\\\": [\\n       {\\\"lhs\\\": \\\"Yt2RL[1,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Yt2RL[1,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Yt2RL[1,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Yt2RL[2,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Yt2RL[2,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Yt2RL[2,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Yt2RL[3,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Yt2RL[3,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Yt2RL[3,3]\\\", \\\"rhs\\\": \\\"1.\\\"}\\n     ], \\\"description\\\": \\\"Y_t2 RL Yukawa\\\"},\\n    {\\\"name\\\": \\\"Y3LL\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"indices\\\": [\\\"Generation\\\", \\\"Generation\\\"], \\\"interaction_order\\\": [\\\"NP\\\", 1],\\n     \\\"value_rules\\\": [\\n       {\\\"lhs\\\": \\\"Y3LL[1,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y3LL[1,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y3LL[1,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y3LL[2,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y3LL[2,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y3LL[2,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y3LL[3,1]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y3LL[3,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y3LL[3,3]\\\", \\\"rhs\\\": \\\"1.\\\"}\\n     ], \\\"description\\\": \\\"Y3 LL leptoquark Yukawa\\\"},\\n    {\\\"name\\\": \\\"Y3QLL\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"indices\\\": [\\\"Generation\\\", \\\"Generation\\\"], \\\"interaction_order\\\": [\\\"NP\\\", 1],\\n     \\\"value_rules\\\": [\\n       {\\\"lhs\\\": \\\"Y3QLL[1,1]\\\", \\\"rhs\\\": \\\"0.\\\"}, {\\\"lhs\\\": \\\"Y3QLL[1,2]\\\", \\\"rhs\\\": \\\"1.\\\"}, {\\\"lhs\\\": \\\"Y3QLL[1,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y3QLL[2,1]\\\", \\\"rhs\\\": \\\"-1.\\\"}, {\\\"lhs\\\": \\\"Y3QLL[2,2]\\\", \\\"rhs\\\": \\\"0.\\\"}, {\\\"lhs\\\": \\\"Y3QLL[2,3]\\\", \\\"rhs\\\": \\\"1.\\\"},\\n       {\\\"lhs\\\": \\\"Y3QLL[3,1]\\\", \\\"rhs\\\": \\\"-1.\\\"}, {\\\"lhs\\\": \\\"Y3QLL[3,2]\\\", \\\"rhs\\\": \\\"-1.\\\"}, {\\\"lhs\\\": \\\"Y3QLL[3,3]\\\", \\\"rhs\\\": \\\"0.\\\"}\\n     ], \\\"description\\\": \\\"Y3 QLL antisymmetric diquark Yukawa\\\"},\\n\\n    {\\\"name\\\": \\\"A1t2t2\\\", \\\"parameter_type\\\": \\\"Internal\\\", \\\"value\\\": \\\"1.\\\", \\\"complex\\\": true, \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Triple A_1t2t2 mass dimension 1\\\"},\\n    {\\\"name\\\": \\\"At12t2\\\", \\\"parameter_type\\\": \\\"Internal\\\", \\\"value\\\": \\\"1.\\\", \\\"complex\\\": true, \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Triple A_t12t2 mass dimension 1\\\"},\\n    {\\\"name\\\": \\\"Y1t12\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Triple Y_1t12\\\"},\\n    {\\\"name\\\": \\\"Y123\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Triple Y_123\\\"},\\n    {\\\"name\\\": \\\"Y1t23\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Triple Y_1t23\\\"},\\n    {\\\"name\\\": \\\"Yt123\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Triple Y_t123\\\"},\\n    {\\\"name\\\": \\\"Y233\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Triple Y_233\\\"},\\n    {\\\"name\\\": \\\"Yt233\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Triple Y_t233\\\"},\\n\\n    {\\\"name\\\": \\\"Yq1a\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Quartic Y^(1)_a diagonal, a in {1,1t,2,2t,3}\\\"},\\n    {\\\"name\\\": \\\"Yq3a\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Quartic Y^(3)_a for a in {2,2t,3}\\\"},\\n    {\\\"name\\\": \\\"Yq5a3\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Quartic Y^(5)_3\\\"},\\n    {\\\"name\\\": \\\"Yq1ab\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Quartic Y^(1)_ab delta-delta contraction\\\"},\\n    {\\\"name\\\": \\\"Yq1pab\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Quartic Y'^(1)_ab crossed colour contraction\\\"},\\n    {\\\"name\\\": \\\"Yq3ab\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Quartic Y^(3) a3 and 2t2t\\\"},\\n    {\\\"name\\\": \\\"Yq3pab\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Quartic Y'^(3) crossed\\\"},\\n    {\\\"name\\\": \\\"Yq1aa3\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Quartic Y_1aa3\\\"},\\n    {\\\"name\\\": \\\"Yq1paa3\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Quartic Y'_1aa3\\\"},\\n    {\\\"name\\\": \\\"Yq1t1t22\\\", \\\"parameter_type\\\": \\\"External\\\", \\\"value\\\": \\\"1.\\\", \\\"interaction_order\\\": [\\\"NP\\\", 1], \\\"description\\\": \\\"Quartic Y_1t1t22\\\"},.\nError message: JSON Parse error: Unterminated string"
+  },
+  "status": "completed",
+  "output": "The arguments provided to the tool are invalid: Invalid input for tool write: JSON parsing failed: Text: {\"content\": \"{\\n  \\\"model_name\\\": \\\"SLQrules_gen\\\",\\n  \\\"info\\\": {\\n    \\\"authors\\\": [\\\"A. Crivellin\\\", \\\"L. Schnell\\\"],\\n    \\\"version\\\": \\\"1.0\\\",\\n    \\\"date\\\": \\\"2021\\\",\\n    \\\"institutions\\\": [\\\"CERN\\\", \\\"University of Zurich\\\", \\\"ETH Zurich\\\", \\\"PSI\\\", \\\"Sorbonne University\\\"]\\n  },\\n  \\\"i"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/spec.json",
+   "content": "{\n  \"model_name\": \"SLQrules_gen\",\n  \"info\": {\n    \"authors\": [\"A. Crivellin\", \"L. Schnell\"],\n    \"version\": \"1.0\",\n    \"date\": \"2021\",\n    \"institutions\": [\"CERN Theory Division\", \"University of Zurich\", \"ETH Zurich\", \"PSI\", \"Sorbonne University\", \"LPTHE\"]\n  },\n  \"interaction_order_hierarchy\": [[\"QCD\", 1], [\"QED\", 2], [\"NP\", 1]],\n  \"feynman_gauge\": true,\n  \"gauge_groups\": [],\n  \"index_decls\": [],\n  \"parameters\": [\n    {\"name\": \"m1\", \"parameter_type\": \"External\", \"value\": \"1500.\", \"block_name\": \"SLQMASSES\", \"order_block\": 1, \"description\": \"Phi1 mass parameter [GeV]\"},\n    {\"name\": \"mt1\", \"parameter_type\": \"External\", \"value\": \"1500.\", \"block_name\": \"SLQMASSES\", \"order_block\": 2, \"description\": \"Phi1tilde mass parameter [GeV]\"},\n    {\"name\": \"m2\", \"parameter_type\": \"External\", \"value\": \"1500.\", \"block_name\": \"SLQMASSES\", \"order_block\": 3, \"description\": \"Phi2 mass parameter [GeV]\"},\n    {\"name\": \"mt2\", \"parameter_type\": \"External\", \"value\": \"1500.\", \"block_name\": \"SLQMASSES\", \"order_block\": 4, \"description\": \"Phi2tilde mass parameter [GeV]\"},\n    {\"name\": \"m3\", \"parameter_type\": \"External\", \"value\": \"1500.\", \"block_name\": \"SLQMASSES\", \"order_block\": 5, \"description\": \"Phi3 mass parameter [GeV]\"},\n    {\"name\": \"MS1m13\", \"parameter_type\": \"External\", \"value\": \"1500.\", \"block_name\": \"SLQMASSES\", \"order_block\": 11, \"description\": \"Physical Q=-1/3 eigenstate S1 mass [GeV]\"},\n    {\"name\": \"MR2tm13\", \"parameter_type\": \"External\", \"value\": \"1600.\", \"block_name\": \"SLQMASSES\", \"order_block\": 12, \"description\": \"Physical Q=-1/3 eigenstate R2t mass [GeV]\"},\n    {\"name\": \"MS3m13\", \"parameter_type\": \"External\", \"value\": \"1700.\", \"block_name\": \"SLQMASSES\", \"order_block\": 13, \"description\": \"Physical Q=-1/3 eigenstate S3 mass [GeV]\"},\n    {\"name\": \"MS2p23\", \"parameter_type\": \"External\", \"value\": \"1500.\", \"block_name\": \"SLQMASSES\", \"order_block\": 14, \"description\": \"Physical Q=+2/3 eigenstate S2 mass [GeV]\"},\n    {\"name\": \"MR2tp23\", \"parameter_type\": \"External\", \"value\": \"1600.\", \"block_name\": \"SLQMASSES\", \"order_block\": 15, \"description\": \"Physical Q=+2/3 eigenstate R2t mass [GeV]\"},\n    {\"name\": \"MS3p23\", \"parameter_type\": \"External\", \"value\": \"1700.\", \"block_name\": \"SLQMASSES\", \"order_block\": 16, \"description\": \"Physical Q=+2/3 eigenstate S3 mass [GeV]\"},\n    {\"name\": \"MR1tm43\", \"parameter_type\": \"External\", \"value\": \"1500.\", \"block_name\": \"SLQMASSES\", \"order_block\": 17, \"description\": \"Physical Q=-4/3 eigenstate R1t mass [GeV]\"},\n    {\"name\": \"MS3m43\", \"parameter_type\": \"External\", \"value\": \"1700.\", \"block_name\": \"SLQMASSES\", \"order_block\": 18, \"description\": \"Physical Q=-4/3 eigenstate S3 mass [GeV]\"},\n    {\"name\": \"MS2p53\", \"parameter_type\": \"External\", \"value\": \"1500.\", \"block_name\": \"SLQMASSES\", \"order_block\": 19, \"description\": \"Physical Q=+5/3 eigenstate S2 mass [GeV]\"},\n    {\"name\": \"Y1\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"block_name\": \"SLQYUK\", \"order_block\": 1, \"description\": \"Phi1 Higgs portal Y1\"},\n    {\"name\": \"Yt1\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"block_name\": \"SLQYUK\", \"order_block\": 2, \"description\": \"Phi1tilde Higgs portal Yt1\"},\n    {\"name\": \"Y2\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"block_name\": \"SLQYUK\", \"order_block\": 3, \"description\": \"Phi2 Higgs portal Y2\"},\n    {\"name\": \"Yt2\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"block_name\": \"SLQYUK\", \"order_block\": 4, \"description\": \"Phi2tilde Higgs portal Yt2\"},\n    {\"name\": \"Y3\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"block_name\": \"SLQYUK\", \"order_block\": 5, \"description\": \"Phi3 Higgs portal Y3\"},\n    {\"name\": \"Y22\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"block_name\": \"SLQYUK\", \"order_block\": 6, \"description\": \"Phi2 double portal Y22\"},\n    {\"name\": \"Yt2t2\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"block_name\": \"SLQYUK\", \"order_block\": 7, \"description\": \"Phi2tilde double portal Yt2t2\"},\n    {\"name\": \"Y33\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"block_name\": \"SLQYUK\", \"order_block\": 8, \"description\": \"Phi3 portal Y33\"},\n    {\"name\": \"A1t2\", \"parameter_type\": \"Internal\", \"value\": \"0.\", \"complex\": true, \"interaction_order\": [\"NP\", 1], \"description\": \"Phi1-Phi2tilde mass mixing A1t2, dimension 1\"},\n    {\"name\": \"At23\", \"parameter_type\": \"Internal\", \"value\": \"0.\", \"complex\": true, \"interaction_order\": [\"NP\", 1], \"description\": \"Phi2tilde-Phi3 mass mixing At23, dimension 1\"},\n    {\"name\": \"Y13\", \"parameter_type\": \"Internal\", \"value\": \"0.\", \"complex\": true, \"interaction_order\": [\"NP\", 1], \"description\": \"Phi1-Phi3 mass portal Y13\"},\n    {\"name\": \"Yt13\", \"parameter_type\": \"Internal\", \"value\": \"0.\", \"complex\": true, \"interaction_order\": [\"NP\", 1], \"description\": \"Phi1tilde-Phi3 mass portal Yt13\"},\n    {\"name\": \"Y2t2\", \"parameter_type\": \"Internal\", \"value\": \"0.\", \"complex\": true, \"interaction_order\": [\"NP\", 1], \"description\": \"Phi2-Phi2tilde mass portal Y2t2\"},\n    {\"name\": \"Y1RR\", \"parameter_type\": \"External\", \"indices\": [\"Generation\", \"Generation\"], \"interaction_order\": [\"NP\", 1],\n     \"value_rules\": [\n       {\"lhs\": \"Y1RR[1,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1RR[1,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1RR[1,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y1RR[2,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1RR[2,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1RR[2,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y1RR[3,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1RR[3,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1RR[3,3]\", \"rhs\": \"1.\"}\n     ], \"description\": \"Y1 RR quark-lepton Yukawa 3x3\"},\n    {\"name\": \"Y1LL\", \"parameter_type\": \"External\", \"indices\": [\"Generation\", \"Generation\"], \"interaction_order\": [\"NP\", 1],\n     \"value_rules\": [\n       {\"lhs\": \"Y1LL[1,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1LL[1,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1LL[1,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y1LL[2,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1LL[2,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1LL[2,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y1LL[3,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1LL[3,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1LL[3,3]\", \"rhs\": \"1.\"}\n     ], \"description\": \"Y1 LL quark-lepton Yukawa 3x3\"},\n    {\"name\": \"Y1QLL\", \"parameter_type\": \"External\", \"indices\": [\"Generation\", \"Generation\"], \"interaction_order\": [\"NP\", 1],\n     \"value_rules\": [\n       {\"lhs\": \"Y1QLL[1,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1QLL[1,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1QLL[1,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y1QLL[2,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1QLL[2,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1QLL[2,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y1QLL[3,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1QLL[3,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1QLL[3,3]\", \"rhs\": \"1.\"}\n     ], \"description\": \"Y1 QLL symmetric diquark Yukawa\"},\n    {\"name\": \"Y1QRR\", \"parameter_type\": \"External\", \"indices\": [\"Generation\", \"Generation\"], \"interaction_order\": [\"NP\", 1],\n     \"value_rules\": [\n       {\"lhs\": \"Y1QRR[1,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1QRR[1,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1QRR[1,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y1QRR[2,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1QRR[2,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1QRR[2,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y1QRR[3,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1QRR[3,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y1QRR[3,3]\", \"rhs\": \"1.\"}\n     ], \"description\": \"Y1 QRR diquark Yukawa\"},\n    {\"name\": \"Yt1RR\", \"parameter_type\": \"External\", \"indices\": [\"Generation\", \"Generation\"], \"interaction_order\": [\"NP\", 1],\n     \"value_rules\": [\n       {\"lhs\": \"Yt1RR[1,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Yt1RR[1,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Yt1RR[1,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Yt1RR[2,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Yt1RR[2,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Yt1RR[2,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Yt1RR[3,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Yt1RR[3,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Yt1RR[3,3]\", \"rhs\": \"1.\"}\n     ], \"description\": \"Y1tilde RR Yukawa\"},\n    {\"name\": \"Yt1QRR\", \"parameter_type\": \"External\", \"indices\": [\"Generation\", \"Generation\"], \"interaction_order\": [\"NP\", 1],\n     \"value_rules\": [\n       {\"lhs\": \"Yt1QRR[1,1]\", \"rhs\": \"0.\"}, {\"lhs\": \"Yt1QRR[1,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Yt1QRR[1,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Yt1QRR[2,1]\", \"rhs\": \"-1.\"}, {\"lhs\": \"Yt1QRR[2,2]\", \"rhs\": \"0.\"}, {\"lhs\": \"Yt1QRR[2,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Yt1QRR[3,1]\", \"rhs\": \"-1.\"}, {\"lhs\": \"Yt1QRR[3,2]\", \"rhs\": \"-1.\"}, {\"lhs\": \"Yt1QRR[3,3]\", \"rhs\": \"0.\"}\n     ], \"description\": \"Y1tilde QRR antisymmetric diquark Yukawa\"},\n    {\"name\": \"Y2RL\", \"parameter_type\": \"External\", \"indices\": [\"Generation\", \"Generation\"], \"interaction_order\": [\"NP\", 1],\n     \"value_rules\": [\n       {\"lhs\": \"Y2RL[1,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y2RL[1,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y2RL[1,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y2RL[2,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y2RL[2,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y2RL[2,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y2RL[3,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y2RL[3,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y2RL[3,3]\", \"rhs\": \"1.\"}\n     ], \"description\": \"Y2 RL Yukawa\"},\n    {\"name\": \"Y2LR\", \"parameter_type\": \"External\", \"indices\": [\"Generation\", \"Generation\"], \"interaction_order\": [\"NP\", 1],\n     \"value_rules\": [\n       {\"lhs\": \"Y2LR[1,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y2LR[1,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y2LR[1,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y2LR[2,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y2LR[2,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y2LR[2,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y2LR[3,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y2LR[3,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y2LR[3,3]\", \"rhs\": \"1.\"}\n     ], \"description\": \"Y2 LR Yukawa\"},\n    {\"name\": \"Yt2RL\", \"parameter_type\": \"External\", \"indices\": [\"Generation\", \"Generation\"], \"interaction_order\": [\"NP\", 1],\n     \"value_rules\": [\n       {\"lhs\": \"Yt2RL[1,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Yt2RL[1,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Yt2RL[1,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Yt2RL[2,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Yt2RL[2,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Yt2RL[2,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Yt2RL[3,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Yt2RL[3,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Yt2RL[3,3]\", \"rhs\": \"1.\"}\n     ], \"description\": \"Y2tilde RL Yukawa\"},\n    {\"name\": \"Y3LL\", \"parameter_type\": \"External\", \"indices\": [\"Generation\", \"Generation\"], \"interaction_order\": [\"NP\", 1],\n     \"value_rules\": [\n       {\"lhs\": \"Y3LL[1,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y3LL[1,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y3LL[1,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y3LL[2,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y3LL[2,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y3LL[2,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y3LL[3,1]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y3LL[3,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y3LL[3,3]\", \"rhs\": \"1.\"}\n     ], \"description\": \"Y3 LL leptoquark Yukawa\"},\n    {\"name\": \"Y3QLL\", \"parameter_type\": \"External\", \"indices\": [\"Generation\", \"Generation\"], \"interaction_order\": [\"NP\", 1],\n     \"value_rules\": [\n       {\"lhs\": \"Y3QLL[1,1]\", \"rhs\": \"0.\"}, {\"lhs\": \"Y3QLL[1,2]\", \"rhs\": \"1.\"}, {\"lhs\": \"Y3QLL[1,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y3QLL[2,1]\", \"rhs\": \"-1.\"}, {\"lhs\": \"Y3QLL[2,2]\", \"rhs\": \"0.\"}, {\"lhs\": \"Y3QLL[2,3]\", \"rhs\": \"1.\"},\n       {\"lhs\": \"Y3QLL[3,1]\", \"rhs\": \"-1.\"}, {\"lhs\": \"Y3QLL[3,2]\", \"rhs\": \"-1.\"}, {\"lhs\": \"Y3QLL[3,3]\", \"rhs\": \"0.\"}\n     ], \"description\": \"Y3 QLL antisymmetric diquark Yukawa\"},\n    {\"name\": \"A1t2t2\", \"parameter_type\": \"Internal\", \"value\": \"1.\", \"complex\": true, \"interaction_order\": [\"NP\", 1], \"description\": \"Triple coupling A1t2t2, dimension 1\"},\n    {\"name\": \"At12t2\", \"parameter_type\": \"Internal\", \"value\": \"1.\", \"complex\": true, \"interaction_order\": [\"NP\", 1], \"description\": \"Triple coupling At12t2, dimension 1\"},\n    {\"name\": \"Y1t12\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Triple coupling Y1t12\"},\n    {\"name\": \"Y123\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Triple coupling Y123\"},\n    {\"name\": \"Y1t23\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Triple coupling Y1t23\"},\n    {\"name\": \"Yt123\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Triple coupling Yt123\"},\n    {\"name\": \"Y233\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Triple coupling Y233\"},\n    {\"name\": \"Yt233\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Triple coupling Yt233\"},\n    {\"name\": \"Yq1a\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Y(1)_a same-multiplet\"},\n    {\"name\": \"Yq3a\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Y(3)_a\"},\n    {\"name\": \"Yq5a3\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Y(5)_3\"},\n    {\"name\": \"Yq1ab\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Y(1)_ab\"},\n    {\"name\": \"Yq1pab\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Yprime(1)_ab\"},\n    {\"name\": \"Yq3ab\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Y(3)_ab\"},\n    {\"name\": \"Yq3pab\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Yprime(3)_ab\"},\n    {\"name\": \"Yq1aa3\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Y1aa3\"},\n    {\"name\": \"Yq1paa3\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Yprime1aa3\"},\n    {\"name\": \"Yq1t1t22\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Y1tilde1tilde22\"},\n    {\"name\": \"Yq1pt1t22\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Yprime1tilde1tilde22\"},\n    {\"name\": \"Yq1t223\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Y1tilde223\"},\n    {\"name\": \"Yq1pt223\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Yprime1tilde223\"},\n    {\"name\": \"Yq1313\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Y1313\"},\n    {\"name\": \"Yq1333\", \"parameter_type\": \"External\", \"value\": \"1.\", \"interaction_order\": [\"NP\", 1], \"description\": \"Quartic Y1333\"}\n  ],\n  \"particles\": [\n    {\"spin_type\": \"S\", \"class_index\": 100, \"class_name\": \"S1m13\", \"self_conjugate\": false,\n     \"indices\": [\"Colour\"], \"mass\": {\"sym\": \"MS1m13\", \"value\": \"1500.\"}, \"width\": {\"massless\": true},\n     \"quantum_numbers\": {\"Q\": \"-1/3\"}, \"pdg\": 40001, \"particle_name\": \"S1m13\", \"antiparticle_name\": \"S1m13bar\",\n     \"full_name\": \"Phi1 charge -1/3 mass eigenstate\", \"propagator_label\": \"S1m13\", \"propagator_type\": \"Sine\", \"propagator_arrow\": \"Forward\"},\n    {\"spin_type\": \"S\", \"class_index\": 101, \"class_name\": \"R2tm13\", \"self_conjugate\": false,\n     \"indices\": [\"Colour\"], \"mass\": {\"sym\": \"MR2tm13\", \"value\": \"1600.\"}, \"width\": {\"massless\": true},\n     \"quantum_numbers\": {\"Q\": \"-1/3\"}, \"pdg\": 40002, \"particle_name\": \"R2tm13\", \"antiparticle_name\": \"R2tm13bar\",\n     \"full_name\": \"Phi2tilde charge -1/3 mass eigenstate\", \"propagator_label\": \"R2tm13\", \"propagator_type\": \"Sine\", \"propagator_arrow\": \"Forward\"},\n    {\"spin_type\": \"S\", \"class_index\": 102, \"class_name\": \"S3m13\", \"self_conjugate\": false,\n     \"indices\": [\"Colour\"], \"mass\": {\"sym\": \"MS3m13\", \"value\": \"1700.\"}, \"width\": {\"massless\": true},\n     \"quantum_numbers\": {\"Q\": \"-1/3\"}, \"pdg\": 40003, \"particle_name\": \"S3m13\", \"antiparticle_name\": \"S3m13bar\",\n     \"full_name\": \"Phi3 charge -1/3 mass eigenstate\", \"propagator_label\": \"S3m13\", \"propagator_type\": \"Sine\", \"propagator_arrow\": \"Forward\"},\n    {\"spin_type\": \"S\", \"class_index\": 103, \"class_name\": \"S2p23\", \"self_conjugate\": false,\n     \"indices\": [\"Colour\"], \"mass\": {\"sym\": \"MS2p23\", \"value\": \"1500.\"}, \"width\": {\"massless\": true},\n     \"quantum_numbers\": {\"Q\": \"2/3\"}, \"pdg\": 40004, \"particle_name\": \"S2p23\", \"antiparticle_name\": \"S2p23bar\",\n     \"full_name\": \"Phi2 charge +2/3 mass eigenstate\", \"propagator_label\": \"S2p23\", \"propagator_type\": \"Sine\", \"propagator_arrow\": \"Forward\"},\n    {\"spin_type\": \"S\", \"class_index\": 104, \"class_name\": \"R2tp23\", \"self_conjugate\": false,\n     \"indices\": [\"Colour\"], \"mass\": {\"sym\": \"MR2tp23\", \"value\": \"1600.\"}, \"width\": {\"massless\": true},\n     \"quantum_numbers\": {\"Q\": \"2/3\"}, \"pdg\": 40005, \"particle_name\": \"R2tp23\", \"antiparticle_name\": \"R2tp23bar\",\n     \"full_name\": \"Phi2tilde charge +2/3 mass eigenstate\", \"propagator_label\": \"R2tp23\", \"propagator_type\": \"Sine\", \"propagator_arrow\": \"Forward\"},\n    {\"spin_type\": \"S\", \"class_index\": 105, \"class_name\": \"S3p23\", \"self_conjugate\": false,\n     \"indices\": [\"Colour\"], \"mass\": {\"sym\": \"MS3p23\", \"value\": \"1700.\"}, \"width\": {\"massless\": true},\n     \"quantum_numbers\": {\"Q\": \"2/3\"}, \"pdg\": 40006, \"particle_name\": \"S3p23\", \"antiparticle_name\": \"S3p23bar\",\n     \"full_name\": \"Phi3 charge +2/3 mass eigenstate\", \"propagator_label\": \"S3p23\", \"propagator_type\": \"Sine\", \"propagator_arrow\": \"Forward\"},\n    {\"spin_type\": \"S\", \"class_index\": 106, \"class_name\": \"R1tm43\", \"self_conjugate\": false,\n     \"indices\": [\"Colour\"], \"mass\": {\"sym\": \"MR1tm43\", \"value\": \"1500.\"}, \"width\": {\"massless\": true},\n     \"quantum_numbers\": {\"Q\": \"-4/3\"}, \"pdg\": 40007, \"particle_name\": \"R1tm43\", \"antiparticle_name\": \"R1tm43bar\",\n     \"full_name\": \"Phi1tilde charge -4/3 mass eigenstate\", \"propagator_label\": \"R1tm43\", \"propagator_type\": \"Sine\", \"propagator_arrow\": \"Forward\"},\n    {\"spin_type\": \"S\", \"class_index\": 107, \"class_name\": \"S3m43\", \"self_conjugate\": false,\n     \"indices\": [\"Colour\"], \"mass\": {\"sym\": \"MS3m43\", \"value\": \"1700.\"}, \"width\": {\"massless\": true},\n     \"quantum_numbers\": {\"Q\": \"-4/3\"}, \"pdg\": 40008, \"particle_name\": \"S3m43\", \"antiparticle_name\": \"S3m43bar\",\n     \"full_name\": \"Phi3 charge -4/3 mass eigenstate\", \"propagator_label\": \"S3m43\", \"propagator_type\": \"Sine\", \"propagator_arrow\": \"Forward\"},\n    {\"spin_type\": \"S\", \"class_index\": 108, \"class_name\": \"S2p53\", \"self_conjugate\": false,\n     \"indices\": [\"Colour\"], \"mass\": {\"sym\": \"MS2p53\", \"value\": \"1500.\"}, \"width\": {\"massless\": true},\n     \"quantum_numbers\": {\"Q\": \"5/3\"}, \"pdg\": 40009, \"particle_name\": \"S2p53\", \"antiparticle_name\": \"S2p53bar\",\n     \"full_name\": \"Phi2 charge +5/3 mass eigenstate\", \"propagator_label\": \"S2p53\", \"propagator_type\": \"Sine\", \"propagator_arrow\": \"Forward\"},\n\n    {\"spin_type\": \"S\", \"class_index\": 200, \"class_name\": \"LQ1\", \"self_conjugate\": false,\n     \"indices\": [\"Colour\"], \"unphysical\": true, \"quantum_numbers\": {\"Y\": \"-1/3\"},\n     \"definitions\": [\"LQ1 -> S1m13\"]},\n    {\"spin_type\": \"S\", \"class_index\": 201, \"class_name\": \"LQ1t\", \"self_conjugate\": false,\n     \"indices\": [\"Colour\"], \"unphysical\": true, \"quantum_numbers\": {\"Y\": \"-4/3\"},\n     \"definitions\": [\"LQ1t -> R1tm43\"]},\n    {\"spin_type\": \"S\", \"class_index\": 202, \"class_name\": \"LQ2\", \"self_conjugate\": false,\n     \"indices\": [\"SU2D\", \"Colour\"], \"flavor_index\": \"SU2D\", \"unphysical\": true, \"quantum_numbers\": {\"Y\": \"7/6\"},\n     \"definitions\": [\"LQ2[1] -> S2p53\", \"LQ2[2] -> S2p23\"]},\n    {\"spin_type\": \"S\", \"class_index\": 203, \"class_name\": \"LQ2t\", \"self_conjugate\": false,\n     \"indices\": [\"SU2D\", \"Colour\"], \"flavor_index\": \"SU2D\", \"unphysical\": true, \"quantum_numbers\": {\"Y\": \"1/6\"},\n     \"definitions\": [\"LQ2t[1] -> R2tp23\", \"LQ2t[2] -> R2tm13\"]},\n    {\"spin_type\": \"S\", \"class_index\": 204, \"class_name\": \"LQ3\", \"self_conjugate\": false,\n     \"indices\": [\"SU2W\", \"Colour\"], \"flavor_index\": \"SU2W\", \"unphysical\": true, \"quantum_numbers\": {\"Y\": \"-1/3\"},\n     \"definitions\": [\"LQ3[3] -> S3m13\", \"LQ3[1] -> (S3p23 + S3m43)/Sqrt[2]\", \"LQ3[2] -> I*(S3p23 - S3m43)/Sqrt[2]\"]}\n  ],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"Lkin\",\n      \"delayed\": true,\n      \"expression\": \"ExpandIndices[ I*(LQ1bar.Ga[mu].DC[LQ1, mu] + LQ1tbar.Ga[mu].DC[LQ1t, mu] + LQ2bar[ii].Ga[mu].DC[LQ2[ii], mu] + LQ2tbar[ii].Ga[mu].DC[LQ2t[ii], mu] + LQ3bar[II].Ga[mu].DC[LQ3[II], mu]) + DC[S1m13bar, mu] DC[S1m13, mu] - MS1m13^2 S1m13bar S1m13 + DC[R2tm13bar, mu] DC[R2tm13, mu] - MR2tm13^2 R2tm13bar R2tm13 + DC[S3m13bar, mu] DC[S3m13, mu] - MS3m13^2 S3m13bar S3m13 + DC[S2p23bar, mu] DC[S2p23, mu] - MS2p23^2 S2p23bar S2p23 + DC[R2tp23bar, mu] DC[R2tp23, mu] - MR2tp23^2 R2tp23bar R2tp23 + DC[S3p23bar, mu] DC[S3p23, mu] - MS3p23^2 S3p23bar S3p23 + DC[R1tm43bar, mu] DC[R1tm43, mu] - MR1tm43^2 R1tm43bar R1tm43 + DC[S3m43bar, mu] DC[S3m43, mu] - MS3m43^2 S3m43bar S3m43 + DC[S2p53bar, mu] DC[S2p53, mu] - MS2p53^2 S2p53bar S2p53, FlavorExpand -> SU2D]\",\n      \"delayed\": false\n    },\n    {\n      \"name\": \"L2Phi\",\n      \"expression\": \"ExpandIndices[ -Y1 Hbar[ii] H[ii] LQ1bar.LQ1 - Yt1 Hbar[ii] H[ii] LQ1tbar.LQ1t - Y2 Hbar[ii] H[ii] LQ2bar[ii1].LQ2[ii1] - Yt2 Hbar[ii] H[ii] LQ2tbar[ii1].LQ2t[ii1] - Y3 Hbar[ii] H[ii] LQ3bar[II1].LQ3[II1] - Y22 (Hbar[jj] LQ2[ii] Eps[ii, jj])(Hbar[jj1] LQ2[jj2] Eps[jj1, jj2]) - Yt2t2 (Hbar[jj] LQ2t[ii] Eps[ii, jj])(Hbar[jj1] LQ2t[jj2] Eps[jj1, jj2]) - I*Y33 Eps[IIa, IIb, IIc] Hbar[ii] PauliSigma[ii, jj, IIa] H[jj] LQ3bar[IIb] LQ3[IIc] + HC[-A1t2 LQ2tbar[ii] Phi[ii] LQ1 + At23 LQ2tbar[ii] PauliSigma[ii, jj, IIa] LQ3[IIa] Phi[jj] + Y2t2 LQ2bar[ii] Phi[ii] Hbar[jj] LQ2t[kk] Eps[jj, kk] + Yt13 Hbar[jj] LQ3bar[IIa] PauliSigma[IIa, kk, jj1] H[jj1] LQ1t + Y13 Hbar[ii] PauliSigma[ii, jj, IIa] LQ3[IIa] H[jj] LQ1bar], FlavorExpand -> {SU2D, SU2W}]\",\n      \"delayed\": false\n    },\n    {\n      \"name\": \"Lyuk\",\n      \"expression\": \"Block[{sp, sp1, ii, jj, ff1, ff2, cc1, cc2, cc3}, ExpandIndices[ Y1RR[ff1, ff2] bar[CC[uq]][sp, ff1, cc1] l[sp, ff2] LQ1bar[cc1] + Y1LL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc1] LL[sp, jj, ff2] Eps[ii, jj] LQ1bar[cc1] + Y1QLL[ff1, ff2] bar[CC[QL]][sp1, ii, ff1, cc1] QL[sp, jj, ff2, cc2] Eps[ii, jj] LQ1[cc3] Eps[cc1, cc2, cc3] + Y1QRR[ff1, ff2] bar[CC[uq]][sp, ff1, cc1] dq[sp, ff2, cc2] LQ1[cc3] Eps[cc1, cc2, cc3] + Yt1RR[ff1, ff2] bar[CC[dq]][sp, ff1, cc1] l[sp, ff2] LQ1tbar[cc1] + Yt1QRR[ff1, ff2] bar[CC[uq]][sp, ff1, cc1] uq[sp, ff2, cc2] LQ1t[cc3] Eps[cc1, cc2, cc3] + Y2RL[ff1, ff2] LQ2[ii] bar[uq][sp, ff1, cc1] LL[sp, jj, ff2] Eps[ii, jj] IndexDelta[cc1, cc1] + Y2LR[ff1, ff2] QLbar[sp, ii, ff1, cc1] l[sp, ff2] LQ2[jj] IndexDelta[cc1, cc1] Eps[ii, jj] + Yt2RL[ff1, ff2] LQ2t[ii] bar[dq][sp, ff1, cc1] LL[sp, jj, ff2] Eps[ii, jj] + Y3LL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc1] LL[sp, jj, ff2] LQ3bar[IIa] PauliSigma[IIa, kk, jj] Eps[ii, kk] + Y3QLL[ff1, ff2] bar[CC[QL]][sp1, ii, ff1, cc1] QL[sp, jj, ff2, cc2] LQ3[IIa] PauliSigma[ii, kk, jj] Eps[cc1, cc2, cc3] IndexDelta[cc3, cc3], FlavorExpand -> {SU2D, SU2W}] + HC[ExpandIndices[ Y1RR[ff1, ff2] bar[CC[uq]][sp, ff1, cc1] l[sp, ff2] LQ1bar[cc1] + Y1LL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc1] LL[sp, jj, ff2] Eps[ii, jj] LQ1bar[cc1] + Y1QLL[ff1, ff2] bar[CC[QL]][sp1, ii, ff1, cc1] QL[sp, jj, ff2, cc2] Eps[ii, jj] LQ1[cc3] Eps[cc1, cc2, cc3] + Y1QRR[ff1, ff2] bar[CC[uq]][sp, ff1, cc1] dq[sp, ff2, cc2] LQ1[cc3] Eps[cc1, cc2, cc3] + Yt1RR[ff1, ff2] bar[CC[dq]][sp, ff1, cc1] l[sp, ff2] LQ1tbar[cc1] + Yt1QRR[ff1, ff2] bar[CC[uq]][sp, ff1, cc1] uq[sp, ff2, cc2] LQ1t[cc3] Eps[cc1, cc2, cc3] + Y2RL[ff1, ff2] LQ2[ii] bar[uq][sp, ff1, cc1] LL[sp, jj, ff2] Eps[ii, jj] + Y2LR[ff1, ff2] QLbar[sp, ii, ff1, cc1] l[sp, ff2] LQ2[jj] Eps[ii, jj] + Yt2RL[ff1, ff2] LQ2t[ii] bar[dq][sp, ff1, cc1] LL[sp, jj, ff2] Eps[ii, jj] + Y3LL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc1] LL[sp, jj, ff2] LQ3bar[IIa] PauliSigma[IIa, kk, jj] Eps[ii, kk] + Y3QLL[ff1, ff2] bar[CC[QL]][sp1, ii, ff1, cc1] QL[sp, jj, ff2, cc2] LQ3[IIa] PauliSigma[ii, kk, jj] Eps[cc1, cc2, cc3], FlavorExpand -> {SU2D, SU2W}]]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"L3Phi\",\n      \"expression\": \"HC[A1t2t2 LQ1[cc1] LQ2t[cc2] LQ2t[cc3] Eps[cc1, cc2, cc3] + At12t2 LQ1t[cc1] LQ2[cc2] LQ2t[cc3] Eps[cc1, cc2, cc3] + Y1t12 LQ1[cc1] LQ1t[cc2] LQ2[ii] Phi[jj] Eps[ii, jj] Eps[cc1, cc2, cc3] IndexDelta[cc3, cc3] + Y123 LQ1[cc1] Hbar[ii] PauliSigma[ii, jj, IIa] LQ3[IIa, cc3] LQ2[jj, cc2] Eps[cc1, cc2, cc3] + Y1t23 LQ1[cc1] LQ2t[ii] Phi[jj] Eps[ii, jj1] LQ3[IIa] PauliSigma[jj1, kk, IIa1] H[kk] Eps[IIa, IIa1, IIb] IndexDelta[cc1, cc1] + Yt123 LQ1t[cc1] LQ2[ii] Phi[jj] Eps[ii, jj1] LQ3[IIa] PauliSigma[jj1, kk, IIa1] H[kk] Eps[IIa, IIa1, IIb] IndexDelta[cc1, cc1] + Y233 Hbar[ii] PauliSigma[ii, jj, IIa] LQ2[jj, cc1] LQ3[IIb, cc2] LQ3[IIc, cc3] Eps[IIa, IIb, IIc] Eps[cc1, cc2, cc3] + Yt233 LQ2t[ii] Phi[jj] Eps[ii, jj1] PauliSigma[jj1, kk, IIa] H[kk] LQ3[IIb, cc2] LQ3[IIc, cc3] Eps[IIa, IIb, IIc] Eps[cc1, cc2, cc3] IndexDelta[cc1, cc1], FlavorExpand -> {SU2D, SU2W}]\",\n      \"delayed\": false\n    },\n    {\n      \"name\": \"L4Phi\",\n      \"expression\": \"ExpandIndices[ Yq1a (LQ1bar[cc1] LQ1[cc1])(LQ1bar[cc2] LQ1[cc2]) + Yq1a (LQ1tbar[cc1] LQ1t[cc1])(LQ1tbar[cc2] LQ1t[cc2]) + Yq1a (LQ2bar[ii1, cc1] LQ2[ii1, cc1])(LQ2bar[ii1, cc2] LQ2[ii1, cc2]) + Yq1a (LQ2tbar[ii1, cc1] LQ2t[ii1, cc1])(LQ2tbar[ii1, cc2] LQ2t[ii1, cc2]) + Yq1a (LQ3bar[IIa, cc1] LQ3[IIa, cc1])(LQ3bar[IIa, cc2] LQ3[IIa, cc2]) + Yq3a (LQ2bar[ii1, cc1] LQ2[ii2, cc1])(LQ2bar[ii2, cc2] LQ2[ii1, cc2]) + Yq3a (LQ2tbar[ii1, cc1] LQ2t[ii2, cc1])(LQ2tbar[ii2, cc2] LQ2t[ii1, cc2]) + Yq3a (LQ3bar[IIa, cc1] LQ3[IIb, cc1])(LQ3bar[IIb, cc2] LQ3[IIa, cc2]) + Yq5a3 LQ3bar[IIa, cc1] LQ3[IIb, cc1] LQ3bar[IIa, cc2] LQ3[IIb, cc2] + Yq1ab (LQ1bar[cc1] LQ1[cc2])(LQ1tbar[cc3] LQ1t[cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ1bar[cc1] LQ1[cc2])(LQ1tbar[cc3] LQ1t[cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ1bar[cc1] LQ1[cc2])(LQ2bar[ii1, cc3] LQ2[ii1, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ1bar[cc1] LQ1[cc2])(LQ2bar[ii1, cc3] LQ2[ii1, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ1bar[cc1] LQ1[cc2])(LQ2tbar[ii1, cc3] LQ2t[ii1, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ1bar[cc1] LQ1[cc2])(LQ2tbar[ii1, cc3] LQ2t[ii1, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ1bar[cc1] LQ1[cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ1bar[cc1] LQ1[cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ1tbar[cc1] LQ1t[cc2])(LQ2bar[ii1, cc3] LQ2[ii1, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ1tbar[cc1] LQ1t[cc2])(LQ2bar[ii1, cc3] LQ2[ii1, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ1tbar[cc1] LQ1t[cc2])(LQ2tbar[ii1, cc3] LQ2t[ii1, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ1tbar[cc1] LQ1t[cc2])(LQ2tbar[ii1, cc3] LQ2t[ii1, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ1tbar[cc1] LQ1t[cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ1tbar[cc1] LQ1t[cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ2bar[ii1, cc1] LQ2[ii1, cc2])(LQ2tbar[ii1, cc3] LQ2t[ii1, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ2bar[ii1, cc1] LQ2[ii1, cc2])(LQ2tbar[ii1, cc3] LQ2t[ii1, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ2bar[ii1, cc1] LQ2[ii1, cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ2bar[ii1, cc1] LQ2[ii1, cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ2tbar[ii1, cc1] LQ2t[ii1, cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ2tbar[ii1, cc1] LQ2t[ii1, cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq3ab (LQ2tbar[ii1, cc1] LQ2[ii2, cc1])(LQ2tbar[ii2, cc2] LQ2[ii1, cc2]) + Yq3pab (LQ2tbar[ii1, cc1] LQ2[ii2, cc2])(LQ2tbar[ii2, cc1] LQ2[ii1, cc2]) + Yq3ab Hbar[ii] PauliSigma[ii, jj, IIa] LQ2[jj, cc1] LQ2tbar[kk, cc2] LQ3[IIb, cc3] Eps[IIa, IIb, IIc] IndexDelta[cc1, cc2] IndexDelta[cc1, cc1] + Yq3pab Hbar[ii] PauliSigma[ii, jj, IIa] LQ2[jj, cc1] LQ2tbar[kk, cc2] LQ3[IIb, cc3] Eps[IIa, IIb, IIc] IndexDelta[cc1, cc3] + Yq1aa3 LQ1bar[cc1] LQ1[cc2] LQ2[ii, cc3] PauliSigma[ii, jj, IIa] LQ3[IIa, cc4] LQ2bar[jj, cc5] IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] IndexDelta[cc4, cc5] + Yq1paa3 LQ1bar[cc1] LQ1[cc2] LQ2[ii, cc3] PauliSigma[ii, jj, IIa] LQ3[IIa, cc4] LQ2bar[jj, cc5] IndexDelta[cc1, cc5] IndexDelta[cc2, cc3] IndexDelta[cc3, cc4] + Yq1aa3 LQ1bar[cc1] LQ1[cc2] LQ2t[ii, cc3] PauliSigma[ii, jj, IIa] LQ3[IIa, cc4] LQ2tbar[jj, cc5] IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] IndexDelta[cc4, cc5] + Yq1paa3 LQ1bar[cc1] LQ1[cc2] LQ2t[ii, cc3] PauliSigma[ii, jj, IIa] LQ3[IIa, cc4] LQ2tbar[jj, cc5] IndexDelta[cc1, cc5] IndexDelta[cc2, cc3] IndexDelta[cc3, cc4] + Yq1t223 LQ1tbar[cc1] LQ1t[cc2] LQ2[ii, cc3] PauliSigma[ii, jj, IIa] LQ3[IIa, cc4] LQ2tbar[jj, cc5] IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] IndexDelta[cc4, cc5] + Yq1pt223 LQ1tbar[cc1] LQ1t[cc2] LQ2[ii, cc3] PauliSigma[ii, jj, IIa] LQ3[IIa, cc4] LQ2tbar[jj, cc5] IndexDelta[cc1, cc5] IndexDelta[cc2, cc3] IndexDelta[cc3, cc4] + Yq1313 LQ1bar[cc1] LQ1[cc2] LQ3[IIa, cc3] LQ1bar[cc4] LQ1[cc5] LQ3[IIa, cc6] IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] IndexDelta[cc5, cc6] + Yq1333 LQ1bar[cc1] LQ1[cc2] LQ3[IIa, cc3] LQ3bar[IIb, cc4] LQ3[IIc, cc5] Eps[IIa, IIb, IIc] IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] IndexDelta[cc4, cc5], FlavorExpand -> {SU2D, SU2W}]\",\n      \"delayed\": false\n    },\n    {\n      \"name\": \"LTotal\",\n      \"expression\": \"Lkin + L2Phi + Lyuk + L3Phi + L4Phi\",\n      \"delayed\": true\n    }\n  ]\n}\n"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: SLQrules (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:2105.04844.\n4: PAPER: the paper's LaTeX so"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json",
+   "workdir": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 14 particle classes, 61 parameters, Lagrangian terms ['Lkin', 'L2Phi', 'Lyuk', 'L3Phi', 'L4Phi', 'LTotal']\nRENDERED: model.fr (564 lines). You may read it.\nLINT: 5 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that ar"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/model.fr",
+   "offset": 540,
+   "limit": 30
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/model.fr</path>\n<type>file</type>\n<content>\n540:     Unphysical -> True,\n541:     Definitions -> {LQ2t[1] -> R2tp23, LQ2t[2] -> R2tm13}\n542:   },\n543:   S[204] == {\n544:     ClassName -> LQ3,\n545:     SelfConjugate -> False,\n546:     Indices -> {Index[SU2W], Index[Colour]},\n547:     FlavorIndex -> SU2W,\n548:     Qu"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "Hbar|QLbar|Phibar|Phi\\[|QL |LL |l\\[|uq|dq|vl",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr"
+  },
+  "status": "completed",
+  "output": "Found 99 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py:\n  Line 51: SM_FIELDS_ALL = SM_CLASSES | SM_MEMBERS | {c + \"bar\" for c in SM_CLASSES | SM_MEMBERS}\n\n  Line 72:     line: Optional[int] = None\n\n  Line 129: def _prop(body: str, key: str) -> Optional[str]:\n\n  Line 154: def _line_of(text: str, needle: str) -> Optional[int]:\n\n  Line 345:    "
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "explicit_index_in_dc|undeclared_symbol",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "Found 3 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py:\n  Line 280:                 F.append(Finding(\"explicit_index_in_dc\", \"compile\",\n\n  Line 283:                 F.append(Finding(\"explicit_index_in_dc\", \"warn\",\n\n  Line 372:                 F.append(Finding(\"undeclared_symbol\", \"warn\",\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py",
+   "limit": 120
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and th"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py",
+   "offset": 250,
+   "limit": 150
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n250:         if _is_kin_name(t[\"name\"]):\n251:             continue\n252:         used_params = {pn for pn in param_names if re.search(rf\"\\b{re.escape(pn)}\\b\", t[\"body\"])}\n253:         sm_couplings = {\"ee\", \"gw\", \"gs\", \"g1\", \"yl\", \"yu\", \"yd\", \"lam\", \"CKM\"}\n254:     "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr",
+   "limit": 100
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                               "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "offset": 539,
+   "limit": 320
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n539: \\section{LQ Lagrangian}\n540: \\label{sec:LQLagrangian}\n541: The five possible scalar LQ representations $\\Phi_1, \\Phi_{\\tilde{1}}, \\Phi_2, \\Phi_{\\tilde{2}}, \\Phi_3$ transform under the $SU(3)_c \\times SU(2)_L \\times U(1)_Y$ gauge group as~\\cite{Buch"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "ClassName\\s*->\\s*(H|Phi|QL|LL)|ClassMembers.*H|Phibar|Hbar",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr"
+  },
+  "status": "completed",
+  "output": "Found 13 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md:\n  Line 42: 4. SU(2) doublet contractions. Use the SM.fr conventions the add-on loads on: `Phi` has Y = +1/2, `LL` has Y = -1/2, `QL` has Y = +1/6, `Phi[1] = -I GP`, `Phi[2] = (vev + H + I G0)/Sqrt[2]`. Contract a doublet with an anti-doublet on a shared index: `LLbar[sp, ii, ff] ... Phi[ii]`. Co"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr",
+   "limit": 50,
+   "offset": 420
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr</path>\n<type>file</type>\n<content>\n420:     SelfConjugate    -> False,\n421:     Goldstone        -> W,\n422:     Mass             -> {MW, Internal},\n423:     QuantumNumbers   -> {Q -> 1},\n424:     Width            -> {WW, 2.085},\n425:     PropagatorLabel  -> \"GP\",\n426:     PropagatorType   -> D,\n427:     Propa"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 270,
+   "offset": 993
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n993: \\subsection{Interactions with SM Fermions ($\\mathcal{L}_{\\text{f}}$)}\n994: The interactions between the five scalar LQs and the SM fermions are listed below. $Y_{a}^{AB}{}$ with $a \\in \\{1, \\tilde1, 2, \\tilde2, 3 \\}$ and $A,B \\in \\{L, R\\}$ are arbi"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/spec.json",
+   "limit": 40,
+   "offset": 185
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/spec.json</path>\n<type>file</type>\n<content>\n185:   \"lagrangian_terms\": [\n186:     {\n187:       \"name\": \"Lkin\",\n188:       \"delayed\": true,\n189:       \"expression\": \"ExpandIndices[ I*(LQ1bar.Ga[mu].DC[LQ1, mu] + LQ1tbar.Ga[mu].DC[LQ1t, mu] + LQ2bar[ii].Ga[mu].DC[LQ2[ii], mu] + LQ2tbar[ii].Ga[mu].DC[LQ2t[ii], mu] + "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/spec.json",
+   "limit": 185
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/spec.json</path>\n<type>file</type>\n<content>\n1: {\n2:   \"model_name\": \"SLQrules_gen\",\n3:   \"info\": {\n4:     \"authors\": [\"A. Crivellin\", \"L. Schnell\"],\n5:     \"version\": \"1.0\",\n6:     \"date\": \"2021\",\n7:     \"institutions\": [\"CERN Theory Division\", \"University of Zurich\", \"ETH Zurich\", \"PSI\", \"Sorbonne University\", \"L"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "Hbar|Phibar|DC\\[",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t"
+  },
+  "status": "completed",
+  "output": "Found 18 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/spec.json:\n  Line 189:       \"expression\": \"ExpandIndices[ I*(LQ1bar.Ga[mu].DC[LQ1, mu] + LQ1tbar.Ga[mu].DC[LQ1t, mu] + LQ2bar[ii].Ga[mu].DC[LQ2[ii], mu] + LQ2tbar[ii].Ga[mu].DC[LQ2t[ii], mu] + LQ3bar[II].Ga[mu].DC[LQ3[II], mu]) + DC[S1m13bar, mu] DC[S1m13, mu] - MS1m13^2 S1m13bar S1m13 + DC[R2tm13bar, m"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "Hbar|Phi\\[|Phibar",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex"
+  },
+  "status": "completed",
+  "output": "Found 1 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex:\n  Line 1385: \t\t2*Ta[D,b,c] Phi[c] S3[E,bb] I*Eps[D,E,F] S3[F,cc] \n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex",
+   "limit": 80,
+   "offset": 575
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n575: We decompose the scalar LQ Lagrangian as\n576: \n577: \n578: \\begin{equation}\n579:     \\mathcal{L}^{\\text{LQ}} = \\mathcal{L}_{2 \\Phi} + \\mathcal{L}_{\\text{kin}} +\n580:     \\mathcal{L}_{\\text{f}}  + \\mathcal{L}_{3 \\Phi} + \\mathcal{L}_{4 \\Phi} \\,,\n581: "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: SLQrules (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:2105.04844.\n4: PAPER: the paper's LaTeX so"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t",
+   "pattern": "Hbar"
+  },
+  "status": "completed",
+  "output": "Found 6 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/spec.json:\n  Line 194:       \"expression\": \"ExpandIndices[ -Y1 Hbar[ii] H[ii] LQ1bar.LQ1 - Yt1 Hbar[ii] H[ii] LQ1tbar.LQ1t - Y2 Hbar[ii] H[ii] LQ2bar[ii1].LQ2[ii1] - Yt2 Hbar[ii] H[ii] LQ2tbar[ii1].LQ2t[ii1] - Y3 Hbar[ii] H[ii] LQ3bar[II1].LQ3[II1] - Y22 (Hbar[jj] LQ2[ii] Eps[ii, jj])(Hbar[jj1] LQ2[jj2] E"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/spec.json",
+   "limit": 30,
+   "offset": 186
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/spec.json</path>\n<type>file</type>\n<content>\n186:     {\n187:       \"name\": \"Lkin\",\n188:       \"delayed\": true,\n189:       \"expression\": \"ExpandIndices[ I*(LQ1bar.Ga[mu].DC[LQ1, mu] + LQ1tbar.Ga[mu].DC[LQ1t, mu] + LQ2bar[ii].Ga[mu].DC[LQ2[ii], mu] + LQ2tbar[ii].Ga[mu].DC[LQ2t[ii], mu] + LQ3bar[II].Ga[mu].DC[LQ3[II],"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py",
+   "pattern": "undeclared_symbol|Hbar|SM_FR|HEPTAPOD"
+  },
+  "status": "completed",
+  "output": "Found 11 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/tools/fr_lint.py:\n  Line 28: HEPTAPOD = Path.home() / \"Documents/Github/heptapod\"\n\n  Line 29: SM_FR = HEPTAPOD / \"tools/feynrules/test_files/models/SM.fr\"\n\n  Line 41: _SM_TEXT = SM_FR.read_text() if SM_FR.is_file() else \"\"\n\n  Line 372:                 F.append(Finding(\"undeclared_symbol\", \"warn\",\n\n\n/priv"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/SM.fr",
+   "pattern": "ClassName.*Phi|ClassName.*H|Phibar|Definitions"
+  },
+  "status": "completed",
+  "output": "Found 38 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-7puaal9t/TASK.md:\n  Line 42: 4. SU(2) doublet contractions. Use the SM.fr conventions the add-on loads on: `Phi` has Y = +1/2, `LL` has Y = -1/2, `QL` has Y = +1/6, `Phi[1] = -I GP`, `Phi[2] = (vev + H + I G0)/Sqrt[2]`. Contract a doublet with an anti-doublet on a shared index: `LLbar[sp, ii, ff] ... Phi[ii]`. Co"
+ }
+]

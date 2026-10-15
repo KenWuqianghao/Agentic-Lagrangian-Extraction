@@ -1,0 +1,265 @@
+{
+  "model_name": "MDMmodel_gen",
+  "info": {
+    "authors": ["Junjie Cao", "Yangle He", "Peiwen Wu", "Mengchao Zhang", "Jingya Zhu"],
+    "version": "1.0",
+    "date": "2026-09-24",
+    "institutions": ["Henan Normal University", "Peking University", "Institute of Theoretical Physics, Academia Sinica"],
+    "emails": []
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "interaction_order_limit": [["NP", 2]],
+  "feynman_gauge": true,
+  "vevs": [],
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "f",
+      "parameter_type": "External",
+      "value": "1000.",
+      "block_name": "MDM",
+      "order_block": 1,
+      "interaction_order": ["NP", 0],
+      "description": "Dilaton decay constant (vev of S) [GeV]"
+    },
+    {
+      "name": "Ms",
+      "parameter_type": "External",
+      "value": "500.",
+      "block_name": "MDM",
+      "order_block": 2,
+      "interaction_order": ["NP", 0],
+      "description": "Dilaton mass [GeV]"
+    },
+    {
+      "name": "thetaS",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "MDM",
+      "order_block": 3,
+      "interaction_order": ["NP", 0],
+      "description": "Higgs-dilaton mixing angle"
+    },
+    {
+      "name": "M",
+      "parameter_type": "External",
+      "value": "1000.",
+      "block_name": "MDM",
+      "order_block": 4,
+      "interaction_order": ["NP", 0],
+      "description": "Top partner mass scale [GeV]"
+    },
+    {
+      "name": "yp",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "MDM",
+      "order_block": 5,
+      "interaction_order": ["NP", 1],
+      "description": "Top partner Yukawa coupling"
+    },
+    {
+      "name": "thetaL",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "MDM",
+      "order_block": 6,
+      "interaction_order": ["NP", 0],
+      "description": "Top-top partner mixing angle"
+    },
+    {
+      "name": "Mtprime",
+      "parameter_type": "External",
+      "value": "1500.",
+      "block_name": "MDM",
+      "order_block": 7,
+      "interaction_order": ["NP", 0],
+      "description": "Top partner mass [GeV]"
+    },
+    {
+      "name": "v",
+      "parameter_type": "Internal",
+      "value": "vev",
+      "definitions": [],
+      "interaction_order": ["NP", 0],
+      "description": "SM Higgs vev = 246 GeV"
+    },
+    {
+      "name": "mh",
+      "parameter_type": "Internal",
+      "value": "125.6",
+      "interaction_order": ["NP", 0],
+      "description": "SM-like Higgs mass [GeV]"
+    },
+    {
+      "name": "eta",
+      "parameter_type": "Internal",
+      "value": "v/f",
+      "interaction_order": ["NP", 0],
+      "description": "Ratio v/f"
+    },
+    {
+      "name": "kappa",
+      "parameter_type": "Internal",
+      "value": "Abs[mh^2 - Ms^2]/(2*f*v)*Abs[Sin[2*thetaS]]",
+      "interaction_order": ["NP", 0],
+      "description": "Higgs-dilaton portal coupling"
+    },
+    {
+      "name": "lambdaH",
+      "parameter_type": "Internal",
+      "value": "Abs[mh^2 - Ms^2]/v^2*(Abs[(mh^2+Ms^2)/(mh^2-Ms^2)] + Sign[Sin[2*thetaS]]*Cos[2*thetaS])",
+      "interaction_order": ["NP", 0],
+      "description": "Higgs quartic coupling in MDM"
+    },
+    {
+      "name": "lambdaS",
+      "parameter_type": "Internal",
+      "value": "3*Abs[mh^2 - Ms^2]/(2*f^2)*(Abs[(mh^2+Ms^2)/(mh^2-Ms^2)] - Sign[Sin[2*thetaS]]*Cos[2*thetaS])",
+      "interaction_order": ["NP", 0],
+      "description": "Dilaton quartic coupling"
+    },
+    {
+      "name": "mS2",
+      "parameter_type": "Internal",
+      "value": "-lambdaS/6*f^2 - kappa/2*v^2",
+      "interaction_order": ["NP", 0],
+      "description": "Dilaton mass parameter in potential"
+    },
+    {
+      "name": "mH2",
+      "parameter_type": "Internal",
+      "value": "-kappa/2*f^2 - lambdaH/4*v^2",
+      "interaction_order": ["NP", 0],
+      "description": "Higgs mass parameter in potential"
+    },
+    {
+      "name": "muH",
+      "parameter_type": "Internal",
+      "value": "Sqrt[-mH2]",
+      "definitions": [],
+      "interaction_order": ["QED", -1],
+      "description": "SM Higgs mu parameter (overridden)"
+    },
+    {
+      "name": "lam",
+      "parameter_type": "Internal",
+      "value": "lambdaH/4",
+      "definitions": [],
+      "interaction_order": ["QED", 2],
+      "description": "SM Higgs quartic (overridden)"
+    },
+    {
+      "name": "MH",
+      "parameter_type": "Internal",
+      "value": "mh",
+      "definitions": [],
+      "interaction_order": ["NP", 0],
+      "description": "Physical Higgs mass (overridden)"
+    },
+    {
+      "name": "yt",
+      "parameter_type": "Internal",
+      "value": "Sqrt[2]*MT/vev*(Cos[thetaL]^2*Cos[thetaS] + eta*Sin[thetaL]^2*Sin[thetaS])",
+      "interaction_order": ["NP", 1],
+      "description": "Effective top Yukawa in MDM"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "S",
+      "class_index": 100,
+      "class_name": "S",
+      "self_conjugate": true,
+      "indices": [],
+      "unphysical": true,
+      "quantum_numbers": {},
+      "definitions": ["S -> f + H*Sin[thetaS] + s*Cos[thetaS]"]
+    },
+    {
+      "spin_type": "S",
+      "class_index": 101,
+      "class_name": "s",
+      "self_conjugate": true,
+      "indices": [],
+      "mass": {"massless": false, "sym": "Ms", "value": "Ms"},
+      "width": {"massless": false, "sym": "Ws", "value": "Auto"},
+      "quantum_numbers": {},
+      "pdg": 9000005,
+      "particle_name": "s",
+      "antiparticle_name": "s",
+      "full_name": "Dilaton",
+      "propagator_label": "s",
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 100,
+      "class_name": "Tcol",
+      "self_conjugate": false,
+      "indices": ["Colour"],
+      "flavor_index": "Colour",
+      "unphysical": true,
+      "quantum_numbers": {"Q": "2/3"},
+      "definitions": [
+        "Tcol[sp_, cc_] -> Cos[thetaL]*uq[sp, 3, cc] + Sin[thetaL]*tprime[sp, cc]",
+        "Tcolbar[sp_, cc_] -> Cos[thetaL]*uqbar[sp, 3, cc] + Sin[thetaL]*tprimebar[sp, cc]"
+      ]
+    },
+    {
+      "spin_type": "F",
+      "class_index": 101,
+      "class_name": "tprime",
+      "self_conjugate": false,
+      "indices": ["Colour"],
+      "flavor_index": "Colour",
+      "mass": {"massless": false, "sym": "Mtprime", "value": "Mtprime"},
+      "width": {"massless": false, "sym": "Wtprime", "value": "Auto"},
+      "quantum_numbers": {"Q": "2/3"},
+      "pdg": 9000006,
+      "particle_name": "tp",
+      "antiparticle_name": "tpbar",
+      "full_name": "Top Partner",
+      "propagator_label": "tp",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    }
+  ],
+  "gauge_xi": [],
+  "lagrangian_terms": [
+    {
+      "name": "LSkin",
+      "expression": "-1/2 del[S, mu] del[S, mu]",
+      "delayed": true
+    },
+    {
+      "name": "LSpot",
+      "expression": "- (mS2/2 S^2 + lambdaS/24 S^4 + kappa/2 S^2 Phibar[ii] Phi[ii] + mH2 Phibar[ii] Phi[ii] + lambdaH/4 (Phibar[ii] Phi[ii])^2)",
+      "delayed": true
+    },
+    {
+      "name": "LTkin",
+      "expression": "I Tcolbar.Ga[mu].DC[Tcol, mu]",
+      "delayed": true
+    },
+    {
+      "name": "LTmass",
+      "expression": "- M/f S Tcolbar.Tcol",
+      "delayed": true
+    },
+    {
+      "name": "LTyuk",
+      "expression": "- yp Tcolbar.ProjM[sp, sp2] QL[sp2, 1, 3, cc] Phi[2] + HC[- yp Tcolbar.ProjM[sp, sp2] QL[sp2, 1, 3, cc] Phi[2]]",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "LSM + LSkin + LSpot + LTkin + LTmass + LTyuk",
+      "delayed": true
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}

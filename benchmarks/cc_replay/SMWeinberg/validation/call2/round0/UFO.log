@@ -1,0 +1,112 @@
+# This file was automatically created by FeynRules 2.3.49
+# Mathematica version: 15.0.0 for Mac OS X ARM (64-bit) (May 26, 2026)
+# Date: Wed 30 Sep 2026 07:15:27
+
+
+# 
+# This is the logfile for the model SMWeinberg_gen
+
+# Authors: automated extraction of arXiv:2012.09882 (FeynRules DB model SMWeinberg)
+# Model version: 1.0
+# Checking the Quantum numbers
+   * Electric charge defined.
+# Checking the Lagrangians
+   * All Lagrangians are ok.
+#
+# Particle definitions
+#
+
+   * No particles removed. All particles correspond to GenInt setup.
+
+# Automatically assigned PDG numbers
+   * Assigned PDG number 9000001 to particle ghA
+   * Assigned PDG number 9000002 to particle ghZ
+   * Assigned PDG number 9000003 to particle ghWp
+   * Assigned PDG number 9000004 to particle ghWm
+   * Assigned PDG number 9000005 to particle N
+
+
+# Compulsory PDG codes:
+   * Class SM leptons complete.
+   * Class SM neutrinos complete.
+   * Class SM quarks complete.
+   * Class SM gauge bosons complete.
+#
+# Parameter definitions
+#
+
+   * All parameters are ok.
+
+
+# Vertices
+   * Calling FeynmanRules for 1 Lagrangians.
+   * Number of classes vertices: 193
+   * Number of flavored vertices: 193
+   * Saved vertices in InterfaceRun[ 1 ].
+   * Checked QNumber conservation.
+      - Quantum number GhostNumber conserved in all vertices.
+      - Quantum number LeptonNumber NOT conserved in the following vertices
+          {G0, GP, Nnubar, e}
+          {G0, GP, Nnubar, mu}
+          {G0, GP, Nnubar, ta}
+          {GP, H, Nnubar, e}
+          {GP, H, Nnubar, mu}
+          {GP, H, Nnubar, ta}
+          {GP, Nnubar, e}
+          {GP, Nnubar, mu}
+          {GP, Nnubar, ta}
+          {G0, G0, Nnubar, ve}
+          {G0, G0, Nnubar, vm}
+          {G0, G0, Nnubar, vt}
+          {G0, H, Nnubar, ve}
+          {G0, H, Nnubar, vm}
+          {G0, H, Nnubar, vt}
+          {H, H, Nnubar, ve}
+          {H, H, Nnubar, vm}
+          {H, H, Nnubar, vt}
+          {G0, Nnubar, ve}
+          {G0, Nnubar, vm}
+          {G0, Nnubar, vt}
+          {H, Nnubar, ve}
+          {H, Nnubar, vm}
+          {H, Nnubar, vt}
+          {W, Nnubar, e}
+          {W, Nnubar, mu}
+          {W, Nnubar, ta}
+          {Z, Nnubar, ve}
+          {Z, Nnubar, vm}
+          {Z, Nnubar, vt}
+      - Quantum number Q conserved in all vertices.
+      - Quantum number Y conserved in all vertices.
+   * particles.py written.
+   * parameters.py written.
+#
+# Vertex definitions
+#
+
+   * 193 vertices written.
+   * vertices.py written.
+#
+# Lorentz structure definitions
+#
+
+   * 19 lorentz structures written.
+   * lorentz.py written.
+#
+# Coupling definitions
+#
+
+   * 152 couplings written.
+   * couplings.py written.
+#
+# Coupling order definitions
+#
+
+   * 0 couplings orders written.
+   * coupling_orders.py written.
+#
+# CTCoupling definitions
+#
+
+   * 0 CTcouplings written.
+   * CT_couplings.py written.

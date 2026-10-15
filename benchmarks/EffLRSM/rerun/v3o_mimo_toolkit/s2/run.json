@@ -1,0 +1,39 @@
+{
+ "page": "EffLRSM",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit",
+ "seed": 2,
+ "variant": "v3o_mimo_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3607.6,
+ "tokens": {
+  "input": 273598,
+  "output": 3959,
+  "reasoning": 128484
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 0,
+ "n_events": 58,
+ "length_stops": 1,
+ "audit": {
+  "tool_calls": 19,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la; ls -la paper tools tools/frgen 2>/dev/null; wc -l paper/161",
+   "bash:{\"command\": \"wc -l SM.fr paper/1610.08985_source.tex\"}"
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_spec"
+}

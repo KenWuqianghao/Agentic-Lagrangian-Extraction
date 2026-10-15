@@ -1,0 +1,160 @@
+[
+ {
+  "model": "A_redeclare_class",
+  "compile_ok": true,
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "madgraph_import_ok": true,
+  "doubly_defined_particle_class_warnings": 5,
+  "doubly_defined_parameter_warnings": 0,
+  "feynman_gauge": "True",
+  "vertices": 201,
+  "vertices_with_H2": 38,
+  "ghost_vertices": 27,
+  "H2_t_tbar_couplings": [
+   "(complex(0,1)*sa*yt)/cmath.sqrt(2)"
+  ],
+  "lam_in_ufo": [
+   [
+    "internal",
+    "'MH**2/(2.*vev**2)'"
+   ]
+  ],
+  "madgraph_error": null
+ },
+ {
+  "model": "B_mr_definitions",
+  "compile_ok": true,
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "madgraph_import_ok": true,
+  "doubly_defined_particle_class_warnings": 0,
+  "doubly_defined_parameter_warnings": 0,
+  "feynman_gauge": "True",
+  "vertices": 204,
+  "vertices_with_H2": 35,
+  "ghost_vertices": 27,
+  "H2_t_tbar_couplings": [],
+  "lam_in_ufo": [
+   [
+    "internal",
+    "'MH**2/(2.*vev**2)'"
+   ]
+  ],
+  "madgraph_error": null
+ },
+ {
+  "model": "C_control",
+  "compile_ok": true,
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "madgraph_import_ok": true,
+  "doubly_defined_particle_class_warnings": 0,
+  "doubly_defined_parameter_warnings": 0,
+  "feynman_gauge": "True",
+  "vertices": 163,
+  "vertices_with_H2": 0,
+  "ghost_vertices": 24,
+  "H2_t_tbar_couplings": [],
+  "lam_in_ufo": [
+   [
+    "internal",
+    "'MH**2/(2.*vev**2)'"
+   ]
+  ],
+  "madgraph_error": null
+ },
+ {
+  "model": "D_redeclare_param",
+  "compile_ok": true,
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "fail"
+  },
+  "madgraph_import_ok": false,
+  "doubly_defined_particle_class_warnings": 0,
+  "doubly_defined_parameter_warnings": 5,
+  "feynman_gauge": "True",
+  "vertices": 163,
+  "vertices_with_H2": 0,
+  "ghost_vertices": 24,
+  "H2_t_tbar_couplings": [],
+  "lam_in_ufo": [
+   [
+    "external",
+    "0.77"
+   ],
+   [
+    "external",
+    "0.77"
+   ]
+  ],
+  "madgraph_error": "name lam define multiple time. Please correct the UFO model!"
+ },
+ {
+  "model": "E_class_outside_list",
+  "compile_ok": true,
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "madgraph_import_ok": true,
+  "doubly_defined_particle_class_warnings": 0,
+  "doubly_defined_parameter_warnings": 0,
+  "feynman_gauge": "True",
+  "vertices": 163,
+  "vertices_with_H2": 0,
+  "ghost_vertices": 24,
+  "H2_t_tbar_couplings": [],
+  "lam_in_ufo": [
+   [
+    "internal",
+    "'MH**2/(2.*vev**2)'"
+   ]
+  ],
+  "madgraph_error": null
+ },
+ {
+  "model": "F_unitary_gauge_in_addon",
+  "compile_ok": true,
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "madgraph_import_ok": true,
+  "doubly_defined_particle_class_warnings": 5,
+  "doubly_defined_parameter_warnings": 0,
+  "feynman_gauge": "False",
+  "vertices": 97,
+  "vertices_with_H2": 22,
+  "ghost_vertices": 1,
+  "H2_t_tbar_couplings": [
+   "(complex(0,1)*sa*yt)/cmath.sqrt(2)"
+  ],
+  "lam_in_ufo": [
+   [
+    "internal",
+    "'MH**2/(2.*vev**2)'"
+   ]
+  ],
+  "madgraph_error": null
+ }
+]

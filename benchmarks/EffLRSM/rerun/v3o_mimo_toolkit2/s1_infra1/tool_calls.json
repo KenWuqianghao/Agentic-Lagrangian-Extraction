@@ -1,0 +1,250 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: EffLRSM (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1610.08985.\n4: PAPER: the paper's LaTeX sour"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "ls -la && ls -la paper tools tools/frgen 2>/dev/null && wc -l paper/1610.08985_source.tex SM.fr tools/frgen/frmodel.py tools/frgen/render.py tools/fr_lint.py"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"bash\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"bash\",\"pattern\":\"./frgen *\",\"action\":\"allow\"},{\"permission\":\"bash\",\"pattern\":\"./frgen\",\"action\":\"allow\"}]"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/frgen\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/tools/fr_lint.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDE"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[a4paper,11pt,prd,superscriptaddress,showpacs,nofootinbib,floatfix,include graphics,showkeys,preprintnumbers]{revtex4-1}\n2: \\usepackage{amsmath,amsfonts,amssymb,array}\n3: \\usepackage{bm,bbm,bbm,bbold}\n4: \\usepackage{dsfont}\n5: \\usepackag"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex",
+   "offset": 973
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex</path>\n<type>file</type>\n<content>\n973: Publicly available UFO files~\\cite{nloFRModel} are compatible with similar general-purpose event generators, e.g., \n974: HERWIG and SHERPA.\n975: \n976: Our NLO in QCD corrections and residual scale uncertainty for inclusive $pp\\rightarrow\\WR,\\ZR$ pro"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and the"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDELI"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/frgen"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/frgen</path>\n<type>file</type>\n<content>\n1: #!/bin/sh\n2: FRGEN_TOOLKIT=\"$(pwd)/tools\" exec \"/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/venv/bin/python\" \"/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/open"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/tools/frgen/templates/model.fr.j2"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/tools/frgen/templates/model.fr.j2</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: {{ model_name }}                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-----------"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: EffLRSM (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1610.08985.\n4: PAPER: the paper's LaTeX sour"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/frgen\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/tools/fr_lint.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDE"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex",
+   "limit": 300
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[a4paper,11pt,prd,superscriptaddress,showpacs,nofootinbib,floatfix,include graphics,showkeys,preprintnumbers]{revtex4-1}\n2: \\usepackage{amsmath,amsfonts,amssymb,array}\n3: \\usepackage{bm,bbm,bbm,bbold}\n4: \\usepackage{dsfont}\n5: \\usepackag"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex",
+   "offset": 301,
+   "limit": 320
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex</path>\n<type>file</type>\n<content>\n301: the heavy (light) neutrino mass eigenstate $N_{m'}~(\\nu_{m})$\n302: and the RH chiral state with corresponding lepton flavor $\\ell$. \n303: \n304: The mixing scale as~\\cite{Keung:1983uu}\n305: \\begin{equation}\n306: \\vert Y_{\\ell m'}\\vert^2 \\sim \\mathcal"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex",
+   "limit": 320,
+   "offset": 621
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex</path>\n<type>file</type>\n<content>\n621: 33\t& $6.20 \\times 10^{-2} $\t& $7.65^{+3.4\\%}_{-4.2\\%} \\times 10^{-2}$\t& $1.23$ \n622: \t& $2.37 \\times 10^{-2} $\t& $2.87^{+2.9\\%}_{-3.6\\%} \\times 10^{-2}$\t& $1.21$ \n623: \\tabularnewline\\hline\n624: \\hline\n625: \\end{tabular}\n626: \\caption{Total inclusiv"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex",
+   "limit": 320,
+   "offset": 941
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex</path>\n<type>file</type>\n<content>\n941: and large mass (in comparison to the total beam c.m.~energy) of the intermediate $\\WR$:\n942: \n943: Since $N$ and $e$ are color neutral, they do not undergo QCD FSR, implying that all QCD corrections \n944: are confined to the $q\\overline{q'}\\rightarr"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "9900012|Lagrangian|PDG|goldstone|Goldstone|S\\[|F\\[|V\\[",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex"
+  },
+  "status": "completed",
+  "output": "Found 4 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex:\n  Line 480: We implement the SM Lagrangian with Goldstone boson couplings in the Feynman gauge \n\n  Line 481: and the Lagrangian terms of Eqs.~(\\ref{chcurrent})-(\\ref{neucurrent}) in the Unitary gauge\n\n  Line 1105:   &   abs(ipdg(i)).eq.9900012)  ! PID == heavy neutrino\n\n  Line "
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "9900012|ClassName|ParticleName|IndexRange|AddGaugeRepresentation",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/SM.fr"
+  },
+  "status": "completed",
+  "output": "Found 71 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/TASK.md:\n  Line 62: 9. Non-fundamental colour representations. If a field carries a colour index other than the triplet `Colour` or the adjoint `Gluon` (for example a sextet), declare the index range AND add the representation line FeynRules needs, before the field declarations: `AddGaugeRepresentation[SU"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                "
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/spec.json",
+   "content": "{\n  \"model_name\": \"EffLRSM_gen\",\n  \"info\": {\n    \"authors\": [\"O. Mattelaer\", \"M. Mitra\", \"R. Ruiz\"],\n    \"version\": \"1.0\",\n    \"date\": \"2016-10-27\",\n    \"institutions\": [\"CP3, Universite catholique de Louvain\", \"IISER Mohali\", \"IPPP, Durham University\"],\n    \"emails\": [\"olivier.mattelaer@uclouvain.be\", \"manimala@iisermohali.ac.in\", \"richard.ruiz@durham.ac.uk\"]\n  },\n  \"interaction_order_hierarchy\": [[\"QCD\", 1], [\"QED\", 2], [\"NP\", 1]],\n  \"interaction_order_limit\": [],\n  \"feynman_gauge\": null,\n  \"vevs\": [],\n  \"gauge_groups\": [],\n  \"index_decls\": [],\n  \"raw_preamble\": [],\n  \"raw_blocks\": [],\n  \"gauge_xi\": [],\n  \"parameters\": [\n    {\n      \"name\": \"kRq\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"NPINPUTS\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"kappa_R^q, normalization of the W_R coupling to quarks (Eq. 6); 1. is the paper benchmark\"\n    },\n    {\n      \"name\": \"kRl\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"NPINPUTS\",\n      \"order_block\": 2,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"kappa_R^l, normalization of the W_R and Z_R couplings to leptons (Eqs. 7, 8); 1. is the paper benchmark\"\n    },\n    {\n      \"name\": \"Xnu\",\n      \"parameter_type\": \"External\",\n      \"block_name\": \"XNUBLOCK\",\n      \"interaction_order\": [\"NP\", 1],\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"Xnu[1,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"Xnu[1,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"Xnu[1,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"Xnu[2,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"Xnu[2,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"Xnu[2,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"Xnu[3,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"Xnu[3,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"Xnu[3,3]\", \"rhs\": \"0\"}\n      ],\n      \"description\": \"X[neutrino,lepton] light-heavy mixing of Eq. (4); all entries vanish in the benchmark Eq. (5)\"\n    },\n    {\n      \"name\": \"Ynu\",\n      \"parameter_type\": \"External\",\n      \"block_name\": \"YNUBLOCK\",\n      \"interaction_order\": [\"NP\", 1],\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"Ynu[1,1]\", \"rhs\": \"1\"},\n        {\"lhs\": \"Ynu[1,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"Ynu[1,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"Ynu[2,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"Ynu[2,2]\", \"rhs\": \"1\"},\n        {\"lhs\": \"Ynu[2,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"Ynu[3,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"Ynu[3,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"Ynu[3,3]\", \"rhs\": \"1\"}\n      ],\n      \"description\": \"Y[heavy neutrino, charged lepton] of Eq. (4) with |Y_eN1|=|Y_muN2|=|Y_tauN3|=1 (Eq. 5); first index is the N flavour, i.e. the transpose of the paper's Y_lm\"\n    },\n    {\n      \"name\": \"VCKMR\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"unitary\": true,\n      \"value_rules\": [\n        {\"lhs\": \"VCKMR[1,1]\", \"rhs\": \"1\"},\n        {\"lhs\": \"VCKMR[1,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"VCKMR[1,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"VCKMR[2,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"VCKMR[2,2]\", \"rhs\": \"1\"},\n        {\"lhs\": \"VCKMR[2,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"VCKMR[3,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"VCKMR[3,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"VCKMR[3,3]\", \"rhs\": \"1\"}\n      ],\n      \"description\": \"Right-handed CKM matrix V^CKM' of Eq. (6), taken diagonal with unit entries\"\n    },\n    {\n      \"name\": \"gZuL\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"-1/6 sw^2/cw^2/kRq^2\",\n      \"description\": \"g_L^{ZR,u}=(T3L-Q) tan^2(thetaW)/kappa_R^2 with T3L=1/2, Q=2/3 (Eq. 9)\"\n    },\n    {\n      \"name\": \"gZuR\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"1/2 - 2/3 sw^2/cw^2/kRq^2\",\n      \"description\": \"g_R^{ZR,u}=T3R-(1/kappa_R^2)tan^2(thetaW) Q with T3R=1/2, Q=2/3 (Eq. 10)\"\n    },\n    {\n      \"name\": \"gZdL\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"-1/6 sw^2/cw^2/kRq^2\",\n      \"description\": \"g_L^{ZR,d}=(T3L-Q) tan^2(thetaW)/kappa_R^2 with T3L=-1/2, Q=-1/3 (Eq. 9)\"\n    },\n    {\n      \"name\": \"gZdR\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"-1/2 + 1/3 sw^2/cw^2/kRq^2\",\n      \"description\": \"g_R^{ZR,d}=T3R-(1/kappa_R^2)tan^2(thetaW) Q with T3R=-1/2, Q=-1/3 (Eq. 10)\"\n    },\n    {\n      \"name\": \"gZlL\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"1/2 sw^2/cw^2/kRl^2\",\n      \"description\": \"g_L^{ZR,l}=(T3L-Q) tan^2(thetaW)/kappa_R^2 with T3L=-1/2, Q=-1 (Eq. 9)\"\n    },\n    {\n      \"name\": \"gZlR\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"-1/2 + sw^2/cw^2/kRl^2\",\n      \"description\": \"g_R^{ZR,l}=T3R-(1/kappa_R^2)tan^2(thetaW) Q with T3R=-1/2, Q=-1 (Eq. 10)\"\n    },\n    {\n      \"name\": \"gZnL\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"1/2 sw^2/cw^2/kRl^2\",\n      \"description\": \"g_L^{ZR,nu}=(T3L-Q) tan^2(thetaW)/kappa_R^2 with T3L=1/2, Q=0 (Eq. 9); g_R^{ZR,nu}=0 since the SM has no nu_R\"\n    },\n    {\n      \"name\": \"gZNR\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"1/2\",\n      \"description\": \"g_R^{ZR,N}=T3R-(1/kappa_R^2)tan^2(thetaW) Q with T3R=1/2, Q=0; g_L^{ZR,N}=0 (Eq. 10, Tbl. I)\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 100,\n      \"class_name\": \"WR\",\n      \"self_conjugate\": false,\n      \"mass\": {\"sym\": \"MWR\", \"value\": \"3000.\"},\n      \"width\": {\"sym\": \"WRW\", \"value\": \"84.3\"},\n      \"quantum_numbers\": {\"Q\": \"1\"},\n      \"pdg\": 9900024,\n      \"particle_name\": \"wr+\",\n      \"antiparticle_name\": \"wr-\",\n      \"full_name\": \"WR\",\n      \"propagator_label\": \"wr\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"Forward\"\n    },\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 101,\n      \"class_name\": \"ZR\",\n      \"self_conjugate\": true,\n      \"mass\": {\"sym\": \"MZR\", \"value\": \"5070.\"},\n      \"width\": {\"sym\": \"ZRW\", \"value\": \"114\"},\n      \"pdg\": 9900023,\n      \"particle_name\": \"zr\",\n      \"full_name\": \"ZR\",\n      \"propagator_label\": \"zr\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 100,\n      \"class_name\": \"NR\",\n      \"self_conjugate\": true,\n      \"indices\": [\"Generation\"],\n      \"flavor_index\": \"Generation\",\n      \"class_members\": [\"N1\", \"N2\", \"N3\"],\n      \"mass\": {\n        \"sym\": \"MN\",\n        \"members\": [[\"MN1\", \"173.3\"], [\"MN2\", \"1.*^12\"], [\"MN3\", \"1.*^12\"]]\n      },\n      \"width\": {\n        \"sym\": \"WN\",\n        \"members\": [[\"WN1\", \"2.12*^-8\"], [\"WN2\", \"0\"], [\"WN3\", \"0\"]]\n      },\n      \"pdg\": [9900012, 9900014, 9900016],\n      \"particle_name\": [\"n1\", \"n2\", \"n3\"],\n      \"full_name\": [\"Heavy-neutrino-1\", \"Heavy-neutrino-2\", \"Heavy-neutrino-3\"],\n      \"propagator_label\": [\"nr\", \"n1\", \"n2\", \"n3\"],\n      \"propagator_type\": \"S\",\n      \"propagator_arrow\": \"None\"\n    }\n  ],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"LWRkin\",\n      \"delayed\": true,\n      \"expression\": \"-1/2 FS[WRbar, mu, nu] FS[WR, mu, nu] + MWR^2 WRbar[mu] WR[mu]\"\n    },\n    {\n      \"name\": \"LZRkin\",\n      \"delayed\": true,\n      \"expression\": \"-1/4 FS[ZR, mu, nu] FS[ZR, mu, nu] + 1/2 MZR^2 ZR[mu] ZR[mu]\"\n    },\n    {\n      \"name\": \"LNkin\",\n      \"delayed\": true,\n      \"expression\": \"I/2 NRbar.Ga[mu].del[NR, mu] - 1/2 (MN1 N1bar.N1 + MN2 N2bar.N2 + MN3 N3bar.N3)\"\n    },\n    {\n      \"name\": \"LWRqq\",\n      \"delayed\": true,\n      \"expression\": \"-kRq gw/Sqrt[2] ((uqbar.VCKMR.Ga[mu].ProjP.dq) WR[mu] + HC[(uqbar.VCKMR.Ga[mu].ProjP.dq) WR[mu]])\"\n    },\n    {\n      \"name\": \"LWRlnu\",\n      \"delayed\": true,\n      \"expression\": \"-kRl gw/Sqrt[2] ((NRbar.Ynu.Ga[mu].ProjP.l) WR[mu] + HC[(NRbar.Ynu.Ga[mu].ProjP.l) WR[mu]])\"\n    },\n    {\n      \"name\": \"LZRuq\",\n      \"delayed\": true,\n      \"expression\": \"-kRq gw/Sqrt[1-(1/kRq)^2 sw^2/cw^2] (gZuL (uqbar.Ga[mu].ProjM.uq) + gZuR (uqbar.Ga[mu].ProjP.uq)) ZR[mu]\"\n    },\n    {\n      \"name\": \"LZRdq\",\n      \"delayed\": true,\n      \"expression\": \"-kRq gw/Sqrt[1-(1/kRq)^2 sw^2/cw^2] (gZdL (dqbar.Ga[mu].ProjM.dq) + gZdR (dqbar.Ga[mu].ProjP.dq)) ZR[mu]\"\n    },\n    {\n      \"name\": \"LZRl\",\n      \"delayed\": true,\n      \"expression\": \"-kRl gw/Sqrt[1-(1/kRl)^2 sw^2/cw^2] (gZlL (lbar.Ga[mu].ProjM.l) + gZlR (lbar.Ga[mu].ProjP.l)) ZR[mu]\"\n    },\n    {\n      \"name\": \"LZRvl\",\n      \"delayed\": true,\n      \"expression\": \"-kRl gw/Sqrt[1-(1/kRl)^2 sw^2/cw^2] gZnL (vlbar.Ga[mu].ProjM.vl) ZR[mu]\"\n    },\n    {\n      \"name\": \"LZRN\",\n      \"delayed\": true,\n      \"expression\": \"-kRl gw/Sqrt[1-(1/kRl)^2 sw^2/cw^2] gZNR (NRbar.Ga[mu].ProjP.NR) ZR[mu]\"\n    },\n    {\n      \"name\": \"LTotal\",\n      \"delayed\": true,\n      \"expression\": \"LWRkin + LZRkin + LNkin + LWRqq + LWRlnu + LZRuq + LZRdq + LZRl + LZRvl + LZRN\"\n    }\n  ]\n}\n"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 3 particle classes, 13 parameters, Lagrangian terms ['LWRkin', 'LZRkin', 'LNkin', 'LWRqq', 'LWRlnu', 'LZRuq', 'LZRdq', 'LZRl', 'LZRvl', 'LZRN', 'LTotal']\nRENDERED: model.fr (164 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 3 particle classes, 13 parameters, Lagrangian terms ['LWRkin', 'LZRkin', 'LNkin', 'LWRqq', 'LWRlnu', 'LZRuq', 'LZRdq', 'LZRl', 'LZRvl', 'LZRN', 'LTotal']\nRENDERED: model.fr (164 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: EffLRSM_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-----------------------------------------"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: EffLRSM (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1610.08985.\n4: PAPER: the paper's LaTeX sour"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "QuantumNumbers",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/SM.fr"
+  },
+  "status": "completed",
+  "output": "Found 26 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/tools/fr_lint.py:\n  Line 322:         qn = _prop(c[\"body\"], \"QuantumNumbers\")\n\n  Line 325:                              f\"class `{cn}` is SelfConjugate and carries QuantumNumbers {qn}\",\n\n\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/SM.fr:\n  Line 157:     QuantumNumbers   -"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "hypercharge|B-L|B\\\\\\\\!-\\\\\\\\!L|U\\(1\\)|new U\\(1\\)",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex"
+  },
+  "status": "completed",
+  "output": "Found 5 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex:\n  Line 176:  {\\rm SU}(3)_c \\otimes {\\rm SU}(2)_L \\otimes {\\rm SU}(2)_R \\otimes {\\rm U}(1)_{B-L},\n\n  Line 179:  three RH neutrinos $N_R$ that are charged under ${\\rm SU}(2)_R \\otimes {\\rm U}(1)_{B-L}$ but singlets under SM symmetries.\n\n  Line 345: After LR symmetry breaking, the"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/SM.fr",
+   "offset": 255,
+   "limit": 210
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/SM.fr</path>\n<type>file</type>\n<content>\n255:     ClassName     -> ghB, \n256:     Unphysical    -> True,\n257:     SelfConjugate -> False,\n258:     Ghost         -> B, \n259:     Definitions   -> { ghB -> -sw ghZ + cw ghA}\n260:   },\n261:   U[12] == {\n262:     ClassName     -> ghWi,\n263:     Unphysical    -> True,\n264:"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex",
+   "pattern": "\\\\\\\\mathcal\\{L\\}|Lagrangian|lepton number|B-L|number assign|conserv"
+  },
+  "status": "completed",
+  "output": "Found 9 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-hg16gh6a/paper/1610.08985_source.tex:\n  Line 176:  {\\rm SU}(3)_c \\otimes {\\rm SU}(2)_L \\otimes {\\rm SU}(2)_R \\otimes {\\rm U}(1)_{B-L},\n\n  Line 179:  three RH neutrinos $N_R$ that are charged under ${\\rm SU}(2)_R \\otimes {\\rm U}(1)_{B-L}$ but singlets under SM symmetries.\n\n  Line 338: \\caption{SU$(2)_L$, SU$(2)_R$, "
+ }
+]

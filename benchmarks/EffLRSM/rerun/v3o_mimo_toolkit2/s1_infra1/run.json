@@ -1,0 +1,39 @@
+{
+ "page": "EffLRSM",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit2",
+ "seed": 1,
+ "variant": "v3o_mimo_toolkit2",
+ "harness": "opencode 1.18.25",
+ "exit": 1,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 2101.1,
+ "tokens": {
+  "input": 280679,
+  "output": 9187,
+  "reasoning": 103130
+ },
+ "output_max": 128000,
+ "hook_runs": 1,
+ "n_events": 83,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 29,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la && ls -la paper tools tools/frgen 2>/dev/null && wc -l paper"
+  ],
+  "frgen_runs": 1,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3o_mimo_toolkit2/s1/model/EffLRSM_gen.fr",
+ "final_lint_findings": 0
+}

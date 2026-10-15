@@ -1,0 +1,38 @@
+{
+ "page": "HeavyN",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "toolkit2",
+ "seed": 1,
+ "variant": "v3o_nemotron_toolkit2",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 469.7,
+ "tokens": {
+  "input": 245630,
+  "output": 9236,
+  "reasoning": 16382
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 5,
+ "n_events": 45,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 16,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/HeavyN/rerun/v3o_nemotron_toolkit2/s1/model/HeavyN_gen.fr",
+ "final_lint_findings": 0
+}

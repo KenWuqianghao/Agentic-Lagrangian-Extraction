@@ -1,0 +1,20 @@
+RUN-TAG: XM-CROSS-GeneralU1__control
+
+Your working directory for this task is /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/crosscheck_mutation/GeneralU1__control/cross_sandbox. It contains exactly two files, paper.tex and reconstruction.md. Tool policy: use only the Read tool, and only on files under /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/crosscheck_mutation/GeneralU1__control/cross_sandbox (paper.tex is long: read it completely, in chunks with offset and limit); then use the Write tool exactly once to write your document to /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/crosscheck_mutation/GeneralU1__control/crosscheck.md. No shell, no search, no web, no other files or directories. After writing, reply with the single line DONE.
+
+Your working directory contains exactly two files:
+  - `paper.tex` — the LaTeX source (or extracted text) of a physics paper;
+  - `reconstruction.md` — an independent reconstruction of a model's Lagrangian and field content, produced from an implementation file you do NOT have access to.
+
+Task: compare the reconstruction against the model the paper defines.
+
+1. Locate the paper's Lagrangian / field definitions (quote equation numbers or section references).
+2. Produce a term-by-term comparison table:
+
+| paper term (eq. ref) | reconstruction term | verdict | notes |
+
+where verdict is one of: **agree** / **disagree** / **missing-in-reconstruction** / **extra-in-reconstruction**. Compare physics content (field reps, charges, chirality, conjugation, coefficient structure), not notation.
+3. After the table, list every disagreement with a severity (cosmetic / convention / substantive) and one sentence on what a human should check.
+4. End with a one-paragraph overall assessment. Do NOT give a pass/fail verdict — that decision belongs to the human reviewer.
+
+Write the complete markdown document to /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/crosscheck_mutation/GeneralU1__control/crosscheck.md.

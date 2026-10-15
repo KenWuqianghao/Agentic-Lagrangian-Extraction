@@ -1,0 +1,274 @@
+(***************************************************************************************************)
+(*****                      FeynRules add-on model file for pSPSS                              *****)
+(*****     Based on arXiv:2210.10738 (Antusch, Hajer, Rosskopp), loaded on top of SM.fr         *****)
+(***************************************************************************************************)
+
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+M$ModelName = "pSPSS_gen";
+
+M$Information = {
+  Authors      -> {"Auto-extraction from arXiv:2210.10738"},
+  Version      -> "1.0",
+  Date         -> "24. 09. 2026",
+  Institutions -> {"arXiv:2210.10738"},
+  Emails       -> {},
+  URLs         -> "https://arxiv.org/abs/2210.10738"
+};
+
+(* ************************** *)
+(* *****  Interaction   ***** *)
+(* *****     orders     ***** *)
+(* ************************** *)
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+(* ************************** *)
+(* *****    Indices     ***** *)
+(* ************************** *)
+IndexRange[Index[NeutMass]] = NoUnfold[Range[5]];
+IndexStyle[NeutMass, ni];
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+M$Parameters = {
+
+  (* External parameters: PSPSS block (paper Table: BLOCK PSPSS) *)
+  Mmaj == {
+    ParameterType -> External,
+    BlockName     -> PSPSS,
+    OrderBlock    -> 1,
+    Value         -> 100.,
+    TeX           -> Subscript[M, maj],
+    Description   -> "Sterile Majorana mass m_M [GeV], eq. (active-sterile mixing) / BLOCK PSPSS 1"
+  },
+  deltaM == {
+    ParameterType -> External,
+    BlockName     -> PSPSS,
+    OrderBlock    -> 2,
+    Value         -> 1.0*^-12,
+    TeX           -> "\[Delta]m",
+    Description   -> "Heavy-neutrino mass splitting delta_m [GeV], eq. (Delta m mass splitting), BLOCK PSPSS 2"
+  },
+  theta1 == {
+    ParameterType -> External,
+    BlockName     -> PSPSS,
+    OrderBlock    -> 3,
+    Value         -> 0.,
+    TeX           -> Subscript[\[Theta], e],
+    Description   -> "Active-sterile mixing theta_e, eq. (active-sterile mixing), BLOCK PSPSS 3"
+  },
+  theta2 == {
+    ParameterType -> External,
+    BlockName     -> PSPSS,
+    OrderBlock    -> 4,
+    Value         -> 1.0*^-3,
+    TeX           -> Subscript[\[Theta], \[Mu]],
+    Description   -> "Active-sterile mixing theta_mu, eq. (active-sterile mixing), BLOCK PSPSS 4"
+  },
+  theta3 == {
+    ParameterType -> External,
+    BlockName     -> PSPSS,
+    OrderBlock    -> 5,
+    Value         -> 0.,
+    TeX           -> Subscript[\[Theta], \[Tau]],
+    Description   -> "Active-sterile mixing theta_tau, eq. (active-sterile mixing), BLOCK PSPSS 5"
+  },
+  damping == {
+    ParameterType -> External,
+    BlockName     -> PSPSS,
+    OrderBlock    -> 6,
+    Value         -> 0.,
+    TeX           -> \[Lambda],
+    Description   -> "Damping parameter lambda for NNO decoherence, BLOCK PSPSS 6 (MadGraph patch only)"
+  },
+
+  (* Internal parameters *)
+  vevNP == {
+    ParameterType    -> Internal,
+    Value            -> vev,
+    InteractionOrder -> {NP, -1},
+    TeX              -> Subscript[v, NP],
+    Description      -> "Higgs vev with NP interaction order {NP,-1} (equal to vev), paper sec. FeynRules model file"
+  },
+  yvn == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation]},
+    Value            -> {
+      yvn[1] -> Sqrt[2] theta1 Mmaj / vevNP,
+      yvn[2] -> Sqrt[2] theta2 Mmaj / vevNP,
+      yvn[3] -> Sqrt[2] theta3 Mmaj / vevNP
+    },
+    InteractionOrder -> {NP, 1},
+    TeX              -> Superscript[y, \[Nu]],
+    Description      -> "Neutrino Yukawa vector y_{alpha,1}; y = Sqrt[2] theta m_M / v from theta = m_D/m_M, m_D = y v / Sqrt[2]"
+  },
+  Mn4 == {
+    ParameterType -> Internal,
+    Value         -> Mmaj (1 + (theta1^2 + theta2^2 + theta3^2)/2) - deltaM/2,
+    TeX           -> Subscript[m, 4],
+    Description   -> "Mass of n4, eq. (Delta m mass splitting): m_M (1 + |theta|^2/2) - delta_m/2"
+  },
+  Mn5 == {
+    ParameterType -> Internal,
+    Value         -> Mmaj (1 + (theta1^2 + theta2^2 + theta3^2)/2) + deltaM/2,
+    TeX           -> Subscript[m, 5],
+    Description   -> "Mass of n5, eq. (Delta m mass splitting): m_M (1 + |theta|^2/2) + delta_m/2"
+  },
+  UnCL == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[NeutMass]},
+    Value         -> {
+      UnCL[1, 1] -> 1 - theta1^2/2,
+      UnCL[1, 2] -> -theta1 theta2/2,
+      UnCL[1, 3] -> -theta1 theta3/2,
+      UnCL[1, 4] -> -I theta1/Sqrt[2],
+      UnCL[1, 5] -> theta1/Sqrt[2],
+      UnCL[2, 1] -> -theta1 theta2/2,
+      UnCL[2, 2] -> 1 - theta2^2/2,
+      UnCL[2, 3] -> -theta2 theta3/2,
+      UnCL[2, 4] -> -I theta2/Sqrt[2],
+      UnCL[2, 5] -> theta2/Sqrt[2],
+      UnCL[3, 1] -> -theta1 theta3/2,
+      UnCL[3, 2] -> -theta2 theta3/2,
+      UnCL[3, 3] -> 1 - theta3^2/2,
+      UnCL[3, 4] -> -I theta3/Sqrt[2],
+      UnCL[3, 5] -> theta3/Sqrt[2]
+    },
+    TeX         -> Superscript[U, \[Prime]CL],
+    Description -> "3x5 block U'_CL of U_n relating active flavours to mass eigenstates n_i; from U_n in sec. SPSS"
+  }
+};
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+M$ClassesDescription = {
+
+(* Mass eigenstates: physical self-conjugate (Majorana) sterile neutrinos *)
+  F[100] == {
+    ClassName        -> n4,
+    SelfConjugate    -> True,
+    Mass             -> {Mn4, Internal},
+    Width            -> 0,
+    PDG              -> 8000011,
+    ParticleName     -> "n4",
+    PropagatorLabel  -> "n4",
+    PropagatorType   -> S,
+    PropagatorArrow  -> None,
+    FullName         -> "Heavy neutrino n4"
+  },
+  F[101] == {
+    ClassName        -> n5,
+    SelfConjugate    -> True,
+    Mass             -> {Mn5, Internal},
+    Width            -> 0,
+    PDG              -> 8000012,
+    ParticleName     -> "n5",
+    PropagatorLabel  -> "n5",
+    PropagatorType   -> S,
+    PropagatorArrow  -> None,
+    FullName         -> "Heavy neutrino n5"
+  },
+
+(* Multiplet of all mass eigenstate neutrinos (light + heavy), unphysical *)
+  F[102] == {
+    ClassName      -> nL,
+    Unphysical     -> True,
+    Indices        -> {Index[NeutMass]},
+    FlavorIndex    -> NeutMass,
+    SelfConjugate  -> False,
+    Definitions    -> {
+      nL[sp_, 1] -> vl[sp, 1],
+      nL[sp_, 2] -> vl[sp, 2],
+      nL[sp_, 3] -> vl[sp, 3],
+      nL[sp_, 4] -> n4[sp],
+      nL[sp_, 5] -> n5[sp]
+    }
+  },
+
+(* Sterile interaction eigenstates N1, N2 (unphysical; expressed through n4, n5) *)
+  F[110] == {
+    ClassName      -> N1L,
+    Unphysical     -> True,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {LeptonNumber -> -1},
+    Definitions    -> {
+      N1L[sp_] -> I/Sqrt[2] n4[sp] + 1/Sqrt[2] n5[sp]
+    }
+  },
+  F[111] == {
+    ClassName      -> N2L,
+    Unphysical     -> True,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {LeptonNumber -> 1},
+    Definitions    -> {
+      N2L[sp_] -> -theta1 vl[sp, 1] - theta2 vl[sp, 2] - theta3 vl[sp, 3]
+                  - I/Sqrt[2] (1 - (theta1^2 + theta2^2 + theta3^2)/2) n4[sp]
+                  + 1/Sqrt[2] (1 - (theta1^2 + theta2^2 + theta3^2)/2) n5[sp]
+    }
+  },
+
+(* Higgs doublet with vevNP (unphysical), PhiNP[1] = -I GP, PhiNP[2] = (vevNP + H + I G0)/Sqrt[2] *)
+  S[100] == {
+    ClassName      -> PhiNP,
+    Unphysical     -> True,
+    Indices        -> {Index[SU2D]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 1/2},
+    Definitions    -> {
+      PhiNP[1] -> -I GP,
+      PhiNP[2] -> (vevNP + H + I G0)/Sqrt[2]
+    }
+  },
+
+(* Redefine the lepton doublet so its neutrino component is the mass-eigenstate
+   rotation n_alpha = UnCL[alpha,i] nL[i] (paper: replace vl with UnCL nL) *)
+  F[11] == {
+    ClassName      -> LL,
+    Unphysical     -> True,
+    Indices        -> {Index[SU2D], Index[Generation]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1/2},
+    Definitions    -> {
+      LL[sp1_, 1, ff_] :> Module[{sp2, ii}, ProjM[sp1, sp2] UnCL[ff, ii] nL[sp2, ii]],
+      LL[sp1_, 2, ff_] :> Module[{sp2}, ProjM[sp1, sp2] l[sp2, ff]]
+    }
+  }
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+(* Free kinetic and Majorana mass term for n4 *)
+LN4kin := Block[{mu},
+  I/2 n4bar.Ga[mu].del[n4, mu] - 1/2 Mn4 n4bar.n4
+];
+
+(* Free kinetic and Majorana mass term for n5 *)
+LN5kin := Block[{mu},
+  I/2 n5bar.Ga[mu].del[n5, mu] - 1/2 Mn5 n5bar.n5
+];
+
+(* Neutrino Yukawa: -yvn CC[N1Lbar].LL PhiNP Eps + HC
+   (paper LaTeX: -y_{alpha,1} \bar{N_1^c} \widetilde{H}^dagger ell_alpha + HC;
+    \widetilde{H}^dagger has Y=+1/2 -> PhiNP with Eps; paper FR snippet's PhiNPbar would give Y=-1) *)
+LYuk := Block[{sp1, ii, jj, ff1, yuk, feynmangaugerules},
+  feynmangaugerules = If[Not[FeynmanGauge], {G0|GP|GPbar -> 0}, {}];
+  yuk = ExpandIndices[
+    -yvn[ff1] CC[N1Lbar[sp1]].LL[sp1, ii, ff1] PhiNP[jj] Eps[ii, jj],
+    FlavorExpand -> SU2D
+  ];
+  yuk + HC[yuk] /. feynmangaugerules
+];
+
+(* Single total Lagrangian: SM plus every term defined in this file *)
+LTotal := LSM + LN4kin + LN5kin + LYuk;

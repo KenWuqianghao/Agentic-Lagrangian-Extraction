@@ -1,0 +1,4 @@
+SCHEMA OK: 3 particle classes, 10 parameters, Lagrangian terms ['LHiggsTotal', 'LTotal']
+RENDERED: model.fr (113 lines). You may read it.
+LINT: 1 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are real defects; do not remove paper physics just to silence one.
+- [checks] mixing_in_definitions: class `S` is defined as a mixture of ['H', 'HH', 'chi']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 78)

@@ -1,0 +1,143 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: Wprime (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:hep-ph/0207290.\n4: PAPER: the paper's LaTeX so"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/paper/hep-ph_0207290_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/paper/hep-ph_0207290_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentstyle[prd,aps,epsfig]{revtex}\n2: \n3: \\newcommand{\\wpr}{$W^\\prime$~}\n4: \\newcommand{\\wprm}{W^\\prime}\n5: \\newcommand{\\wprmp}{W^{\\prime\\,+}}\n6: \\newcommand{\\mwpsq}{m^2_{W^\\prime}}\n7: \\newcommand{\\mtsq}{m^2_{t}}\n8: \n9: \\newcommand{\\beq}{\\begin"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDEL"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/paper/hep-ph_0207290_source.tex",
+   "offset": 910
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/paper/hep-ph_0207290_source.tex</path>\n<type>file</type>\n<content>\n910: \\begin{center}\n911: \\begin{tabular}{d|d@{\\hspace*{2em}}l@{\\hspace*{1em}}l@{\\hspace*{1em}}l@{\\hspace*{3em}}l@{\\hspace*{1em}}|d@{\\hspace*{2em}}l@{\\hspace*{1em}}l@{\\hspace*{1em}}l@{\\hspace*{3em}}l}\n912: Mass (GeV)&$\\sigma_{\\mathrm LO}$ (pb)&\\multico"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/SM.fr"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/SM.fr"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                 "
+ },
+ {
+  "tool": "write",
+  "input": {
+   "content": "{\n  \"model_name\": \"Wprime_gen\",\n  \"info\": {\n    \"authors\": [\"Zack Sullivan (original paper), extracted by benchmark\"],\n    \"version\": \"1.0\",\n    \"date\": \"2026-09-24\",\n    \"institutions\": [\"Fermilab\"],\n    \"emails\": []\n  },\n  \"interaction_order_hierarchy\": [\n    [\"QCD\", 1],\n    [\"QED\", 2],\n    [\"NP\", 1]\n  ],\n  \"interaction_order_limit\": [\n    [\"NP\", 1]\n  ],\n  \"feynman_gauge\": true,\n  \"vevs\": [],\n  \"gauge_groups\": [],\n  \"index_decls\": [],\n  \"parameters\": [\n    {\n      \"name\": \"Mwp\",\n      \"parameter_type\": \"External\",\n      \"value\": \"500.\",\n      \"block_name\": \"Wprime\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"W' boson mass [GeV]\"\n    },\n    {\n      \"name\": \"gL\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.65\",\n      \"block_name\": \"Wprime\",\n      \"order_block\": 2,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Left-handed W' gauge coupling\"\n    },\n    {\n      \"name\": \"gR\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.65\",\n      \"block_name\": \"Wprime\",\n      \"order_block\": 3,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Right-handed W' gauge coupling\"\n    },\n    {\n      \"name\": \"zeta\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.01\",\n      \"block_name\": \"Wprime\",\n      \"order_block\": 4,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Left-right mixing angle\"\n    },\n    {\n      \"name\": \"omega\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.\",\n      \"block_name\": \"Wprime\",\n      \"order_block\": 5,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"CP-violating phase in right-handed sector\"\n    },\n    {\n      \"name\": \"VpL\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"unitary\": true,\n      \"value_rules\": [\n        {\"lhs\": \"VpL[1,1]\", \"rhs\": \"Cos[cabi]\", \"delayed\": false},\n        {\"lhs\": \"VpL[1,2]\", \"rhs\": \"Sin[cabi]\", \"delayed\": false},\n        {\"lhs\": \"VpL[1,3]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"VpL[2,1]\", \"rhs\": \"-Sin[cabi]\", \"delayed\": false},\n        {\"lhs\": \"VpL[2,2]\", \"rhs\": \"Cos[cabi]\", \"delayed\": false},\n        {\"lhs\": \"VpL[2,3]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"VpL[3,1]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"VpL[3,2]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"VpL[3,3]\", \"rhs\": \"1\", \"delayed\": false}\n      ],\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Left-handed generalized CKM matrix for W' couplings (defaults to SM CKM)\"\n    },\n    {\n      \"name\": \"VpR\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"unitary\": true,\n      \"value_rules\": [\n        {\"lhs\": \"VpR[1,1]\", \"rhs\": \"Cos[cabi]\", \"delayed\": false},\n        {\"lhs\": \"VpR[1,2]\", \"rhs\": \"Sin[cabi]\", \"delayed\": false},\n        {\"lhs\": \"VpR[1,3]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"VpR[2,1]\", \"rhs\": \"-Sin[cabi]\", \"delayed\": false},\n        {\"lhs\": \"VpR[2,2]\", \"rhs\": \"Cos[cabi]\", \"delayed\": false},\n        {\"lhs\": \"VpR[2,3]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"VpR[3,1]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"VpR[3,2]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"VpR[3,3]\", \"rhs\": \"1\", \"delayed\": false}\n      ],\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Right-handed generalized CKM matrix for W' couplings (defaults to SM CKM)\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 100,\n      \"class_name\": \"Wp\",\n      \"self_conjugate\": false,\n      \"indices\": [],\n      \"mass\": {\n        \"massless\": false,\n        \"sym\": \"Mwp\",\n        \"value\": \"500.\"\n      },\n      \"width\": {\n        \"massless\": false,\n        \"sym\": \"Wwp\",\n        \"value\": \"10.\"\n      },\n      \"quantum_numbers\": {\n        \"Q\": \"1\"\n      },\n      \"pdg\": 9900024,\n      \"particle_name\": \"Wp+\",\n      \"antiparticle_name\": \"Wp-\",\n      \"full_name\": \"W prime\",\n      \"propagator_label\": \"Wp\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"Forward\"\n    }\n  ],\n  \"gauge_xi\": [\n    [\"V[100]\", \"GaugeXi[Wp]\"]\n  ],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"LWpKinMass\",\n      \"expression\": \"-1/2 FS[Wpbar, mu, nu] FS[Wp, mu, nu] + Mwp^2 Wpbar[mu] Wp[mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LWpInt\",\n      \"expression\": \"1/Sqrt[2] * (uqbar[ff1, cc].Ga[mu].(gL*Sin[zeta]*VpL[ff1, ff2]*ProjM + gR*Cos[zeta]*Exp[I*omega]*VpR[ff1, ff2]*ProjP).dq[ff2, cc] + vlbar[ff1].Ga[mu].(gL*Sin[zeta]*VpL[ff1, ff2]*ProjM + gR*Cos[zeta]*Exp[I*omega]*VpR[ff1, ff2]*ProjP).l[ff2]) * Wp[mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LTotal\",\n      \"expression\": \"LWpKinMass + LWpInt + HC[LWpInt]\",\n      \"delayed\": true\n    }\n  ],\n  \"raw_preamble\": [],\n  \"raw_blocks\": []\n}",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/spec.json"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 1 particle classes, 7 parameters, Lagrangian terms ['LWpKinMass', 'LWpInt', 'LTotal']\nRENDERED: model.fr (95 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: Wprime_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-------------------------------------------"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/spec.json"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/spec.json</path>\n<type>file</type>\n<content>\n1: {\n2:   \"model_name\": \"Wprime_gen\",\n3:   \"info\": {\n4:     \"authors\": [\"Zack Sullivan (original paper), extracted by benchmark\"],\n5:     \"version\": \"1.0\",\n6:     \"date\": \"2026-09-24\",\n7:     \"institutions\": [\"Fermilab\"],\n8:     \"emails\": []\n9:   },\n10:   \"interaction_orde"
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "oldString": "{\n      \"name\": \"Mwp\",\n      \"parameter_type\": \"External\",\n      \"value\": \"500.\",\n      \"block_name\": \"Wprime\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"W' boson mass [GeV]\"\n    },\n    {\n      \"name\": \"gL\",",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/spec.json",
+   "newString": "{\n      \"name\": \"Mwp\",\n      \"parameter_type\": \"External\",\n      \"value\": \"500.\",\n      \"block_name\": \"Wprime\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"W' boson mass [GeV]\"\n    },\n    {\n      \"name\": \"Wwp\",\n      \"parameter_type\": \"External\",\n      \"value\": \"10.\",\n      \"block_name\": \"Wprime\",\n      \"order_block\": 6,\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"W' boson width [GeV]\"\n    },\n    {\n      \"name\": \"gL\","
+  },
+  "status": "completed",
+  "output": "Edit applied successfully."
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 1 particle classes, 8 parameters, Lagrangian terms ['LWpKinMass', 'LWpInt', 'LTotal']\nRENDERED: model.fr (95 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: Wprime_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-------------------------------------------"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDELIN"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/self_audit.md",
+   "content": "Self-audit table for Wprime_gen model:\n\n| term name | fields in the monomial | operator mass dimension d | coupling symbol | coupling mass dimension (must be 4 - d) | 1/Lambda power present (must be d - 4, or \"n/a\" if d <= 4) | Q sum | Y sum | SU(2) contraction (singlet? which Eps or shared index) | SU(3) contraction | sum of each new U(1) charge (must be 0) | lepton/baryon number sum | CC[] used where paper writes psi^c | fraction/root placement checked against | Hermitian partner (HC[] or self-conjugate) |\n|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| LWpKinMass (kinetic) | Wpbar[mu], Wp[nu], FS, FS | 4 | (implicit 1) | 0 | n/a | 0 (1 + -1) | n/a (no Y assigned) | singlet (no SU2W index) | singlet (no colour index) | n/a | B=0, L=0 | n/a | -1/2 from canonical normalization (Eq. 2, paper Lagrangian structure) | self-conjugate (real) |\n| LWpKinMass (mass) | Wpbar[mu], Wp[mu] | 2 | Mwp^2 | 2 | n/a | 0 | n/a | singlet | singlet | n/a | B=0, L=0 | n/a | Mwp^2 from particle class Mass spec | self-conjugate (real) |\n| LWpInt (quark) | uqbar[ff1,cc], dq[ff2,cc], Wp[mu], Ga[mu], ProjM/ProjP | 4 | gL*Sin[zeta]*VpL[ff1,ff2], gR*Cos[zeta]*Exp[I*omega]*VpR[ff1,ff2] | 0 | n/a | 0 (-2/3 - 1/3 + 1) | n/a | singlet (Wp is SU(2)_L singlet) | 3bar x 3 -> 1 (cc index contracted) | n/a | B=1/3 - 1/3 = 0 | n/a | 1/Sqrt[2] from Eq.(2) in paper: \"1/Sqrt[2] fbar gamma_mu (...)\" | HC[LWpInt] |\n| LWpInt (lepton) | vlbar[ff1], l[ff2], Wp[mu], Ga[mu], ProjM/ProjP | 4 | gL*Sin[zeta]*VpL[ff1,ff2], gR*Cos[zeta]*Exp[I*omega]*VpR[ff1,ff2] | 0 | n/a | 0 (0 - 1 + 1) | n/a | singlet | singlet (no colour) | n/a | L=1 - 1 = 0 | n/a | 1/Sqrt[2] from Eq.(2) | HC[LWpInt] |\n| HC[LWpInt] | (conjugate fields) | 4 | (conjugate couplings) | 0 | n/a | 0 | n/a | singlet | singlet | n/a | 0 | n/a | same as LWpInt | LWpInt |\n\nAdditional audit rows:\n\n| Check | Result |\n|---|---|\n| New particle class kinetic+mass term | Wp (V[100]): LWpKinMass exists and is included in LTotal \u2713 |\n| Non-fundamental colour representation | None (Wp is colour singlet) \u2713 |\n| SelfConjugate -> True classes | None (Wp has SelfConjugate -> False) \u2713 |\n| Name collision check | Classes: Wp (V[100]). Parameters: Mwp, Wwp, gL, gR, zeta, omega, VpL, VpR. Indices: none new. None conflict with Mathematica built-ins (N,C,D,E,I,K,O,HC,CC,FS,DC,del,Eps,Ga,ProjP,ProjM), FeynRules symbols, or SM.fr names (H,Phi,Z,W,A,G,ee,gs,gw,sw,cw,vev,MZ,MW,...) \u2713 |\n| Single total Lagrangian | LTotal := LWpKinMass + LWpInt + HC[LWpInt] \u2713 |\n| Reference/cached model files read | none (only paper/hep-ph_0207290_source.tex and SM.fr for conventions) \u2713 |\n\nField mass dimensions used: scalar=1, vector=1, fermion=3/2, FS=2, del/DC=1, Ga=0, ProjP/M=0.\nAll Q sums = 0. All SU(3) contractions are singlets. No new U(1) gauge groups. No charge-conjugation (CC[]) needed as paper uses standard Dirac notation."
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 1 particle classes, 8 parameters, Lagrangian terms ['LWpKinMass', 'LWpInt', 'LTotal']\nRENDERED: model.fr (95 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/self_audit.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-ir7q2i0u/self_audit.md</path>\n<type>file</type>\n<content>\n1: Self-audit table for Wprime_gen model:\n2: \n3: | term name | fields in the monomial | operator mass dimension d | coupling symbol | coupling mass dimension (must be 4 - d) | 1/Lambda power present (must be d - 4, or \"n/a\" if d <= 4) | Q sum | Y sum | SU(2) contractio"
+ }
+]

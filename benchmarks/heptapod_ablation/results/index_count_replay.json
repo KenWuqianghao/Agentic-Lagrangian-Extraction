@@ -1,0 +1,526 @@
+{
+ "snapshots_compiled": 102,
+ "flagged": 35,
+ "flagged_with_hermiticity_fail_or_inert_particle": 32,
+ "flagged_papers": [
+  "cc_sonnet_harness:MDMmodel",
+  "cc_sonnet_harness:Monotops",
+  "cc_sonnet_harness:SMWeinberg",
+  "cc_sonnet_harness:pSPSS",
+  "pi_qwen_harness:EffLRSM",
+  "pi_qwen_harness:MDMmodel",
+  "pi_qwen_harness:Monotops",
+  "pi_qwen_harness:SMWeinberg",
+  "pi_qwen_harness:Top-Philic-Zprime"
+ ],
+ "flagged_and_fine": [
+  "cc_sonnet_harness:MDMmodel:call1",
+  "cc_sonnet_harness:MDMmodel:call2",
+  "cc_sonnet_harness:MDMmodel:call10"
+ ],
+ "not_flagged": 67,
+ "not_flagged_with_hermiticity_fail_or_inert_particle": 26,
+ "flagged_where_the_stored_rule_was_silent": 31,
+ "rows": [
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "MDMmodel",
+   "call": 1,
+   "flagged": true,
+   "uses": [
+    "uq[3, cc]",
+    "uqbar[3, cc]"
+   ],
+   "hermiticity_fail": false,
+   "inert_new_particle": false,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "MDMmodel",
+   "call": 2,
+   "flagged": true,
+   "uses": [
+    "uq[3, cc]",
+    "uqbar[3, cc]"
+   ],
+   "hermiticity_fail": false,
+   "inert_new_particle": false,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "MDMmodel",
+   "call": 10,
+   "flagged": true,
+   "uses": [
+    "uq[3, cc]",
+    "uqbar[3, cc]"
+   ],
+   "hermiticity_fail": false,
+   "inert_new_particle": false,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "Monotops",
+   "call": 1,
+   "flagged": true,
+   "uses": [
+    "dq[ff3, cc3]",
+    "dqbar[ff, cc]",
+    "uq[ff1, cc]",
+    "uq[ff2, cc]"
+   ],
+   "hermiticity_fail": false,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "Monotops",
+   "call": 2,
+   "flagged": true,
+   "uses": [
+    "dq[ff3, cc3]",
+    "dqbar[ff, cc]",
+    "uq[ff1, cc]",
+    "uq[ff2, cc]"
+   ],
+   "hermiticity_fail": false,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "Monotops",
+   "call": 3,
+   "flagged": true,
+   "uses": [
+    "dq[ff3, cc3]",
+    "dqbar[ff, cc]",
+    "uq[ff1, cc]",
+    "uq[ff2, cc]"
+   ],
+   "hermiticity_fail": false,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "Monotops",
+   "call": 4,
+   "flagged": true,
+   "uses": [
+    "dq[ff3, cc3]",
+    "dqbar[ff, cc]",
+    "uq[ff1, cc]",
+    "uq[ff2, cc]"
+   ],
+   "hermiticity_fail": false,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "Monotops",
+   "call": 5,
+   "flagged": true,
+   "uses": [
+    "dq[ff3, cc3]",
+    "dqbar[ff, cc]",
+    "uq[ff1, cc]",
+    "uq[ff2, cc]"
+   ],
+   "hermiticity_fail": false,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "Monotops",
+   "call": 6,
+   "flagged": true,
+   "uses": [
+    "dq[ff3, cc3]",
+    "dqbar[ff, cc]",
+    "uq[ff1, cc]",
+    "uq[ff2, cc]"
+   ],
+   "hermiticity_fail": false,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "SMWeinberg",
+   "call": 1,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "l[gg]",
+    "vl[ff]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "SMWeinberg",
+   "call": 2,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "l[gg]",
+    "lbar[ff]",
+    "vl[ff]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "SMWeinberg",
+   "call": 3,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "l[gg]",
+    "vl[ff]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "SMWeinberg",
+   "call": 4,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "l[gg]",
+    "lbar[ff]",
+    "lbar[gg]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "SMWeinberg",
+   "call": 5,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "l[gg]",
+    "lbar[ff]",
+    "lbar[gg]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "SMWeinberg",
+   "call": 6,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "l[gg]",
+    "lbar[ff]",
+    "lbar[gg]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "SMWeinberg",
+   "call": 7,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "l[gg]",
+    "lbar[ff]",
+    "lbar[gg]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "SMWeinberg",
+   "call": 8,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "l[gg]",
+    "lbar[gg]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": false,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "SMWeinberg",
+   "call": 10,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "l[gg]",
+    "lbar[ff]",
+    "lbar[gg]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "pSPSS",
+   "call": 1,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "vl[ff]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "pSPSS",
+   "call": 2,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "vl[ff]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "pSPSS",
+   "call": 3,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "vl[ff]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "pSPSS",
+   "call": 4,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "vl[ff]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "pSPSS",
+   "call": 5,
+   "flagged": true,
+   "uses": [
+    "lbar[ff]",
+    "vlbar[ff]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "pSPSS",
+   "call": 6,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "lbar[ff]",
+    "vl[ff]",
+    "vlbar[ff]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "pSPSS",
+   "call": 9,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "lbar[ff]",
+    "vl[ff]",
+    "vlbar[ff]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "cc_sonnet_harness",
+   "paper": "pSPSS",
+   "call": 10,
+   "flagged": true,
+   "uses": [
+    "l[ff]",
+    "lbar[ff]",
+    "vl[ff]",
+    "vlbar[ff]"
+   ],
+   "hermiticity_fail": false,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "pi_qwen_harness",
+   "paper": "EffLRSM",
+   "call": 6,
+   "flagged": true,
+   "uses": [
+    "l[1]",
+    "l[2]",
+    "l[3]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": false,
+   "old_rule": true
+  },
+  {
+   "arm": "pi_qwen_harness",
+   "paper": "MDMmodel",
+   "call": 2,
+   "flagged": true,
+   "uses": [
+    "dq[3]",
+    "uqbar[3]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": false,
+   "old_rule": true
+  },
+  {
+   "arm": "pi_qwen_harness",
+   "paper": "Monotops",
+   "call": 2,
+   "flagged": true,
+   "uses": [
+    "dq[ck, ff2]",
+    "dqbar[ff1, ci]",
+    "uq[ck, ff2]",
+    "uq[ff2, cc]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "pi_qwen_harness",
+   "paper": "Monotops",
+   "call": 3,
+   "flagged": true,
+   "uses": [
+    "dq[ck, ff2]",
+    "uq[ck, ff2]",
+    "uq[ff2, cc]",
+    "uqbar[ff1, cc]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "pi_qwen_harness",
+   "paper": "Monotops",
+   "call": 4,
+   "flagged": true,
+   "uses": [
+    "dq[ck, ff2]",
+    "uq[ck, ff2]",
+    "uq[ff2, cc]",
+    "uqbar[ff1, cc]"
+   ],
+   "hermiticity_fail": false,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "pi_qwen_harness",
+   "paper": "Monotops",
+   "call": 5,
+   "flagged": true,
+   "uses": [
+    "dq[ck, ff2]",
+    "uq[ck, ff2]",
+    "uq[ff2, cc]",
+    "uqbar[ff1, cc]"
+   ],
+   "hermiticity_fail": false,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "pi_qwen_harness",
+   "paper": "Monotops",
+   "call": 6,
+   "flagged": true,
+   "uses": [
+    "dq[ff2, ck]",
+    "uq[ff2, cc]",
+    "uq[ff2, ck]",
+    "uqbar[ff1, cc]"
+   ],
+   "hermiticity_fail": false,
+   "inert_new_particle": true,
+   "old_rule": false
+  },
+  {
+   "arm": "pi_qwen_harness",
+   "paper": "SMWeinberg",
+   "call": 4,
+   "flagged": true,
+   "uses": [
+    "lbar[1]",
+    "lbar[2]",
+    "lbar[3]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": false,
+   "old_rule": true
+  },
+  {
+   "arm": "pi_qwen_harness",
+   "paper": "Top-Philic-Zprime",
+   "call": 1,
+   "flagged": true,
+   "uses": [
+    "uq[3]",
+    "uqbar[3]"
+   ],
+   "hermiticity_fail": true,
+   "inert_new_particle": false,
+   "old_rule": true
+  }
+ ]
+}

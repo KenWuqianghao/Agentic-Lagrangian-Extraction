@@ -1,0 +1,244 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: B-L-SM (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1811.11452.\n4: PAPER: the paper's LaTeX source"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d/paper/1811.11452_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d/paper/1811.11452_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[a4paper,11pt]{article}\n2: \\pdfoutput=1\n3: \\usepackage{jheppub} \n4:                      \n5: \n6: \\usepackage[T1]{fontenc} \n7: \\usepackage{graphicx}\n8: \\usepackage{amsmath}\n9: \\usepackage{xspace}\n10: \\usepackage{subfig}\n11: \\usepackage{myd"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDEL"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/SM.fr"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d/SM.fr"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                 "
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Read paper and SM.fr to understand model",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Extract new particles: Zp, Chi, NR (3 generations)",
+     "status": "in_progress",
+     "priority": "high"
+    },
+    {
+     "content": "Extract parameters: gp, MZp, Mh2, sina, MN, ynu, yM, lam1/2/3, m2, mu2, x",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write spec.json with FeynRulesModel schema",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Run ./frgen spec.json and fix errors iteratively",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Produce self-audit table and final output",
+     "status": "pending",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Read paper and SM.fr to understand model\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Extract new particles: Zp, Chi, NR (3 generations)\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Extract parameters: gp, MZp, Mh2, sina, MN, ynu, yM, lam1/2/3, m2, mu2, x\",\n    \"status\": \"pending\",\n    \"priority\": \"high\"\n  },\n "
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d/spec.json",
+   "content": "{\n  \"model_name\": \"B-L-SM_gen\",\n  \"info\": {\n    \"authors\": [\"Auto-extracted from arXiv:1811.11452\"],\n    \"version\": \"1.0\",\n    \"date\": \"2026-09-25\",\n    \"institutions\": [],\n    \"emails\": []\n  },\n  \"interaction_order_hierarchy\": [\n    [\"QCD\", 1],\n    [\"QED\", 2],\n    [\"NP\", 1]\n  ],\n  \"interaction_order_limit\": [\n    [\"QCD\", 99],\n    [\"QED\", 99],\n    [\"NP\", 99]\n  ],\n  \"feynman_gauge\": true,\n  \"vevs\": [\n    [\"Phi[2]\", \"vev\"],\n    [\"Chi\", \"vBL\"]\n  ],\n  \"gauge_groups\": [],\n  \"index_decls\": [],\n  \"parameters\": [\n    {\n      \"name\": \"gp\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.1\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"U(1)_B-L gauge coupling g1'\"\n    },\n    {\n      \"name\": \"MZp\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1000.\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 2,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' boson mass\"\n    },\n    {\n      \"name\": \"Mh2\",\n      \"parameter_type\": \"External\",\n      \"value\": \"200.\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 3,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Heavy Higgs mass\"\n    },\n    {\n      \"name\": \"sina\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.2\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 4,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Higgs mixing angle sin(alpha)\"\n    },\n    {\n      \"name\": \"vBL\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"MZp/(2*gp)\",\n      \"description\": \"B-L breaking vev x = <chi>\"\n    },\n    {\n      \"name\": \"cosa\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Sqrt[1-sina^2]\",\n      \"description\": \"cos(alpha)\"\n    },\n    {\n      \"name\": \"MN\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"MZp/5\",\n      \"description\": \"RH neutrino mass (benchmark MZp/5)\"\n    },\n    {\n      \"name\": \"mnu\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.e-10\",\n      \"block_name\": \"BLINPUTS\",\n      \"order_block\": 5,\n      \"description\": \"Light neutrino mass scale 0.1 eV in GeV\"\n    },\n    {\n      \"name\": \"ynu\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"ynu[1,1]\", \"rhs\": \"Sqrt[2]*Sqrt[mnu*MN]/vev\", \"delayed\": false},\n        {\"lhs\": \"ynu[2,2]\", \"rhs\": \"Sqrt[2]*Sqrt[mnu*MN]/vev\", \"delayed\": false},\n        {\"lhs\": \"ynu[3,3]\", \"rhs\": \"Sqrt[2]*Sqrt[mnu*MN]/vev\", \"delayed\": false},\n        {\"lhs\": \"ynu[1,2]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"ynu[1,3]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"ynu[2,1]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"ynu[2,3]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"ynu[3,1]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"ynu[3,2]\", \"rhs\": \"0\", \"delayed\": false}\n      ],\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Dirac neutrino Yukawa matrix (diagonal benchmark)\"\n    },\n    {\n      \"name\": \"yM\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"value_rules\": [\n        {\"lhs\": \"yM[1,1]\", \"rhs\": \"Sqrt[2]*gp/5\", \"delayed\": false},\n        {\"lhs\": \"yM[2,2]\", \"rhs\": \"Sqrt[2]*gp/5\", \"delayed\": false},\n        {\"lhs\": \"yM[3,3]\", \"rhs\": \"Sqrt[2]*gp/5\", \"delayed\": false},\n        {\"lhs\": \"yM[1,2]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"yM[1,3]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"yM[2,1]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"yM[2,3]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"yM[3,1]\", \"rhs\": \"0\", \"delayed\": false},\n        {\"lhs\": \"yM[3,2]\", \"rhs\": \"0\", \"delayed\": false}\n      ],\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Majorana neutrino Yukawa matrix (diagonal benchmark)\"\n    },\n    {\n      \"name\": \"lam1\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(MH^2 + Mh2^2 - cosa*(Mh2^2 - MH^2))/(4*vev^2)\",\n      \"description\": \"Higgs quartic lambda1\"\n    },\n    {\n      \"name\": \"lam2\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(MH^2 + Mh2^2 + cosa*(Mh2^2 - MH^2))/(4*vBL^2)\",\n      \"description\": \"Higgs quartic lambda2\"\n    },\n    {\n      \"name\": \"lam3\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(sina*cosa*(Mh2^2 - MH^2))/(vev*vBL)\",\n      \"description\": \"Higgs portal quartic lambda3\"\n    },\n    {\n      \"name\": \"m2\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"-lam1*vev^2 - lam3*vBL^2/2\",\n      \"description\": \"Higgs quadratic mass parameter m^2\"\n    },\n    {\n      \"name\": \"mu2\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"-lam2*vBL^2 - lam3*vev^2/2\",\n      \"description\": \"Chi quadratic mass parameter mu^2\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 100,\n      \"class_name\": \"Zp\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"MZp\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"WZp\", \"value\": \"Internal\"},\n      \"quantum_numbers\": {\"Q\": \"0\", \"BL\": \"0\"},\n      \"pdg\": 32,\n      \"particle_name\": \"Zp\",\n      \"propagator_label\": \"Zp\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"None\",\n      \"full_name\": \"Z' boson\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 101,\n      \"class_name\": \"Chi\",\n      \"self_conjugate\": false,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"Mchi\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"Wchi\", \"value\": \"Internal\"},\n      \"quantum_numbers\": {\"Q\": \"0\", \"BL\": \"2\"},\n      \"pdg\": 9000001,\n      \"particle_name\": \"chi\",\n      \"antiparticle_name\": \"chibar\",\n      \"propagator_label\": \"chi\",\n      \"propagator_type\": \"D\",\n      \"propagator_arrow\": \"None\",\n      \"full_name\": \"B-L Higgs\",\n      \"definitions\": [\n        \"Chi -> (vBL + cosa*h2 - sina*H + I*eta)/Sqrt[2]\",\n        \"Chibar -> (vBL + cosa*h2 - sina*H - I*eta)/Sqrt[2]\"\n      ],\n      \"unphysical\": true\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 102,\n      \"class_name\": \"h2\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"Mh2\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"Wh2\", \"value\": \"Internal\"},\n      \"quantum_numbers\": {\"Q\": \"0\", \"BL\": \"0\"},\n      \"pdg\": 35,\n      \"particle_name\": \"h2\",\n      \"propagator_label\": \"h2\",\n      \"propagator_type\": \"D\",\n      \"propagator_arrow\": \"None\",\n      \"full_name\": \"Heavy Higgs\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 103,\n      \"class_name\": \"eta\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"MZp\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"WZp\", \"value\": \"Internal\"},\n      \"quantum_numbers\": {\"Q\": \"0\", \"BL\": \"0\"},\n      \"pdg\": 9000002,\n      \"particle_name\": \"eta\",\n      \"propagator_label\": \"eta\",\n      \"propagator_type\": \"D\",\n      \"propagator_arrow\": \"None\",\n      \"full_name\": \"B-L Goldstone\",\n      \"goldstone\": \"Zp\"\n    },\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 104,\n      \"class_name\": \"NR\",\n      \"self_conjugate\": false,\n      \"indices\": [\"Generation\"],\n      \"flavor_index\": \"Generation\",\n      \"class_members\": [\"N1\", \"N2\", \"N3\"],\n      \"mass\": {\"sym\": \"MN\", \"members\": [[\"N1\", \"Internal\"], [\"N2\", \"Internal\"], [\"N3\", \"Internal\"]]},\n      \"width\": {\"sym\": \"WN\", \"value\": \"Internal\"},\n      \"quantum_numbers\": {\"Q\": \"0\", \"BL\": \"-1\", \"LeptonNumber\": \"1\"},\n      \"pdg\": [9900012, 9900014, 9900016],\n      \"particle_name\": [\"N1\", \"N2\", \"N3\"],\n      \"antiparticle_name\": [\"N1~\", \"N2~\", \"N3~\"],\n      \"propagator_label\": [\"NR\", \"N1\", \"N2\", \"N3\"],\n      \"propagator_type\": \"Straight\",\n      \"propagator_arrow\": \"Forward\",\n      \"full_name\": [\"RH neutrino 1\", \"RH neutrino 2\", \"RH neutrino 3\"]\n    }\n  ],\n  \"gauge_xi\": [\n    [\"Zp\", \"GaugeXi[Zp]\"]\n  ],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"LZpKin\",\n      \"expression\": \"-1/4 FS[Zp, mu, nu] FS[Zp, mu, nu] + 1/2 MZp^2 Zp[mu] Zp[mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LChiKin\",\n      \"expression\": \"DC[Chibar, mu] DC[Chi, mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LPot\",\n      \"expression\": \"m2 Phibar[ii] Phi[ii] + mu2 Chibar Chi + lam1 (Phibar[ii] Phi[ii])^2 + lam2 (Chibar Chi)^2 + lam3 Phibar[ii] Phi[ii] Chibar Chi\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LZpFermion\",\n      \"expression\": \"gp*(1/3)*(uqbar.Ga[mu].uq + dqbar.Ga[mu].dq)*Zp[mu] + gp*(-1)*(vlbar.Ga[mu].vl + lbar.Ga[mu].l)*Zp[mu] + gp*(-1)*(NRbar.Ga[mu].NR)*Zp[mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LNuYuk\",\n      \"expression\": \"-ynu[ff1, ff2] LLbar[sp, ii, ff1].NR[sp, ff2] Phibar[jj] Eps[ii, jj] - yM[ff1, ff2] NRbar[sp, ff1].CC[NR[sp, ff2]] Chi\",\n      \"delayed\": true\n    }\n  ],\n  \"raw_preamble\": [],\n  \"raw_blocks\": []\n}"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA VALIDATION FAILED. Fix the fields named below and run ./frgen again.\nRemember: numeric values are strings (\"-1/3\", \"1500.\").\n\n1 validation error for FeynRulesModel\nparticles.1\n  Value error, particle Chi: unphysical fields omit mass/pdg [type=value_error, input_value={'spin_type': 'S', 'class...]'], "
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "newString": "{\n      \"spin_type\": \"S\",\n      \"class_index\": 101,\n      \"class_name\": \"Chi\",\n      \"self_conjugate\": false,\n      \"indices\": [],\n      \"quantum_numbers\": {\"Q\": \"0\", \"BL\": \"2\"},\n      \"particle_name\": \"chi\",\n      \"antiparticle_name\": \"chibar\",\n      \"propagator_label\": \"chi\",\n      \"propagator_type\": \"D\",\n      \"propagator_arrow\": \"None\",\n      \"full_name\": \"B-L Higgs\",\n      \"definitions\": [\n        \"Chi -> (vBL + cosa*h2 - sina*H + I*eta)/Sqrt[2]\",\n        \"Chibar -> (vBL + cosa*h2 - sina*H - I*eta)/Sqrt[2]\"\n      ],\n      \"unphysical\": true\n    },",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d/spec.json",
+   "oldString": "{\n      \"spin_type\": \"S\",\n      \"class_index\": 101,\n      \"class_name\": \"Chi\",\n      \"self_conjugate\": false,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"Mchi\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"Wchi\", \"value\": \"Internal\"},\n      \"quantum_numbers\": {\"Q\": \"0\", \"BL\": \"2\"},\n      \"pdg\": 9000001,\n      \"particle_name\": \"chi\",\n      \"antiparticle_name\": \"chibar\",\n      \"propagator_label\": \"chi\",\n      \"propagator_type\": \"D\",\n      \"propagator_arrow\": \"None\",\n      \"full_name\": \"B-L Higgs\",\n      \"definitions\": [\n        \"Chi -> (vBL + cosa*h2 - sina*H + I*eta)/Sqrt[2]\",\n        \"Chibar -> (vBL + cosa*h2 - sina*H - I*eta)/Sqrt[2]\"\n      ],\n      \"unphysical\": true\n    },"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 5 particle classes, 15 parameters, Lagrangian terms ['LZpKin', 'LChiKin', 'LPot', 'LZpFermion', 'LNuYuk']\nRENDERED: model.fr (185 lines). You may read it.\nLINT: 5 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harn"
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Read paper and SM.fr to understand model",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Extract new particles: Zp, Chi, NR (3 generations)",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Extract parameters: gp, MZp, Mh2, sina, MN, ynu, yM, lam1/2/3, m2, mu2, x",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Write spec.json with FeynRulesModel schema",
+     "status": "in_progress",
+     "priority": "high"
+    },
+    {
+     "content": "Run ./frgen spec.json and fix errors iteratively",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Produce self-audit table and final output",
+     "status": "pending",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Read paper and SM.fr to understand model\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Extract new particles: Zp, Chi, NR (3 generations)\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Extract parameters: gp, MZp, Mh2, sina, MN, ynu, yM, lam1/2/3, m2, mu2, x\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: B-L-SM_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-------------------------------------------"
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "oldString": "\"lagrangian_terms\": [\n    {\n      \"name\": \"LZpKin\",\n      \"expression\": \"-1/4 FS[Zp, mu, nu] FS[Zp, mu, nu] + 1/2 MZp^2 Zp[mu] Zp[mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LChiKin\",\n      \"expression\": \"DC[Chibar, mu] DC[Chi, mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LPot\",\n      \"expression\": \"m2 Phibar[ii] Phi[ii] + mu2 Chibar Chi + lam1 (Phibar[ii] Phi[ii])^2 + lam2 (Chibar Chi)^2 + lam3 Phibar[ii] Phi[ii] Chibar Chi\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LZpFermion\",\n      \"expression\": \"gp*(1/3)*(uqbar.Ga[mu].uq + dqbar.Ga[mu].dq)*Zp[mu] + gp*(-1)*(vlbar.Ga[mu].vl + lbar.Ga[mu].l)*Zp[mu] + gp*(-1)*(NRbar.Ga[mu].NR)*Zp[mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LNuYuk\",\n      \"expression\": \"-ynu[ff1, ff2] LLbar[sp, ii, ff1].NR[sp, ff2] Phibar[jj] Eps[ii, jj] - yM[ff1, ff2] NRbar[sp, ff1].CC[NR[sp, ff2]] Chi\",\n      \"delayed\": true\n    }\n  ],",
+   "newString": "\"lagrangian_terms\": [\n    {\n      \"name\": \"LZpKin\",\n      \"expression\": \"-1/4 FS[Zp, mu, nu] FS[Zp, mu, nu] + 1/2 MZp^2 Zp[mu] Zp[mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LChiKin\",\n      \"expression\": \"DC[Chibar, mu] DC[Chi, mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LPot\",\n      \"expression\": \"mu2 Chibar Chi + lam2 (Chibar Chi)^2 + lam3 Phibar[ii] Phi[ii] Chibar Chi\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LZpFermion\",\n      \"expression\": \"gp*(1/3)*(uqbar.Ga[mu].uq + dqbar.Ga[mu].dq)*Zp[mu] + gp*(-1)*(vlbar.Ga[mu].vl + lbar.Ga[mu].l)*Zp[mu] + gp*(-1)*(NRbar.Ga[mu].NR)*Zp[mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LNuYukDirac\",\n      \"expression\": \"-(LLbar.ynu.NR)[ii] Phibar[jj] Eps[ii, jj]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LNuYukMajorana\",\n      \"expression\": \"-NRbar.yM.CC[NR] Chi\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LTotal\",\n      \"expression\": \"LZpKin + LChiKin + LPot + LZpFermion + LNuYukDirac + HC[LNuYukDirac] + LNuYukMajorana + HC[LNuYukMajorana]\",\n      \"delayed\": true\n    }\n  ],",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d/spec.json"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 5 particle classes, 15 parameters, Lagrangian terms ['LZpKin', 'LChiKin', 'LPot', 'LZpFermion', 'LNuYukDirac', 'LNuYukMajorana', 'LTotal']\nRENDERED: model.fr (189 lines). You may read it.\nLINT: 3 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency c"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json",
+   "workdir": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-w6v87n_d"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 5 particle classes, 15 parameters, Lagrangian terms ['LZpKin', 'LChiKin', 'LPot', 'LZpFermion', 'LNuYukDirac', 'LNuYukMajorana', 'LTotal']\nRENDERED: model.fr (189 lines). You may read it.\nLINT: 3 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may s"
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Read paper and SM.fr to understand model",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Extract new particles: Zp, Chi, NR (3 generations)",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Extract parameters: gp, MZp, Mh2, sina, MN, ynu, yM, lam1/2/3, m2, mu2, x",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Write spec.json with FeynRulesModel schema",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Run ./frgen spec.json and fix errors iteratively",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Produce self-audit table and final output",
+     "status": "in_progress",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Read paper and SM.fr to understand model\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Extract new particles: Zp, Chi, NR (3 generations)\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Extract parameters: gp, MZp, Mh2, sina, MN, ynu, yM, lam1/2/3, m2, mu2, x\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n "
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Read paper and SM.fr to understand model",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Extract new particles: Zp, Chi, NR (3 generations)",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Extract parameters: gp, MZp, Mh2, sina, MN, ynu, yM, lam1/2/3, m2, mu2, x",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Write spec.json with FeynRulesModel schema",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Run ./frgen spec.json and fix errors iteratively",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Produce self-audit table and final output",
+     "status": "completed",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Read paper and SM.fr to understand model\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Extract new particles: Zp, Chi, NR (3 generations)\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Extract parameters: gp, MZp, Mh2, sina, MN, ynu, yM, lam1/2/3, m2, mu2, x\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n "
+ }
+]

@@ -1,0 +1,369 @@
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+M$ModelName = "EffLRSM_gen";
+
+M$Information = {
+  Authors      -> {"O. Mattelaer", "M. Mitra", "R. Ruiz"},
+  Version      -> "1.0",
+  Date         -> "24.09.2026",
+  Institutions -> {"CP3", "IISER Mohali", "IPPP"},
+  Emails       -> {"olivier.mattelaer@uclouvain.be", "manimala@iisermohali.ac.in", "richard.ruiz@durham.ac.uk"},
+  URLs         -> "http://feynrules.irmp.ucl.ac.be/wiki/EffLRSM"
+};
+
+(* ************************** *)
+(* *****  Indices     ***** *)
+(* ************************** *)
+
+(* New indices *)
+IndexRange[Index[GenerationN]] = Unfold[Range[3]];
+IndexStyle[GenerationN, fn];
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ************************** *)
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+M$ClassesDescription = {
+
+(* Right-handed W boson *)
+  V[100] == {
+    ClassName        -> WR,
+    SelfConjugate    -> False,
+    Mass             -> {MWR, 3000.},
+    Width            -> {WWR, 84.3},
+    ParticleName     -> "W+",
+    AntiParticleName -> "W-",
+    QuantumNumbers   -> {Q -> 1},
+    PDG              -> 9900024,
+    PropagatorLabel  -> "WR",
+    PropagatorType   -> Sine,
+    PropagatorArrow  -> Forward,
+    FullName         -> "Right-handed W boson"
+  },
+
+(* Right-handed Z boson *)
+  V[101] == {
+    ClassName       -> ZR,
+    SelfConjugate   -> True,
+    Mass            -> {MZR, 5070.},
+    Width           -> {WZR, 114.},
+    ParticleName    -> "ZR",
+    PDG             -> 9900023,
+    PropagatorLabel -> "ZR",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "Right-handed Z boson"
+  },
+
+(* Heavy Majorana neutrinos (3 generations) *)
+  F[100] == {
+    ClassName        -> NR,
+    ClassMembers     -> {n1, n2, n3},
+    Indices          -> {Index[GenerationN]},
+    FlavorIndex      -> GenerationN,
+    SelfConjugate    -> True,
+    Mass             -> {MN, {MN1, 173.3}, {MN2, 1.e12}, {MN3, 1.e12}},
+    Width            -> {WN, {WN1, 2.12e-8}, {WN2, 0.}, {WN3, 0.}},
+    PropagatorLabel  -> {"N", "n1", "n2", "n3"},
+    PropagatorType   -> Straight,
+    PropagatorArrow  -> Forward,
+    PDG              -> {9900012, 9900014, 9900016},
+    ParticleName     -> {"n1", "n2", "n3"},
+    AntiParticleName -> {"n1", "n2", "n3"},
+    FullName         -> {"Heavy neutrino 1", "Heavy neutrino 2", "Heavy neutrino 3"}
+  }
+
+};
+
+(* ************************** *)
+(* *****  Parameters  ***** *)
+(* ************************** *)
+M$Parameters = {
+
+(* Coupling normalizations *)
+  kapRq == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 1,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> \\kappa_R^q,
+    Description      -> "Normalization of WR/ZR coupling to quarks"
+  },
+  kapRl == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 2,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> \\kappa_R^\\ell,
+    Description      -> "Normalization of WR/ZR coupling to leptons"
+  },
+
+(* Mass parameters *)
+  MWR == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 10,
+    Value            -> 3000.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> M_{W_R},
+    Description      -> "WR boson mass [GeV]"
+  },
+  MZR == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 11,
+    Value            -> 5070.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> M_{Z_R},
+    Description      -> "ZR boson mass [GeV]"
+  },
+  MN1 == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 12,
+    Value            -> 173.3,
+    InteractionOrder -> {NP, 1},
+    TeX              -> m_{N_1},
+    Description      -> "Lightest heavy neutrino mass [GeV]"
+  },
+  MN2 == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 13,
+    Value            -> 1.e12,
+    InteractionOrder -> {NP, 1},
+    TeX              -> m_{N_2},
+    Description      -> "Second heavy neutrino mass [GeV]"
+  },
+  MN3 == {
+    ParameterType    -> External,
+    BlockName        -> EFFLRSM,
+    OrderBlock       -> 14,
+    Value            -> 1.e12,
+    InteractionOrder -> {NP, 1},
+    TeX              -> m_{N_3},
+    Description      -> "Third heavy neutrino mass [GeV]"
+  },
+
+(* Internal mass parameters *)
+  MN == {
+    ParameterType -> Internal,
+    Indices       -> {Index[GenerationN]},
+    Value         -> {MN[1] -> MN1, MN[2] -> MN2, MN[3] -> MN3},
+    Description   -> "Heavy neutrino masses"
+  },
+
+(* Width parameters - internal *)
+  WWR == {
+    ParameterType -> Internal,
+    Value         -> 2 * (kapRq^2 * gw^2 * MWR) / (48 * Pi) + (kapRq^2 * gw^2 * MWR) / (48 * Pi) * (1 - MT^2/MWR^2)^2 * (1 + MT^2/(2*MWR^2)) + (kapRl^2 * gw^2 * MWR) / (48 * Pi) * (1 - MN1^2/MWR^2)^2 * (1 + MN1^2/(2*MWR^2)) + (kapRl^2 * gw^2 * MWR) / (48 * Pi) * (1 - MN2^2/MWR^2)^2 * (1 + MN2^2/(2*MWR^2)) + (kapRl^2 * gw^2 * MWR) / (48 * Pi) * (1 - MN3^2/MWR^2)^2 * (1 + MN3^2/(2*MWR^2)),
+    Description   -> "Total WR width [GeV]"
+  },
+  WZR == {
+    ParameterType -> Internal,
+    Value         -> Sum[
+      NC^f * (kapRf^2 * gw^2 * MZR * Sqrt[1 - 4*Mf^2/MZR^2]) / (48 * Pi * (1 - (1/kapRf)^2 * (sw/cw)^2)) *
+      ((gLZRf + gRZRf)^2 * (1 + 2*Mf^2/MZR^2) + (gLZRf - gRZRf)^2 * (1 - 4*Mf^2/MZR^2)),
+      {f, {uq, dq, l, NR}}
+    ],
+    Description   -> "Total ZR width [GeV]"
+  },
+  WN1 == {
+    ParameterType -> Internal,
+    Value         -> (kapRl^2 * gw^2 * MN1^3) / (16 * Pi * MWR^2) * (1 - MWR^2/MN1^2)^2 * (1 + 2*MWR^2/MN1^2),
+    Description   -> "N1 total width [GeV]"
+  },
+  WN2 == {
+    ParameterType -> Internal,
+    Value         -> 0.,
+    Description   -> "N2 total width [GeV] (decoupled)"
+  },
+  WN3 == {
+    ParameterType -> Internal,
+    Value         -> 0.,
+    Description   -> "N3 total width [GeV] (decoupled)"
+  },
+  WN == {
+    ParameterType -> Internal,
+    Indices       -> {Index[GenerationN]},
+    Value         -> {WN[1] -> WN1, WN[2] -> WN2, WN[3] -> WN3},
+    Description   -> "Heavy neutrino widths"
+  },
+
+(* ZR chiral couplings *)
+  gLZRq == {
+    ParameterType -> Internal,
+    Value         -> (1/2 - 2/3) * (1/kapRq^2) * (sw/cw)^2,
+    Description   -> "ZR left-handed coupling to up-type quarks"
+  },
+  gRZRq == {
+    ParameterType -> Internal,
+    Value         -> 1/2 - (1/kapRq^2) * (sw/cw)^2 * (2/3),
+    Description   -> "ZR right-handed coupling to up-type quarks"
+  },
+  gLZRd == {
+    ParameterType -> Internal,
+    Value         -> (-1/2 + 1/3) * (1/kapRq^2) * (sw/cw)^2,
+    Description   -> "ZR left-handed coupling to down-type quarks"
+  },
+  gRZRd == {
+    ParameterType -> Internal,
+    Value         -> -1/2 - (1/kapRq^2) * (sw/cw)^2 * (-1/3),
+    Description   -> "ZR right-handed coupling to down-type quarks"
+  },
+  gLZRl == {
+    ParameterType -> Internal,
+    Value         -> (1/2 - (-1)) * (1/kapRl^2) * (sw/cw)^2,
+    Description   -> "ZR left-handed coupling to charged leptons"
+  },
+  gRZRl == {
+    ParameterType -> Internal,
+    Value         -> -1/2 - (1/kapRl^2) * (sw/cw)^2 * (-1),
+    Description   -> "ZR right-handed coupling to charged leptons"
+  },
+  gLZRnu == {
+    ParameterType -> Internal,
+    Value         -> (1/2 - 0) * (1/kapRl^2) * (sw/cw)^2,
+    Description   -> "ZR left-handed coupling to light neutrinos"
+  },
+  gRZRnu == {
+    ParameterType -> Internal,
+    Value         -> 1/2 - (1/kapRl^2) * (sw/cw)^2 * 0,
+    Description   -> "ZR right-handed coupling to light neutrinos (zero)"
+  },
+  gLZRN == {
+    ParameterType -> Internal,
+    Value         -> (1/2 - 0) * (1/kapRl^2) * (sw/cw)^2,
+    Description   -> "ZR left-handed coupling to heavy neutrinos"
+  },
+  gRZRN == {
+    ParameterType -> Internal,
+    Value         -> 1/2 - (1/kapRl^2) * (sw/cw)^2 * 0,
+    Description   -> "ZR right-handed coupling to heavy neutrinos"
+  },
+
+(* Normalization factors for ZR couplings *)
+  normZRq == {
+    ParameterType -> Internal,
+    Value         -> kapRq * gw / Sqrt[1 - (1/kapRq)^2 * (sw/cw)^2],
+    Description   -> "ZR coupling normalization for quarks"
+  },
+  normZRl == {
+    ParameterType -> Internal,
+    Value         -> kapRl * gw / Sqrt[1 - (1/kapRl)^2 * (sw/cw)^2],
+    Description   -> "ZR coupling normalization for leptons"
+  }
+
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+(* Kinetic and mass terms for new gauge bosons *)
+LWRkin := Block[{mu, nu},
+  -1/2 FS[WRbar, mu, nu] FS[WR, mu, nu] + MWR^2 WRbar[mu] WR[mu]
+];
+
+LZRkin := Block[{mu, nu},
+  -1/4 FS[ZR, mu, nu] FS[ZR, mu, nu] + 1/2 MZR^2 ZR[mu] ZR[mu]
+];
+
+(* Kinetic and mass terms for heavy Majorana neutrinos *)
+LNRkin := Block[{mu, fn},
+  I/2 Sum[NRbar[fn].Ga[mu].del[NR[fn], mu], {fn, 1, 3}] - 1/2 Sum[MN[fn] NRbar[fn].NR[fn], {fn, 1, 3}]
+];
+
+(* WR charged current interactions - quarks *)
+LWRq := Block[{mu, ff1, ff2, cc},
+  -kapRq * gw / Sqrt[2] * Sum[
+    uqbar[ff1, cc].Ga[mu].ProjP.dq[ff2, cc] WR[mu],
+    {ff1, 1, 3}, {ff2, 1, 3}, {cc, 1, 3}
+  ] + HC[
+    -kapRq * gw / Sqrt[2] * Sum[
+      uqbar[ff1, cc].Ga[mu].ProjP.dq[ff2, cc] WR[mu],
+      {ff1, 1, 3}, {ff2, 1, 3}, {cc, 1, 3}
+    ]
+  ]
+];
+
+(* WR charged current interactions - leptons *)
+LWRl := Block[{mu, fl, fn},
+  -kapRl * gw / Sqrt[2] * Sum[
+    NRbar[fn].Ga[mu].ProjP.l[fl] WR[mu],
+    {fl, 1, 3}, {fn, 1, 3}
+  ] + HC[
+    -kapRl * gw / Sqrt[2] * Sum[
+      NRbar[fn].Ga[mu].ProjP.l[fl] WR[mu],
+      {fl, 1, 3}, {fn, 1, 3}
+    ]
+  ]
+];
+
+(* ZR neutral current interactions - quarks *)
+LZRq := Block[{mu, ff, cc},
+  Sum[
+    normZRq * (gLZRq * uqbar[ff, cc].Ga[mu].ProjM.uq[ff, cc] + gRZRq * uqbar[ff, cc].Ga[mu].ProjP.uq[ff, cc]) ZR[mu]
+    + normZRq * (gLZRd * dqbar[ff, cc].Ga[mu].ProjM.dq[ff, cc] + gRZRd * dqbar[ff, cc].Ga[mu].ProjP.dq[ff, cc]) ZR[mu],
+    {ff, 1, 3}, {cc, 1, 3}
+  ] + HC[
+    Sum[
+      normZRq * (gLZRq * uqbar[ff, cc].Ga[mu].ProjM.uq[ff, cc] + gRZRq * uqbar[ff, cc].Ga[mu].ProjP.uq[ff, cc]) ZR[mu]
+      + normZRq * (gLZRd * dqbar[ff, cc].Ga[mu].ProjM.dq[ff, cc] + gRZRd * dqbar[ff, cc].Ga[mu].ProjP.dq[ff, cc]) ZR[mu],
+      {ff, 1, 3}, {cc, 1, 3}
+    ]
+  ]
+];
+
+(* ZR neutral current interactions - charged leptons *)
+LZRl := Block[{mu, fl},
+  Sum[
+    normZRl * (gLZRl * lbar[fl].Ga[mu].ProjM.l[fl] + gRZRl * lbar[fl].Ga[mu].ProjP.l[fl]) ZR[mu],
+    {fl, 1, 3}
+  ] + HC[
+    Sum[
+      normZRl * (gLZRl * lbar[fl].Ga[mu].ProjM.l[fl] + gRZRl * lbar[fl].Ga[mu].ProjP.l[fl]) ZR[mu],
+      {fl, 1, 3}
+    ]
+  ]
+];
+
+(* ZR neutral current interactions - light neutrinos *)
+LZRnu := Block[{mu, fl},
+  Sum[
+    normZRl * (gLZRnu * vlbar[fl].Ga[mu].ProjM.vl[fl] + gRZRnu * vlbar[fl].Ga[mu].ProjP.vl[fl]) ZR[mu],
+    {fl, 1, 3}
+  ] + HC[
+    Sum[
+      normZRl * (gLZRnu * vlbar[fl].Ga[mu].ProjM.vl[fl] + gRZRnu * vlbar[fl].Ga[mu].ProjP.vl[fl]) ZR[mu],
+      {fl, 1, 3}
+    ]
+  ]
+];
+
+(* ZR neutral current interactions - heavy neutrinos (Majorana) *)
+LZRN := Block[{mu, fn},
+  Sum[
+    normZRl * (gLZRN * NRbar[fn].Ga[mu].ProjM.NR[fn] + gRZRN * NRbar[fn].Ga[mu].ProjP.NR[fn]) ZR[mu],
+    {fn, 1, 3}
+  ] + HC[
+    Sum[
+      normZRl * (gLZRN * NRbar[fn].Ga[mu].ProjM.NR[fn] + gRZRN * NRbar[fn].Ga[mu].ProjP.NR[fn]) ZR[mu],
+      {fn, 1, 3}
+    ]
+  ]
+];
+
+(* Total Lagrangian *)
+LTotal := LWRkin + LZRkin + LNRkin + LWRq + LWRl + LZRq + LZRl + LZRnu + LZRN;

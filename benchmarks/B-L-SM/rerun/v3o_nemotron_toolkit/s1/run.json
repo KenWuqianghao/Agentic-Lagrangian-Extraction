@@ -1,0 +1,38 @@
+{
+ "page": "B-L-SM",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "toolkit",
+ "seed": 1,
+ "variant": "v3o_nemotron_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 2660.5,
+ "tokens": {
+  "input": 284683,
+  "output": 15710,
+  "reasoning": 26315
+ },
+ "output_max": 128000,
+ "n_events": 61,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 19,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"cat spec.json\"}"
+  ],
+  "frgen_runs": 3,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/B-L-SM/rerun/v3o_nemotron_toolkit/s1/model/B-L-SM_gen.fr",
+ "final_lint_findings": 0
+}

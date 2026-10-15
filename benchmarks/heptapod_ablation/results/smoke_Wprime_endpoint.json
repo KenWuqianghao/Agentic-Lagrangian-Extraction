@@ -1,0 +1,83 @@
+{
+ "units": [
+  "Wprime"
+ ],
+ "seeds": 1,
+ "arms": {
+  "none": {
+   "runs": 1,
+   "delivered": 1,
+   "chain_pass": 0,
+   "endpoint": 0,
+   "per_unit_endpoint": {
+    "Wprime": 0
+   },
+   "per_unit_chain": {
+    "Wprime": 0
+   }
+  },
+  "compile": {
+   "runs": 1,
+   "delivered": 1,
+   "chain_pass": 0,
+   "endpoint": 0,
+   "per_unit_endpoint": {
+    "Wprime": 0
+   },
+   "per_unit_chain": {
+    "Wprime": 0
+   }
+  },
+  "heptapod": {
+   "runs": 1,
+   "delivered": 1,
+   "chain_pass": 1,
+   "endpoint": 0,
+   "per_unit_endpoint": {
+    "Wprime": 0
+   },
+   "per_unit_chain": {
+    "Wprime": 1
+   }
+  }
+ },
+ "contrasts": [
+  {
+   "a": "heptapod",
+   "b": "compile",
+   "outcome": "primary endpoint",
+   "passes_a": 0,
+   "passes_b": 0,
+   "expected_a_under_null": 0.0,
+   "p": 1.0
+  },
+  {
+   "a": "heptapod",
+   "b": "compile",
+   "outcome": "full chain",
+   "passes_a": 1,
+   "passes_b": 0,
+   "expected_a_under_null": 0.5,
+   "p": 1.0
+  },
+  {
+   "a": "compile",
+   "b": "none",
+   "outcome": "primary endpoint",
+   "passes_a": 0,
+   "passes_b": 0,
+   "expected_a_under_null": 0.0,
+   "p": 1.0
+  },
+  {
+   "a": "compile",
+   "b": "none",
+   "outcome": "full chain",
+   "passes_a": 0,
+   "passes_b": 0,
+   "expected_a_under_null": 0.0,
+   "p": 1.0
+  }
+ ],
+ "incomplete": []
+}

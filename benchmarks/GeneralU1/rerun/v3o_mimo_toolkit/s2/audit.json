@@ -1,0 +1,15 @@
+{
+ "tool_calls": 50,
+ "read_paper": true,
+ "escapes": [],
+ "forbidden": [],
+ "denied_attempts": [
+  "bash:{\"command\": \"ls -la && wc -l paper/2104.10902_source.tex SM.fr tools/frgen/frmod",
+  "bash:{\"command\": \"wc -l TASK.md paper/2104.10902_source.tex\"}",
+  "bash:{\"command\": \"wc -l TASK.md SM.fr tools/frgen/frmodel.py tools/frgen/render.py to"
+ ],
+ "frgen_runs": 0,
+ "contaminated": false,
+ "audit_ok": true,
+ "tampered": []
+}

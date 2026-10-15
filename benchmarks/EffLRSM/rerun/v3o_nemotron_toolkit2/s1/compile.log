@@ -1,0 +1,60 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+From kernel 5 (Local):
+LoadModel::QN: Warning: Selfconjugated fields should not carry quantumnumbers.
+From kernel 8 (Local):
+LoadModel::QN: Warning: Selfconjugated fields should not carry quantumnumbers.
+From kernel 1 (Local):
+LoadModel::QN: Warning: Selfconjugated fields should not carry quantumnumbers.
+From kernel 2 (Local):
+LoadModel::QN: Warning: Selfconjugated fields should not carry quantumnumbers.
+From kernel 4 (Local):
+LoadModel::QN: Warning: Selfconjugated fields should not carry quantumnumbers.
+
+General::stop: Further output of Warning: Selfconjugated fields should not carry quantumnumbers. will be suppressed during this calculation.
+Merging model-files...
+This model implementation was created by
+Olivier Mattelaer
+Manimala Mitra
+Richard Ruiz
+Model Version: 1.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+
+LoadModel::QN: Warning: Selfconjugated fields should not carry quantumnumbers.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+Model EffLRSM_gen loaded.
+[INFO] Lagrangian: LSM + LTotal
+HEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)
+HEPTAPOD-LAGRANGIAN|expression=LSM + LTotal|symbols=LSM,LTotal|terms=536
+HEPTAPOD-RESIDUAL|count=0|fields=
+[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum
+
+Part::partw: Part 2 of {NRbar[Index[Spin, PRIVATE`noindname]]} does not exist.
+
+Part::partw: Part 2 of {NRbar[Index[Spin, PRIVATE`noindname]]} does not exist.
+
+Part::partw: Part 2 of {NRbar[Index[Spin, PRIVATE`noindname]]} does not exist.
+
+General::stop: Further output of Part::partw will be suppressed during this calculation.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+HEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=fail|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. 18 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$F

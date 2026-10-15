@@ -1,0 +1,28 @@
+{
+ "page": "ALRM_general",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ALRM_general/rerun/v3o_nemotron_toolkit2/s1/model/ALRM_general_gen.fr",
+ "lag_symbol": "LTotal",
+ "lag_resolution": {
+  "roots": [
+   "LTotal"
+  ],
+  "legacy_symbol": "LTotal",
+  "n_terms_defined": 11,
+  "ambiguous": false,
+  "changed_from_legacy": false
+ },
+ "t0": 1790297326.31256,
+ "compile_ok": false,
+ "lagrangian_expression": "LSM + LTotal",
+ "timed_out": false,
+ "exit": 1,
+ "seconds": 19.4,
+ "ufo_files": [],
+ "checks": {},
+ "protected_symbol_errors": 0,
+ "log_tail": "lavor range does not match the number of particles in the class. \n\nLoadModel::QN: Warning: Selfconjugated fields should not carry quantumnumbers.\n\nGeneral::stop: Further output of LoadModel::QN will be suppressed during this calculation.\n\nToExpression::argb: ToExpression called with 0 arguments; between 1 and 3 arguments are expected.\n\nPartClass::FlavRange: Warning: Flavor range does not match the number of particles in the class. \n\nToExpression::argb: ToExpression called with 0 arguments; between 1 and 3 arguments are expected.\n\nGeneral::stop: Further output of ToExpression::argb will be suppressed during this calculation.\n   - Loading gauge group classes.\n   - Loading parameter classes.\n\nModel ALRM_general_gen loaded.\n\nInner::incom: Length 2 of dimension 1 in {Index[SU2D], Index[SU2R]} is incommensurate with length 1 of dimension 1 in {2}.\n\nInner::incom: Length 2 of dimension 1 in {Index[SU2D], Index[SU2R]} is incommensurate with length 1 of dimension 1 in {2}.\nError: undefined symbol(s) in Lagrangian \"LSM + LTotal\": LTotal\n[INFO] Lagrangian-like symbols defined by this model: LA0Kin, LdqpKin, LFermions, LGauge, LGhost, Lh0Kin, LHiggs, LHpKin, LnKin, LSM, LWpKin, LYukawa, LZpKin\n",
+ "status": "compile_failed",
+ "full_chain_pass": false,
+ "seconds_total": 19.39527988433838,
+ "wall_seconds": 19.5
+}

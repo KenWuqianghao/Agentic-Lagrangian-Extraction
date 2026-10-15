@@ -1,0 +1,38 @@
+{
+ "page": "GeneralU1",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit2",
+ "seed": 1,
+ "variant": "v3o_mimo_toolkit2",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3606.1,
+ "tokens": {
+  "input": 275719,
+  "output": 7136,
+  "reasoning": 128633
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 0,
+ "n_events": 61,
+ "length_stops": 1,
+ "audit": {
+  "tool_calls": 20,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la; ls -la paper tools tools/frgen 2>/dev/null; wc -l paper/210"
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_spec"
+}

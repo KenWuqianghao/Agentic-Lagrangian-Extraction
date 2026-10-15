@@ -1,0 +1,101 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: pSPSS (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:2210.10738.\n4: PAPER: the paper's LaTeX source i"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/paper/2210.10738_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/paper/2210.10738_source.tex</path>\n<type>file</type>\n<content>\n1: \n2: \\documentclass[11pt, a4paper]{article}\n3: \n4: \n5: \\usepackage[oldstyle]{hep-font} \n6: \n7: \n8: \\usepackage{fullpage}\n9: \n10: \\usepackage{hep-math-font} \n11: \\usepackage{hep-math} \n12: \\numberwithin{equation}{section}\n13: \n14: \\usepackage{hep-bibliogr"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDELI"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/paper/2210.10738_source.tex",
+   "offset": 758
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/paper/2210.10738_source.tex</path>\n<type>file</type>\n<content>\n758: \\code{1} &\\code{1.000000e+02} &\\code{# mmaj}\\\\\n759: \\code{2} &\\code{1.000000e-12} &\\code{# deltam}\\\\\n760: \\code{3} &\\code{0.000000e+00} &\\code{# theta1}\\\\\n761: \\code{4} &\\code{1.000000e-03} &\\code{# theta2}\\\\\n762: \\code{5} &\\code{0.000000e+00} &\\code{"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/paper/2210.10738_source.tex",
+   "offset": 1349
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/paper/2210.10738_source.tex</path>\n<type>file</type>\n<content>\n1349: float,captionpos=b,caption={[Original \\software{MadGraph} code]\n1350: Original \\software{MadGraph} code calculating particle \\TOF.\n1351: },label=lst:original\n1352: ]\n1353: for event in lhe:\n1354:         for particle in event:\n1355:             id = "
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/SM.fr"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/SM.fr"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                  "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDELINE"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and the\n6"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/spec.json",
+   "content": "{\n  \"model_name\": \"pSPSS_gen\",\n  \"info\": {\n    \"authors\": [\"Stefan Antusch\", \"Jan Hajer\", \"Johannes Rosskopp\"],\n    \"version\": \"1.0.0\",\n    \"date\": \"2026-09-25\",\n    \"institutions\": [\"Universit\u00e4t Basel\", \"Instituto Superior T\u00e9cnico\"],\n    \"emails\": [\"stefan.antusch@unibas.ch\", \"jan.hajer@tecnico.ulisboa.pt\", \"johannes.rosskopp@unibas.ch\"]\n  },\n  \"interaction_order_hierarchy\": [\n    [\"QCD\", 1],\n    [\"QED\", 2],\n    [\"NP\", 1]\n  ],\n  \"interaction_order_limit\": [],\n  \"feynman_gauge\": true,\n  \"vevs\": [\n    [\"Phi[2]\", \"vev\"],\n    [\"PhiNP[2]\", \"vevNP\"]\n  ],\n  \"gauge_groups\": [],\n  \"index_decls\": [],\n  \"parameters\": [\n    {\n      \"name\": \"Mmaj\",\n      \"parameter_type\": \"External\",\n      \"value\": \"100.\",\n      \"block_name\": \"PSPSS\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Majorana mass parameter m_M [GeV]\",\n      \"tex\": \"M_{\\\\text{maj}}\"\n    },\n    {\n      \"name\": \"deltaM\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.e-12\",\n      \"block_name\": \"PSPSS\",\n      \"order_block\": 2,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Heavy neutrino mass splitting \\\\Delta m [GeV]\",\n      \"tex\": \"\\\\Delta m\"\n    },\n    {\n      \"name\": \"theta1\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.\",\n      \"block_name\": \"PSPSS\",\n      \"order_block\": 3,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Active-sterile mixing \\\\theta_e\",\n      \"tex\": \"\\\\theta_e\"\n    },\n    {\n      \"name\": \"theta2\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.e-3\",\n      \"block_name\": \"PSPSS\",\n      \"order_block\": 4,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Active-sterile mixing \\\\theta_{\\\\mu}\",\n      \"tex\": \"\\\\theta_{\\\\mu}\"\n    },\n    {\n      \"name\": \"theta3\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.\",\n      \"block_name\": \"PSPSS\",\n      \"order_block\": 5,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Active-sterile mixing \\\\theta_{\\\\tau}\",\n      \"tex\": \"\\\\theta_{\\\\tau}\"\n    },\n    {\n      \"name\": \"damping\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.\",\n      \"block_name\": \"PSPSS\",\n      \"order_block\": 6,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Damping parameter \\\\lambda\",\n      \"tex\": \"\\\\lambda\"\n    },\n    {\n      \"name\": \"vevNP\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"vev\",\n      \"interaction_order\": [\"NP\", -1],\n      \"description\": \"NP Higgs vacuum expectation value [GeV]\",\n      \"tex\": \"v_{\\\\text{NP}}\"\n    },\n    {\n      \"name\": \"yvn\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\"],\n      \"complex\": false,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Neutrino Yukawa coupling vector y_{\\\\alpha 1}\",\n      \"tex\": \"y_{\\\\nu}\",\n      \"value_rules\": [\n        {\"lhs\": \"yvn[1]\", \"rhs\": \"theta1*Mmaj/vevNP\", \"delayed\": false},\n        {\"lhs\": \"yvn[2]\", \"rhs\": \"theta2*Mmaj/vevNP\", \"delayed\": false},\n        {\"lhs\": \"yvn[3]\", \"rhs\": \"theta3*Mmaj/vevNP\", \"delayed\": false}\n      ]\n    },\n    {\n      \"name\": \"Mn4\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Mmaj*(1+(theta1^2+theta2^2+theta3^2)/2)-deltaM/2\",\n      \"description\": \"Mass of heavy neutrino n4 [GeV]\",\n      \"tex\": \"m_4\"\n    },\n    {\n      \"name\": \"Mn5\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Mmaj*(1+(theta1^2+theta2^2+theta3^2)/2)+deltaM/2\",\n      \"description\": \"Mass of heavy neutrino n5 [GeV]\",\n      \"tex\": \"m_5\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 100,\n      \"class_name\": \"N1L\",\n      \"self_conjugate\": false,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"MN1\", \"value\": \"0.\"},\n      \"width\": {\"sym\": \"WN1\", \"value\": \"0.\"},\n      \"quantum_numbers\": {\"Q\": \"0\"},\n      \"pdg\": 9900011,\n      \"particle_name\": \"N1L\",\n      \"antiparticle_name\": \"N1Lbar\",\n      \"full_name\": \"Sterile neutrino N1 (interaction eigenstate)\",\n      \"propagator_label\": \"N1L\",\n      \"propagator_type\": \"Straight\",\n      \"propagator_arrow\": \"Forward\"\n    },\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 101,\n      \"class_name\": \"N2L\",\n      \"self_conjugate\": false,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"MN2\", \"value\": \"0.\"},\n      \"width\": {\"sym\": \"WN2\", \"value\": \"0.\"},\n      \"quantum_numbers\": {\"Q\": \"0\"},\n      \"pdg\": 9900012,\n      \"particle_name\": \"N2L\",\n      \"antiparticle_name\": \"N2Lbar\",\n      \"full_name\": \"Sterile neutrino N2 (interaction eigenstate)\",\n      \"propagator_label\": \"N2L\",\n      \"propagator_type\": \"Straight\",\n      \"propagator_arrow\": \"Forward\"\n    },\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 102,\n      \"class_name\": \"n4\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"Mn4\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"Wn4\", \"value\": \"Internal\"},\n      \"quantum_numbers\": {},\n      \"pdg\": 8000011,\n      \"particle_name\": \"n4\",\n      \"antiparticle_name\": \"n4\",\n      \"full_name\": \"Heavy Majorana neutrino n4 (mass eigenstate)\",\n      \"propagator_label\": \"n4\",\n      \"propagator_type\": \"Straight\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 103,\n      \"class_name\": \"n5\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"Mn5\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"Wn5\", \"value\": \"Internal\"},\n      \"quantum_numbers\": {},\n      \"pdg\": 8000012,\n      \"particle_name\": \"n5\",\n      \"antiparticle_name\": \"n5\",\n      \"full_name\": \"Heavy Majorana neutrino n5 (mass eigenstate)\",\n      \"propagator_label\": \"n5\",\n      \"propagator_type\": \"Straight\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 104,\n      \"class_name\": \"PhiNP\",\n      \"unphysical\": true,\n      \"self_conjugate\": false,\n      \"indices\": [\"SU2D\"],\n      \"flavor_index\": \"SU2D\",\n      \"quantum_numbers\": {\"Y\": \"1/2\"},\n      \"definitions\": [\n        \"PhiNP[1] -> -I GP\",\n        \"PhiNP[2] -> (vevNP + H + I G0)/Sqrt[2]\"\n      ]\n    }\n  ],\n  \"gauge_xi\": [],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"LKinN1L\",\n      \"expression\": \"I N1Lbar.Ga[mu].del[N1L, mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LKinN2L\",\n      \"expression\": \"I N2Lbar.Ga[mu].del[N2L, mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LKinN4\",\n      \"expression\": \"I/2 n4bar.Ga[mu].del[n4, mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LKinN5\",\n      \"expression\": \"I/2 n5bar.Ga[mu].del[n5, mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LMassN1N2\",\n      \"expression\": \"- Mmaj CC[N1Lbar[sp1]].N2L[sp1]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LMassN4\",\n      \"expression\": \"-1/2 Mn4 n4bar.n4\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LMassN5\",\n      \"expression\": \"-1/2 Mn5 n5bar.n5\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LYukN1\",\n      \"expression\": \"yvn[ff1] CC[N1Lbar[sp1]].LL[sp1, ii, ff1] PhiNPbar[jj] Eps[ii, jj]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LYukN1HC\",\n      \"expression\": \"HC[yvn[ff1] CC[N1Lbar[sp1]].LL[sp1, ii, ff1] PhiNPbar[jj] Eps[ii, jj]]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LTotal\",\n      \"expression\": \"LKinN1L + LKinN2L + LKinN4 + LKinN5 + LMassN1N2 + LMassN4 + LMassN5 + LYukN1 + LYukN1HC\",\n      \"delayed\": true\n    }\n  ],\n  \"raw_preamble\": [],\n  \"raw_blocks\": []\n}"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 5 particle classes, 10 parameters, Lagrangian terms ['LKinN1L', 'LKinN2L', 'LKinN4', 'LKinN5', 'LMassN1N2', 'LMassN4', 'LMassN5', 'LYukN1', 'LYukN1HC', 'LTotal']\nRENDERED: model.fr (191 lines). You may read it.\nLINT: 2 finding(s). Each names the stage it predicts will fail (compile, checks = a Fe"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pSPSS-wc8krm73/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: pSPSS_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*---------------------------------------------"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 5 particle classes, 10 parameters, Lagrangian terms ['LKinN1L', 'LKinN2L', 'LKinN4', 'LKinN5', 'LMassN1N2', 'LMassN4', 'LMassN5', 'LYukN1', 'LYukN1HC', 'LTotal']\nRENDERED: model.fr (191 lines). You may read it.\nLINT: 2 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be i"
+ }
+]

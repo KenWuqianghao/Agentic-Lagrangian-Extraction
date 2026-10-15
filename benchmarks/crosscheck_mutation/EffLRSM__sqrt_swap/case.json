@@ -1,0 +1,13 @@
+{
+  "id": "EffLRSM__sqrt_swap",
+  "page": "EffLRSM",
+  "kind": "mutant",
+  "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+  "operator": "sqrt_swap",
+  "term": "nZRq",
+  "tokens": [
+    "nZRq",
+    "Sqrt"
+  ],
+  "defect": "Parameter `nZRq`: `Sqrt[1 - tw2/kapRq^2]` replaced by `1/Sqrt[1 - tw2/kapRq^2]` (a normalisation that divides now multiplies)."
+}

@@ -1,0 +1,93 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+Merging model-files...
+This model implementation was created by
+Stefan Antusch
+Jan Hajer
+Johannes Rosskopp
+Model Version: 1.0.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+Model pSPSS_gen loaded.
+[INFO] Lagrangian: LSM + LTotal
+HEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)
+HEPTAPOD-LAGRANGIAN|expression=LSM + LTotal|symbols=LSM,LTotal|terms=523
+HEPTAPOD-RESIDUAL|count=0|fields=
+[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum
+HEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=pass|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. No vertices found. 0 vertices obtained. The lagrangian is hermitian.
+HEPTAPOD-CHECK|scope=model|name=kinetic_diagonal|verdict=pass|detail=Neglecting all terms with more than 2 particles. All kinetic terms are diagonal.
+HEPTAPOD-CHECK|scope=model|name=mass_diagonal|verdict=fail|detail=Non diagonal mass term found: -(Mmaj CC[N1Lbar][Index[Spin, sp1]] . N2L[Index[Spin, sp1]]) Warning: not numerical value encountered. Unable to decide whether mass term is diagonal Non diagonal mass term found: vevNP CC[N1Lbar][Index[Spin, sp1]] . vm[Index[Spin, sp2$18439]] ProjM[Index[Spin, sp1], Index[Spin, sp2$18439]] yvn[Index[Generation, 2]] ----------------------------------------------------
+Neglecting all terms with more than 2 particles.
+Non diagonal mass term found: -(Mmaj*CC[N1Lbar][Index[Spin, sp1]] . N2L[Index[Spin, sp1]])
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (vevNP*CC[N1Lbar][Index[Spin, sp1]] . vm[Index[Spin, sp2$18439]]*ProjM[Index[Spin, sp1], Index[Spin, sp2$18439]]*yvn[Index[Generation, 2]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: (vevNP*N1Lbar[Index[Spin, r$18371]] . CC[vm][Index[Spin, sp2$18437]]*ProjP[Index[Spin, r$18371], Index[Spin, sp2$18437]]*yvn[Index[Generation, 2]])/Sqrt[2]
+HEPTAPOD-CHECK|scope=model|name=mass_spectrum|verdict=inconclusive|detail=
+[INFO] UFO output: /private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/vbench/open/v3o_nemotron_toolkit2/pSPSS/s1/pSPSS_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+208 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 208.
+181 vertices obtained.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 181
+   - Saved vertices in InterfaceRun[ 1 ].
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number LeptonNumber not conserved in vertex {G0, CC[N1Lbar], ve}.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number LeptonNumber not conserved in vertex {H, CC[N1Lbar], ve}.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+General::stop: Further output of QN::NonConserv will be suppressed during this calculation.
+Quantum number Q not conserved in vertex {GPbar, CC[ebar], N1L}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, CC[ebar], N1L}.
+Quantum number LeptonNumber not conserved in vertex {G0, N1Lbar, CC[ve]}.
+Quantum number LeptonNumber not conserved in vertex {H, N1Lbar, CC[ve]}.
+Quantum number Q not conserved in vertex {GP, ebar, CC[N1L]}.
+Quantum number LeptonNumber not conserved in vertex {GP, ebar, CC[N1L]}.
+Quantum number LeptonNumber not conserved in vertex {G0, CC[N1Lbar], vm}.
+Quantum number LeptonNumber not conserved in vertex {H, CC[N1Lbar], vm}.
+Quantum number Q not conserved in vertex {GPbar, CC[mubar], N1L}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, CC[mubar], N1L}.
+Quantum number LeptonNumber not conserved in vertex {G0, N1Lbar, CC[vm]}.
+Quantum number LeptonNumber not conserved in vertex {H, N1Lbar, CC[vm]}.
+Quantum number Q not conserved in vertex {GP, mubar, CC[N1L]}.
+Quantum number LeptonNumber not conserved in vertex {GP, mubar, CC[N1L]}.
+Quantum number Q not conserved in vertex {GPbar, CC[N1Lbar], ta}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, CC[N1Lbar], ta}.
+Quantum number LeptonNumber not conserved in vertex {G0, CC[N1Lbar], vt}.
+Quantum number LeptonNumber not conserved in vertex {H, CC[N1Lbar], vt}.
+Quantum number Q not conserved in vertex {GP, N1Lbar, CC[ta]}.
+Quantum number LeptonNumber not conserved in vertex {GP, N1Lbar, CC[ta]}.
+Quantum number LeptonNumber not conserved in vertex {G0, N1Lbar, CC[vt]}.
+Quantum number LeptonNumber not conserved in vertex {H, N1Lbar, CC[vt]}.
+Preparing Python output.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/181 .
+    - Writing files.
+Done!
+[INFO] UFO complete: particles.py, vertices.py, couplings.py, parameters.py, coupling_orders.py all present.
+[INFO] Done.

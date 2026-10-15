@@ -1,0 +1,668 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: 331 (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1611.09337.\n4: PAPER: the paper's LaTeX source is th"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n1: \n2: \n3: \n4: \\documentclass[a4paper,11pt]{article}\n5: \\pdfoutput=1 \n6:              \n7: \\usepackage{longtable}\n8: \\usepackage[utf8]{inputenc}\n9: \\usepackage{array}\n10: \\usepackage{jheppub} \n11:                      \n12: \\usepackage{multirow}\n13: \n14: \\newc"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/frgen\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "offset": 918
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n918: Figure~$\\ref{chi2_1a}$ displays the 95\\% confidence level allowed regions for $v_3=2{~\\rm TeV}$, respectively, with different choices of $\\beta$: (a,b) $\\beta=-1/\\sqrt{3}$, (c,d) $\\beta=+1/\\sqrt{3}$, (e,f) $\\beta=-\\sqrt{3}$, and (g,h) $\\beta=+\\sqrt{3}$."
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDELINE"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "offset": 1471
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n1471: \\includegraphics[width=0.3\\textwidth]{JJ_xsec.pdf}\n1472: \\caption{\\it The cross section of the $J\\bar{J}$ ($J=D, S, T$)  pair production through the QCD interaction as a function of $M_J$ at the 8~TeV and the 14~TeV LHC.}\n1473: \\label{QCD}\n1474: \\end{f"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                    "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "offset": 2240
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n2240: $\\bar D D A, \\bar S S A$ & $-\\frac{ i \\left(3 \\sqrt{3} \\beta -1\\right) e}{6}$ & $-\\frac{ i \\left(3 \\sqrt{3} \\beta -1\\right) e}{6}$ \\\\\n2241: \\hline\n2242: $\\bar T T A$ & $\\frac{ i \\left(3 \\sqrt{3} \\beta +1\\right) e}{6}$ & $\\frac{ i \\left(3 \\sqrt{3} \\beta"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDELINES "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: 331 (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1611.09337.\n4: PAPER: the paper's LaTeX source is th"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDELINE"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and the\n6: "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/frgen/templates/model.fr.j2"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/frgen/templates/model.fr.j2</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: {{ model_name }}                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*---------------"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "limit": 500
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n1: \n2: \n3: \n4: \\documentclass[a4paper,11pt]{article}\n5: \\pdfoutput=1 \n6:              \n7: \\usepackage{longtable}\n8: \\usepackage[utf8]{inputenc}\n9: \\usepackage{array}\n10: \\usepackage{jheppub} \n11:                      \n12: \\usepackage{multirow}\n13: \n14: \\newc"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                    "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "offset": 501,
+   "limit": 500
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n501: C&=&\\frac{1}{24} g g_x \\left[\\left(\\sqrt{3}-\\beta \\right) v_1^2-\\left(\\beta +\\sqrt{3}\\right) v_2^2-4 \\beta  v_3^2\\right].\n502: \\eea\n503: The three eigenvalues of the above matrix can be solved analytically. One zero eigenvalue corresponds to the massles"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "offset": 1001,
+   "limit": 500
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n1001: \n1002: \\section{Phenomenology of $Z^\\prime$}\\label{sec:sec4}\n1003: \n1004: The 331 model consists of new fermions, gauge bosons and scalars, which yields very rich collider phenomenologies. In this section we first examine the phenomenology of new neura"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "offset": 1501,
+   "limit": 500
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n1501: \\eea\n1502: where $q_1=t$, $q_2=b$, $U_1=V$ and $U_2=Y$, respectively. We learn from Eq.~$\\eqref{deltaM_VY}$ that  $|M_Y-M_V|\\ll m_W$ and one can ignore the mass difference of $Y$ and $V$  bosons. As a result, $\\Gamma(T\\to bY)>\\Gamma(T\\to tV)$ for a lig"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "offset": 2001,
+   "limit": 240
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n2001: \\hline\n2002: $Y^{+Q_Y} Y^{-Q_Y} h H_2$ & $\\frac{i e^2 g_{\\mu \\nu}\\left[U_{21} U_{22}+U_{31} U_{32}\\right]}{2 s_W^2}$ \\\\\n2003: \\hline\n2004: $Y^{+Q_Y} Y^{-Q_Y} H_2 H_2$ & $\\frac{i e^2 g_{\\mu \\nu}\\left[\\left(U_{22}\\right)^2+\\left(U_{32}\\right)^2\\right]}{2"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json",
+   "content": "{\n  \"model_name\": \"331_gen\",\n  \"info\": {\n    \"authors\": [\"Qing-Hong Cao\", \"Dong-Ming Zhang\"],\n    \"version\": \"1.0.0\",\n    \"date\": \"28. 11. 2016\",\n    \"institutions\": [\"Peking University\"],\n    \"emails\": [\"qinghongcao@pku.edu.cn\", \"zhangdongming@pku.edu.cn\"]\n  },\n  \"interaction_order_hierarchy\": [[\"QCD\", 1], [\"QED\", 2], [\"NP\", 1]],\n  \"gauge_groups\": [],\n  \"index_decls\": [],\n  \"vevs\": [],\n  \"parameters\": [\n    {\n      \"name\": \"beta\",\n      \"parameter_type\": \"External\",\n      \"value\": \"Sqrt[3]\",\n      \"block_name\": \"331INPUTS\",\n      \"order_block\": 1,\n      \"description\": \"331-model parameter beta; benchmark beta=+Sqrt[3] (arXiv:1611.09337, Table 1)\"\n    },\n    {\n      \"name\": \"v1\",\n      \"parameter_type\": \"External\",\n      \"value\": \"200.\",\n      \"block_name\": \"331INPUTS\",\n      \"order_block\": 2,\n      \"description\": \"rho-Higgs vev [GeV]; paper benchmark v1=200 GeV (Sec. 4, Figs. 5-7)\"\n    },\n    {\n      \"name\": \"v2\",\n      \"parameter_type\": \"External\",\n      \"value\": \"143.\",\n      \"block_name\": \"331INPUTS\",\n      \"order_block\": 3,\n      \"description\": \"eta-Higgs vev [GeV]; paper benchmark v2=143 GeV with v1=200 GeV, v=246 GeV\"\n    },\n    {\n      \"name\": \"v3\",\n      \"parameter_type\": \"External\",\n      \"value\": \"2000.\",\n      \"block_name\": \"331INPUTS\",\n      \"order_block\": 4,\n      \"description\": \"chi-Higgs vev [GeV]; paper Higgs-fit benchmark v3=2 TeV (Sec. 3)\"\n    },\n    {\n      \"name\": \"kappa\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"331INPUTS\",\n      \"order_block\": 5,\n      \"description\": \"k in f=k*v3 with k~O(1), Sec. 2.1 Eq. (VHiggs)\"\n    },\n    {\n      \"name\": \"lam3\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.1\",\n      \"block_name\": \"331INPUTS\",\n      \"order_block\": 6,\n      \"description\": \"quartic lambda3; M_H3^2 = 2 lambda3 v3^2 (mass-spectrum list, Eq. 5)\"\n    },\n    {\n      \"name\": \"vv331\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Sqrt[v1^2+v2^2]\",\n      \"description\": \"v = sqrt(v1^2+v2^2) = 246 GeV (Sec. 2.1.1)\"\n    },\n    {\n      \"name\": \"f331\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"kappa*v3\",\n      \"description\": \"f = k v3 with k~O(1) (Sec. 2.1, after Eq. VHiggs)\"\n    },\n    {\n      \"name\": \"s12\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"v2/vv331\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"s12 = v2/v (Eq. U)\"\n    },\n    {\n      \"name\": \"c12\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"v1/vv331\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"c12 = v1/v (Eq. U)\"\n    },\n    {\n      \"name\": \"s13\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"v3/Sqrt[v1^2+v3^2]\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"s13 = v3/sqrt(v1^2+v3^2) (Eq. sc13)\"\n    },\n    {\n      \"name\": \"c13\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"v1/Sqrt[v1^2+v3^2]\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"c13 = v1/sqrt(v1^2+v3^2) (Eq. sc13)\"\n    },\n    {\n      \"name\": \"s23\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"v3/Sqrt[v2^2+v3^2]\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"s23 = v3/sqrt(v2^2+v3^2) (Eq. sc23)\"\n    },\n    {\n      \"name\": \"c23\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"v2/Sqrt[v2^2+v3^2]\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"c23 = v2/sqrt(v2^2+v3^2) (Eq. sc23)\"\n    },\n    {\n      \"name\": \"o11\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"v2*v3/Sqrt[v1^2*v2^2+vv331^2*v3^2]\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"CP-odd rotation O11 (Appendix B)\"\n    },\n    {\n      \"name\": \"o21\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"v1*v3/Sqrt[v1^2*v2^2+vv331^2*v3^2]\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"CP-odd rotation O21 (Appendix B)\"\n    },\n    {\n      \"name\": \"o31\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"v1*v2/Sqrt[v1^2*v2^2+vv331^2*v3^2]\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"CP-odd rotation O31 (Appendix B)\"\n    },\n    {\n      \"name\": \"a0\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Sqrt[1-(1+beta^2)*sw^2]\",\n      \"description\": \"a0 = sqrt(1-(1+beta^2) sW^2) (Appendix A, before Table 1)\"\n    },\n    {\n      \"name\": \"ap\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Sqrt[3]*beta+1\",\n      \"description\": \"a_+ = sqrt(3) beta + 1 (Appendix A)\"\n    },\n    {\n      \"name\": \"am\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Sqrt[3]*beta-1\",\n      \"description\": \"a_- = sqrt(3) beta - 1 (Appendix A)\"\n    },\n    {\n      \"name\": \"gLZpE\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"-ee*(ap*sw^2-1)/(2*Sqrt[3]*cw*sw*a0)\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' left coupling to charged leptons and neutrinos, L=rule/i of Table gauge-fermion\"\n    },\n    {\n      \"name\": \"gRZpE\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"-beta*ee*sw/(cw*a0)\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' right coupling to charged leptons (Table gauge-fermion)\"\n    },\n    {\n      \"name\": \"gLZpU\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"ee*((beta+Sqrt[3])*sw^2-Sqrt[3])/(6*cw*sw*a0)\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' left coupling to u,c,d,s quarks (Table gauge-fermion)\"\n    },\n    {\n      \"name\": \"gLZpT\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"ee*((beta-Sqrt[3])*sw^2+Sqrt[3])/(6*cw*sw*a0)\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' left coupling to t,b quarks (Table gauge-fermion)\"\n    },\n    {\n      \"name\": \"gRZpU\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"2*beta*ee*sw/(3*cw*a0)\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' right coupling to up-type quarks (Table gauge-fermion)\"\n    },\n    {\n      \"name\": \"gRZpD\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"-beta*ee*sw/(3*cw*a0)\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' right coupling to down-type quarks (Table gauge-fermion)\"\n    },\n    {\n      \"name\": \"gLZpDQ\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"-ee*((3*Sqrt[3]*beta^2-beta+2*Sqrt[3])*sw^2-2*Sqrt[3])/(6*cw*sw*a0)\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' left coupling to heavy quarks D,S (Table gauge-fermion, L=rule/i)\"\n    },\n    {\n      \"name\": \"gRZpDQ\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"-beta*(3*Sqrt[3]*beta-1)*ee*sw/(6*cw*a0)\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' right coupling to heavy quarks D,S (Table gauge-fermion)\"\n    },\n    {\n      \"name\": \"gLZpTQ\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"ee*((3*Sqrt[3]*beta^2+beta+2*Sqrt[3])*sw^2-2*Sqrt[3])/(6*cw*sw*a0)\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' left coupling to heavy quark T (Table gauge-fermion)\"\n    },\n    {\n      \"name\": \"gRZpTQ\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"beta*(3*Sqrt[3]*beta+1)*ee*sw/(6*cw*a0)\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' right coupling to heavy quark T (Table gauge-fermion)\"\n    },\n    {\n      \"name\": \"gLZpEL\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"ee*((am^2+1)*sw^2-2)/(2*Sqrt[3]*cw*sw*a0)\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' left coupling to heavy leptons E (Table gauge-fermion)\"\n    },\n    {\n      \"name\": \"gRZpEL\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Sqrt[3]*beta^2*ee*sw/(2*cw*a0)\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Z' right coupling to heavy leptons E (Table gauge-fermion)\"\n    },\n    {\n      \"name\": \"gLZpu\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"interaction_order\": [\"NP\", 1],\n      \"value_rules\": [\n        {\"lhs\": \"gLZpu[1,1]\", \"rhs\": \"gLZpU\"},\n        {\"lhs\": \"gLZpu[1,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gLZpu[1,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gLZpu[2,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gLZpu[2,2]\", \"rhs\": \"gLZpU\"},\n        {\"lhs\": \"gLZpu[2,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gLZpu[3,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gLZpu[3,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gLZpu[3,3]\", \"rhs\": \"gLZpT\"}\n      ],\n      \"description\": \"Z' chiral left couplings to up-type quarks (u,c from Table; t row)\"\n    },\n    {\n      \"name\": \"gLZpd\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"interaction_order\": [\"NP\", 1],\n      \"value_rules\": [\n        {\"lhs\": \"gLZpd[1,1]\", \"rhs\": \"gLZpU\"},\n        {\"lhs\": \"gLZpd[1,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gLZpd[1,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gLZpd[2,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gLZpd[2,2]\", \"rhs\": \"gLZpU\"},\n        {\"lhs\": \"gLZpd[2,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gLZpd[3,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gLZpd[3,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gLZpd[3,3]\", \"rhs\": \"gLZpT\"}\n      ],\n      \"description\": \"Z' chiral left couplings to down-type quarks (d,s from Table; b row)\"\n    },\n    {\n      \"name\": \"gRZpu\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"interaction_order\": [\"NP\", 1],\n      \"value_rules\": [\n        {\"lhs\": \"gRZpu[1,1]\", \"rhs\": \"gRZpU\"},\n        {\"lhs\": \"gRZpu[1,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gRZpu[1,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gRZpu[2,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gRZpu[2,2]\", \"rhs\": \"gRZpU\"},\n        {\"lhs\": \"gRZpu[2,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gRZpu[3,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gRZpu[3,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gRZpu[3,3]\", \"rhs\": \"gRZpU\"}\n      ],\n      \"description\": \"Z' chiral right couplings to up-type quarks\"\n    },\n    {\n      \"name\": \"gRZpd\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"interaction_order\": [\"NP\", 1],\n      \"value_rules\": [\n        {\"lhs\": \"gRZpd[1,1]\", \"rhs\": \"gRZpD\"},\n        {\"lhs\": \"gRZpd[1,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gRZpd[1,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gRZpd[2,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gRZpd[2,2]\", \"rhs\": \"gRZpD\"},\n        {\"lhs\": \"gRZpd[2,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gRZpd[3,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gRZpd[3,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"gRZpd[3,3]\", \"rhs\": \"gRZpD\"}\n      ],\n      \"description\": \"Z' chiral right couplings to down-type quarks\"\n    },\n    {\n      \"name\": \"yHu331\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"interaction_order\": [\"NP\", 1],\n      \"value_rules\": [\n        {\"lhs\": \"yHu331[1,1]\", \"rhs\": \"o21*MU/v2\"},\n        {\"lhs\": \"yHu331[1,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHu331[1,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHu331[2,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHu331[2,2]\", \"rhs\": \"o21*MC/v2\"},\n        {\"lhs\": \"yHu331[2,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHu331[3,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHu331[3,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHu331[3,3]\", \"rhs\": \"o11*MT/v1\"}\n      ],\n      \"description\": \"H0 bar-u u Yukawa O21 m/v2 for u,c and O11 m/v1 for t (Table scalar-fermion)\"\n    },\n    {\n      \"name\": \"yHd331\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"interaction_order\": [\"NP\", 1],\n      \"value_rules\": [\n        {\"lhs\": \"yHd331[1,1]\", \"rhs\": \"o11*MD/v1\"},\n        {\"lhs\": \"yHd331[1,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHd331[1,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHd331[2,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHd331[2,2]\", \"rhs\": \"o11*MS/v1\"},\n        {\"lhs\": \"yHd331[2,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHd331[3,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHd331[3,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHd331[3,3]\", \"rhs\": \"o21*MB/v2\"}\n      ],\n      \"description\": \"H0 bar-d d Yukawa O11 m/v1 for d,s and O21 m/v2 for b (Table scalar-fermion)\"\n    },\n    {\n      \"name\": \"yHl331\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"interaction_order\": [\"NP\", 1],\n      \"value_rules\": [\n        {\"lhs\": \"yHl331[1,1]\", \"rhs\": \"o21*Me/v2\"},\n        {\"lhs\": \"yHl331[1,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHl331[1,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHl331[2,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHl331[2,2]\", \"rhs\": \"o21*MMU/v2\"},\n        {\"lhs\": \"yHl331[2,3]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHl331[3,1]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHl331[3,2]\", \"rhs\": \"0\"},\n        {\"lhs\": \"yHl331[3,3]\", \"rhs\": \"o21*MTA/v2\"}\n      ],\n      \"description\": \"H0 bar-l l Yukawa O21 m_l/v2 (Table scalar-fermion)\"\n    },\n    {\n      \"name\": \"MZp\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"gw^2*cw^2*v3^2/(3*(1-(1+beta^2)*sw^2))\",\n      \"description\": \"Z' mass^2 = cW^2 g^2 v3^2 / (3[1-(1+beta^2)sW^2]) (mass-spectrum Eq. 3)\"\n    },\n    {\n      \"name\": \"MV\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"gw^2*(v3^2+v1^2)/4\",\n      \"description\": \"M_V^2 = g^2(v3^2+v1^2)/4 (Eq. MVY)\"\n    },\n    {\n      \"name\": \"MY\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"gw^2*(v3^2+v2^2)/4\",\n      \"description\": \"M_Y^2 = g^2(v3^2+v2^2)/4 (Eq. MVY)\"\n    },\n    {\n      \"name\": \"MH2\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Sqrt[vv331^2/(v1*v2)*f331*v3]\",\n      \"description\": \"M_H2^2 = v^2/(v1 v2) f v3 (Eq. 4)\"\n    },\n    {\n      \"name\": \"MH3\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Sqrt[2*lam3]*v3\",\n      \"description\": \"M_H3^2 = 2 lambda3 v3^2 (Eq. 5)\"\n    },\n    {\n      \"name\": \"MH0\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"Sqrt[(v1*v2/v3+v1*v3/v2+v2*v3/v1)*f331]\",\n      \"description\": \"M_H0^2 = (v1v2/v3+v1v3/v2+v2v3/v1) f (mass-spectrum list)\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 100,\n      \"class_name\": \"Zp\",\n      \"self_conjugate\": true,\n      \"mass\": {\"sym\": \"MZp\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"WZp\", \"value\": \"Automatic\"},\n      \"pdg\": 4000023,\n      \"particle_name\": \"Zp\",\n      \"antiparticle_name\": \"Zp\",\n      \"full_name\": \"Zp\",\n      \"propagator_label\": \"Zp\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 101,\n      \"class_name\": \"Vb\",\n      \"self_conjugate\": false,\n      \"mass\": {\"sym\": \"MV\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"WV\", \"value\": \"Automatic\"},\n      \"quantum_numbers\": {\"Q\": \"1\"},\n      \"pdg\": 4000024,\n      \"particle_name\": \"V+\",\n      \"antiparticle_name\": \"V-\",\n      \"full_name\": \"V\",\n      \"propagator_label\": \"Vb\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"Forward\"\n    },\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 102,\n      \"class_name\": \"Yb\",\n      \"self_conjugate\": false,\n      \"mass\": {\"sym\": \"MY\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"WY\", \"value\": \"Automatic\"},\n      \"quantum_numbers\": {\"Q\": \"2\"},\n      \"pdg\": 4000025,\n      \"particle_name\": \"Y++\",\n      \"antiparticle_name\": \"Y--\",\n      \"full_name\": \"Y\",\n      \"propagator_label\": \"Yb\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"Forward\"\n    },\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 100,\n      \"class_name\": \"DQ\",\n      \"self_conjugate\": false,\n      \"indices\": [\"Colour\"],\n      \"mass\": {\"sym\": \"MDQ\", \"value\": \"1000.\"},\n      \"width\": {\"sym\": \"WDQ\", \"value\": \"Automatic\"},\n      \"quantum_numbers\": {\"Q\": \"-4/3\", \"Y\": \"-4/3\"},\n      \"pdg\": 4000001,\n      \"particle_name\": \"D\",\n      \"antiparticle_name\": \"D~\",\n      \"full_name\": \"D heavy quark\",\n      \"propagator_label\": \"DQ\",\n      \"propagator_type\": \"Straight\",\n      \"propagator_arrow\": \"Forward\"\n    },\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 101,\n      \"class_name\": \"SQ\",\n      \"self_conjugate\": false,\n      \"indices\": [\"Colour\"],\n      \"mass\": {\"sym\": \"MSQ\", \"value\": \"1000.\"},\n      \"width\": {\"sym\": \"WSQ\", \"value\": \"Automatic\"},\n      \"quantum_numbers\": {\"Q\": \"-4/3\", \"Y\": \"-4/3\"},\n      \"pdg\": 4000003,\n      \"particle_name\": \"S\",\n      \"antiparticle_name\": \"S~\",\n      \"full_name\": \"S heavy quark\",\n      \"propagator_label\": \"SQ\",\n      \"propagator_type\": \"Straight\",\n      \"propagator_arrow\": \"Forward\"\n    },\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 102,\n      \"class_name\": \"TQ\",\n      \"self_conjugate\": false,\n      \"indices\": [\"Colour\"],\n      \"mass\": {\"sym\": \"MTQ\", \"value\": \"1000.\"},\n      \"width\": {\"sym\": \"WTQ\", \"value\": \"Automatic\"},\n      \"quantum_numbers\": {\"Q\": \"5/3\", \"Y\": \"5/3\"},\n      \"pdg\": 4000005,\n      \"particle_name\": \"T\",\n      \"antiparticle_name\": \"T~\",\n      \"full_name\": \"T heavy quark\",\n      \"propagator_label\": \"TQ\",\n      \"propagator_type\": \"Straight\",\n      \"propagator_arrow\": \"Forward\"\n    },\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 103,\n      \"class_name\": \"EL\",\n      \"class_members\": [\"Ee\", \"Emu\", \"Etau\"],\n      \"indices\": [\"Generation\"],\n      \"flavor_index\": \"Generation\",\n      \"self_conjugate\": false,\n      \"mass\": {\"sym\": \"MElo\", \"value\": \"1000.\"},\n      \"width\": {\"sym\": \"WEL\", \"value\": \"Automatic\"},\n      \"quantum_numbers\": {\"Q\": \"1\", \"Y\": \"1\"},\n      \"pdg\": [4000011, 4000013, 4000015],\n      \"particle_name\": [\"Ee\", \"Emu\", \"Etau\"],\n      \"antiparticle_name\": [\"Ee~\", \"Emu~\", \"Etau~\"],\n      \"full_name\": [\"Ee\", \"Emu\", \"Etau\"],\n      \"propagator_label\": [\"EL\", \"Ee\", \"Emu\", \"Etau\"],\n      \"propagator_type\": \"Straight\",\n      \"propagator_arrow\": \"Forward\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 100,\n      \"class_name\": \"H2\",\n      \"self_conjugate\": true,\n      \"mass\": {\"sym\": \"MH2\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"WH2\", \"value\": \"Automatic\"},\n      \"pdg\": 4000031,\n      \"particle_name\": \"H2\",\n      \"antiparticle_name\": \"H2\",\n      \"full_name\": \"H2 CP-even\",\n      \"propagator_label\": \"H2\",\n      \"propagator_type\": \"D\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 101,\n      \"class_name\": \"H3\",\n      \"self_conjugate\": true,\n      \"mass\": {\"sym\": \"MH3\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"WH3\", \"value\": \"Automatic\"},\n      \"pdg\": 4000032,\n      \"particle_name\": \"H3\",\n      \"antiparticle_name\": \"H3\",\n      \"full_name\": \"H3 CP-even\",\n      \"propagator_label\": \"H3\",\n      \"propagator_type\": \"D\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 102,\n      \"class_name\": \"H0\",\n      \"self_conjugate\": true,\n      \"mass\": {\"sym\": \"MH0\", \"value\": \"Internal\"},\n      \"width\": {\"sym\": \"WH0\", \"value\": \"Automatic\"},\n      \"pdg\": 4000033,\n      \"particle_name\": \"H0\",\n      \"antiparticle_name\": \"H0\",\n      \"full_name\": \"H0 CP-odd\",\n      \"propagator_label\": \"H0\",\n      \"propagator_type\": \"D\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 103,\n      \"class_name\": \"Hp\",\n      \"self_conjugate\": false,\n      \"mass\": {\"sym\": \"MHp\", \"value\": \"500.\"},\n      \"width\": {\"sym\": \"WHP\", \"value\": \"Automatic\"},\n      \"quantum_numbers\": {\"Q\": \"1\"},\n      \"pdg\": 4000037,\n      \"particle_name\": \"H+\",\n      \"antiparticle_name\": \"H-\",\n      \"full_name\": \"Hpm charged Higgs\",\n      \"propagator_label\": \"Hp\",\n      \"propagator_type\": \"D\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 104,\n      \"class_name\": \"HV\",\n      \"self_conjugate\": false,\n      \"mass\": {\"sym\": \"MHV\", \"value\": \"1300.\"},\n      \"width\": {\"sym\": \"WHV\", \"value\": \"Automatic\"},\n      \"quantum_numbers\": {\"Q\": \"1\"},\n      \"pdg\": 4000038,\n      \"particle_name\": \"HV+\",\n      \"antiparticle_name\": \"HV-\",\n      \"full_name\": \"HV QV charged Higgs\",\n      \"propagator_label\": \"HV\",\n      \"propagator_type\": \"D\",\n      \"propagator_arrow\": \"None\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 105,\n      \"class_name\": \"HY\",\n      \"self_conjugate\": false,\n      \"mass\": {\"sym\": \"MHY\", \"value\": \"1400.\"},\n      \"width\": {\"sym\": \"WHY\", \"value\": \"Automatic\"},\n      \"quantum_numbers\": {\"Q\": \"2\"},\n      \"pdg\": 4000039,\n      \"particle_name\": \"HY++\",\n      \"antiparticle_name\": \"HY--\",\n      \"full_name\": \"HY QY charged Higgs\",\n      \"propagator_label\": \"HY\",\n      \"propagator_type\": \"D\",\n      \"propagator_arrow\": \"None\"\n    }\n  ],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"LZpKin\",\n      \"delayed\": true,\n      \"expression\": \"Block[{mu, nu}, -1/4 FS[Zp, mu, nu] FS[Zp, mu, nu] + 1/2 MZp^2 Zp[mu] Zp[mu]]\"\n    },\n    {\n      \"name\": \"LVKin\",\n      \"delayed\": true,\n      \"expression\": \"Block[{mu, nu}, -1/2 FS[Vbbar, mu, nu] FS[Vb, mu, nu] + MV^2 Vbbar[mu] Vb[mu]]\"\n    },\n    {\n      \"name\": \"LYKin\",\n      \"delayed\": true,\n      \"expression\": \"Block[{mu, nu}, -1/2 FS[Ybbar, mu, nu] FS[Yb, mu, nu] + MY^2 Ybbar[mu] Yb[mu]]\"\n    },\n    {\n      \"name\": \"LNKQ\",\n      \"delayed\": true,\n      \"expression\": \"Block[{mu}, I DQbar.Ga[mu].DC[DQ, mu] - MDQ DQbar.DQ + I SQbar.Ga[mu].DC[SQ, mu] - MSQ SQbar.SQ + I TQbar.Ga[mu].DC[TQ, mu] - MTQ TQbar.TQ]\"\n    },\n    {\n      \"name\": \"LNKEL\",\n      \"delayed\": true,\n      \"expression\": \"Block[{mu}, ExpandIndices[I ELbar.Ga[mu].DC[EL, mu] - MElo ELbar.EL]]\"\n    },\n    {\n      \"name\": \"LNScal\",\n      \"delayed\": true,\n      \"expression\": \"Block[{mu}, 1/2 del[H2, mu] del[H2, mu] - 1/2 MH2^2 H2^2 + 1/2 del[H3, mu] del[H3, mu] - 1/2 MH3^2 H3^2 + 1/2 del[H0, mu] del[H0, mu] - 1/2 MH0^2 H0^2 + DC[Hpbar, mu] DC[Hp, mu] - MHp^2 Hpbar.Hp + DC[HVbar, mu] DC[HV, mu] - MHV^2 HVbar.HV + DC[HYbar, mu] DC[HY, mu] - MHY^2 HYbar.HY]\"\n    },\n    {\n      \"name\": \"LYukH0\",\n      \"delayed\": true,\n      \"expression\": \"ExpandIndices[H0 (uqbar.yHu331.uq + dqbar.yHd331.dq + lbar.yHl331.l + (o31 MElo/v3) ELbar.EL)]\"\n    },\n    {\n      \"name\": \"LYukC\",\n      \"delayed\": true,\n      \"expression\": \"Block[{sp, sp2, ff, yuk}, yuk = HVbar (Sqrt[2] s13 MT/v1 uqbar[sp, 3].ProjM[sp, sp2].TQ[sp2] + Sqrt[2] c13 MTQ/v3 uqbar[sp, 3].ProjP[sp, sp2].TQ[sp2]) + HVbar CKM[1, 1] DQbar[sp].(-Sqrt[2] c13 MDQ/v3 ProjM[sp, sp2] - Sqrt[2] s13 MD/v1 ProjP[sp, sp2]).dq[sp2, 1] + HV ELbar[sp, ff].(-Sqrt[2] c13 MElo/v3 ProjM[sp, sp2]).vl[sp2, ff] + HY uqbar[sp, 1].(Sqrt[2] s23 MU/v2 ProjM[sp, sp2] + Sqrt[2] c23 MDQ/v3 ProjP[sp, sp2]).DQ[sp2] + HY uqbar[sp, 2].(Sqrt[2] s23 MC/v2 ProjM[sp, sp2] + Sqrt[2] c23 MSQ/v3 ProjP[sp, sp2]).SQ[sp2] + HY CKM[3, 3] TQbar[sp].(Sqrt[2] c23 MTQ/v3 ProjM[sp, sp2] + Sqrt[2] s23 MB/v2 ProjP[sp, sp2]).dq[sp2, 3] + HY ELbar[sp, ff].(-s23 yl[ff, ff] vev/v2 ProjM[sp, sp2] - Sqrt[2] c23 MElo/v3 ProjP[sp, sp2]).l[sp2, ff] + Hp CKM[3, 3] uqbar[sp, 3].(Sqrt[2] s12 MT/v1 ProjM[sp, sp2] + Sqrt[2] c12 MB/v2 ProjP[sp, sp2]).dq[sp2, 3] + Hp CKM[1, 1] uqbar[sp, 1].(-Sqrt[2] c12 MU/v2 ProjM[sp, sp2] - Sqrt[2] s12 MD/v1 ProjP[sp, sp2]).dq[sp2, 1] + Hp CKM[2, 2] uqbar[sp, 2].(-Sqrt[2] c12 MC/v2 ProjM[sp, sp2] - Sqrt[2] s12 MS/v1 ProjP[sp, sp2]).dq[sp2, 2]; ExpandIndices[yuk] + HC[ExpandIndices[yuk]]]\"\n    },\n    {\n      \"name\": \"LGg331\",\n      \"delayed\": true,\n      \"expression\": \"Block[{mu, sp, sp2, ff, yc}, yc = ExpandIndices[-gw/Sqrt[2] (Yb[mu] (ELbar.Ga[mu].ProjM.l + uqbar[sp, 1].Ga[mu].ProjM[sp, sp2].DQ[sp2] + uqbar[sp, 2].Ga[mu].ProjM[sp, sp2].SQ[sp2] + CKM[3, 3] TQbar[sp].Ga[mu].ProjM[sp, sp2].dq[sp2, 3]) + Vb[mu] (ELbar.Ga[mu].ProjM.vl + TQbar[sp].Ga[mu].ProjM[sp, sp2].uq[sp2, 3] + CKM[1, 1] dqbar[sp, 1].Ga[mu].ProjM[sp, sp2].DQ[sp2] + CKM[2, 2] dqbar[sp, 2].Ga[mu].ProjM[sp, sp2].SQ[sp2]))]; ExpandIndices[Zp[mu] (gLZpE lbar.Ga[mu].ProjM.l + gRZpE lbar.Ga[mu].ProjP.l + gLZpE vlbar.Ga[mu].ProjM.vl + uqbar.gLZpu.Ga[mu].ProjM.uq + uqbar.gRZpu.Ga[mu].ProjP.uq + dqbar.gLZpd.Ga[mu].ProjM.dq + dqbar.gRZpd.Ga[mu].ProjP.dq + ELbar.gLZpEL.Ga[mu].ProjM.EL + ELbar.gRZpEL.Ga[mu].ProjP.EL + gLZpDQ DQbar.Ga[mu].ProjM.DQ + gRZpDQ DQbar.Ga[mu].ProjP.DQ + gLZpDQ SQbar.Ga[mu].ProjM.SQ + gRZpDQ SQbar.Ga[mu].ProjP.SQ + gLZpTQ TQbar.Ga[mu].ProjM.TQ + gRZpTQ TQbar.Ga[mu].ProjP.TQ)] + yc + HC[yc]]\"\n    },\n    {\n      \"name\": \"LTotal\",\n      \"delayed\": true,\n      \"expression\": \"LZpKin + LVKin + LYKin + LNKQ + LNKEL + LNScal + LYukH0 + LYukC + LGg331\"\n    }\n  ],\n  \"raw_preamble\": [],\n  \"raw_blocks\": []\n}\n"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 13 particle classes, 45 parameters, Lagrangian terms ['LZpKin', 'LVKin', 'LYKin', 'LNKQ', 'LNKEL', 'LNScal', 'LYukH0', 'LYukC', 'LGg331', 'LTotal']\nRENDERED: model.fr (498 lines). You may read it.\nLINT: 2 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, war"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: 331 (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1611.09337.\n4: PAPER: the paper's LaTeX source is th"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "ls -la && wc -c spec.json"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"bash\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"bash\",\"pattern\":\"./frgen *\",\"action\":\"allow\"},{\"permission\":\"bash\",\"pattern\":\"./frgen\",\"action\":\"allow\"}]"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "CKM",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o"
+  },
+  "status": "completed",
+  "output": "Found 24 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md:\n  Line 66: 13. Flavour structure in matrix form. Write generation-space couplings as matrix products between class fields, `uqbar.VCKMR.Ga[mu].ProjP.dq`, `LLbar.yN.NR`, `ISbar.Ga[mu].ProjM.IS`, not as explicit index sums `VCKMR[ff1, ff2] uqbar[ff1, cc]...dq[ff2, cc]`, and never nest one generation in"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "Parameter|VCKM|CKM",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/SM.fr"
+  },
+  "status": "completed",
+  "output": "Found 100 matches (more matches available)\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md:\n  Line 38: 2. Explicit EFT cutoffs. When the paper writes an operator with `1/Lambda^n` (or `1/M^n`, `1/f^n`), declare each distinct cutoff as an External parameter in GeV with the paper's benchmark value, e.g. `Lam == { ParameterType -> External, Value -> 1000., BlockName -"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "CKM|LYukC|LGg331",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/model.fr"
+  },
+  "status": "completed",
+  "output": "Found 28 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md:\n  Line 66: 13. Flavour structure in matrix form. Write generation-space couplings as matrix products between class fields, `uqbar.VCKMR.Ga[mu].ProjP.dq`, `LLbar.yN.NR`, `ISbar.Ga[mu].ProjM.IS`, not as explicit index sums `VCKMR[ff1, ff2] uqbar[ff1, cc]...dq[ff2, cc]`, and never nest one generation in"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py",
+   "pattern": "undeclared_symbol|SM\\.fr|declared|sm_couplings|ParameterName"
+  },
+  "status": "completed",
+  "output": "Found 27 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py:\n  Line 29: SM_FR = HEPTAPOD / \"tools/feynrules/test_files/models/SM.fr\"\n\n  Line 40: # Names SM.fr declares: classes, class members, parameters, gauge groups, indices.\n\n  Line 192:             F.append(Finding(\"sm_class_redeclared\", \"warn\",\n\n  Line 193:                              f\"class `{"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py",
+   "offset": 200,
+   "limit": 100
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n200:         for key in (\"ParticleName\", \"AntiParticleName\"):\n201:             v = _prop(c[\"body\"], key)\n202:             names = re.findall(r'\"([^\"]*)\"', v) if v else []\n203:             if v and any(re.search(r\"[\\'`\\s!@#%^&*()=\\[\\]{}|\\\\;:<>?/,]\", nm) for nm in names)"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/SM.fr",
+   "offset": 560,
+   "limit": 140
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/SM.fr</path>\n<type>file</type>\n<content>\n560:     Description   -> \"Tau Yukawa mass\"\n561:   },\n562:   cabi == {\n563:     ParameterType -> External,\n564:     BlockName     -> CKMBLOCK,\n565:     OrderBlock    -> 1,\n566:     Value         -> 0.227736,\n567:     TeX           -> Subscript[\\[Theta], c],\n568:     Description  "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py",
+   "limit": 80
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and the\n6: "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py",
+   "limit": 80,
+   "offset": 330
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n330:     for cn, c in class_names.items():\n331:         if (_prop(c[\"body\"], \"SelfConjugate\") or \"\").strip() == \"True\" and c[\"head\"].startswith(\"F\"):\n332:             mm = re.search(r\"Mass\\s*->\\s*\\{\\s*(\\w+)\", c[\"body\"])\n333:             if not mm:\n334:                 "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: 331_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-------------------------------------------------"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json</path>\n<type>file</type>\n<content>\n1: {\n2:   \"model_name\": \"331_gen\",\n3:   \"info\": {\n4:     \"authors\": [\"Qing-Hong Cao\", \"Dong-Ming Zhang\"],\n5:     \"version\": \"1.0.0\",\n6:     \"date\": \"28. 11. 2016\",\n7:     \"institutions\": [\"Peking University\"],\n8:     \"emails\": [\"qinghongcao@pku.edu.cn\", \"zhangdongming@pku.edu"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/frgen",
+   "pattern": "Automatic|width|Width"
+  },
+  "status": "completed",
+  "output": "Found 17 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/frgen/frmodel.py:\n  Line 28: # A verbatim numeric string: \"-1/3\", \"1500.\", \"2.5*^-3\", \"Internal\", \"Automatic\".\n\n  Line 185:     value: Optional[NumberStr] = None  # number | \"Internal\" | \"Automatic\" | None\n\n  Line 206:     width: Optional[MassSpec] = None\n\n\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/frgen/render.py",
+   "limit": 80,
+   "offset": 200
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n200:         lines.append(f\"IndexRange[Index[{d.name}]] = {rng};\")\n201:     for d in decls:\n202:         if d.style_symbol:\n203:             lines.append(f\"IndexStyle[{d.name}, {d.style_symbol}];\")\n204:     return \"\\n\".join(lines)\n205: \n206: \n207: def _render_para"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "pattern": "CKM|V_{\\\\rm CKM}|uqbar|bar\\{u\\}"
+  },
+  "status": "error",
+  "output": "rg: regex parse error:\n    (?:CKM|V_{\\\\rm CKM}|uqbar|bar\\{u\\})\n              ^\nerror: repetition quantifier expects a valid decimal"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "pattern": "H_2|H_3|H^0|U_{32}|U_{33}|yukawa|Yukawa"
+  },
+  "status": "completed",
+  "output": "Found 100 matches (more matches available)\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex:\n  Line 217: Three CP-even scalars emerge after the symmetry breaking as the eigenstates of the mass matrix in Eq.~\\eqref{Neutral even mass mixing} and one scalar is identified as the SM Higgs boson ($h$). The other two scalars are named as $H_1$ and $H_2$"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "offset": 160,
+   "limit": 90
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n160: Y=\\beta T^8+X ,\n161: \\eeq\n162: where $T^8$ is diagonal generator of $SU(3)_L$ and $X$ is the generator of $U(1)_X$. That leads to the electric charge generator as \n163: \\beq\n164: Q=T^3+\\beta T^8+X .\n165: \\eeq\n166: The $X$ quantum numbers of the three Hi"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "pattern": "Q_V|Q_Y|H^\\{\\\\pm|rho|eta|chi|charged scalar"
+  },
+  "status": "completed",
+  "output": "Found 100 matches (more matches available)\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex:\n  Line 54: We study collider phenomenology of the so-called 331 model with $SU(3)_C\\otimes SU(3)_L\\otimes U(1)_X$ gauge structure at the large hadron collider, including single and double Higgs boson productions, Higgs boson rare decay, $Z^\\prime$ boson p"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "offset": 615,
+   "limit": 130
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n615: \\subsection{Yukawa Sector}\n616: The Lagrangian of the Yukawa sector is\n617: \\be\n618: \\cL_{Yuk}=\\cL^{q}_{Yuk}+\\cL^{l}_{Yuk},\n619: \\ee\n620: where $\\cL^{q}_{Yuk}$ and $\\cL^{l}_{Yuk}$ are the Lagrangians for quarks and leptons as follows:\n621: \\bea\n622: -\\c"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "offset": 2240,
+   "limit": 100
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n2240: $\\bar D D A, \\bar S S A$ & $-\\frac{ i \\left(3 \\sqrt{3} \\beta -1\\right) e}{6}$ & $-\\frac{ i \\left(3 \\sqrt{3} \\beta -1\\right) e}{6}$ \\\\\n2241: \\hline\n2242: $\\bar T T A$ & $\\frac{ i \\left(3 \\sqrt{3} \\beta +1\\right) e}{6}$ & $\\frac{ i \\left(3 \\sqrt{3} \\beta"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "limit": 120,
+   "offset": 250
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n250: To the lowest order, the results are\n251: \\be\n252: U_{11}=c_{12}+ \\frac{g_{11}(v)}{v_3^2},\\quad\n253: U_{21}=s_{12}+ \\frac{g_{21}(v)}{v_3^2},\\quad\n254: U_{31}=\\frac{g_{31}(v)}{v_3},\\label{U}\n255: \\ee\n256: where we have defined\n257: \\be\n258: s_{12}=\\frac{"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "limit": 100,
+   "offset": 2160
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n2160: \\end{eqnarray}\n2161: The coefficients $g_{V_1V_2V_3}$, $g_{V_1V_2V_3V_4}^1$, $g_{V_1V_2V_3V_4}^2$ and $g_{V_1V_2V_3V_4}^3$ are given in Table~\\ref{gauges}.\n2162: \n2163: \\begin{longtable}{c|c||c|c}\n2164: \\hline\n2165: particles & $g_{V_1V_2V_3}$ & partic"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "pattern": "appendix_b|Appendix B|U_\\{11\\}|g_\\{11\\}|decolo|expansion of the rotation"
+  },
+  "status": "completed",
+  "output": "Found 58 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex:\n  Line 237: U_{11} & U_{12} & U_{13}\\\\\n\n  Line 252: U_{11}=c_{12}+ \\frac{g_{11}(v)}{v_3^2},\\quad\n\n  Line 813: 0 \\quad &~& 0 \\quad &~& y_{33}^u(U_{11}h+v_1)\n\n  Line 824: y_{huu}=\\frac{U_{21}v}{v_2}\\left(\\frac{m_u}{v}\\right),\\quad\\quad y_{hcc}=\\frac{U_{21}v}{v_2}\\left(\\frac{m_c}{v}\\"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "limit": 80,
+   "offset": 2340
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n2340: \\newpage\n2341: \\section{The rotation matrix for the neutral scalars }\\label{app_b}\n2342: \\subsection{The functions $g_{i1}(v)$ in the CP-even scalar mixing matrix}\n2343: \\bea\n2344: g_{11}(v)&=&-\\frac{v_1 v_2^2 \\left(-2 k v_2 v_1+3 \\lambda _{13} v_1^2+\\"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: 331 (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1611.09337.\n4: PAPER: the paper's LaTeX source is th"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json",
+   "pattern": "gLZpU|gLZpT|interaction_order|LYukC|LYukH0|LGg331"
+  },
+  "status": "completed",
+  "output": "Found 62 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py:\n  Line 257:             F.append(Finding(\"missing_interaction_order\", \"mg5\",\n\n\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/model.fr:\n  Line 152:   gLZpU == {\n\n  Line 158:   gLZpT == {\n\n  Line 188:   gLZpTQ == {\n\n  Line 214:     Value -> {gLZpu[1,1] -> gLZpU, gLZp"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/frgen\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/model.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json",
+   "offset": 165,
+   "limit": 140
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json</path>\n<type>file</type>\n<content>\n165:       \"parameter_type\": \"Internal\",\n166:       \"value\": \"-beta*ee*sw/(cw*a0)\",\n167:       \"interaction_order\": [\"NP\", 1],\n168:       \"description\": \"Z' right coupling to charged leptons (Table gauge-fermion)\"\n169:     },\n170:     {\n171:       \"name\": \"gLZpU\",\n172:       "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "offset": 2260,
+   "limit": 80
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n2260: \\end{longtable}\n2261: \n2262: \\subsection{Scalar-Fermion Couplings}\n2263: The couplings between scalars and fermions are given in\n2264: Table~\\ref{scalar-fermion}, where we only include the flavor-diagonal interactions.\n2265: \n2266: \\begin{longtable}{c|"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json",
+   "offset": 600,
+   "limit": 70
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json</path>\n<type>file</type>\n<content>\n600:       \"class_index\": 105,\n601:       \"class_name\": \"HY\",\n602:       \"self_conjugate\": false,\n603:       \"mass\": {\"sym\": \"MHY\", \"value\": \"1400.\"},\n604:       \"width\": {\"sym\": \"WHY\", \"value\": \"Automatic\"},\n605:       \"quantum_numbers\": {\"Q\": \"2\"},\n606:       \"pdg\": 4000039"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "offset": 615,
+   "limit": 80
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex</path>\n<type>file</type>\n<content>\n615: \\subsection{Yukawa Sector}\n616: The Lagrangian of the Yukawa sector is\n617: \\be\n618: \\cL_{Yuk}=\\cL^{q}_{Yuk}+\\cL^{l}_{Yuk},\n619: \\ee\n620: where $\\cL^{q}_{Yuk}$ and $\\cL^{l}_{Yuk}$ are the Lagrangians for quarks and leptons as follows:\n621: \\bea\n622: -\\c"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/SM.fr",
+   "pattern": "^(l|ll|el|vl|ve|Leptons|Fields)|ParticleName.*l[ |\\\"]|class.*l |Name.*->.*\\\"l"
+  },
+  "status": "completed",
+  "output": "Found 17 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/frgen/frmodel.py:\n  Line 232:                     f\"particle {self.class_name}: unphysical fields omit mass/pdg\"\n\n  Line 236:                     f\"particle {self.class_name}: unphysical fields require definitions\"\n\n  Line 252:                         f\"particle {self.class_name}: list length must equal"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/SM.fr",
+   "pattern": "\\\\bl\\\\[|\\\\bll\\\\[|\\\\bel\\\\[|\\\\bvl\\\\[|FeynmanGauge| yuk|Yu|Ye|Yd"
+  },
+  "status": "error",
+  "output": "rg: regex parse error:\n    (?:\\\\bl\\\\[|\\\\bll\\\\[|\\\\bel\\\\[|\\\\bvl\\\\[|FeynmanGauge| yuk|Yu|Ye|Yd)\n                                        ^\nerror: unclosed character class"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "pattern": "H\\^\\+ .bar\\{\\\\\\\\nu|H\\^\\{\\\\\\\\pm\\}|\\\\\\\\eta\\^\\+|rho\\^\\+|H\\^\\+ "
+  },
+  "status": "completed",
+  "output": "Found 20 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex:\n  Line 114: \\rho^+  \\\\\n\n  Line 1097: We drop those decay modes with a branching ratio less than 1 percent. For example, the decay modes involving the $H^\\pm$, $H_2$ and $H_0$ scalars will be highly suppressed, e.g. $Z^\\prime\\to H^+ H^-$, $Z^\\prime\\to hH_0$, $Z^\\prime\\to H_3H_0$, $"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json",
+   "limit": 80,
+   "offset": 1
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json</path>\n<type>file</type>\n<content>\n1: {\n2:   \"model_name\": \"331_gen\",\n3:   \"info\": {\n4:     \"authors\": [\"Qing-Hong Cao\", \"Dong-Ming Zhang\"],\n5:     \"version\": \"1.0.0\",\n6:     \"date\": \"28. 11. 2016\",\n7:     \"institutions\": [\"Peking University\"],\n8:     \"emails\": [\"qinghongcao@pku.edu.cn\", \"zhangdongming@pku.edu"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/SM.fr",
+   "pattern": "ParticleName|ClassName|SelfConjugate|QuantumNumbers"
+  },
+  "status": "completed",
+  "output": "Found 100 matches (more matches available)\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md:\n  Line 36:    - Dirac fermion: `I psibar.Ga[mu].DC[psi, mu] - Mpsi psibar.psi`. Majorana fermion (`SelfConjugate -> True`): `I/2 psibar.Ga[mu].del[psi, mu] - 1/2 Mpsi psibar.psi`.\n\n  Line 44: 5. New U(1) charges. Do not copy a paper's charge table literally when the paper's "
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/SM.fr",
+   "pattern": "LYuk|yl |LLbar|ProjP|Lagrangian"
+  },
+  "status": "completed",
+  "output": "Found 46 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md:\n  Line 32: 1. Free-field terms for every new particle class. Write a named kinetic + mass term for each new field even when the paper shows only L_int. Use the mass symbol declared in the class `Mass -> {M, value}`. Add the term to the total Lagrangian sum.\n\n  Line 42: 4. SU(2) doublet contractions. "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json",
+   "limit": 120,
+   "offset": 400
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json</path>\n<type>file</type>\n<content>\n400:       \"description\": \"M_H0^2 = (v1v2/v3+v1v3/v2+v2v3/v1) f (mass-spectrum list)\"\n401:     }\n402:   ],\n403:   \"particles\": [\n404:     {\n405:       \"spin_type\": \"V\",\n406:       \"class_index\": 100,\n407:       \"class_name\": \"Zp\",\n408:       \"self_conjugate\": true,\n409:      "
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json",
+   "oldString": "      \"expression\": \"Block[{sp, sp2, ff, yuk}, yuk = HVbar (Sqrt[2] s13 MT/v1 uqbar[sp, 3].ProjM[sp, sp2].TQ[sp2] + Sqrt[2] c13 MTQ/v3 uqbar[sp, 3].ProjP[sp, sp2].TQ[sp2]) + HVbar CKM[1, 1] DQbar[sp].(-Sqrt[2] c13 MDQ/v3 ProjM[sp, sp2] - Sqrt[2] s13 MD/v1 ProjP[sp, sp2]).dq[sp2, 1] + HV ELbar[sp, ff].(-Sqrt[2] c13 MElo/v3 ProjM[sp, sp2]).vl[sp2, ff] + HY uqbar[sp, 1].(Sqrt[2] s23 MU/v2 ProjM[sp, sp2] + Sqrt[2] c23 MDQ/v3 ProjP[sp, sp2]).DQ[sp2] + HY uqbar[sp, 2].(Sqrt[2] s23 MC/v2 ProjM[sp, sp2] + Sqrt[2] c23 MSQ/v3 ProjP[sp, sp2]).SQ[sp2] + HY CKM[3, 3] TQbar[sp].(Sqrt[2] c23 MTQ/v3 ProjM[sp, sp2] + Sqrt[2] s23 MB/v2 ProjP[sp, sp2]).dq[sp2, 3] + HY ELbar[sp, ff].(-s23 yl[ff, ff] vev/v2 ProjM[sp, sp2] - Sqrt[2] c23 MElo/v3 ProjP[sp, sp2]).l[sp2, ff] + Hp CKM[3, 3] uqbar[sp, 3].(Sqrt[2] s12 MT/v1 ProjM[sp, sp2] + Sqrt[2] c12 MB/v2 ProjP[sp, sp2]).dq[sp2, 3] + Hp CKM[1, 1] uqbar[sp, 1].(-Sqrt[2] c12 MU/v2 ProjM[sp, sp2] - Sqrt[2] s12 MD/v1 ProjP[sp, sp2]).dq[sp2, 1] + Hp CKM[2, 2] uqbar[sp, 2].(-Sqrt[2] c12 MC/v2 ProjM[sp, sp2] - Sqrt[2] s12 MS/v1 ProjP[sp, sp2]).dq[sp2, 2]; ExpandIndices[yuk] + HC[ExpandIndices[yuk]]]\"",
+   "newString": "      \"expression\": \"Block[{sp, sp2, ff, yuk}, yuk = HVbar (Sqrt[2] s13 MT/v1 uqbar[sp, 3].ProjM[sp, sp2].TQ[sp2] + Sqrt[2] c13 MTQ/v3 uqbar[sp, 3].ProjP[sp, sp2].TQ[sp2]) + HVbar CKM[1, 1] DQbar[sp].(-Sqrt[2] c13 MDQ/v3 ProjM[sp, sp2] - Sqrt[2] s13 MD/v1 ProjP[sp, sp2]).dq[sp2, 1] + HVbar CKM[2, 2] SQbar[sp].(-Sqrt[2] c13 MSQ/v3 ProjM[sp, sp2] - Sqrt[2] s13 MS/v1 ProjP[sp, sp2]).dq[sp2, 2] + HV ELbar[sp, ff].(-Sqrt[2] c13 MElo/v3 ProjM[sp, sp2]).vl[sp2, ff] + HY uqbar[sp, 1].(Sqrt[2] s23 MU/v2 ProjM[sp, sp2] + Sqrt[2] c23 MDQ/v3 ProjP[sp, sp2]).DQ[sp2] + HY uqbar[sp, 2].(Sqrt[2] s23 MC/v2 ProjM[sp, sp2] + Sqrt[2] c23 MSQ/v3 ProjP[sp, sp2]).SQ[sp2] + HY CKM[3, 3] TQbar[sp].(Sqrt[2] c23 MTQ/v3 ProjM[sp, sp2] + Sqrt[2] s23 MB/v2 ProjP[sp, sp2]).dq[sp2, 3] + HY ELbar[sp, ff].(-s23 yl[ff, ff] vev/v2 ProjM[sp, sp2] - Sqrt[2] c23 MElo/v3 ProjP[sp, sp2]).l[sp2, ff] + Hp CKM[3, 3] uqbar[sp, 3].(Sqrt[2] s12 MT/v1 ProjM[sp, sp2] + Sqrt[2] c12 MB/v2 ProjP[sp, sp2]).dq[sp2, 3] + Hp CKM[1, 1] uqbar[sp, 1].(-Sqrt[2] c12 MU/v2 ProjM[sp, sp2] - Sqrt[2] s12 MD/v1 ProjP[sp, sp2]).dq[sp2, 1] + Hp CKM[2, 2] uqbar[sp, 2].(-Sqrt[2] c12 MC/v2 ProjM[sp, sp2] - Sqrt[2] s12 MS/v1 ProjP[sp, sp2]).dq[sp2, 2] + Hp vlbar[sp, ff].(c12 yl[ff, ff] vev/v2 ProjP[sp, sp2]).l[sp2, ff]; ExpandIndices[yuk] + HC[ExpandIndices[yuk]]]\""
+  },
+  "status": "completed",
+  "output": "Edit applied successfully."
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json",
+   "timeout": 60000,
+   "workdir": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 13 particle classes, 45 parameters, Lagrangian terms ['LZpKin', 'LVKin', 'LYKin', 'LNKQ', 'LNKEL', 'LNScal', 'LYukH0', 'LYukC', 'LGg331', 'LTotal']\nRENDERED: model.fr (498 lines). You may read it.\nLINT: 2 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, war"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json",
+   "limit": 90,
+   "offset": 47
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json</path>\n<type>file</type>\n<content>\n47:     {\n48:       \"name\": \"kappa\",\n49:       \"parameter_type\": \"External\",\n50:       \"value\": \"1.\",\n51:       \"block_name\": \"331INPUTS\",\n52:       \"order_block\": 5,\n53:       \"description\": \"k in f=k*v3 with k~O(1), Sec. 2.1 Eq. (VHiggs)\"\n54:     },\n55:     {\n56:       \"nam"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json",
+   "limit": 100,
+   "offset": 305
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json</path>\n<type>file</type>\n<content>\n305:         {\"lhs\": \"gRZpd[2,3]\", \"rhs\": \"0\"},\n306:         {\"lhs\": \"gRZpd[3,1]\", \"rhs\": \"0\"},\n307:         {\"lhs\": \"gRZpd[3,2]\", \"rhs\": \"0\"},\n308:         {\"lhs\": \"gRZpd[3,3]\", \"rhs\": \"gRZpD\"}\n309:       ],\n310:       \"description\": \"Z' chiral right couplings to down-type q"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py",
+   "pattern": "missing_interaction_order|sm_parameter|undeclared"
+  },
+  "status": "completed",
+  "output": "Found 4 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py:\n  Line 197:             F.append(Finding(\"sm_parameter_redeclared\", \"warn\",\n\n  Line 257:             F.append(Finding(\"missing_interaction_order\", \"mg5\",\n\n  Line 343:     # undeclared symbols in terms (conservative: capitalised identifiers used as fields)\n\n  Line 372:                 F.append"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py",
+   "limit": 50,
+   "offset": 230
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n230:         used = re.search(rf\"\\b{re.escape(pn)}\\b\", term_bodies) is not None\n231:         is_mass = any(re.search(rf\"Mass\\s*->\\s*\\{{\\s*{re.escape(pn)}\\b\", c[\"body\"]) or\n232:                       re.search(rf\"Width\\s*->\\s*\\{{\\s*{re.escape(pn)}\\b\", c[\"body\"])\n233:   "
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex",
+   "pattern": "H_2.*bar|H_3.*bar|U_\\{22\\}|U_\\{23\\}|U_\\{32\\}|U_\\{33\\}|U_\\{12\\}|U_\\{13\\}"
+  },
+  "status": "completed",
+  "output": "Found 91 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/paper/1611.09337_source.tex:\n  Line 237: U_{11} & U_{12} & U_{13}\\\\\n\n  Line 238: U_{21} & U_{22} & U_{23}\\\\\n\n  Line 239: U_{31} & U_{32} & U_{33}\\\\\n\n  Line 1758: $V^{+Q_V} H^{-Q_V} H_2$ & $-\\frac{e \\left(p_1-p_2\\right)^{\\mu } \\left(s_{13}   U_{12}-  U_{32} c_{13}\\right)}{2 s_W}$ \\\\\n\n  Line 1760:  $V^{+Q_V} H^"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/model.fr",
+   "limit": 30,
+   "offset": 140
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/model.fr</path>\n<type>file</type>\n<content>\n140:   gLZpE == {\n141:     ParameterType -> Internal,\n142:     Value -> -ee*(ap*sw^2-1)/(2*Sqrt[3]*cw*sw*a0),\n143:     InteractionOrder -> {NP, 1},\n144:     Description -> \"Z' left coupling to charged leptons and neutrinos, L=rule/i of Table gauge-fermion\"\n145:   },\n146:   gRZ"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/model.fr",
+   "limit": 15,
+   "offset": 488
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/model.fr</path>\n<type>file</type>\n<content>\n488: LNKEL := Block[{mu}, ExpandIndices[I ELbar.Ga[mu].DC[EL, mu] - MElo ELbar.EL]];\n489: \n490: LNScal := Block[{mu}, 1/2 del[H2, mu] del[H2, mu] - 1/2 MH2^2 H2^2 + 1/2 del[H3, mu] del[H3, mu] - 1/2 MH3^2 H3^2 + 1/2 del[H0, mu] del[H0, mu] - 1/2 MH0^2 H0^2 + DC[Hpbar, mu] DC[H"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: 331 (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1611.09337.\n4: PAPER: the paper's LaTeX source is th"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json</path>\n<type>file</type>\n<content>\n1: {\n2:   \"model_name\": \"331_gen\",\n3:   \"info\": {\n4:     \"authors\": [\"Qing-Hong Cao\", \"Dong-Ming Zhang\"],\n5:     \"version\": \"1.0.0\",\n6:     \"date\": \"28. 11. 2016\",\n7:     \"institutions\": [\"Peking University\"],\n8:     \"emails\": [\"qinghongcao@pku.edu.cn\", \"zhangdongming@pku.edu"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: 331_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-------------------------------------------------"
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o/spec.json",
+   "newString": "    {\n      \"name\": \"kappa\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"331INPUTS\",\n      \"order_block\": 5,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"k in f=k*v3 with k~O(1), Sec. 2.1 Eq. (VHiggs)\"\n    },\n    {\n      \"name\": \"lam3\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.1\",\n      \"block_name\": \"331INPUTS\",\n      \"order_block\": 6,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"quartic lambda3; M_H3^2 = 2 lambda3 v3^2 (mass-spectrum list, Eq. 5)\"\n    },",
+   "oldString": "    {\n      \"name\": \"kappa\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"331INPUTS\",\n      \"order_block\": 5,\n      \"description\": \"k in f=k*v3 with k~O(1), Sec. 2.1 Eq. (VHiggs)\"\n    },\n    {\n      \"name\": \"lam3\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.1\",\n      \"block_name\": \"331INPUTS\",\n      \"order_block\": 6,\n      \"description\": \"quartic lambda3; M_H3^2 = 2 lambda3 v3^2 (mass-spectrum list, Eq. 5)\"\n    },"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully."
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json",
+   "timeout": 60000,
+   "workdir": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-331-gnomo36o"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 13 particle classes, 45 parameters, Lagrangian terms ['LZpKin', 'LVKin', 'LYKin', 'LNKQ', 'LNKEL', 'LNScal', 'LYukH0', 'LYukC', 'LGg331', 'LTotal']\nRENDERED: model.fr (500 lines). You may read it.\nLINT: 2 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, war"
+ }
+]

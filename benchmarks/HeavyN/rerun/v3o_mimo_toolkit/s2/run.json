@@ -1,0 +1,38 @@
+{
+ "page": "HeavyN",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit",
+ "seed": 2,
+ "variant": "v3o_mimo_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3603.8,
+ "tokens": {
+  "input": 338678,
+  "output": 6921,
+  "reasoning": 155344
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 0,
+ "n_events": 73,
+ "length_stops": 1,
+ "audit": {
+  "tool_calls": 24,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la\"}"
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_spec"
+}

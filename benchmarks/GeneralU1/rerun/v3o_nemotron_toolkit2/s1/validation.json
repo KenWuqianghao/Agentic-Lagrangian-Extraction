@@ -1,0 +1,28 @@
+{
+ "page": "GeneralU1",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3o_nemotron_toolkit2/s1/model/GeneralU1_gen.fr",
+ "lag_symbol": "LTotal",
+ "lag_resolution": {
+  "roots": [
+   "LTotal"
+  ],
+  "legacy_symbol": "LTotal",
+  "n_terms_defined": 8,
+  "ambiguous": false,
+  "changed_from_legacy": false
+ },
+ "t0": 1790298512.8870919,
+ "compile_ok": false,
+ "lagrangian_expression": "LSM + LTotal",
+ "timed_out": true,
+ "exit": -1,
+ "seconds": 900.3,
+ "ufo_files": [],
+ "checks": {},
+ "protected_symbol_errors": 0,
+ "log_tail": "Lagrangian: LSM + LTotal\nHEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)\nHEPTAPOD-LAGRANGIAN|expression=LSM + LTotal|symbols=LSM,LTotal|terms=3\n[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum\n\nInner::incom: Length 1 of dimension 1 in {SU2D} is incommensurate with length 2 of dimension 1 in {Index[ISind1, ISind2], Index[Identity[{Index[ISind1]}, 2], j$19137]}.\n\nInner::incom: Length 1 of dimension 1 in {SU2D} is incommensurate with length 2 of dimension 1 in {Index[ISind1, ISind2], Index[Identity[{Index[ISind1]}, 2], j$19137]}.\n\nInner::incom: Length 1 of dimension 1 in {SU2D} is incommensurate with length 2 of dimension 1 in {Index[ISind1, ISind2], Index[Identity[{Index[ISind1]}, 2], j$19133]}.\n\nGeneral::stop: Further output of Inner::incom will be suppressed during this calculation.\n\nConjugate::argx: Conjugate called with 2 arguments; 1 argument is expected.\n\nConjugate::argx: Conjugate called with 2 arguments; 1 argument is expected.\n\nConjugate::argx: Conjugate called with 2 arguments; 1 argument is expected.\n\nGeneral::stop: Further output of Conjugate::argx will be suppressed during this calculation.\n",
+ "status": "compile_timeout",
+ "full_chain_pass": false,
+ "seconds_total": 900.2783651351929,
+ "wall_seconds": 900.4
+}

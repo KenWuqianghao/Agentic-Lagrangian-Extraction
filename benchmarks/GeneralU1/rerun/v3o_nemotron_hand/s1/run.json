@@ -1,0 +1,37 @@
+{
+ "page": "GeneralU1",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "hand",
+ "seed": 1,
+ "variant": "v3o_nemotron_hand",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 3318.2,
+ "tokens": {
+  "input": 401790,
+  "output": 14352,
+  "reasoning": 18548
+ },
+ "output_max": 128000,
+ "n_events": 78,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 19,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"cat /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Gen"
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "model.fr",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3o_nemotron_hand/s1/model/GeneralU1_gen.fr"
+}

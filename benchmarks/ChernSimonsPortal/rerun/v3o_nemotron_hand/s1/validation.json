@@ -1,0 +1,44 @@
+{
+ "page": "ChernSimonsPortal",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ChernSimonsPortal/rerun/v3o_nemotron_hand/s1/model/ChernSimonsPortal_gen.fr",
+ "lag_symbol": "LTotal",
+ "lag_resolution": {
+  "roots": [
+   "LTotal"
+  ],
+  "legacy_symbol": "LTotal",
+  "n_terms_defined": 4,
+  "ambiguous": false,
+  "changed_from_legacy": false
+ },
+ "t0": 1790239023.410263,
+ "compile_ok": true,
+ "lagrangian_expression": "LSM + LTotal",
+ "timed_out": false,
+ "exit": 0,
+ "seconds": 69.3,
+ "ufo_files": [
+  "particles.py",
+  "parameters.py",
+  "couplings.py",
+  "vertices.py",
+  "lorentz.py"
+ ],
+ "checks": {
+  "hermiticity": "pass",
+  "kinetic_diagonal": "pass",
+  "mass_diagonal": "pass",
+  "mass_spectrum": "pass"
+ },
+ "protected_symbol_errors": 0,
+ "log_tail": "",
+ "n_particles_ufo": 25,
+ "madgraph_import_ok": false,
+ "mg5_particles": null,
+ "lepton_number_violation": false,
+ "mg5_tail": "n load_model\n    raise UFOError(str(error))\nmodels.UFOError: invalid syntax (object_library.py, line 268)\n\u001b[1;31mCommand \"import /private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/vbench/open/v3o_nemotron_hand/ChernSimonsPortal/s1/mg5run/mg5_import.txt\" interrupted in sub-command:\n\"import model /private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/vbench/open/v3o_nemotron_hand/ChernSimonsPortal/s1/ChernSimonsPortal_UFO\" with error:\nUFOError : invalid syntax (object_library.py, line 268)\nPlease report this bug on https://bugs.launchpad.net/mg5amcnlo\nMore information is found in 'MG5_debug'.\nPlease attach this file to your report.\u001b[0m\n",
+ "status": "compiled",
+ "full_chain_pass": false,
+ "seconds_total": 69.83156776428223,
+ "wall_seconds": 69.9
+}

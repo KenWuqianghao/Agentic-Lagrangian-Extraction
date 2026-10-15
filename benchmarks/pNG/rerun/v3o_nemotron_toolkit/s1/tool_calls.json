@@ -1,0 +1,281 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: pNG (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1912.04008.\n4: PAPER: the paper's LaTeX source is th"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/paper/1912.04008_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/paper/1912.04008_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[11pt,a4paper]{article}\n2: \\pdfoutput=1 \n3:              \n4: \n5: \\usepackage{jheppub} \n6:                      \n7: \n8: \\usepackage[T1]{fontenc} \n9: \\usepackage{amsmath,mathrsfs,xspace,mathtools,bm}\n10: \\usepackage[dvipsnames]{xcolor}\n11: \\us"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDELINE"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/SM.fr"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/SM.fr"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                    "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDELINES "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/frgen"
+  },
+  "status": "error",
+  "output": "File not found: /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/frgen"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "ls -la /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"bash\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"bash\",\"pattern\":\"./frgen *\",\"action\":\"allow\"},{\"permission\":\"bash\",\"pattern\":\"./frgen\",\"action\":\"allow\"}]"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "ls -la /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"bash\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"bash\",\"pattern\":\"./frgen *\",\"action\":\"allow\"},{\"permission\":\"bash\",\"pattern\":\"./frgen\",\"action\":\"allow\"}]"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/frgen"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/frgen"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/frgen"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/frgen</path>\n<type>file</type>\n<content>\n1: #!/bin/sh\n2: FRGEN_TOOLKIT=\"$(pwd)/tools\" exec \"/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/venv/bin/python\" \"/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/open_ben"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and the\n6: "
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "tools/frgen/templates/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/templates/model.fr.j2"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/templates/model.fr.j2"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/templates/model.fr.j2</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: {{ model_name }}                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*---------------"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/frgen_cli.py"
+  },
+  "status": "error",
+  "output": "File not found: /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/frgen_cli.py"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/frgen_cli.py"
+  },
+  "status": "completed",
+  "output": "No files found"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "find /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools -name \"*.py\" 2>/dev/null"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"bash\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"bash\",\"pattern\":\"./frgen *\",\"action\":\"allow\"},{\"permission\":\"bash\",\"pattern\":\"./frgen\",\"action\":\"allow\"}]"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen --help"
+  },
+  "status": "completed",
+  "output": "ERROR: --help not found. Write the FeynRulesModel JSON there first.\n"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen"
+  },
+  "status": "completed",
+  "output": "usage: ./frgen spec.json   (writes model.fr next to it, then lints it)\n"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "tools/frgen/*.py"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/frmodel.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/render.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/__init__.py"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/__init__.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/tools/frgen/__init__.py</path>\n<type>file</type>\n<content>\n\n\n(End of file - total 0 lines)\n</content>"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "cat /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/frgen"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"bash\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"bash\",\"pattern\":\"./frgen *\",\"action\":\"allow\"},{\"permission\":\"bash\",\"pattern\":\"./frgen\",\"action\":\"allow\"}]"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/spec.json",
+   "content": "{\n  \"model_name\": \"pNG_gen\",\n  \"info\": {\n    \"authors\": [\"Chiara Arina\", \"Ankit Beniwal\", \"Celine Degrande\", \"Jan Heisig\", \"Andre Scaffidi\"],\n    \"version\": \"1.0\",\n    \"date\": \"2024-01-01\",\n    \"institutions\": [\"UCLouvain\", \"University of Adelaide\"],\n    \"emails\": [\"chiara.arina@uclouvain.be\"]\n  },\n  \"interaction_order_hierarchy\": [[\"QCD\", 1], [\"QED\", 2], [\"NP\", 1]],\n  \"feynman_gauge\": true,\n  \"vevs\": [[\"Phi[2]\", \"vev\"]],\n  \"gauge_groups\": [],\n  \"index_decls\": [],\n  \"parameters\": [\n    {\n      \"name\": \"mChi\",\n      \"parameter_type\": \"External\",\n      \"value\": \"100.\",\n      \"block_name\": \"PNG\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"pNG DM mass [GeV]\"\n    },\n    {\n      \"name\": \"vs\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1000.\",\n      \"block_name\": \"PNG\",\n      \"order_block\": 2,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Singlet VEV [GeV]\"\n    },\n    {\n      \"name\": \"theta\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.1\",\n      \"block_name\": \"PNG\",\n      \"order_block\": 3,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Scalar mixing angle [rad]\"\n    },\n    {\n      \"name\": \"mH\",\n      \"parameter_type\": \"External\",\n      \"value\": \"200.\",\n      \"block_name\": \"PNG\",\n      \"order_block\": 4,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Heavy scalar mass [GeV]\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 100,\n      \"class_name\": \"Chi\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"mChi\", \"value\": \"100.\"},\n      \"quantum_numbers\": {},\n      \"pdg\": 52,\n      \"particle_name\": \"chi\",\n      \"full_name\": \"pNG Dark Matter\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 101,\n      \"class_name\": \"H2\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"mH\", \"value\": \"200.\"},\n      \"quantum_numbers\": {},\n      \"pdg\": 53,\n      \"particle_name\": \"H2\",\n      \"full_name\": \"Heavy scalar\"\n    }\n  ],\n  \"gauge_xi\": [],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"LKinChi\",\n      \"expression\": \"1/2 del[Chi, mu] del[Chi, mu] - 1/2 mChi^2 Chi^2\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LKinH2\",\n      \"expression\": \"1/2 del[H2, mu] del[H2, mu] - 1/2 mH^2 H2^2\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LTotal\",\n      \"expression\": \"LKinChi + LKinH2\",\n      \"delayed\": true\n    }\n  ],\n  \"raw_preamble\": [],\n  \"raw_blocks\": []\n}"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 2 particle classes, 4 parameters, Lagrangian terms ['LKinChi', 'LKinH2', 'LTotal']\nRENDERED: model.fr (64 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: pNG_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-------------------------------------------------"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "limit": 250,
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/SM.fr",
+   "offset": 470
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/SM.fr</path>\n<type>file</type>\n<content>\n470: M$Parameters = {\n471: \n472:   (* External parameters *)\n473:   aEWM1 == { \n474:     ParameterType    -> External, \n475:     BlockName        -> SMINPUTS, \n476:     OrderBlock       -> 1, \n477:     Value            -> 127.9,\n478:     InteractionOrder -> {QED,-2},\n479:     Des"
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Read paper completely and extract all new physics content",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Read SM.fr and frmodel.py schema",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Create complete spec.json for pNG model",
+     "status": "in_progress",
+     "priority": "high"
+    },
+    {
+     "content": "Run ./frgen spec.json and fix errors",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Produce self-audit table and final output",
+     "status": "pending",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Read paper completely and extract all new physics content\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Read SM.fr and frmodel.py schema\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Create complete spec.json for pNG model\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Run ./frgen sp"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "content": "{\n  \"model_name\": \"pNG_gen\",\n  \"info\": {\n    \"authors\": [\"Chiara Arina\", \"Ankit Beniwal\", \"Celine Degrande\", \"Jan Heisig\", \"Andre Scaffidi\"],\n    \"version\": \"1.0\",\n    \"date\": \"2024-01-01\",\n    \"institutions\": [\"UCLouvain\", \"University of Adelaide\"],\n    \"emails\": [\"chiara.arina@uclouvain.be\"]\n  },\n  \"interaction_order_hierarchy\": [[\"QCD\", 1], [\"QED\", 2], [\"NP\", 1]],\n  \"feynman_gauge\": true,\n  \"vevs\": [[\"Phi[2]\", \"vev\"]],\n  \"gauge_groups\": [],\n  \"index_decls\": [],\n  \"parameters\": [\n    {\n      \"name\": \"mChi\",\n      \"parameter_type\": \"External\",\n      \"value\": \"100.\",\n      \"block_name\": \"PNG\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"pNG DM mass [GeV]\"\n    },\n    {\n      \"name\": \"vs\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1000.\",\n      \"block_name\": \"PNG\",\n      \"order_block\": 2,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Singlet VEV [GeV]\"\n    },\n    {\n      \"name\": \"theta\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.1\",\n      \"block_name\": \"PNG\",\n      \"order_block\": 3,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Scalar mixing angle [rad]\"\n    },\n    {\n      \"name\": \"mH\",\n      \"parameter_type\": \"External\",\n      \"value\": \"200.\",\n      \"block_name\": \"PNG\",\n      \"order_block\": 4,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Heavy scalar mass [GeV]\"\n    },\n    {\n      \"name\": \"mh\",\n      \"parameter_type\": \"External\",\n      \"value\": \"125.\",\n      \"block_name\": \"SMINPUTS\",\n      \"order_block\": 10,\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"SM-like Higgs mass [GeV]\"\n    },\n    {\n      \"name\": \"vh\",\n      \"parameter_type\": \"External\",\n      \"value\": \"246.\",\n      \"block_name\": \"SMINPUTS\",\n      \"order_block\": 11,\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Higgs VEV [GeV]\"\n    },\n    {\n      \"name\": \"lambdaPhi\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(mh^2*Cos[theta]^2 + mH^2*Sin[theta]^2)/vh^2\",\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Higgs quartic coupling in pNG model\"\n    },\n    {\n      \"name\": \"lambdaS\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(mh^2*Sin[theta]^2 + mH^2*Cos[theta]^2)/vs^2\",\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Singlet quartic coupling\"\n    },\n    {\n      \"name\": \"lambdaPhiS\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(mH^2 - mh^2)*Sin[theta]*Cos[theta]/(vh*vs)\",\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Portal coupling\"\n    },\n    {\n      \"name\": \"muSprime2\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"mChi^2\",\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Soft breaking parameter squared\"\n    },\n    {\n      \"name\": \"muPhi2\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"lambdaPhi*vh^2 + lambdaPhiS*vs^2\",\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Higgs mass parameter squared\"\n    },\n    {\n      \"name\": \"muS2\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"lambdaS*vs^2 + lambdaPhiS*vh^2 - muSprime2\",\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Singlet mass parameter squared\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 100,\n      \"class_name\": \"S\",\n      \"self_conjugate\": false,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"muS\", \"value\": \"Internal\"},\n      \"quantum_numbers\": {},\n      \"particle_name\": \"S\",\n      \"antiparticle_name\": \"Sbar\",\n      \"full_name\": \"Complex scalar singlet\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 101,\n      \"class_name\": \"Chi\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"mChi\", \"value\": \"100.\"},\n      \"quantum_numbers\": {},\n      \"pdg\": 52,\n      \"particle_name\": \"chi\",\n      \"full_name\": \"pNG Dark Matter\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 102,\n      \"class_name\": \"H2\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"mH\", \"value\": \"200.\"},\n      \"quantum_numbers\": {},\n      \"pdg\": 53,\n      \"particle_name\": \"H2\",\n      \"full_name\": \"Heavy scalar\"\n    }\n  ],\n  \"gauge_xi\": [],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"LKinS\",\n      \"expression\": \"DC[Sbar, mu] DC[S, mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LMassS\",\n      \"expression\": \"muS2/2 Sbar S + muSprime2/4 (S^2 + Sbar^2) - lambdaPhiS Phibar[Phi, ii] Phi[Phi, ii] Sbar S - lambdaS/2 (Sbar S)^2\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LKinChi\",\n      \"expression\": \"1/2 del[Chi, mu] del[Chi, mu] - 1/2 mChi^2 Chi^2\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LKinH2\",\n      \"expression\": \"1/2 del[H2, mu] del[H2, mu] - 1/2 mH^2 H2^2\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LTotal\",\n      \"expression\": \"LKinS + LMassS + LKinChi + LKinH2\",\n      \"delayed\": true\n    }\n  ],\n  \"raw_preamble\": [],\n  \"raw_blocks\": [\n    \"S[1] = (vs + Chi + I*GP)/Sqrt[2];\",\n    \"S[2] = (vs + H2 + I*Chi)/Sqrt[2];\"\n  ]\n}",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/spec.json"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 3 particle classes, 12 parameters, Lagrangian terms ['LKinS', 'LMassS', 'LKinChi', 'LKinH2', 'LTotal']\nRENDERED: model.fr (132 lines). You may read it.\nLINT: 1 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are re"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: pNG_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-------------------------------------------------"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG-ixpcctbd/spec.json",
+   "content": "{\n  \"model_name\": \"pNG_gen\",\n  \"info\": {\n    \"authors\": [\"Chiara Arina\", \"Ankit Beniwal\", \"Celine Degrande\", \"Jan Heisig\", \"Andre Scaffidi\"],\n    \"version\": \"1.0\",\n    \"date\": \"2024-01-01\",\n    \"institutions\": [\"UCLouvain\", \"University of Adelaide\"],\n    \"emails\": [\"chiara.arina@uclouvain.be\"]\n  },\n  \"interaction_order_hierarchy\": [[\"QCD\", 1], [\"QED\", 2], [\"NP\", 1]],\n  \"feynman_gauge\": true,\n  \"vevs\": [[\"Phi[2]\", \"vev\"]],\n  \"gauge_groups\": [],\n  \"index_decls\": [],\n  \"parameters\": [\n    {\n      \"name\": \"mChi\",\n      \"parameter_type\": \"External\",\n      \"value\": \"100.\",\n      \"block_name\": \"PNG\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"pNG DM mass [GeV]\"\n    },\n    {\n      \"name\": \"vs\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1000.\",\n      \"block_name\": \"PNG\",\n      \"order_block\": 2,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Singlet VEV [GeV]\"\n    },\n    {\n      \"name\": \"theta\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.1\",\n      \"block_name\": \"PNG\",\n      \"order_block\": 3,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Scalar mixing angle [rad]\"\n    },\n    {\n      \"name\": \"mH\",\n      \"parameter_type\": \"External\",\n      \"value\": \"200.\",\n      \"block_name\": \"PNG\",\n      \"order_block\": 4,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Heavy scalar mass [GeV]\"\n    },\n    {\n      \"name\": \"mh\",\n      \"parameter_type\": \"External\",\n      \"value\": \"125.\",\n      \"block_name\": \"SMINPUTS\",\n      \"order_block\": 10,\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"SM-like Higgs mass [GeV]\"\n    },\n    {\n      \"name\": \"vh\",\n      \"parameter_type\": \"External\",\n      \"value\": \"246.\",\n      \"block_name\": \"SMINPUTS\",\n      \"order_block\": 11,\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Higgs VEV [GeV]\"\n    },\n    {\n      \"name\": \"lambdaPhi\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(mh^2*Cos[theta]^2 + mH^2*Sin[theta]^2)/vh^2\",\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Higgs quartic coupling in pNG model\"\n    },\n    {\n      \"name\": \"lambdaS\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(mh^2*Sin[theta]^2 + mH^2*Cos[theta]^2)/vs^2\",\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Singlet quartic coupling\"\n    },\n    {\n      \"name\": \"lambdaPhiS\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(mH^2 - mh^2)*Sin[theta]*Cos[theta]/(vh*vs)\",\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Portal coupling\"\n    },\n    {\n      \"name\": \"muSprime2\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"mChi^2\",\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Soft breaking parameter squared\"\n    },\n    {\n      \"name\": \"muPhi2\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"lambdaPhi*vh^2 + lambdaPhiS*vs^2\",\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Higgs mass parameter squared\"\n    },\n    {\n      \"name\": \"muS2\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"lambdaS*vs^2 + lambdaPhiS*vh^2 - muSprime2\",\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Singlet mass parameter squared\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 100,\n      \"class_name\": \"S\",\n      \"self_conjugate\": false,\n      \"indices\": [],\n      \"quantum_numbers\": {},\n      \"particle_name\": \"S\",\n      \"antiparticle_name\": \"Sbar\",\n      \"full_name\": \"Complex scalar singlet\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 101,\n      \"class_name\": \"Chi\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"mChi\", \"value\": \"100.\"},\n      \"quantum_numbers\": {},\n      \"pdg\": 52,\n      \"particle_name\": \"chi\",\n      \"full_name\": \"pNG Dark Matter\"\n    },\n    {\n      \"spin_type\": \"S\",\n      \"class_index\": 102,\n      \"class_name\": \"H2\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\"sym\": \"mH\", \"value\": \"200.\"},\n      \"quantum_numbers\": {},\n      \"pdg\": 53,\n      \"particle_name\": \"H2\",\n      \"full_name\": \"Heavy scalar\"\n    }\n  ],\n  \"gauge_xi\": [],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"LKinS\",\n      \"expression\": \"DC[Sbar, mu] DC[S, mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LMassS\",\n      \"expression\": \"muS2/2 Sbar S + muSprime2/4 (S^2 + Sbar^2) - lambdaPhiS Phibar[ii] Phi[ii] Sbar S - lambdaS/2 (Sbar S)^2\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LKinChi\",\n      \"expression\": \"1/2 del[Chi, mu] del[Chi, mu] - 1/2 mChi^2 Chi^2\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LKinH2\",\n      \"expression\": \"1/2 del[H2, mu] del[H2, mu] - 1/2 mH^2 H2^2\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LTotal\",\n      \"expression\": \"LKinS + LMassS + LKinChi + LKinH2\",\n      \"delayed\": true\n    }\n  ],\n  \"raw_preamble\": [],\n  \"raw_blocks\": []\n}"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ }
+]

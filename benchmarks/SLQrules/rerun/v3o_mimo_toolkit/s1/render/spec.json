@@ -1,0 +1,218 @@
+{
+  "model_name": "SLQrules_gen",
+  "info": {
+    "authors": ["A. Crivellin", "L. Schnell"],
+    "version": "1.0",
+    "date": "2021",
+    "institutions": ["CERN Theory Division", "University of Zurich", "ETH Zurich", "PSI", "Sorbonne University", "LPTHE"]
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "feynman_gauge": true,
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {"name": "m1", "parameter_type": "External", "value": "1500.", "block_name": "SLQMASSES", "order_block": 1, "description": "Phi1 mass parameter [GeV]"},
+    {"name": "mt1", "parameter_type": "External", "value": "1500.", "block_name": "SLQMASSES", "order_block": 2, "description": "Phi1tilde mass parameter [GeV]"},
+    {"name": "m2", "parameter_type": "External", "value": "1500.", "block_name": "SLQMASSES", "order_block": 3, "description": "Phi2 mass parameter [GeV]"},
+    {"name": "mt2", "parameter_type": "External", "value": "1500.", "block_name": "SLQMASSES", "order_block": 4, "description": "Phi2tilde mass parameter [GeV]"},
+    {"name": "m3", "parameter_type": "External", "value": "1500.", "block_name": "SLQMASSES", "order_block": 5, "description": "Phi3 mass parameter [GeV]"},
+    {"name": "MS1m13", "parameter_type": "External", "value": "1500.", "block_name": "SLQMASSES", "order_block": 11, "description": "Physical Q=-1/3 eigenstate S1 mass [GeV]"},
+    {"name": "MR2tm13", "parameter_type": "External", "value": "1600.", "block_name": "SLQMASSES", "order_block": 12, "description": "Physical Q=-1/3 eigenstate R2t mass [GeV]"},
+    {"name": "MS3m13", "parameter_type": "External", "value": "1700.", "block_name": "SLQMASSES", "order_block": 13, "description": "Physical Q=-1/3 eigenstate S3 mass [GeV]"},
+    {"name": "MS2p23", "parameter_type": "External", "value": "1500.", "block_name": "SLQMASSES", "order_block": 14, "description": "Physical Q=+2/3 eigenstate S2 mass [GeV]"},
+    {"name": "MR2tp23", "parameter_type": "External", "value": "1600.", "block_name": "SLQMASSES", "order_block": 15, "description": "Physical Q=+2/3 eigenstate R2t mass [GeV]"},
+    {"name": "MS3p23", "parameter_type": "External", "value": "1700.", "block_name": "SLQMASSES", "order_block": 16, "description": "Physical Q=+2/3 eigenstate S3 mass [GeV]"},
+    {"name": "MR1tm43", "parameter_type": "External", "value": "1500.", "block_name": "SLQMASSES", "order_block": 17, "description": "Physical Q=-4/3 eigenstate R1t mass [GeV]"},
+    {"name": "MS3m43", "parameter_type": "External", "value": "1700.", "block_name": "SLQMASSES", "order_block": 18, "description": "Physical Q=-4/3 eigenstate S3 mass [GeV]"},
+    {"name": "MS2p53", "parameter_type": "External", "value": "1500.", "block_name": "SLQMASSES", "order_block": 19, "description": "Physical Q=+5/3 eigenstate S2 mass [GeV]"},
+    {"name": "Y1", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "block_name": "SLQYUK", "order_block": 1, "description": "Phi1 Higgs portal Y1"},
+    {"name": "Yt1", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "block_name": "SLQYUK", "order_block": 2, "description": "Phi1tilde Higgs portal Yt1"},
+    {"name": "Y2", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "block_name": "SLQYUK", "order_block": 3, "description": "Phi2 Higgs portal Y2"},
+    {"name": "Yt2", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "block_name": "SLQYUK", "order_block": 4, "description": "Phi2tilde Higgs portal Yt2"},
+    {"name": "Y3", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "block_name": "SLQYUK", "order_block": 5, "description": "Phi3 Higgs portal Y3"},
+    {"name": "Y22", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "block_name": "SLQYUK", "order_block": 6, "description": "Phi2 double portal Y22"},
+    {"name": "Yt2t2", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "block_name": "SLQYUK", "order_block": 7, "description": "Phi2tilde double portal Yt2t2"},
+    {"name": "Y33", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "block_name": "SLQYUK", "order_block": 8, "description": "Phi3 portal Y33"},
+    {"name": "A1t2", "parameter_type": "Internal", "value": "0.", "complex": true, "interaction_order": ["NP", 1], "description": "Phi1-Phi2tilde mass mixing A1t2, dimension 1"},
+    {"name": "At23", "parameter_type": "Internal", "value": "0.", "complex": true, "interaction_order": ["NP", 1], "description": "Phi2tilde-Phi3 mass mixing At23, dimension 1"},
+    {"name": "Y13", "parameter_type": "Internal", "value": "0.", "complex": true, "interaction_order": ["NP", 1], "description": "Phi1-Phi3 mass portal Y13"},
+    {"name": "Yt13", "parameter_type": "Internal", "value": "0.", "complex": true, "interaction_order": ["NP", 1], "description": "Phi1tilde-Phi3 mass portal Yt13"},
+    {"name": "Y2t2", "parameter_type": "Internal", "value": "0.", "complex": true, "interaction_order": ["NP", 1], "description": "Phi2-Phi2tilde mass portal Y2t2"},
+    {"name": "Y1RR", "parameter_type": "External", "indices": ["Generation", "Generation"], "interaction_order": ["NP", 1],
+     "value_rules": [
+       {"lhs": "Y1RR[1,1]", "rhs": "1."}, {"lhs": "Y1RR[1,2]", "rhs": "1."}, {"lhs": "Y1RR[1,3]", "rhs": "1."},
+       {"lhs": "Y1RR[2,1]", "rhs": "1."}, {"lhs": "Y1RR[2,2]", "rhs": "1."}, {"lhs": "Y1RR[2,3]", "rhs": "1."},
+       {"lhs": "Y1RR[3,1]", "rhs": "1."}, {"lhs": "Y1RR[3,2]", "rhs": "1."}, {"lhs": "Y1RR[3,3]", "rhs": "1."}
+     ], "description": "Y1 RR quark-lepton Yukawa 3x3"},
+    {"name": "Y1LL", "parameter_type": "External", "indices": ["Generation", "Generation"], "interaction_order": ["NP", 1],
+     "value_rules": [
+       {"lhs": "Y1LL[1,1]", "rhs": "1."}, {"lhs": "Y1LL[1,2]", "rhs": "1."}, {"lhs": "Y1LL[1,3]", "rhs": "1."},
+       {"lhs": "Y1LL[2,1]", "rhs": "1."}, {"lhs": "Y1LL[2,2]", "rhs": "1."}, {"lhs": "Y1LL[2,3]", "rhs": "1."},
+       {"lhs": "Y1LL[3,1]", "rhs": "1."}, {"lhs": "Y1LL[3,2]", "rhs": "1."}, {"lhs": "Y1LL[3,3]", "rhs": "1."}
+     ], "description": "Y1 LL quark-lepton Yukawa 3x3"},
+    {"name": "Y1QLL", "parameter_type": "External", "indices": ["Generation", "Generation"], "interaction_order": ["NP", 1],
+     "value_rules": [
+       {"lhs": "Y1QLL[1,1]", "rhs": "1."}, {"lhs": "Y1QLL[1,2]", "rhs": "1."}, {"lhs": "Y1QLL[1,3]", "rhs": "1."},
+       {"lhs": "Y1QLL[2,1]", "rhs": "1."}, {"lhs": "Y1QLL[2,2]", "rhs": "1."}, {"lhs": "Y1QLL[2,3]", "rhs": "1."},
+       {"lhs": "Y1QLL[3,1]", "rhs": "1."}, {"lhs": "Y1QLL[3,2]", "rhs": "1."}, {"lhs": "Y1QLL[3,3]", "rhs": "1."}
+     ], "description": "Y1 QLL symmetric diquark Yukawa"},
+    {"name": "Y1QRR", "parameter_type": "External", "indices": ["Generation", "Generation"], "interaction_order": ["NP", 1],
+     "value_rules": [
+       {"lhs": "Y1QRR[1,1]", "rhs": "1."}, {"lhs": "Y1QRR[1,2]", "rhs": "1."}, {"lhs": "Y1QRR[1,3]", "rhs": "1."},
+       {"lhs": "Y1QRR[2,1]", "rhs": "1."}, {"lhs": "Y1QRR[2,2]", "rhs": "1."}, {"lhs": "Y1QRR[2,3]", "rhs": "1."},
+       {"lhs": "Y1QRR[3,1]", "rhs": "1."}, {"lhs": "Y1QRR[3,2]", "rhs": "1."}, {"lhs": "Y1QRR[3,3]", "rhs": "1."}
+     ], "description": "Y1 QRR diquark Yukawa"},
+    {"name": "Yt1RR", "parameter_type": "External", "indices": ["Generation", "Generation"], "interaction_order": ["NP", 1],
+     "value_rules": [
+       {"lhs": "Yt1RR[1,1]", "rhs": "1."}, {"lhs": "Yt1RR[1,2]", "rhs": "1."}, {"lhs": "Yt1RR[1,3]", "rhs": "1."},
+       {"lhs": "Yt1RR[2,1]", "rhs": "1."}, {"lhs": "Yt1RR[2,2]", "rhs": "1."}, {"lhs": "Yt1RR[2,3]", "rhs": "1."},
+       {"lhs": "Yt1RR[3,1]", "rhs": "1."}, {"lhs": "Yt1RR[3,2]", "rhs": "1."}, {"lhs": "Yt1RR[3,3]", "rhs": "1."}
+     ], "description": "Y1tilde RR Yukawa"},
+    {"name": "Yt1QRR", "parameter_type": "External", "indices": ["Generation", "Generation"], "interaction_order": ["NP", 1],
+     "value_rules": [
+       {"lhs": "Yt1QRR[1,1]", "rhs": "0."}, {"lhs": "Yt1QRR[1,2]", "rhs": "1."}, {"lhs": "Yt1QRR[1,3]", "rhs": "1."},
+       {"lhs": "Yt1QRR[2,1]", "rhs": "-1."}, {"lhs": "Yt1QRR[2,2]", "rhs": "0."}, {"lhs": "Yt1QRR[2,3]", "rhs": "1."},
+       {"lhs": "Yt1QRR[3,1]", "rhs": "-1."}, {"lhs": "Yt1QRR[3,2]", "rhs": "-1."}, {"lhs": "Yt1QRR[3,3]", "rhs": "0."}
+     ], "description": "Y1tilde QRR antisymmetric diquark Yukawa"},
+    {"name": "Y2RL", "parameter_type": "External", "indices": ["Generation", "Generation"], "interaction_order": ["NP", 1],
+     "value_rules": [
+       {"lhs": "Y2RL[1,1]", "rhs": "1."}, {"lhs": "Y2RL[1,2]", "rhs": "1."}, {"lhs": "Y2RL[1,3]", "rhs": "1."},
+       {"lhs": "Y2RL[2,1]", "rhs": "1."}, {"lhs": "Y2RL[2,2]", "rhs": "1."}, {"lhs": "Y2RL[2,3]", "rhs": "1."},
+       {"lhs": "Y2RL[3,1]", "rhs": "1."}, {"lhs": "Y2RL[3,2]", "rhs": "1."}, {"lhs": "Y2RL[3,3]", "rhs": "1."}
+     ], "description": "Y2 RL Yukawa"},
+    {"name": "Y2LR", "parameter_type": "External", "indices": ["Generation", "Generation"], "interaction_order": ["NP", 1],
+     "value_rules": [
+       {"lhs": "Y2LR[1,1]", "rhs": "1."}, {"lhs": "Y2LR[1,2]", "rhs": "1."}, {"lhs": "Y2LR[1,3]", "rhs": "1."},
+       {"lhs": "Y2LR[2,1]", "rhs": "1."}, {"lhs": "Y2LR[2,2]", "rhs": "1."}, {"lhs": "Y2LR[2,3]", "rhs": "1."},
+       {"lhs": "Y2LR[3,1]", "rhs": "1."}, {"lhs": "Y2LR[3,2]", "rhs": "1."}, {"lhs": "Y2LR[3,3]", "rhs": "1."}
+     ], "description": "Y2 LR Yukawa"},
+    {"name": "Yt2RL", "parameter_type": "External", "indices": ["Generation", "Generation"], "interaction_order": ["NP", 1],
+     "value_rules": [
+       {"lhs": "Yt2RL[1,1]", "rhs": "1."}, {"lhs": "Yt2RL[1,2]", "rhs": "1."}, {"lhs": "Yt2RL[1,3]", "rhs": "1."},
+       {"lhs": "Yt2RL[2,1]", "rhs": "1."}, {"lhs": "Yt2RL[2,2]", "rhs": "1."}, {"lhs": "Yt2RL[2,3]", "rhs": "1."},
+       {"lhs": "Yt2RL[3,1]", "rhs": "1."}, {"lhs": "Yt2RL[3,2]", "rhs": "1."}, {"lhs": "Yt2RL[3,3]", "rhs": "1."}
+     ], "description": "Y2tilde RL Yukawa"},
+    {"name": "Y3LL", "parameter_type": "External", "indices": ["Generation", "Generation"], "interaction_order": ["NP", 1],
+     "value_rules": [
+       {"lhs": "Y3LL[1,1]", "rhs": "1."}, {"lhs": "Y3LL[1,2]", "rhs": "1."}, {"lhs": "Y3LL[1,3]", "rhs": "1."},
+       {"lhs": "Y3LL[2,1]", "rhs": "1."}, {"lhs": "Y3LL[2,2]", "rhs": "1."}, {"lhs": "Y3LL[2,3]", "rhs": "1."},
+       {"lhs": "Y3LL[3,1]", "rhs": "1."}, {"lhs": "Y3LL[3,2]", "rhs": "1."}, {"lhs": "Y3LL[3,3]", "rhs": "1."}
+     ], "description": "Y3 LL leptoquark Yukawa"},
+    {"name": "Y3QLL", "parameter_type": "External", "indices": ["Generation", "Generation"], "interaction_order": ["NP", 1],
+     "value_rules": [
+       {"lhs": "Y3QLL[1,1]", "rhs": "0."}, {"lhs": "Y3QLL[1,2]", "rhs": "1."}, {"lhs": "Y3QLL[1,3]", "rhs": "1."},
+       {"lhs": "Y3QLL[2,1]", "rhs": "-1."}, {"lhs": "Y3QLL[2,2]", "rhs": "0."}, {"lhs": "Y3QLL[2,3]", "rhs": "1."},
+       {"lhs": "Y3QLL[3,1]", "rhs": "-1."}, {"lhs": "Y3QLL[3,2]", "rhs": "-1."}, {"lhs": "Y3QLL[3,3]", "rhs": "0."}
+     ], "description": "Y3 QLL antisymmetric diquark Yukawa"},
+    {"name": "A1t2t2", "parameter_type": "Internal", "value": "1.", "complex": true, "interaction_order": ["NP", 1], "description": "Triple coupling A1t2t2, dimension 1"},
+    {"name": "At12t2", "parameter_type": "Internal", "value": "1.", "complex": true, "interaction_order": ["NP", 1], "description": "Triple coupling At12t2, dimension 1"},
+    {"name": "Y1t12", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Triple coupling Y1t12"},
+    {"name": "Y123", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Triple coupling Y123"},
+    {"name": "Y1t23", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Triple coupling Y1t23"},
+    {"name": "Yt123", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Triple coupling Yt123"},
+    {"name": "Y233", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Triple coupling Y233"},
+    {"name": "Yt233", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Triple coupling Yt233"},
+    {"name": "Yq1a", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Y(1)_a same-multiplet"},
+    {"name": "Yq3a", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Y(3)_a"},
+    {"name": "Yq5a3", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Y(5)_3"},
+    {"name": "Yq1ab", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Y(1)_ab"},
+    {"name": "Yq1pab", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Yprime(1)_ab"},
+    {"name": "Yq3ab", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Y(3)_ab"},
+    {"name": "Yq3pab", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Yprime(3)_ab"},
+    {"name": "Yq1aa3", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Y1aa3"},
+    {"name": "Yq1paa3", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Yprime1aa3"},
+    {"name": "Yq1t1t22", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Y1tilde1tilde22"},
+    {"name": "Yq1pt1t22", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Yprime1tilde1tilde22"},
+    {"name": "Yq1t223", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Y1tilde223"},
+    {"name": "Yq1pt223", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Yprime1tilde223"},
+    {"name": "Yq1313", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Y1313"},
+    {"name": "Yq1333", "parameter_type": "External", "value": "1.", "interaction_order": ["NP", 1], "description": "Quartic Y1333"}
+  ],
+  "particles": [
+    {"spin_type": "S", "class_index": 100, "class_name": "S1m13", "self_conjugate": false,
+     "indices": ["Colour"], "mass": {"sym": "MS1m13", "value": "1500."}, "width": {"massless": true},
+     "quantum_numbers": {"Q": "-1/3"}, "pdg": 40001, "particle_name": "S1m13", "antiparticle_name": "S1m13bar",
+     "full_name": "Phi1 charge -1/3 mass eigenstate", "propagator_label": "S1m13", "propagator_type": "Sine", "propagator_arrow": "Forward"},
+    {"spin_type": "S", "class_index": 101, "class_name": "R2tm13", "self_conjugate": false,
+     "indices": ["Colour"], "mass": {"sym": "MR2tm13", "value": "1600."}, "width": {"massless": true},
+     "quantum_numbers": {"Q": "-1/3"}, "pdg": 40002, "particle_name": "R2tm13", "antiparticle_name": "R2tm13bar",
+     "full_name": "Phi2tilde charge -1/3 mass eigenstate", "propagator_label": "R2tm13", "propagator_type": "Sine", "propagator_arrow": "Forward"},
+    {"spin_type": "S", "class_index": 102, "class_name": "S3m13", "self_conjugate": false,
+     "indices": ["Colour"], "mass": {"sym": "MS3m13", "value": "1700."}, "width": {"massless": true},
+     "quantum_numbers": {"Q": "-1/3"}, "pdg": 40003, "particle_name": "S3m13", "antiparticle_name": "S3m13bar",
+     "full_name": "Phi3 charge -1/3 mass eigenstate", "propagator_label": "S3m13", "propagator_type": "Sine", "propagator_arrow": "Forward"},
+    {"spin_type": "S", "class_index": 103, "class_name": "S2p23", "self_conjugate": false,
+     "indices": ["Colour"], "mass": {"sym": "MS2p23", "value": "1500."}, "width": {"massless": true},
+     "quantum_numbers": {"Q": "2/3"}, "pdg": 40004, "particle_name": "S2p23", "antiparticle_name": "S2p23bar",
+     "full_name": "Phi2 charge +2/3 mass eigenstate", "propagator_label": "S2p23", "propagator_type": "Sine", "propagator_arrow": "Forward"},
+    {"spin_type": "S", "class_index": 104, "class_name": "R2tp23", "self_conjugate": false,
+     "indices": ["Colour"], "mass": {"sym": "MR2tp23", "value": "1600."}, "width": {"massless": true},
+     "quantum_numbers": {"Q": "2/3"}, "pdg": 40005, "particle_name": "R2tp23", "antiparticle_name": "R2tp23bar",
+     "full_name": "Phi2tilde charge +2/3 mass eigenstate", "propagator_label": "R2tp23", "propagator_type": "Sine", "propagator_arrow": "Forward"},
+    {"spin_type": "S", "class_index": 105, "class_name": "S3p23", "self_conjugate": false,
+     "indices": ["Colour"], "mass": {"sym": "MS3p23", "value": "1700."}, "width": {"massless": true},
+     "quantum_numbers": {"Q": "2/3"}, "pdg": 40006, "particle_name": "S3p23", "antiparticle_name": "S3p23bar",
+     "full_name": "Phi3 charge +2/3 mass eigenstate", "propagator_label": "S3p23", "propagator_type": "Sine", "propagator_arrow": "Forward"},
+    {"spin_type": "S", "class_index": 106, "class_name": "R1tm43", "self_conjugate": false,
+     "indices": ["Colour"], "mass": {"sym": "MR1tm43", "value": "1500."}, "width": {"massless": true},
+     "quantum_numbers": {"Q": "-4/3"}, "pdg": 40007, "particle_name": "R1tm43", "antiparticle_name": "R1tm43bar",
+     "full_name": "Phi1tilde charge -4/3 mass eigenstate", "propagator_label": "R1tm43", "propagator_type": "Sine", "propagator_arrow": "Forward"},
+    {"spin_type": "S", "class_index": 107, "class_name": "S3m43", "self_conjugate": false,
+     "indices": ["Colour"], "mass": {"sym": "MS3m43", "value": "1700."}, "width": {"massless": true},
+     "quantum_numbers": {"Q": "-4/3"}, "pdg": 40008, "particle_name": "S3m43", "antiparticle_name": "S3m43bar",
+     "full_name": "Phi3 charge -4/3 mass eigenstate", "propagator_label": "S3m43", "propagator_type": "Sine", "propagator_arrow": "Forward"},
+    {"spin_type": "S", "class_index": 108, "class_name": "S2p53", "self_conjugate": false,
+     "indices": ["Colour"], "mass": {"sym": "MS2p53", "value": "1500."}, "width": {"massless": true},
+     "quantum_numbers": {"Q": "5/3"}, "pdg": 40009, "particle_name": "S2p53", "antiparticle_name": "S2p53bar",
+     "full_name": "Phi2 charge +5/3 mass eigenstate", "propagator_label": "S2p53", "propagator_type": "Sine", "propagator_arrow": "Forward"},
+
+    {"spin_type": "S", "class_index": 200, "class_name": "LQ1", "self_conjugate": false,
+     "indices": ["Colour"], "unphysical": true, "quantum_numbers": {"Y": "-1/3"},
+     "definitions": ["LQ1 -> S1m13"]},
+    {"spin_type": "S", "class_index": 201, "class_name": "LQ1t", "self_conjugate": false,
+     "indices": ["Colour"], "unphysical": true, "quantum_numbers": {"Y": "-4/3"},
+     "definitions": ["LQ1t -> R1tm43"]},
+    {"spin_type": "S", "class_index": 202, "class_name": "LQ2", "self_conjugate": false,
+     "indices": ["SU2D", "Colour"], "flavor_index": "SU2D", "unphysical": true, "quantum_numbers": {"Y": "7/6"},
+     "definitions": ["LQ2[1] -> S2p53", "LQ2[2] -> S2p23"]},
+    {"spin_type": "S", "class_index": 203, "class_name": "LQ2t", "self_conjugate": false,
+     "indices": ["SU2D", "Colour"], "flavor_index": "SU2D", "unphysical": true, "quantum_numbers": {"Y": "1/6"},
+     "definitions": ["LQ2t[1] -> R2tp23", "LQ2t[2] -> R2tm13"]},
+    {"spin_type": "S", "class_index": 204, "class_name": "LQ3", "self_conjugate": false,
+     "indices": ["SU2W", "Colour"], "flavor_index": "SU2W", "unphysical": true, "quantum_numbers": {"Y": "-1/3"},
+     "definitions": ["LQ3[3] -> S3m13", "LQ3[1] -> (S3p23 + S3m43)/Sqrt[2]", "LQ3[2] -> I*(S3p23 - S3m43)/Sqrt[2]"]}
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "Lkin",
+      "delayed": true,
+      "expression": "ExpandIndices[ I*(LQ1bar.Ga[mu].DC[LQ1, mu] + LQ1tbar.Ga[mu].DC[LQ1t, mu] + LQ2bar[ii].Ga[mu].DC[LQ2[ii], mu] + LQ2tbar[ii].Ga[mu].DC[LQ2t[ii], mu] + LQ3bar[II].Ga[mu].DC[LQ3[II], mu]) + DC[S1m13bar, mu] DC[S1m13, mu] - MS1m13^2 S1m13bar S1m13 + DC[R2tm13bar, mu] DC[R2tm13, mu] - MR2tm13^2 R2tm13bar R2tm13 + DC[S3m13bar, mu] DC[S3m13, mu] - MS3m13^2 S3m13bar S3m13 + DC[S2p23bar, mu] DC[S2p23, mu] - MS2p23^2 S2p23bar S2p23 + DC[R2tp23bar, mu] DC[R2tp23, mu] - MR2tp23^2 R2tp23bar R2tp23 + DC[S3p23bar, mu] DC[S3p23, mu] - MS3p23^2 S3p23bar S3p23 + DC[R1tm43bar, mu] DC[R1tm43, mu] - MR1tm43^2 R1tm43bar R1tm43 + DC[S3m43bar, mu] DC[S3m43, mu] - MS3m43^2 S3m43bar S3m43 + DC[S2p53bar, mu] DC[S2p53, mu] - MS2p53^2 S2p53bar S2p53, FlavorExpand -> SU2D]",
+      "delayed": false
+    },
+    {
+      "name": "L2Phi",
+      "expression": "ExpandIndices[ -Y1 Hbar[ii] H[ii] LQ1bar.LQ1 - Yt1 Hbar[ii] H[ii] LQ1tbar.LQ1t - Y2 Hbar[ii] H[ii] LQ2bar[ii1].LQ2[ii1] - Yt2 Hbar[ii] H[ii] LQ2tbar[ii1].LQ2t[ii1] - Y3 Hbar[ii] H[ii] LQ3bar[II1].LQ3[II1] - Y22 (Hbar[jj] LQ2[ii] Eps[ii, jj])(Hbar[jj1] LQ2[jj2] Eps[jj1, jj2]) - Yt2t2 (Hbar[jj] LQ2t[ii] Eps[ii, jj])(Hbar[jj1] LQ2t[jj2] Eps[jj1, jj2]) - I*Y33 Eps[IIa, IIb, IIc] Hbar[ii] PauliSigma[ii, jj, IIa] H[jj] LQ3bar[IIb] LQ3[IIc] + HC[-A1t2 LQ2tbar[ii] Phi[ii] LQ1 + At23 LQ2tbar[ii] PauliSigma[ii, jj, IIa] LQ3[IIa] Phi[jj] + Y2t2 LQ2bar[ii] Phi[ii] Hbar[jj] LQ2t[kk] Eps[jj, kk] + Yt13 Hbar[jj] LQ3bar[IIa] PauliSigma[IIa, kk, jj1] H[jj1] LQ1t + Y13 Hbar[ii] PauliSigma[ii, jj, IIa] LQ3[IIa] H[jj] LQ1bar], FlavorExpand -> {SU2D, SU2W}]",
+      "delayed": false
+    },
+    {
+      "name": "Lyuk",
+      "expression": "Block[{sp, sp1, ii, jj, ff1, ff2, cc1, cc2, cc3}, ExpandIndices[ Y1RR[ff1, ff2] bar[CC[uq]][sp, ff1, cc1] l[sp, ff2] LQ1bar[cc1] + Y1LL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc1] LL[sp, jj, ff2] Eps[ii, jj] LQ1bar[cc1] + Y1QLL[ff1, ff2] bar[CC[QL]][sp1, ii, ff1, cc1] QL[sp, jj, ff2, cc2] Eps[ii, jj] LQ1[cc3] Eps[cc1, cc2, cc3] + Y1QRR[ff1, ff2] bar[CC[uq]][sp, ff1, cc1] dq[sp, ff2, cc2] LQ1[cc3] Eps[cc1, cc2, cc3] + Yt1RR[ff1, ff2] bar[CC[dq]][sp, ff1, cc1] l[sp, ff2] LQ1tbar[cc1] + Yt1QRR[ff1, ff2] bar[CC[uq]][sp, ff1, cc1] uq[sp, ff2, cc2] LQ1t[cc3] Eps[cc1, cc2, cc3] + Y2RL[ff1, ff2] LQ2[ii] bar[uq][sp, ff1, cc1] LL[sp, jj, ff2] Eps[ii, jj] IndexDelta[cc1, cc1] + Y2LR[ff1, ff2] QLbar[sp, ii, ff1, cc1] l[sp, ff2] LQ2[jj] IndexDelta[cc1, cc1] Eps[ii, jj] + Yt2RL[ff1, ff2] LQ2t[ii] bar[dq][sp, ff1, cc1] LL[sp, jj, ff2] Eps[ii, jj] + Y3LL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc1] LL[sp, jj, ff2] LQ3bar[IIa] PauliSigma[IIa, kk, jj] Eps[ii, kk] + Y3QLL[ff1, ff2] bar[CC[QL]][sp1, ii, ff1, cc1] QL[sp, jj, ff2, cc2] LQ3[IIa] PauliSigma[ii, kk, jj] Eps[cc1, cc2, cc3] IndexDelta[cc3, cc3], FlavorExpand -> {SU2D, SU2W}] + HC[ExpandIndices[ Y1RR[ff1, ff2] bar[CC[uq]][sp, ff1, cc1] l[sp, ff2] LQ1bar[cc1] + Y1LL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc1] LL[sp, jj, ff2] Eps[ii, jj] LQ1bar[cc1] + Y1QLL[ff1, ff2] bar[CC[QL]][sp1, ii, ff1, cc1] QL[sp, jj, ff2, cc2] Eps[ii, jj] LQ1[cc3] Eps[cc1, cc2, cc3] + Y1QRR[ff1, ff2] bar[CC[uq]][sp, ff1, cc1] dq[sp, ff2, cc2] LQ1[cc3] Eps[cc1, cc2, cc3] + Yt1RR[ff1, ff2] bar[CC[dq]][sp, ff1, cc1] l[sp, ff2] LQ1tbar[cc1] + Yt1QRR[ff1, ff2] bar[CC[uq]][sp, ff1, cc1] uq[sp, ff2, cc2] LQ1t[cc3] Eps[cc1, cc2, cc3] + Y2RL[ff1, ff2] LQ2[ii] bar[uq][sp, ff1, cc1] LL[sp, jj, ff2] Eps[ii, jj] + Y2LR[ff1, ff2] QLbar[sp, ii, ff1, cc1] l[sp, ff2] LQ2[jj] Eps[ii, jj] + Yt2RL[ff1, ff2] LQ2t[ii] bar[dq][sp, ff1, cc1] LL[sp, jj, ff2] Eps[ii, jj] + Y3LL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc1] LL[sp, jj, ff2] LQ3bar[IIa] PauliSigma[IIa, kk, jj] Eps[ii, kk] + Y3QLL[ff1, ff2] bar[CC[QL]][sp1, ii, ff1, cc1] QL[sp, jj, ff2, cc2] LQ3[IIa] PauliSigma[ii, kk, jj] Eps[cc1, cc2, cc3], FlavorExpand -> {SU2D, SU2W}]]",
+      "delayed": true
+    },
+    {
+      "name": "L3Phi",
+      "expression": "HC[A1t2t2 LQ1[cc1] LQ2t[cc2] LQ2t[cc3] Eps[cc1, cc2, cc3] + At12t2 LQ1t[cc1] LQ2[cc2] LQ2t[cc3] Eps[cc1, cc2, cc3] + Y1t12 LQ1[cc1] LQ1t[cc2] LQ2[ii] Phi[jj] Eps[ii, jj] Eps[cc1, cc2, cc3] IndexDelta[cc3, cc3] + Y123 LQ1[cc1] Hbar[ii] PauliSigma[ii, jj, IIa] LQ3[IIa, cc3] LQ2[jj, cc2] Eps[cc1, cc2, cc3] + Y1t23 LQ1[cc1] LQ2t[ii] Phi[jj] Eps[ii, jj1] LQ3[IIa] PauliSigma[jj1, kk, IIa1] H[kk] Eps[IIa, IIa1, IIb] IndexDelta[cc1, cc1] + Yt123 LQ1t[cc1] LQ2[ii] Phi[jj] Eps[ii, jj1] LQ3[IIa] PauliSigma[jj1, kk, IIa1] H[kk] Eps[IIa, IIa1, IIb] IndexDelta[cc1, cc1] + Y233 Hbar[ii] PauliSigma[ii, jj, IIa] LQ2[jj, cc1] LQ3[IIb, cc2] LQ3[IIc, cc3] Eps[IIa, IIb, IIc] Eps[cc1, cc2, cc3] + Yt233 LQ2t[ii] Phi[jj] Eps[ii, jj1] PauliSigma[jj1, kk, IIa] H[kk] LQ3[IIb, cc2] LQ3[IIc, cc3] Eps[IIa, IIb, IIc] Eps[cc1, cc2, cc3] IndexDelta[cc1, cc1], FlavorExpand -> {SU2D, SU2W}]",
+      "delayed": false
+    },
+    {
+      "name": "L4Phi",
+      "expression": "ExpandIndices[ Yq1a (LQ1bar[cc1] LQ1[cc1])(LQ1bar[cc2] LQ1[cc2]) + Yq1a (LQ1tbar[cc1] LQ1t[cc1])(LQ1tbar[cc2] LQ1t[cc2]) + Yq1a (LQ2bar[ii1, cc1] LQ2[ii1, cc1])(LQ2bar[ii1, cc2] LQ2[ii1, cc2]) + Yq1a (LQ2tbar[ii1, cc1] LQ2t[ii1, cc1])(LQ2tbar[ii1, cc2] LQ2t[ii1, cc2]) + Yq1a (LQ3bar[IIa, cc1] LQ3[IIa, cc1])(LQ3bar[IIa, cc2] LQ3[IIa, cc2]) + Yq3a (LQ2bar[ii1, cc1] LQ2[ii2, cc1])(LQ2bar[ii2, cc2] LQ2[ii1, cc2]) + Yq3a (LQ2tbar[ii1, cc1] LQ2t[ii2, cc1])(LQ2tbar[ii2, cc2] LQ2t[ii1, cc2]) + Yq3a (LQ3bar[IIa, cc1] LQ3[IIb, cc1])(LQ3bar[IIb, cc2] LQ3[IIa, cc2]) + Yq5a3 LQ3bar[IIa, cc1] LQ3[IIb, cc1] LQ3bar[IIa, cc2] LQ3[IIb, cc2] + Yq1ab (LQ1bar[cc1] LQ1[cc2])(LQ1tbar[cc3] LQ1t[cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ1bar[cc1] LQ1[cc2])(LQ1tbar[cc3] LQ1t[cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ1bar[cc1] LQ1[cc2])(LQ2bar[ii1, cc3] LQ2[ii1, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ1bar[cc1] LQ1[cc2])(LQ2bar[ii1, cc3] LQ2[ii1, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ1bar[cc1] LQ1[cc2])(LQ2tbar[ii1, cc3] LQ2t[ii1, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ1bar[cc1] LQ1[cc2])(LQ2tbar[ii1, cc3] LQ2t[ii1, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ1bar[cc1] LQ1[cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ1bar[cc1] LQ1[cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ1tbar[cc1] LQ1t[cc2])(LQ2bar[ii1, cc3] LQ2[ii1, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ1tbar[cc1] LQ1t[cc2])(LQ2bar[ii1, cc3] LQ2[ii1, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ1tbar[cc1] LQ1t[cc2])(LQ2tbar[ii1, cc3] LQ2t[ii1, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ1tbar[cc1] LQ1t[cc2])(LQ2tbar[ii1, cc3] LQ2t[ii1, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ1tbar[cc1] LQ1t[cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ1tbar[cc1] LQ1t[cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ2bar[ii1, cc1] LQ2[ii1, cc2])(LQ2tbar[ii1, cc3] LQ2t[ii1, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ2bar[ii1, cc1] LQ2[ii1, cc2])(LQ2tbar[ii1, cc3] LQ2t[ii1, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ2bar[ii1, cc1] LQ2[ii1, cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ2bar[ii1, cc1] LQ2[ii1, cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq1ab (LQ2tbar[ii1, cc1] LQ2t[ii1, cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] + Yq1pab (LQ2tbar[ii1, cc1] LQ2t[ii1, cc2])(LQ3bar[IIa, cc3] LQ3[IIa, cc4]) IndexDelta[cc1, cc4] IndexDelta[cc2, cc3] + Yq3ab (LQ2tbar[ii1, cc1] LQ2[ii2, cc1])(LQ2tbar[ii2, cc2] LQ2[ii1, cc2]) + Yq3pab (LQ2tbar[ii1, cc1] LQ2[ii2, cc2])(LQ2tbar[ii2, cc1] LQ2[ii1, cc2]) + Yq3ab Hbar[ii] PauliSigma[ii, jj, IIa] LQ2[jj, cc1] LQ2tbar[kk, cc2] LQ3[IIb, cc3] Eps[IIa, IIb, IIc] IndexDelta[cc1, cc2] IndexDelta[cc1, cc1] + Yq3pab Hbar[ii] PauliSigma[ii, jj, IIa] LQ2[jj, cc1] LQ2tbar[kk, cc2] LQ3[IIb, cc3] Eps[IIa, IIb, IIc] IndexDelta[cc1, cc3] + Yq1aa3 LQ1bar[cc1] LQ1[cc2] LQ2[ii, cc3] PauliSigma[ii, jj, IIa] LQ3[IIa, cc4] LQ2bar[jj, cc5] IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] IndexDelta[cc4, cc5] + Yq1paa3 LQ1bar[cc1] LQ1[cc2] LQ2[ii, cc3] PauliSigma[ii, jj, IIa] LQ3[IIa, cc4] LQ2bar[jj, cc5] IndexDelta[cc1, cc5] IndexDelta[cc2, cc3] IndexDelta[cc3, cc4] + Yq1aa3 LQ1bar[cc1] LQ1[cc2] LQ2t[ii, cc3] PauliSigma[ii, jj, IIa] LQ3[IIa, cc4] LQ2tbar[jj, cc5] IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] IndexDelta[cc4, cc5] + Yq1paa3 LQ1bar[cc1] LQ1[cc2] LQ2t[ii, cc3] PauliSigma[ii, jj, IIa] LQ3[IIa, cc4] LQ2tbar[jj, cc5] IndexDelta[cc1, cc5] IndexDelta[cc2, cc3] IndexDelta[cc3, cc4] + Yq1t223 LQ1tbar[cc1] LQ1t[cc2] LQ2[ii, cc3] PauliSigma[ii, jj, IIa] LQ3[IIa, cc4] LQ2tbar[jj, cc5] IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] IndexDelta[cc4, cc5] + Yq1pt223 LQ1tbar[cc1] LQ1t[cc2] LQ2[ii, cc3] PauliSigma[ii, jj, IIa] LQ3[IIa, cc4] LQ2tbar[jj, cc5] IndexDelta[cc1, cc5] IndexDelta[cc2, cc3] IndexDelta[cc3, cc4] + Yq1313 LQ1bar[cc1] LQ1[cc2] LQ3[IIa, cc3] LQ1bar[cc4] LQ1[cc5] LQ3[IIa, cc6] IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] IndexDelta[cc5, cc6] + Yq1333 LQ1bar[cc1] LQ1[cc2] LQ3[IIa, cc3] LQ3bar[IIb, cc4] LQ3[IIc, cc5] Eps[IIa, IIb, IIc] IndexDelta[cc1, cc2] IndexDelta[cc3, cc4] IndexDelta[cc4, cc5], FlavorExpand -> {SU2D, SU2W}]",
+      "delayed": false
+    },
+    {
+      "name": "LTotal",
+      "expression": "Lkin + L2Phi + Lyuk + L3Phi + L4Phi",
+      "delayed": true
+    }
+  ]
+}

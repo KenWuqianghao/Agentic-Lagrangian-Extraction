@@ -1,0 +1,1 @@
+Reading the paper appendix and SM.fr field/Lagrangian sections.

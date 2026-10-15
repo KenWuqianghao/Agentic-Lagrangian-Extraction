@@ -1,0 +1,35 @@
+{
+ "page": "B-L-SM",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "hand",
+ "seed": 1,
+ "variant": "v3o_nemotron_hand",
+ "harness": "opencode 1.18.25",
+ "exit": 1,
+ "timed_out": true,
+ "nudges": 1,
+ "seconds": 3600.0,
+ "tokens": {
+  "input": 158559,
+  "output": 9017,
+  "reasoning": 16637
+ },
+ "output_max": 128000,
+ "n_events": 46,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 9,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "model.fr",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/B-L-SM/rerun/v3o_nemotron_hand/s1/model/B-L-SM_gen.fr"
+}

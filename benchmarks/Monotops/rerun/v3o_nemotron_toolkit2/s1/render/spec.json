@@ -1,0 +1,415 @@
+{
+  "model_name": "Monotops_gen",
+  "info": {
+    "authors": ["J. Andrea", "B. Fuks", "F. Maltoni"],
+    "version": "1.0.0",
+    "date": "2026-09-25",
+    "institutions": ["IPHC Strasbourg", "CP3 Louvain"],
+    "emails": []
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "interaction_order_limit": [["NP", 1]],
+  "feynman_gauge": true,
+  "vevs": [],
+  "gauge_groups": [],
+  "index_decls": [
+    {"name": "Colour3bar", "range_kind": "NoUnfold", "size": 3, "style_symbol": "m"}
+  ],
+  "parameters": [
+    {
+      "name": "Mphi",
+      "parameter_type": "External",
+      "value": "500.",
+      "block_name": "MASS",
+      "order_block": 100,
+      "interaction_order": ["NP", 1],
+      "description": "Mass of the colored scalar phi (resonance) [GeV]"
+    },
+    {
+      "name": "Mphitilde",
+      "parameter_type": "External",
+      "value": "500.",
+      "block_name": "MASS",
+      "order_block": 101,
+      "interaction_order": ["NP", 1],
+      "description": "Mass of the colored scalar phitilde [GeV]"
+    },
+    {
+      "name": "MX",
+      "parameter_type": "External",
+      "value": "500.",
+      "block_name": "MASS",
+      "order_block": 102,
+      "interaction_order": ["NP", 1],
+      "description": "Mass of the colored vector X [GeV]"
+    },
+    {
+      "name": "MphiSM",
+      "parameter_type": "External",
+      "value": "300.",
+      "block_name": "MASS",
+      "order_block": 103,
+      "interaction_order": ["NP", 1],
+      "description": "Mass of the color-singlet scalar phi (FCNC) [GeV]"
+    },
+    {
+      "name": "Mchi",
+      "parameter_type": "External",
+      "value": "50.",
+      "block_name": "MASS",
+      "order_block": 104,
+      "interaction_order": ["NP", 1],
+      "description": "Mass of the invisible fermion chi [GeV]"
+    },
+    {
+      "name": "MV",
+      "parameter_type": "External",
+      "value": "50.",
+      "block_name": "MASS",
+      "order_block": 105,
+      "interaction_order": ["NP", 1],
+      "description": "Mass of the color-singlet vector V (FCNC) [GeV]"
+    },
+    {
+      "name": "a0FC",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "a0FC[1,3]", "rhs": "0.1"},
+        {"lhs": "a0FC[3,1]", "rhs": "0.1"}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Scalar FCNC coupling a^0_FC (flavor matrix)"
+    },
+    {
+      "name": "b0FC",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "interaction_order": ["NP", 1],
+      "description": "Scalar FCNC coupling b^0_FC (flavor matrix, axial)"
+    },
+    {
+      "name": "a1FC",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "a1FC[1,3]", "rhs": "0.1"},
+        {"lhs": "a1FC[3,1]", "rhs": "0.1"}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Vector FCNC coupling a^1_FC (flavor matrix)"
+    },
+    {
+      "name": "b1FC",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "interaction_order": ["NP", 1],
+      "description": "Vector FCNC coupling b^1_FC (flavor matrix, axial)"
+    },
+    {
+      "name": "aqSR",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "aqSR[1,2]", "rhs": "0.1"},
+        {"lhs": "aqSR[2,1]", "rhs": "-0.1"}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Colored scalar phi coupling to down quarks a^q_SR (flavor matrix)"
+    },
+    {
+      "name": "bqSR",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "interaction_order": ["NP", 1],
+      "description": "Colored scalar phi coupling to down quarks b^q_SR (flavor matrix, axial)"
+    },
+    {
+      "name": "ahalfSR",
+      "parameter_type": "External",
+      "indices": ["Generation"],
+      "value_rules": [
+        {"lhs": "ahalfSR[3]", "rhs": "0.1"}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Colored scalar phi coupling to up quark and chi a^{1/2}_SR (flavor vector)"
+    },
+    {
+      "name": "bhalfSR",
+      "parameter_type": "External",
+      "indices": ["Generation"],
+      "interaction_order": ["NP", 1],
+      "description": "Colored scalar phi coupling to up quark and chi b^{1/2}_SR (flavor vector, axial)"
+    },
+    {
+      "name": "aqtildeSR",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "aqtildeSR[1,3]", "rhs": "0.1"},
+        {"lhs": "aqtildeSR[2,3]", "rhs": "0.1"}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Colored scalar phitilde coupling to down and up quarks atilde^q_SR (flavor matrix)"
+    },
+    {
+      "name": "bqtildeSR",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "interaction_order": ["NP", 1],
+      "description": "Colored scalar phitilde coupling to down and up quarks btilde^q_SR (flavor matrix, axial)"
+    },
+    {
+      "name": "ahalftildeSR",
+      "parameter_type": "External",
+      "indices": ["Generation"],
+      "value_rules": [
+        {"lhs": "ahalftildeSR[1]", "rhs": "0.1"},
+        {"lhs": "ahalftildeSR[2]", "rhs": "0.1"}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Colored scalar phitilde coupling to down quark and chi atilde^{1/2}_SR (flavor vector)"
+    },
+    {
+      "name": "bhalftildeSR",
+      "parameter_type": "External",
+      "indices": ["Generation"],
+      "interaction_order": ["NP", 1],
+      "description": "Colored scalar phitilde coupling to down quark and chi btilde^{1/2}_SR (flavor vector, axial)"
+    },
+    {
+      "name": "aqVR",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "aqVR[1,1]", "rhs": "0.1"}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Colored vector X coupling to down quarks a^q_VR (flavor matrix)"
+    },
+    {
+      "name": "bqVR",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "interaction_order": ["NP", 1],
+      "description": "Colored vector X coupling to down quarks b^q_VR (flavor matrix, axial)"
+    },
+    {
+      "name": "ahalfVR",
+      "parameter_type": "External",
+      "indices": ["Generation"],
+      "value_rules": [
+        {"lhs": "ahalfVR[3]", "rhs": "0.1"}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Colored vector X coupling to up quark and chi a^{1/2}_VR (flavor vector)"
+    },
+    {
+      "name": "bhalfVR",
+      "parameter_type": "External",
+      "indices": ["Generation"],
+      "interaction_order": ["NP", 1],
+      "description": "Colored vector X coupling to up quark and chi b^{1/2}_VR (flavor vector, axial)"
+    },
+    {
+      "name": "eps3",
+      "parameter_type": "External",
+      "indices": ["Colour", "Colour", "Colour"],
+      "value_rules": [
+        {"lhs": "eps3[1,2,3]", "rhs": "1"},
+        {"lhs": "eps3[2,3,1]", "rhs": "1"},
+        {"lhs": "eps3[3,1,2]", "rhs": "1"},
+        {"lhs": "eps3[3,2,1]", "rhs": "-1"},
+        {"lhs": "eps3[2,1,3]", "rhs": "-1"},
+        {"lhs": "eps3[1,3,2]", "rhs": "-1"}
+      ],
+      "description": "Levi-Civita tensor for color SU(3) fundamental indices"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "S",
+      "class_index": 100,
+      "class_name": "phi",
+      "self_conjugate": true,
+      "indices": [],
+      "mass": {"massless": false, "sym": "MphiSM", "value": "300."},
+      "width": {"massless": false, "sym": "WphiSM", "value": "0."},
+      "quantum_numbers": {"Q": "0"},
+      "pdg": 9000001,
+      "particle_name": "phi",
+      "antiparticle_name": "phi",
+      "propagator_label": "phi",
+      "propagator_type": "S",
+      "propagator_arrow": "None",
+      "full_name": "Color-singlet scalar phi (FCNC)"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 101,
+      "class_name": "chi",
+      "self_conjugate": false,
+      "indices": [],
+      "mass": {"massless": false, "sym": "Mchi", "value": "50."},
+      "width": {"massless": false, "sym": "Wchi", "value": "0."},
+      "quantum_numbers": {"Q": "2/3"},
+      "pdg": 9000002,
+      "particle_name": "chi",
+      "antiparticle_name": "chibar",
+      "propagator_label": "chi",
+      "propagator_type": "S",
+      "propagator_arrow": "Forward",
+      "full_name": "Invisible fermion chi"
+    },
+    {
+      "spin_type": "V",
+      "class_index": 102,
+      "class_name": "V",
+      "self_conjugate": true,
+      "indices": [],
+      "mass": {"massless": false, "sym": "MV", "value": "50."},
+      "width": {"massless": false, "sym": "WV", "value": "0."},
+      "quantum_numbers": {"Q": "0"},
+      "pdg": 9000003,
+      "particle_name": "V",
+      "antiparticle_name": "V",
+      "propagator_label": "V",
+      "propagator_type": "Sine",
+      "propagator_arrow": "None",
+      "full_name": "Color-singlet vector V (FCNC)"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 103,
+      "class_name": "phi3",
+      "self_conjugate": false,
+      "indices": ["Colour"],
+      "mass": {"massless": false, "sym": "Mphi", "value": "500."},
+      "width": {"massless": false, "sym": "Wphi", "value": "0."},
+      "quantum_numbers": {"Q": "0"},
+      "pdg": 9000004,
+      "particle_name": "phi3",
+      "antiparticle_name": "phi3bar",
+      "propagator_label": "phi3",
+      "propagator_type": "S",
+      "propagator_arrow": "None",
+      "full_name": "Colored scalar phi (resonance)"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 104,
+      "class_name": "phitilde",
+      "self_conjugate": false,
+      "indices": ["Colour"],
+      "mass": {"massless": false, "sym": "Mphitilde", "value": "500."},
+      "width": {"massless": false, "sym": "Wphitilde", "value": "0."},
+      "quantum_numbers": {"Q": "-1"},
+      "pdg": 9000005,
+      "particle_name": "phitilde",
+      "antiparticle_name": "phitildebar",
+      "propagator_label": "phitilde",
+      "propagator_type": "S",
+      "propagator_arrow": "None",
+      "full_name": "Colored scalar phitilde"
+    },
+    {
+      "spin_type": "V",
+      "class_index": 105,
+      "class_name": "X",
+      "self_conjugate": false,
+      "indices": ["Colour"],
+      "mass": {"massless": false, "sym": "MX", "value": "500."},
+      "width": {"massless": false, "sym": "WX", "value": "0."},
+      "quantum_numbers": {"Q": "0"},
+      "pdg": 9000006,
+      "particle_name": "X",
+      "antiparticle_name": "Xbar",
+      "propagator_label": "X",
+      "propagator_type": "Sine",
+      "propagator_arrow": "Forward",
+      "full_name": "Colored vector X (resonance)"
+    }
+  ],
+  "gauge_xi": [],
+  "lagrangian_terms": [
+    {
+      "name": "LphiKin",
+      "expression": "1/2 del[phi, mu] del[phi, mu] - 1/2 MphiSM^2 phi^2",
+      "delayed": false
+    },
+    {
+      "name": "LchiKin",
+      "expression": "I chibar.Ga[mu].DC[chi, mu] - Mchi chibar.chi",
+      "delayed": false
+    },
+    {
+      "name": "LVKin",
+      "expression": "-1/4 FS[V, mu, nu] FS[V, mu, nu] + 1/2 MV^2 V[mu] V[mu]",
+      "delayed": false
+    },
+    {
+      "name": "Lphi3Kin",
+      "expression": "DC[phi3bar, mu] DC[phi3, mu] - Mphi^2 phi3bar phi3",
+      "delayed": false
+    },
+    {
+      "name": "LphitildeKin",
+      "expression": "DC[phitildebar, mu] DC[phitilde, mu] - Mphitilde^2 phitildebar phitilde",
+      "delayed": false
+    },
+    {
+      "name": "LXKin",
+      "expression": "-1/2 FS[Xbar, mu, nu] FS[X, mu, nu] + MX^2 Xbar[mu] X[mu]",
+      "delayed": false
+    },
+    {
+      "name": "LintFCNCscalar",
+      "expression": "phi * (a0FC[ff1, ff2] * uqbar[ff1].uq[ff2] + b0FC[ff1, ff2] * uqbar[ff1].Ga[5].uq[ff2])",
+      "delayed": false
+    },
+    {
+      "name": "LintFCNCvector",
+      "expression": "V[mu] * (a1FC[ff1, ff2] * uqbar[ff1].Ga[mu].uq[ff2] + b1FC[ff1, ff2] * uqbar[ff1].Ga[mu].Ga[5].uq[ff2])",
+      "delayed": false
+    },
+    {
+      "name": "LintPhiDD",
+      "expression": "eps3[i, j, k] * phi3[i] * (aqSR[ff1, ff2] * CC[dqbar[ff1, j]].ProjP.dq[ff2, k] + bqSR[ff1, ff2] * CC[dqbar[ff1, j]].ProjM.dq[ff2, k])",
+      "delayed": false
+    },
+    {
+      "name": "LintPhiUChi",
+      "expression": "phi3[i] * (ahalfSR[ff] * uqbar[ff, i].ProjP.chi + bhalfSR[ff] * uqbar[ff, i].ProjM.chi)",
+      "delayed": false
+    },
+    {
+      "name": "LintPhiTildeDU",
+      "expression": "eps3[i, j, k] * phitilde[i] * (aqtildeSR[ff1, ff2] * CC[dqbar[ff1, j]].ProjP.uq[ff2, k] + bqtildeSR[ff1, ff2] * CC[dqbar[ff1, j]].ProjM.uq[ff2, k])",
+      "delayed": false
+    },
+    {
+      "name": "LintPhiTildeDChi",
+      "expression": "phitilde[i] * (ahalftildeSR[ff] * dqbar[ff, i].ProjP.chi + bhalftildeSR[ff] * dqbar[ff, i].ProjM.chi)",
+      "delayed": false
+    },
+    {
+      "name": "LintXDD",
+      "expression": "eps3[i, j, k] * X[mu, i] * (aqVR[ff1, ff2] * CC[dqbar[ff1, j]].Ga[mu].ProjP.dq[ff2, k] + bqVR[ff1, ff2] * CC[dqbar[ff1, j]].Ga[mu].ProjM.dq[ff2, k])",
+      "delayed": false
+    },
+    {
+      "name": "LintXUChi",
+      "expression": "X[mu, i] * (ahalfVR[ff] * uqbar[ff, i].Ga[mu].ProjP.chi + bhalfVR[ff] * uqbar[ff, i].Ga[mu].ProjM.chi)",
+      "delayed": false
+    },
+    {
+      "name": "LTotal",
+      "expression": "LphiKin + LchiKin + LVKin + Lphi3Kin + LphitildeKin + LXKin + LintFCNCscalar + HC[LintFCNCscalar] + LintFCNCvector + HC[LintFCNCvector] + LintPhiDD + HC[LintPhiDD] + LintPhiUChi + HC[LintPhiUChi] + LintPhiTildeDU + HC[LintPhiTildeDU] + LintPhiTildeDChi + HC[LintPhiTildeDChi] + LintXDD + HC[LintXDD] + LintXUChi + HC[LintXUChi]",
+      "delayed": false
+    }
+  ],
+  "raw_preamble": [
+    "AddGaugeRepresentation[SU3C -> {T3, Triplet}];"
+  ],
+  "raw_blocks": []
+}

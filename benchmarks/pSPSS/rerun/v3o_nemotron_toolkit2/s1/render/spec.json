@@ -1,0 +1,260 @@
+{
+  "model_name": "pSPSS_gen",
+  "info": {
+    "authors": ["Stefan Antusch", "Jan Hajer", "Johannes Rosskopp"],
+    "version": "1.0.0",
+    "date": "2026-09-25",
+    "institutions": ["Universität Basel", "Instituto Superior Técnico"],
+    "emails": ["stefan.antusch@unibas.ch", "jan.hajer@tecnico.ulisboa.pt", "johannes.rosskopp@unibas.ch"]
+  },
+  "interaction_order_hierarchy": [
+    ["QCD", 1],
+    ["QED", 2],
+    ["NP", 1]
+  ],
+  "interaction_order_limit": [],
+  "feynman_gauge": true,
+  "vevs": [
+    ["Phi[2]", "vev"],
+    ["PhiNP[2]", "vevNP"]
+  ],
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "Mmaj",
+      "parameter_type": "External",
+      "value": "100.",
+      "block_name": "PSPSS",
+      "order_block": 1,
+      "interaction_order": ["NP", 1],
+      "description": "Majorana mass parameter m_M [GeV]",
+      "tex": "M_{\\text{maj}}"
+    },
+    {
+      "name": "deltaM",
+      "parameter_type": "External",
+      "value": "1.e-12",
+      "block_name": "PSPSS",
+      "order_block": 2,
+      "interaction_order": ["NP", 1],
+      "description": "Heavy neutrino mass splitting \\Delta m [GeV]",
+      "tex": "\\Delta m"
+    },
+    {
+      "name": "theta1",
+      "parameter_type": "External",
+      "value": "0.",
+      "block_name": "PSPSS",
+      "order_block": 3,
+      "interaction_order": ["NP", 1],
+      "description": "Active-sterile mixing \\theta_e",
+      "tex": "\\theta_e"
+    },
+    {
+      "name": "theta2",
+      "parameter_type": "External",
+      "value": "1.e-3",
+      "block_name": "PSPSS",
+      "order_block": 4,
+      "interaction_order": ["NP", 1],
+      "description": "Active-sterile mixing \\theta_{\\mu}",
+      "tex": "\\theta_{\\mu}"
+    },
+    {
+      "name": "theta3",
+      "parameter_type": "External",
+      "value": "0.",
+      "block_name": "PSPSS",
+      "order_block": 5,
+      "interaction_order": ["NP", 1],
+      "description": "Active-sterile mixing \\theta_{\\tau}",
+      "tex": "\\theta_{\\tau}"
+    },
+    {
+      "name": "damping",
+      "parameter_type": "External",
+      "value": "0.",
+      "block_name": "PSPSS",
+      "order_block": 6,
+      "interaction_order": ["NP", 1],
+      "description": "Damping parameter \\lambda",
+      "tex": "\\lambda"
+    },
+    {
+      "name": "vevNP",
+      "parameter_type": "Internal",
+      "value": "vev",
+      "interaction_order": ["NP", -1],
+      "description": "NP Higgs vacuum expectation value [GeV]",
+      "tex": "v_{\\text{NP}}"
+    },
+    {
+      "name": "yvn",
+      "parameter_type": "Internal",
+      "indices": ["Generation"],
+      "complex": false,
+      "interaction_order": ["NP", 1],
+      "description": "Neutrino Yukawa coupling vector y_{\\alpha 1}",
+      "tex": "y_{\\nu}",
+      "value_rules": [
+        {"lhs": "yvn[1]", "rhs": "theta1*Mmaj/vevNP", "delayed": false},
+        {"lhs": "yvn[2]", "rhs": "theta2*Mmaj/vevNP", "delayed": false},
+        {"lhs": "yvn[3]", "rhs": "theta3*Mmaj/vevNP", "delayed": false}
+      ]
+    },
+    {
+      "name": "Mn4",
+      "parameter_type": "Internal",
+      "value": "Mmaj*(1+(theta1^2+theta2^2+theta3^2)/2)-deltaM/2",
+      "description": "Mass of heavy neutrino n4 [GeV]",
+      "tex": "m_4"
+    },
+    {
+      "name": "Mn5",
+      "parameter_type": "Internal",
+      "value": "Mmaj*(1+(theta1^2+theta2^2+theta3^2)/2)+deltaM/2",
+      "description": "Mass of heavy neutrino n5 [GeV]",
+      "tex": "m_5"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "F",
+      "class_index": 100,
+      "class_name": "N1L",
+      "self_conjugate": false,
+      "indices": [],
+      "mass": {"sym": "MN1", "value": "0."},
+      "width": {"sym": "WN1", "value": "0."},
+      "quantum_numbers": {"Q": "0"},
+      "pdg": 9900011,
+      "particle_name": "N1L",
+      "antiparticle_name": "N1Lbar",
+      "full_name": "Sterile neutrino N1 (interaction eigenstate)",
+      "propagator_label": "N1L",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 101,
+      "class_name": "N2L",
+      "self_conjugate": false,
+      "indices": [],
+      "mass": {"sym": "MN2", "value": "0."},
+      "width": {"sym": "WN2", "value": "0."},
+      "quantum_numbers": {"Q": "0"},
+      "pdg": 9900012,
+      "particle_name": "N2L",
+      "antiparticle_name": "N2Lbar",
+      "full_name": "Sterile neutrino N2 (interaction eigenstate)",
+      "propagator_label": "N2L",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 102,
+      "class_name": "n4",
+      "self_conjugate": true,
+      "indices": [],
+      "mass": {"sym": "Mn4", "value": "Internal"},
+      "width": {"sym": "Wn4", "value": "Internal"},
+      "quantum_numbers": {},
+      "pdg": 8000011,
+      "particle_name": "n4",
+      "antiparticle_name": "n4",
+      "full_name": "Heavy Majorana neutrino n4 (mass eigenstate)",
+      "propagator_label": "n4",
+      "propagator_type": "Straight",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 103,
+      "class_name": "n5",
+      "self_conjugate": true,
+      "indices": [],
+      "mass": {"sym": "Mn5", "value": "Internal"},
+      "width": {"sym": "Wn5", "value": "Internal"},
+      "quantum_numbers": {},
+      "pdg": 8000012,
+      "particle_name": "n5",
+      "antiparticle_name": "n5",
+      "full_name": "Heavy Majorana neutrino n5 (mass eigenstate)",
+      "propagator_label": "n5",
+      "propagator_type": "Straight",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 104,
+      "class_name": "PhiNP",
+      "unphysical": true,
+      "self_conjugate": false,
+      "indices": ["SU2D"],
+      "flavor_index": "SU2D",
+      "quantum_numbers": {"Y": "1/2"},
+      "definitions": [
+        "PhiNP[1] -> -I GP",
+        "PhiNP[2] -> (vevNP + H + I G0)/Sqrt[2]"
+      ]
+    }
+  ],
+  "gauge_xi": [],
+  "lagrangian_terms": [
+    {
+      "name": "LKinN1L",
+      "expression": "I N1Lbar.Ga[mu].del[N1L, mu]",
+      "delayed": true
+    },
+    {
+      "name": "LKinN2L",
+      "expression": "I N2Lbar.Ga[mu].del[N2L, mu]",
+      "delayed": true
+    },
+    {
+      "name": "LKinN4",
+      "expression": "I/2 n4bar.Ga[mu].del[n4, mu]",
+      "delayed": true
+    },
+    {
+      "name": "LKinN5",
+      "expression": "I/2 n5bar.Ga[mu].del[n5, mu]",
+      "delayed": true
+    },
+    {
+      "name": "LMassN1N2",
+      "expression": "- Mmaj CC[N1Lbar[sp1]].N2L[sp1]",
+      "delayed": true
+    },
+    {
+      "name": "LMassN4",
+      "expression": "-1/2 Mn4 n4bar.n4",
+      "delayed": true
+    },
+    {
+      "name": "LMassN5",
+      "expression": "-1/2 Mn5 n5bar.n5",
+      "delayed": true
+    },
+    {
+      "name": "LYukN1",
+      "expression": "yvn[ff1] CC[N1Lbar[sp1]].LL[sp1, ii, ff1] PhiNPbar[jj] Eps[ii, jj]",
+      "delayed": true
+    },
+    {
+      "name": "LYukN1HC",
+      "expression": "HC[yvn[ff1] CC[N1Lbar[sp1]].LL[sp1, ii, ff1] PhiNPbar[jj] Eps[ii, jj]]",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "LKinN1L + LKinN2L + LKinN4 + LKinN5 + LMassN1N2 + LMassN4 + LMassN5 + LYukN1 + LYukN1HC",
+      "delayed": true
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}

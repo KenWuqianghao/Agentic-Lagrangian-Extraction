@@ -1,0 +1,302 @@
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+M$ModelName = "B-L-SM_gen";
+
+M$Information = {
+  Authors      -> {"S. Amrith", "J. M. Butterworth", "F. F. Deppisch", "W. Liu", "A. Varma", "D. Yallup"},
+  Version      -> "1.0",
+  Date         -> "24.09.2026",
+  Institutions -> {"UCL"},
+  Emails       -> {"shyam.amrith.14@ucl.ac.uk", "j.butterworth@ucl.ac.uk", "f.deppisch@ucl.ac.uk", "wei.liu.16@ucl.ac.uk", "abhinav.varma.17@ucl.ac.uk", "david.yallup.15@ucl.ac.uk"},
+  URLs         -> "https://arxiv.org/abs/1811.11452",
+  References   -> {"arXiv:1811.11452"}
+};
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ************************** *)
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP,  1}
+};
+
+(* ************************** *)
+(* *****  Gauge groups  ***** *)
+(* ************************** *)
+(* New U(1)_{B-L} gauge group added on top of SM.fr *)
+M$GaugeGroups = {
+  U1BL == { 
+    Abelian          -> True,  
+    CouplingConstant -> g1p, 
+    GaugeBoson       -> Zp, 
+    Charge           -> BL
+  }
+};
+
+(* ************************** *)
+(* *****    Indices     ***** *)
+(* ************************** *)
+(* All indices (Colour, Gluon, Generation, SU2D, SU2W) are declared in SM.fr.
+   No new indices needed for B-L model (no colour sextets, etc.) *)
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+M$Parameters = {
+
+  (* External parameters - new physics *)
+  
+  g1p == { 
+    ParameterType    -> External, 
+    BlockName        -> BLINPUTS, 
+    OrderBlock       -> 1, 
+    Value            -> 0.2, 
+    InteractionOrder -> {NP, 1}, 
+    TeX              -> Subscript[g, BL], 
+    Description      -> "U(1)_{B-L} gauge coupling"
+  },
+  
+  MZp == { 
+    ParameterType    -> External, 
+    BlockName        -> BLINPUTS, 
+    OrderBlock       -> 2, 
+    Value            -> 7000., 
+    InteractionOrder -> {NP, 1}, 
+    TeX              -> Subscript[M, Zp], 
+    Description      -> "Z' boson mass [GeV]"
+  },
+  
+  MH2 == { 
+    ParameterType    -> External, 
+    BlockName        -> BLINPUTS, 
+    OrderBlock       -> 3, 
+    Value            -> 200., 
+    InteractionOrder -> {NP, 1}, 
+    TeX              -> Subscript[M, h2], 
+    Description      -> "Second Higgs mass eigenstate mass [GeV]"
+  },
+  
+  SA == { 
+    ParameterType    -> External, 
+    BlockName        -> BLINPUTS, 
+    OrderBlock       -> 4, 
+    Value            -> 0.2, 
+    InteractionOrder -> {NP, 1}, 
+    TeX              -> Sin[\[Alpha]], 
+    Description      -> "Sine of the Higgs mixing angle alpha"
+  },
+  
+  MNR == { 
+    ParameterType    -> External, 
+    BlockName        -> BLINPUTS, 
+    OrderBlock       -> 5, 
+    Indices          -> {Index[Generation]}, 
+    Value            -> {1400., 1400., 1400.}, 
+    InteractionOrder -> {NP, 1}, 
+    TeX              -> Subscript[M, N], 
+    Description      -> "Heavy (right-handed) neutrino masses [GeV]"
+  },
+  
+  Vln == { 
+    ParameterType    -> External, 
+    BlockName        -> BLINPUTS, 
+    OrderBlock       -> 6, 
+    Indices          -> {Index[Generation]}, 
+    Value            -> {1.e-6, 1.e-6, 1.e-6}, 
+    InteractionOrder -> {NP, 1}, 
+    TeX              -> V_{lN}, 
+    Description      -> "Active-sterile neutrino mixing V_{lN} = sin(theta_nu)"
+  },
+
+  (* Internal parameters - derived from external ones *)
+  
+  x == { 
+    ParameterType -> Internal, 
+    Value         -> MZp/(2*g1p), 
+    TeX           -> x, 
+    Description   -> "B-L breaking VEV = <chi> = MZp/(2*g1p) [GeV]"
+  },
+  
+  CA == { 
+    ParameterType -> Internal, 
+    Value         -> Sqrt[1 - SA^2], 
+    TeX           -> Cos[\[Alpha]], 
+    Description   -> "Cosine of the Higgs mixing angle alpha"
+  },
+  
+  lambda1 == { 
+    ParameterType -> Internal, 
+    Value         -> (1/(4*vev^2))*((MH^2 + MH2^2) - CA*(MH2^2 - MH^2)), 
+    TeX           -> \[Lambda]_1, 
+    Description   -> "Quartic coupling lambda1 from Eq. (2.11)"
+  },
+  
+  lambda2 == { 
+    ParameterType -> Internal, 
+    Value         -> (1/(4*x^2))*((MH^2 + MH2^2) + CA*(MH2^2 - MH^2)), 
+    TeX           -> \[Lambda]_2, 
+    Description   -> "Quartic coupling lambda2 from Eq. (2.11)"
+  },
+  
+  lambda3 == { 
+    ParameterType -> Internal, 
+    Value         -> (1/(2*vev*x))*(2*SA*CA*(MH2^2 - MH^2)), 
+    TeX           -> \[Lambda]_3, 
+    Description   -> "Quartic coupling lambda3 from Eq. (2.11)"
+  },
+  
+  muChi == { 
+    ParameterType -> Internal, 
+    Value         -> Sqrt[2*lambda2]*x, 
+    TeX           -> \[Mu]_\chi, 
+    Description   -> "Chi quadratic coefficient from potential"
+  },
+
+  (* Yukawa couplings for neutrinos - derived from seesaw *)
+  (* y_nu = sqrt(2) * M_D / v, with M_D = V_lN * M_N (Type-I seesaw) *)
+  ynu == { 
+    ParameterType    -> Internal, 
+    Indices          -> {Index[Generation], Index[Generation]}, 
+    Definitions      -> {ynu[i_?NumericQ, j_?NumericQ] :> 0 /; (i =!= j)}, 
+    Value            -> {ynu[1,1] -> Sqrt[2]*Vln[1]*MNR[1]/vev, 
+                         ynu[2,2] -> Sqrt[2]*Vln[2]*MNR[2]/vev, 
+                         ynu[3,3] -> Sqrt[2]*Vln[3]*MNR[3]/vev}, 
+    InteractionOrder -> {NP, 1}, 
+    TeX              -> y^\nu, 
+    Description      -> "Dirac neutrino Yukawa couplings from seesaw"
+  },
+  
+  yM == { 
+    ParameterType    -> Internal, 
+    Indices          -> {Index[Generation], Index[Generation]}, 
+    Definitions      -> {yM[i_?NumericQ, j_?NumericQ] :> 0 /; (i =!= j)}, 
+    Value            -> {yM[1,1] -> MNR[1]/(Sqrt[2]*x), 
+                         yM[2,2] -> MNR[2]/(Sqrt[2]*x), 
+                         yM[3,3] -> MNR[3]/(Sqrt[2]*x)}, 
+    InteractionOrder -> {NP, 1}, 
+    TeX              -> y^M, 
+    Description      -> "Majorana Yukawa couplings: M_N = sqrt(2) y^M x"
+  }
+};
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+M$ClassesDescription = {
+
+  (* Physical vector boson: Z' *)
+  V[100] == { 
+    ClassName       -> Zp, 
+    SelfConjugate   -> True,  
+    Mass            -> {MZp, 7000.},  
+    Width           -> {WZp, 0.},  
+    ParticleName    -> "Zp", 
+    PDG             -> 32, 
+    PropagatorLabel -> "Zp", 
+    PropagatorType  -> Sine, 
+    PropagatorArrow -> None, 
+    FullName        -> "Zprime"
+  },
+
+  (* Physical scalar: h2 (second Higgs mass eigenstate) *)
+  S[100] == { 
+    ClassName       -> h2, 
+    SelfConjugate   -> True, 
+    Mass            -> {MH2, 200.}, 
+    Width           -> {Wh2, 0.}, 
+    PropagatorLabel -> "h2", 
+    PropagatorType  -> D, 
+    PropagatorArrow -> None, 
+    PDG             -> 35, 
+    ParticleName    -> "h2", 
+    FullName        -> "Heavy Higgs"
+  },
+
+  (* Majorana right-handed neutrinos: 3 generations *)
+  F[100] == { 
+    ClassName        -> NR, 
+    ClassMembers     -> {N1, N2, N3}, 
+    Indices          -> {Index[Generation]}, 
+    FlavorIndex      -> Generation, 
+    SelfConjugate    -> True, 
+    Mass             -> {MNR, {1400., 1400., 1400.}}, 
+    Width            -> {WNR, {0., 0., 0.}}, 
+    QuantumNumbers   -> {BL -> -1}, 
+    PropagatorLabel  -> {"N", "N1", "N2", "N3"}, 
+    PropagatorType   -> Straight, 
+    PropagatorArrow  -> Forward, 
+    PDG              -> {9990012, 9990014, 9990016}, 
+    ParticleName     -> {"N1", "N2", "N3"}, 
+    AntiParticleName -> {"N1", "N2", "N3"}, 
+    FullName         -> {"Heavy neutrino 1", "Heavy neutrino 2", "Heavy neutrino 3"}
+  },
+
+  (* Unphysical scalar: Chi (complex singlet, BL=2) *)
+  S[101] == { 
+    ClassName      -> Chi, 
+    Unphysical     -> True, 
+    SelfConjugate  -> False, 
+    QuantumNumbers -> {BL -> 2}, 
+    Definitions    -> { Chi -> (x + h2 + I*GpBL)/Sqrt[2] } 
+  },
+
+  (* Unphysical scalar: Goldstone for Z' *)
+  S[102] == { 
+    ClassName      -> GpBL, 
+    Unphysical     -> True, 
+    SelfConjugate  -> True, 
+    Goldstone      -> Zp, 
+    Mass           -> {MZp, Internal}, 
+    Width          -> {WZp, Internal}, 
+    QuantumNumbers -> {BL -> 0} 
+  }
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+(* Z' kinetic term *)
+LZpKin := Block[{mu, nu}, 
+  ExpandIndices[-1/4 FS[Zp, mu, nu] FS[Zp, mu, nu]]];
+
+(* Z' mass term is generated by the Higgs mechanism via Chi VEV *)
+
+(* Chi kinetic term with B-L covariant derivative *)
+LChiKin := Block[{mu, ii}, 
+  ExpandIndices[DC[Chibar[ii], mu] DC[Chi[ii], mu]]];
+
+(* Chi scalar potential from Eq. (2.7) *)
+(* V = m^2 H^dagger H + mu^2 |chi|^2 + lambda1 (H^dagger H)^2 + lambda2 |chi|^4 + lambda3 H^dagger H |chi|^2 *)
+(* After EWSB and B-L breaking, m^2 = -lambda1 v^2 - lambda3/2 x^2, mu^2 = -lambda2 x^2 - lambda3/2 v^2 *)
+LChiPot := Block[{ii, jj}, 
+  ExpandIndices[
+    -(-lambda1*vev^2 - lambda3/2*x^2) Phibar[ii] Phi[ii] 
+    - (-lambda2*x^2 - lambda3/2*vev^2) Chibar[ii] Chi[ii] 
+    - lambda1 Phibar[ii] Phi[ii] Phibar[jj] Phi[jj] 
+    - lambda2 Chibar[ii] Chi[ii] Chibar[jj] Chi[jj] 
+    - lambda3 Phibar[ii] Phi[ii] Chibar[jj] Chi[jj], 
+    FlavorExpand -> {SU2D}]];
+
+(* Right-handed neutrino kinetic term *)
+LNRKin := Block[{mu}, 
+  ExpandIndices[I*NRbar.Ga[mu].DC[NR, mu]]];
+
+(* Dirac neutrino Yukawa: -y_nu_ij Lbar_i NR_j Htilde + h.c. *)
+(* Htilde = i sigma2 H* = -i tau2 H^dagger. In SM.fr: Phibar with Eps contraction *)
+LNuYuk := Block[{sp, ii, jj, ff1, ff2}, 
+  ExpandIndices[
+    -ynu[ff1, ff2] LLbar[sp, ii, ff1].NR[ff2] Phibar[jj] Eps[ii, jj], 
+    FlavorExpand -> {SU2D, Generation}]];
+
+(* Majorana neutrino Yukawa: -yM_ij NRbar^c NR_j chi + h.c. *)
+(* NRbar^c = CC[NR] = NR^T C. In FeynRules: CC[NR] *)
+LNuMYuk := Block[{ff1, ff2}, 
+  ExpandIndices[
+    -yM[ff1, ff2] CC[NR[ff1]].NR[ff2] Chi, 
+    FlavorExpand -> Generation]];
+
+(* Total new physics Lagrangian *)
+LTotal := LZpKin + LChiKin + LChiPot + LNRKin + LNuYuk + HC[LNuYuk] + LNuMYuk + HC[LNuMYuk];

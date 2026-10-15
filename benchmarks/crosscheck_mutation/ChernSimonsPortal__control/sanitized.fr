@@ -1,0 +1,80 @@
+
+
+
+M$ModelName = "ANON-MODEL";
+
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP,  1}
+};
+
+
+M$Parameters = {
+
+  
+  c1 == {
+    ParameterType    -> External,
+    BlockName        -> NPCOUPLINGS,
+    OrderBlock       -> 1,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[c,1],
+    Description      -> ""
+  },
+  c2 == {
+    ParameterType    -> External,
+    BlockName        -> NPCOUPLINGS,
+    OrderBlock       -> 2,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[c,2],
+    Description      -> ""
+  },
+
+  
+  WX == {
+    ParameterType -> Internal,
+    Value         -> (c1^2 sw2 MX^3)/(192 Pi MZ^2) (1 - 4 MZ^2/MX^2)^(5/2)
+                     + (c2^2 MX^3)/(48 Pi MW^2) (1 - 4 MW^2/MX^2)^(5/2)
+                     + (c1^2 cw^2 MX^3)/(96 Pi MZ^2) (1 - MZ^2/MX^2)^3 (1 + MZ^2/MX^2),
+    Description   -> ""
+  }
+};
+
+
+M$ClassesDescription = {
+
+  
+  
+  V[101] == {
+    ClassName       -> X,
+    SelfConjugate   -> True,
+    Mass            -> {MX, 1000.},
+    Width           -> {WX, Internal},
+    ParticleName    -> "X",
+    PDG             -> 5000023,
+    PropagatorLabel -> "X",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> ""
+  }
+
+};
+
+
+LXkin := Block[{mu,nu}, -1/4 FS[X,mu,nu] FS[X,mu,nu] + 1/2 MX^2 X[mu] X[mu]];
+
+
+LPortalNeutral := Block[{mu,nu,la,rho},
+  -c1 sw Eps[mu,nu,la,rho] Z[mu] X[nu] del[Z[rho],la]
+  +c1 cw Eps[mu,nu,la,rho] Z[mu] X[nu] del[A[rho],la]
+];
+
+
+LPortalCharged := Block[{mu,nu,la,rho},
+  c2 Eps[mu,nu,la,rho] W[mu] X[nu] del[Wbar[rho],la]
+];
+
+LTotal := LSM + LXkin + LPortalNeutral + LPortalCharged + HC[LPortalCharged];

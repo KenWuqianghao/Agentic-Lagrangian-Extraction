@@ -1,0 +1,474 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: SLQrules (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:2105.04844.\n4: PAPER: the paper's LaTeX so"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "wc -l paper/2105.04844_source.tex SM.fr"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"bash\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"bash\",\"pattern\":\"./frgen *\",\"action\":\"allow\"},{\"permission\":\"bash\",\"pattern\":\"./frgen\",\"action\":\"allow\"}]"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1: \n2: \n3: \n4: \n5: \n6: \n7: \n8: \n9: \n10: \n11: \n12: \\documentclass[preprint,12pt]{elsarticle}\n13: \n14: \n15: \n16: \n17: \n18: \n19: \n20: \n21: \n22: \n23: \n24: \n25: \n26: \n27: \n28: \n29: \n30: \n31: \n32: \n33: \n34: \n35: \n36: \\usepackage{mathbbol}\n37: \\usepackage{amss"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                               "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "offset": 1049,
+   "limit": 800
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1049:     3 \\otimes 3 \\otimes 3 &= 1 \\oplus 8 \\oplus 8 \\oplus 10 \\\\\n1050:     \\overline{3} \\otimes \\overline{3} \\otimes \\overline{3} &= 1 \\oplus 8 \\oplus 8 \\oplus \\overline{10}\n1051:     \\end{aligned}\n1052: \\end{align}\n1053: \n1054: \n1055: are the only t"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 800,
+   "offset": 1849
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1849:         \\hline\n1850:     \\end{tabular}\n1851: \\end{table}\n1852: \\end{center}\n1853: \n1854: \\clearpage\n1855: \\subsection{SM Gauge Bosons}\n1856: The Feynman rules for SM gauge boson self-interactions as well as the SM gauge boson interactions with gho"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 800,
+   "offset": 2649
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n2649: \n2650: \n2651: \n2652: \n2653: \n2654: \n2655: \n2656: \n2657: \n2658: \n2659: \n2660: \n2661: \\clearpage\n2662: \\subsection{Interactions with SM Fermions}\n2663: \\label{sec:LQfermions}\n2664: The Feynman rules for LQ interactions with the SM fermions are given"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: SLQrules (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:2105.04844.\n4: PAPER: the paper's LaTeX so"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 800,
+   "offset": 3449
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n3449:         $+ \\ i \\dfrac{e}{s_w c_w} \\left(q^\\mu - p^\\mu \\right) \n3450:         \\hat{\\mathbbm{Z}}^{-4/3}\n3451:        _{n_an_b}$\\\\\n3452:         \n3453:         \\hline\n3454:     \\end{tabular}\n3455: \\end{table}\n3456: \\end{center}\n3457:     \n3458:      "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 800,
+   "offset": 1
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1: \n2: \n3: \n4: \n5: \n6: \n7: \n8: \n9: \n10: \n11: \n12: \\documentclass[preprint,12pt]{elsarticle}\n13: \n14: \n15: \n16: \n17: \n18: \n19: \n20: \n21: \n22: \n23: \n24: \n25: \n26: \n27: \n28: \n29: \n30: \n31: \n32: \n33: \n34: \n35: \n36: \\usepackage{mathbbol}\n37: \\usepackage{amss"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 800,
+   "offset": 801
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n801:     \\end{aligned}\n802: \\end{equation}\n803: \n804: \n805: and\n806: \n807: \n808: \\begin{align}\n809: \t\\begin{aligned}\n810: \t\t\\hat{\\mathbb{\\Gamma}}^q &= W^q \\mathbb{\\Gamma}^q \\left(W^{q}\\right)^\\dagger \\text{ for } q \\in Q \\,, \\\\\n811: \t\t\\hat{\\mathbb{\\Lamb"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 400,
+   "offset": 1601
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1601:         \n1602:     \n1603:         \n1604:         \n1605:         \\vspace{10 px}\n1606:         \\includegraphics[scale=0.03]{4-2-8.png}&\n1607:         \n1608:         \\vspace{10 px}\n1609:                 $\\dfrac{-i g^{\\mu \\nu} }{k^2 + i\\epsilon}$ \\new"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/SM.fr",
+   "limit": 800,
+   "offset": 1
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                               "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/SM.fr",
+   "limit": 800,
+   "offset": 801
+  },
+  "status": "error",
+  "output": "Offset 801 is out of range for this file (740 lines)"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/SM.fr",
+   "limit": 800,
+   "offset": 1601
+  },
+  "status": "error",
+  "output": "Offset 1601 is out of range for this file (740 lines)"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 800,
+   "offset": 4249
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n4249:                     -Y_{13}^{*} & 0 & Y_3\n4250:                 \\end{pmatrix}\n4251:                 W^{-1/3\\dagger}\n4252:                 \\right)_{n_an_b}}$ \\newline \\\\\n4253:         \\hline\n4254:     \\end{tabular}\n4255: \\end{table}\n4256: \\end{cent"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 800,
+   "offset": 5049
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n5049:         Diagram  & Feynman Rule \\\\\n5050:         \\hline\n5051:     \n5052:         \n5053:         \\vspace{5px}\n5054:         \\includegraphics[height=3.5cm]{5-7-8.png}&\n5055:         \n5056:         \\vspace{5 px}\n5057:         $+\\ \\frac{1}{\\sqrt{2}} Y"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 900,
+   "offset": 5849
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n5849:          $\\ W^{-4/3*}_{n_a2}\n5850:          \\ W^{-1/3}_{n_b3} \\ W^{+2/3}_{n_c1} $ \\newline\n5851:         \n5852:          $+\\sqrt{2}i \\left(Y_{1223} \\ \\delta_{c_1 c_4} \\delta_{c_2 c_3} + Y^\\prime_{1223} \\ \\delta_{c_1 c_2} \\delta_{c_3 c_4} \\right)  "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: SLQrules (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:2105.04844.\n4: PAPER: the paper's LaTeX so"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "offset": 800,
+   "limit": 250
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n800:         &\\mathbb{\\Lambda}^{+5/3} &= -\\phantom{v}\\Big(Y_2 + Y_{22}\\Big)\\,, \\\\\n801:     \\end{aligned}\n802: \\end{equation}\n803: \n804: \n805: and\n806: \n807: \n808: \\begin{align}\n809: \t\\begin{aligned}\n810: \t\t\\hat{\\mathbb{\\Gamma}}^q &= W^q \\mathbb{\\Gamma}^"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "offset": 1049,
+   "limit": 250
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1049:     3 \\otimes 3 \\otimes 3 &= 1 \\oplus 8 \\oplus 8 \\oplus 10 \\\\\n1050:     \\overline{3} \\otimes \\overline{3} \\otimes \\overline{3} &= 1 \\oplus 8 \\oplus 8 \\oplus \\overline{10}\n1051:     \\end{aligned}\n1052: \\end{align}\n1053: \n1054: \n1055: are the only t"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "offset": 1299,
+   "limit": 250
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1299: \\item the parameter definitions,\n1300: \\item the definition of the LQ fields and \n1301: \\item the LQ Lagrangian. \n1302: \\end{enumerate}\n1303: \n1304: \n1305: To exemplify (i), a generic parameter definition is shown in Listing \\ref{lst:parameter}. T"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "offset": 1549,
+   "limit": 300
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1549:         \\vspace{10 px}\n1550:         \\includegraphics[scale=0.03]{4-2-3.png}&\n1551:         \n1552:         \\vspace{10 px}\n1553:         $\\dfrac{i \\left(\\slashed{p} + m_{u_i} \\right)}{p^2 - m^2_{u_i} +i\\epsilon}$ \\newline \\\\\n1554:         \n1555:   "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "offset": 5849,
+   "limit": 300
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n5849:          $\\ W^{-4/3*}_{n_a2}\n5850:          \\ W^{-1/3}_{n_b3} \\ W^{+2/3}_{n_c1} $ \\newline\n5851:         \n5852:          $+\\sqrt{2}i \\left(Y_{1223} \\ \\delta_{c_1 c_4} \\delta_{c_2 c_3} + Y^\\prime_{1223} \\ \\delta_{c_1 c_2} \\delta_{c_3 c_4} \\right)  "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "offset": 6149,
+   "limit": 300
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n6149:          \\caption{}\n6150:          \\label{fig:Example1a}\n6151:      \\end{subfigure}\n6152:      \\hfill\n6153:      \\begin{subfigure}[b]{0.3\\textwidth}\n6154:          \\centering\n6155:          \\includegraphics[width=\\textwidth]{Example2.png}\n6156:   "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "offset": 6449,
+   "limit": 300
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n6449:     \\centering\\begin{tabular}{>{\\centering\\arraybackslash}m{4cm} m{9cm}} \n6450:     \n6451:     \\multicolumn{2}{c}{Interactions with Gluons} \\\\\n6452:     \\hline\n6453:         Diagrams & Feynman Rules \\\\\n6454:         \\hline\n6455:     \n6456:        "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 450,
+   "offset": 1
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1: \n2: \n3: \n4: \n5: \n6: \n7: \n8: \n9: \n10: \n11: \n12: \\documentclass[preprint,12pt]{elsarticle}\n13: \n14: \n15: \n16: \n17: \n18: \n19: \n20: \n21: \n22: \n23: \n24: \n25: \n26: \n27: \n28: \n29: \n30: \n31: \n32: \n33: \n34: \n35: \n36: \\usepackage{mathbbol}\n37: \\usepackage{amss"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 350,
+   "offset": 451
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n451: \\end{aligned}\n452: \\label{eq:fermionRotation}\n453: \\end{equation}\n454: \n455: \n456: where $U^{uL}, U^{uR}, U^{dL}, U^{dR}$, $U^{\\ell L}, U^{\\ell R}$ are unitary matrices, $u^\\prime, d^\\prime, \\ell^\\prime$ the weak eigenstates and $u, d, \\ell$ the ma"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                               "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 250,
+   "offset": 2649
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n2649: \n2650: \n2651: \n2652: \n2653: \n2654: \n2655: \n2656: \n2657: \n2658: \n2659: \n2660: \n2661: \\clearpage\n2662: \\subsection{Interactions with SM Fermions}\n2663: \\label{sec:LQfermions}\n2664: The Feynman rules for LQ interactions with the SM fermions are given"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 250,
+   "offset": 5049
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n5049:         Diagram  & Feynman Rule \\\\\n5050:         \\hline\n5051:     \n5052:         \n5053:         \\vspace{5px}\n5054:         \\includegraphics[height=3.5cm]{5-7-8.png}&\n5055:         \n5056:         \\vspace{5 px}\n5057:         $+\\ \\frac{1}{\\sqrt{2}} Y"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 250,
+   "offset": 4249
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n4249:                     -Y_{13}^{*} & 0 & Y_3\n4250:                 \\end{pmatrix}\n4251:                 W^{-1/3\\dagger}\n4252:                 \\right)_{n_an_b}}$ \\newline \\\\\n4253:         \\hline\n4254:     \\end{tabular}\n4255: \\end{table}\n4256: \\end{cent"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 250,
+   "offset": 3449
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n3449:         $+ \\ i \\dfrac{e}{s_w c_w} \\left(q^\\mu - p^\\mu \\right) \n3450:         \\hat{\\mathbbm{Z}}^{-4/3}\n3451:        _{n_an_b}$\\\\\n3452:         \n3453:         \\hline\n3454:     \\end{tabular}\n3455: \\end{table}\n3456: \\end{center}\n3457:     \n3458:      "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "limit": 250,
+   "offset": 1849
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1849:         \\hline\n1850:     \\end{tabular}\n1851: \\end{table}\n1852: \\end{center}\n1853: \n1854: \\clearpage\n1855: \\subsection{SM Gauge Bosons}\n1856: The Feynman rules for SM gauge boson self-interactions as well as the SM gauge boson interactions with gho"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/model.fr",
+   "content": "(*****************************************************************************************)\n(*****   SLQrules_gen: scalar leptoquark add-on on top of SM.fr (arXiv:2105.04844)  *****)\n(*****************************************************************************************)\n\nM$ModelName = \"SLQrules_gen\";\n\nM$Information = {\n  Authors      -> {\"SLQrules extraction\"},\n  Version      -> \"1.0\",\n  Date         -> \"24. 09. 2026\",\n  Institutions -> {\"extracted from arXiv:2105.04844\"},\n  Emails       -> {\"n/a\"},\n  URLs         -> \"https://arxiv.org/abs/2105.04844\"\n};\n\nM$InteractionOrderHierarchy = {\n  {QCD, 1},\n  {QED, 2},\n  {NP, 1}\n};\n\n(******************************)\n(*****   Parameters   ********)\n(******************************)\nM$Parameters = {\n\n  (* ----- LQ masses (GeV) ----- *)\n  mSphi1 == {\n    ParameterType -> External,\n    Value         -> 1500.,\n    Description   -> \"Mass of Phi1 (S1), GeV\"\n  },\n  mSphit1 == {\n    ParameterType -> External,\n    Value         -> 1500.,\n    Description   -> \"Mass of Phi_tilde1, GeV\"\n  },\n  mSphi2 == {\n    ParameterType -> External,\n    Value         -> 1500.,\n    Description   -> \"Mass of Phi2 (doublet), GeV\"\n  },\n  mSphit2 == {\n    ParameterType -> External,\n    Value         -> 1500.,\n    Description   -> \"Mass of Phi_tilde2 (doublet), GeV\"\n  },\n  mSphi3 == {\n    ParameterType -> External,\n    Value         -> 1500.,\n    Description   -> \"Mass of Phi3 (triplet), GeV\"\n  },\n\n  (* ----- Dimension-1 mixing couplings A ----- *)\n  A1t2 == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Value            -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"A_{1 t2}: Phi1-Phi_tilde2-H mixing, mass dimension 1\"\n  },\n  At23 == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Value            -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"A_{t23}: Phi_tilde2-Phi3-H mixing, mass dimension 1\"\n  },\n  A1t2t2 == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Value            -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"A_{1 t2 t2}: triple LQ coupling, mass dimension 1\"\n  },\n  At12t2 == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Value            -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"A_{t1 2 t2}: triple LQ coupling, mass dimension 1\"\n  },\n\n  (* ----- Dimensionless couplings from L_2Phi ----- *)\n  Y1 == {\n    ParameterType -> External,\n    Value         -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description   -> \"Y1 soft |Phi1|^2 H^dag H\"\n  },\n  Yt1 == {\n    ParameterType -> External,\n    Value         -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description   -> \"Y_tilde1 soft |Phi_tilde1|^2 H^dag H\"\n  },\n  Y2 == {\n    ParameterType -> External,\n    Value         -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description   -> \"Y2 soft |Phi2|^2 H^dag H\"\n  },\n  Yt2 == {\n    ParameterType -> External,\n    Value         -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description   -> \"Y_tilde2 soft |Phi_tilde2|^2 H^dag H\"\n  },\n  Y3 == {\n    ParameterType -> External,\n    Value         -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description   -> \"Y3 soft |Phi3|^2 H^dag H\"\n  },\n  Y22 == {\n    ParameterType -> External,\n    Value         -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description   -> \"Y22 portal (H^T i sigma2 Phi2)^dag (H^T i sigma2 Phi2)\"\n  },\n  Yt2t2 == {\n    ParameterType -> External,\n    Value         -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description   -> \"Y_t2t2 portal for Phi_tilde2\"\n  },\n  Y33 == {\n    ParameterType -> External,\n    Value         -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description   -> \"Y33 epsilon (H^dag sigma H) Phi3^dag Phi3 portal\"\n  },\n  Y2t2 == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Value            -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y_{2 t2}: Phi2-Phi_tilde2-Higgs-Higgs mixing\"\n  },\n  Yt13 == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Value            -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y_{t13}: Phi_tilde1-Phi3-Higgs-Higgs mixing\"\n  },\n  Y13 == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Value            -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y_{13}: Phi1-Phi3-Higgs-Higgs mixing\"\n  },\n\n  (* ----- Yukawa matrices LQ-quark-lepton / LQ-quark-quark ----- *)\n  YL1LL == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Indices          -> {Index[Generation], Index[Generation]},\n    Value            -> {\n      YL1LL[1,1] -> 1.0, YL1LL[1,2] -> 1.0, YL1LL[1,3] -> 1.0,\n      YL1LL[2,1] -> 1.0, YL1LL[2,2] -> 1.0, YL1LL[2,3] -> 1.0,\n      YL1LL[3,1] -> 1.0, YL1LL[3,2] -> 1.0, YL1LL[3,3] -> 1.0\n    },\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y1^{LL} Yukawa matrix (Phi1 Q^c L)\"\n  },\n  YL1RR == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Indices          -> {Index[Generation], Index[Generation]},\n    Value            -> {\n      YL1RR[1,1] -> 1.0, YL1RR[1,2] -> 1.0, YL1RR[1,3] -> 1.0,\n      YL1RR[2,1] -> 1.0, YL1RR[2,2] -> 1.0, YL1RR[2,3] -> 1.0,\n      YL1RR[3,1] -> 1.0, YL1RR[3,2] -> 1.0, YL1RR[3,3] -> 1.0\n    },\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y1^{RR} Yukawa matrix (Phi1 u^c l)\"\n  },\n  YL1QLL == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Indices          -> {Index[Generation], Index[Generation]},\n    Value            -> {\n      YL1QLL[1,1] -> 1.0, YL1QLL[1,2] -> 1.0, YL1QLL[1,3] -> 1.0,\n      YL1QLL[2,1] -> 1.0, YL1QLL[2,2] -> 1.0, YL1QLL[2,3] -> 1.0,\n      YL1QLL[3,1] -> 1.0, YL1QLL[3,2] -> 1.0, YL1QLL[3,3] -> 1.0\n    },\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y1^{Q,LL} symmetric in flavour (Phi1 Q^c Q)\"\n  },\n  YL1QRR == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Indices          -> {Index[Generation], Index[Generation]},\n    Value            -> {\n      YL1QRR[1,1] -> 1.0, YL1QRR[1,2] -> 1.0, YL1QRR[1,3] -> 1.0,\n      YL1QRR[2,1] -> 1.0, YL1QRR[2,2] -> 1.0, YL1QRR[2,3] -> 1.0,\n      YL1QRR[3,1] -> 1.0, YL1QRR[3,2] -> 1.0, YL1QRR[3,3] -> 1.0\n    },\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y1^{Q,RR} (Phi1 u^c d)\"\n  },\n  YLt1RR == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Indices          -> {Index[Generation], Index[Generation]},\n    Value            -> {\n      YLt1RR[1,1] -> 1.0, YLt1RR[1,2] -> 1.0, YLt1RR[1,3] -> 1.0,\n      YLt1RR[2,1] -> 1.0, YLt1RR[2,2] -> 1.0, YLt1RR[2,3] -> 1.0,\n      YLt1RR[3,1] -> 1.0, YLt1RR[3,2] -> 1.0, YLt1RR[3,3] -> 1.0\n    },\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y_tilde1^{RR} (Phi_tilde1 d^c l)\"\n  },\n  YLt1QRR == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Indices          -> {Index[Generation], Index[Generation]},\n    Value            -> {\n      YLt1QRR[1,1] -> 0.0,  YLt1QRR[1,2] -> 1.0,  YLt1QRR[1,3] -> 1.0,\n      YLt1QRR[2,1] -> -1.0, YLt1QRR[2,2] -> 0.0,  YLt1QRR[2,3] -> 1.0,\n      YLt1QRR[3,1] -> -1.0, YLt1QRR[3,2] -> -1.0, YLt1QRR[3,3] -> 0.0\n    },\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y_tilde1^{Q,RR} antisymmetric (Phi_tilde1 u^c u)\"\n  },\n  YL2RL == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Indices          -> {Index[Generation], Index[Generation]},\n    Value            -> {\n      YL2RL[1,1] -> 1.0, YL2RL[1,2] -> 1.0, YL2RL[1,3] -> 1.0,\n      YL2RL[2,1] -> 1.0, YL2RL[2,2] -> 1.0, YL2RL[2,3] -> 1.0,\n      YL2RL[3,1] -> 1.0, YL2RL[3,2] -> 1.0, YL2RL[3,3] -> 1.0\n    },\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y2^{RL} (Phi2^T ubar i sigma2 L)\"\n  },\n  YL2LR == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Indices          -> {Index[Generation], Index[Generation]},\n    Value            -> {\n      YL2LR[1,1] -> 1.0, YL2LR[1,2] -> 1.0, YL2LR[1,3] -> 1.0,\n      YL2LR[2,1] -> 1.0, YL2LR[2,2] -> 1.0, YL2LR[2,3] -> 1.0,\n      YL2LR[3,1] -> 1.0, YL2LR[3,2] -> 1.0, YL2LR[3,3] -> 1.0\n    },\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y2^{LR} (Qbar^T l Phi2)\"\n  },\n  YLt2RL == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Indices          -> {Index[Generation], Index[Generation]},\n    Value            -> {\n      YLt2RL[1,1] -> 1.0, YLt2RL[1,2] -> 1.0, YLt2RL[1,3] -> 1.0,\n      YLt2RL[2,1] -> 1.0, YLt2RL[2,2] -> 1.0, YLt2RL[2,3] -> 1.0,\n      YLt2RL[3,1] -> 1.0, YLt2RL[3,2] -> 1.0, YLt2RL[3,3] -> 1.0\n    },\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y_tilde2^{RL} (Phi_tilde2^T dbar i sigma2 L)\"\n  },\n  YL3LL == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Indices          -> {Index[Generation], Index[Generation]},\n    Value            -> {\n      YL3LL[1,1] -> 1.0, YL3LL[1,2] -> 1.0, YL3LL[1,3] -> 1.0,\n      YL3LL[2,1] -> 1.0, YL3LL[2,2] -> 1.0, YL3LL[2,3] -> 1.0,\n      YL3LL[3,1] -> 1.0, YL3LL[3,2] -> 1.0, YL3LL[3,3] -> 1.0\n    },\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y3^{LL} (Q^c i sigma2 (sigma.Phi3)^dag L)\"\n  },\n  YL3QLL == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Indices          -> {Index[Generation], Index[Generation]},\n    Value            -> {\n      YL3QLL[1,1] -> 0.0,  YL3QLL[1,2] -> 1.0,  YL3QLL[1,3] -> 1.0,\n      YL3QLL[2,1] -> -1.0, YL3QLL[2,2] -> 0.0,  YL3QLL[2,3] -> 1.0,\n      YL3QLL[3,1] -> -1.0, YL3QLL[3,2] -> -1.0, YL3QLL[3,3] -> 0.0\n    },\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y3^{Q,LL} antisymmetric (Q^c i sigma2 (sigma.Phi3) Q)\"\n  },\n\n  (* ----- Triple LQ couplings (dimensionless) ----- *)\n  Y1t12 == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Value            -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y_{1 t1 2}: Phi1 Phi_tilde1 (Phi2^T i sigma2 H)\"\n  },\n  Y123 == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Value            -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y_{123}: Phi1 (H^dag sigma.Phi3 Phi2)\"\n  },\n  Y1t23 == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Value            -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y_{1 t2 3}: Phi1 (Phi_tilde2^T i sigma2 sigma.Phi3 H)\"\n  },\n  Yt123 == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Value            -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y_{t1 2 3}: Phi_tilde1 (Phi2^T i sigma2 sigma.Phi3 H)\"\n  },\n  Y233 == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Value            -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y_{233}: (H^dag sigma^I Phi2)(Phi3^J i eps^{IJK} Phi3^K)\"\n  },\n  Yt233 == {\n    ParameterType    -> External,\n    ComplexParameter -> True,\n    Value            -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"Y_{t2 33}: (Phi_tilde2^T i sigma2 sigma^I H)(Phi3^J i eps^{IJK} Phi3^K)\"\n  },\n\n  (* ----- Quartic LQ: trivial Y^{(1)}_a ----- *)\n  Y1self == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description -> \"Y^{(1)}_1 quartic self (Phi1^dag Phi1)^2\"\n  },\n  Yt1self == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description -> \"Y^{(1)}_t1 quartic self\"\n  },\n  Y2self == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description -> \"Y^{(1)}_2 quartic self\"\n  },\n  Yt2self == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description -> \"Y^{(1)}_t2 quartic self\"\n  },\n  Y3self == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description -> \"Y^{(1)}_3 quartic self\"\n  },\n\n  (* ----- Quartic Y^{(3)}_a ----- *)\n  Y3on2 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description -> \"Y^{(3)}_2 quartic colour-cross for Phi2\"\n  },\n  Y3ont2 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description -> \"Y^{(3)}_t2 quartic colour-cross for Phi_tilde2\"\n  },\n  Y3on3 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description -> \"Y^{(3)}_3 quartic colour-cross for Phi3\"\n  },\n  Y5on3 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1},\n    Description -> \"Y^{(5)}_3 quartic SU2 structure for Phi3\"\n  },\n\n  (* ----- Quartic Y^{(1)}_{ab} and Y'^{(1)}_{ab} ----- *)\n  Y1ab1t1 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y^{(1)}_{1 t1}\"\n  },\n  Yp1ab1t1 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'^{(1)}_{1 t1}\"\n  },\n  Y1ab12 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y^{(1)}_{12}\"\n  },\n  Yp1ab12 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'^{(1)}_{12}\"\n  },\n  Y1ab1t2 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y^{(1)}_{1 t2}\"\n  },\n  Yp1ab1t2 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'^{(1)}_{1 t2}\"\n  },\n  Y1ab13 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y^{(1)}_{13} quartic pair\"\n  },\n  Yp1ab13 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'^{(1)}_{13} quartic pair\"\n  },\n  Y1abt12 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y^{(1)}_{t1 2}\"\n  },\n  Yp1abt12 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'^{(1)}_{t1 2}\"\n  },\n  Y1abt1t2 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y^{(1)}_{t1 t2}\"\n  },\n  Yp1abt1t2 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'^{(1)}_{t1 t2}\"\n  },\n  Y1abt13 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y^{(1)}_{t1 3}\"\n  },\n  Yp1abt13 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'^{(1)}_{t1 3}\"\n  },\n  Y1ab2t2 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y^{(1)}_{2 t2}\"\n  },\n  Yp1ab2t2 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'^{(1)}_{2 t2}\"\n  },\n  Y1ab23 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y^{(1)}_{23} quartic pair\"\n  },\n  Yp1ab23 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'^{(1)}_{23} quartic pair\"\n  },\n  Y1abt23 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y^{(1)}_{t2 3}\"\n  },\n  Yp1abt23 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'^{(1)}_{t2 3}\"\n  },\n\n  (* ----- Quartic Y^{(3)}_{2 t2}, Y^{(3)}_{a3} ----- *)\n  Y3on2t2 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y^{(3)}_{2 t2}\"\n  },\n  Yp3on2t2 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'^{(3)}_{2 t2}\"\n  },\n  Y3on23 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y^{(3)}_{23}\"\n  },\n  Yp3on23 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'^{(3)}_{23}\"\n  },\n  Y3ont23 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y^{(3)}_{t2 3}\"\n  },\n  Yp3ont23 == {\n    ParameterType -> External, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'^{(3)}_{t2 3}\"\n  },\n\n  (* ----- Quartic bracket terms (with h.c.) ----- *)\n  Y1223 == {\n    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y_{1223}\"\n  },\n  Yp1223 == {\n    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'_{1223}\"\n  },\n  Y1t2t23 == {\n    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y_{1 t2 t2 3}\"\n  },\n  Yp1t2t23 == {\n    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'_{1 t2 t2 3}\"\n  },\n  Yt1t223 == {\n    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y_{t1 t2 2 3}\"\n  },\n  Ypt1t223 == {\n    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'_{t1 t2 2 3}\"\n  },\n  Y1t1t22 == {\n    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y_{1 t1 t2 2}\"\n  },\n  Yp1t1t22 == {\n    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y'_{1 t1 t2 2}\"\n  },\n  Y1313 == {\n    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y_{1313}\"\n  },\n  Y1333 == {\n    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,\n    InteractionOrder -> {NP, 1}, Description -> \"Y_{1333}\"\n  }\n};\n\n(******************************)\n(*****  Particle classes  ****)\n(******************************)\nM$ClassesDescription = {\n\n  (* Phi1: colour triplet, SU(2) singlet, Y = -1/3, Q = -1/3 *)\n  S[100] == {\n    ClassName        -> Sphi1,\n    ClassMembers     -> {S1m13},\n    Indices          -> {Index[Colour]},\n    SelfConjugate    -> False,\n    QuantumNumbers   -> {Y -> -1/3, Q -> -1/3},\n    Mass             -> {mSphi1, 1500.},\n    Width            -> 0,\n    PropagatorLabel  -> \"Sphi1\",\n    PropagatorType   -> ScalarDash,\n    PropagatorArrow  -> None,\n    PDG              -> 41001,\n    ParticleName     -> \"Sphi1\",\n    AntiParticleName -> \"Sphi1bar\",\n    FullName         -> \"LQ Phi1 (S1, charge -1/3)\"\n  },\n\n  (* Phi_tilde1: colour triplet, SU(2) singlet, Y = -4/3, Q = -4/3 *)\n  S[101] == {\n    ClassName        -> Sphit1,\n    ClassMembers     -> {S1tm43},\n    Indices          -> {Index[Colour]},\n    SelfConjugate    -> False,\n    QuantumNumbers   -> {Y -> -4/3, Q -> -4/3},\n    Mass             -> {mSphit1, 1500.},\n    Width            -> 0,\n    PropagatorLabel  -> \"Sphit1\",\n    PropagatorType   -> ScalarDash,\n    PropagatorArrow  -> None,\n    PDG              -> 41002,\n    ParticleName     -> \"Sphit1\",\n    AntiParticleName -> \"Sphit1bar\",\n    FullName         -> \"LQ Phi_tilde1 (charge -4/3)\"\n  },\n\n  (* Phi2: colour triplet, SU(2) doublet, Y = 7/6; components Q = +5/3, +2/3 *)\n  S[102] == {\n    ClassName        -> Sphi2,\n    ClassMembers     -> {S2p53, S2p23},\n    Indices          -> {Index[SU2D], Index[Colour]},\n    FlavorIndex      -> SU2D,\n    SelfConjugate    -> False,\n    QuantumNumbers   -> {Y -> 7/6},\n    Mass             -> {mSphi2, 1500.},\n    Width            -> 0,\n    PropagatorLabel  -> \"Sphi2\",\n    PropagatorType   -> ScalarDash,\n    PropagatorArrow  -> None,\n    PDG              -> {41003, 41004},\n    ParticleName     -> {\"S2p53\", \"S2p23\"},\n    AntiParticleName -> {\"S2p53bar\", \"S2p23bar\"},\n    FullName         -> {\"LQ Phi2 (+5/3)\", \"LQ Phi2 (+2/3)\"}\n  },\n\n  (* Phi_tilde2: colour triplet, SU(2) doublet, Y = 1/6; components Q = +2/3, -1/3 *)\n  S[103] == {\n    ClassName        -> Sphit2,\n    ClassMembers     -> {S2tp23, S2tm13},\n    Indices          -> {Index[SU2D], Index[Colour]},\n    FlavorIndex      -> SU2D,\n    SelfConjugate    -> False,\n    QuantumNumbers   -> {Y -> 1/6},\n    Mass             -> {mSphit2, 1500.},\n    Width            -> 0,\n    PropagatorLabel  -> \"Sphit2\",\n    PropagatorType   -> ScalarDash,\n    PropagatorArrow  -> None,\n    PDG              -> {41005, 41006},\n    ParticleName     -> {\"S2tp23\", \"S2tm13\"},\n    AntiParticleName -> {\"S2tp23bar\", \"S2tm13bar\"},\n    FullName         -> {\"LQ Phi_tilde2 (+2/3)\", \"LQ Phi_tilde2 (-1/3)\"}\n  },\n\n  (* Phi3: colour triplet, SU(2) triplet (adjoint), Y = -1/3; Q = -1/3, +2/3, -4/3 *)\n  S[104] == {\n    ClassName        -> Sphi3,\n    ClassMembers     -> {S3m13, S3p23, S3m43},\n    Indices          -> {Index[SU2W], Index[Colour]},\n    FlavorIndex      -> SU2W,\n    SelfConjugate    -> False,\n    QuantumNumbers   -> {Y -> -1/3},\n    Mass             -> {mSphi3, 1500.},\n    Width            -> 0,\n    PropagatorLabel  -> \"Sphi3\",\n    PropagatorType   -> ScalarDash,\n    PropagatorArrow  -> None,\n    PDG              -> {41007, 41008, 41009},\n    ParticleName     -> {\"S3m13\", \"S3p23\", \"S3m43\"},\n    AntiParticleName -> {\"S3m13bar\", \"S3p23bar\", \"S3m43bar\"},\n    FullName         -> {\"LQ Phi3 (-1/3)\", \"LQ Phi3 (+2/3)\", \"LQ Phi3 (-4/3)\"}\n  }\n};\n\n(******************************)\n(*****   Lagrangian   ********)\n(******************************)\n\n(* --- Kinetic + mass terms (DC generates all SM gauge interactions) --- *)\n\nLphi1kin := Block[{cc, mu},\n  DC[Sphi1bar[cc], mu] DC[Sphi1[cc], mu] - mSphi1^2 Sphi1bar[cc] Sphi1[cc]\n];\n\nLphit1kin := Block[{cc, mu},\n  DC[Sphit1bar[cc], mu] DC[Sphit1[cc], mu] - mSphit1^2 Sphit1bar[cc] Sphit1[cc]\n];\n\nLphi2kin := Block[{ii, cc, mu},\n  ExpandIndices[\n    DC[Sphi2bar[ii, cc], mu] DC[Sphi2[ii, cc], mu]\n      - mSphi2^2 Sphi2bar[ii, cc] Sphi2[ii, cc],\n    FlavorExpand -> SU2D]\n];\n\nLphit2kin := Block[{ii, cc, mu},\n  ExpandIndices[\n    DC[Sphit2bar[ii, cc], mu] DC[Sphit2[ii, cc], mu]\n      - mSphit2^2 Sphit2bar[ii, cc] Sphit2[ii, cc],\n    FlavorExpand -> SU2D]\n];\n\nLphi3kin := Block[{dd, cc, mu},\n  ExpandIndices[\n    DC[Sphi3bar[dd, cc], mu] DC[Sphi3[dd, cc], mu]\n      - mSphi3^2 Sphi3bar[dd, cc] Sphi3[dd, cc],\n    FlavorExpand -> SU2W]\n];\n\n(* --- L_2Phi: Higgs portals and LQ-LQ-Higgs(-Higgs) mixing --- *)\n\nL2Phi := Block[{ii, jj, kk, gg, dd, ee, ff, cc, nonHC},\n  nonHC =\n    (* soft |Phi|^2 H^dag H *)\n    - Y1 (Phibar[ii] Phi[ii]) Sphi1bar[cc] Sphi1[cc]\n    - Yt1 (Phibar[ii] Phi[ii]) Sphit1bar[cc] Sphit1[cc]\n    - ExpandIndices[\n        Y2 (Phibar[ii] Phi[ii]) Sphi2bar[ii, cc] Sphi2[ii, cc]\n          + Yt2 (Phibar[ii] Phi[ii]) Sphit2bar[ii, cc] Sphit2[ii, cc],\n        FlavorExpand -> SU2D]\n    - ExpandIndices[\n        Y3 (Phibar[ii] Phi[ii]) Sphi3bar[dd, cc] Sphi3[dd, cc],\n        FlavorExpand -> SU2W]\n    (* portals *)\n    - Y22 (Phibar[jj] Eps[jj, ii] Sphi2[ii, cc])\n          (Sphi2bar[dd, cc] Eps[dd, kk] Phi[kk])\n    - Yt2t2 (Phibar[jj] Eps[jj, ii] Sphit2[ii, cc])\n            (Sphit2bar[dd, cc] Eps[dd, kk] Phi[kk])\n    - I Y33 ExpandIndices[\n        Eps[dd, ee, ff] (Phibar[ii] PauliSigma[dd, ii, jj] Phi[jj])\n          Sphi3bar[ee, cc] Sphi3[ff, cc],\n        FlavorExpand -> SU2W]\n    (* dimension-1 A and dimension-0 Y mixing terms (+ h.c. added below) *)\n    + ExpandIndices[\n        A1t2 Sphit2bar[ii, cc] Phi[ii] Sphi1[cc]\n          + At23 Sphit2bar[ii, cc] PauliSigma[dd, ii, jj] Sphi3[dd, cc] Phi[jj]\n          + Y2t2 Sphi2bar[ii, cc] Phi[ii] Phi[jj] Eps[jj, kk] Sphit2[kk, cc]\n          + Yt13 ExpandIndices[\n              Phi[ii] Eps[ii, jj] Sphi3bar[dd, cc] PauliSigma[dd, gg, jj]\n                Phi[gg] Sphit1[cc],\n              FlavorExpand -> SU2W]\n          + Y13 Phibar[ii] PauliSigma[dd, ii, jj] Phi[jj] Sphi3[dd, cc] Sphi1bar[cc],\n        FlavorExpand -> SU2D];\n  nonHC + HC[nonHC]\n];\n\n(* --- L_f: LQ couplings to SM fermions (eq. LQ_yukawa) --- *)\n\nLf := Block[{sp, ii, jj, gg, dd, cc, cc1, cc2, cc3, ff1, ff2, nonHC},\n  nonHC =\n    (* Phi1 *)\n    ExpandIndices[\n      YL1RR[ff1, ff2] bar[CC[uR]][sp, ff1, cc] lR[sp, ff2] Sphi1bar[cc]\n        + YL1LL[ff1, ff1, cc] 0 (* placeholder removed below *),\n      FlavorExpand -> {}];\n  (* rebuild cleanly without placeholder *)\n  nonHC =\n    ExpandIndices[\n      YL1RR[ff1, ff2] bar[CC[uR]][sp, ff1, cc] lR[sp, ff2] Sphi1bar[cc]\n        + YL1LL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc] Eps[ii, jj]\n            LL[sp, jj, ff2] Sphi1bar[cc]\n        + YL1QLL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc1] Eps[ii, jj]\n            QL[sp, jj, ff2, cc2] Sphi1[cc3] Eps[cc1, cc2, cc3]\n        + YL1QRR[ff1, ff2] bar[CC[uR]][sp, ff1, cc1] dR[sp, ff2, cc2]\n            Sphi1[cc3] Eps[cc1, cc2, cc3]\n        (* Phi_tilde1 *)\n        + YLt1RR[ff1, ff2] bar[CC[dR]][sp, ff1, cc] lR[sp, ff2] Sphit1bar[cc]\n        + YLt1QRR[ff1, ff2] bar[CC[uR]][sp, ff1, cc1] uR[sp, ff2, cc2]\n            Sphit1[cc3] Eps[cc1, cc2, cc3]\n        (* Phi2 *)\n        + YL2RL[ff1, ff2] bar[uR][sp, ff1, cc] LL[sp, ii, ff2]\n            Sphi2[jj, cc] Eps[ii, jj]\n        + YL2LR[ff1, ff2] QLbar[sp, ii, ff1, cc] lR[sp, ff2] Sphi2[ii, cc]\n        (* Phi_tilde2 *)\n        + YLt2RL[ff1, ff2] bar[dR][sp, ff1, cc] LL[sp, ii, ff2]\n            Sphit2[jj, cc] Eps[ii, jj]\n        (* Phi3 *)\n        + YL3LL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc] Eps[ii, gg]\n            PauliSigma[dd, jj, gg] Sphi3bar[dd, cc] LL[sp, jj, ff2]\n        + YL3QLL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc1] Eps[ii, gg]\n            PauliSigma[dd, jj, gg] Sphi3[dd, cc3] QL[sp, jj, ff2, cc2]\n            Eps[cc1, cc2, cc3],\n      FlavorExpand -> {SU2D, SU2W}];\n  nonHC + HC[nonHC]\n];\n\n(* --- L_3Phi: triple LQ (-Higgs) interactions (eq. LQ_triplet_interactions) --- *)\n\nL3Phi := Block[{ii, jj, kk, gg, dd, ee, ff, cc, cc1, cc2, cc3, nonHC},\n  nonHC =\n    ExpandIndices[\n      A1t2t2 Sphi1[cc1] Sphit2[ii, cc2] Eps[ii, jj] Sphit2[jj, cc3]\n          Eps[cc1, cc2, cc3]\n        + At12t2 Sphit1[cc1] Sphi2[ii, cc2] Eps[ii, jj] Sphit2[jj, cc3]\n            Eps[cc1, cc2, cc3]\n        + Y1t12 Sphi1[cc1] Sphit1[cc2] Sphi2[ii, cc3] Eps[ii, jj] Phi[jj]\n            Eps[cc1, cc2, cc3]\n        + Y123 Sphi1[cc1] Phibar[ii] PauliSigma[dd, ii, jj] Sphi3[dd, cc3]\n            Sphi2[jj, cc2] Eps[cc1, cc2, cc3]\n        + Y1t23 Sphi1[cc1] Sphit2[ii, cc2] Eps[ii, jj]\n            PauliSigma[dd, jj, kk] Sphi3[dd, cc3] Phi[kk]\n            Eps[cc1, cc2, cc3]\n        + Yt123 Sphit1[cc1] Sphi2[ii, cc2] Eps[ii, jj]\n            PauliSigma[dd, jj, kk] Sphi3[dd, cc3] Phi[kk]\n            Eps[cc1, cc2, cc3]\n        + Y233 Phibar[ii] PauliSigma[dd, ii, jj] Sphi2[jj, cc1]\n            I Eps[dd, ee, ff] Sphi3[ee, cc2] Sphi3[ff, cc3]\n            Eps[cc1, cc2, cc3]\n        + Yt233 Sphit2[ii, cc1] Eps[ii, jj] PauliSigma[dd, jj, kk] Phi[kk]\n            I Eps[dd, ee, ff] Sphi3[ee, cc2] Sphi3[ff, cc3]\n            Eps[cc1, cc2, cc3],\n      FlavorExpand -> {SU2D, SU2W}];\n  nonHC + HC[nonHC]\n];\n\n(* --- L_4Phi: quartic LQ interactions (eq. LQ_quartic_interactions) --- *)\n\nL4Phi := Block[{ii, jj, kk, gg, dd, ee, ff, aa, bb, cc, cc1, cc2, cc3, cc4, nonHC},\n  nonHC =\n    (* trivial Y^{(1)}_a and Y^{(3)}_a, Y^{(5)}_3 *)\n    1/2 Y1self Sphi1bar[cc1] Sphi1[cc1] Sphi1bar[cc2] Sphi1[cc2]\n    + 1/2 Yt1self Sphit1bar[cc1] Sphit1[cc1] Sphit1bar[cc2] Sphit1[cc2]\n    + 1/2 ExpandIndices[\n        Y2self Sphi2bar[ii, cc1] Sphi2[ii, cc1] Sphi2bar[jj, cc2] Sphi2[jj, cc2]\n          + Y3on2 Sphi2bar[ii, cc1] Sphi2[jj, cc2] Sphi2bar[jj, cc2] Sphi2[ii, cc1]\n          + Yt2self Sphit2bar[ii, cc1] Sphit2[ii, cc1] Sphit2bar[jj, cc2] Sphit2[jj, cc2]\n          + Y3ont2 Sphit2bar[ii, cc1] Sphit2[jj, cc2] Sphit2bar[jj, cc2] Sphit2[ii, cc1],\n        FlavorExpand -> SU2D]\n    + 1/2 ExpandIndices[\n        Y3self Sphi3bar[dd, cc1] Sphi3[dd, cc1] Sphi3bar[ee, cc2] Sphi3[ee, cc2]\n          + Y3on3 Sphi3bar[dd, cc1] Sphi3[ee, cc2] Sphi3bar[ee, cc2] Sphi3[dd, cc1]\n          + Y5on3 Sphi3bar[dd, cc1] Sphi3[ee, cc1] Sphi3bar[dd, cc2] Sphi3[ee, cc2],\n        FlavorExpand -> SU2W]\n    (* Y^{(1)}_{ab} and Y'^{(1)}_{ab} for a != b *)\n    + Y1ab1t1 Sphi1bar[cc1] Sphi1[cc1] Sphit1bar[cc2] Sphit1[cc2]\n    + Yp1ab1t1 Sphi1bar[cc1] Sphit1[cc1] Sphit1bar[cc2] Sphi1[cc2]\n    + Y1ab12 Sphi1bar[cc1] Sphi1[cc1] Sphi2bar[ii, cc2] Sphi2[ii, cc2]\n    + Yp1ab12 Sphi1bar[cc1] Sphi2[ii, cc1] Sphi2bar[ii, cc2] Sphi1[cc2]\n    + Y1ab1t2 Sphi1bar[cc1] Sphi1[cc1] Sphit2bar[ii, cc2] Sphit2[ii, cc2]\n    + Yp1ab1t2 Sphi1bar[cc1] Sphit2[ii, cc1] Sphit2bar[ii, cc2] Sphi1[cc2]\n    + Y1ab13 Sphi1bar[cc1] Sphi1[cc1] Sphi3bar[dd, cc2] Sphi3[dd, cc2]\n    + Yp1ab13 Sphi1bar[cc1] Sphi3[dd, cc1] Sphi3bar[dd, cc2] Sphi1[cc2]\n    + Y1abt12 Sphit1bar[cc1] Sphit1[cc1] Sphi2bar[ii, cc2] Sphi2[ii, cc2]\n    + Yp1abt12 Sphit1bar[cc1] Sphi2[ii, cc1] Sphi2bar[ii, cc2] Sphit1[cc2]\n    + Y1abt1t2 Sphit1bar[cc1] Sphit1[cc1] Sphit2bar[ii, cc2] Sphit2[ii, cc2]\n    + Yp1abt1t2 Sphit1bar[cc1] Sphit2[ii, cc1] Sphit2bar[ii, cc2] Sphit1[cc2]\n    + Y1abt13 Sphit1bar[cc1] Sphit1[cc1] Sphi3bar[dd, cc2] Sphi3[dd, cc2]\n    + Yp1abt13 Sphit1bar[cc1] Sphi3[dd, cc1] Sphi3bar[dd, cc2] Sphit1[cc2]\n    + Y1ab2t2 Sphi2bar[ii, cc1] Sphi2[ii, cc1] Sphit2bar[jj, cc2] Sphit2[jj, cc2]\n    + Yp1ab2t2 Sphi2bar[ii, cc1] Sphit2[jj, cc1] Sphit2bar[jj, cc2] Sphi2[ii, cc2]\n    + Y1ab23 Sphi2bar[ii, cc1] Sphi2[ii, cc1] Sphi3bar[dd, cc2] Sphi3[dd, cc2]\n    + Yp1ab23 Sphi2bar[ii, cc1] Sphi3[dd, cc1] Sphi3bar[dd, cc2] Sphi2[ii, cc2]\n    + Y1abt23 Sphit2bar[ii, cc1] Sphit2[ii, cc1] Sphi3bar[dd, cc2] Sphi3[dd, cc2]\n    + Yp1abt23 Sphit2bar[ii, cc1] Sphi3[dd, cc1] Sphi3bar[dd, cc2] Sphit2[ii, cc2]\n    (* Y^{(3)}_{2 t2}, Y^{(3)}_{a3} *)\n    + Y3on2t2 Sphi2bar[ii, cc1] Sphit2[jj, cc2] Sphit2bar[jj, cc2] Sphi2[ii, cc1]\n    + Yp3on2t2 Sphi2bar[ii, cc1] Sphit2[jj, cc1] Sphit2bar[jj, cc2] Sphi2[ii, cc2]\n    + Y3on23 Sphi2bar[ii, cc1] PauliSigma[dd, ii, jj] Sphi3bar[dd, ...] (* fixed below *);\n  (* replace the incomplete a3 triplet-sigma structure with an explicit invariant form *)\n  nonHC =\n    nonHC\n    + Y3on23 ExpandIndices[\n        Sphi2bar[ii, cc1] PauliSigma[dd, ii, jj] Sphi2[jj, cc1]\n          Eps[dd, ee, ff] Sphi3bar[ee, cc2] Sphi3[ff, cc2],\n        FlavorExpand -> {SU2D, SU2W}]\n    + Yp3on23 ExpandIndices[\n        Sphi2bar[ii, cc1] PauliSigma[dd, ii, jj] Sphi2[jj, cc2]\n          Eps[dd, ee, ff] Sphi3bar[ee, cc1] Sphi3[ff, cc2],\n        FlavorExpand -> {SU2D, SU2W}]\n    + Y3ont23 ExpandIndices[\n        Sphit2bar[ii, cc1] PauliSigma[dd, ii, jj] Sphit2[jj, cc1]\n          Eps[dd, ee, ff] Sphi3bar[ee, cc2] Sphi3[ff, cc2],\n        FlavorExpand -> {SU2D, SU2W}]\n    + Yp3ont23 ExpandIndices[\n        Sphit2bar[ii, cc1] PauliSigma[dd, ii, jj] Sphit2[jj, cc2]\n          Eps[dd, ee, ff] Sphi3bar[ee, cc1] Sphi3[ff, cc2],\n        FlavorExpand -> {SU2D, SU2W}]\n    (* bracket terms with + h.c. *)\n    + ExpandIndices[\n        (Y1223 (Sphi1bar[cc1] Sphi2[ii, cc3] Sphi2bar[jj, cc2] Sphi3[kk, cc4]\n                 + Yp1223 (* placeholder *)) (* rebuilt below *),\n        FlavorExpand -> {}];\n  nonHC =\n    ExpandIndices[\n      (* Y1223 family: Phi1^dag (Phi2^dag (sigma.Phi3) Phi2) *)\n      (Y1223 Sphi1bar[cc1] Sphi2bar[ii, cc3] PauliSigma[dd, ii, jj]\n         Sphi3[dd, cc4] Sphi2[jj, cc2]\n       + Yp1223 Sphi1bar[cc1] Sphi2bar[ii, cc2] PauliSigma[dd, ii, jj]\n         Sphi3[dd, cc4] Sphi2[jj, cc3]) Eps[cc1, cc2, cc3, cc4] 0\n      (* colour deltas written explicitly: delta12 delta34 + delta14 delta23 *)\n      + Y1223 (Sphi1bar[cc1] Sphi2bar[ii, cc1] PauliSigma[dd, ii, jj]\n                 Sphi3[dd, cc3] Sphi2[jj, cc2])\n      + Yp1223 (Sphi1bar[cc1] Sphi2bar[ii, cc2] PauliSigma[dd, ii, jj]\n                 Sphi3[dd, cc3] Sphi2[jj, cc1])\n      + Y1t2t23 (Sphi1bar[cc1] Sphit2bar[ii, cc1] PauliSigma[dd, ii, jj]\n                   Sphi3[dd, cc3] Sphit2[jj, cc2])\n      + Yp1t2t23 (Sphi1bar[cc1] Sphit2bar[ii, cc2] PauliSigma[dd, ii, jj]\n                   Sphi3[dd, cc3] Sphit2[jj, cc1])\n      + Yt1t223 (Sphit1bar[cc1] Sphi2bar[ii, cc1] PauliSigma[dd, ii, jj]\n                   Sphi3[dd, cc3] Sphit2[jj, cc2])\n      + Ypt1t223 (Sphit1bar[cc1] Sphi2bar[ii, cc2] PauliSigma[dd, ii, jj]\n                   Sphi3[dd, cc3] Sphit2[jj, cc1])\n      + Y1t1t22 (Sphi1bar[cc1] Sphit1bar[cc3] Sphit2[ii, cc2] Sphi2[jj, cc4]\n                   Eps[ii, jj] (* colour deltas below expanded as two structures *)\n                   0\n                 + Sphi1bar[cc1] Sphit1[cc2] Sphit2bar[jj, cc3] Sphi2[ii, cc4]\n                   Eps[ii, jj] 0)\n      + Y1t1t22 (Sphi1bar[cc1] Sphit1bar[cc3] Sphit2[ii, cc3] Sphi2[jj, cc1]\n                   Eps[ii, jj]\n                 + Sphi1bar[cc1] Sphit1[cc1] Sphit2bar[jj, cc3] Sphi2[ii, cc3]\n                   Eps[ii, jj]) 0\n      + Y1t1t22 (Sphi1bar[cc1] Sphit1bar[cc2] Sphit2[ii, cc1] Sphi2[jj, cc2]\n                   Eps[ii, jj]\n                 + Sphi1bar[cc1] Sphit1bar[cc2] Sphit2[ii, cc2] Sphi2[jj, cc1]\n                   Eps[ii, jj])\n      + Yp1t1t22 (Sphi1bar[cc1] Sphit1[cc2] Sphit2bar[jj, cc1] Sphi2[ii, cc2]\n                    Eps[ii, jj]\n                  + Sphi1bar[cc1] Sphit1[cc2] Sphit2bar[jj, cc2] Sphi2[ii, cc1]\n                    Eps[ii, jj])\n      + 1/2 Y1313 (Sphi1bar[cc1] Sphi3[dd, cc2] Sphi1bar[cc3] Sphi3[dd, cc4]\n                     + Sphi1bar[cc1] Sphi3[dd, cc4] Sphi1bar[cc3] Sphi3[dd, cc2]\n                     + Sphi1bar[cc1] Sphi3[dd, cc2] Sphi1bar[cc4] Sphi3[dd, cc3]\n                     + Sphi1bar[cc1] Sphi3[dd, cc3] Sphi1bar[cc4] Sphi3[dd, cc2]) 0\n      + Y1313 (Sphi1bar[cc1] Sphi3[dd, cc1] Sphi1bar[cc3] Sphi3[dd, cc3]\n               + Sphi1bar[cc1] Sphi3[dd, cc3] Sphi1bar[cc3] Sphi3[dd, cc1])\n      + Y1333 (Sphi1bar[cc1] Sphi3[dd, cc1]\n                 Eps[dd, ee, ff] Sphi3bar[ee, cc3] Sphi3[ff, cc4]\n               - Sphi1bar[cc1] Sphi3[dd, cc4]\n                 Eps[dd, ee, ff] Sphi3bar[ee, cc3] Sphi3[ff, cc1]),\n      FlavorExpand -> {SU2D, SU2W}];\n  nonHC + HC[nonHC]\n];\n\n(* --- Single total Lagrangian --- *)\n\nLTotal :=\n  Lphi1kin + Lphit1kin + Lphi2kin + Lphit2kin + Lphi3kin\n  + L2Phi + Lf + L3Phi + L4Phi;\n"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Re-read TASK.md past line 13 for remaining rules",
+     "status": "in_progress",
+     "priority": "high"
+    },
+    {
+     "content": "Audit and fix model.fr defects (Lf nonHC, L4Phi broken structures)",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Produce final self-audit table (particles, params, terms, dimensions)",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Run ./frgen if it is a validation harness",
+     "status": "pending",
+     "priority": "medium"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Re-read TASK.md past line 13 for remaining rules\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Audit and fix model.fr defects (Lf nonHC, L4Phi broken structures)\",\n    \"status\": \"pending\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Produce final self-audit table (particles, params, terms, dimensions)\",\n    \"status\": \"pending\",\n    \"priori"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: SLQrules (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:2105.04844.\n4: PAPER: the paper's LaTeX so"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/model.fr</path>\n<type>file</type>\n<content>\n1: (*****************************************************************************************)\n2: (*****   SLQrules_gen: scalar leptoquark add-on on top of SM.fr (arXiv:2105.04844)  *****)\n3: (*******************************************************************************"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "PauliSigma|SU2W|ProjP|\\.Y|ExpandIndices",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/SM.fr"
+  },
+  "status": "completed",
+  "output": "Found 79 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/TASK.md:\n  Line 12: FILE RULES: use FeynRules syntax for every value (rationals -1/3, decimals 1500.); SM add-on => no M$GaugeGroups block; the indices Colour, Gluon, Generation, SU2D and SU2W are declared by SM.fr; any OTHER index (a colour-sextet index, a new-generation index) needs `IndexRange[Index[X"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "Phi3|\\\\\\\\vec\\{\\\\\\\\Phi\\}_3|sigma\\^|\\\\\\\\sigma|ClassMembers|Y_3|Y3",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex"
+  },
+  "status": "completed",
+  "output": "Found 21 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex:\n  Line 600:         &- iY_{33} \\epsilon^{IJK} \\left(H^\\dagger \\sigma^I H \\right) \\Phi_3^{J\\dagger} \\Phi_3^K\\\\\n\n  Line 661:                                     \t\t\t\\frac{v^2}{2} Y_{13}^* & \\frac{v}{\\sqrt{2}} A^*_{\\tilde{2}3} & m_3^2 + \\frac{v^2}{2} Y_3\n\n  Line 666:             "
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "frgen*"
+  },
+  "status": "completed",
+  "output": "No files found"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/SM.fr",
+   "offset": 690,
+   "limit": 50
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/SM.fr</path>\n<type>file</type>\n<content>\n690: \n691: (* ************************** *)\n692: (* *****   Lagrangian   ***** *)\n693: (* ************************** *)\n694: \n695: LGauge := Block[{mu,nu,ii,aa}, \n696:   ExpandIndices[-1/4 FS[B,mu,nu] FS[B,mu,nu] - 1/4 FS[Wi,mu,nu,ii] FS[Wi,mu,nu,ii] - 1/4 FS[G,mu,nu,aa] FS["
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "pattern": "LQ_yukawa|mathcal\\{L\\}_\\{\\\\\\\\text\\{Yuk|Y_\\{1\\}\\^\\{LL\\}|Y_\\{1\\}\\^\\{RR\\}|Y_\\{2\\}\\^\\{RL\\}|Y_\\{2\\}\\^\\{LR\\}|Y_\\{\\\\\\\\tilde\\{1\\}\\}|Y_\\{3\\}\\^\\{LL\\}|bar\\{Q\\}|Q\\^c"
+  },
+  "status": "completed",
+  "output": "Found 9 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex:\n  Line 316:         &\\phantom{12} + i \\left(\\bar{Q}_i^{\\prime \\intercal} \\slashed{D} Q_i^\\prime\\right)   + i \\left(\\bar{L}_i^{\\prime \\intercal} \\slashed{D} L_i^\\prime\\right)  + i \\bar{u}_i^\\prime \\slashed{D} u_i^\\prime  + i \\bar{d}_i^\\prime \\slashed{D} d_i^\\prime + i \\bar{\\ell"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "pattern": "LQ_quartic|Y_\\{1223\\}|Y_\\{1\\\\\\\\tilde|Y_\\{1313\\}|Y_\\{1333\\}|Y_\\{\\\\\\\\tilde\\{1\\}333\\}|Y_\\{1\\\\\\\\tilde\\{1\\}\\\\\\\\tilde"
+  },
+  "status": "completed",
+  "output": "Found 15 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex:\n  Line 1139:             \\multicolumn{1}{ c  }{\\multirow{8}{*}} & \\multicolumn{1}{ r|  }{$Y_{1223}$ } & $0,1$ & $0,0$ & $1,1$ & $0,0$ & $1,0$ \\\\\n\n  Line 1141:             \\multicolumn{1}{ c  }{\\multirow{8}{*}} & \\multicolumn{1}{ r|  }{$Y_{1313}$ } & $0,2$ & $0,0$ & $0,0$ & $0"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "offset": 560,
+   "limit": 80
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n560: \\begin{align}\n561:     \\begin{aligned}\n562:         \\Phi_1 = \\left( \\Phi_1^{-1/3}\\right), \\ \n563:         \\Phi_{\\tilde{1}} = \\left( \\Phi_{\\tilde{1}}^{-4/3}\\right), \\ \n564:         \\Phi_2 = \\begin{pmatrix} \\Phi^{+5/3}_2 \\\\ \\Phi^{+2/3}_2 \\end{pmatrix"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "offset": 990,
+   "limit": 40
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n990: up to $\\mathcal{O}(v^2)$, where again $m^2_{ab} \\equiv m_a^2 - m_b^2$ for $a,b \\in \\left \\{1, \\tilde{1}, 2, \\tilde{2}, 3 \\right \\}$.  \\\\\n991: \n992: \\clearpage\n993: \\subsection{Interactions with SM Fermions ($\\mathcal{L}_{\\text{f}}$)}\n994: The inter"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex",
+   "offset": 1070,
+   "limit": 120
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-SLQrules-h3wael29/paper/2105.04844_source.tex</path>\n<type>file</type>\n<content>\n1070:             \\multicolumn{1}{ c  }{\\multirow{12}{*}} & \\multicolumn{1}{ r|  }{$A_{1\\tilde2\\tilde2}$ } & 1 & 0 & 0 & 2 & 0 & 0 & 0 \\\\\n1071:             \\multicolumn{1}{ c  }{\\multirow{12}{*}} & \\multicolumn{1}{ r|  }{$Y_{1\\tilde23}$ } & 1 & 0 & 0 & "
+ }
+]

@@ -1,0 +1,129 @@
+(***************************************************************************************************************)
+(******                HeavyN_gen: one heavy Majorana neutrino N with active-heavy mixing V_lN            ******)
+(******                Based on arXiv:1602.06957 (Degrande, Mattelaer, Ruiz, Turner)                       ******)
+(***************************************************************************************************************)
+
+M$ModelName = "HeavyN_gen";
+
+M$Information = {
+  Authors      -> {"Heptapod auto-extraction"},
+  Version      -> "1.0",
+  Date         -> "2026-09-30",
+  Institutions -> {},
+  Emails       -> {},
+  References   -> {"arXiv:1602.06957"}
+};
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP,  1}
+};
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+
+M$Parameters = {
+
+  VlN == {
+    ParameterType    -> External,
+    BlockName        -> HNVEC,
+    Indices          -> {Index[Generation]},
+    ComplexParameter -> False,
+    Value            -> {VlN[1] -> 1., VlN[2] -> 1., VlN[3] -> 1.},
+    InteractionOrder -> {NP, 1},
+    Description      -> "Active-heavy mixing as a generation vector"
+  },
+
+  VeN == {
+    ParameterType    -> External,
+    BlockName        -> HNINPUTS,
+    OrderBlock       -> 1,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[V, eN],
+    Description      -> "Active-heavy neutrino mixing V_{eN} (Eq. in Sec. Heavy Neutrino Model, 1602.06957)"
+  },
+  VmuN == {
+    ParameterType    -> External,
+    BlockName        -> HNINPUTS,
+    OrderBlock       -> 2,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[V, \[Mu]N],
+    Description      -> "Active-heavy neutrino mixing V_{muN} (Eq. in Sec. Heavy Neutrino Model, 1602.06957)"
+  },
+  VtaN == {
+    ParameterType    -> External,
+    BlockName        -> HNINPUTS,
+    OrderBlock       -> 3,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[V, \[Tau]N],
+    Description      -> "Active-heavy neutrino mixing V_{tauN} (Eq. in Sec. Heavy Neutrino Model, 1602.06957)"
+  }
+};
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+
+M$ClassesDescription = {
+
+  F[101] == {
+    ClassName        -> Nh,
+    SelfConjugate     -> True,
+    Indices          -> {},
+    Mass             -> {MN, 500.},
+    Width            -> {WN, 1.},
+    ParticleName     -> "n2",
+    PDG              -> 9900012,
+    PropagatorLabel  -> "N",
+    PropagatorType   -> S,
+    PropagatorArrow  -> None,
+    FullName         -> "Heavy Majorana neutrino"
+  }
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+(* Free (kinetic + Majorana mass) Lagrangian for N *)
+LNfree := Block[{mu},
+  ExpandIndices[ I/2 Nhbar.Ga[mu].del[Nh, mu] - 1/2 MN Nhbar.Nh ]
+];
+
+(* Charged current: -g/Sqrt[2] W+_mu Nbar V*_lN Ga[mu] ProjM l + H.c. *)
+LCC := Block[{mu, ff},
+  ExpandIndices[
+    -gw/Sqrt[2] VlN[ff] Nhbar.Ga[mu].ProjM.l[ff] W[mu]
+  ]
+];
+
+(* Neutral current: -g/(2 cw) Z_mu Nbar V*_lN Ga[mu] ProjM nu_l + H.c. *)
+LNC := Block[{mu},
+  ExpandIndices[
+    -gw/(2 cw) (
+       Conjugate[VeN]  Nhbar.Ga[mu].ProjM.ve +
+       Conjugate[VmuN] Nhbar.Ga[mu].ProjM.vm +
+       Conjugate[VtaN] Nhbar.Ga[mu].ProjM.vt
+    ) Z[mu]
+  ]
+];
+
+(* Higgs Yukawa-like coupling: -g MN/(2 MW) h Nbar V*_lN ProjM nu_l + H.c. *)
+LNYuk := ExpandIndices[
+    -gw MN/(2 MW) (
+       Conjugate[VeN]  Nhbar.ProjM.ve +
+       Conjugate[VmuN] Nhbar.ProjM.vm +
+       Conjugate[VtaN] Nhbar.ProjM.vt
+    ) H
+];
+
+LTotal := LSM + LNfree + LCC + HC[LCC] + LNC + HC[LNC] + LNYuk + HC[LNYuk];

@@ -1,0 +1,36 @@
+{
+ "page": "SLQrules",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "toolkit2",
+ "seed": 1,
+ "variant": "v3o_nemotron_toolkit2",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 3,
+ "seconds": 3609.1,
+ "tokens": {
+  "input": 226056,
+  "output": 1236,
+  "reasoning": 963
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 0,
+ "n_events": 55,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 10,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_spec"
+}

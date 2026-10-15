@@ -1,0 +1,15 @@
+M$ModelName = "ovD";
+M$Information = {Authors -> {"test"}, Version -> "0", Date -> "2026-10-06"};
+M$InteractionOrderHierarchy = {{QCD,1},{QED,2},{NP,1}};
+
+M$Parameters = {
+  alp == {ParameterType -> External, BlockName -> NPMIX, OrderBlock -> 1, Value -> 0.2, InteractionOrder -> {NP,0}},
+  sa == {ParameterType -> Internal, Value -> Sin[alp]},
+  ca == {ParameterType -> Internal, Value -> Cos[alp]},
+  lam == {ParameterType -> External, BlockName -> NPMIX, OrderBlock -> 2, Value -> 0.77, InteractionOrder -> {QED, 2}}
+};
+M$ClassesDescription = {
+  S[100] == {ClassName -> H2, SelfConjugate -> True, Mass -> {MH2, 300.}, Width -> {WH2, 1.}, PDG -> 9000035}
+};
+LH2 := 1/2 del[H2,mu] del[H2,mu] - 1/2 MH2^2 H2^2;
+LTotal := LSM + LH2;

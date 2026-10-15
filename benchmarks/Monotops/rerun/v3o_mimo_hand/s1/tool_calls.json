@@ -1,0 +1,37 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-_oeu2ek5/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-_oeu2ek5/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: Monotops (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1106.6199.\n4: PAPER: the paper's LaTeX sou"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-_oeu2ek5/paper/1106.6199_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-_oeu2ek5/paper/1106.6199_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[showpacs,aps,prl,twocolumn,nofootinbib]{revtex4}\n2: \\usepackage{amsmath}\n3: \\usepackage{epsfig}\n4: \\usepackage{graphicx}\n5: \\usepackage{subfigure}\n6: \\usepackage{float}\n7: \\usepackage{verbatim} \n8: \\usepackage{pstricks}\n9: \\usepackage{c"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-_oeu2ek5/SM.fr",
+   "limit": 400
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-_oeu2ek5/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                               "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-_oeu2ek5/SM.fr",
+   "offset": 401,
+   "limit": 400
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Monotops-_oeu2ek5/SM.fr</path>\n<type>file</type>\n<content>\n401:     FullName        -> \"H\"\n402:   },\n403: \n404: (* Higgs: physical scalars  *)\n405:   S[2] == {\n406:     ClassName       -> G0,\n407:     SelfConjugate   -> True,\n408:     Goldstone       -> Z,\n409:     Mass            -> {MZ, 91.1876},\n410:     Width           -> {WZ, 2"
+ }
+]

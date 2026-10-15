@@ -1,0 +1,5 @@
+SCHEMA OK: 10 particle classes, 66 parameters, Lagrangian terms ['LZpKin', 'LWpKin', 'LnKin', 'LdqpKin', 'Lh0Kin', 'LA0Kin', 'LHpKin', 'LYukawa', 'LHiggsPotential', 'LEffHiggs', 'LTotal']
+RENDERED: model.fr (604 lines). You may read it.
+LINT: 2 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are real defects; do not remove paper physics just to silence one.
+- [warn] sm_class_redeclared: class `Phi` is already declared by SM.fr (doubly-defined class) (model.fr line 446)
+- [warn] undeclared_symbol: `LHiggsPotential` uses `Tr` which is neither declared here nor by SM.fr (model.fr line 600)

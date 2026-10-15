@@ -1,0 +1,235 @@
+
+
+
+M$ModelName = "ANON-MODEL";
+
+
+M$InteractionOrderHierarchy = {{QCD, 1}, {QED, 2}, {NP, 1}};
+
+M$Parameters = {
+  a0FC == {
+    ParameterType -> External,
+    Value -> {a0FC[1,1] -> 0., a0FC[1,2] -> 0., a0FC[1,3] -> 0.1, a0FC[2,1] -> 0., a0FC[2,2] -> 0., a0FC[2,3] -> 0., a0FC[3,1] -> 0.1, a0FC[3,2] -> 0., a0FC[3,3] -> 0.},
+    Indices -> {Index[Generation], Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  b0FC == {
+    ParameterType -> External,
+    Value -> {b0FC[1,1] -> 0., b0FC[1,2] -> 0., b0FC[1,3] -> 0., b0FC[2,1] -> 0., b0FC[2,2] -> 0., b0FC[2,3] -> 0., b0FC[3,1] -> 0., b0FC[3,2] -> 0., b0FC[3,3] -> 0.},
+    Indices -> {Index[Generation], Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  a1FC == {
+    ParameterType -> External,
+    Value -> {a1FC[1,1] -> 0., a1FC[1,2] -> 0., a1FC[1,3] -> 0.1, a1FC[2,1] -> 0., a1FC[2,2] -> 0., a1FC[2,3] -> 0., a1FC[3,1] -> 0.1, a1FC[3,2] -> 0., a1FC[3,3] -> 0.},
+    Indices -> {Index[Generation], Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  b1FC == {
+    ParameterType -> External,
+    Value -> {b1FC[1,1] -> 0., b1FC[1,2] -> 0., b1FC[1,3] -> 0., b1FC[2,1] -> 0., b1FC[2,2] -> 0., b1FC[2,3] -> 0., b1FC[3,1] -> 0., b1FC[3,2] -> 0., b1FC[3,3] -> 0.},
+    Indices -> {Index[Generation], Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  aqSR == {
+    ParameterType -> External,
+    Value -> {aqSR[1,1] -> 0., aqSR[1,2] -> 0.1, aqSR[1,3] -> 0., aqSR[2,1] -> -0.1, aqSR[2,2] -> 0., aqSR[2,3] -> 0., aqSR[3,1] -> 0., aqSR[3,2] -> 0., aqSR[3,3] -> 0.},
+    Indices -> {Index[Generation], Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  bqSR == {
+    ParameterType -> External,
+    Value -> {bqSR[1,1] -> 0., bqSR[1,2] -> 0., bqSR[1,3] -> 0., bqSR[2,1] -> 0., bqSR[2,2] -> 0., bqSR[2,3] -> 0., bqSR[3,1] -> 0., bqSR[3,2] -> 0., bqSR[3,3] -> 0.},
+    Indices -> {Index[Generation], Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  ahalfSR == {
+    ParameterType -> External,
+    Value -> {ahalfSR[1] -> 0., ahalfSR[2] -> 0., ahalfSR[3] -> 0.1},
+    Indices -> {Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  bhalfSR == {
+    ParameterType -> External,
+    Value -> {bhalfSR[1] -> 0., bhalfSR[2] -> 0., bhalfSR[3] -> 0.},
+    Indices -> {Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  atildeqSR == {
+    ParameterType -> External,
+    Value -> {atildeqSR[1,1] -> 0., atildeqSR[1,2] -> 0., atildeqSR[1,3] -> 0.1, atildeqSR[2,1] -> 0., atildeqSR[2,2] -> 0., atildeqSR[2,3] -> 0.1, atildeqSR[3,1] -> 0., atildeqSR[3,2] -> 0., atildeqSR[3,3] -> 0.},
+    Indices -> {Index[Generation], Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  btildeqSR == {
+    ParameterType -> External,
+    Value -> {btildeqSR[1,1] -> 0., btildeqSR[1,2] -> 0., btildeqSR[1,3] -> 0., btildeqSR[2,1] -> 0., btildeqSR[2,2] -> 0., btildeqSR[2,3] -> 0., btildeqSR[3,1] -> 0., btildeqSR[3,2] -> 0., btildeqSR[3,3] -> 0.},
+    Indices -> {Index[Generation], Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  atildehalfSR == {
+    ParameterType -> External,
+    Value -> {atildehalfSR[1] -> 0.1, atildehalfSR[2] -> 0.1, atildehalfSR[3] -> 0.},
+    Indices -> {Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  btildehalfSR == {
+    ParameterType -> External,
+    Value -> {btildehalfSR[1] -> 0., btildehalfSR[2] -> 0., btildehalfSR[3] -> 0.},
+    Indices -> {Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  aqVR == {
+    ParameterType -> External,
+    Value -> {aqVR[1,1] -> 0.1, aqVR[1,2] -> 0., aqVR[1,3] -> 0., aqVR[2,1] -> 0., aqVR[2,2] -> 0., aqVR[2,3] -> 0., aqVR[3,1] -> 0., aqVR[3,2] -> 0., aqVR[3,3] -> 0.},
+    Indices -> {Index[Generation], Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  bqVR == {
+    ParameterType -> External,
+    Value -> {bqVR[1,1] -> 0., bqVR[1,2] -> 0., bqVR[1,3] -> 0., bqVR[2,1] -> 0., bqVR[2,2] -> 0., bqVR[2,3] -> 0., bqVR[3,1] -> 0., bqVR[3,2] -> 0., bqVR[3,3] -> 0.},
+    Indices -> {Index[Generation], Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  ahalfVR == {
+    ParameterType -> External,
+    Value -> {ahalfVR[1] -> 0., ahalfVR[2] -> 0., ahalfVR[3] -> 0.1},
+    Indices -> {Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  },
+  bhalfVR == {
+    ParameterType -> External,
+    Value -> {bhalfVR[1] -> 0., bhalfVR[2] -> 0., bhalfVR[3] -> 0.},
+    Indices -> {Index[Generation]},
+    BlockName -> MONOTOP,
+    InteractionOrder -> {NP, 1},
+    Description -> ""
+  }
+};
+
+M$ClassesDescription = {
+  S[100] == {
+    ClassName -> phi,
+    SelfConjugate -> True,
+    Mass -> {Mphi, 300.},
+    Width -> {Wphi, 0.},
+    PDG -> 9900001,
+    ParticleName -> "phi0",
+    FullName -> ""
+  },
+  V[101] == {
+    ClassName -> V,
+    SelfConjugate -> True,
+    Mass -> {MV, 50.},
+    Width -> {WV, 0.},
+    PDG -> 9900002,
+    ParticleName -> "V0",
+    FullName -> ""
+  },
+  F[102] == {
+    ClassName -> chi,
+    SelfConjugate -> False,
+    Mass -> {Mchi, 50.},
+    Width -> {Wchi, 0.},
+    PDG -> 9900003,
+    ParticleName -> "chi",
+    AntiParticleName -> "chi~",
+    FullName -> ""
+  },
+  S[103] == {
+    ClassName -> vphi,
+    SelfConjugate -> False,
+    Indices -> {Index[Colour]},
+    Mass -> {Mvphi, 500.},
+    Width -> {Wvphi, 50.},
+    QuantumNumbers -> {Q -> -2/3},
+    PDG -> 9900004,
+    ParticleName -> "vphi",
+    AntiParticleName -> "vphi~",
+    FullName -> ""
+  },
+  S[104] == {
+    ClassName -> vphit,
+    SelfConjugate -> False,
+    Indices -> {Index[Colour]},
+    Mass -> {Mvphit, 3000.},
+    Width -> {Wvphit, 300.},
+    QuantumNumbers -> {Q -> -1/3},
+    PDG -> 9900005,
+    ParticleName -> "vphit",
+    AntiParticleName -> "vphit~",
+    FullName -> ""
+  },
+  V[105] == {
+    ClassName -> X,
+    SelfConjugate -> False,
+    Indices -> {Index[Colour]},
+    Mass -> {MX, 500.},
+    Width -> {WX, 50.},
+    QuantumNumbers -> {Q -> 2/3},
+    PDG -> 9900006,
+    ParticleName -> "X",
+    AntiParticleName -> "X~",
+    FullName -> ""
+  }
+};
+
+Lphikin := 1/2 del[phi, mu] del[phi, mu] - 1/2 Mphi^2 phi^2;
+
+LVkin := -1/4 FS[V, mu, nu] FS[V, mu, nu] + 1/2 MV^2 V[mu] V[mu];
+
+Lchikin := I chibar.Ga[mu].DC[chi, mu] - Mchi chibar.chi;
+
+Lvphikin := DC[vphibar, mu] DC[vphi, mu] - Mvphi^2 vphibar vphi;
+
+Lvphitkin := DC[vphitbar, mu] DC[vphit, mu] - Mvphit^2 vphitbar vphit;
+
+LXkin := -1/2 FS[Xbar, mu, nu] FS[X, mu, nu] + MX^2 Xbar[mu] X[mu];
+
+Lphiu := Block[{ff1,ff2,cc}, ExpandIndices[phi a0FC[ff1,ff2] uqbar[ff1,cc].uq[ff2,cc] + phi b0FC[ff1,ff2] uqbar[ff1,cc].Ga[5].uq[ff2,cc]]];
+
+LVu := Block[{mu,ff1,ff2,cc}, ExpandIndices[V[mu] a1FC[ff1,ff2] uqbar[ff1,cc].Ga[mu].uq[ff2,cc] + V[mu] b1FC[ff1,ff2] uqbar[ff1,cc].Ga[mu].Ga[5].uq[ff2,cc]]];
+
+LvphiDiquark := Block[{cc1,cc2,cc3,ff2,ff3,term}, term = Eps[cc1,cc2,cc3] vphi[cc1] aqSR[ff2,ff3] bar[CC[dq[ff2,cc2]]].dq[ff3,cc3] + Eps[cc1,cc2,cc3] vphi[cc1] bqSR[ff2,ff3] bar[CC[dq[ff2,cc2]]].Ga[5].dq[ff3,cc3]; ExpandIndices[term + HC[term]]];
+
+LvphiChi := Block[{ff,cc,term}, term = vphi[cc] ahalfSR[ff] uqbar[ff,cc].chi + vphi[cc] bhalfSR[ff] uqbar[ff,cc].Ga[5].chi; ExpandIndices[term + HC[term]]];
+
+LvphitDiquark := Block[{cc1,cc2,cc3,ff2,ff3,term}, term = Eps[cc1,cc2,cc3] vphit[cc1] atildeqSR[ff2,ff3] bar[CC[dq[ff2,cc2]]].uq[ff3,cc3] + Eps[cc1,cc2,cc3] vphit[cc1] btildeqSR[ff2,ff3] bar[CC[dq[ff2,cc2]]].Ga[5].uq[ff3,cc3]; ExpandIndices[term + HC[term]]];
+
+LvphitChi := Block[{ff,cc,term}, term = vphit[cc] atildehalfSR[ff] dqbar[ff,cc].chi + vphit[cc] btildehalfSR[ff] dqbar[ff,cc].Ga[5].chi; ExpandIndices[term + HC[term]]];
+
+LXDiquark := Block[{mu,cc1,cc2,cc3,ff2,ff3,term}, term = Eps[cc1,cc2,cc3] X[mu,cc1] aqVR[ff2,ff3] bar[CC[dq[ff2,cc2]]].Ga[mu].dq[ff3,cc3] + Eps[cc1,cc2,cc3] X[mu,cc1] bqVR[ff2,ff3] bar[CC[dq[ff2,cc2]]].Ga[mu].Ga[5].dq[ff3,cc3]; ExpandIndices[term + HC[term]]];
+
+LXChi := Block[{mu,ff,cc,term}, term = X[mu,cc] ahalfVR[ff] uqbar[ff,cc].Ga[mu].chi + X[mu,cc] bhalfVR[ff] uqbar[ff,cc].Ga[mu].Ga[5].chi; ExpandIndices[term + HC[term]]];
+
+LTotal := Lphikin + LVkin + Lchikin + Lvphikin + Lvphitkin + LXkin + Lphiu + LVu + LvphiDiquark + LvphiChi + LvphitDiquark + LvphitChi + LXDiquark + LXChi;

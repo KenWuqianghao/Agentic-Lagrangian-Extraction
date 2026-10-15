@@ -1,0 +1,150 @@
+M$ModelName = "SMWeinberg_gen";
+
+M$Information = {
+  Authors -> {"Auto-generated from arXiv:2012.09882"},
+  Version -> "1.0",
+  Date -> "2026-09-24",
+  Institutions -> {},
+  Emails -> {},
+  URLs -> "https://arxiv.org/abs/2012.09882"
+};
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+M$Parameters = {
+  Lambda == {
+    ParameterType -> External,
+    Value -> 200000.,
+    BlockName -> "NUPHYSICS",
+    OrderBlock -> 1,
+    InteractionOrder -> {NP, -1},
+    Description -> "EFT cutoff scale [GeV]"
+  },
+  Cll_ee == {
+    ParameterType -> External,
+    Value -> 0.,
+    BlockName -> "NUPHYSICS",
+    OrderBlock -> 2,
+    InteractionOrder -> {NP, 1},
+    Description -> "Wilson coefficient C_5^{ee}"
+  },
+  Cll_emu == {
+    ParameterType -> External,
+    Value -> 0.,
+    BlockName -> "NUPHYSICS",
+    OrderBlock -> 3,
+    InteractionOrder -> {NP, 1},
+    Description -> "Wilson coefficient C_5^{eμ}"
+  },
+  Cll_etau == {
+    ParameterType -> External,
+    Value -> 0.,
+    BlockName -> "NUPHYSICS",
+    OrderBlock -> 4,
+    InteractionOrder -> {NP, 1},
+    Description -> "Wilson coefficient C_5^{eτ}"
+  },
+  Cll_mumu == {
+    ParameterType -> External,
+    Value -> 1.,
+    BlockName -> "NUPHYSICS",
+    OrderBlock -> 5,
+    InteractionOrder -> {NP, 1},
+    Description -> "Wilson coefficient C_5^{μμ}"
+  },
+  Cll_mutau == {
+    ParameterType -> External,
+    Value -> 0.,
+    BlockName -> "NUPHYSICS",
+    OrderBlock -> 6,
+    InteractionOrder -> {NP, 1},
+    Description -> "Wilson coefficient C_5^{μτ}"
+  },
+  Cll_tautau == {
+    ParameterType -> External,
+    Value -> 0.,
+    BlockName -> "NUPHYSICS",
+    OrderBlock -> 7,
+    InteractionOrder -> {NP, 1},
+    Description -> "Wilson coefficient C_5^{ττ}"
+  },
+  mN == {
+    ParameterType -> Internal,
+    Value -> Abs[Cll_ee + Cll_emu + Cll_etau + Cll_mumu + Cll_mutau + Cll_tautau] * vev^2 / Lambda,
+    Description -> "Majorana neutrino mass = |sum Cll| v^2 / Lambda [GeV]"
+  },
+  wN == {
+    ParameterType -> Internal,
+    Value -> 0.,
+    Description -> "Majorana neutrino width [GeV]"
+  }
+};
+
+M$ClassesDescription = {
+  F[100] == {
+    ClassName -> N,
+    SelfConjugate -> True,
+    Unphysical -> True,
+    Mass -> {mN, 0.3},
+    Width -> {wN, 0.},
+    ParticleName -> "N",
+    AntiParticleName -> "N",
+    PDG -> 9900012,
+    PropagatorLabel -> "N",
+    PropagatorType -> S,
+    PropagatorArrow -> Forward,
+    FullName -> "Heavy Majorana neutrino (Weinberg operator)"
+  }
+};
+
+LNkin := I/2 Nbar.Ga[mu].del[N, mu] - 1/2 mN Nbar.N;
+
+LW := -gw/Sqrt[2] W[mu] (
+  Nbar.Ga[mu].ProjM.e + 
+  Nbar.Ga[mu].ProjM.mu + 
+  Nbar.Ga[mu].ProjM.ta
+);
+
+LZ := -gw/(2*cw) Z[mu] (
+  Nbar.Ga[mu].ProjM.ve + 
+  Nbar.Ga[mu].ProjM.vm + 
+  Nbar.Ga[mu].ProjM.vt
+);
+
+Lh := -gw*mN/(2*mW) h (1 + gw/(4*mW) h) (
+  Nbar.ProjM.ve + 
+  Nbar.ProjM.vm + 
+  Nbar.ProjM.vt
+);
+
+LGP := -I*gw*mN/(2*Sqrt[2]*mW) GP (1 + gw/(2*mW) h) (
+  Nbar.ProjM.e + Nbar.ProjM.mu + Nbar.ProjM.ta +
+  bar[CC[e]].ProjM.N + bar[CC[mu]].ProjM.N + bar[CC[ta]].ProjM.N
+);
+
+LG0 := -I*gw*mN/(2*mW) G0 (1 + gw/(2*mW) h) (
+  Nbar.ProjM.ve + Nbar.ProjM.vm + Nbar.ProjM.vt
+);
+
+LGPGP := gw^2*mN/(4*mW^2) GP^2 (
+  bar[CC[e]].ProjM.e + bar[CC[e]].ProjM.mu + bar[CC[e]].ProjM.ta +
+  bar[CC[mu]].ProjM.e + bar[CC[mu]].ProjM.mu + bar[CC[mu]].ProjM.ta +
+  bar[CC[ta]].ProjM.e + bar[CC[ta]].ProjM.mu + bar[CC[ta]].ProjM.ta
+);
+
+LG0G0 := gw^2*mN/(8*mW^2) G0^2 (
+  Nbar.ProjM.ve + Nbar.ProjM.vm + Nbar.ProjM.vt
+);
+
+LG0GP := gw^2*mN/(4*Sqrt[2]*mW^2) G0 GP (
+  Nbar.ProjM.e + Nbar.ProjM.mu + Nbar.ProjM.ta +
+  bar[CC[e]].ProjM.N + bar[CC[mu]].ProjM.N + bar[CC[ta]].ProjM.N
+);
+
+Lint := LW + LZ + Lh + LGP + LG0 + LGPGP + LG0G0 + LG0GP;
+
+LTotal := LNkin + Lint + HC[Lint];

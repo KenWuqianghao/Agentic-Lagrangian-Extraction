@@ -1,0 +1,67 @@
+{
+ "model_files": [
+  "/home/deck/code/heptapod/eval/reference_cache/B-L-SM/B-L.fr"
+ ],
+ "load_sm": false,
+ "sm_file": null,
+ "lagrangian": "LBL",
+ "seconds": 85,
+ "ok": true,
+ "n_particles": 31,
+ "n_vertices": 291,
+ "n_bsm_vertices": 278,
+ "bsm_particles": [
+  "A",
+  "G",
+  "H1",
+  "H2",
+  "Zp",
+  "e",
+  "ghZp",
+  "l",
+  "m",
+  "n1",
+  "n2",
+  "n3",
+  "phi0",
+  "phi0p",
+  "phi__plus__"
+ ],
+ "example_bsm_vertex": [
+  "H1",
+  "H1",
+  "H1",
+  "H1"
+ ],
+ "evidence": "B-L.fr:469 M$GaugeGroups, :598-754 declare the SM fields; B-L.fr:1091 'LBL := LGauge + LHiggs + LFermions + LYukawa + LGhost'.",
+ "notes": "Full model, loaded alone. Total is the file's own LBL.",
+ "extra_args": [],
+ "command": [
+  "wolframscript",
+  "-f",
+  "/home/deck/code/hep-pr/validator-main/tools/feynrules/UFO_generator.wl",
+  "FeynRulesPath=/home/deck/hep-tools/feynrules-current",
+  "ModelPath=/home/deck/code/heptapod/eval/reference_cache/B-L-SM/B-L.fr",
+  "OutputDir=/home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/hillclimb/ref_ufo/B-L-SM/UFO",
+  "Checks=false",
+  "AddDecays=false",
+  "LoadSM=false",
+  "Lagrangian=LBL"
+ ],
+ "problems": [],
+ "last_log_lines": [],
+ "attempts": [
+  {
+   "lagrangian": "LBL",
+   "load_sm": false,
+   "model_files": [
+    "/home/deck/code/heptapod/eval/reference_cache/B-L-SM/B-L.fr"
+   ],
+   "extra": [],
+   "seconds": 85,
+   "exit_code": 0,
+   "ok": true,
+   "problems": []
+  }
+ ]
+}

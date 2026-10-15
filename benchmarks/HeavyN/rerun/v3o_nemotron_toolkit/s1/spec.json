@@ -1,0 +1,124 @@
+{
+  "model_name": "HeavyN_gen",
+  "info": {
+    "authors": ["Celine Degrande", "Olivier Mattelaer", "Richard Ruiz", "Jessica Turner"],
+    "version": "1.0.0",
+    "date": "24.09.2026",
+    "institutions": ["Durham University"],
+    "emails": ["celine.degrande@durham.ac.uk", "o.p.c.mattelaer@durham.ac.uk", "richard.ruiz@durham.ac.uk", "jessica.turner@durham.ac.uk"]
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "feynman_gauge": true,
+  "vevs": [],
+  "gauge_groups": [],
+  "index_decls": [
+    {
+      "name": "HeavyGeneration",
+      "range_kind": "NoUnfold",
+      "size": 3,
+      "style_symbol": "hg"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "MN",
+      "parameter_type": "External",
+      "value": "500.",
+      "block_name": "HEAVYN",
+      "order_block": 1,
+      "interaction_order": ["NP", 1],
+      "description": "Heavy neutrino mass [GeV]",
+      "tex": "M_N"
+    },
+    {
+      "name": "V",
+      "parameter_type": "External",
+      "indices": ["HeavyGeneration", "Generation"],
+      "value_rules": [
+        {"lhs": "V[1, 1]", "rhs": "0.01"},
+        {"lhs": "V[1, 2]", "rhs": "0"},
+        {"lhs": "V[1, 3]", "rhs": "0"},
+        {"lhs": "V[2, 1]", "rhs": "0"},
+        {"lhs": "V[2, 2]", "rhs": "0.01"},
+        {"lhs": "V[2, 3]", "rhs": "0"},
+        {"lhs": "V[3, 1]", "rhs": "0"},
+        {"lhs": "V[3, 2]", "rhs": "0"},
+        {"lhs": "V[3, 3]", "rhs": "0.01"}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Active-heavy neutrino mixing matrix V_\\ell N",
+      "tex": "V"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "F",
+      "class_index": 100,
+      "class_name": "HN",
+      "self_conjugate": false,
+      "indices": ["HeavyGeneration"],
+      "flavor_index": "HeavyGeneration",
+      "class_members": ["HN1", "HN2", "HN3"],
+      "mass": {"sym": "MN", "value": "500."},
+      "width": {"sym": "WN", "value": "Auto"},
+      "quantum_numbers": {"Q": "0", "Y": "0", "LeptonNumber": "-1"},
+      "pdg": [9900012, 9900014, 9900016],
+      "particle_name": ["HN1", "HN2", "HN3"],
+      "antiparticle_name": ["HN1bar", "HN2bar", "HN3bar"],
+      "full_name": ["Heavy neutrino 1", "Heavy neutrino 2", "Heavy neutrino 3"],
+      "propagator_label": ["HN1", "HN2", "HN3"],
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    }
+  ],
+  "gauge_xi": [],
+  "lagrangian_terms": [
+    {
+      "name": "LNKin",
+      "expression": "I HNbar.Ga[mu].DC[HN, mu]",
+      "delayed": true
+    },
+    {
+      "name": "LNMass",
+      "expression": "-MN HNbar.HN",
+      "delayed": true
+    },
+    {
+      "name": "LNWbase",
+      "expression": "-gw/Sqrt[2] W[mu] bar[CC[HNbar]].V.Ga[mu].ProjM[l]",
+      "delayed": true
+    },
+    {
+      "name": "LNW",
+      "expression": "LNWbase + HC[LNWbase]",
+      "delayed": true
+    },
+    {
+      "name": "LNZbase",
+      "expression": "-gw/(2*cw) Z[mu] bar[CC[HNbar]].V.Ga[mu].ProjM[vl]",
+      "delayed": true
+    },
+    {
+      "name": "LNZ",
+      "expression": "LNZbase + HC[LNZbase]",
+      "delayed": true
+    },
+    {
+      "name": "LNHbase",
+      "expression": "-gw*MN/(2*MW) H bar[CC[HNbar]].V.ProjM[vl]",
+      "delayed": true
+    },
+    {
+      "name": "LNH",
+      "expression": "LNHbase + HC[LNHbase]",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "LNKin + LNMass + LNW + LNZ + LNH",
+      "delayed": true
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}

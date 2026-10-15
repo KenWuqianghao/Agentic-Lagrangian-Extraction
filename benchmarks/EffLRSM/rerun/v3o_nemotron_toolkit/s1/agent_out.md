@@ -1,0 +1,1 @@
+The task is complete. The `spec.json` has been written, `./frgen spec.json` passes with **SCHEMA OK** and **no lint findings**, and the self-audit table is provided above.

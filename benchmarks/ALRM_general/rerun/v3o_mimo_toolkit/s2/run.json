@@ -1,0 +1,42 @@
+{
+ "page": "ALRM_general",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit",
+ "seed": 2,
+ "variant": "v3o_mimo_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3605.9,
+ "tokens": {
+  "input": 754110,
+  "output": 25940,
+  "reasoning": 109107
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 0,
+ "n_events": 253,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 88,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la\"}",
+   "bash:{\"command\": \"ls -la tools/frgen/\"}",
+   "read:{\"filePath\": \"/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchm",
+   "bash:{\"command\": \"grep -n \\\"M\\\\$ClassesDescription\\\\|M\\\\$Parameters\\\\|M\\\\$Interaction",
+   "bash:{\"command\": \"grep -n \\\"^class \\\\|^def \\\\|^    class \\\\|Field\\\\b\\\\|definitions\\\\|"
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_spec"
+}

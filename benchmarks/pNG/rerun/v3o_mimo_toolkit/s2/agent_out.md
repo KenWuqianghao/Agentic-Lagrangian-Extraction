@@ -1,0 +1,1 @@
+Model section confirmed. Now I need the benchmark values (masses, θ, vs) — let me search:

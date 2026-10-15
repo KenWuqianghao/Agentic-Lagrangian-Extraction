@@ -1,0 +1,288 @@
+{
+  "model_name": "pSPSS_gen",
+  "info": {
+    "authors": ["Stefan Antusch", "Jan Hajer", "Johannes Rosskopp"],
+    "version": "1.0",
+    "date": "2022-10-19",
+    "institutions": ["University of Basel", "Instituto Superior Tecnico"],
+    "emails": ["stefan.antusch@unibas.ch"]
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "interaction_order_limit": [],
+  "feynman_gauge": true,
+  "vevs": [],
+  "gauge_groups": [],
+  "index_decls": [
+    {"name": "NIndex", "range_kind": "NoUnfold", "size": 5}
+  ],
+  "parameters": [
+    {
+      "name": "Mmaj",
+      "parameter_type": "External",
+      "value": "100.",
+      "block_name": "PSPSS",
+      "order_block": 1,
+      "interaction_order": ["NP", 1],
+      "description": "Heavy neutrino Majorana mass m_M [GeV]"
+    },
+    {
+      "name": "deltaM",
+      "parameter_type": "External",
+      "value": "1.*^-12",
+      "block_name": "PSPSS",
+      "order_block": 2,
+      "interaction_order": ["NP", 1],
+      "description": "Heavy neutrino mass splitting delta m [GeV]"
+    },
+    {
+      "name": "theta1",
+      "parameter_type": "External",
+      "value": "0.",
+      "block_name": "PSPSS",
+      "order_block": 3,
+      "interaction_order": ["NP", 1],
+      "description": "Active-sterile mixing theta_e"
+    },
+    {
+      "name": "theta2",
+      "parameter_type": "External",
+      "value": "1.*^-3",
+      "block_name": "PSPSS",
+      "order_block": 4,
+      "interaction_order": ["NP", 1],
+      "description": "Active-sterile mixing theta_mu"
+    },
+    {
+      "name": "theta3",
+      "parameter_type": "External",
+      "value": "0.",
+      "block_name": "PSPSS",
+      "order_block": 5,
+      "interaction_order": ["NP", 1],
+      "description": "Active-sterile mixing theta_tau"
+    },
+    {
+      "name": "damping",
+      "parameter_type": "External",
+      "value": "0.",
+      "block_name": "PSPSS",
+      "order_block": 6,
+      "interaction_order": ["NP", 1],
+      "description": "Oscillation damping parameter lambda"
+    },
+    {
+      "name": "vevNP",
+      "parameter_type": "Internal",
+      "value": "vev",
+      "interaction_order": ["NP", -1],
+      "description": "Higgs VEV with NP interaction order"
+    },
+    {
+      "name": "yvn",
+      "parameter_type": "Internal",
+      "indices": ["Generation"],
+      "value_rules": [
+        {"lhs": "yvn[1]", "rhs": "0.", "delayed": false},
+        {"lhs": "yvn[2]", "rhs": "theta2*Mmaj*Sqrt[2]/vevNP", "delayed": false},
+        {"lhs": "yvn[3]", "rhs": "0.", "delayed": false}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Neutrino Yukawa vector y_{alpha,1} = theta_alpha * Mmaj * Sqrt[2] / vevNP"
+    },
+    {
+      "name": "M4",
+      "parameter_type": "Internal",
+      "value": "Mmaj*(1 + (theta1^2 + theta2^2 + theta3^2)/2) - deltaM/2",
+      "interaction_order": ["NP", 1],
+      "description": "Mass of n4 from eq. Delta m mass splitting"
+    },
+    {
+      "name": "M5",
+      "parameter_type": "Internal",
+      "value": "Mmaj*(1 + (theta1^2 + theta2^2 + theta3^2)/2) + deltaM/2",
+      "interaction_order": ["NP", 1],
+      "description": "Mass of n5 from eq. Delta m mass splitting"
+    },
+    {
+      "name": "Un",
+      "parameter_type": "Internal",
+      "complex": true,
+      "indices": ["NIndex", "NIndex"],
+      "value_rules": [
+        {"lhs": "Un[1,1]", "rhs": "1-theta1^2/2", "delayed": false},
+        {"lhs": "Un[1,2]", "rhs": "-theta1*theta2/2", "delayed": false},
+        {"lhs": "Un[1,3]", "rhs": "-theta1*theta3/2", "delayed": false},
+        {"lhs": "Un[1,4]", "rhs": "-I*theta1/Sqrt[2]", "delayed": false},
+        {"lhs": "Un[1,5]", "rhs": "theta1/Sqrt[2]", "delayed": false},
+        {"lhs": "Un[2,1]", "rhs": "-theta2*theta1/2", "delayed": false},
+        {"lhs": "Un[2,2]", "rhs": "1-theta2^2/2", "delayed": false},
+        {"lhs": "Un[2,3]", "rhs": "-theta2*theta3/2", "delayed": false},
+        {"lhs": "Un[2,4]", "rhs": "-I*theta2/Sqrt[2]", "delayed": false},
+        {"lhs": "Un[2,5]", "rhs": "theta2/Sqrt[2]", "delayed": false},
+        {"lhs": "Un[3,1]", "rhs": "-theta3*theta1/2", "delayed": false},
+        {"lhs": "Un[3,2]", "rhs": "-theta3*theta2/2", "delayed": false},
+        {"lhs": "Un[3,3]", "rhs": "1-theta3^2/2", "delayed": false},
+        {"lhs": "Un[3,4]", "rhs": "-I*theta3/Sqrt[2]", "delayed": false},
+        {"lhs": "Un[3,5]", "rhs": "theta3/Sqrt[2]", "delayed": false},
+        {"lhs": "Un[4,1]", "rhs": "0", "delayed": false},
+        {"lhs": "Un[4,2]", "rhs": "0", "delayed": false},
+        {"lhs": "Un[4,3]", "rhs": "0", "delayed": false},
+        {"lhs": "Un[4,4]", "rhs": "I/Sqrt[2]", "delayed": false},
+        {"lhs": "Un[4,5]", "rhs": "1/Sqrt[2]", "delayed": false},
+        {"lhs": "Un[5,1]", "rhs": "-theta1", "delayed": false},
+        {"lhs": "Un[5,2]", "rhs": "-theta2", "delayed": false},
+        {"lhs": "Un[5,3]", "rhs": "-theta3", "delayed": false},
+        {"lhs": "Un[5,4]", "rhs": "-I/Sqrt[2]*(1 - (theta1^2 + theta2^2 + theta3^2)/2)", "delayed": false},
+        {"lhs": "Un[5,5]", "rhs": "1/Sqrt[2]*(1 - (theta1^2 + theta2^2 + theta3^2)/2)", "delayed": false}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Neutrino mixing matrix U_n (Takagi, O(theta^2))"
+    },
+    {
+      "name": "UnCL",
+      "parameter_type": "Internal",
+      "complex": true,
+      "indices": ["Generation", "NIndex"],
+      "value_rules": [
+        {"lhs": "UnCL[1,1]", "rhs": "1-theta1^2/2", "delayed": false},
+        {"lhs": "UnCL[1,2]", "rhs": "-theta1*theta2/2", "delayed": false},
+        {"lhs": "UnCL[1,3]", "rhs": "-theta1*theta3/2", "delayed": false},
+        {"lhs": "UnCL[1,4]", "rhs": "-I*theta1/Sqrt[2]", "delayed": false},
+        {"lhs": "UnCL[1,5]", "rhs": "theta1/Sqrt[2]", "delayed": false},
+        {"lhs": "UnCL[2,1]", "rhs": "-theta2*theta1/2", "delayed": false},
+        {"lhs": "UnCL[2,2]", "rhs": "1-theta2^2/2", "delayed": false},
+        {"lhs": "UnCL[2,3]", "rhs": "-theta2*theta3/2", "delayed": false},
+        {"lhs": "UnCL[2,4]", "rhs": "-I*theta2/Sqrt[2]", "delayed": false},
+        {"lhs": "UnCL[2,5]", "rhs": "theta2/Sqrt[2]", "delayed": false},
+        {"lhs": "UnCL[3,1]", "rhs": "-theta3*theta1/2", "delayed": false},
+        {"lhs": "UnCL[3,2]", "rhs": "-theta3*theta2/2", "delayed": false},
+        {"lhs": "UnCL[3,3]", "rhs": "1-theta3^2/2", "delayed": false},
+        {"lhs": "UnCL[3,4]", "rhs": "-I*theta3/Sqrt[2]", "delayed": false},
+        {"lhs": "UnCL[3,5]", "rhs": "theta3/Sqrt[2]", "delayed": false}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Upper 3x5 block U_CL' of U_n for active-neutrino rotation"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "F",
+      "class_index": 101,
+      "class_name": "N1L",
+      "self_conjugate": true,
+      "unphysical": true,
+      "definitions": [
+        "N1L[mu1_] :> Un[4,4] nL[mu1,4] + Un[4,5] nL[mu1,5]"
+      ],
+      "full_name": "Sterile neutrino N1 interaction state"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 102,
+      "class_name": "N2L",
+      "self_conjugate": true,
+      "unphysical": true,
+      "definitions": [
+        "N2L[mu1_] :> Un[5,1] nL[mu1,1] + Un[5,2] nL[mu1,2] + Un[5,3] nL[mu1,3] + Un[5,4] nL[mu1,4] + Un[5,5] nL[mu1,5]"
+      ],
+      "full_name": "Sterile neutrino N2 interaction state"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 103,
+      "class_name": "n4",
+      "self_conjugate": true,
+      "mass": {"sym": "M4", "value": "Internal"},
+      "width": {"massless": true},
+      "pdg": 8000011,
+      "particle_name": "n4",
+      "antiparticle_name": "n4",
+      "full_name": "Heavy neutrino mass eigenstate 4",
+      "propagator_label": "n4",
+      "propagator_type": "Straight",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 104,
+      "class_name": "n5",
+      "self_conjugate": true,
+      "mass": {"sym": "M5", "value": "Internal"},
+      "width": {"massless": true},
+      "pdg": 8000012,
+      "particle_name": "n5",
+      "antiparticle_name": "n5",
+      "full_name": "Heavy neutrino mass eigenstate 5",
+      "propagator_label": "n5",
+      "propagator_type": "Straight",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 105,
+      "class_name": "nL",
+      "self_conjugate": false,
+      "indices": ["NIndex"],
+      "flavor_index": "NIndex",
+      "unphysical": true,
+      "definitions": [
+        "nL[mu1_, 1] :> vl[mu1, 1]",
+        "nL[mu1_, 2] :> vl[mu1, 2]",
+        "nL[mu1_, 3] :> vl[mu1, 3]",
+        "nL[mu1_, 4] :> n4[mu1]",
+        "nL[mu1_, 5] :> n5[mu1]"
+      ],
+      "full_name": "Mass-eigenstate neutrino multiplet n_i"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 101,
+      "class_name": "PhiNP",
+      "self_conjugate": false,
+      "indices": ["SU2D"],
+      "flavor_index": "SU2D",
+      "quantum_numbers": {"Y": "1/2"},
+      "unphysical": true,
+      "definitions": [
+        "PhiNP[1] -> -I GP",
+        "PhiNP[2] -> (vevNP + H + I G0)/Sqrt[2]"
+      ],
+      "full_name": "NP Higgs doublet with vevNP"
+    }
+  ],
+  "gauge_xi": [],
+  "lagrangian_terms": [
+    {
+      "name": "LNPkin",
+      "expression": "I (N1Lbar.Ga[mu].del[N1L, mu] + N2Lbar.Ga[mu].del[N2L, mu])",
+      "delayed": true
+    },
+    {
+      "name": "LNPmass",
+      "expression": "- Mmaj CC[N1Lbar[sp1]].N2L[sp1] + HC[- Mmaj CC[N1Lbar[sp1]].N2L[sp1]]",
+      "delayed": true
+    },
+    {
+      "name": "LNPyuk",
+      "expression": "ExpandIndices[yvn[ff1] (CC[N1Lbar[sp1]].LL[sp1, ii, ff1] PhiNP[jj] Eps[ii, jj]) + HC[yvn[ff1] (CC[N1Lbar[sp1]].LL[sp1, ii, ff1] PhiNP[jj] Eps[ii, jj])], FlavorExpand -> SU2D]",
+      "delayed": true
+    },
+    {
+      "name": "LN4free",
+      "expression": "I/2 n4bar.Ga[mu].del[n4, mu] - 1/2 M4 n4bar.n4",
+      "delayed": true
+    },
+    {
+      "name": "LN5free",
+      "expression": "I/2 n5bar.Ga[mu].del[n5, mu] - 1/2 M5 n5bar.n5",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "(LSM /. {vl[sp1_, ff1_] :> Sum[UnCL[ff1, ii] nL[sp1, ii], {ii, 1, 5}]}) + LNPkin + LNPmass + LNPyuk + LN4free + LN5free",
+      "delayed": true
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}

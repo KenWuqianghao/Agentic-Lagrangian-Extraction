@@ -1,0 +1,971 @@
+{
+  "model_name": "331_gen",
+  "info": {
+    "authors": ["Qing-Hong Cao", "Dong-Ming Zhang"],
+    "version": "1.0",
+    "date": "25.09.2026",
+    "institutions": ["Peking University"],
+    "emails": ["qinghongcao@pku.edu.cn", "zhangdongming@pku.edu.cn"]
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "interaction_order_limit": [["NP", 2], ["QED", 99], ["QCD", 99]],
+  "feynman_gauge": true,
+  "vevs": [],
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "beta",
+      "parameter_type": "External",
+      "value": "0.5773502691896258",
+      "block_name": "THREETHREEONE",
+      "order_block": 1,
+      "interaction_order": ["NP", 1],
+      "description": "Model parameter beta = +/- 1/Sqrt[3], +/- Sqrt[3]"
+    },
+    {
+      "name": "v1",
+      "parameter_type": "External",
+      "value": "174.",
+      "block_name": "THREETHREEONE",
+      "order_block": 2,
+      "interaction_order": ["NP", 1],
+      "description": "VEV of rho triplet [GeV]"
+    },
+    {
+      "name": "v2",
+      "parameter_type": "External",
+      "value": "174.",
+      "block_name": "THREETHREEONE",
+      "order_block": 3,
+      "interaction_order": ["NP", 1],
+      "description": "VEV of eta triplet [GeV]"
+    },
+    {
+      "name": "v3",
+      "parameter_type": "External",
+      "value": "2000.",
+      "block_name": "THREETHREEONE",
+      "order_block": 4,
+      "interaction_order": ["NP", 1],
+      "description": "VEV of chi triplet [GeV]"
+    },
+    {
+      "name": "k",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "THREETHREEONE",
+      "order_block": 5,
+      "interaction_order": ["NP", 1],
+      "description": "f = k*v3, k ~ O(1)"
+    },
+    {
+      "name": "g",
+      "parameter_type": "External",
+      "value": "0.65",
+      "block_name": "THREETHREEONE",
+      "order_block": 6,
+      "interaction_order": ["NP", 1],
+      "description": "SU(3)_L gauge coupling"
+    },
+    {
+      "name": "gX",
+      "parameter_type": "External",
+      "value": "0.35",
+      "block_name": "THREETHREEONE",
+      "order_block": 7,
+      "interaction_order": ["NP", 1],
+      "description": "U(1)_X gauge coupling"
+    },
+    {
+      "name": "lam1",
+      "parameter_type": "External",
+      "value": "0.13",
+      "block_name": "THREETHREEONE",
+      "order_block": 11,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic lambda_1"
+    },
+    {
+      "name": "lam2",
+      "parameter_type": "External",
+      "value": "0.13",
+      "block_name": "THREETHREEONE",
+      "order_block": 12,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic lambda_2"
+    },
+    {
+      "name": "lam3",
+      "parameter_type": "External",
+      "value": "0.13",
+      "block_name": "THREETHREEONE",
+      "order_block": 13,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic lambda_3"
+    },
+    {
+      "name": "lam12",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "THREETHREEONE",
+      "order_block": 14,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic lambda_12"
+    },
+    {
+      "name": "lam13",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "THREETHREEONE",
+      "order_block": 15,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic lambda_13"
+    },
+    {
+      "name": "lam23",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "THREETHREEONE",
+      "order_block": 16,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic lambda_23"
+    },
+    {
+      "name": "lam12p",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "THREETHREEONE",
+      "order_block": 17,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic lambda'_12"
+    },
+    {
+      "name": "lam13p",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "THREETHREEONE",
+      "order_block": 18,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic lambda'_13"
+    },
+    {
+      "name": "lam23p",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "THREETHREEONE",
+      "order_block": 19,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic lambda'_23"
+    },
+    {
+      "name": "yD",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "THREETHREEONE",
+      "order_block": 21,
+      "interaction_order": ["NP", 1],
+      "description": "Yukawa coupling for D quark"
+    },
+    {
+      "name": "yS",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "THREETHREEONE",
+      "order_block": 22,
+      "interaction_order": ["NP", 1],
+      "description": "Yukawa coupling for S quark"
+    },
+    {
+      "name": "yT",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "THREETHREEONE",
+      "order_block": 23,
+      "interaction_order": ["NP", 1],
+      "description": "Yukawa coupling for T quark"
+    },
+    {
+      "name": "yEe",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "THREETHREEONE",
+      "order_block": 24,
+      "interaction_order": ["NP", 1],
+      "description": "Yukawa coupling for E_e lepton"
+    },
+    {
+      "name": "yEmu",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "THREETHREEONE",
+      "order_block": 25,
+      "interaction_order": ["NP", 1],
+      "description": "Yukawa coupling for E_mu lepton"
+    },
+    {
+      "name": "yEtau",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "THREETHREEONE",
+      "order_block": 26,
+      "interaction_order": ["NP", 1],
+      "description": "Yukawa coupling for E_tau lepton"
+    },
+    {
+      "name": "gZpDqL",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "THREETHREEONE",
+      "order_block": 31,
+      "interaction_order": ["NP", 1],
+      "description": "Z' coupling to Dq left-handed"
+    },
+    {
+      "name": "gZpDqR",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "THREETHREEONE",
+      "order_block": 32,
+      "interaction_order": ["NP", 1],
+      "description": "Z' coupling to Dq right-handed"
+    },
+    {
+      "name": "gZpTqL",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "THREETHREEONE",
+      "order_block": 33,
+      "interaction_order": ["NP", 1],
+      "description": "Z' coupling to Tq left-handed"
+    },
+    {
+      "name": "gZpTqR",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "THREETHREEONE",
+      "order_block": 34,
+      "interaction_order": ["NP", 1],
+      "description": "Z' coupling to Tq right-handed"
+    },
+    {
+      "name": "gZpElL",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "THREETHREEONE",
+      "order_block": 35,
+      "interaction_order": ["NP", 1],
+      "description": "Z' coupling to El left-handed"
+    },
+    {
+      "name": "gZpElR",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "THREETHREEONE",
+      "order_block": 36,
+      "interaction_order": ["NP", 1],
+      "description": "Z' coupling to El right-handed"
+    },
+    {
+      "name": "gVdqL",
+      "parameter_type": "External",
+      "value": "0.3",
+      "block_name": "THREETHREEONE",
+      "order_block": 41,
+      "interaction_order": ["NP", 1],
+      "description": "V coupling to dq left-handed"
+    },
+    {
+      "name": "gVTqL",
+      "parameter_type": "External",
+      "value": "0.3",
+      "block_name": "THREETHREEONE",
+      "order_block": 42,
+      "interaction_order": ["NP", 1],
+      "description": "V coupling to Tq/bq left-handed"
+    },
+    {
+      "name": "gYdqL",
+      "parameter_type": "External",
+      "value": "0.3",
+      "block_name": "THREETHREEONE",
+      "order_block": 43,
+      "interaction_order": ["NP", 1],
+      "description": "Y coupling to uq/dq left-handed"
+    },
+    {
+      "name": "gYElL",
+      "parameter_type": "External",
+      "value": "0.3",
+      "block_name": "THREETHREEONE",
+      "order_block": 44,
+      "interaction_order": ["NP", 1],
+      "description": "Y coupling to El/vl left-handed"
+    },
+    {
+      "name": "f",
+      "parameter_type": "Internal",
+      "value": "k*v3",
+      "description": "Trilinear coupling f = k*v3"
+    },
+    {
+      "name": "v",
+      "parameter_type": "Internal",
+      "value": "Sqrt[v1^2 + v2^2]",
+      "description": "Electroweak VEV v = sqrt(v1^2+v2^2)"
+    },
+    {
+      "name": "gY",
+      "parameter_type": "Internal",
+      "value": "g*gX/Sqrt[g^2 + beta^2*gX^2]",
+      "description": "U(1)_Y coupling"
+    },
+    {
+      "name": "sW",
+      "parameter_type": "Internal",
+      "value": "gY/Sqrt[g^2 + gY^2]",
+      "description": "Sine of Weinberg angle"
+    },
+    {
+      "name": "cW",
+      "parameter_type": "Internal",
+      "value": "g/Sqrt[g^2 + gY^2]",
+      "description": "Cosine of Weinberg angle"
+    },
+    {
+      "name": "ee",
+      "parameter_type": "Internal",
+      "value": "g*sW",
+      "interaction_order": ["QED", 1],
+      "description": "Electric coupling"
+    },
+    {
+      "name": "a0",
+      "parameter_type": "Internal",
+      "value": "Sqrt[1 - (1 + beta^2)*sW^2]",
+      "description": "a0 = sqrt(1-(1+beta^2) sW^2)"
+    },
+    {
+      "name": "ap",
+      "parameter_type": "Internal",
+      "value": "Sqrt[3]*beta + 1",
+      "description": "a_+ = sqrt(3) beta + 1"
+    },
+    {
+      "name": "am",
+      "parameter_type": "Internal",
+      "value": "Sqrt[3]*beta - 1",
+      "description": "a_- = sqrt(3) beta - 1"
+    },
+    {
+      "name": "bp",
+      "parameter_type": "Internal",
+      "value": "Sqrt[3]*beta + 2",
+      "description": "b_+ = sqrt(3) beta + 2"
+    },
+    {
+      "name": "bm",
+      "parameter_type": "Internal",
+      "value": "Sqrt[3]*beta - 2",
+      "description": "b_- = sqrt(3) beta - 2"
+    },
+    {
+      "name": "QV",
+      "parameter_type": "Internal",
+      "value": "(Sqrt[3]*beta - 1)/2",
+      "description": "Electric charge of V boson"
+    },
+    {
+      "name": "QY",
+      "parameter_type": "Internal",
+      "value": "(Sqrt[3]*beta + 1)/2",
+      "description": "Electric charge of Y boson"
+    },
+    {
+      "name": "QD",
+      "parameter_type": "Internal",
+      "value": "1/6 - Sqrt[3]*beta/2",
+      "description": "Electric charge of D, S quarks"
+    },
+    {
+      "name": "QT",
+      "parameter_type": "Internal",
+      "value": "1/6 + Sqrt[3]*beta/2",
+      "description": "Electric charge of T quark"
+    },
+    {
+      "name": "QE",
+      "parameter_type": "Internal",
+      "value": "-1/2 + Sqrt[3]*beta/2",
+      "description": "Electric charge of E leptons"
+    },
+    {
+      "name": "Xrho",
+      "parameter_type": "Internal",
+      "value": "1/2 - beta/(2*Sqrt[3])",
+      "description": "U(1)_X charge of rho triplet"
+    },
+    {
+      "name": "Xeta",
+      "parameter_type": "Internal",
+      "value": "-1/2 - beta/(2*Sqrt[3])",
+      "description": "U(1)_X charge of eta triplet"
+    },
+    {
+      "name": "Xchi",
+      "parameter_type": "Internal",
+      "value": "beta/Sqrt[3]",
+      "description": "U(1)_X charge of chi triplet"
+    },
+    {
+      "name": "s12",
+      "parameter_type": "Internal",
+      "value": "v2/v",
+      "description": "sin(theta_12) = v2/v"
+    },
+    {
+      "name": "c12",
+      "parameter_type": "Internal",
+      "value": "v1/v",
+      "description": "cos(theta_12) = v1/v"
+    },
+    {
+      "name": "s23",
+      "parameter_type": "Internal",
+      "value": "v3/Sqrt[v2^2 + v3^2]",
+      "description": "sin(theta_23)"
+    },
+    {
+      "name": "c23",
+      "parameter_type": "Internal",
+      "value": "v2/Sqrt[v2^2 + v3^2]",
+      "description": "cos(theta_23)"
+    },
+    {
+      "name": "s13",
+      "parameter_type": "Internal",
+      "value": "v3/Sqrt[v1^2 + v3^2]",
+      "description": "sin(theta_13)"
+    },
+    {
+      "name": "c13",
+      "parameter_type": "Internal",
+      "value": "v1/Sqrt[v1^2 + v3^2]",
+      "description": "cos(theta_13)"
+    },
+    {
+      "name": "MZp",
+      "parameter_type": "Internal",
+      "value": "g*cW*v3/Sqrt[3*(1 - (1 + beta^2)*sW^2)]",
+      "description": "Z' mass at leading order in decoupling limit"
+    },
+    {
+      "name": "MV",
+      "parameter_type": "Internal",
+      "value": "g/2*Sqrt[v1^2 + v3^2]",
+      "description": "V boson mass"
+    },
+    {
+      "name": "MY",
+      "parameter_type": "Internal",
+      "value": "g/2*Sqrt[v2^2 + v3^2]",
+      "description": "Y boson mass"
+    },
+    {
+      "name": "MH3",
+      "parameter_type": "Internal",
+      "value": "Sqrt[2*lam3]*v3",
+      "description": "H3 mass"
+    },
+    {
+      "name": "MH2",
+      "parameter_type": "Internal",
+      "value": "v*Sqrt[f*v3/(v1*v2)]",
+      "description": "H2 mass"
+    },
+    {
+      "name": "MH0",
+      "parameter_type": "Internal",
+      "value": "Sqrt[f*(v1^2*v2^2 + v3^2*v2^2 + v1^2*v3^2)/(v1*v2*v3)]",
+      "description": "H0 (CP-odd) mass"
+    },
+    {
+      "name": "MHpm",
+      "parameter_type": "Internal",
+      "value": "Sqrt[(2*f*v3 + lam12p*v1*v2)/(2*v1*v2)]*v",
+      "description": "H^+/- mass"
+    },
+    {
+      "name": "MHQV",
+      "parameter_type": "Internal",
+      "value": "Sqrt[(2*f*v2 + lam13p*v1*v3)/(2*v1*v3)]*Sqrt[v1^2 + v3^2]",
+      "description": "H^+/-Q_V mass"
+    },
+    {
+      "name": "MHQY",
+      "parameter_type": "Internal",
+      "value": "Sqrt[(2*f*v1 + lam23p*v2*v3)/(2*v2*v3)]*Sqrt[v2^2 + v3^2]",
+      "description": "H^+/-Q_Y mass"
+    },
+    {
+      "name": "MDq",
+      "parameter_type": "Internal",
+      "value": "yD*v3/Sqrt[2]",
+      "description": "D quark mass"
+    },
+    {
+      "name": "MSq",
+      "parameter_type": "Internal",
+      "value": "yS*v3/Sqrt[2]",
+      "description": "S quark mass"
+    },
+    {
+      "name": "MTq",
+      "parameter_type": "Internal",
+      "value": "yT*v3/Sqrt[2]",
+      "description": "T quark mass"
+    },
+    {
+      "name": "MEe",
+      "parameter_type": "Internal",
+      "value": "yEe*v3/Sqrt[2]",
+      "description": "E_e lepton mass"
+    },
+    {
+      "name": "MEmu",
+      "parameter_type": "Internal",
+      "value": "yEmu*v3/Sqrt[2]",
+      "description": "E_mu lepton mass"
+    },
+    {
+      "name": "MEtau",
+      "parameter_type": "Internal",
+      "value": "yEtau*v3/Sqrt[2]",
+      "description": "E_tau lepton mass"
+    },
+    {
+      "name": "MEl",
+      "parameter_type": "Internal",
+      "value": "MEe",
+      "description": "Common E lepton mass parameter"
+    },
+    {
+      "name": "U11",
+      "parameter_type": "Internal",
+      "value": "c12",
+      "description": "U11 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "U21",
+      "parameter_type": "Internal",
+      "value": "s12",
+      "description": "U21 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "U31",
+      "parameter_type": "Internal",
+      "value": "0",
+      "description": "U31 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "U12",
+      "parameter_type": "Internal",
+      "value": "-s12",
+      "description": "U12 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "U22",
+      "parameter_type": "Internal",
+      "value": "c12",
+      "description": "U22 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "U32",
+      "parameter_type": "Internal",
+      "value": "0",
+      "description": "U32 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "U13",
+      "parameter_type": "Internal",
+      "value": "0",
+      "description": "U13 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "U23",
+      "parameter_type": "Internal",
+      "value": "0",
+      "description": "U23 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "U33",
+      "parameter_type": "Internal",
+      "value": "1",
+      "description": "U33 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "O11",
+      "parameter_type": "Internal",
+      "value": "s12",
+      "description": "O11 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "O12",
+      "parameter_type": "Internal",
+      "value": "-c12",
+      "description": "O12 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "O13",
+      "parameter_type": "Internal",
+      "value": "0",
+      "description": "O13 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "O21",
+      "parameter_type": "Internal",
+      "value": "c12",
+      "description": "O21 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "O22",
+      "parameter_type": "Internal",
+      "value": "s12",
+      "description": "O22 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "O23",
+      "parameter_type": "Internal",
+      "value": "0",
+      "description": "O23 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "O31",
+      "parameter_type": "Internal",
+      "value": "0",
+      "description": "O31 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "O32",
+      "parameter_type": "Internal",
+      "value": "0",
+      "description": "O32 mixing matrix element (decoupling limit)"
+    },
+    {
+      "name": "O33",
+      "parameter_type": "Internal",
+      "value": "1",
+      "description": "O33 mixing matrix element (decoupling limit)"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "V",
+      "class_index": 100,
+      "class_name": "Zp",
+      "self_conjugate": true,
+      "indices": [],
+      "mass": {"sym": "MZp", "value": "Internal"},
+      "width": {"sym": "WZp", "value": "Automatic"},
+      "quantum_numbers": {"Q": "0"},
+      "pdg": 32,
+      "particle_name": "Zp",
+      "antiparticle_name": "Zp",
+      "full_name": "Z' boson",
+      "propagator_label": "Zp",
+      "propagator_type": "Sine",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "V",
+      "class_index": 101,
+      "class_name": "Vp",
+      "self_conjugate": false,
+      "indices": [],
+      "mass": {"sym": "MV", "value": "Internal"},
+      "width": {"sym": "WV", "value": "Automatic"},
+      "quantum_numbers": {"Q": "QV"},
+      "pdg": 33,
+      "particle_name": "V+",
+      "antiparticle_name": "V-",
+      "full_name": "V boson",
+      "propagator_label": "V",
+      "propagator_type": "Sine",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "V",
+      "class_index": 102,
+      "class_name": "Yp",
+      "self_conjugate": false,
+      "indices": [],
+      "mass": {"sym": "MY", "value": "Internal"},
+      "width": {"sym": "WY", "value": "Automatic"},
+      "quantum_numbers": {"Q": "QY"},
+      "pdg": 34,
+      "particle_name": "Y+",
+      "antiparticle_name": "Y-",
+      "full_name": "Y boson",
+      "propagator_label": "Y",
+      "propagator_type": "Sine",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 200,
+      "class_name": "H0",
+      "self_conjugate": true,
+      "indices": [],
+      "mass": {"sym": "MH0", "value": "Internal"},
+      "width": {"sym": "WH0", "value": "Automatic"},
+      "quantum_numbers": {"Q": "0"},
+      "pdg": 35,
+      "particle_name": "H0",
+      "antiparticle_name": "H0",
+      "full_name": "CP-odd Higgs",
+      "propagator_label": "H0",
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 201,
+      "class_name": "H2",
+      "self_conjugate": true,
+      "indices": [],
+      "mass": {"sym": "MH2", "value": "Internal"},
+      "width": {"sym": "WH2", "value": "Automatic"},
+      "quantum_numbers": {"Q": "0"},
+      "pdg": 36,
+      "particle_name": "H2",
+      "antiparticle_name": "H2",
+      "full_name": "CP-even Higgs H2",
+      "propagator_label": "H2",
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 202,
+      "class_name": "H3",
+      "self_conjugate": true,
+      "indices": [],
+      "mass": {"sym": "MH3", "value": "Internal"},
+      "width": {"sym": "WH3", "value": "Automatic"},
+      "quantum_numbers": {"Q": "0"},
+      "pdg": 37,
+      "particle_name": "H3",
+      "antiparticle_name": "H3",
+      "full_name": "CP-even Higgs H3",
+      "propagator_label": "H3",
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 203,
+      "class_name": "Hp",
+      "self_conjugate": false,
+      "indices": [],
+      "mass": {"sym": "MHpm", "value": "Internal"},
+      "width": {"sym": "WHpm", "value": "Automatic"},
+      "quantum_numbers": {"Q": "1"},
+      "pdg": 38,
+      "particle_name": "H+",
+      "antiparticle_name": "H-",
+      "full_name": "Charged Higgs H^+/-",
+      "propagator_label": "Hp",
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 204,
+      "class_name": "HVp",
+      "self_conjugate": false,
+      "indices": [],
+      "mass": {"sym": "MHQV", "value": "Internal"},
+      "width": {"sym": "WHQV", "value": "Automatic"},
+      "quantum_numbers": {"Q": "QV"},
+      "pdg": 39,
+      "particle_name": "HV+",
+      "antiparticle_name": "HV-",
+      "full_name": "Charged Higgs H^+/-Q_V",
+      "propagator_label": "HV",
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 205,
+      "class_name": "HYp",
+      "self_conjugate": false,
+      "indices": [],
+      "mass": {"sym": "MHQY", "value": "Internal"},
+      "width": {"sym": "WHQY", "value": "Automatic"},
+      "quantum_numbers": {"Q": "QY"},
+      "pdg": 40,
+      "particle_name": "HY+",
+      "antiparticle_name": "HY-",
+      "full_name": "Charged Higgs H^+/-Q_Y",
+      "propagator_label": "HY",
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 300,
+      "class_name": "Dq",
+      "class_members": ["D", "S"],
+      "flavor_index": "Generation",
+      "indices": ["Generation", "Colour"],
+      "self_conjugate": false,
+      "mass": {"sym": "MDq", "members": [["D", "Internal"], ["S", "Internal"]]},
+      "width": {"sym": "WDq", "members": [["D", "Automatic"], ["S", "Automatic"]]},
+      "quantum_numbers": {"Q": "QD"},
+      "pdg": [9000001, 9000002],
+      "particle_name": ["D", "S"],
+      "antiparticle_name": ["D~", "S~"],
+      "full_name": ["D quark", "S quark"],
+      "propagator_label": ["Dq", "D", "S"],
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 301,
+      "class_name": "Tq",
+      "indices": ["Colour"],
+      "self_conjugate": false,
+      "mass": {"sym": "MTq", "value": "Internal"},
+      "width": {"sym": "WT", "value": "Automatic"},
+      "quantum_numbers": {"Q": "QT"},
+      "pdg": 9000003,
+      "particle_name": "T",
+      "antiparticle_name": "T~",
+      "full_name": "T quark",
+      "propagator_label": "Tq",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 302,
+      "class_name": "El",
+      "class_members": ["Ee", "Emu", "Etau"],
+      "flavor_index": "Generation",
+      "indices": ["Generation"],
+      "self_conjugate": false,
+      "mass": {"sym": "MEl", "members": [["Ee", "Internal"], ["Emu", "Internal"], ["Etau", "Internal"]]},
+      "width": {"sym": "WE", "members": [["Ee", "Automatic"], ["Emu", "Automatic"], ["Etau", "Automatic"]]},
+      "quantum_numbers": {"Q": "QE"},
+      "pdg": [9000011, 9000012, 9000013],
+      "particle_name": ["Ee-", "Emu-", "Etau-"],
+      "antiparticle_name": ["Ee+", "Emu+", "Etau+"],
+      "full_name": ["E_e lepton", "E_mu lepton", "E_tau lepton"],
+      "propagator_label": ["El", "Ee", "Emu", "Etau"],
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    }
+  ],
+  "gauge_xi": [],
+  "lagrangian_terms": [
+    {
+      "name": "LZpKin",
+      "expression": "-1/4 FS[Zp, mu, nu] FS[Zp, mu, nu] + 1/2 MZp^2 Zp[mu] Zp[mu]",
+      "delayed": true
+    },
+    {
+      "name": "LVKin",
+      "expression": "-1/2 FS[Vpbar, mu, nu] FS[Vp, mu, nu] + MV^2 Vpbar[mu] Vp[mu]",
+      "delayed": true
+    },
+    {
+      "name": "LYKin",
+      "expression": "-1/2 FS[Ypbar, mu, nu] FS[Yp, mu, nu] + MY^2 Ypbar[mu] Yp[mu]",
+      "delayed": true
+    },
+    {
+      "name": "LH0Kin",
+      "expression": "1/2 del[H0, mu] del[H0, mu] - 1/2 MH0^2 H0^2",
+      "delayed": true
+    },
+    {
+      "name": "LH2Kin",
+      "expression": "1/2 del[H2, mu] del[H2, mu] - 1/2 MH2^2 H2^2",
+      "delayed": true
+    },
+    {
+      "name": "LH3Kin",
+      "expression": "1/2 del[H3, mu] del[H3, mu] - 1/2 MH3^2 H3^2",
+      "delayed": true
+    },
+    {
+      "name": "LHpKin",
+      "expression": "DC[Hpbar, mu] DC[Hp, mu] - MHpm^2 Hpbar Hp",
+      "delayed": true
+    },
+    {
+      "name": "LHVKin",
+      "expression": "DC[HVpbar, mu] DC[HVp, mu] - MHQV^2 HVpbar HVp",
+      "delayed": true
+    },
+    {
+      "name": "LHYKin",
+      "expression": "DC[HYpbar, mu] DC[HYp, mu] - MHQY^2 HYpbar HYp",
+      "delayed": true
+    },
+    {
+      "name": "LDqKin",
+      "expression": "I Dqbar.Ga[mu].DC[Dq, mu] - MDq Dqbar.Dq",
+      "delayed": true
+    },
+    {
+      "name": "LTqKin",
+      "expression": "I Tqbar.Ga[mu].DC[Tq, mu] - MTq Tqbar.Tq",
+      "delayed": true
+    },
+    {
+      "name": "LElKin",
+      "expression": "I Elbar.Ga[mu].DC[El, mu] - MEe Elbar.El",
+      "delayed": true
+    },
+    {
+      "name": "LZpNewFerm",
+      "expression": "Zp[mu] * ( Dqbar.Ga[mu].(gZpDqL*ProjM + gZpDqR*ProjP).Dq + Tqbar.Ga[mu].(gZpTqL*ProjM + gZpTqR*ProjP).Tq + Elbar.Ga[mu].(gZpElL*ProjM + gZpElR*ProjP).El )",
+      "delayed": true
+    },
+    {
+      "name": "LVNewFerm",
+      "expression": "Vp[mu] * ( Dqbar.Ga[mu].gVdqL*ProjM.dq + Tqbar.Ga[mu].gVTqL*ProjM.bq ) + HC[ Vp[mu] * ( Dqbar.Ga[mu].gVdqL*ProjM.dq + Tqbar.Ga[mu].gVTqL*ProjM.bq ) ]",
+      "delayed": true
+    },
+    {
+      "name": "LYNewFerm",
+      "expression": "Yp[mu] * ( Dqbar.Ga[mu].gYdqL*ProjM.uq + Elbar.Ga[mu].gYElL*ProjM.vl ) + HC[ Yp[mu] * ( Dqbar.Ga[mu].gYdqL*ProjM.uq + Elbar.Ga[mu].gYElL*ProjM.vl ) ]",
+      "delayed": true
+    },
+    {
+      "name": "LVSint",
+      "expression": "I*ee/2 * ( am * (Vp[mu]*Hpbar*del[Hp,mu] - del[Vp[mu],mu]*Hpbar*Hp) + ap * (Yp[mu]*HYpbar*del[HYp,mu] - del[Yp[mu],mu]*HYpbar*HYp) )",
+      "delayed": true
+    },
+    {
+      "name": "LVVSint",
+      "expression": "ee^2/2 * ( Vpbar[mu]*Vp[mu] * (Hpbar*Hp + HVpbar*HVp) + Ypbar[mu]*Yp[mu] * (Hpbar*Hp + HYpbar*HYp) )",
+      "delayed": true
+    },
+    {
+      "name": "LYukNew",
+      "expression": "yD*v3/Sqrt[2] * Dqbar.Dq + yS*v3/Sqrt[2] * Dqbar.Dq + yT*v3/Sqrt[2] * Tqbar.Tq + yEe*v3/Sqrt[2] * Elbar.El",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "LZpKin + LVKin + LYKin + LH0Kin + LH2Kin + LH3Kin + LHpKin + LHVKin + LHYKin + LDqKin + LTqKin + LElKin + LZpNewFerm + LVNewFerm + LYNewFerm + LVSint + LVVSint + LYukNew",
+      "delayed": true
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}
