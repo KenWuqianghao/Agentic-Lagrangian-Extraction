@@ -1,0 +1,666 @@
+{
+ "shell": {
+  "papers_scored": 6,
+  "chain_pass": 6,
+  "mean_metric": 0.631,
+  "mean_f1_any": 0.631,
+  "mean_recall_of_passes": 0.604,
+  "rows": [
+   {
+    "paper": "HeavyN",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 3,
+    "generated": 3,
+    "reference": 3,
+    "metric": 1.0,
+    "missing": [],
+    "extra": []
+   },
+   {
+    "paper": "pSPSS",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.667,
+    "recall": 0.667,
+    "f1": 0.667,
+    "matched": 2,
+    "generated": 3,
+    "reference": 3,
+    "metric": 0.667,
+    "missing": [
+     "bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1 sm:23"
+    ],
+    "extra": [
+     "bsm:spin2,q=0,col=1 sm:25 sm:nu"
+    ]
+   },
+   {
+    "paper": "GeneralU1",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.833,
+    "recall": 0.263,
+    "f1": 0.4,
+    "matched": 10,
+    "generated": 12,
+    "reference": 38,
+    "metric": 0.4,
+    "missing": [
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:23",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:23 sm:23",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:24 sm:24",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:23",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:23 sm:25",
+     "bsm:spin1,q=0,col=1 sm:23 sm:23",
+     "bsm:spin1,q=0,col=1 sm:23 sm:23 sm:25",
+     "bsm:spin1,q=0,col=1 sm:24 sm:24"
+    ],
+    "extra": [
+     "bsm:spin2,q=0,col=1 sm:25 sm:cl",
+     "bsm:spin3,q=0,col=1 sm:nu sm:nu"
+    ]
+   },
+   {
+    "paper": "MDMmodel",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 1.0,
+    "recall": 0.724,
+    "f1": 0.84,
+    "matched": 21,
+    "generated": 21,
+    "reference": 29,
+    "metric": 0.84,
+    "missing": [
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=-0.6666666666666666,col=3 sm:uq",
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=0.6666666666666666,col=3 sm:uq",
+     "bsm:spin2,q=-0.6666666666666666,col=3 sm:23 sm:uq",
+     "bsm:spin2,q=-0.6666666666666666,col=3 sm:24 sm:dq",
+     "bsm:spin2,q=-0.6666666666666666,col=3 sm:25 sm:uq",
+     "bsm:spin2,q=0.6666666666666666,col=3 sm:23 sm:uq",
+     "bsm:spin2,q=0.6666666666666666,col=3 sm:24 sm:dq",
+     "bsm:spin2,q=0.6666666666666666,col=3 sm:25 sm:uq"
+    ],
+    "extra": []
+   },
+   {
+    "paper": "B-L-SM",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.625,
+    "recall": 0.87,
+    "f1": 0.727,
+    "matched": 20,
+    "generated": 32,
+    "reference": 23,
+    "metric": 0.727,
+    "missing": [
+     "bsm:spin1,q=0,col=1 sm:nu sm:nu",
+     "bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1 sm:23",
+     "bsm:spin2,q=0,col=1 bsm:spin3,q=0,col=1 sm:nu"
+    ],
+    "extra": [
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 sm:23 sm:23 sm:25",
+     "bsm:spin1,q=0,col=1 sm:24 sm:24 sm:25",
+     "bsm:spin1,q=0,col=1 sm:25 sm:25",
+     "bsm:spin1,q=0,col=1 sm:25 sm:25 sm:25",
+     "bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1 sm:25",
+     "bsm:spin2,q=0,col=1 sm:25 sm:nu",
+     "bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1 sm:25",
+     "bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1 sm:25 sm:25"
+    ]
+   },
+   {
+    "paper": "331",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.34,
+    "recall": 0.098,
+    "f1": 0.152,
+    "matched": 17,
+    "generated": 50,
+    "reference": 174,
+    "metric": 0.152,
+    "missing": [
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=-1,col=1 bsm:spin1,q=1,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1 sm:25",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=None,col=1 bsm:spin1,q=None,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=None,col=1 bsm:spin3,q=None,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:22 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:23 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=1,col=1 bsm:spin1,q=None,col=1 bsm:spin1,q=None,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=1,col=1 bsm:spin3,q=0,col=1"
+    ],
+    "extra": [
+     "bsm:spin1,q=-1,col=1 bsm:spin2,q=0,col=1 sm:cl",
+     "bsm:spin1,q=-1,col=1 bsm:spin2,q=0.3333333333333333,col=3 sm:uq",
+     "bsm:spin1,q=-1,col=1 bsm:spin2,q=0.6666666666666666,col=3 sm:dq",
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=-0.3333333333333333,col=3 sm:dq",
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=-0.6666666666666666,col=3 sm:uq",
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=0,col=1 sm:nu",
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=0.3333333333333333,col=3 sm:dq",
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=0.6666666666666666,col=3 sm:uq",
+     "bsm:spin1,q=1,col=1 bsm:spin2,q=-0.3333333333333333,col=3 sm:uq",
+     "bsm:spin1,q=1,col=1 bsm:spin2,q=-0.6666666666666666,col=3 sm:dq",
+     "bsm:spin1,q=1,col=1 bsm:spin2,q=0,col=1 sm:cl",
+     "bsm:spin2,q=-0.3333333333333333,col=3 bsm:spin2,q=0.3333333333333333,col=3 bsm:spin3,q=0,col=1"
+    ]
+   }
+  ]
+ },
+ "cover": {
+  "papers_scored": 6,
+  "chain_pass": 6,
+  "mean_metric": 0.693,
+  "mean_f1_any": 0.693,
+  "mean_recall_of_passes": 0.703,
+  "rows": [
+   {
+    "paper": "HeavyN",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 3,
+    "generated": 3,
+    "reference": 3,
+    "metric": 1.0,
+    "missing": [],
+    "extra": []
+   },
+   {
+    "paper": "pSPSS",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.75,
+    "recall": 1.0,
+    "f1": 0.857,
+    "matched": 3,
+    "generated": 4,
+    "reference": 3,
+    "metric": 0.857,
+    "missing": [],
+    "extra": [
+     "bsm:spin2,q=0,col=1 sm:25 sm:nu"
+    ]
+   },
+   {
+    "paper": "GeneralU1",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.833,
+    "recall": 0.395,
+    "f1": 0.536,
+    "matched": 15,
+    "generated": 18,
+    "reference": 38,
+    "metric": 0.536,
+    "missing": [
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:23",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:23 sm:23",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:24 sm:24",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:23",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:23 sm:25",
+     "bsm:spin1,q=0,col=1 sm:23 sm:23",
+     "bsm:spin1,q=0,col=1 sm:23 sm:23 sm:25",
+     "bsm:spin1,q=0,col=1 sm:24 sm:24",
+     "bsm:spin1,q=0,col=1 sm:24 sm:24 sm:25",
+     "bsm:spin1,q=0,col=1 sm:25 sm:25 sm:25"
+    ],
+    "extra": [
+     "bsm:spin2,q=0,col=1 sm:23 sm:nu",
+     "bsm:spin2,q=0,col=1 sm:25 sm:nu",
+     "bsm:spin3,q=0,col=1 sm:nu sm:nu"
+    ]
+   },
+   {
+    "paper": "MDMmodel",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 1.0,
+    "recall": 0.862,
+    "f1": 0.926,
+    "matched": 25,
+    "generated": 25,
+    "reference": 29,
+    "metric": 0.926,
+    "missing": [
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=-0.6666666666666666,col=3 sm:uq",
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=0.6666666666666666,col=3 sm:uq",
+     "bsm:spin2,q=-0.6666666666666666,col=3 sm:25 sm:uq",
+     "bsm:spin2,q=0.6666666666666666,col=3 sm:25 sm:uq"
+    ],
+    "extra": []
+   },
+   {
+    "paper": "B-L-SM",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.588,
+    "recall": 0.87,
+    "f1": 0.702,
+    "matched": 20,
+    "generated": 34,
+    "reference": 23,
+    "metric": 0.702,
+    "missing": [
+     "bsm:spin1,q=0,col=1 sm:nu sm:nu",
+     "bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1 sm:23",
+     "bsm:spin2,q=0,col=1 bsm:spin3,q=0,col=1 sm:nu"
+    ],
+    "extra": [
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 sm:23 sm:23 sm:25",
+     "bsm:spin1,q=0,col=1 sm:24 sm:24 sm:25",
+     "bsm:spin1,q=0,col=1 sm:25 sm:25",
+     "bsm:spin1,q=0,col=1 sm:25 sm:25 sm:25",
+     "bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1 sm:25",
+     "bsm:spin2,q=0,col=1 sm:25 sm:nu"
+    ]
+   },
+   {
+    "paper": "331",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.258,
+    "recall": 0.092,
+    "f1": 0.136,
+    "matched": 16,
+    "generated": 62,
+    "reference": 174,
+    "metric": 0.136,
+    "missing": [
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=-1,col=1 bsm:spin1,q=1,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1 sm:25",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=None,col=1 bsm:spin1,q=None,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=None,col=1 bsm:spin3,q=None,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:22 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:23 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=1,col=1 bsm:spin1,q=None,col=1 bsm:spin1,q=None,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=1,col=1 bsm:spin3,q=0,col=1"
+    ],
+    "extra": [
+     "bsm:spin1,q=-1,col=1 bsm:spin2,q=1,col=1 sm:nu",
+     "bsm:spin1,q=-1,col=1 bsm:spin2,q=1.3333333333333333,col=3 sm:dq",
+     "bsm:spin1,q=-1,col=1 bsm:spin2,q=1.6666666666666667,col=3 sm:uq",
+     "bsm:spin1,q=-2,col=1 bsm:spin1,q=2,col=1 sm:22",
+     "bsm:spin1,q=-2,col=1 bsm:spin1,q=2,col=1 sm:22 sm:22",
+     "bsm:spin1,q=-2,col=1 bsm:spin1,q=2,col=1 sm:22 sm:23",
+     "bsm:spin1,q=-2,col=1 bsm:spin1,q=2,col=1 sm:23",
+     "bsm:spin1,q=-2,col=1 bsm:spin1,q=2,col=1 sm:23 sm:23",
+     "bsm:spin1,q=-2,col=1 bsm:spin2,q=1,col=1 sm:cl",
+     "bsm:spin1,q=-2,col=1 bsm:spin2,q=1.3333333333333333,col=3 sm:uq",
+     "bsm:spin1,q=-2,col=1 bsm:spin2,q=1.6666666666666667,col=3 sm:dq",
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=-1,col=1 bsm:spin2,q=1,col=1"
+    ]
+   }
+  ]
+ },
+ "opt": {
+  "papers_scored": 6,
+  "chain_pass": 5,
+  "mean_metric": 0.56,
+  "mean_f1_any": 0.704,
+  "mean_recall_of_passes": 0.719,
+  "rows": [
+   {
+    "paper": "HeavyN",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 3,
+    "generated": 3,
+    "reference": 3,
+    "metric": 1.0,
+    "missing": [],
+    "extra": []
+   },
+   {
+    "paper": "pSPSS",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.6,
+    "recall": 1.0,
+    "f1": 0.75,
+    "matched": 3,
+    "generated": 5,
+    "reference": 3,
+    "metric": 0.75,
+    "missing": [],
+    "extra": [
+     "bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1 sm:25",
+     "bsm:spin2,q=0,col=1 sm:25 sm:nu"
+    ]
+   },
+   {
+    "paper": "GeneralU1",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 1.0,
+    "recall": 0.684,
+    "f1": 0.813,
+    "matched": 26,
+    "generated": 26,
+    "reference": 38,
+    "metric": 0.813,
+    "missing": [
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1",
+     "bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1 bsm:spin3,q=0,col=1",
+     "bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1 sm:23",
+     "bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1 sm:25",
+     "bsm:spin2,q=0,col=1 sm:24 sm:cl",
+     "bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1 sm:24 sm:24",
+     "bsm:spin3,q=0,col=1 sm:22 sm:24 sm:24",
+     "bsm:spin3,q=0,col=1 sm:23 sm:24 sm:24",
+     "bsm:spin3,q=0,col=1 sm:24 sm:24",
+     "bsm:spin3,q=0,col=1 sm:cl sm:cl",
+     "bsm:spin3,q=0,col=1 sm:dq sm:dq",
+     "bsm:spin3,q=0,col=1 sm:uq sm:uq"
+    ],
+    "extra": []
+   },
+   {
+    "paper": "MDMmodel",
+    "chain": false,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.862,
+    "recall": 0.862,
+    "f1": 0.862,
+    "matched": 25,
+    "generated": 29,
+    "reference": 29,
+    "metric": 0.0,
+    "missing": [
+     "bsm:spin2,q=-0.6666666666666666,col=3 sm:23 sm:uq",
+     "bsm:spin2,q=-0.6666666666666666,col=3 sm:24 sm:dq",
+     "bsm:spin2,q=0.6666666666666666,col=3 sm:23 sm:uq",
+     "bsm:spin2,q=0.6666666666666666,col=3 sm:24 sm:dq"
+    ],
+    "extra": [
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:21",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:22",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:23",
+     "bsm:spin1,q=0,col=1 sm:24 sm:uq"
+    ]
+   },
+   {
+    "paper": "B-L-SM",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.625,
+    "recall": 0.87,
+    "f1": 0.727,
+    "matched": 20,
+    "generated": 32,
+    "reference": 23,
+    "metric": 0.727,
+    "missing": [
+     "bsm:spin1,q=0,col=1 sm:nu sm:nu",
+     "bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1 sm:23",
+     "bsm:spin2,q=0,col=1 bsm:spin3,q=0,col=1 sm:nu"
+    ],
+    "extra": [
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 sm:23 sm:23 sm:25",
+     "bsm:spin1,q=0,col=1 sm:24 sm:24 sm:25",
+     "bsm:spin1,q=0,col=1 sm:25 sm:25",
+     "bsm:spin1,q=0,col=1 sm:25 sm:25 sm:25",
+     "bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1 sm:25",
+     "bsm:spin2,q=0,col=1 sm:25 sm:nu",
+     "bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1 sm:25",
+     "bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1 sm:25 sm:25"
+    ]
+   },
+   {
+    "paper": "331",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.241,
+    "recall": 0.04,
+    "f1": 0.069,
+    "matched": 7,
+    "generated": 29,
+    "reference": 174,
+    "metric": 0.069,
+    "missing": [
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=-1,col=1 bsm:spin1,q=1,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1 sm:25",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=None,col=1 bsm:spin1,q=None,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=None,col=1 bsm:spin3,q=None,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:22 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:23 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=1,col=1 bsm:spin1,q=None,col=1 bsm:spin1,q=None,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=1,col=1 bsm:spin3,q=0,col=1"
+    ],
+    "extra": [
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:22",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:22 sm:22",
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=-1,col=1 bsm:spin2,q=1,col=1",
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=-1,col=1 sm:cl",
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=1,col=1 sm:cl",
+     "bsm:spin2,q=-1,col=1 bsm:spin2,q=1,col=1 bsm:spin3,q=0,col=1",
+     "bsm:spin2,q=-1,col=1 bsm:spin2,q=1,col=1 sm:22",
+     "bsm:spin2,q=-1,col=1 bsm:spin2,q=1,col=1 sm:23",
+     "bsm:spin2,q=-1,col=1 bsm:spin3,q=0,col=1 sm:cl",
+     "bsm:spin2,q=-1,col=1 bsm:spin3,q=1,col=1 sm:nu",
+     "bsm:spin2,q=0,col=3 bsm:spin2,q=0,col=3 bsm:spin3,q=0,col=1",
+     "bsm:spin2,q=0,col=3 bsm:spin2,q=0,col=3 sm:21"
+    ]
+   }
+  ]
+ },
+ "vanilla": {
+  "papers_scored": 6,
+  "chain_pass": 1,
+  "mean_metric": 0.167,
+  "mean_f1_any": 0.516,
+  "mean_recall_of_passes": 1.0,
+  "rows": [
+   {
+    "paper": "HeavyN",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "matched": 3,
+    "generated": 3,
+    "reference": 3,
+    "metric": 1.0,
+    "missing": [],
+    "extra": []
+   },
+   {
+    "paper": "pSPSS",
+    "chain": false,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "matched": 0,
+    "generated": 1,
+    "reference": 3,
+    "metric": 0.0,
+    "missing": [
+     "bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1 sm:23",
+     "bsm:spin2,q=0,col=1 sm:23 sm:nu",
+     "bsm:spin2,q=0,col=1 sm:24 sm:cl"
+    ],
+    "extra": [
+     "bsm:spin2,q=0,col=1 sm:25 sm:nu"
+    ]
+   },
+   {
+    "paper": "GeneralU1",
+    "chain": false,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.933,
+    "recall": 0.368,
+    "f1": 0.528,
+    "matched": 14,
+    "generated": 15,
+    "reference": 38,
+    "metric": 0.0,
+    "missing": [
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:23",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:23 sm:23",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:24 sm:24",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:23",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:23 sm:25",
+     "bsm:spin1,q=0,col=1 sm:23 sm:23",
+     "bsm:spin1,q=0,col=1 sm:23 sm:23 sm:25",
+     "bsm:spin1,q=0,col=1 sm:24 sm:24"
+    ],
+    "extra": [
+     "bsm:spin3,q=0,col=1 sm:nu sm:nu"
+    ]
+   },
+   {
+    "paper": "MDMmodel",
+    "chain": false,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 1.0,
+    "recall": 0.69,
+    "f1": 0.816,
+    "matched": 20,
+    "generated": 20,
+    "reference": 29,
+    "metric": 0.0,
+    "missing": [
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=-0.6666666666666666,col=3 bsm:spin2,q=0.6666666666666666,col=3",
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=-0.6666666666666666,col=3 sm:uq",
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=0.6666666666666666,col=3 sm:uq",
+     "bsm:spin1,q=0,col=1 sm:cl sm:cl",
+     "bsm:spin1,q=0,col=1 sm:dq sm:dq",
+     "bsm:spin1,q=0,col=1 sm:uq sm:uq",
+     "bsm:spin2,q=-0.6666666666666666,col=3 bsm:spin2,q=0.6666666666666666,col=3 sm:25",
+     "bsm:spin2,q=-0.6666666666666666,col=3 sm:25 sm:uq",
+     "bsm:spin2,q=0.6666666666666666,col=3 sm:25 sm:uq"
+    ],
+    "extra": []
+   },
+   {
+    "paper": "B-L-SM",
+    "chain": false,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.636,
+    "recall": 0.913,
+    "f1": 0.75,
+    "matched": 21,
+    "generated": 33,
+    "reference": 23,
+    "metric": 0.0,
+    "missing": [
+     "bsm:spin1,q=0,col=1 sm:nu sm:nu",
+     "bsm:spin2,q=0,col=1 bsm:spin3,q=0,col=1 sm:nu"
+    ],
+    "extra": [
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 sm:25 sm:25",
+     "bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1 sm:25",
+     "bsm:spin1,q=0,col=1 sm:23 sm:23 sm:25",
+     "bsm:spin1,q=0,col=1 sm:24 sm:24 sm:25",
+     "bsm:spin1,q=0,col=1 sm:25 sm:25",
+     "bsm:spin1,q=0,col=1 sm:25 sm:25 sm:25",
+     "bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1 sm:25",
+     "bsm:spin2,q=0,col=1 sm:25 sm:nu",
+     "bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1 sm:25",
+     "bsm:spin3,q=0,col=1 bsm:spin3,q=0,col=1 sm:25 sm:25"
+    ]
+   },
+   {
+    "paper": "331",
+    "chain": false,
+    "has_ufo": false,
+    "reference_ok": true,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "matched": 0,
+    "generated": 0,
+    "reference": 174,
+    "metric": 0.0,
+    "missing": [
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=-1,col=1 bsm:spin1,q=1,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1 sm:25",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=None,col=1 bsm:spin1,q=None,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=None,col=1 bsm:spin3,q=None,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:22 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:23 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=1,col=1 bsm:spin1,q=None,col=1 bsm:spin1,q=None,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=1,col=1 bsm:spin3,q=0,col=1"
+    ],
+    "extra": []
+   }
+  ]
+ }
+}

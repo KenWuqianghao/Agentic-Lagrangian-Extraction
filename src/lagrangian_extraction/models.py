@@ -78,6 +78,7 @@ class SearchQuery(BaseModel):
     probe_latex_source: bool = False
     download_pdfs: bool = True
     extract_text: bool = True
+    skip_arxiv: bool = False
 
     @field_validator(
         "keywords",

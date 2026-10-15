@@ -1,0 +1,45 @@
+{
+ "model_files": [
+  "/home/deck/code/heptapod/eval/reference_cache/EffLRSM/effLRSM.fr"
+ ],
+ "load_sm": true,
+ "sm_file": "/home/deck/hep-tools/feynrules-current/Models/SM/SM.fr",
+ "lagrangian": "LagFull",
+ "seconds": 59,
+ "ok": true,
+ "n_particles": 29,
+ "n_vertices": 214,
+ "n_bsm_vertices": 51,
+ "bsm_particles": [
+  "N1",
+  "N2",
+  "N3",
+  "WR__plus__",
+  "ZR"
+ ],
+ "example_bsm_vertex": [
+  "b__tilde__",
+  "b",
+  "ZR"
+ ],
+ "evidence": "effLRSM.fr:12 'The model is an extension of the default FeynRules SM model file'; effLRSM.fr:244 'LagFull := LSM + LagLRSM'.",
+ "notes": "Add-on. Total is the file's own LagFull.",
+ "extra_args": [],
+ "command": "wolframscript -f /home/deck/code/hep-pr/validator-main/tools/feynrules/UFO_generator.wl FeynRulesPath=/home/deck/hep-tools/feynrules-current ModelPath=/home/deck/code/heptapod/eval/reference_cache/EffLRSM/effLRSM.fr OutputDir=/home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/hillclimb/ref_ufo/EffLRSM/UFO Checks=false AddDecays=false LoadSM=true Lagrangian=LagFull",
+ "problems": [],
+ "last_log_lines": [],
+ "attempts": [
+  {
+   "lagrangian": "LagFull",
+   "load_sm": true,
+   "model_files": [
+    "/home/deck/code/heptapod/eval/reference_cache/EffLRSM/effLRSM.fr"
+   ],
+   "extra": [],
+   "seconds": 59,
+   "exit_code": 0,
+   "ok": true,
+   "problems": []
+  }
+ ]
+}

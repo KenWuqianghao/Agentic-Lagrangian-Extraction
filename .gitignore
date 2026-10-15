@@ -18,3 +18,12 @@ data/text/
 data/src/
 runs/
 *.tmp
+
+# OS / stray generated files
+.DS_Store
+/py.py
+benchmarks/crosscheck_mutation/*/cross_sandbox/
+benchmarks/crosscheck_mutation/*/recon_sandbox/
+benchmarks/cc_replay/*/validation/*/round0/UFO/
+benchmarks/cc_replay/*/validation/*/round0/mg5run/
+benchmarks/cc_replay/*/validation/*/round0/checks_only_UFO/

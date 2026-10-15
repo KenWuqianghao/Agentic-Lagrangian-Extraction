@@ -1,0 +1,76 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+Merging model-files...
+This model implementation was created by
+Jeong Han Kim
+Kyoungchul Kong
+Seung J. Lee
+Gopolang Mohlabeng
+Model Version: 1.0.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+Model Top-Philic-Zprime_gen loaded.
+[INFO] Lagrangian: LSM + LTotal
+HEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)
+HEPTAPOD-LAGRANGIAN|expression=LSM + LTotal|symbols=LSM,LTotal|terms=500
+HEPTAPOD-RESIDUAL|count=0|fields=
+[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum
+HEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=fail|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. 3 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$Fe
+HEPTAPOD-CHECK|scope=model|name=kinetic_diagonal|verdict=pass|detail=Neglecting all terms with more than 2 particles. All kinetic terms are diagonal.
+HEPTAPOD-CHECK|scope=model|name=mass_diagonal|verdict=pass|detail=All mass terms are diagonal.
+Neglecting all terms with more than 2 particles.
+All mass terms are diagonal.
+Getting mass spectrum.
+Checking for less then 0.1% agreement with model file values.
+HEPTAPOD-MASS|particle=H|derived=125.00000000000006|declared=125.|agrees=True
+HEPTAPOD-MASS|particle=ghWm|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=ghWp|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=ghZ|derived=91.18760000000003|declared=91.1876|agrees=True
+HEPTAPOD-MASS|particle=b|derived=4.700000000000002|declared=4.7|agrees=True
+HEPTAPOD-MASS|particle=d|derived=0.005040000000000001|declared=0.00504|agrees=True
+HEPTAPOD-MASS|particle=s|derived=0.10100000000000002|declared=0.101|agrees=True
+HEPTAPOD-MASS|particle=e|derived=0.0005110000000000001|declared=0.000511|agrees=True
+HEPTAPOD-MASS|particle=mu|derived=0.10566000000000003|declared=0.10566|agrees=True
+HEPTAPOD-MASS|particle=ta|derived=1.7770000000000006|declared=1.777|agrees=True
+HEPTAPOD-MASS|particle=c|derived=1.2700000000000002|declared=1.27|agrees=True
+HEPTAPOD-MASS|particle=t|derived=172.00000000000003|declared=172.|agrees=True
+HEPTAPOD-MASS|particle=u|derived=0.002550000000000001|declared=0.00255|agrees=True
+HEPTAPOD-MASS|particle=V1|derived=1500.|declared=1500.|agrees=True
+HEPTAPOD-MASS|particle=W|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=Z|derived=91.18760000000003|declared=91.1876|agrees=True
+HEPTAPOD-CHECK|scope=model|name=mass_spectrum|verdict=pass|detail=
+[INFO] UFO output: /private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/vbench/open/v3o_nemotron_toolkit/Top-Philic-Zprime/s1/Top-Philic-Zprime_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+193 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 193.
+164 vertices obtained.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 164
+   - Saved vertices in InterfaceRun[ 1 ].
+Preparing Python output.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/164 .
+    - Writing files.
+Done!
+[INFO] UFO complete: particles.py, vertices.py, couplings.py, parameters.py, coupling_orders.py all present.
+[INFO] Done.

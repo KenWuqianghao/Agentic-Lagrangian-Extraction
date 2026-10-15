@@ -1,0 +1,105 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: EffLRSM (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1610.08985.\n4: PAPER: the paper's LaTeX sour"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/paper/1610.08985_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/paper/1610.08985_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[a4paper,11pt,prd,superscriptaddress,showpacs,nofootinbib,floatfix,include graphics,showkeys,preprintnumbers]{revtex4-1}\n2: \\usepackage{amsmath,amsfonts,amssymb,array}\n3: \\usepackage{bm,bbm,bbm,bbold}\n4: \\usepackage{dsfont}\n5: \\usepackag"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                "
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/paper/1610.08985_source.tex"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/paper/1610.08985_source.tex",
+   "offset": 973
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/paper/1610.08985_source.tex</path>\n<type>file</type>\n<content>\n973: Publicly available UFO files~\\cite{nloFRModel} are compatible with similar general-purpose event generators, e.g., \n974: HERWIG and SHERPA.\n975: \n976: Our NLO in QCD corrections and residual scale uncertainty for inclusive $pp\\rightarrow\\WR,\\ZR$ pro"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/model.fr",
+   "content": "(*****************************************************************************************)\n(******  Effective Left-Right Symmetric Model (EffLRSM) add-on on top of SM.fr       ******)\n(******  Extracted from arXiv:1610.08985 (Mattelaer, Mitra, Ruiz)                     ******)\n(******  New content: W_R^+-, Z_R gauge bosons and three heavy Majorana neutrinos N_i  ******)\n(*****************************************************************************************)\n\n(* ************************** *)\n(* *****  Information   ***** *)\n(* ************************** *)\n\nM$ModelName = \"EffLRSM_gen\";\n\nM$Information = {\n  Authors      -> {\"O. Mattelaer\", \"M. Mitra\", \"R. Ruiz\"},\n  Version      -> \"1.0.0\",\n  Date         -> \"27. 10. 2016\",\n  Institutions -> {\"CP3, Universite catholique de Louvain\", \"IISER Mohali\", \"IPPP, Durham University\"},\n  Emails       -> {\"olivier.mattelaer@uclouvain.be\", \"manimala@iisermohali.ac.in\", \"richard.ruiz@durham.ac.uk\"},\n  References   -> \"arXiv:1610.08985\"\n};\n\n(* ************************** *)\n(* ***** Interaction orders *****)\n(* ************************** *)\n\nM$InteractionOrderHierarchy = {\n  {QCD, 1},\n  {QED, 2},\n  {NP, 1}\n};\n\n(* ************************** *)\n(* *****      Indices     *****)\n(* ************************** *)\n\n(* No new indices: Colour, Gluon, Generation, SU2D and SU2W are all declared by SM.fr.\n   No non-fundamental colour representation occurs: every new particle is a colour\n   singlet, hence no IndexRange declaration and no AddGaugeRepresentation line. *)\n\n(* ************************** *)\n(* *****   Parameters   ***** *)\n(* ************************** *)\n\nM$Parameters = {\n\n  (* External parameters *)\n  kappaRq == {\n    ParameterType    -> External,\n    BlockName        -> LRSMINPUTS,\n    OrderBlock       -> 1,\n    Value            -> 1.,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"kappa_R^q : W_R/Z_R coupling normalisation for quarks (Eqs. 2,7)\"\n  },\n  kappaRl == {\n    ParameterType    -> External,\n    BlockName        -> LRSMINPUTS,\n    OrderBlock       -> 2,\n    Value            -> 1.,\n    InteractionOrder -> {NP, 1},\n    Description      -> \"kappa_R^l : W_R/Z_R coupling normalisation for leptons (Eqs. 3,7)\"\n  },\n\n  (* Internal parameters *)\n  VCKMR == {\n    ParameterType -> Internal,\n    Indices       -> {Index[Generation], Index[Generation]},\n    Unitary       -> True,\n    Value         -> {VCKMR[1,1] -> 1,  VCKMR[1,2] -> 0,  VCKMR[1,3] -> 0,\n                      VCKMR[2,1] -> 0,  VCKMR[2,2] -> 1,  VCKMR[2,3] -> 0,\n                      VCKMR[3,1] -> 0,  VCKMR[3,2] -> 0,  VCKMR[3,3] -> 1},\n    Description   -> \"Right-handed CKM matrix V^{CKM'} (Eq. 2): diagonal with unit entries (Sec. 2)\"\n  },\n  YN == {\n    ParameterType -> Internal,\n    Indices       -> {Index[Generation], Index[Generation]},\n    Unitary       -> True,\n    Value         -> {YN[1,1] -> 1,  YN[1,2] -> 0,  YN[1,3] -> 0,\n                      YN[2,1] -> 0,  YN[2,2] -> 1,  YN[2,3] -> 0,\n                      YN[3,1] -> 0,  YN[3,2] -> 0,  YN[3,3] -> 1},\n    Description   -> \"W_R leptonic mixing Y_{l m'} (Eq. 5): |Y_eN1|=|Y_muN2|=|Y_tauN3|=1, all others 0\"\n  },\n  tw2 == {\n    ParameterType -> Internal,\n    Value         -> sw2/cw2,\n    Description   -> \"tan^2(theta_W) = sin^2(theta_W)/cos^2(theta_W)\"\n  }\n};\n\n(* ************************** *)\n(* ***** Particle classes *****)\n(* ************************** *)\n\nM$ClassesDescription = {\n\n  (* Right-handed charged gauge boson W_R^+ / W_R^- *)\n  V[100] == {\n    ClassName        -> Wp,\n    SelfConjugate    -> False,\n    QuantumNumbers   -> {Q -> 1},\n    Mass             -> {MWR, 3000.},\n    Width            -> {WWr, 84.3},\n    ParticleName     -> \"wr+\",\n    AntiParticleName -> \"wr-\",\n    PDG              -> 9900024,\n    PropagatorLabel  -> \"wr\",\n    PropagatorType   -> Sine,\n    PropagatorArrow  -> Forward,\n    FullName         -> \"W_R\"\n  },\n\n  (* Right-handed neutral gauge boson Z_R *)\n  V[101] == {\n    ClassName       -> Zr,\n    SelfConjugate   -> True,\n    Mass            -> {MZR, 5070.},\n    Width           -> {WZr, 114.},\n    ParticleName    -> \"zr\",\n    PDG             -> 9900023,\n    PropagatorLabel -> \"zr\",\n    PropagatorType  -> Sine,\n    PropagatorArrow -> None,\n    FullName        -> \"Z_R\"\n  },\n\n  (* Heavy Majorana neutrinos N_1, N_2, N_3 *)\n  F[100] == {\n    ClassName       -> NR,\n    ClassMembers    -> {N1, N2, N3},\n    Indices         -> {Index[Generation]},\n    FlavorIndex     -> Generation,\n    SelfConjugate   -> True,\n    Mass            -> {MN, {MN1, 173.3}, {MN2, 1.*^12}, {MN3, 1.*^12}},\n    Width           -> {{WN1, 2.12*^-8}, {WN2, 0}, {WN3, 0}},\n    PropagatorLabel -> {\"N\", \"N1\", \"N2\", \"N3\"},\n    PropagatorType  -> Straight,\n    PropagatorArrow -> None,\n    PDG             -> {9900012, 9900014, 9900016},\n    ParticleName    -> {\"n1\", \"n2\", \"n3\"},\n    FullName        -> {\"Heavy neutrino 1\", \"Heavy neutrino 2\", \"Heavy neutrino 3\"}\n  }\n};\n\nGaugeXi[ V[100] ] = GaugeXi[Wp];\nGaugeXi[ V[101] ] = GaugeXi[Zr];\n\n(* ************************** *)\n(* *****    Lagrangian   *****)\n(* ************************** *)\n\n(* Free-field term for W_R^+- (complex vector, task rule 1) *)\nLWpkin := Block[{mu, nu},\n  ExpandIndices[-1/2 FS[Wpbar, mu, nu] FS[Wp, mu, nu] + MWR^2 Wpbar[mu] Wp[mu]]\n];\n\n(* Free-field term for Z_R (real vector, task rule 1) *)\nLZrkin := Block[{mu, nu},\n  ExpandIndices[-1/4 FS[Zr, mu, nu] FS[Zr, mu, nu] + 1/2 MZR^2 Zr[mu] Zr[mu]]\n];\n\n(* Free-field term for the heavy Majorana neutrinos (task rules 1, 15) *)\nLNRkin := Block[{mu},\n  ExpandIndices[I/2 NRbar.Ga[mu].del[NR, mu]] -\n    1/2 MN1 NRbar[1].NR[1] - 1/2 MN2 NRbar[2].NR[2] - 1/2 MN3 NRbar[3].NR[3]\n];\n\n(* Eq. (2): W_R charged current to quarks + H.c. *)\nLWRqq := Block[{mu, hq},\n  hq = ExpandIndices[(-kappaRq gw/Sqrt[2]) uqbar.VCKMR.Ga[mu].ProjP.dq Wp[mu]];\n  hq + HC[hq]\n];\n\n(* Eq. (3): W_R charged current to leptons + H.c.\n   The X_lm nu^c term is dropped because the benchmark sets X_lm = 0 (Eq. (5)). *)\nLWRlnu := Block[{mu, hl},\n  hl = ExpandIndices[(-kappaRl gw/Sqrt[2]) NRbar.YN.Ga[mu].ProjP.l Wp[mu]];\n  hl + HC[hl]\n];\n\n(* Eqs. (7)-(9): Z_R neutral currents.\n   Overall prefactor -kappa g/Sqrt[1 - tan^2(th_W)/kappa^2] (Sqrt in the denominator,\n   read literally from the LaTeX) times g_L/g_R of Eqs. (8)-(9).\n   Real coefficients => Hermitian as written; the paper adds no H.c., so none is added. *)\nLZRff := Block[{mu},\n  ExpandIndices[\n    (-kappaRq gw/Sqrt[1 - tw2/kappaRq^2]) (\n      (-tw2/(6 kappaRq^2)) uqbar.Ga[mu].ProjP.uq\n    + (1/2 - 2 tw2/(3 kappaRq^2)) uqbar.Ga[mu].ProjM.uq\n    + (-tw2/(6 kappaRq^2)) dqbar.Ga[mu].ProjP.dq\n    + (-1/2 + tw2/(3 kappaRq^2)) dqbar.Ga[mu].ProjM.dq\n    )\n  + (-kappaRl gw/Sqrt[1 - tw2/kappaRl^2]) (\n      (tw2/(2 kappaRl^2)) lbar.Ga[mu].ProjP.l\n    + (-1/2 + tw2/kappaRl^2) lbar.Ga[mu].ProjM.l\n    + (tw2/(2 kappaRl^2)) vlbar.Ga[mu].ProjM.vl\n    + 1/2 NRbar.Ga[mu].ProjP.NR\n    )\n  ] Zr[mu]\n];\n\nLTotal := LWpkin + LZrkin + LNRkin + LWRqq + LWRlnu + LZRff;\n"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/model.fr</path>\n<type>file</type>\n<content>\n1: (*****************************************************************************************)\n2: (******  Effective Left-Right Symmetric Model (EffLRSM) add-on on top of SM.fr       ******)\n3: (******  Extracted from arXiv:1610.08985 (Mattelaer, Mitra, Ruiz)              "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: EffLRSM (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1610.08985.\n4: PAPER: the paper's LaTeX sour"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "ClassName\\s*->|SelfConjugate|QuantumNumbers|ProjM|ProjP|Ga\\[mu\\]|CC\\[",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/SM.fr"
+  },
+  "status": "completed",
+  "output": "Found 100 matches (more matches available)\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/model.fr:\n  Line 98:     ClassName        -> Wp,\n\n  Line 99:     SelfConjugate    -> False,\n\n  Line 100:     QuantumNumbers   -> {Q -> 1},\n\n  Line 114:     ClassName       -> Zr,\n\n  Line 115:     SelfConjugate   -> True,\n\n  Line 128:     ClassName       -> NR,\n\n  Line 132:     Se"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "L.*:=|W\\[mu\\]|Z\\[mu\\]|CKM|uqbar|dqbar|lbar|vlbar",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/SM.fr"
+  },
+  "status": "completed",
+  "output": "Found 49 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/TASK.md:\n  Line 25:    - Real vector (gauge singlet): `LXkin := -1/4 FS[X, mu, nu] FS[X, mu, nu] + 1/2 MX^2 X[mu] X[mu];` (the explicit form `-1/4 (del[X[nu], mu] - del[X[mu], nu])^2` is equivalent).\n\n  Line 58: 13. Flavour structure in matrix form. Write generation-space couplings as matrix products betw"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/paper/1610.08985_source.tex",
+   "pattern": "lepton number|baryon number|Lepton|Baryon|\\\\mathcal\\{L\\}_|\\\\WR|\\\\ZR|X_\\{|Y_\\{"
+  },
+  "status": "completed",
+  "output": "Found 100 matches (more matches available)\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/paper/1610.08985_source.tex:\n  Line 57: \\newcommand{\\WR}{W_R}\n\n  Line 58: \\newcommand{\\ZR}{Z_R}\n\n  Line 60: \\newcommand{\\WRreco}{W_R^{\\rm Reco.}}\n\n  Line 182:  p ~p \\rightarrow\t& \\WR^\\pm\t& \\rightarrow tb ~\\text{or}~ N_R \\ell^\\pm, ~\n\n  Line 187:  p ~p \\rightarrow\t& \\ZR\t\t& \\rightar"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/paper/1610.08985_source.tex",
+   "offset": 250,
+   "limit": 160
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-iyvbmtjd/paper/1610.08985_source.tex</path>\n<type>file</type>\n<content>\n250: The Born diagrams for these processes are shown in Fig.~\\ref{fig:dydisProd}.\n251: \n252: As a case study, we investigate at NLO+PS accuracy the properties of \n253: heavy neutrino (color-singlet) jets and top quark (color-triplet) jets from decays of "
+ }
+]

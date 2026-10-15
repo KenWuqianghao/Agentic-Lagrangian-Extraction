@@ -1,0 +1,60 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-d5ydmkx5/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-d5ydmkx5/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: ChernSimonsPortal (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:0901.0639.\n4: PAPER: the"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-d5ydmkx5/paper/0901.0639_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-d5ydmkx5/paper/0901.0639_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[12pt]{article}\n2: \n3: \\bibliographystyle{JHEP-2} \n4:   \n5: \\IfFileExists{srcltx.sty}{\\usepackage[active]{srcltx}}\n6: \n7: \\usepackage{amssymb,amsmath,bm,array}\n8: \\usepackage[sort&compress,square,comma]{natbib} \n9: \\usepackage{g"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-d5ydmkx5/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-d5ydmkx5/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines,"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "offset": 1476,
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-d5ydmkx5/paper/0901.0639_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-d5ydmkx5/paper/0901.0639_source.tex</path>\n<type>file</type>\n<content>\n1476: $m_{l^+l^-}=m_Z\\pm 5\\gev$, $p_T(\\gamma)>50\\gev$, $p_T(l^+,l^-,l')>10\\gev$, missing $E_T$ greater than $10\\gev$ and $m_{\\gamma l^+l^-}>500\\gev$.  Thus, for $10\\, {\\rm fb}^{-1}$ of integrated luminosity at the LHC, when $c_i=1$ ($c_i=0.1$) w"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/SM.fr"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-d5ydmkx5/SM.fr"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-d5ydmkx5/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-d5ydmkx5/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                      "
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-d5ydmkx5/spec.json",
+   "content": "{\n  \"model_name\": \"ChernSimonsPortal_gen\",\n  \"info\": {\n    \"authors\": [\"Ignatios Antoniadis\", \"Alexey Boyarsky\", \"Sam Espahbodi\", \"Oleg Ruchayskiy\", \"James D. Wells\"],\n    \"version\": \"1.0.0\",\n    \"date\": \"2026-09-24\",\n    \"institutions\": [\"CERN\", \"ETHZ\", \"University of Michigan\", \"EPFL\"],\n    \"emails\": []\n  },\n  \"interaction_order_hierarchy\": [\n    [\"QCD\", 1],\n    [\"QED\", 2],\n    [\"NP\", 1]\n  ],\n  \"interaction_order_limit\": [\n    [\"NP\", 1]\n  ],\n  \"feynman_gauge\": true,\n  \"vevs\": [],\n  \"gauge_groups\": [],\n  \"index_decls\": [],\n  \"parameters\": [\n    {\n      \"name\": \"MX\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1000.\",\n      \"block_name\": \"CHERNSIMONS\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"X boson mass [GeV]\",\n      \"tex\": \"M_X\"\n    },\n    {\n      \"name\": \"c1\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"CHERNSIMONS\",\n      \"order_block\": 2,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Chern-Simons portal coupling c1 (dimensionless), Eq.(48)\",\n      \"tex\": \"c_1\"\n    },\n    {\n      \"name\": \"c2\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"CHERNSIMONS\",\n      \"order_block\": 3,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Chern-Simons portal coupling c2 (dimensionless), Eq.(48)\",\n      \"tex\": \"c_2\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 100,\n      \"class_name\": \"X\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\n        \"massless\": false,\n        \"sym\": \"MX\",\n        \"value\": \"1000.\"\n      },\n      \"width\": {\n        \"massless\": false,\n        \"sym\": \"WX\",\n        \"value\": \"0.\"\n      },\n      \"quantum_numbers\": {\n        \"Q\": \"0\",\n        \"Y\": \"0\"\n      },\n      \"pdg\": 9000001,\n      \"particle_name\": \"X\",\n      \"antiparticle_name\": \"X\",\n      \"full_name\": \"X boson\",\n      \"propagator_label\": \"X\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"None\",\n      \"unphysical\": false\n    }\n  ],\n  \"gauge_xi\": [\n    [\"V[100]\", \"GaugeXi[X]\"]\n  ],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"LXkin\",\n      \"expression\": \"-1/4 FS[X, mu, nu] FS[X, mu, nu] + 1/2 MX^2 X[mu] X[mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LXZZ\",\n      \"expression\": \"c1/2 * sw * eps[mu, nu, la, ro] X[mu] Z[nu] FS[Z, la, ro]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LXZ\u03b3\",\n      \"expression\": \"c1 * cw * eps[mu, nu, la, ro] X[mu] Z[nu] FS[A, la, ro]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LXWW\",\n      \"expression\": \"c2 * eps[mu, nu, la, ro] X[mu] W[nu] FS[Wbar, la, ro]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LTotal\",\n      \"expression\": \"LXkin + LXZZ + LXZ\u03b3 + LXWW\",\n      \"delayed\": true\n    }\n  ],\n  \"raw_preamble\": [],\n  \"raw_blocks\": []\n}"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ }
+]

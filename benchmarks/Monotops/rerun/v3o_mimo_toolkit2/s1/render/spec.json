@@ -1,0 +1,494 @@
+{
+  "model_name": "Monotops_gen",
+  "info": {
+    "authors": ["J. Andrea", "B. Fuks", "F. Maltoni"],
+    "version": "1.0.0",
+    "date": "25. 09. 2026"
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "a0FC",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "a0FC[1,1]", "rhs": "0."},
+        {"lhs": "a0FC[1,2]", "rhs": "0."},
+        {"lhs": "a0FC[1,3]", "rhs": "0.1"},
+        {"lhs": "a0FC[2,1]", "rhs": "0."},
+        {"lhs": "a0FC[2,2]", "rhs": "0."},
+        {"lhs": "a0FC[2,3]", "rhs": "0."},
+        {"lhs": "a0FC[3,1]", "rhs": "0.1"},
+        {"lhs": "a0FC[3,2]", "rhs": "0."},
+        {"lhs": "a0FC[3,3]", "rhs": "0."}
+      ],
+      "block_name": "A0FC",
+      "interaction_order": ["NP", 1],
+      "description": "a^0_FC scalar flavour-changing coupling of phi to up quarks, Eq.(1)"
+    },
+    {
+      "name": "b0FC",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "b0FC[1,1]", "rhs": "0."},
+        {"lhs": "b0FC[1,2]", "rhs": "0."},
+        {"lhs": "b0FC[1,3]", "rhs": "0."},
+        {"lhs": "b0FC[2,1]", "rhs": "0."},
+        {"lhs": "b0FC[2,2]", "rhs": "0."},
+        {"lhs": "b0FC[2,3]", "rhs": "0."},
+        {"lhs": "b0FC[3,1]", "rhs": "0."},
+        {"lhs": "b0FC[3,2]", "rhs": "0."},
+        {"lhs": "b0FC[3,3]", "rhs": "0."}
+      ],
+      "block_name": "B0FC",
+      "interaction_order": ["NP", 1],
+      "description": "b^0_FC scalar flavour-changing axial coupling of phi, Eq.(1); zero in the benchmark"
+    },
+    {
+      "name": "a1FC",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "a1FC[1,1]", "rhs": "0."},
+        {"lhs": "a1FC[1,2]", "rhs": "0."},
+        {"lhs": "a1FC[1,3]", "rhs": "0.1"},
+        {"lhs": "a1FC[2,1]", "rhs": "0."},
+        {"lhs": "a1FC[2,2]", "rhs": "0."},
+        {"lhs": "a1FC[2,3]", "rhs": "0."},
+        {"lhs": "a1FC[3,1]", "rhs": "0.1"},
+        {"lhs": "a1FC[3,2]", "rhs": "0."},
+        {"lhs": "a1FC[3,3]", "rhs": "0."}
+      ],
+      "block_name": "A1FC",
+      "interaction_order": ["NP", 1],
+      "description": "a^1_FC vector flavour-changing coupling of V to up quarks, Eq.(1)"
+    },
+    {
+      "name": "b1FC",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "b1FC[1,1]", "rhs": "0."},
+        {"lhs": "b1FC[1,2]", "rhs": "0."},
+        {"lhs": "b1FC[1,3]", "rhs": "0."},
+        {"lhs": "b1FC[2,1]", "rhs": "0."},
+        {"lhs": "b1FC[2,2]", "rhs": "0."},
+        {"lhs": "b1FC[2,3]", "rhs": "0."},
+        {"lhs": "b1FC[3,1]", "rhs": "0."},
+        {"lhs": "b1FC[3,2]", "rhs": "0."},
+        {"lhs": "b1FC[3,3]", "rhs": "0."}
+      ],
+      "block_name": "B1FC",
+      "interaction_order": ["NP", 1],
+      "description": "b^1_FC vector flavour-changing axial coupling of V, Eq.(1); zero in the benchmark"
+    },
+    {
+      "name": "aqSR",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "aqSR[1,1]", "rhs": "0."},
+        {"lhs": "aqSR[1,2]", "rhs": "0.1"},
+        {"lhs": "aqSR[1,3]", "rhs": "0."},
+        {"lhs": "aqSR[2,1]", "rhs": "-0.1"},
+        {"lhs": "aqSR[2,2]", "rhs": "0."},
+        {"lhs": "aqSR[2,3]", "rhs": "0."},
+        {"lhs": "aqSR[3,1]", "rhs": "0."},
+        {"lhs": "aqSR[3,2]", "rhs": "0."},
+        {"lhs": "aqSR[3,3]", "rhs": "0."}
+      ],
+      "block_name": "AQSR",
+      "interaction_order": ["NP", 1],
+      "description": "a^q_SR scalar diquark coupling of varphi to down-type quarks, Eq.(1); antisymmetric in flavour"
+    },
+    {
+      "name": "bqSR",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "bqSR[1,1]", "rhs": "0."},
+        {"lhs": "bqSR[1,2]", "rhs": "0."},
+        {"lhs": "bqSR[1,3]", "rhs": "0."},
+        {"lhs": "bqSR[2,1]", "rhs": "0."},
+        {"lhs": "bqSR[2,2]", "rhs": "0."},
+        {"lhs": "bqSR[2,3]", "rhs": "0."},
+        {"lhs": "bqSR[3,1]", "rhs": "0."},
+        {"lhs": "bqSR[3,2]", "rhs": "0."},
+        {"lhs": "bqSR[3,3]", "rhs": "0."}
+      ],
+      "block_name": "BQSR",
+      "interaction_order": ["NP", 1],
+      "description": "b^q_SR scalar diquark axial coupling of varphi, Eq.(1); zero in the benchmark"
+    },
+    {
+      "name": "aSRu",
+      "parameter_type": "External",
+      "indices": ["Generation"],
+      "value_rules": [
+        {"lhs": "aSRu[1]", "rhs": "0."},
+        {"lhs": "aSRu[2]", "rhs": "0."},
+        {"lhs": "aSRu[3]", "rhs": "0.1"}
+      ],
+      "block_name": "ASRU",
+      "interaction_order": ["NP", 1],
+      "description": "a^{1/2}_SR coupling of varphi to up-type quarks and chi, Eq.(1); one index per up-type quark generation"
+    },
+    {
+      "name": "bSRu",
+      "parameter_type": "External",
+      "indices": ["Generation"],
+      "value_rules": [
+        {"lhs": "bSRu[1]", "rhs": "0."},
+        {"lhs": "bSRu[2]", "rhs": "0."},
+        {"lhs": "bSRu[3]", "rhs": "0."}
+      ],
+      "block_name": "BSRU",
+      "interaction_order": ["NP", 1],
+      "description": "b^{1/2}_SR axial coupling of varphi to up-type quarks and chi, Eq.(1); zero in the benchmark"
+    },
+    {
+      "name": "atqSR",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "atqSR[1,1]", "rhs": "0."},
+        {"lhs": "atqSR[1,2]", "rhs": "0."},
+        {"lhs": "atqSR[1,3]", "rhs": "0.1"},
+        {"lhs": "atqSR[2,1]", "rhs": "0."},
+        {"lhs": "atqSR[2,2]", "rhs": "0."},
+        {"lhs": "atqSR[2,3]", "rhs": "0.1"},
+        {"lhs": "atqSR[3,1]", "rhs": "0."},
+        {"lhs": "atqSR[3,2]", "rhs": "0."},
+        {"lhs": "atqSR[3,3]", "rhs": "0."}
+      ],
+      "block_name": "ATQSR",
+      "interaction_order": ["NP", 1],
+      "description": "tilde a^q_SR four-fermion coupling of tvarphi to down-type and up-type quarks, Eq.(1)"
+    },
+    {
+      "name": "btqSR",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "btqSR[1,1]", "rhs": "0."},
+        {"lhs": "btqSR[1,2]", "rhs": "0."},
+        {"lhs": "btqSR[1,3]", "rhs": "0."},
+        {"lhs": "btqSR[2,1]", "rhs": "0."},
+        {"lhs": "btqSR[2,2]", "rhs": "0."},
+        {"lhs": "btqSR[2,3]", "rhs": "0."},
+        {"lhs": "btqSR[3,1]", "rhs": "0."},
+        {"lhs": "btqSR[3,2]", "rhs": "0."},
+        {"lhs": "btqSR[3,3]", "rhs": "0."}
+      ],
+      "block_name": "BTQSR",
+      "interaction_order": ["NP", 1],
+      "description": "tilde b^q_SR four-fermion axial coupling of tvarphi, Eq.(1); zero in the benchmark"
+    },
+    {
+      "name": "atSRd",
+      "parameter_type": "External",
+      "indices": ["Generation"],
+      "value_rules": [
+        {"lhs": "atSRd[1]", "rhs": "0.1"},
+        {"lhs": "atSRd[2]", "rhs": "0.1"},
+        {"lhs": "atSRd[3]", "rhs": "0."}
+      ],
+      "block_name": "ATSRD",
+      "interaction_order": ["NP", 1],
+      "description": "tilde a^{1/2}_SR coupling of tvarphi to down-type quarks and chi, Eq.(1); one index per down-type quark generation"
+    },
+    {
+      "name": "btSRd",
+      "parameter_type": "External",
+      "indices": ["Generation"],
+      "value_rules": [
+        {"lhs": "btSRd[1]", "rhs": "0."},
+        {"lhs": "btSRd[2]", "rhs": "0."},
+        {"lhs": "btSRd[3]", "rhs": "0."}
+      ],
+      "block_name": "BTSRD",
+      "interaction_order": ["NP", 1],
+      "description": "tilde b^{1/2}_SR axial coupling of tvarphi to down-type quarks and chi, Eq.(1); zero in the benchmark"
+    },
+    {
+      "name": "aqVR",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "aqVR[1,1]", "rhs": "0.1"},
+        {"lhs": "aqVR[1,2]", "rhs": "0."},
+        {"lhs": "aqVR[1,3]", "rhs": "0."},
+        {"lhs": "aqVR[2,1]", "rhs": "0."},
+        {"lhs": "aqVR[2,2]", "rhs": "0."},
+        {"lhs": "aqVR[2,3]", "rhs": "0."},
+        {"lhs": "aqVR[3,1]", "rhs": "0."},
+        {"lhs": "aqVR[3,2]", "rhs": "0."},
+        {"lhs": "aqVR[3,3]", "rhs": "0."}
+      ],
+      "block_name": "AQVR",
+      "interaction_order": ["NP", 1],
+      "description": "a^q_VR vector (gamma^mu) diquark coupling of X to down-type quarks, Eq.(1); benchmark aqVR[1,1]=0.1 (diagonal d)"
+    },
+    {
+      "name": "bqVR",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "bqVR[1,1]", "rhs": "0."},
+        {"lhs": "bqVR[1,2]", "rhs": "0."},
+        {"lhs": "bqVR[1,3]", "rhs": "0."},
+        {"lhs": "bqVR[2,1]", "rhs": "0."},
+        {"lhs": "bqVR[2,2]", "rhs": "0."},
+        {"lhs": "bqVR[2,3]", "rhs": "0."},
+        {"lhs": "bqVR[3,1]", "rhs": "0."},
+        {"lhs": "bqVR[3,2]", "rhs": "0."},
+        {"lhs": "bqVR[3,3]", "rhs": "0."}
+      ],
+      "block_name": "BQVR",
+      "interaction_order": ["NP", 1],
+      "description": "b^q_VR axial (gamma^mu gamma5) diquark coupling of X, Eq.(1); vanishes for identical quarks, zero in the benchmark"
+    },
+    {
+      "name": "aVRu",
+      "parameter_type": "External",
+      "indices": ["Generation"],
+      "value_rules": [
+        {"lhs": "aVRu[1]", "rhs": "0."},
+        {"lhs": "aVRu[2]", "rhs": "0."},
+        {"lhs": "aVRu[3]", "rhs": "0.1"}
+      ],
+      "block_name": "AVRU",
+      "interaction_order": ["NP", 1],
+      "description": "a^{1/2}_VR vector coupling of X to up-type quarks and chi, Eq.(1)"
+    },
+    {
+      "name": "bVRu",
+      "parameter_type": "External",
+      "indices": ["Generation"],
+      "value_rules": [
+        {"lhs": "bVRu[1]", "rhs": "0."},
+        {"lhs": "bVRu[2]", "rhs": "0."},
+        {"lhs": "bVRu[3]", "rhs": "0."}
+      ],
+      "block_name": "BVRU",
+      "interaction_order": ["NP", 1],
+      "description": "b^{1/2}_VR vector axial coupling of X to up-type quarks and chi, Eq.(1); zero in the benchmark"
+    },
+    {
+      "name": "epsC",
+      "parameter_type": "Internal",
+      "indices": ["Colour", "Colour", "Colour"],
+      "value_rules": [
+        {"lhs": "epsC[1,1,1]", "rhs": "0"},
+        {"lhs": "epsC[1,1,2]", "rhs": "0"},
+        {"lhs": "epsC[1,1,3]", "rhs": "0"},
+        {"lhs": "epsC[1,2,1]", "rhs": "0"},
+        {"lhs": "epsC[1,2,2]", "rhs": "0"},
+        {"lhs": "epsC[1,2,3]", "rhs": "1"},
+        {"lhs": "epsC[1,3,1]", "rhs": "0"},
+        {"lhs": "epsC[1,3,2]", "rhs": "-1"},
+        {"lhs": "epsC[1,3,3]", "rhs": "0"},
+        {"lhs": "epsC[2,1,1]", "rhs": "0"},
+        {"lhs": "epsC[2,1,2]", "rhs": "0"},
+        {"lhs": "epsC[2,1,3]", "rhs": "0"},
+        {"lhs": "epsC[2,2,1]", "rhs": "0"},
+        {"lhs": "epsC[2,2,2]", "rhs": "0"},
+        {"lhs": "epsC[2,2,3]", "rhs": "0"},
+        {"lhs": "epsC[2,3,1]", "rhs": "1"},
+        {"lhs": "epsC[2,3,2]", "rhs": "0"},
+        {"lhs": "epsC[2,3,3]", "rhs": "0"},
+        {"lhs": "epsC[3,1,1]", "rhs": "0"},
+        {"lhs": "epsC[3,1,2]", "rhs": "0"},
+        {"lhs": "epsC[3,1,3]", "rhs": "0"},
+        {"lhs": "epsC[3,2,1]", "rhs": "-1"},
+        {"lhs": "epsC[3,2,2]", "rhs": "0"},
+        {"lhs": "epsC[3,2,3]", "rhs": "0"},
+        {"lhs": "epsC[3,3,1]", "rhs": "0"},
+        {"lhs": "epsC[3,3,2]", "rhs": "0"},
+        {"lhs": "epsC[3,3,3]", "rhs": "0"}
+      ],
+      "description": "Levi-Civita tensor epsilon^{ijk} of SU(3)_c colour in Eq.(1); declared explicitly because FeynRules has no built-in colour epsilon"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "S",
+      "class_index": 100,
+      "class_name": "sPhi",
+      "self_conjugate": false,
+      "mass": {"sym": "Mphi", "value": "300."},
+      "width": {"massless": true},
+      "quantum_numbers": {"Q": "0", "Y": "0"},
+      "pdg": 5000001,
+      "particle_name": "sPhi",
+      "antiparticle_name": "sPhibar",
+      "full_name": "invisible scalar phi",
+      "propagator_label": "sPhi",
+      "propagator_type": "D",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "V",
+      "class_index": 100,
+      "class_name": "vVec",
+      "self_conjugate": false,
+      "mass": {"sym": "Mvec", "value": "50."},
+      "width": {"massless": true},
+      "quantum_numbers": {"Q": "0", "Y": "0"},
+      "pdg": 5000002,
+      "particle_name": "vVec",
+      "antiparticle_name": "vVecbar",
+      "full_name": "invisible vector V",
+      "propagator_label": "vVec",
+      "propagator_type": "Sine",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 100,
+      "class_name": "fChi",
+      "self_conjugate": false,
+      "mass": {"sym": "Mchi", "value": "50."},
+      "width": {"massless": true},
+      "quantum_numbers": {"Q": "0", "Y": "0"},
+      "pdg": 5000003,
+      "particle_name": "fChi",
+      "antiparticle_name": "fChibar",
+      "full_name": "invisible fermion chi",
+      "propagator_label": "fChi",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 101,
+      "class_name": "sVarph",
+      "self_conjugate": false,
+      "indices": ["Colour"],
+      "mass": {"sym": "Mvarphi", "value": "500."},
+      "width": {"sym": "Wvarphi", "value": "Automatic"},
+      "quantum_numbers": {"Q": "2/3", "Y": "2/3"},
+      "pdg": 5000004,
+      "particle_name": "sVarph",
+      "antiparticle_name": "sVarphbar",
+      "full_name": "colored scalar varphi",
+      "propagator_label": "sVarph",
+      "propagator_type": "D",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 102,
+      "class_name": "sTvarph",
+      "self_conjugate": false,
+      "indices": ["Colour"],
+      "mass": {"sym": "Mtvarphi", "value": "3000."},
+      "width": {"sym": "Wtvarphi", "value": "Automatic"},
+      "quantum_numbers": {"Q": "-1/3", "Y": "-1/3"},
+      "pdg": 5000005,
+      "particle_name": "sTvarph",
+      "antiparticle_name": "sTvarphbar",
+      "full_name": "colored scalar tilde varphi",
+      "propagator_label": "sTvarph",
+      "propagator_type": "D",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "V",
+      "class_index": 101,
+      "class_name": "vXcol",
+      "self_conjugate": false,
+      "indices": ["Colour"],
+      "mass": {"sym": "Mxvec", "value": "500."},
+      "width": {"sym": "Wxvec", "value": "Automatic"},
+      "quantum_numbers": {"Q": "2/3", "Y": "2/3"},
+      "pdg": 5000006,
+      "particle_name": "vXcol",
+      "antiparticle_name": "vXcolbar",
+      "full_name": "colored vector X",
+      "propagator_label": "vXcol",
+      "propagator_type": "Sine",
+      "propagator_arrow": "Forward"
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "Lkin_sPhi",
+      "delayed": true,
+      "expression": "DC[sPhibar, mu] DC[sPhi, mu] - Mphi^2 sPhibar sPhi"
+    },
+    {
+      "name": "Lkin_vVec",
+      "delayed": true,
+      "expression": "-1/2 FS[vVecbar, mu, nu] FS[vVec, mu, nu] + Mvec^2 vVecbar[mu] vVec[mu]"
+    },
+    {
+      "name": "Lkin_fChi",
+      "delayed": true,
+      "expression": "I fChibar.Ga[mu].DC[fChi, mu] - Mchi fChibar.fChi"
+    },
+    {
+      "name": "Lkin_sVarph",
+      "delayed": true,
+      "expression": "DC[sVarphbar, mu] DC[sVarph, mu] - Mvarphi^2 sVarphbar sVarph"
+    },
+    {
+      "name": "Lkin_sTvarph",
+      "delayed": true,
+      "expression": "DC[sTvarphbar, mu] DC[sTvarph, mu] - Mtvarphi^2 sTvarphbar sTvarph"
+    },
+    {
+      "name": "Lkin_vXcol",
+      "delayed": true,
+      "expression": "-1/2 FS[vXcolbar, mu, nu] FS[vXcol, mu, nu] + Mxvec^2 vXcolbar[mu] vXcol[mu]"
+    },
+    {
+      "name": "LphiFC",
+      "delayed": true,
+      "expression": "sPhi (uqbar.a0FC.uq + uqbar.b0FC.Ga[5].uq) + HC[sPhi (uqbar.a0FC.uq + uqbar.b0FC.Ga[5].uq)]"
+    },
+    {
+      "name": "LVFC",
+      "delayed": true,
+      "expression": "vVec[mu] (uqbar.a1FC.Ga[mu].uq + uqbar.b1FC.Ga[mu].Ga[5].uq) + HC[vVec[mu] (uqbar.a1FC.Ga[mu].uq + uqbar.b1FC.Ga[mu].Ga[5].uq)]"
+    },
+    {
+      "name": "Lsvarphq",
+      "delayed": true,
+      "expression": "epsC[cc1,cc2,cc3] sVarph[cc1] aqSR[ff1,ff2] (bar[CC[dq[ff1,cc2]]].dq[ff2,cc3] + bar[CC[dq[ff1,cc2]]].Ga[5].dq[ff2,cc3]) + HC[epsC[cc1,cc2,cc3] sVarph[cc1] aqSR[ff1,ff2] (bar[CC[dq[ff1,cc2]]].dq[ff2,cc3] + bar[CC[dq[ff1,cc2]]].Ga[5].dq[ff2,cc3])]"
+    },
+    {
+      "name": "Lsvarphu",
+      "delayed": true,
+      "expression": "sVarph[cc1] (uqbar[ff1,cc1].fChi aSRu[ff1] + uqbar[ff1,cc1].Ga[5].fChi bSRu[ff1]) + HC[sVarph[cc1] (uqbar[ff1,cc1].fChi aSRu[ff1] + uqbar[ff1,cc1].Ga[5].fChi bSRu[ff1])]"
+    },
+    {
+      "name": "Ltvarphq",
+      "delayed": true,
+      "expression": "epsC[cc1,cc2,cc3] sTvarph[cc1] atqSR[ff1,ff2] (bar[CC[dq[ff1,cc2]]].uq[ff2,cc3] + bar[CC[dq[ff1,cc2]]].Ga[5].uq[ff2,cc3]) + HC[epsC[cc1,cc2,cc3] sTvarph[cc1] atqSR[ff1,ff2] (bar[CC[dq[ff1,cc2]]].uq[ff2,cc3] + bar[CC[dq[ff1,cc2]]].Ga[5].uq[ff2,cc3])]"
+    },
+    {
+      "name": "Ltvarphd",
+      "delayed": true,
+      "expression": "sTvarph[cc1] (dqbar[ff1,cc1].fChi atSRd[ff1] + dqbar[ff1,cc1].Ga[5].fChi btSRd[ff1]) + HC[sTvarph[cc1] (dqbar[ff1,cc1].fChi atSRd[ff1] + dqbar[ff1,cc1].Ga[5].fChi btSRd[ff1])]"
+    },
+    {
+      "name": "Lxq",
+      "delayed": true,
+      "expression": "epsC[cc1,cc2,cc3] vXcol[mu,cc1] aqVR[ff1,ff2] (bar[CC[dq[ff1,cc2]]].Ga[mu].dq[ff2,cc3] + bar[CC[dq[ff1,cc2]]].Ga[mu].Ga[5].dq[ff2,cc3]) + HC[epsC[cc1,cc2,cc3] vXcol[mu,cc1] aqVR[ff1,ff2] (bar[CC[dq[ff1,cc2]]].Ga[mu].dq[ff2,cc3] + bar[CC[dq[ff1,cc2]]].Ga[mu].Ga[5].dq[ff2,cc3])]"
+    },
+    {
+      "name": "Lxu",
+      "delayed": true,
+      "expression": "vXcol[mu,cc1] (uqbar[ff1,cc1].Ga[mu].fChi aVRu[ff1] + uqbar[ff1,cc1].Ga[mu].Ga[5].fChi bVRu[ff1]) + HC[vXcol[mu,cc1] (uqbar[ff1,cc1].Ga[mu].fChi aVRu[ff1] + uqbar[ff1,cc1].Ga[mu].Ga[5].fChi bVRu[ff1])]"
+    },
+    {
+      "name": "LTotal",
+      "delayed": true,
+      "expression": "Lkin_sPhi + Lkin_vVec + Lkin_fChi + Lkin_sVarph + Lkin_sTvarph + Lkin_vXcol + LphiFC + LVFC + Lsvarphq + Lsvarphu + Ltvarphq + Ltvarphd + Lxq + Lxu"
+    }
+  ]
+}

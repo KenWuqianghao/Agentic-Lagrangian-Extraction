@@ -1,0 +1,259 @@
+M$ModelName = "GeneralU1_gen";
+
+M$Information = {
+  Authors     -> {"Arindam Das", "P. S. Bhupal Dev", "Yutaka Hosotani", "Sanjoy Mandal"},
+  Version     -> "1.0",
+  Date        -> "24.09.2026",
+  Institutions -> {"Hokkaido University", "Washington University", "Osaka University", "IFIC Valencia"},
+  Emails      -> {"arindamdas@oia.hokudai.ac.jp", "bdev@wustl.edu", "hosotani@het.phys.sci.osaka-u.ac.jp", "smandal@ific.uv.es"},
+  URLs        -> "https://arxiv.org/abs/2104.10902",
+  References  -> {"arXiv:2104.10902"}
+};
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+IndexRange[Index[Generation]] = Range[3];
+
+M$GaugeGroups = {
+  U1X == {
+    Abelian          -> True,
+    CouplingConstant -> gX,
+    GaugeBoson       -> Zp,
+    Charge           -> X
+  }
+};
+
+M$Parameters = {
+  gX == {
+    ParameterType    -> External,
+    Value            -> 0.4,
+    BlockName        -> NPINPUTS,
+    OrderBlock       -> 1,
+    InteractionOrder -> {NP, 1},
+    Description      -> "U(1)_X gauge coupling"
+  },
+  xH == {
+    ParameterType    -> External,
+    Value            -> 0,
+    BlockName        -> NPINPUTS,
+    OrderBlock       -> 2,
+    InteractionOrder -> {NP, 0},
+    Description      -> "U(1)_X charge parameter x_H (x_Phi = 1 fixed)"
+  },
+  vPhi == {
+    ParameterType    -> External,
+    Value            -> 5000.,
+    BlockName        -> NPINPUTS,
+    OrderBlock       -> 3,
+    InteractionOrder -> {NP, 0},
+    Description      -> "U(1)_X breaking VEV [GeV]"
+  },
+  lamPhi == {
+    ParameterType    -> External,
+    Value            -> 0.1,
+    BlockName        -> NPINPUTS,
+    OrderBlock       -> 5,
+    InteractionOrder -> {NP, 2},
+    Description      -> "Phi quartic coupling"
+  },
+  lamPrime == {
+    ParameterType    -> External,
+    Value            -> 0.01,
+    BlockName        -> NPINPUTS,
+    OrderBlock       -> 6,
+    InteractionOrder -> {NP, 2},
+    Description      -> "Higgs-Phi portal coupling"
+  },
+  MZp == {
+    ParameterType    -> Internal,
+    Value            -> gX*Sqrt[4*vPhi^2 + xH^2*vev^2/4],
+    TeX              -> Subscript[M, Zp],
+    Description      -> "Z' mass"
+  },
+  Ynu == {
+    ParameterType    -> External,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {Ynu[1,1] -> 0., Ynu[1,2] -> 0., Ynu[1,3] -> 0.,
+                         Ynu[2,1] -> 0., Ynu[2,2] -> 0., Ynu[2,3] -> 0.,
+                         Ynu[3,1] -> 0., Ynu[3,2] -> 0., Ynu[3,3] -> 0.},
+    InteractionOrder -> {NP, 1},
+    Description      -> "Dirac neutrino Yukawa matrix"
+  },
+  YN == {
+    ParameterType    -> External,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {YN[1,1] -> 1., YN[1,2] -> 0., YN[1,3] -> 0.,
+                         YN[2,1] -> 0., YN[2,2] -> 1., YN[2,3] -> 0.,
+                         YN[3,1] -> 0., YN[3,2] -> 0., YN[3,3] -> 1.},
+    InteractionOrder -> {NP, 1},
+    Description      -> "Majorana Yukawa matrix for RHNs"
+  }
+};
+
+M$ClassesDescription = {
+  (* Redefine SM unphysical fields with U(1)_X charges *)
+  F[11] == {
+    ClassName      -> LL,
+    Unphysical     -> True,
+    Indices        -> {Index[SU2D], Index[Generation]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1/2, X -> -xH/2 - 1},
+    Definitions    -> { LL[sp1_,1,ff_] :> Module[{sp2}, ProjM[sp1,sp2] vl[sp2,ff]],
+                        LL[sp1_,2,ff_] :> Module[{sp2}, ProjM[sp1,sp2] l[sp2,ff]] }
+  },
+  F[12] == {
+    ClassName      -> lR,
+    Unphysical     -> True,
+    Indices        -> {Index[Generation]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1, X -> -xH - 1},
+    Definitions    -> { lR[sp1_,ff_] :> Module[{sp2}, ProjP[sp1,sp2] l[sp2,ff]] }
+  },
+  F[13] == {
+    ClassName      -> QL,
+    Unphysical     -> True,
+    Indices        -> {Index[SU2D], Index[Generation], Index[Colour]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 1/6, X -> xH/6 + 1/3},
+    Definitions    -> {
+      QL[sp1_,1,ff_,cc_] :> Module[{sp2}, ProjM[sp1,sp2] uq[sp2,ff,cc]],
+      QL[sp1_,2,ff_,cc_] :> Module[{sp2,ff2}, CKM[ff,ff2] ProjM[sp1,sp2] dq[sp2,ff2,cc]] }
+  },
+  F[14] == {
+    ClassName      -> uR,
+    Unphysical     -> True,
+    Indices        -> {Index[Generation], Index[Colour]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 2/3, X -> 2*xH/3 + 1/3},
+    Definitions    -> { uR[sp1_,ff_,cc_] :> Module[{sp2}, ProjP[sp1,sp2] uq[sp2,ff,cc]] }
+  },
+  F[15] == {
+    ClassName      -> dR,
+    Unphysical     -> True,
+    Indices        -> {Index[Generation], Index[Colour]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> -1/3, X -> -xH/3 + 1/3},
+    Definitions    -> { dR[sp1_,ff_,cc_] :> Module[{sp2}, ProjP[sp1,sp2] dq[sp2,ff,cc]] }
+  },
+  S[11] == {
+    ClassName      -> Phi,
+    Unphysical     -> True,
+    Indices        -> {Index[SU2D]},
+    FlavorIndex    -> SU2D,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 1/2, X -> xH/2},
+    Definitions    -> { Phi[1] -> -I GP, Phi[2] -> (vev + H + I G0)/Sqrt[2] }
+  },
+
+  (* New scalar: PhiX (SM singlet, U(1)_X Higgs) *)
+  S[100] == {
+    ClassName        -> PhiX,
+    SelfConjugate    -> False,
+    Mass             -> {MPhiX, Internal},
+    Width            -> {WPhiX, 0.},
+    QuantumNumbers   -> {X -> 2},
+    PropagatorLabel  -> "PhiX",
+    PropagatorType   -> D,
+    PropagatorArrow  -> None,
+    PDG              -> 9000001,
+    ParticleName     -> "PhiX",
+    AntiParticleName -> "PhiXbar",
+    FullName         -> "U(1)_X Higgs"
+  },
+  MPhiX == {
+    ParameterType    -> External,
+    Value            -> 3000.,
+    BlockName        -> NPINPUTS,
+    OrderBlock       -> 7,
+    InteractionOrder -> {NP, 0},
+    Description      -> "PhiX mass parameter [GeV]"
+  },
+  WPhiX == {
+    ParameterType -> Internal,
+    Value         -> 0.,
+    Description   -> "PhiX width"
+  },
+
+  (* New fermions: right-handed neutrinos (3 generations) *)
+  F[100] == {
+    ClassName        -> NR,
+    ClassMembers     -> {NR1, NR2, NR3},
+    Indices          -> {Index[Generation]},
+    FlavorIndex      -> Generation,
+    SelfConjugate    -> False,
+    Mass             -> {MNR, {MNR1, Internal}, {MNR2, Internal}, {MNR3, Internal}},
+    Width            -> {WNR, 0., 0., 0.},
+    QuantumNumbers   -> {X -> -1, LeptonNumber -> 1},
+    PropagatorLabel  -> {"NR", "NR1", "NR2", "NR3"},
+    PropagatorType   -> S,
+    PropagatorArrow  -> Forward,
+    PDG              -> {9000012, 9000014, 9000016},
+    ParticleName     -> {"NR1", "NR2", "NR3"},
+    AntiParticleName -> {"NR1bar", "NR2bar", "NR3bar"},
+    FullName         -> {"Right-handed neutrino 1", "Right-handed neutrino 2", "Right-handed neutrino 3"}
+  },
+  MNR1 == { ParameterType -> Internal, Value -> YN[1,1]*vPhi/Sqrt[2], Description -> "Majorana mass NR1" },
+  MNR2 == { ParameterType -> Internal, Value -> YN[2,2]*vPhi/Sqrt[2], Description -> "Majorana mass NR2" },
+  MNR3 == { ParameterType -> Internal, Value -> YN[3,3]*vPhi/Sqrt[2], Description -> "Majorana mass NR3" },
+  WNR   == { ParameterType -> Internal, Value -> 0., Description -> "RHN width" },
+
+  (* New gauge boson: Z' *)
+  V[100] == {
+    ClassName       -> Zp,
+    SelfConjugate   -> True,
+    Mass            -> {MZp, Internal},
+    Width           -> {WZp, Internal},
+    ParticleName    -> "Zp",
+    PDG             -> 32,
+    PropagatorLabel -> "Zp",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "Z' boson"
+  },
+  WZp == {
+    ParameterType -> Internal,
+    Value         -> (gX^2*MZp/(24*Pi)) * 3 * (
+      3*(2*(xH/6 + 1/3)^2 + (2*xH/3 + 1/3)^2 + (-xH/3 + 1/3)^2) +
+      2*(-xH/2 - 1)^2 + (-xH - 1)^2 + 1
+    ),
+    Description   -> "Z' total width (approx, massless fermions, 3 generations)"
+  }
+};
+
+(* Lagrangian *)
+
+(* Free-field terms for new particles *)
+
+(* Z' boson: real vector, kinetic + mass *)
+LZpFree := -1/4 FS[Zp, mu, nu] FS[Zp, mu, nu] + 1/2 MZp^2 Zp[mu] Zp[mu];
+
+(* PhiX: complex scalar, kinetic + mass *)
+LPhiXFree := DC[PhiXbar, mu] DC[PhiX, mu] - MPhiX^2 PhiXbar PhiX;
+
+(* RHNs: Dirac fermions, kinetic + mass *)
+LNRFree := I NRbar.Ga[mu].DC[NR, mu] - MNR[ff] NRbar[ff] NR[ff];
+
+(* Scalar potential interactions (quartic and portal only; quadratic mass term is in LPhiXFree) *)
+VPotInt := lamPhi*(PhiXbar*PhiX)^2 + lamPrime*(Phibar[ii]*Phi[ii])*(PhiXbar*PhiX);
+
+(* Yukawa interactions for neutrinos *)
+(* Dirac: -Ynu \bar{LL} Phibar NR *)
+LYukNu := -Ynu[ff1, ff2] LLbar[sp, ii, ff1] Phibar[ii] NR[sp, ff2];
+
+(* Majorana: -YN PhiX \bar{NR^c} NR = -YN PhiX CC[NRbar] . NR *)
+LYukMajorana := -YN[ff1, ff2] PhiX * CC[NRbar][sp, ff1] . NR[sp, ff2];
+
+(* Full new physics Lagrangian *)
+LNew := LZpFree + LPhiXFree + LNRFree - VPotInt + LYukNu + HC[LYukNu] + LYukMajorana + HC[LYukMajorana];
+
+(* Total Lagrangian = SM Lagrangian + new physics *)
+LTotal := LSM + LNew;

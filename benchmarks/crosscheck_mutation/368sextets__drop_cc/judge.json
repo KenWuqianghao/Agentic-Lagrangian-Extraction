@@ -1,0 +1,8 @@
+{
+  "named": "yes",
+  "quote": "**`LPsiuG` uses a quark that is not charge-conjugated.** *Severity: substantive.* A human should check whether the implementation file really contains `uqbar[...]` instead of `CC[uqbar][...]` in the up-type chromo-dipole term, because the paper's Eq. (sFmodel) requires $\\overline{q^{c}_{R}}$ and the term as reported breaks colour, hypercharge, baryon number and chirality all at once.",
+  "severity": "substantive",
+  "other_substantive": 0,
+  "other_list": "",
+  "note": "The reviewer names the exact term, file location, and error type (dropped charge conjugation) and spells out the physical consequences, so it points a physicist straight at the real defect, though it hedges by asking whether the fault lies in the model file or in the reconstruction's reading rather than stating outright that the file is wrong."
+}

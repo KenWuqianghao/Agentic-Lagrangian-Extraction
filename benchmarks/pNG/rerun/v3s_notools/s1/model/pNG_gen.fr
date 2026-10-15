@@ -1,0 +1,155 @@
+(* ****************************************************************** *)
+(* FeynRules add-on model file for pseudo-Nambu-Goldstone Dark Matter  *)
+(* Based on arXiv:1912.04008 (Arina, Beniwal, Degrande, Heisig,        *)
+(* Scaffidi). Loaded on top of SM.fr.                                  *)
+(* ****************************************************************** *)
+
+M$ModelName = "pNG_gen";
+
+M$Information = {
+  Authors      -> {"pNG DM FeynRules add-on (auto-extracted)"},
+  Version      -> "1.0",
+  Date         -> "17. 09. 2026",
+  References   -> {"arXiv:1912.04008"}
+};
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP,  1}
+};
+
+(* No new indices are required: chi, H2, phi1 and s1 are all          *)
+(* colour singlets, SU(2) singlets, with Q = Y = 0.                    *)
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+
+M$ClassesDescription = {
+
+(* pNG dark matter: pseudo-Goldstone of the softly broken dark U(1),   *)
+(* stable real scalar, physical mass eigenstate (Im[S]).               *)
+  S[101] == {
+    ClassName       -> chi,
+    SelfConjugate   -> True,
+    Mass            -> {Mx, 62.573},
+    Width           -> 0,
+    PropagatorLabel -> "chi",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    PDG             -> 52,
+    ParticleName    -> "chi",
+    FullName        -> "pNG dark matter"
+  },
+
+(* Heavy CP-even scalar mass eigenstate (mixture of the singlet real   *)
+(* scalar and the SM Higgs doublet fluctuation).                       *)
+  S[102] == {
+    ClassName       -> H2,
+    SelfConjugate   -> True,
+    Mass            -> {MH2, 125.30},
+    Width           -> {WH2, 0.},
+    PropagatorLabel -> "H2",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    PDG             -> 35,
+    ParticleName    -> "H2",
+    FullName        -> "Heavy CP-even scalar"
+  },
+
+(* Unphysical gauge/interaction-eigenstate fluctuations, needed only   *)
+(* to encode the h-H2 mixing rotation (eq. 2.11 of the paper) in the   *)
+(* portal terms below.                                                  *)
+  S[103] == {
+    ClassName     -> phi1,
+    Unphysical    -> True,
+    SelfConjugate -> True,
+    Definitions   -> { phi1 -> cxth*H + sxth*H2 }
+  },
+  S[104] == {
+    ClassName     -> s1,
+    Unphysical    -> True,
+    SelfConjugate -> True,
+    Definitions   -> { s1 -> -sxth*H + cxth*H2 }
+  }
+};
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+
+M$Parameters = {
+
+  (* External parameters: the model's four free parameters are        *)
+  (* {Mx, vs, thx, MH2}; MH (=125) is inherited from SM.fr.            *)
+  vs == {
+    ParameterType -> External,
+    BlockName     -> PNGDM,
+    OrderBlock    -> 1,
+    Value         -> 13155.1,
+    TeX           -> Subscript[v,s],
+    Description   -> "Dark U(1) singlet scalar vacuum expectation value [GeV]"
+  },
+  thx == {
+    ParameterType -> External,
+    BlockName     -> PNGDM,
+    OrderBlock    -> 2,
+    Value         -> 1.53,
+    TeX           -> \[Theta],
+    Description   -> "h-H2 mixing angle [rad], range [0,Pi/2]"
+  },
+
+  (* Internal parameters *)
+  sxth == {
+    ParameterType -> Internal,
+    Value         -> Sin[thx],
+    Description   -> "Sine of the h-H2 mixing angle"
+  },
+  cxth == {
+    ParameterType -> Internal,
+    Value         -> Cos[thx],
+    Description   -> "Cosine of the h-H2 mixing angle"
+  },
+  lamPS == {
+    ParameterType    -> Internal,
+    Value            -> (MH2^2 - MH^2) * sxth * cxth / (vev * vs),
+    InteractionOrder -> {NP, 2},
+    TeX              -> Subscript[\[Lambda], \[CapitalPhi]S],
+    Description      -> "Higgs-portal quartic coupling (doublet-singlet), eq. (2.16)/(2.18)"
+  },
+  lamS == {
+    ParameterType    -> Internal,
+    Value            -> (MH^2 * sxth^2 + MH2^2 * cxth^2) / vs^2,
+    InteractionOrder -> {NP, 2},
+    TeX              -> Subscript[\[Lambda], S],
+    Description      -> "Singlet scalar quartic self-coupling, eq. (2.17)"
+  }
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+(* Kinetic + mass term for the pNG dark matter field chi *)
+LX := Block[{mu}, 1/2 del[chi,mu] del[chi,mu] - 1/2 Mx^2 chi^2];
+
+(* Kinetic + mass term for the heavy scalar mass eigenstate H2 *)
+LH2 := Block[{mu}, 1/2 del[H2,mu] del[H2,mu] - 1/2 MH2^2 H2^2];
+
+(* Trilinear chi-chi-scalar portal couplings, from eq. (A.1)-(A.4):    *)
+(* -(lamPS vev/2) phi1 chi^2 - (lamS vs/2) s1 chi^2, which after the   *)
+(* phi1/s1 -> {H,H2} rotation reduces to kappa_{chi chi h}, kappa_{chi *)
+(* chi H} of eq. (A.5)-(A.6).                                          *)
+LPortal3 := -(1/2) chi^2 (lamPS*vev*phi1 + lamS*vs*s1);
+
+(* Quartic chi-chi-scalar-scalar contact terms and chi self-coupling,  *)
+(* from expanding -lamPS*Phi^dag.Phi.|S|^2 and -(lamS/2)|S|^4 to       *)
+(* quadratic order in phi1, s1 (same operators as eq. (2.2)-(2.3)).    *)
+LPortal4 := -(1/4) lamPS phi1^2 chi^2 - (1/4) lamS s1^2 chi^2 - (1/8) lamS chi^4;
+
+LTotal := LSM + LX + LH2 + LPortal3 + LPortal4;

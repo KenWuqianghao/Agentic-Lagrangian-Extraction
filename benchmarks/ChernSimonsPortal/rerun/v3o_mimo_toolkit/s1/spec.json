@@ -1,0 +1,500 @@
+{
+  "model_name": "ChernSimonsPortal_gen",
+  "info": {
+    "authors": ["I. Antoniadis", "A. Boyarsky", "S. Espahbodi", "O. Ruchayskiy", "J. D. Wells"],
+    "version": "1.0",
+    "date": "24. 01. 2009",
+    "institutions": ["CERN PH-TH", "ETH Zurich", "Bogolyubov Institute Kiev", "University of Michigan", "EPFL Lausanne"],
+    "emails": []
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "interaction_order_limit": [],
+  "feynman_gauge": true,
+  "vevs": [],
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "gX",
+      "parameter_type": "External",
+      "value": "0.5",
+      "block_name": "XINPUTS",
+      "order_block": 1,
+      "interaction_order": ["NP", 1],
+      "description": "U(1)_X gauge coupling in -1/(4 gX^2)|F_X|^2, Eq.(39)"
+    },
+    {
+      "name": "c1",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "XINPUTS",
+      "order_block": 2,
+      "interaction_order": ["NP", 1],
+      "description": "D'Hoker-Farhi coefficient c1, Eq.(48); UV anomaly-fixed value kappa=6, Eqs.(91),(95)"
+    },
+    {
+      "name": "c2",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "XINPUTS",
+      "order_block": 3,
+      "interaction_order": ["NP", 1],
+      "description": "D'Hoker-Farhi coefficient c2, Eq.(48); benchmark c1=c2=1, Figs.(lep,lhcsigma)"
+    },
+    {
+      "name": "kappa",
+      "parameter_type": "External",
+      "value": "6.",
+      "block_name": "XINPUTS",
+      "order_block": 4,
+      "interaction_order": ["NP", 1],
+      "description": "Chern-Simons coefficient kappa = 6, Eqs.(91),(95); equals c1 in the low-energy basis (terms use c1)"
+    },
+    {
+      "name": "VevPhiX",
+      "parameter_type": "External",
+      "value": "10000.",
+      "block_name": "XINPUTS",
+      "order_block": 5,
+      "description": "Heavy Higgs VEV V [GeV], Eq.(61); heavy-fermion masses M=F*V realized here as explicit Mass values ~10 TeV, Sec.III"
+    },
+    {
+      "name": "f1",
+      "parameter_type": "External",
+      "value": "0.01",
+      "block_name": "NPYUKAWA",
+      "order_block": 1,
+      "interaction_order": ["NP", 1],
+      "description": "SM-Higgs Yukawa f1, Eq.(60); m1 = f1*v << M1, Eq.(70)"
+    },
+    {
+      "name": "F1",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "NPYUKAWA",
+      "order_block": 2,
+      "interaction_order": ["NP", 1],
+      "description": "Heavy-Higgs Yukawa F1, Eq.(60); M1 = F1*V ~ 10 TeV"
+    },
+    {
+      "name": "F2",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "NPYUKAWA",
+      "order_block": 3,
+      "interaction_order": ["NP", 1],
+      "description": "Heavy-Higgs Yukawa F2, Eq.(60); M2 = F2*V ~ 10 TeV"
+    },
+    {
+      "name": "Ft1",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "NPYUKAWA",
+      "order_block": 4,
+      "interaction_order": ["NP", 1],
+      "description": "Heavy-Higgs Yukawa Ftilde_1, Eq.(60)"
+    },
+    {
+      "name": "Ft2",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "NPYUKAWA",
+      "order_block": 5,
+      "interaction_order": ["NP", 1],
+      "description": "Heavy-Higgs Yukawa Ftilde_2, Eq.(60)"
+    },
+    {
+      "name": "Mmix1",
+      "parameter_type": "Internal",
+      "value": "(F1+Ft1)*VevPhiX/2",
+      "description": "psi1-chi1 off-diagonal Dirac mass from F1,Ftilde1 VEVs, Eqs.(60),(62)"
+    },
+    {
+      "name": "m1df",
+      "parameter_type": "Internal",
+      "value": "f1*vev",
+      "description": "Dirac mass m1 = f1*v for the psi1 sector, Eq.(70)"
+    },
+    {
+      "name": "th1",
+      "parameter_type": "Internal",
+      "value": "ArcTan[2*Mmix1/m1df]/2",
+      "description": "psi1-chi1 mixing angle diagonalising [[m1,Mmix1],[Mmix1,0]], Eq.(62); eigenvalues M+-m1/2"
+    },
+    {
+      "name": "th2",
+      "parameter_type": "Internal",
+      "value": "Pi/4",
+      "description": "psi2-chi2 maximal mixing angle: [[0,M2],[M2,0]] gives degenerate eigenstates M2, Sec.III (kappa!=0 condition)"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "V",
+      "class_index": 100,
+      "class_name": "X",
+      "self_conjugate": true,
+      "mass": {"sym": "MX", "value": "1000."},
+      "width": {"massless": true},
+      "quantum_numbers": {},
+      "pdg": 9000001,
+      "particle_name": "X",
+      "full_name": "U(1)_X Stueckelberg gauge boson",
+      "propagator_label": "X",
+      "propagator_type": "Sine",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 100,
+      "class_name": "thX",
+      "self_conjugate": true,
+      "mass": {"massless": true},
+      "width": {"massless": true},
+      "quantum_numbers": {},
+      "pdg": 9000002,
+      "particle_name": "thX",
+      "full_name": "Stueckelberg field theta_X (phase of Phi, eaten by X), Eq.(39)",
+      "propagator_label": "thX",
+      "propagator_type": "D",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "S",
+      "class_index": 101,
+      "class_name": "PhiX",
+      "self_conjugate": false,
+      "mass": {"sym": "Mphi", "value": "10000."},
+      "width": {"massless": true},
+      "quantum_numbers": {"Q": "0"},
+      "pdg": 9000003,
+      "particle_name": "PhiX",
+      "antiparticle_name": "PhiXbar",
+      "full_name": "Heavy Higgs Phi (SU(2)xY singlet, Q_X=1, <Phi>=V), Eqs.(61),(69)",
+      "propagator_label": "PhiX",
+      "propagator_type": "D",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 100,
+      "class_name": "Fdm1",
+      "self_conjugate": false,
+      "mass": {"sym": "Mfdm1", "value": "10001."},
+      "width": {"massless": true},
+      "quantum_numbers": {"Q": "-3/4"},
+      "pdg": 9000011,
+      "particle_name": "Fdm1",
+      "antiparticle_name": "Fdm1bar",
+      "full_name": "Heavy fermion mass eigenstate (Q=-3/4, mass M1+m1/2), Eq.(62)",
+      "propagator_label": "Fdm1",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 101,
+      "class_name": "Fdm2",
+      "self_conjugate": false,
+      "mass": {"sym": "Mfdm2", "value": "9999."},
+      "width": {"massless": true},
+      "quantum_numbers": {"Q": "-3/4"},
+      "pdg": 9000012,
+      "particle_name": "Fdm2",
+      "antiparticle_name": "Fdm2bar",
+      "full_name": "Heavy fermion mass eigenstate (Q=-3/4, mass M1-m1/2), Eq.(62)",
+      "propagator_label": "Fdm2",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 102,
+      "class_name": "Fup1",
+      "self_conjugate": false,
+      "mass": {"sym": "Mfup1", "value": "10000."},
+      "width": {"massless": true},
+      "quantum_numbers": {"Q": "1/4"},
+      "pdg": 9000013,
+      "particle_name": "Fup1",
+      "antiparticle_name": "Fup1bar",
+      "full_name": "Heavy fermion (Q=1/4, up components of psi1L and chi1R), Table VI",
+      "propagator_label": "Fup1",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 103,
+      "class_name": "Fdn3",
+      "self_conjugate": false,
+      "mass": {"sym": "Mfdn3", "value": "10000."},
+      "width": {"massless": true},
+      "quantum_numbers": {"Q": "1/12"},
+      "pdg": 9000014,
+      "particle_name": "Fdn3",
+      "antiparticle_name": "Fdn3bar",
+      "full_name": "Heavy fermion (Q=1/12, degenerate M2, psi2/chi2 sector), Sec.III",
+      "propagator_label": "Fdn3",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 104,
+      "class_name": "Fdn4",
+      "self_conjugate": false,
+      "mass": {"sym": "Mfdn4", "value": "10000."},
+      "width": {"massless": true},
+      "quantum_numbers": {"Q": "1/12"},
+      "pdg": 9000015,
+      "particle_name": "Fdn4",
+      "antiparticle_name": "Fdn4bar",
+      "full_name": "Heavy fermion (Q=1/12, degenerate M2, psi2/chi2 sector), Sec.III",
+      "propagator_label": "Fdn4",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 105,
+      "class_name": "Fup2",
+      "self_conjugate": false,
+      "mass": {"sym": "Mfup2", "value": "10000."},
+      "width": {"massless": true},
+      "quantum_numbers": {"Q": "13/12"},
+      "pdg": 9000016,
+      "particle_name": "Fup2",
+      "antiparticle_name": "Fup2bar",
+      "full_name": "Heavy fermion (Q=13/12, up components of psi2R and chi2L), Table VI",
+      "propagator_label": "Fup2",
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 110,
+      "class_name": "Psi1L",
+      "self_conjugate": false,
+      "indices": ["SU2D"],
+      "flavor_index": "SU2D",
+      "unphysical": true,
+      "quantum_numbers": {"Y": "-1/4"},
+      "definitions": [
+        "Psi1L[sp_, 1] :> Module[{sp2}, ProjM[sp, sp2] Fup1[sp2]]",
+        "Psi1L[sp_, 2] :> Module[{sp2}, ProjM[sp, sp2] (Cos[th1] Fdm1[sp2] - Sin[th1] Fdm2[sp2])]"
+      ]
+    },
+    {
+      "spin_type": "F",
+      "class_index": 111,
+      "class_name": "Psi1R",
+      "self_conjugate": false,
+      "unphysical": true,
+      "quantum_numbers": {"Y": "-3/4", "Q": "-3/4"},
+      "definitions": [
+        "Psi1R[sp_] :> Module[{sp2}, ProjP[sp, sp2] (Cos[th1] Fdm1[sp2] - Sin[th1] Fdm2[sp2])]"
+      ]
+    },
+    {
+      "spin_type": "F",
+      "class_index": 112,
+      "class_name": "Psi2L",
+      "self_conjugate": false,
+      "unphysical": true,
+      "quantum_numbers": {"Y": "1/12", "Q": "1/12"},
+      "definitions": [
+        "Psi2L[sp_] :> Module[{sp2}, ProjM[sp, sp2] (Fdn3[sp2] - Fdn4[sp2])/Sqrt[2]]"
+      ]
+    },
+    {
+      "spin_type": "F",
+      "class_index": 113,
+      "class_name": "Psi2R",
+      "self_conjugate": false,
+      "indices": ["SU2D"],
+      "flavor_index": "SU2D",
+      "unphysical": true,
+      "quantum_numbers": {"Y": "7/12"},
+      "definitions": [
+        "Psi2R[sp_, 1] :> Module[{sp2}, ProjP[sp, sp2] Fup2[sp2]]",
+        "Psi2R[sp_, 2] :> Module[{sp2}, ProjP[sp, sp2] (Fdn3[sp2] - Fdn4[sp2])/Sqrt[2]]"
+      ]
+    },
+    {
+      "spin_type": "F",
+      "class_index": 114,
+      "class_name": "Chi1L",
+      "self_conjugate": false,
+      "unphysical": true,
+      "quantum_numbers": {"Y": "-3/4", "Q": "-3/4"},
+      "definitions": [
+        "Chi1L[sp_] :> Module[{sp2}, ProjM[sp, sp2] (Sin[th1] Fdm1[sp2] + Cos[th1] Fdm2[sp2])]"
+      ]
+    },
+    {
+      "spin_type": "F",
+      "class_index": 115,
+      "class_name": "Chi1R",
+      "self_conjugate": false,
+      "indices": ["SU2D"],
+      "flavor_index": "SU2D",
+      "unphysical": true,
+      "quantum_numbers": {"Y": "-1/4"},
+      "definitions": [
+        "Chi1R[sp_, 1] :> Module[{sp2}, ProjP[sp, sp2] Fup1[sp2]]",
+        "Chi1R[sp_, 2] :> Module[{sp2}, ProjP[sp, sp2] (Sin[th1] Fdm1[sp2] + Cos[th1] Fdm2[sp2])]"
+      ]
+    },
+    {
+      "spin_type": "F",
+      "class_index": 116,
+      "class_name": "Chi2L",
+      "self_conjugate": false,
+      "indices": ["SU2D"],
+      "flavor_index": "SU2D",
+      "unphysical": true,
+      "quantum_numbers": {"Y": "7/12"},
+      "definitions": [
+        "Chi2L[sp_, 1] :> Module[{sp2}, ProjM[sp, sp2] Fup2[sp2]]",
+        "Chi2L[sp_, 2] :> Module[{sp2}, ProjM[sp, sp2] (Fdn3[sp2] + Fdn4[sp2])/Sqrt[2]]"
+      ]
+    },
+    {
+      "spin_type": "F",
+      "class_index": 117,
+      "class_name": "Chi2R",
+      "self_conjugate": false,
+      "unphysical": true,
+      "quantum_numbers": {"Y": "1/12", "Q": "1/12"},
+      "definitions": [
+        "Chi2R[sp_] :> Module[{sp2}, ProjP[sp, sp2] (Fdn3[sp2] + Fdn4[sp2])/Sqrt[2]]"
+      ]
+    }
+  ],
+  "gauge_xi": [],
+  "lagrangian_terms": [
+    {
+      "name": "LXkin",
+      "delayed": true,
+      "expression": "Block[{mu, nu}, -1/(4 gX^2) (del[X[nu], mu] - del[X[mu], nu])^2 + MX^2/2 (del[thX, mu] + X[mu])^2]"
+    },
+    {
+      "name": "LPhikin",
+      "delayed": true,
+      "expression": "Block[{mu}, DC[PhiXbar, mu] DC[PhiX, mu] - Mphi^2 PhiXbar PhiX]"
+    },
+    {
+      "name": "LPsi1Lkin",
+      "delayed": true,
+      "expression": "Block[{mu}, ExpandIndices[I Psi1Lbar.Ga[mu].DC[Psi1L, mu], FlavorExpand -> SU2D]]"
+    },
+    {
+      "name": "LPsi1Rkin",
+      "delayed": true,
+      "expression": "Block[{mu}, I Psi1Rbar.Ga[mu].DC[Psi1R, mu]]"
+    },
+    {
+      "name": "LPsi2Lkin",
+      "delayed": true,
+      "expression": "Block[{mu}, I Psi2Lbar.Ga[mu].DC[Psi2L, mu]]"
+    },
+    {
+      "name": "LPsi2Rkin",
+      "delayed": true,
+      "expression": "Block[{mu}, ExpandIndices[I Psi2Rbar.Ga[mu].DC[Psi2R, mu], FlavorExpand -> SU2D]]"
+    },
+    {
+      "name": "LChi1Lkin",
+      "delayed": true,
+      "expression": "Block[{mu}, I Chi1Lbar.Ga[mu].DC[Chi1L, mu]]"
+    },
+    {
+      "name": "LChi1Rkin",
+      "delayed": true,
+      "expression": "Block[{mu}, ExpandIndices[I Chi1Rbar.Ga[mu].DC[Chi1R, mu], FlavorExpand -> SU2D]]"
+    },
+    {
+      "name": "LChi2Lkin",
+      "delayed": true,
+      "expression": "Block[{mu}, ExpandIndices[I Chi2Lbar.Ga[mu].DC[Chi2L, mu], FlavorExpand -> SU2D]]"
+    },
+    {
+      "name": "LChi2Rkin",
+      "delayed": true,
+      "expression": "Block[{mu}, I Chi2Rbar.Ga[mu].DC[Chi2R, mu]]"
+    },
+    {
+      "name": "LFdm1mass",
+      "delayed": true,
+      "expression": "-Mfdm1 Fdm1bar.Fdm1"
+    },
+    {
+      "name": "LFdm2mass",
+      "delayed": true,
+      "expression": "-Mfdm2 Fdm2bar.Fdm2"
+    },
+    {
+      "name": "LFup1mass",
+      "delayed": true,
+      "expression": "-Mfup1 Fup1bar.Fup1"
+    },
+    {
+      "name": "LFdn3mass",
+      "delayed": true,
+      "expression": "-Mfdn3 Fdn3bar.Fdn3"
+    },
+    {
+      "name": "LFdn4mass",
+      "delayed": true,
+      "expression": "-Mfdn4 Fdn4bar.Fdn4"
+    },
+    {
+      "name": "LFup2mass",
+      "delayed": true,
+      "expression": "-Mfup2 Fup2bar.Fup2"
+    },
+    {
+      "name": "LYf1",
+      "delayed": true,
+      "expression": "Block[{sp, ii}, f1 Psi1Lbar[sp, ii].Psi1R[sp] Phi[ii] + HC[f1 Psi1Lbar[sp, ii].Psi1R[sp] Phi[ii]]]"
+    },
+    {
+      "name": "LYF1",
+      "delayed": true,
+      "expression": "Block[{sp, ii}, F1 Psi1Lbar[sp, ii].Chi1R[sp, ii] PhiXbar + HC[F1 Psi1Lbar[sp, ii].Chi1R[sp, ii] PhiXbar]]"
+    },
+    {
+      "name": "LYF2",
+      "delayed": true,
+      "expression": "Block[{sp, ii}, F2 Psi2Rbar[sp, ii].Chi2L[sp, ii] PhiXbar + HC[F2 Psi2Rbar[sp, ii].Chi2L[sp, ii] PhiXbar]]"
+    },
+    {
+      "name": "LYFt1",
+      "delayed": true,
+      "expression": "Block[{sp}, Ft1 Psi1Rbar[sp].Chi1L[sp] PhiX + HC[Ft1 Psi1Rbar[sp].Chi1L[sp] PhiX]]"
+    },
+    {
+      "name": "LYFt2",
+      "delayed": true,
+      "expression": "Block[{sp}, Ft2 Psi2Lbar[sp].Chi2R[sp] PhiX + HC[Ft2 Psi2Lbar[sp].Chi2R[sp] PhiX]]"
+    },
+    {
+      "name": "LDH1",
+      "delayed": true,
+      "expression": "Block[{mu, nu, la, rho, ii, jj}, ExpandIndices[c1 Eps[mu, nu, la, rho] (Phibar[ii] DC[Phi[ii], mu])/(Phibar[jj] Phi[jj]) (del[thX, nu] + X[nu]) FS[B, la, rho], FlavorExpand -> {SU2D, SU2W}]]"
+    },
+    {
+      "name": "LDH2",
+      "delayed": true,
+      "expression": "Block[{mu, nu, la, rho, aa, bb, jj, ll}, ExpandIndices[c2 Eps[mu, nu, la, rho] DC[Phibar[aa], mu] PauliSigma[jj, aa, bb] FS[Wi, la, rho, jj] Phi[bb] (del[thX, nu] + X[nu])/(Phibar[ll] Phi[ll]), FlavorExpand -> {SU2D, SU2W}]]"
+    },
+    {
+      "name": "LTotal",
+      "delayed": true,
+      "expression": "LXkin + LPhikin + LPsi1Lkin + LPsi1Rkin + LPsi2Lkin + LPsi2Rkin + LChi1Lkin + LChi1Rkin + LChi2Lkin + LChi2Rkin + LFdm1mass + LFdm2mass + LFup1mass + LFdn3mass + LFdn4mass + LFup2mass + LYf1 + LYF1 + LYF2 + LYFt1 + LYFt2 + LDH1 + LDH2"
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}

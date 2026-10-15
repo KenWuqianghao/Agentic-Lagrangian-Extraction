@@ -1,0 +1,120 @@
+
+
+
+M$ModelName = "ANON-MODEL";
+
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP,  1}
+};
+
+
+M$ClassesDescription = {
+
+
+  S[101] == {
+    ClassName       -> chi,
+    SelfConjugate   -> True,
+    Mass            -> {Mx, 62.573},
+    Width           -> 0,
+    PropagatorLabel -> "chi",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    PDG             -> 52,
+    ParticleName    -> "chi",
+    FullName        -> ""
+  },
+
+
+  S[102] == {
+    ClassName       -> H2,
+    SelfConjugate   -> True,
+    Mass            -> {MH2, 125.30},
+    Width           -> {WH2, 0.},
+    PropagatorLabel -> "H2",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    PDG             -> 35,
+    ParticleName    -> "H2",
+    FullName        -> ""
+  },
+
+
+  S[103] == {
+    ClassName     -> phi1,
+    Unphysical    -> True,
+    SelfConjugate -> True,
+    Definitions   -> { phi1 -> cxth*H + sxth*H2 }
+  },
+  S[104] == {
+    ClassName     -> s1,
+    Unphysical    -> True,
+    SelfConjugate -> True,
+    Definitions   -> { s1 -> -sxth*H + cxth*H2 }
+  }
+};
+
+
+M$Parameters = {
+
+  
+  
+  vs == {
+    ParameterType -> External,
+    BlockName     -> PNGDM,
+    OrderBlock    -> 1,
+    Value         -> 13155.1,
+    TeX           -> Subscript[v,s],
+    Description   -> ""
+  },
+  thx == {
+    ParameterType -> External,
+    BlockName     -> PNGDM,
+    OrderBlock    -> 2,
+    Value         -> 1.53,
+    TeX           -> \[Theta],
+    Description   -> ""
+  },
+
+  
+  sxth == {
+    ParameterType -> Internal,
+    Value         -> Sin[thx],
+    Description   -> ""
+  },
+  cxth == {
+    ParameterType -> Internal,
+    Value         -> Cos[thx],
+    Description   -> ""
+  },
+  lamPS == {
+    ParameterType    -> Internal,
+    Value            -> (MH2^2 - MH^2) * sxth * cxth / (vev * vs),
+    InteractionOrder -> {NP, 2},
+    TeX              -> Subscript[\[Lambda], \[CapitalPhi]S],
+    Description      -> ""
+  },
+  lamS == {
+    ParameterType    -> Internal,
+    Value            -> (MH^2 * sxth^2 + MH2^2 * cxth^2) / vs^2,
+    InteractionOrder -> {NP, 2},
+    TeX              -> Subscript[\[Lambda], S],
+    Description      -> ""
+  }
+};
+
+
+LX := Block[{mu}, 1/2 del[chi,mu] del[chi,mu] - 1/2 Mx^2 chi^2];
+
+
+LH2 := Block[{mu}, 1/2 del[H2,mu] del[H2,mu] - 1/2 MH2^2 H2^2];
+
+
+LPortal3 := -(1/2) chi^2 (lamPS*vev*phi1 + lamS*vs*s1);
+
+
+LPortal4 := -(1/4) lamPS phi1^2 chi^2 - (1/4) lamS s1^2 chi^2 - (1/8) lamS chi^4;
+
+LTotal := LSM + LX + LH2 + LPortal3 + LPortal4;

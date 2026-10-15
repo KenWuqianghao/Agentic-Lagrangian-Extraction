@@ -1,0 +1,13 @@
+I fixed the one clear, rule-mandated structural defect in `model.fr`: **the total Lagrangian symbol `LTot` was completely missing from the file.**
+
+The file (`/private/tmp/claude-501/.../round1/model.fr`) defines eight BSM Lagrangian pieces — `LHiggs331`, `LGauge331Mass`, `LYukawaQuark331`, `LYukawaLepton331`, `LFermionGauge331`, `LZpFermions331`, `LGaugeSelf331`, `LScalarFermion331` — but the file ended right after the last piece (`LScalarFermion331`, line 672) with no top-level `LTot` assignment at all. Since the tool chain's `WriteUFO` call needs `LTot` as the entry point, an undefined `LTot` symbol is exactly the kind of failure that aborts before producing any usable output, matching `VALIDATION_REPORT.md`'s "(no compile log)" result with every downstream check listed as "not reached."
+
+The fix: appended one line at the end of the file,
+```
+LTot := LHiggs331 + LGauge331Mass + LYukawaQuark331 + LYukawaLepton331 + LFermionGauge331 + LZpFermions331 + LGaugeSelf331 + LScalarFermion331;
+```
+This sums every previously-defined BSM term with no omissions, satisfies the hard requirement that `LTot` be the last top-level assignment built only from symbols defined above it, and does not touch any field content, quantum numbers, parameter values, or operator structure — it only wires the already-written pieces into the required total.
+
+I verified there are no reserved-word collisions (`N, C, D, E, I, K, O`) among any `ClassName`/`ParameterName` entries, no obviously unbalanced brackets in `M$Parameters`/`M$ClassesDescription`/`M$MixingsDescription`, and that each individual Lagrangian term already carries its explicit `+ HC[...]` conjugate where needed for Hermiticity (Higgs potential trilinear term, both Yukawa blocks). I did not alter the cosmetic double-backslash TeX label strings (e.g. `"\\\\beta"`) since they only affect diagram-label rendering, not any of the four FeynRules checks or MadGraph import, and touching them would be out of scope for a minimal technical fix.
+
+One caveat for the next round if this still fails: several symbols referenced inside `LFermionGauge331`, `LZpFermions331`, and `LScalarFermion331` (e.g. `qL`, `uR`, `dR`, `lL`, `eR`, `JR`, `TR`, `ER`, `psi`, generic `f`, `GHZpL[f]`/`GHZpR[f]`, `VVV[mu,nu,rho]`, and the gauge-basis scalar components `xirho`/`zetarho`/`etaP`/`rhoP`/`chiQY`/`etaQY`/`chiQV`/`rhoQV`) are never declared anywhere in this file as classes, parameters, or component-field definitions. If the validation still fails after this round, that missing declaration/definition layer (not addressed here, since it would require substantial new structure rather than a minimal technical correction) is the most likely next culprit.

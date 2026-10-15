@@ -286,7 +286,7 @@ Constants live in `config.py`: `EXPERIMENTAL_ARXIV_CATEGORIES`, `THEORY_ARXIV_CA
 ### Disable theory filter
 
 ```bash
-lex search "scalar leptoquark" --include-experiment
+lag-extract search "scalar leptoquark" --include-experiment
 ```
 
 ---
@@ -336,13 +336,13 @@ Probe with `--probe-latex-source` or `scripts/latex_availability_benchmark.py`.
 
 ```bash
 # Default: one theory paper, relevance ranking, INSPIRE cites enriched
-lex search "scalar leptoquark" -k BSM -k leptoquark --since 2015-01-01
+lag-extract search "scalar leptoquark" -k BSM -k leptoquark --since 2015-01-01
 
 # Pure semantic ranking on merged pool
-lex search "scalar leptoquark" -k BSM --search-mode semantic --sort semantic --no-download-pdfs
+lag-extract search "scalar leptoquark" -k BSM --search-mode semantic --sort semantic --no-download-pdfs
 
 # Include experimental collider papers
-lex search "scalar leptoquark" -k BSM --include-experiment --no-download-pdfs
+lag-extract search "scalar leptoquark" -k BSM --include-experiment --no-download-pdfs
 ```
 
 ---

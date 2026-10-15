@@ -1,0 +1,40 @@
+{
+ "page": "Wprime",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit",
+ "seed": 2,
+ "variant": "v3o_mimo_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3604.7,
+ "tokens": {
+  "input": 515059,
+  "output": 18723,
+  "reasoning": 137218
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 0,
+ "n_events": 169,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 58,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la && ls -la paper tools tools/frgen 2>/dev/null\"}",
+   "bash:{\"command\": \"wc -l paper/hep-ph_0207290_source.tex SM.fr tools/frgen/render.py t",
+   "bash:{\"command\": \"wc -l tools/fr_lint.py\", \"workdir\": \"/private/var/folders/pf/fm0v0g"
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_spec"
+}

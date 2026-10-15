@@ -1,0 +1,116 @@
+{
+  "model_name": "HeavyN_gen",
+  "info": {
+    "authors": ["Celine Degrande", "Olivier Mattelaer", "Richard Ruiz", "Jessica Turner"],
+    "version": "1.0",
+    "date": "25.09.2026",
+    "institutions": ["Durham University"],
+    "emails": ["celine.degrande@durham.ac.uk", "o.p.c.mattelaer@durham.ac.uk", "richard.ruiz@durham.ac.uk", "jessica.turner@durham.ac.uk"]
+  },
+  "interaction_order_hierarchy": [
+    ["QCD", 1],
+    ["QED", 2],
+    ["NP", 1]
+  ],
+  "interaction_order_limit": [
+    ["QCD", 99],
+    ["QED", 99],
+    ["NP", 99]
+  ],
+  "feynman_gauge": true,
+  "vevs": [
+    ["Phi[2]", "vev"]
+  ],
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "MN",
+      "parameter_type": "External",
+      "value": "1000.",
+      "block_name": "HEAVYN",
+      "order_block": 1,
+      "interaction_order": ["NP", 1],
+      "description": "Heavy neutrino mass [GeV]"
+    },
+    {
+      "name": "VN",
+      "parameter_type": "External",
+      "indices": ["Generation"],
+      "value_rules": [
+        {"lhs": "VN[1]", "rhs": "0.01", "delayed": false},
+        {"lhs": "VN[2]", "rhs": "0.01", "delayed": false},
+        {"lhs": "VN[3]", "rhs": "0.01", "delayed": false}
+      ],
+      "block_name": "VNMIX",
+      "interaction_order": ["NP", 1],
+      "description": "Active-heavy neutrino mixing V_{\\ell N}"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "F",
+      "class_index": 100,
+      "class_name": "NHeavy",
+      "self_conjugate": true,
+      "indices": [],
+      "flavor_index": null,
+      "class_members": [],
+      "mass": {
+        "massless": false,
+        "sym": "MN",
+        "value": "1000."
+      },
+      "width": {
+        "massless": false,
+        "sym": "WN",
+        "value": "Automatic"
+      },
+      "quantum_numbers": {},
+      "pdg": 9990012,
+      "particle_name": "NHeavy",
+      "antiparticle_name": "NHeavy",
+      "full_name": "Heavy Neutrino",
+      "propagator_label": "NHeavy",
+      "propagator_type": "Straight",
+      "propagator_arrow": "None",
+      "unphysical": false,
+      "definitions": [],
+      "ghost": null,
+      "goldstone": null,
+      "weyl_components": [],
+      "majorana_phase": null,
+      "chirality": null
+    }
+  ],
+  "gauge_xi": [],
+  "lagrangian_terms": [
+    {
+      "name": "LNkin",
+      "expression": "I/2 NHeavybar.Ga[mu].del[NHeavy, mu] - 1/2 MN NHeavybar.NHeavy",
+      "delayed": true
+    },
+    {
+      "name": "LCC",
+      "expression": "Block[{sp, mu, ff}, ExpandIndices[-g/Sqrt[2] W[mu] VN[ff] bar[CC[NHeavy]].Ga[mu].ProjM. LL[sp, 2, ff], FlavorExpand -> Generation]]",
+      "delayed": true
+    },
+    {
+      "name": "LNC",
+      "expression": "Block[{sp, mu, ff}, ExpandIndices[-g/(2 cw) Z[mu] VN[ff] bar[CC[NHeavy]].Ga[mu].ProjM. LL[sp, 1, ff], FlavorExpand -> Generation]]",
+      "delayed": true
+    },
+    {
+      "name": "LHiggs",
+      "expression": "Block[{sp, ff}, ExpandIndices[-g MN/(2 MW) h VN[ff] bar[CC[NHeavy]].ProjM. LL[sp, 1, ff], FlavorExpand -> Generation]]",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "LNkin + LCC + HC[LCC] + LNC + HC[LNC] + LHiggs + HC[LHiggs]",
+      "delayed": true
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}

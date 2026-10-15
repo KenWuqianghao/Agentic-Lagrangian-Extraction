@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime
 
 from lagrangian_extraction.clients._http import RateLimitedClient
@@ -120,33 +119,47 @@ def run_search(query: SearchQuery, settings: Settings | None = None) -> AuditRun
             arxiv_client = ArxivClient(http)
             ads_client = AdsClient(http)
 
-            def search_inspire() -> tuple[list, str, int]:
-                return inspire_client.search(
+            inspire_records: list = []
+            inspire_url = ""
+            inspire_total = 0
+            arxiv_records: list = []
+            arxiv_url = ""
+            arxiv_total = 0
+
+            try:
+                inspire_records, inspire_url, inspire_total = inspire_client.search(
                     inspire_query,
                     sort=inspire_sort,
                     size=fetch_size,
                 )
+            except Exception as exc:  # noqa: BLE001
+                audit.errors.append(f"INSPIRE search failed: {exc}")
 
-            def search_arxiv() -> tuple[list, str, int]:
-                return arxiv_client.search(arxiv_query, max_results=fetch_size)
+            try:
+                if not query.skip_arxiv:
+                    arxiv_records, arxiv_url, arxiv_total = arxiv_client.search(
+                        arxiv_query, max_results=fetch_size
+                    )
+            except Exception as exc:  # noqa: BLE001
+                audit.errors.append(f"arXiv search failed: {exc}")
 
-            def search_ads() -> tuple[list, str, int]:
-                if ads_query is None or not ads_client.is_available:
-                    return [], "", 0
-                return ads_client.search(ads_query, rows=fetch_size)
-
-            with ThreadPoolExecutor(max_workers=3) as pool:
-                inspire_future = pool.submit(search_inspire)
-                arxiv_future = pool.submit(search_arxiv)
-                ads_future = pool.submit(search_ads)
-                inspire_records, inspire_url, inspire_total = inspire_future.result()
-                arxiv_records, arxiv_url, arxiv_total = arxiv_future.result()
-                ads_records, ads_url, ads_total = ads_future.result()
-
+            ads_records: list = []
+            ads_url = ""
+            ads_total = 0
             if query.use_ads and not ads_client.is_available:
                 audit.errors.append(
                     "ADS search skipped: ADS_API_TOKEN not set. "
                     "Get a token at https://ui.adsabs.harvard.edu/#user/settings/token"
+                )
+            elif ads_query is not None and ads_client.is_available:
+                try:
+                    ads_records, ads_url, ads_total = ads_client.search(ads_query, rows=fetch_size)
+                except Exception as exc:  # noqa: BLE001
+                    audit.errors.append(f"ADS search failed: {exc}")
+
+            if not inspire_records and not arxiv_records and not ads_records:
+                raise RuntimeError(
+                    "INSPIRE, arXiv and ADS searches all failed; see audit errors for details."
                 )
 
             audit.inspire_url = inspire_url

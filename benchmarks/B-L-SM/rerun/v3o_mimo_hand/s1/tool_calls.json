@@ -1,0 +1,108 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: B-L-SM (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1811.11452.\n4: PAPER: the paper's LaTeX source"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/paper/1811.11452_source.tex"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/paper/1811.11452_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/paper/1811.11452_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[a4paper,11pt]{article}\n2: \\pdfoutput=1\n3: \\usepackage{jheppub} \n4:                      \n5: \n6: \\usepackage[T1]{fontenc} \n7: \\usepackage{graphicx}\n8: \\usepackage{amsmath}\n9: \\usepackage{xspace}\n10: \\usepackage{subfig}\n11: \\usepackage{myd"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/paper/1811.11452_source.tex",
+   "offset": 677
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/paper/1811.11452_source.tex</path>\n<type>file</type>\n<content>\n677: our results at high \\MZP reproduce those of resonance searches made by ATLAS and CMS in the same data set. \n678: At lower \\MZP and for couplings \\gp greater than about $7 \\times 10^{-3}$, some previously unexamined parameter space is excluded compare"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                 "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: B-L-SM (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1811.11452.\n4: PAPER: the paper's LaTeX source"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/paper/1811.11452_source.tex"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "paper/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/paper/1811.11452_source.tex"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/paper/1811.11452_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/paper/1811.11452_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[a4paper,11pt]{article}\n2: \\pdfoutput=1\n3: \\usepackage{jheppub} \n4:                      \n5: \n6: \\usepackage[T1]{fontenc} \n7: \\usepackage{graphicx}\n8: \\usepackage{amsmath}\n9: \\usepackage{xspace}\n10: \\usepackage{subfig}\n11: \\usepackage{myd"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                 "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/paper/1811.11452_source.tex",
+   "offset": 677
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/paper/1811.11452_source.tex</path>\n<type>file</type>\n<content>\n677: our results at high \\MZP reproduce those of resonance searches made by ATLAS and CMS in the same data set. \n678: At lower \\MZP and for couplings \\gp greater than about $7 \\times 10^{-3}$, some previously unexamined parameter space is excluded compare"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/paper/1811.11452_source.tex"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "paper/**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-B-L-SM-b4403pxs/paper/1811.11452_source.tex"
+ }
+]

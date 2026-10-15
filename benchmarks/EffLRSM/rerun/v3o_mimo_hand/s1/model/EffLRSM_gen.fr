@@ -1,0 +1,201 @@
+(*****************************************************************************************)
+(******  Effective Left-Right Symmetric Model (EffLRSM) add-on on top of SM.fr       ******)
+(******  Extracted from arXiv:1610.08985 (Mattelaer, Mitra, Ruiz)                     ******)
+(******  New content: W_R^+-, Z_R gauge bosons and three heavy Majorana neutrinos N_i  ******)
+(*****************************************************************************************)
+
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+
+M$ModelName = "EffLRSM_gen";
+
+M$Information = {
+  Authors      -> {"O. Mattelaer", "M. Mitra", "R. Ruiz"},
+  Version      -> "1.0.0",
+  Date         -> "27. 10. 2016",
+  Institutions -> {"CP3, Universite catholique de Louvain", "IISER Mohali", "IPPP, Durham University"},
+  Emails       -> {"olivier.mattelaer@uclouvain.be", "manimala@iisermohali.ac.in", "richard.ruiz@durham.ac.uk"},
+  References   -> "arXiv:1610.08985"
+};
+
+(* ************************** *)
+(* ***** Interaction orders *****)
+(* ************************** *)
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+(* ************************** *)
+(* *****      Indices     *****)
+(* ************************** *)
+
+(* No new indices: Colour, Gluon, Generation, SU2D and SU2W are all declared by SM.fr.
+   No non-fundamental colour representation occurs: every new particle is a colour
+   singlet, hence no IndexRange declaration and no AddGaugeRepresentation line. *)
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+
+M$Parameters = {
+
+  (* External parameters *)
+  kappaRq == {
+    ParameterType    -> External,
+    BlockName        -> LRSMINPUTS,
+    OrderBlock       -> 1,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    Description      -> "kappa_R^q : W_R/Z_R coupling normalisation for quarks (Eqs. 2,7)"
+  },
+  kappaRl == {
+    ParameterType    -> External,
+    BlockName        -> LRSMINPUTS,
+    OrderBlock       -> 2,
+    Value            -> 1.,
+    InteractionOrder -> {NP, 1},
+    Description      -> "kappa_R^l : W_R/Z_R coupling normalisation for leptons (Eqs. 3,7)"
+  },
+
+  (* Internal parameters *)
+  VCKMR == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Unitary       -> True,
+    Value         -> {VCKMR[1,1] -> 1,  VCKMR[1,2] -> 0,  VCKMR[1,3] -> 0,
+                      VCKMR[2,1] -> 0,  VCKMR[2,2] -> 1,  VCKMR[2,3] -> 0,
+                      VCKMR[3,1] -> 0,  VCKMR[3,2] -> 0,  VCKMR[3,3] -> 1},
+    Description   -> "Right-handed CKM matrix V^{CKM'} (Eq. 2): diagonal with unit entries (Sec. 2)"
+  },
+  YN == {
+    ParameterType -> Internal,
+    Indices       -> {Index[Generation], Index[Generation]},
+    Unitary       -> True,
+    Value         -> {YN[1,1] -> 1,  YN[1,2] -> 0,  YN[1,3] -> 0,
+                      YN[2,1] -> 0,  YN[2,2] -> 1,  YN[2,3] -> 0,
+                      YN[3,1] -> 0,  YN[3,2] -> 0,  YN[3,3] -> 1},
+    Description   -> "W_R leptonic mixing Y_{l m'} (Eq. 5): |Y_eN1|=|Y_muN2|=|Y_tauN3|=1, all others 0"
+  },
+  tw2 == {
+    ParameterType -> Internal,
+    Value         -> sw2/cw2,
+    Description   -> "tan^2(theta_W) = sin^2(theta_W)/cos^2(theta_W)"
+  }
+};
+
+(* ************************** *)
+(* ***** Particle classes *****)
+(* ************************** *)
+
+M$ClassesDescription = {
+
+  (* Right-handed charged gauge boson W_R^+ / W_R^- *)
+  V[100] == {
+    ClassName        -> Wp,
+    SelfConjugate    -> False,
+    QuantumNumbers   -> {Q -> 1},
+    Mass             -> {MWR, 3000.},
+    Width            -> {WWr, 84.3},
+    ParticleName     -> "wr+",
+    AntiParticleName -> "wr-",
+    PDG              -> 9900024,
+    PropagatorLabel  -> "wr",
+    PropagatorType   -> Sine,
+    PropagatorArrow  -> Forward,
+    FullName         -> "W_R"
+  },
+
+  (* Right-handed neutral gauge boson Z_R *)
+  V[101] == {
+    ClassName       -> Zr,
+    SelfConjugate   -> True,
+    Mass            -> {MZR, 5070.},
+    Width           -> {WZr, 114.},
+    ParticleName    -> "zr",
+    PDG             -> 9900023,
+    PropagatorLabel -> "zr",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "Z_R"
+  },
+
+  (* Heavy Majorana neutrinos N_1, N_2, N_3 *)
+  F[100] == {
+    ClassName       -> NR,
+    ClassMembers    -> {N1, N2, N3},
+    Indices         -> {Index[Generation]},
+    FlavorIndex     -> Generation,
+    SelfConjugate   -> True,
+    Mass            -> {MN, {MN1, 173.3}, {MN2, 1.*^12}, {MN3, 1.*^12}},
+    Width           -> {{WN1, 2.12*^-8}, {WN2, 0}, {WN3, 0}},
+    PropagatorLabel -> {"N", "N1", "N2", "N3"},
+    PropagatorType  -> Straight,
+    PropagatorArrow -> None,
+    PDG             -> {9900012, 9900014, 9900016},
+    ParticleName    -> {"n1", "n2", "n3"},
+    FullName        -> {"Heavy neutrino 1", "Heavy neutrino 2", "Heavy neutrino 3"}
+  }
+};
+
+GaugeXi[ V[100] ] = GaugeXi[Wp];
+GaugeXi[ V[101] ] = GaugeXi[Zr];
+
+(* ************************** *)
+(* *****    Lagrangian   *****)
+(* ************************** *)
+
+(* Free-field term for W_R^+- (complex vector, task rule 1) *)
+LWpkin := Block[{mu, nu},
+  ExpandIndices[-1/2 FS[Wpbar, mu, nu] FS[Wp, mu, nu] + MWR^2 Wpbar[mu] Wp[mu]]
+];
+
+(* Free-field term for Z_R (real vector, task rule 1) *)
+LZrkin := Block[{mu, nu},
+  ExpandIndices[-1/4 FS[Zr, mu, nu] FS[Zr, mu, nu] + 1/2 MZR^2 Zr[mu] Zr[mu]]
+];
+
+(* Free-field term for the heavy Majorana neutrinos (task rules 1, 15) *)
+LNRkin := Block[{mu},
+  ExpandIndices[I/2 NRbar.Ga[mu].del[NR, mu]] -
+    1/2 MN1 NRbar[1].NR[1] - 1/2 MN2 NRbar[2].NR[2] - 1/2 MN3 NRbar[3].NR[3]
+];
+
+(* Eq. (2): W_R charged current to quarks + H.c. *)
+LWRqq := Block[{mu, hq},
+  hq = ExpandIndices[(-kappaRq gw/Sqrt[2]) uqbar.VCKMR.Ga[mu].ProjP.dq Wp[mu]];
+  hq + HC[hq]
+];
+
+(* Eq. (3): W_R charged current to leptons + H.c.
+   The X_lm nu^c term is dropped because the benchmark sets X_lm = 0 (Eq. (5)). *)
+LWRlnu := Block[{mu, hl},
+  hl = ExpandIndices[(-kappaRl gw/Sqrt[2]) NRbar.YN.Ga[mu].ProjP.l Wp[mu]];
+  hl + HC[hl]
+];
+
+(* Eqs. (7)-(9): Z_R neutral currents.
+   Overall prefactor -kappa g/Sqrt[1 - tan^2(th_W)/kappa^2] (Sqrt in the denominator,
+   read literally from the LaTeX) times g_L/g_R of Eqs. (8)-(9).
+   Real coefficients => Hermitian as written; the paper adds no H.c., so none is added. *)
+LZRff := Block[{mu},
+  ExpandIndices[
+    (-kappaRq gw/Sqrt[1 - tw2/kappaRq^2]) (
+      (-tw2/(6 kappaRq^2)) uqbar.Ga[mu].ProjP.uq
+    + (1/2 - 2 tw2/(3 kappaRq^2)) uqbar.Ga[mu].ProjM.uq
+    + (-tw2/(6 kappaRq^2)) dqbar.Ga[mu].ProjP.dq
+    + (-1/2 + tw2/(3 kappaRq^2)) dqbar.Ga[mu].ProjM.dq
+    )
+  + (-kappaRl gw/Sqrt[1 - tw2/kappaRl^2]) (
+      (tw2/(2 kappaRl^2)) lbar.Ga[mu].ProjP.l
+    + (-1/2 + tw2/kappaRl^2) lbar.Ga[mu].ProjM.l
+    + (tw2/(2 kappaRl^2)) vlbar.Ga[mu].ProjM.vl
+    + 1/2 NRbar.Ga[mu].ProjP.NR
+    )
+  ] Zr[mu]
+];
+
+LTotal := LWpkin + LZrkin + LNRkin + LWRqq + LWRlnu + LZRff;

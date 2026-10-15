@@ -1,0 +1,38 @@
+{
+ "page": "NJLComposite",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit",
+ "seed": 1,
+ "variant": "v3o_mimo_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3600.1,
+ "tokens": {
+  "input": 741080,
+  "output": 36108,
+  "reasoning": 99607
+ },
+ "output_max": 128000,
+ "n_events": 213,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 112,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la\"}"
+  ],
+  "frgen_runs": 2,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/NJLComposite/rerun/v3o_mimo_toolkit/s1/model/NJLComposite_gen.fr",
+ "final_lint_findings": 9
+}

@@ -1,0 +1,172 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: EffLRSM (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1610.08985.\n4: PAPER: the paper's LaTeX sour"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/paper/1610.08985_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/paper/1610.08985_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[a4paper,11pt,prd,superscriptaddress,showpacs,nofootinbib,floatfix,include graphics,showkeys,preprintnumbers]{revtex4-1}\n2: \\usepackage{amsmath,amsfonts,amssymb,array}\n3: \\usepackage{bm,bbm,bbm,bbold}\n4: \\usepackage{dsfont}\n5: \\usepackag"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "offset": 972,
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/paper/1610.08985_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/paper/1610.08985_source.tex</path>\n<type>file</type>\n<content>\n972: \n973: Publicly available UFO files~\\cite{nloFRModel} are compatible with similar general-purpose event generators, e.g., \n974: HERWIG and SHERPA.\n975: \n976: Our NLO in QCD corrections and residual scale uncertainty for inclusive $pp\\rightarrow\\WR,\\Z"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                "
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Write complete EffLRSM_gen.fr model file with all new particles, parameters, and Lagrangian terms",
+     "status": "in_progress",
+     "priority": "high"
+    },
+    {
+     "content": "Produce self-audit table",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Verify model.fr is written correctly",
+     "status": "pending",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Write complete EffLRSM_gen.fr model file with all new particles, parameters, and Lagrangian terms\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Produce self-audit table\",\n    \"status\": \"pending\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Verify model.fr is written correctly\",\n    \"status\": \"pending\",\n    \"priority\": \"high\"\n  }\n]"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "content": "(* ************************** *)\n(* *****  Information   ***** *)\n(* ************************** *)\nM$ModelName = \"EffLRSM_gen\";\n\nM$Information = {\n  Authors      -> {\"O. Mattelaer\", \"M. Mitra\", \"R. Ruiz\"},\n  Version      -> \"1.0\",\n  Date         -> \"24.09.2026\",\n  Institutions -> {\"CP3\", \"IISER Mohali\", \"IPPP\"},\n  Emails       -> {\"olivier.mattelaer@uclouvain.be\", \"manimala@iisermohali.ac.in\", \"richard.ruiz@durham.ac.uk\"},\n  URLs         -> \"http://feynrules.irmp.ucl.ac.be/wiki/EffLRSM\"\n};\n\n(* ************************** *)\n(* *****  Indices     ***** *)\n(* ************************** *)\n\n(* New indices *)\nIndexRange[Index[GenerationN]] = Unfold[Range[3]];\nIndexStyle[GenerationN, fn];\n\n(* ************************** *)\n(* *** Interaction orders *** *)\n(* ************************** *)\nM$InteractionOrderHierarchy = {\n  {QCD, 1},\n  {QED, 2},\n  {NP, 1}\n};\n\n(* ************************** *)\n(* **** Particle classes **** *)\n(* ************************** *)\nM$ClassesDescription = {\n\n(* Right-handed W boson *)\n  V[100] == {\n    ClassName        -> WR,\n    SelfConjugate    -> False,\n    Mass             -> {MWR, 3000.},\n    Width            -> {WWR, 84.3},\n    ParticleName     -> \"W+\",\n    AntiParticleName -> \"W-\",\n    QuantumNumbers   -> {Q -> 1},\n    PDG              -> 9900024,\n    PropagatorLabel  -> \"WR\",\n    PropagatorType   -> Sine,\n    PropagatorArrow  -> Forward,\n    FullName         -> \"Right-handed W boson\"\n  },\n\n(* Right-handed Z boson *)\n  V[101] == {\n    ClassName       -> ZR,\n    SelfConjugate   -> True,\n    Mass            -> {MZR, 5070.},\n    Width           -> {WZR, 114.},\n    ParticleName    -> \"ZR\",\n    PDG             -> 9900023,\n    PropagatorLabel -> \"ZR\",\n    PropagatorType  -> Sine,\n    PropagatorArrow -> None,\n    FullName        -> \"Right-handed Z boson\"\n  },\n\n(* Heavy Majorana neutrinos (3 generations) *)\n  F[100] == {\n    ClassName        -> NR,\n    ClassMembers     -> {n1, n2, n3},\n    Indices          -> {Index[GenerationN]},\n    FlavorIndex      -> GenerationN,\n    SelfConjugate    -> True,\n    Mass             -> {MN, {MN1, 173.3}, {MN2, 1.e12}, {MN3, 1.e12}},\n    Width            -> {WN, {WN1, 2.12e-8}, {WN2, 0.}, {WN3, 0.}},\n    QuantumNumbers   -> {LeptonNumber -> 0},\n    PropagatorLabel  -> {\"N\", \"n1\", \"n2\", \"n3\"},\n    PropagatorType   -> Straight,\n    PropagatorArrow  -> Forward,\n    PDG              -> {9900012, 9900014, 9900016},\n    ParticleName     -> {\"n1\", \"n2\", \"n3\"},\n    AntiParticleName -> {\"n1\", \"n2\", \"n3\"},\n    FullName         -> {\"Heavy neutrino 1\", \"Heavy neutrino 2\", \"Heavy neutrino 3\"}\n  }\n\n};\n\n(* ************************** *)\n(* *****  Parameters  ***** *)\n(* ************************** *)\nM$Parameters = {\n\n(* Coupling normalizations *)\n  kapRq == {\n    ParameterType    -> External,\n    BlockName        -> EFFLRSM,\n    OrderBlock       -> 1,\n    Value            -> 1.,\n    InteractionOrder -> {NP, 1},\n    TeX              -> \\\\kappa_R^q,\n    Description      -> \"Normalization of WR/ZR coupling to quarks\"\n  },\n  kapRl == {\n    ParameterType    -> External,\n    BlockName        -> EFFLRSM,\n    OrderBlock       -> 2,\n    Value            -> 1.,\n    InteractionOrder -> {NP, 1},\n    TeX              -> \\\\kappa_R^\\\\ell,\n    Description      -> \"Normalization of WR/ZR coupling to leptons\"\n  },\n\n(* Mass parameters *)\n  MWR == {\n    ParameterType    -> External,\n    BlockName        -> EFFLRSM,\n    OrderBlock       -> 10,\n    Value            -> 3000.,\n    InteractionOrder -> {NP, 1},\n    TeX              -> M_{W_R},\n    Description      -> \"WR boson mass [GeV]\"\n  },\n  MZR == {\n    ParameterType    -> External,\n    BlockName        -> EFFLRSM,\n    OrderBlock       -> 11,\n    Value            -> 5070.,\n    InteractionOrder -> {NP, 1},\n    TeX              -> M_{Z_R},\n    Description      -> \"ZR boson mass [GeV]\"\n  },\n  MN1 == {\n    ParameterType    -> External,\n    BlockName        -> EFFLRSM,\n    OrderBlock       -> 12,\n    Value            -> 173.3,\n    InteractionOrder -> {NP, 1},\n    TeX              -> m_{N_1},\n    Description      -> \"Lightest heavy neutrino mass [GeV]\"\n  },\n  MN2 == {\n    ParameterType    -> External,\n    BlockName        -> EFFLRSM,\n    OrderBlock       -> 13,\n    Value            -> 1.e12,\n    InteractionOrder -> {NP, 1},\n    TeX              -> m_{N_2},\n    Description      -> \"Second heavy neutrino mass [GeV]\"\n  },\n  MN3 == {\n    ParameterType    -> External,\n    BlockName        -> EFFLRSM,\n    OrderBlock       -> 14,\n    Value            -> 1.e12,\n    InteractionOrder -> {NP, 1},\n    TeX              -> m_{N_3},\n    Description      -> \"Third heavy neutrino mass [GeV]\"\n  },\n\n(* Internal mass parameters *)\n  MN == {\n    ParameterType -> Internal,\n    Indices       -> {Index[GenerationN]},\n    Value         -> {MN[1] -> MN1, MN[2] -> MN2, MN[3] -> MN3},\n    Description   -> \"Heavy neutrino masses\"\n  },\n\n(* Width parameters - internal *)\n  WWR == {\n    ParameterType -> Internal,\n    Value         -> 2 * (kapRq^2 * gw^2 * MWR) / (48 * Pi) + (kapRq^2 * gw^2 * MWR) / (48 * Pi) * (1 - MT^2/MWR^2)^2 * (1 + MT^2/(2*MWR^2)) + (kapRl^2 * gw^2 * MWR) / (48 * Pi) * (1 - MN1^2/MWR^2)^2 * (1 + MN1^2/(2*MWR^2)) + (kapRl^2 * gw^2 * MWR) / (48 * Pi) * (1 - MN2^2/MWR^2)^2 * (1 + MN2^2/(2*MWR^2)) + (kapRl^2 * gw^2 * MWR) / (48 * Pi) * (1 - MN3^2/MWR^2)^2 * (1 + MN3^2/(2*MWR^2)),\n    Description   -> \"Total WR width [GeV]\"\n  },\n  WZR == {\n    ParameterType -> Internal,\n    Value         -> Sum[\n      NC^f * (kapRf^2 * gw^2 * MZR * Sqrt[1 - 4*Mf^2/MZR^2]) / (48 * Pi * (1 - (1/kapRf)^2 * (sw/cw)^2)) *\n      ((gLZRf + gRZRf)^2 * (1 + 2*Mf^2/MZR^2) + (gLZRf - gRZRf)^2 * (1 - 4*Mf^2/MZR^2)),\n      {f, {uq, dq, l, NR}}\n    ],\n    Description   -> \"Total ZR width [GeV]\"\n  },\n  WN1 == {\n    ParameterType -> Internal,\n    Value         -> (kapRl^2 * gw^2 * MN1^3) / (16 * Pi * MWR^2) * (1 - MWR^2/MN1^2)^2 * (1 + 2*MWR^2/MN1^2),\n    Description   -> \"N1 total width [GeV]\"\n  },\n  WN2 == {\n    ParameterType -> Internal,\n    Value         -> 0.,\n    Description   -> \"N2 total width [GeV] (decoupled)\"\n  },\n  WN3 == {\n    ParameterType -> Internal,\n    Value         -> 0.,\n    Description   -> \"N3 total width [GeV] (decoupled)\"\n  },\n  WN == {\n    ParameterType -> Internal,\n    Indices       -> {Index[GenerationN]},\n    Value         -> {WN[1] -> WN1, WN[2] -> WN2, WN[3] -> WN3},\n    Description   -> \"Heavy neutrino widths\"\n  },\n\n(* ZR chiral couplings *)\n  gLZRq == {\n    ParameterType -> Internal,\n    Value         -> (1/2 - 2/3) * (1/kapRq^2) * (sw/cw)^2,\n    Description   -> \"ZR left-handed coupling to up-type quarks\"\n  },\n  gRZRq == {\n    ParameterType -> Internal,\n    Value         -> 1/2 - (1/kapRq^2) * (sw/cw)^2 * (2/3),\n    Description   -> \"ZR right-handed coupling to up-type quarks\"\n  },\n  gLZRd == {\n    ParameterType -> Internal,\n    Value         -> (-1/2 + 1/3) * (1/kapRq^2) * (sw/cw)^2,\n    Description   -> \"ZR left-handed coupling to down-type quarks\"\n  },\n  gRZRd == {\n    ParameterType -> Internal,\n    Value         -> -1/2 - (1/kapRq^2) * (sw/cw)^2 * (-1/3),\n    Description   -> \"ZR right-handed coupling to down-type quarks\"\n  },\n  gLZRl == {\n    ParameterType -> Internal,\n    Value         -> (1/2 - (-1)) * (1/kapRl^2) * (sw/cw)^2,\n    Description   -> \"ZR left-handed coupling to charged leptons\"\n  },\n  gRZRl == {\n    ParameterType -> Internal,\n    Value         -> -1/2 - (1/kapRl^2) * (sw/cw)^2 * (-1),\n    Description   -> \"ZR right-handed coupling to charged leptons\"\n  },\n  gLZRnu == {\n    ParameterType -> Internal,\n    Value         -> (1/2 - 0) * (1/kapRl^2) * (sw/cw)^2,\n    Description   -> \"ZR left-handed coupling to light neutrinos\"\n  },\n  gRZRnu == {\n    ParameterType -> Internal,\n    Value         -> 1/2 - (1/kapRl^2) * (sw/cw)^2 * 0,\n    Description   -> \"ZR right-handed coupling to light neutrinos (zero)\"\n  },\n  gLZRN == {\n    ParameterType -> Internal,\n    Value         -> (1/2 - 0) * (1/kapRl^2) * (sw/cw)^2,\n    Description   -> \"ZR left-handed coupling to heavy neutrinos\"\n  },\n  gRZRN == {\n    ParameterType -> Internal,\n    Value         -> 1/2 - (1/kapRl^2) * (sw/cw)^2 * 0,\n    Description   -> \"ZR right-handed coupling to heavy neutrinos\"\n  },\n\n(* Normalization factors for ZR couplings *)\n  normZRq == {\n    ParameterType -> Internal,\n    Value         -> kapRq * gw / Sqrt[1 - (1/kapRq)^2 * (sw/cw)^2],\n    Description   -> \"ZR coupling normalization for quarks\"\n  },\n  normZRl == {\n    ParameterType -> Internal,\n    Value         -> kapRl * gw / Sqrt[1 - (1/kapRl)^2 * (sw/cw)^2],\n    Description   -> \"ZR coupling normalization for leptons\"\n  }\n\n};\n\n(* ************************** *)\n(* *****   Lagrangian   ***** *)\n(* ************************** *)\n\n(* Kinetic and mass terms for new gauge bosons *)\nLWRkin := Block[{mu, nu},\n  -1/2 FS[WRbar, mu, nu] FS[WR, mu, nu] + MWR^2 WRbar[mu] WR[mu]\n];\n\nLZRkin := Block[{mu, nu},\n  -1/4 FS[ZR, mu, nu] FS[ZR, mu, nu] + 1/2 MZR^2 ZR[mu] ZR[mu]\n];\n\n(* Kinetic and mass terms for heavy Majorana neutrinos *)\nLNRkin := Block[{mu, fn},\n  I/2 Sum[NRbar[fn].Ga[mu].del[NR[fn], mu], {fn, 1, 3}] - 1/2 Sum[MN[fn] NRbar[fn].NR[fn], {fn, 1, 3}]\n];\n\n(* WR charged current interactions - quarks *)\nLWRq := Block[{mu, ff1, ff2, cc},\n  -kapRq * gw / Sqrt[2] * Sum[\n    uqbar[ff1, cc].Ga[mu].ProjP.dq[ff2, cc] WR[mu] + HC[uqbar[ff1, cc].Ga[mu].ProjP.dq[ff2, cc] WRbar[mu]],\n    {ff1, 1, 3}, {ff2, 1, 3}, {cc, 1, 3}\n  ]\n];\n\n(* WR charged current interactions - leptons *)\nLWRl := Block[{mu, fl, fn},\n  -kapRl * gw / Sqrt[2] * Sum[\n    lbar[fl].Ga[mu].ProjP.NR[fn] WR[mu] + HC[lbar[fl].Ga[mu].ProjP.NR[fn] WRbar[mu]],\n    {fl, 1, 3}, {fn, 1, 3}\n  ]\n];\n\n(* ZR neutral current interactions - quarks *)\nLZRq := Block[{mu, ff, cc},\n  Sum[\n    normZRq * (gLZRq * uqbar[ff, cc].Ga[mu].ProjM.uq[ff, cc] + gRZRq * uqbar[ff, cc].Ga[mu].ProjP.uq[ff, cc]) ZR[mu]\n    + normZRq * (gLZRd * dqbar[ff, cc].Ga[mu].ProjM.dq[ff, cc] + gRZRd * dqbar[ff, cc].Ga[mu].ProjP.dq[ff, cc]) ZR[mu],\n    {ff, 1, 3}, {cc, 1, 3}\n  ]\n];\n\n(* ZR neutral current interactions - charged leptons *)\nLZRl := Block[{mu, fl},\n  Sum[\n    normZRl * (gLZRl * lbar[fl].Ga[mu].ProjM.l[fl] + gRZRl * lbar[fl].Ga[mu].ProjP.l[fl]) ZR[mu],\n    {fl, 1, 3}\n  ]\n];\n\n(* ZR neutral current interactions - light neutrinos *)\nLZRnu := Block[{mu, fl},\n  Sum[\n    normZRl * (gLZRnu * vlbar[fl].Ga[mu].ProjM.vl[fl] + gRZRnu * vlbar[fl].Ga[mu].ProjP.vl[fl]) ZR[mu],\n    {fl, 1, 3}\n  ]\n];\n\n(* ZR neutral current interactions - heavy neutrinos (Majorana) *)\nLZRN := Block[{mu, fn},\n  Sum[\n    normZRl * (gLZRN * NRbar[fn].Ga[mu].ProjM.NR[fn] + gRZRN * NRbar[fn].Ga[mu].ProjP.NR[fn]) ZR[mu],\n    {fn, 1, 3}\n  ]\n];\n\n(* Total Lagrangian *)\nLTotal := LWRkin + LZRkin + LNRkin + LWRq + LWRl + LZRq + LZRl + LZRnu + LZRN;",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/model.fr"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Write complete EffLRSM_gen.fr model file with all new particles, parameters, and Lagrangian terms",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Produce self-audit table",
+     "status": "in_progress",
+     "priority": "high"
+    },
+    {
+     "content": "Verify model.fr is written correctly",
+     "status": "pending",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Write complete EffLRSM_gen.fr model file with all new particles, parameters, and Lagrangian terms\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Produce self-audit table\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Verify model.fr is written correctly\",\n    \"status\": \"pending\",\n    \"priority\": \"high\"\n  }\n]"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/model.fr</path>\n<type>file</type>\n<content>\n1: (* ************************** *)\n2: (* *****  Information   ***** *)\n3: (* ************************** *)\n4: M$ModelName = \"EffLRSM_gen\";\n5: \n6: M$Information = {\n7:   Authors      -> {\"O. Mattelaer\", \"M. Mitra\", \"R. Ruiz\"},\n8:   Version      -> \"1.0\",\n9:   Date         "
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "newString": "(* WR charged current interactions - quarks *)\nLWRq := Block[{mu, ff1, ff2, cc},\n  -kapRq * gw / Sqrt[2] * Sum[\n    uqbar[ff1, cc].Ga[mu].ProjP.dq[ff2, cc] WR[mu],\n    {ff1, 1, 3}, {ff2, 1, 3}, {cc, 1, 3}\n  ] + HC[\n    -kapRq * gw / Sqrt[2] * Sum[\n      uqbar[ff1, cc].Ga[mu].ProjP.dq[ff2, cc] WR[mu],\n      {ff1, 1, 3}, {ff2, 1, 3}, {cc, 1, 3}\n    ]\n  ]\n];\n\n(* WR charged current interactions - leptons *)\nLWRl := Block[{mu, fl, fn},\n  -kapRl * gw / Sqrt[2] * Sum[\n    lbar[fl].Ga[mu].ProjP.NR[fn] WR[mu],\n    {fl, 1, 3}, {fn, 1, 3}\n  ] + HC[\n    -kapRl * gw / Sqrt[2] * Sum[\n      lbar[fl].Ga[mu].ProjP.NR[fn] WR[mu],\n      {fl, 1, 3}, {fn, 1, 3}\n    ]\n  ]\n];",
+   "oldString": "(* WR charged current interactions - quarks *)\nLWRq := Block[{mu, ff1, ff2, cc},\n  -kapRq * gw / Sqrt[2] * Sum[\n    uqbar[ff1, cc].Ga[mu].ProjP.dq[ff2, cc] WR[mu] + HC[uqbar[ff1, cc].Ga[mu].ProjP.dq[ff2, cc] WRbar[mu]],\n    {ff1, 1, 3}, {ff2, 1, 3}, {cc, 1, 3}\n  ]\n];\n\n(* WR charged current interactions - leptons *)\nLWRl := Block[{mu, fl, fn},\n  -kapRl * gw / Sqrt[2] * Sum[\n    lbar[fl].Ga[mu].ProjP.NR[fn] WR[mu] + HC[lbar[fl].Ga[mu].ProjP.NR[fn] WRbar[mu]],\n    {fl, 1, 3}, {fn, 1, 3}\n  ]\n];",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/model.fr"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully."
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/model.fr",
+   "newString": "(* Heavy Majorana neutrinos (3 generations) *)\n  F[100] == {\n    ClassName        -> NR,\n    ClassMembers     -> {n1, n2, n3},\n    Indices          -> {Index[GenerationN]},\n    FlavorIndex      -> GenerationN,\n    SelfConjugate    -> True,\n    Mass             -> {MN, {MN1, 173.3}, {MN2, 1.e12}, {MN3, 1.e12}},\n    Width            -> {WN, {WN1, 2.12e-8}, {WN2, 0.}, {WN3, 0.}},\n    PropagatorLabel  -> {\"N\", \"n1\", \"n2\", \"n3\"},\n    PropagatorType   -> Straight,\n    PropagatorArrow  -> Forward,\n    PDG              -> {9900012, 9900014, 9900016},\n    ParticleName     -> {\"n1\", \"n2\", \"n3\"},\n    AntiParticleName -> {\"n1\", \"n2\", \"n3\"},\n    FullName         -> {\"Heavy neutrino 1\", \"Heavy neutrino 2\", \"Heavy neutrino 3\"}\n  }",
+   "oldString": "(* Heavy Majorana neutrinos (3 generations) *)\n  F[100] == {\n    ClassName        -> NR,\n    ClassMembers     -> {n1, n2, n3},\n    Indices          -> {Index[GenerationN]},\n    FlavorIndex      -> GenerationN,\n    SelfConjugate    -> True,\n    Mass             -> {MN, {MN1, 173.3}, {MN2, 1.e12}, {MN3, 1.e12}},\n    Width            -> {WN, {WN1, 2.12e-8}, {WN2, 0.}, {WN3, 0.}},\n    QuantumNumbers   -> {LeptonNumber -> 0},\n    PropagatorLabel  -> {\"N\", \"n1\", \"n2\", \"n3\"},\n    PropagatorType   -> Straight,\n    PropagatorArrow  -> Forward,\n    PDG              -> {9900012, 9900014, 9900016},\n    ParticleName     -> {\"n1\", \"n2\", \"n3\"},\n    AntiParticleName -> {\"n1\", \"n2\", \"n3\"},\n    FullName         -> {\"Heavy neutrino 1\", \"Heavy neutrino 2\", \"Heavy neutrino 3\"}\n  }"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully."
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "oldString": "(* WR charged current interactions - leptons *)\nLWRl := Block[{mu, fl, fn},\n  -kapRl * gw / Sqrt[2] * Sum[\n    lbar[fl].Ga[mu].ProjP.NR[fn] WR[mu],\n    {fl, 1, 3}, {fn, 1, 3}\n  ] + HC[\n    -kapRl * gw / Sqrt[2] * Sum[\n      lbar[fl].Ga[mu].ProjP.NR[fn] WR[mu],\n      {fl, 1, 3}, {fn, 1, 3}\n    ]\n  ]\n];",
+   "newString": "(* WR charged current interactions - leptons *)\nLWRl := Block[{mu, fl, fn},\n  -kapRl * gw / Sqrt[2] * Sum[\n    NRbar[fn].Ga[mu].ProjP.l[fl] WR[mu],\n    {fl, 1, 3}, {fn, 1, 3}\n  ] + HC[\n    -kapRl * gw / Sqrt[2] * Sum[\n      NRbar[fn].Ga[mu].ProjP.l[fl] WR[mu],\n      {fl, 1, 3}, {fn, 1, 3}\n    ]\n  ]\n];",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/model.fr"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully."
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "oldString": "(* ZR neutral current interactions - quarks *)\nLZRq := Block[{mu, ff, cc},\n  Sum[\n    normZRq * (gLZRq * uqbar[ff, cc].Ga[mu].ProjM.uq[ff, cc] + gRZRq * uqbar[ff, cc].Ga[mu].ProjP.uq[ff, cc]) ZR[mu]\n    + normZRq * (gLZRd * dqbar[ff, cc].Ga[mu].ProjM.dq[ff, cc] + gRZRd * dqbar[ff, cc].Ga[mu].ProjP.dq[ff, cc]) ZR[mu],\n    {ff, 1, 3}, {cc, 1, 3}\n  ]\n];\n\n(* ZR neutral current interactions - charged leptons *)\nLZRl := Block[{mu, fl},\n  Sum[\n    normZRl * (gLZRl * lbar[fl].Ga[mu].ProjM.l[fl] + gRZRl * lbar[fl].Ga[mu].ProjP.l[fl]) ZR[mu],\n    {fl, 1, 3}\n  ]\n];\n\n(* ZR neutral current interactions - light neutrinos *)\nLZRnu := Block[{mu, fl},\n  Sum[\n    normZRl * (gLZRnu * vlbar[fl].Ga[mu].ProjM.vl[fl] + gRZRnu * vlbar[fl].Ga[mu].ProjP.vl[fl]) ZR[mu],\n    {fl, 1, 3}\n  ]\n];\n\n(* ZR neutral current interactions - heavy neutrinos (Majorana) *)\nLZRN := Block[{mu, fn},\n  Sum[\n    normZRl * (gLZRN * NRbar[fn].Ga[mu].ProjM.NR[fn] + gRZRN * NRbar[fn].Ga[mu].ProjP.NR[fn]) ZR[mu],\n    {fn, 1, 3}\n  ]\n];",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/model.fr",
+   "newString": "(* ZR neutral current interactions - quarks *)\nLZRq := Block[{mu, ff, cc},\n  Sum[\n    normZRq * (gLZRq * uqbar[ff, cc].Ga[mu].ProjM.uq[ff, cc] + gRZRq * uqbar[ff, cc].Ga[mu].ProjP.uq[ff, cc]) ZR[mu]\n    + normZRq * (gLZRd * dqbar[ff, cc].Ga[mu].ProjM.dq[ff, cc] + gRZRd * dqbar[ff, cc].Ga[mu].ProjP.dq[ff, cc]) ZR[mu],\n    {ff, 1, 3}, {cc, 1, 3}\n  ] + HC[\n    Sum[\n      normZRq * (gLZRq * uqbar[ff, cc].Ga[mu].ProjM.uq[ff, cc] + gRZRq * uqbar[ff, cc].Ga[mu].ProjP.uq[ff, cc]) ZR[mu]\n      + normZRq * (gLZRd * dqbar[ff, cc].Ga[mu].ProjM.dq[ff, cc] + gRZRd * dqbar[ff, cc].Ga[mu].ProjP.dq[ff, cc]) ZR[mu],\n      {ff, 1, 3}, {cc, 1, 3}\n    ]\n  ]\n];\n\n(* ZR neutral current interactions - charged leptons *)\nLZRl := Block[{mu, fl},\n  Sum[\n    normZRl * (gLZRl * lbar[fl].Ga[mu].ProjM.l[fl] + gRZRl * lbar[fl].Ga[mu].ProjP.l[fl]) ZR[mu],\n    {fl, 1, 3}\n  ] + HC[\n    Sum[\n      normZRl * (gLZRl * lbar[fl].Ga[mu].ProjM.l[fl] + gRZRl * lbar[fl].Ga[mu].ProjP.l[fl]) ZR[mu],\n      {fl, 1, 3}\n    ]\n  ]\n];\n\n(* ZR neutral current interactions - light neutrinos *)\nLZRnu := Block[{mu, fl},\n  Sum[\n    normZRl * (gLZRnu * vlbar[fl].Ga[mu].ProjM.vl[fl] + gRZRnu * vlbar[fl].Ga[mu].ProjP.vl[fl]) ZR[mu],\n    {fl, 1, 3}\n  ] + HC[\n    Sum[\n      normZRl * (gLZRnu * vlbar[fl].Ga[mu].ProjM.vl[fl] + gRZRnu * vlbar[fl].Ga[mu].ProjP.vl[fl]) ZR[mu],\n      {fl, 1, 3}\n    ]\n  ]\n];\n\n(* ZR neutral current interactions - heavy neutrinos (Majorana) *)\nLZRN := Block[{mu, fn},\n  Sum[\n    normZRl * (gLZRN * NRbar[fn].Ga[mu].ProjM.NR[fn] + gRZRN * NRbar[fn].Ga[mu].ProjP.NR[fn]) ZR[mu],\n    {fn, 1, 3}\n  ] + HC[\n    Sum[\n      normZRl * (gLZRN * NRbar[fn].Ga[mu].ProjM.NR[fn] + gRZRN * NRbar[fn].Ga[mu].ProjP.NR[fn]) ZR[mu],\n      {fn, 1, 3}\n    ]\n  ]\n];"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully."
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-70o9iana/model.fr</path>\n<type>file</type>\n<content>\n1: (* ************************** *)\n2: (* *****  Information   ***** *)\n3: (* ************************** *)\n4: M$ModelName = \"EffLRSM_gen\";\n5: \n6: M$Information = {\n7:   Authors      -> {\"O. Mattelaer\", \"M. Mitra\", \"R. Ruiz\"},\n8:   Version      -> \"1.0\",\n9:   Date         "
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Write complete EffLRSM_gen.fr model file with all new particles, parameters, and Lagrangian terms",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Produce self-audit table",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Verify model.fr is written correctly",
+     "status": "completed",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Write complete EffLRSM_gen.fr model file with all new particles, parameters, and Lagrangian terms\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Produce self-audit table\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Verify model.fr is written correctly\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  }\n]"
+ }
+]

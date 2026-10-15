@@ -1,0 +1,103 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+From kernel 1 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+From kernel 2 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+From kernel 3 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+From kernel 4 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+From kernel 5 (Local):
+MergeModels::Particles: Warning: Doubly defined particle classes.
+
+General::stop: Further output of Warning: Doubly defined particle classes. will be suppressed during this calculation.
+From kernel 1 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 2 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 3 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 4 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 5 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+
+General::stop: Further output of Warning : All particles should have different names. will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of LoadModel::Part will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of LoadModel::Part will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of LoadModel::Part will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of LoadModel::Part will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of LoadModel::Part will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+From kernel 1 (Local):
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 2 (Local):
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 3 (Local):
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 4 (Local):
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 5 (Local):
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of `1` is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing. will be suppressed during this calculation.
+Merging model-files...
+
+MergeModels::Particles: Warning: Doubly defined particle classes.
+This model implementation was created by
+A. Das
+P. S. Bhupal Dev
+Y. Hosotani
+S. Mandal
+Model Version: 1.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+
+LoadModel::Part: Warning : All particles should have different names.
+
+LoadModel::Part: Warning : All particles should have different names.
+
+LoadModel::Part: Warning : All particles should have different names.
+
+General::stop: Further output of LoadModel::Part will be suppressed during this calculation.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+ReplaceAll::reps: {yN} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+
+Model GeneralU1_gen loaded.
+[INFO] Lagrangian: LTotal
+[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum
+HEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=pass|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. No vertices found. 0 vertices obtained. The lagrangian is hermitian.
+HEPTAPOD-CHECK|scope=model|name=kinetic_diagonal|verdict=pass|detail=Neglecting all terms with more than 2 particles. All kinetic terms are diagonal.
+HEPTAPOD-CHECK|scope=model|name=mass_diagonal|verdict=fail|detail=Warning: not numerical value encountered. Unable to decide whether mass term is diagonal Non diagonal mass term found: -(Conjugate[CKM[Index[Generation, 3], Index[Generation, 3]]] Conjugate[yd[Index[Generation, 3], Index[Generation, 3]]] bbar[Index[Spin, r$18438], Index[Colour, cc]] . t[Index[Spin, r$18439], Index[Colour, cc]] HC[Phi[1]] ProjM[Index[Spin, r$18438], Index[Spin, r$18439]]) + Conjuga
+HEPTAPOD-CHECK|scope=model|name=mass_spectrum|verdict=inconclusive|detail=Neglecting all terms with more than 2 particles. Warning: not numerical value encountered. Unable to decide whether mass term is diagonal Non diagonal mass term found: -(Conjugate[CKM[Index[Generation, 3], Index[Generation, 3]]] Conjugate[yd[Index[Generation, 3], Index[Generation, 3]]] bbar[Index[Spin, r$18438], Index[Colour, cc]] . t[Index[Spin, r$18439], Index[Colour, cc]] HC[Phi[1]] ProjM[Index
+[INFO] ChecksOnly=true; skipping UFO generation.
+[INFO] Done.

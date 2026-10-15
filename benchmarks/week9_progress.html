@@ -1,0 +1,365 @@
+<title>Week 9 — the loop closes end to end</title>
+
+<style>
+  :root {
+    --paper:#F6F8F9; --raised:#FFFFFF; --ink:#131A21; --ink-2:#46555F;
+    --ink-3:#75858F; --rule:#DDE4E7; --rule-soft:#EAEFF1;
+    --accent:#0B7A87; --accent-dim:#E2F0F1;
+    --pass:#2F7A55; --pass-dim:#E0EFE6;
+    --fixed:#B0761F; --fixed-dim:#F7EEDC;
+    --unfixed:#A63A38; --unfixed-dim:#F6E3E2;
+    --shadow:0 1px 2px rgba(19,26,33,.05), 0 8px 24px -16px rgba(19,26,33,.28);
+    --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Source Serif 4",Georgia,serif;
+    --sans:system-ui,-apple-system,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper:#0E1418; --raised:#161E24; --ink:#E6EDF0; --ink-2:#A5B4BC;
+      --ink-3:#74848D; --rule:#26323A; --rule-soft:#1D262C;
+      --accent:#52CFD6; --accent-dim:#122E33; --pass:#5FBF8C; --pass-dim:#132C21;
+      --fixed:#D9A253; --fixed-dim:#2E2415; --unfixed:#E0736F; --unfixed-dim:#2E1917;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8); }
+  }
+  :root[data-theme="dark"] { --paper:#0E1418; --raised:#161E24; --ink:#E6EDF0;
+    --ink-2:#A5B4BC; --ink-3:#74848D; --rule:#26323A; --rule-soft:#1D262C;
+    --accent:#52CFD6; --accent-dim:#122E33; --pass:#5FBF8C; --pass-dim:#132C21;
+    --fixed:#D9A253; --fixed-dim:#2E2415; --unfixed:#E0736F; --unfixed-dim:#2E1917;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.8); }
+  :root[data-theme="light"] { --paper:#F6F8F9; --raised:#FFFFFF; --ink:#131A21;
+    --ink-2:#46555F; --ink-3:#75858F; --rule:#DDE4E7; --rule-soft:#EAEFF1;
+    --accent:#0B7A87; --accent-dim:#E2F0F1; --pass:#2F7A55; --pass-dim:#E0EFE6;
+    --fixed:#B0761F; --fixed-dim:#F7EEDC; --unfixed:#A63A38; --unfixed-dim:#F6E3E2;
+    --shadow:0 1px 2px rgba(19,26,33,.05), 0 8px 24px -16px rgba(19,26,33,.28); }
+
+  * { box-sizing:border-box; }
+  body { background:var(--paper); color:var(--ink); font-family:var(--sans);
+    font-size:16px; line-height:1.6; margin:0; padding:0 1.25rem 6rem;
+    -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:62rem; margin:0 auto; }
+  .prose { max-width:40rem; }
+  h1,h2,h3 { font-family:var(--serif); font-weight:600; text-wrap:balance; margin:0; }
+  h1 { font-size:clamp(2rem,5vw,3rem); line-height:1.08; letter-spacing:-.015em; }
+  h2 { font-size:clamp(1.4rem,3vw,1.85rem); line-height:1.2; letter-spacing:-.01em; }
+  h3 { font-size:1.06rem; line-height:1.3; }
+  p { margin:0; }
+  a { color:var(--accent); text-underline-offset:2px; }
+  a:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+  .eyebrow { font-family:var(--mono); font-size:.7rem; text-transform:uppercase;
+    letter-spacing:.13em; color:var(--ink-3); margin:0; }
+  .num { font-family:var(--mono); font-variant-numeric:tabular-nums; }
+
+  header { padding:4rem 0 2.5rem; border-bottom:1px solid var(--rule); }
+  .lede { font-size:1.12rem; color:var(--ink-2); margin-top:1.25rem; }
+  .meta { margin-top:2rem; display:flex; flex-wrap:wrap; gap:.5rem 1.5rem;
+    font-family:var(--mono); font-size:.76rem; color:var(--ink-3); }
+  section { padding:3.5rem 0 0; }
+  .sec-head { display:flex; flex-direction:column; gap:.6rem; margin-bottom:1.75rem; }
+
+  /* pipeline */
+  .pipe { display:grid; grid-template-columns:repeat(auto-fit,minmax(9.5rem,1fr));
+    gap:1px; background:var(--rule); border:1px solid var(--rule);
+    border-radius:3px; overflow:hidden; }
+  .step { background:var(--raised); padding:1.1rem 1rem; display:flex;
+    flex-direction:column; gap:.4rem; }
+  .step-top { display:flex; align-items:center; gap:.5rem; }
+  .dot { width:.55rem; height:.55rem; border-radius:50%; background:var(--pass);
+    flex:none; }
+  .step-name { font-family:var(--mono); font-size:.82rem; font-weight:600; }
+  .step-t { font-family:var(--mono); font-variant-numeric:tabular-nums;
+    font-size:1.15rem; color:var(--ink); }
+  .step-d { font-size:.78rem; color:var(--ink-3); line-height:1.35; }
+
+  .callout { margin-top:2.5rem; padding:1.5rem 1.6rem; background:var(--raised);
+    border:1px solid var(--rule); border-left:3px solid var(--accent);
+    border-radius:3px; box-shadow:var(--shadow); }
+  .callout p + p { margin-top:.85rem; }
+
+  .scroll { overflow-x:auto; border:1px solid var(--rule); border-radius:3px;
+    background:var(--raised); }
+  table { border-collapse:collapse; width:100%; font-size:.86rem; }
+  th,td { text-align:left; padding:.6rem .8rem;
+    border-bottom:1px solid var(--rule-soft); vertical-align:top; }
+  thead th { font-family:var(--mono); font-size:.68rem; text-transform:uppercase;
+    letter-spacing:.09em; color:var(--ink-3); font-weight:500;
+    border-bottom:1px solid var(--rule); white-space:nowrap; }
+  tbody tr:last-child td { border-bottom:0; }
+  td.mono { font-family:var(--mono); font-size:.8rem; white-space:nowrap; }
+  .chip { display:inline-block; font-family:var(--mono); font-size:.68rem;
+    padding:.12rem .45rem; border-radius:2px; white-space:nowrap; }
+  .chip.pass { background:var(--pass-dim); color:var(--pass); }
+  .chip.fix { background:var(--fixed-dim); color:var(--fixed); }
+  .chip.open { background:var(--unfixed-dim); color:var(--unfixed); }
+
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));
+    gap:1rem; }
+  .card { background:var(--raised); border:1px solid var(--rule); border-radius:3px;
+    padding:1.3rem; box-shadow:var(--shadow); }
+  .card h3 { margin-bottom:.5rem; }
+  .card p { font-size:.88rem; color:var(--ink-2); }
+  .card .tag { font-family:var(--mono); font-size:.66rem; text-transform:uppercase;
+    letter-spacing:.1em; margin-bottom:.7rem; display:block; }
+
+  .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
+    gap:1px; background:var(--rule); border:1px solid var(--rule);
+    border-radius:3px; overflow:hidden; }
+  .stat { background:var(--raised); padding:1.15rem 1.25rem; }
+  .stat-v { font-family:var(--mono); font-variant-numeric:tabular-nums;
+    font-size:1.6rem; letter-spacing:-.02em; }
+  .stat-k { font-family:var(--mono); font-size:.68rem; text-transform:uppercase;
+    letter-spacing:.1em; color:var(--ink-3); margin-top:.3rem; }
+
+  ul { margin:0; padding-left:1.15rem; color:var(--ink-2); }
+  li + li { margin-top:.5rem; }
+  code { font-family:var(--mono); font-size:.88em; }
+  footer { margin-top:4rem; padding-top:2rem; border-top:1px solid var(--rule);
+    font-size:.82rem; color:var(--ink-3); }
+  @media (prefers-reduced-motion:reduce){ *{animation:none!important;transition:none!important} }
+</style>
+
+<div class="wrap">
+
+<header>
+  <p class="eyebrow">Agentic Lagrangian extraction &middot; week 9</p>
+  <h1>The loop closes end to end</h1>
+  <p class="lede prose">
+    Every stage now runs against real inputs: a real arXiv paper, a real FeynRules
+    compile, a real MadGraph import, a real independent re-reading, and a real ADS
+    query. Five stages, <span class="num">213 s</span>, no stubs.
+  </p>
+  <div class="meta">
+    <span>PR #11 ready for review</span><span>PR #23 closed</span>
+    <span>1,161 lines new</span><span>5 Aug 2026</span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Figure 1 &middot; end-to-end run, wall clock</p>
+    <h2>Every stage, on real inputs</h2>
+    <p class="prose" style="color:var(--ink-2)">
+      One paper (<span class="num">arXiv:1603.04993</span>, scalar leptoquark) carried
+      through the whole chain. Each box is the registered tool an agent would call,
+      not a helper.
+    </p>
+  </div>
+
+  <div class="pipe">
+    <div class="step">
+      <div class="step-top"><i class="dot"></i><span class="step-name">literature</span></div>
+      <div class="step-t">1.2s</div>
+      <div class="step-d">LaTeX e-print fetched and unpacked — 305,040 chars</div>
+    </div>
+    <div class="step">
+      <div class="step-top"><i class="dot"></i><span class="step-name">frgen</span></div>
+      <div class="step-t">0.0s</div>
+      <div class="step-d">Spec rendered to a FeynRules <code>.fr</code></div>
+    </div>
+    <div class="step">
+      <div class="step-top"><i class="dot"></i><span class="step-name">validate</span></div>
+      <div class="step-t">44.4s</div>
+      <div class="step-d">10/10 checks: UFO compile, Hermiticity, kinetic, mass, MadGraph import</div>
+    </div>
+    <div class="step">
+      <div class="step-top"><i class="dot"></i><span class="step-name">reverse</span></div>
+      <div class="step-t">144.3s</div>
+      <div class="step-d">Blank-slate reconstruction, 3-page REVIEW.pdf</div>
+    </div>
+    <div class="step">
+      <div class="step-top"><i class="dot"></i><span class="step-name">limits</span></div>
+      <div class="step-t">23.4s</div>
+      <div class="step-d">6 ATLAS/CMS leptoquark searches from ADS</div>
+    </div>
+  </div>
+
+  <div class="callout prose">
+    <p><b>The reverse check runs on Claude now, not codex.</b></p>
+    <p style="color:var(--ink-2)">
+      The codex account hit its usage limit mid-run &mdash; visible in the agent's own
+      stderr. Repointing <code>blank_agent_cmd</code> at the <code>claude</code> CLI
+      took one config line, because the bundle takes a command template rather than a
+      vendor SDK. That unblocked the item parked since week 7, and it means the four
+      review packages that died on transport errors can be regenerated.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">New this week</p>
+    <h2>Closing the loop with experiment</h2>
+    <p class="prose" style="color:var(--ink-2)">
+      <code>reverse</code> asks whether the <code>.fr</code> matches the paper it came
+      from. These ask the other question: whether the model is already excluded. A model
+      can transcribe its source perfectly and still describe a region ruled out years
+      earlier.
+    </p>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <span class="tag" style="color:var(--accent)">ads_interface.py</span>
+      <h3>NASA ADS client</h3>
+      <p>
+        Reaches the published astrophysical and cosmological literature INSPIRE and
+        arXiv searches miss, and searches paper bodies rather than just abstracts —
+        which is where a numeric limit usually sits.
+      </p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color:var(--accent)">constraints.py</span>
+      <h3>Model → limit queries</h3>
+      <p>
+        Maps field content onto the words experimenters use, so
+        <code>S1_LQ_RR</code> reaches "leptoquark". Then reads bounds out of prose in
+        the three forms limits are normally written, keeping the source sentence for
+        every record.
+      </p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color:var(--accent)">limits_tools.py</span>
+      <h3>Three agent tools</h3>
+      <p>
+        Search, find-limits, extract-constraints. Without an ADS token they degrade to
+        returning the queries to run by hand rather than failing.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">What testing against the real service changed</p>
+    <h2>The mocked tests were confidently wrong</h2>
+    <p class="prose" style="color:var(--ink-2)">
+      Every unit test passed while the tool returned the wrong papers. The first live
+      query for a leptoquark model returned <i>"B-physics anomalies: a guide to combined
+      explanations"</i> — a theory review, not a limit. Three separate bugs, none
+      reachable without a real token.
+    </p>
+  </div>
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Bug</th><th>Why it happened</th><th>Fix</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="mono">wrong<br>discriminator</td>
+          <td><code>abs:"ATLAS"</code> matches phenomenology that merely mentions ATLAS.</td>
+          <td>ADS indexes collaboration papers under <code>"ATLAS Collaboration"</code> as an <b>author</b>. Now returns <i>"Search for a leptoquark in events with…"</i></td>
+        </tr>
+        <tr>
+          <td class="mono">ranking<br>inverted</td>
+          <td>Sorted by citations — but a review of a model is cited far more than the experiment constraining it.</td>
+          <td>Experimental searches sort newest first; a 2026 limit supersedes the 2015 one. Citations only tie-break.</td>
+        </tr>
+        <tr>
+          <td class="mono">bound<br>silently lost</td>
+          <td>"masses between 1.5 and 3.0 TeV are excluded" matched the single-sided pattern on its upper number.</td>
+          <td>Ranges are their own record kind carrying both edges, matched first so they cannot be double-counted.</td>
+        </tr>
+        <tr>
+          <td class="mono">query<br>timeout</td>
+          <td>Full-text ADS searches scan paper bodies; a 30s ceiling with no retry dropped a whole query.</td>
+          <td>90s with one retry. That stage went from timing out at 50.8s to 6 papers in 23.4s.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="prose" style="margin-top:1rem; font-size:.88rem; color:var(--ink-3)">
+    A fifth bug surfaced the moment a real token existed: a token-precedence test
+    asserted the environment variable wins, which only held on a machine with no
+    configured token. It now neutralises the config leg explicitly.
+  </p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Upstream</p>
+    <h2>Moved to the dev repo</h2>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-v">58</div><div class="stat-k">files</div></div>
+    <div class="stat"><div class="stat-v">+9,911</div><div class="stat-k">lines</div></div>
+    <div class="stat"><div class="stat-v">15</div><div class="stat-k">commits</div></div>
+    <div class="stat"><div class="stat-v">0</div><div class="stat-k">conflicts</div></div>
+  </div>
+  <div class="callout prose" style="border-left-color:var(--fixed)">
+    <p><b>The dev repo already had a <code>tools/literature</code> bundle.</b></p>
+    <p style="color:var(--ink-2)">
+      Tony merged TeX-faithful PDF extraction six days ago, colliding with ours on
+      <code>__init__.py</code> and <code>test_literature.py</code>. It resolved cleanly:
+      his README already said the LaTeX source is authoritative and PDF→TeX is the
+      fallback for papers without one — and <code>ArxivSourceTool</code> <i>is</i> that
+      preferred path. One bundle, three stages: find, read, check.
+    </p>
+    <p style="color:var(--ink-2)">
+      His six files are byte-identical. We also deleted our own PDF-to-text tool: it
+      used PyMuPDF and flattened equations, the exact failure his tool exists to fix.
+      That removed a dependency rather than adding one.
+    </p>
+  </div>
+  <div class="scroll" style="margin-top:1.5rem">
+    <table>
+      <thead><tr><th>Also fixed on dev</th><th></th></tr></thead>
+      <tbody>
+        <tr><td><span class="chip fix">pre-existing</span></td>
+            <td><code>test_runner.py --only literature</code> failed on <code>main</code>: a pytest module was run as a plain script, collecting nothing and exiting non-zero while all 38 tests pass under pytest.</td></tr>
+        <tr><td><span class="chip fix">pre-existing</span></td>
+            <td>A blanket <code>*.log</code> ignore silently dropped the checks-log fixture <code>test_validate.py</code> reads, so a fresh clone had the test without its input.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <p class="eyebrow">Honest gaps</p>
+    <h2>What does not work yet</h2>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <span class="tag" style="color:var(--unfixed)">Blocking</span>
+      <h3>The LLM extract stage</h3>
+      <p>
+        Run against the local <code>qwen2.5:14b</code> on 24k chars of raw LaTeX, it
+        returned a model named <code>text-davinci-003</code>, authors from a 1987 paper,
+        and <b>zero particles</b>. The empty spec then correctly failed to compile.
+      </p>
+      <p style="margin-top:.6rem">
+        This is a capability gap, not a tool bug — the chain propagated the failure
+        exactly as it should. Needs a stronger model, or the relevant section fed in
+        rather than the whole preamble.
+      </p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color:var(--fixed)">Expected</span>
+      <h3>Bounds are in bodies, not abstracts</h3>
+      <p>
+        The limit search returns the right papers, but extracting numbers from their
+        abstracts yielded nothing: a 2026 abstract said limits were set "for masses
+        between 1.5 and 3.0 TeV" without stating the bound. The extractor correctly
+        reported none. The numbers live in the paper body — which is what
+        <code>ArxivSourceTool</code> and <code>PDFToTeXTool</code> are for.
+      </p>
+    </div>
+    <div class="card">
+      <span class="tag" style="color:var(--ink-3)">Carried over</span>
+      <h3>Nine unscoreable models</h3>
+      <p>
+        From week 8's correction. Each needs someone to declare which Lagrangian is the
+        model; four are genuine physics choices. Every answer moves a model out of
+        <code>unscored/</code>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>
+    End-to-end run: <span class="num">5/5</span> stages,
+    <span class="num">213.3 s</span>, against arXiv:1603.04993 with FeynRules,
+    Wolfram Engine, MadGraph 3.7.2 and live NASA ADS. Artifacts produced: unpacked
+    e-print, generated <code>.fr</code>, UFO with <code>particles.py</code> and
+    <code>vertices.py</code>, and a 3-page <code>REVIEW.pdf</code>.
+  </p>
+</footer>
+
+</div>

@@ -1,0 +1,126 @@
+# This file was automatically created by FeynRules 2.3.49
+# Mathematica version: 15.0.0 for Mac OS X ARM (64-bit) (May 26, 2026)
+# Date: Wed 30 Sep 2026 07:11:04
+
+
+# 
+# This is the logfile for the model pSPSS_gen
+
+# Authors: extraction from arXiv:2210.10738
+# Model version: 1.0
+# Checking the Quantum numbers
+   * Electric charge defined.
+# Checking the Lagrangians
+   * All Lagrangians are ok.
+#
+# Particle definitions
+#
+
+   * No particles removed. All particles correspond to GenInt setup.
+
+# Automatically assigned PDG numbers
+   * Assigned PDG number 9000001 to particle ghA
+   * Assigned PDG number 9000002 to particle ghZ
+   * Assigned PDG number 9000003 to particle ghWp
+   * Assigned PDG number 9000004 to particle ghWm
+
+
+# Compulsory PDG codes:
+   * Class SM leptons complete.
+   * Class SM neutrinos complete.
+   * Class SM quarks complete.
+   * Class SM gauge bosons complete.
+#
+# Parameter definitions
+#
+
+   * Parameter Un1x4 is complex, but declared as real. Changing type to complex.
+   * Parameter Un2x4 is complex, but declared as real. Changing type to complex.
+   * Parameter Un3x4 is complex, but declared as real. Changing type to complex.
+   * Parameter UnCL1x4 is complex, but declared as real. Changing type to complex.
+   * Parameter UnCL2x4 is complex, but declared as real. Changing type to complex.
+   * Parameter UnCL3x4 is complex, but declared as real. Changing type to complex.
+   * Parameter Un4x4 is complex, but declared as real. Changing type to complex.
+   * Parameter Un5x4 is complex, but declared as real. Changing type to complex.
+
+
+# Vertices
+   * Calling FeynmanRules for 1 Lagrangians.
+   * Number of classes vertices: 202
+   * Number of flavored vertices: 202
+   * Saved vertices in InterfaceRun[ 1 ].
+   * Checked QNumber conservation.
+      - Quantum number GhostNumber conserved in all vertices.
+      - Quantum number LeptonNumber NOT conserved in the following vertices
+          {GPbar, ebar, n4}
+          {GPbar, mubar, n4}
+          {GPbar, tabar, n4}
+          {G0, vebar, n4}
+          {H, vebar, n4}
+          {G0, vmbar, n4}
+          {H, vmbar, n4}
+          {G0, vtbar, n4}
+          {H, vtbar, n4}
+          {GPbar, ebar, n5}
+          {GPbar, mubar, n5}
+          {GPbar, tabar, n5}
+          {G0, vebar, n5}
+          {H, vebar, n5}
+          {G0, vmbar, n5}
+          {H, vmbar, n5}
+          {G0, vtbar, n5}
+          {H, vtbar, n5}
+          {GP, n4, e}
+          {G0, n4, ve}
+          {H, n4, ve}
+          {GP, n5, e}
+          {G0, n5, ve}
+          {H, n5, ve}
+          {GP, n4, mu}
+          {G0, n4, vm}
+          {H, n4, vm}
+          {GP, n5, mu}
+          {G0, n5, vm}
+          {H, n5, vm}
+          {GP, n4, ta}
+          {G0, n4, vt}
+          {H, n4, vt}
+          {GP, n5, ta}
+          {G0, n5, vt}
+          {H, n5, vt}
+      - Quantum number Q NOT conserved in the following vertices
+          {W}
+          {Wbar}
+      - Quantum number Y conserved in all vertices.
+   * particles.py written.
+   * parameters.py written.
+#
+# Vertex definitions
+#
+
+   * 202 vertices written.
+   * vertices.py written.
+#
+# Lorentz structure definitions
+#
+
+   * 21 lorentz structures written.
+   * lorentz.py written.
+#
+# Coupling definitions
+#
+
+   * 160 couplings written.
+   * couplings.py written.
+#
+# Coupling order definitions
+#
+
+   * 0 couplings orders written.
+   * coupling_orders.py written.
+#
+# CTCoupling definitions
+#
+
+   * 0 CTcouplings written.
+   * CT_couplings.py written.

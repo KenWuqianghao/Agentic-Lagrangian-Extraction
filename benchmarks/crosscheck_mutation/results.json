@@ -1,0 +1,1271 @@
+[
+  {
+    "id": "Top-Philic-Zprime__control",
+    "page": "Top-Philic-Zprime",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3_notools/s2/model/Top-Philic-Zprime_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null,
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 30,
+    "n_flagged": 6,
+    "n_substantive": 0,
+    "rule_hits": [],
+    "rule_detected": null,
+    "judge": {
+      "named": "n/a",
+      "quote": "",
+      "severity": "none",
+      "other_substantive": 1,
+      "other_list": "D2: reconstruction's narrative claims loop-level gg -> V1 production and V1 -> gg, gamma-gamma decays through the top loop, which the paper never states and which the Landau-Yang theorem forbids for an on-shell process; the paper instead gives only pp -> V1 + j and off-shell gg -> V1* -> t tbar (Sec. II B, item 1).",
+      "note": "The reviewer correctly finds the model file matches the paper term by term and flags the one substantive issue (D2) as narrative text outside the Lagrangian, so a physicist would be pointed at the right open item without being misled about the implemented model."
+    }
+  },
+  {
+    "id": "Top-Philic-Zprime__factor2",
+    "page": "Top-Philic-Zprime",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3_notools/s2/model/Top-Philic-Zprime_gen.fr",
+    "operator": "factor2",
+    "term": "LV1Top",
+    "tokens": [
+      "LV1Top",
+      "2"
+    ],
+    "defect": "Whole term `LV1Top` multiplied by 2 (coupling normalisation off by a factor of two).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 20,
+    "n_flagged": 5,
+    "n_substantive": 2,
+    "rule_hits": [
+      "**Overall factor 2 in the top current (`LV1Top` vs Eq. (1)) \u2014 substantive.**",
+      "**Unbalanced parentheses in `LV1Top` \u2014 substantive (implementation, not physics).**"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "Overall factor 2 in the top current (`LV1Top` vs Eq. (1)) \u2014 substantive. The paper's Eq. (1) has no prefactor, and $c_L$, $c_R$ are already the full couplings. The factor 2 doubles every $V_1 t\\bar t$ vertex, so it multiplies the $t\\bar t t\\bar t$ signal cross section by 4 and the width by 4.",
+      "severity": "substantive",
+      "other_substantive": 1,
+      "other_list": "Unbalanced parentheses in `LV1Top` \u2014 substantive (implementation, not physics): the reconstruction reports a closing paren after the statement terminator, which means the definition does not evaluate and no vertex is produced.",
+      "note": "The reviewer names the exact term (LV1Top) and the exact kind of error (a factor-of-2 normalization), backs it with two independent checks against the paper (the width in Eq. (2) and the contact term in Eq. (3)), and tells a physicist precisely what to open and fix, so it sends them to the right place."
+    }
+  },
+  {
+    "id": "Top-Philic-Zprime__drop_term",
+    "page": "Top-Philic-Zprime",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3_notools/s2/model/Top-Philic-Zprime_gen.fr",
+    "operator": "drop_term",
+    "term": "LV1Top",
+    "tokens": [
+      "LV1Top"
+    ],
+    "defect": "Interaction term `LV1Top` deleted from the model and from the total Lagrangian (a whole interaction is missing).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 23,
+    "n_flagged": 4,
+    "n_substantive": 1,
+    "rule_hits": [],
+    "rule_detected": false,
+    "judge": {
+      "named": "yes",
+      "quote": "D4. The interaction term is absent from the implementation file. ... The reconstruction reports that `LTotal := LV1Kin` holds only the Proca kinetic and mass terms, and that `ct`, `thV1`, `ctL`, `ctR` are declared but used nowhere.",
+      "severity": "substantive",
+      "other_substantive": 0,
+      "other_list": "",
+      "note": "The reviewer correctly isolates the deleted LV1Top interaction as the one substantive gap and tells a physicist exactly where to look, so it sends them to the right place."
+    }
+  },
+  {
+    "id": "Top-Philic-Zprime__swap_chirality",
+    "page": "Top-Philic-Zprime",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3_notools/s2/model/Top-Philic-Zprime_gen.fr",
+    "operator": "swap_chirality",
+    "term": "LV1Kin",
+    "tokens": [
+      "LV1Kin",
+      "ProjM",
+      "ProjP"
+    ],
+    "defect": "First `ProjM` in `LV1Kin` changed to `ProjP` (a left-handed current became right-handed).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 19,
+    "n_flagged": 8,
+    "n_substantive": 1,
+    "rule_hits": [
+      "(no counterpart \u2014 paper writes only $\\mathcal L_{int}$) | `LV1Kin` $= -\\frac14 F^V_{\\mu\\nu}F^{V\\mu\\nu} + \\frac12 M_{V_1}^2 V_\\mu V^\\mu$ | **extra-in-reconstruction** | Standard Proca normalisation for a real vector; required for any simulation, implied but never written by the paper."
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "no",
+      "quote": "",
+      "severity": "none",
+      "other_substantive": 1,
+      "other_list": "D1 (substantive): the reconstruction wrongly claims Eq. (1) needs +HC unless c_L=c_R, misstating the adjoint of a chiral current (a reasoning error, unrelated to the injected chirality-swap defect).",
+      "note": "Row 31 of the reviewer's table explicitly says the c_L/c_R assignment to ProjM/ProjP agrees with the paper and states 'No chirality swap,' so a physicist relying on this document would be told the chirality is correct and would not go looking for the injected left-right swap."
+    }
+  },
+  {
+    "id": "EffLRSM__control",
+    "page": "EffLRSM",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null,
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 23,
+    "n_flagged": 2,
+    "n_substantive": 1,
+    "rule_hits": [],
+    "rule_detected": null,
+    "judge": {
+      "named": "n/a",
+      "quote": "",
+      "severity": "none",
+      "other_substantive": 1,
+      "other_list": "D3 (\"Half the naive strength\" for the Z_R N N vertex, severity substantive): the reconstruction claims the Majorana bilinear identity N\u0304 \u03b3^\u03bc P_R N = (1/2) N\u0304 \u03b3^\u03bc \u03b3_5 N implies the Z_R N N vertex is purely axial with half the naive strength, but the paper's own Table II width \u0393(Z_R \u2192 N_1 N_1) = 10.2 GeV (matched by the reconstruction's 10.18 GeV) is reproduced without any extra 1/2 factor; a literal 1/2 in the vertex would lower the rate by a factor of 4, to about 2.5 GeV.",
+      "note": "The reviewer correctly finds the reconstruction matches the paper term-by-term and numerically on all nine partial widths, and correctly isolates the one real physics error (D3's unsupported vertex-strength claim), so a physicist reading this would be sent to the right place."
+    }
+  },
+  {
+    "id": "EffLRSM__flip_charge",
+    "page": "EffLRSM",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+    "operator": "flip_charge",
+    "term": "WR",
+    "tokens": [
+      "WR",
+      "Q"
+    ],
+    "defect": "Quantum number `Q` of class `WR` flipped from 1 to -1.",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 29,
+    "n_flagged": 7,
+    "n_substantive": 1,
+    "rule_hits": [
+      "$W_R^{+}$ is the field in Eq. `(chcurrent)` and in the lepton current; MG5 process `p p > wr+ > n1 e+` (App. A, line 1045) | `WR` declared with `QuantumNumbers -> {Q -> -1}`, `ParticleName -> \"wr+\"` | **disagree** | The paper's currents ($\\overline{u}\\gamma^\\mu P_R d$, $\\overline{N}\\gamma^\\mu P_R\\el",
+      "*D1. Electric charge of `WR` declared as $Q=-1$. Severity: substantive.**"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "D1. Electric charge of `WR` declared as $Q=-1$. Severity: substantive. The paper writes $W_{R\\mu}^{+}$ in both charged-current equations, and App. A generates `p p > wr+ > n1 e+`. ... if so, the charge must be changed to $+1$, because every $W_R$ vertex would otherwise break charge conservation and the MG5 commands in App. A would fail.",
+      "severity": "substantive",
+      "other_substantive": 0,
+      "other_list": "",
+      "note": "The reviewer isolates the exact field, the exact wrong number, and the exact fix, so a physicist would go straight to the WR charge declaration."
+    }
+  },
+  {
+    "id": "EffLRSM__drop_cc",
+    "page": "EffLRSM",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+    "operator": "drop_cc",
+    "term": "LWRl",
+    "tokens": [
+      "LWRl",
+      "CC",
+      "vlbar"
+    ],
+    "defect": "Charge conjugation dropped in `LWRl`: `CC[vlbar]` -> `vlbar` (the fermion-number-violating structure becomes a fermion-number-conserving one).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 30,
+    "n_flagged": 8,
+    "n_substantive": 0,
+    "rule_hits": [
+      "$\\mathcal{L}_{W_R\\text{-}\\ell\\text{-}\\nu/N}$, light piece $\\overline{\\nu^{c}_{m}}X_{\\ell m}W^+_{R\\mu}\\gamma^\\mu P_R\\ell^-$ (L296) | $-\\frac{\\kappa_R^\\ell g_L}{\\sqrt2}\\bar\\nu_i (X_N)_{ij}\\gamma^\\mu P_R \\ell_j W_{R\\mu}$ (\u00a71.5), with **no** `CC` in the file (\u00a70, \u00a75.1) | **disagree** | The paper conjuga"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "D1. The charge conjugation on the light neutrino is absent \u2014 substantive. The paper writes the light-neutrino piece of the $W_R$ lepton current as $\\overline{\\nu^{c}_{m}}X_{\\ell m}\\,W^+_{R\\mu}\\gamma^\\mu P_R\\,\\ell^-$ (L296). The file carries `vlbar.XN.Ga[mu].ProjP.l`, i.e. $\\bar\\nu$ with no conjugation, and the reconstruction records that the file holds no `CC` operator anywhere (\u00a70, \u00a75.1).",
+      "severity": "substantive",
+      "other_substantive": 0,
+      "other_list": "",
+      "note": "D1 correctly locates the defect in the LWRl light-neutrino bilinear, correctly identifies it as a missing charge-conjugation (fermion-number-violating structure turned fermion-number-conserving), and rates it substantive, so the write-up sends a physicist straight to the right term and the right kind of error."
+    }
+  },
+  {
+    "id": "EffLRSM__sqrt_swap",
+    "page": "EffLRSM",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+    "operator": "sqrt_swap",
+    "term": "nZRq",
+    "tokens": [
+      "nZRq",
+      "Sqrt"
+    ],
+    "defect": "Parameter `nZRq`: `Sqrt[1 - tw2/kapRq^2]` replaced by `1/Sqrt[1 - tw2/kapRq^2]` (a normalisation that divides now multiplies).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 35,
+    "n_flagged": 6,
+    "n_substantive": 0,
+    "rule_hits": [],
+    "rule_detected": false,
+    "judge": {
+      "named": "yes",
+      "quote": "D1 \u2014 The $Z_R$ quark normalisation inverts the square root. Severity: substantive. The paper uses one prefactor for every fermion $f$: divide by the square root. The reconstructed quark line multiplies by the square root. The square root is inverted.",
+      "severity": "substantive",
+      "other_substantive": 0,
+      "other_list": "",
+      "note": "The reviewer names the exact parameter (nZRq), states the error correctly as a divide-vs-multiply inversion, quantifies its size with a recomputed width table against Table II, and tells a physicist exactly where to look in sanitized.fr, so it sends them to the right place."
+    }
+  },
+  {
+    "id": "EffLRSM__factor2",
+    "page": "EffLRSM",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+    "operator": "factor2",
+    "term": "LWRq",
+    "tokens": [
+      "LWRq",
+      "2"
+    ],
+    "defect": "Whole term `LWRq` multiplied by 2 (coupling normalisation off by a factor of two).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 26,
+    "n_flagged": 4,
+    "n_substantive": 1,
+    "rule_hits": [],
+    "rule_detected": false,
+    "judge": {
+      "named": "yes",
+      "quote": "D1 \u2014 Overall factor 2 on the quark $W_R$ charged current. Severity: substantive. Eq. (`chcurrent`) has the coefficient $-\\kappa_R^q g/\\sqrt2$ and no extra factor; the reconstruction's `LWRq` multiplies the whole term and its h.c. by 2, giving $-\\sqrt2\\,\\kappa_R^q g$.",
+      "severity": "substantive",
+      "other_substantive": 0,
+      "other_list": "",
+      "note": "The reviewer isolates the exact defective term and coefficient, ties it to a concrete numerical contradiction in the paper's own width table, and tells the physicist precisely what to check, so it would send them to the right place."
+    }
+  },
+  {
+    "id": "EffLRSM__drop_term",
+    "page": "EffLRSM",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+    "operator": "drop_term",
+    "term": "LZRl",
+    "tokens": [
+      "LZRl"
+    ],
+    "defect": "Interaction term `LZRl` deleted from the model and from the total Lagrangian (a whole interaction is missing).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 24,
+    "n_flagged": 3,
+    "n_substantive": 0,
+    "rule_hits": [],
+    "rule_detected": false,
+    "judge": {
+      "named": "yes",
+      "quote": "D1 \u2014 The leptonic $Z_R$ current is missing. ... The reconstruction reports that `LTotal` holds `LZRq` only, so $Z_R$ couples to quarks alone.",
+      "severity": "substantive",
+      "other_substantive": 0,
+      "other_list": "",
+      "note": "The reviewer isolates the missing LZRl term as the single substantive gap, backs it with two independent cross-checks (dead parameters and a width mismatch), and tells the physicist exactly where to look, so its overall assessment points to the right place."
+    }
+  },
+  {
+    "id": "EffLRSM__swap_chirality",
+    "page": "EffLRSM",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+    "operator": "swap_chirality",
+    "term": "LWRq",
+    "tokens": [
+      "LWRq",
+      "ProjM",
+      "ProjP"
+    ],
+    "defect": "First `ProjP` in `LWRq` changed to `ProjM` (a right-handed current became left-handed).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 30,
+    "n_flagged": 6,
+    "n_substantive": 2,
+    "rule_hits": [
+      "$\\mathcal{L}_{W_R\\text{-}q\\text{-}q'}=\\frac{-\\kappa_R^q g}{\\sqrt2}\\,\\overline{u}_i V^{\\rm CKM'}_{ij}\\,W^+_{R\\mu}\\gamma^\\mu \\mathbf{P_R}\\,d_j+\\text{H.c.}$ (Eq. `chcurrent`) | `LWRq`: $-\\frac{\\kappa_R^q g}{\\sqrt2}\\,\\overline{u}_i (V^R_{\\rm CKM})_{ij}\\gamma^\\mu \\mathbf{P_L}\\,d_j\\,W_{R\\mu}+\\text{h.c.}$ "
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "Chirality of the $W_R$ quark current \u2014 SUBSTANTIVE. Eq. (`chcurrent`) uses $P_R$. The reconstruction has `ProjM` $=P_L$ in `LWRq`.",
+      "severity": "substantive",
+      "other_substantive": 0,
+      "other_list": "",
+      "note": "The reviewer names the exact term (LWRq) and the exact error (P_R swapped to P_L), marks it substantive, and explains why width checks miss it, so it sends a physicist straight to the right place."
+    }
+  },
+  {
+    "id": "GeneralU1__control",
+    "page": "GeneralU1",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s1/model/GeneralU1_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null,
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 40,
+    "n_flagged": 7,
+    "n_substantive": 2,
+    "rule_hits": [],
+    "rule_detected": null,
+    "judge": {
+      "named": "n/a",
+      "quote": "",
+      "severity": "none",
+      "other_substantive": 3,
+      "other_list": "D3 - Missing trilinear Higgs portal term lambda' v_Phi H_X (H^dag H); substantive but likely intended, matches the paper's small-lambda' limit.\nD4 - Seesaw mass matrix not diagonalised, so no explicit light-heavy mixing angle; substantive for neutrino observables, irrelevant to the paper's e+e- to f fbar analysis.\nD5 - No Z'-doublet current and no Z-Z' mass mixing from |D_mu H|^2; substantive in general, but consistent with the paper's own treatment, which never writes those vertices either.",
+      "note": "The reviewer's overall assessment is accurate and would send a physicist to the right place: it confirms the reconstruction matches the paper term by term, correctly separates paper typos (D2, D6) and a notation choice (D1) from real omissions (D3, D4, D5), and points the reader straight at D3 and D5 as the checks that matter most."
+    }
+  },
+  {
+    "id": "GeneralU1__drop_eps",
+    "page": "GeneralU1",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s1/model/GeneralU1_gen.fr",
+    "operator": "drop_eps",
+    "term": "LNuYuk",
+    "tokens": [
+      "LNuYuk",
+      "Eps",
+      "ii"
+    ],
+    "defect": "SU(2) epsilon contraction removed from `LNuYuk`: `Eps[ii, jj]` dropped and both doublets contracted on the shared index `ii` (the term is no longer an SU(2) singlet).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 32,
+    "n_flagged": 6,
+    "n_substantive": 1,
+    "rule_hits": [
+      "\\(-Y_\\nu^{\\alpha\\beta}\\overline{\\ell_L^\\alpha}HN_R^\\beta+{\\rm H.c.}\\) (Eq.~`LYk`, term 4) | `LNuYuk` \\(=-(y_\\nu)_{ij}\\bar L_L^{a,i}P_RN^j(\\Phi^\\dagger)_a+{\\rm h.c.}\\), \u00a71.8 | **disagree** | The doublet indices are contracted **directly**, with no \\(\\epsilon_{ab}\\). In the FeynRules convention the in"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "The doublet indices are contracted directly, with no \\epsilon_{ab}. In the FeynRules convention the invariant form needs \\epsilon_{ab}\\bar L_L^{a}N_R(\\Phi^\\dagger)_b... As written the term is not SU(2)_L invariant and it couples N to the charged leptons.",
+      "severity": "substantive",
+      "other_substantive": 0,
+      "other_list": "",
+      "note": "The reviewer isolates the dropped Eps[ii,jj] contraction on LNuYuk as the single substantive defect and tells the human to check it first, which sends a physicist straight to the injected error."
+    }
+  },
+  {
+    "id": "GeneralU1__flip_charge",
+    "page": "GeneralU1",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s1/model/GeneralU1_gen.fr",
+    "operator": "flip_charge",
+    "term": "NR",
+    "tokens": [
+      "NR",
+      "LeptonNumber"
+    ],
+    "defect": "Quantum number `LeptonNumber` of class `NR` flipped from 1 to -1.",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 43,
+    "n_flagged": 7,
+    "n_substantive": 3,
+    "rule_hits": [
+      "$L(N_R)=+1$, required by $\\overline{\\ell_L}HN_R$ in Eq. (LYk) and by $x_{N_R}=-x_\\Phi$ (i.e. $B-L=-1$) | `NR` declares `LeptonNumber -> -1` | **disagree** | Bookkeeping only, no vertex changes. See D-5.",
+      "\u2014 | `NR` as an `Unphysical -> True` shorthand for $P_RN_X$ | **extra-in-reconstruction** | Pure FeynRules idiom. No physics content, no new degree of freedom."
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "The paper's Eq. (LYk) term $-Y_\\nu\\overline{\\ell_L}HN_R$ conserves lepton number only for $L(N_R)=+1$, and the paper's own charge $x_{N_R}=-x_\\Phi$ is the $B-L=-1$ assignment, which also means $L=+1$. The file declares `LeptonNumber -> -1`.",
+      "severity": "convention",
+      "other_substantive": 3,
+      "other_list": [
+        "D-1: sign flip in the Higgs doublet's U(1)_X charge, $x_{H_d}=+x_H/2$ in the reconstruction vs the paper's $-x_H/2$ in Table I and Table II.",
+        "D-2: missing trilinear term $-\\lambda' v_X H_X(H^\\dagger H)$ from the scalar potential; only the quartic piece $-\\frac{\\lambda'}{2}H_X^2(H^\\dagger H)$ is present.",
+        "D-3: missing $|D_\\mu H|^2$ terms for the U(1)_X-charged Higgs doublet (no $Z$-$Z'$ mixing or $Z'Z'h$/$Z'Zh$ vertices), even though $M_{Z'}$ already includes the $v^2$ piece that implies them."
+      ],
+      "note": "The reviewer names the exact injected defect, correctly assesses it as a bookkeeping-only sign flip with no vertex or prediction impact, and the surrounding term-by-term comparison is thorough enough to send a physicist to the right places in both documents."
+    }
+  },
+  {
+    "id": "GeneralU1__sqrt_swap",
+    "page": "GeneralU1",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s1/model/GeneralU1_gen.fr",
+    "operator": "sqrt_swap",
+    "term": "MHX",
+    "tokens": [
+      "MHX",
+      "Sqrt"
+    ],
+    "defect": "Parameter `MHX`: `Sqrt[2 lamX vX^2]` replaced by `1/Sqrt[2 lamX vX^2]` (a normalisation that divides now multiplies).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 34,
+    "n_flagged": 6,
+    "n_substantive": 4,
+    "rule_hits": [
+      "\u2014 | `MHX`, `WHX` $=0.1$ GeV, `WNX` $=10^{-10}$ GeV, PDG codes 9900032 / 9900025 / 9900012-14-16 | **extra-in-reconstruction** | Implementation data with no paper counterpart. Widths of $H_X$ and $N_i$ are not predicted by the paper.",
+      "*D2 \u2014 `MHX` is an inverse mass. Severity: substantive.**"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "D2 \u2014 `MHX` is an inverse mass. Severity: substantive. The reconstruction reports `MHX -> 1/Sqrt[2 lamX vX^2]`, which gives $2.4\\times10^{-4}\\ {\\rm GeV}^{-1}$ instead of the $\\sqrt{2\\lambda_\\Phi v_\\Phi^2}\\simeq 4193$ GeV that Eq. (2) with Eq. (3) requires.",
+      "severity": "substantive",
+      "other_substantive": 3,
+      "other_list": "D3 \u2014 the portal trilinear -lambda' v_Phi H_X Phi-dagger-Phi is absent (substantive).\nD4 \u2014 no Z-Z' mass mixing and no Z'Z'h or ZZ'h vertices from the |D_mu H|^2 term (substantive, small in size).\nD9 \u2014 the reconstruction's own closing claim that `LNuYuk` breaks U(1)_X is wrong; a sign slip in its commentary, not in the Lagrangian (substantive, commentary).",
+      "note": "The reviewer names the injected MHX defect clearly, calls it the largest problem, and gives the correct value, so it would send a physicist to the right place."
+    }
+  },
+  {
+    "id": "GeneralU1__factor2",
+    "page": "GeneralU1",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s1/model/GeneralU1_gen.fr",
+    "operator": "factor2",
+    "term": "LZpF",
+    "tokens": [
+      "LZpF",
+      "2"
+    ],
+    "defect": "Whole term `LZpF` multiplied by 2 (coupling normalisation off by a factor of two).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 28,
+    "n_flagged": 6,
+    "n_substantive": 3,
+    "rule_hits": [
+      "$Z'$ fermion current, overall coefficient $-g'$, Eq. (6) | `LZpF` overall coefficient $-2g_X$ (Sec. 1.2, Note 1) | **disagree** | Extra factor of 2 on every $Z'$\u2013fermion vertex. See D1."
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "$Z'$ fermion current, overall coefficient $-g'$, Eq. (6) | `LZpF` overall coefficient $-2g_X$ (Sec. 1.2, Note 1) | **disagree** | Extra factor of 2 on every $Z'$-fermion vertex. See D1.",
+      "severity": "substantive",
+      "other_substantive": 2,
+      "other_list": "D2. Missing h-H_X mixing term: the file keeps the H_X^2(H-dagger H) piece of the portal quartic but drops the v_Phi H_X(H-dagger H) cubic piece, so the two scalars never mix at tree level. Severity: substantive.\nD3. Missing Z'-H vertex and Z-Z' mass mixing: MZp keeps the (1/4)x_H^2 v^2 piece from |D_mu H|^2 but no corresponding Z'-H coupling or Z-Z' mixing is written. Severity: substantive, small in size.",
+      "note": "The review puts the factor-of-2 defect front and center as D1, corroborates it from three independent angles (the explicit 2 in LZpF, the unmultiplied MZp and LZpHX normalisation, and the stored width matching Eqs. 7-8 only without the 2), and tells the human to weigh it first, so it would send a physicist to the right place."
+    }
+  },
+  {
+    "id": "GeneralU1__drop_term",
+    "page": "GeneralU1",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s1/model/GeneralU1_gen.fr",
+    "operator": "drop_term",
+    "term": "LPotX",
+    "tokens": [
+      "LPotX"
+    ],
+    "defect": "Interaction term `LPotX` deleted from the model and from the total Lagrangian (a whole interaction is missing).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 34,
+    "n_flagged": 4,
+    "n_substantive": 0,
+    "rule_hits": [],
+    "rule_detected": false,
+    "judge": {
+      "named": "yes",
+      "quote": "V = -m_h^2(H^\\dagger H) + \\lambda(H^\\dagger H)^2 + m_\\Phi^2(\\Phi^\\dagger\\Phi) + \\lambda_\\Phi(\\Phi^\\dagger\\Phi)^2 + \\lambda'(H^\\dagger H)(\\Phi^\\dagger\\Phi) (Sec. II) | no potential term at all; `lamX` enters only `MHX`, `lamHX` enters nothing | missing-in-reconstruction -- D3: \"The paper's potential holds five terms. The reconstruction keeps none of them as a Lagrangian term.\"",
+      "severity": "substantive",
+      "other_substantive": 1,
+      "other_list": "D4: No Z' coupling from the Standard Model Higgs kinetic term -- the gauged |D_mu H|^2 term should give Z-Z' mass mixing and ZZ'h / Z'Z'h vertices, but the reconstruction's imported LSM carries no Z' and no such interaction; marked substantive.",
+      "note": "The reviewer names the missing scalar potential explicitly, ties it to the right parameters (lamX, lamHX, MHX) and rates it substantive, so it would send a physicist straight to the correct gap in the model file."
+    }
+  },
+  {
+    "id": "368sextets__control",
+    "page": "368sextets",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null,
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 21,
+    "n_flagged": 4,
+    "n_substantive": 1,
+    "rule_hits": [],
+    "rule_detected": null,
+    "judge": {
+      "named": "n/a",
+      "quote": "",
+      "severity": "none",
+      "other_substantive": 1,
+      "other_list": "Basis of the sextet objects (disagreement 6): the reviewer flags as substantive-but-unresolvable-from-these-two-files whether the file's `T6` and `K6bar` are the Gell-Mann-basis matrices of eqs. (gen6) and (Kdef); a basis error would leave the written Lagrangian looking correct while changing every colour factor.",
+      "note": "The reviewer found no term-level disagreement and correctly flags only one open item worth a human's attention, the sextet generator basis, so it would send a physicist to the right place."
+    }
+  },
+  {
+    "id": "368sextets__flip_charge",
+    "page": "368sextets",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+    "operator": "flip_charge",
+    "term": "Phiu",
+    "tokens": [
+      "Phiu",
+      "Y"
+    ],
+    "defect": "Quantum number `Y` of class `Phiu` flipped from 1/3 to -1/3.",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 24,
+    "n_flagged": 6,
+    "n_substantive": 1,
+    "rule_hits": [
+      "\u03a6_u ~ (**6**, **1**, +1/3), L = \u22121 \u2014 Table X | \u03a6_u: colour **6**, SU(2) singlet, Q = +1/3, **Y = \u22121/3**, L = \u22121 | **disagree** | The paper fixes Y_{\u03a6_u} = +1/3. The reconstruction reports Y = \u22121/3 in the file, with Q = +1/3. The sign of Y is opposite to the paper.",
+      "baryon number (not assigned in the paper) | B = \u22121/3 for all four fields, marked as implied | extra-in-reconstruction | The value is consistent with the operators, but the paper assigns only L and Y."
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "\u03a6_u ~ (**6**, **1**, +1/3), L = \u22121 \u2014 Table X | \u03a6_u: colour **6**, SU(2) singlet, Q = +1/3, **Y = \u22121/3**, L = \u22121 | **disagree** | The paper fixes Y_{\u03a6_u} = +1/3. The reconstruction reports Y = \u22121/3 in the file, with Q = +1/3. The sign of Y is opposite to the paper.",
+      "severity": "substantive",
+      "other_substantive": 0,
+      "other_list": "",
+      "note": "The reviewer isolates the exact field and quantum number, states the correct paper value, and points the physicist straight to the Phiu declaration and its effect on the B-field vertex, so it sends a physicist to the right place."
+    }
+  },
+  {
+    "id": "368sextets__drop_cutoff",
+    "page": "368sextets",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+    "operator": "drop_cutoff",
+    "term": "LPsiuG",
+    "tokens": [
+      "LPsiuG",
+      "LamPsu"
+    ],
+    "defect": "Cutoff factor `/LamPsu` removed from `LPsiuG`; the operator is no longer suppressed by the cutoff and its coefficient changes mass dimension.",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 20,
+    "n_flagged": 4,
+    "n_substantive": 1,
+    "rule_hits": [
+      "$\\dfrac{1}{\\Lambda_{\\Psi_u}}[\\kappa_u^I\\,\\bt{J}^{\\,s\\,ia}(\\overbar{u^{\\rm c}_{\\rm R}}_{Ii}\\sigma^{\\mu\\nu}\\Psi_{us})G_{\\mu\\nu a}+\\text{H.c.}]$ (`sFmodel`, line 2; Table IX row \"$(q\\Psi)G$\", coupling $\\kappa_I/\\Lambda_\\Psi$) | `LPsiuG`: $-i\\,\\kappa^u_f\\,\\mathcal{C}^{a,s}_{i_1}\\overline{u^{\\rm c}_{f,i_",
+      "*D1. `LPsiuG` has no $1/\\Lambda_{\\Psi_u}$. Severity: substantive.**"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "D1. `LPsiuG` has no $1/\\Lambda_{\\Psi_u}$. Severity: substantive.",
+      "severity": "substantive",
+      "other_substantive": 0,
+      "other_list": "",
+      "note": "The reviewer isolates the exact injected defect (missing cutoff in LPsiuG, wrong mass dimension) as its sole substantive finding and flags the correct figure to re-check, so a physicist would be sent to the right place."
+    }
+  },
+  {
+    "id": "368sextets__drop_cc",
+    "page": "368sextets",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+    "operator": "drop_cc",
+    "term": "LPsiuG",
+    "tokens": [
+      "LPsiuG",
+      "CC",
+      "uqbar"
+    ],
+    "defect": "Charge conjugation dropped in `LPsiuG`: `CC[uqbar]` -> `uqbar` (the fermion-number-violating structure becomes a fermion-number-conserving one).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 25,
+    "n_flagged": 4,
+    "n_substantive": 1,
+    "rule_hits": [
+      "$\\dfrac{\\kappa_u^{I}}{\\Lambda_{\\Psi_u}}\\bt{J}^{\\,s\\,ia}(\\overline{u^{c}_{R}}_{Ii}\\sigma^{\\mu\\nu}\\Psi_{us})G_{\\mu\\nu a}+\\text{H.c.}$ (Eq. sFmodel, line 2, $q=u$) | `LPsiuG` $=-\\mathrm{i}\\dfrac{\\kappa_u^{f}}{\\Lambda_{\\Psi_u}}\\mathcal{K}^{a}_{\\ is}\\,\\overline{u}_{f,i}P_R\\sigma^{\\mu\\nu}\\Psi_u^{s}G^{a}_{",
+      "**`LPsiuG` uses a quark that is not charge-conjugated.** *Severity: substantive.*"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "**`LPsiuG` uses a quark that is not charge-conjugated.** *Severity: substantive.* A human should check whether the implementation file really contains `uqbar[...]` instead of `CC[uqbar][...]` in the up-type chromo-dipole term, because the paper's Eq. (sFmodel) requires $\\overline{q^{c}_{R}}$ and the term as reported breaks colour, hypercharge, baryon number and chirality all at once.",
+      "severity": "substantive",
+      "other_substantive": 0,
+      "other_list": "",
+      "note": "The reviewer names the exact term, file location, and error type (dropped charge conjugation) and spells out the physical consequences, so it points a physicist straight at the real defect, though it hedges by asking whether the fault lies in the model file or in the reconstruction's reading rather than stating outright that the file is wrong."
+    }
+  },
+  {
+    "id": "368sextets__factor2",
+    "page": "368sextets",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+    "operator": "factor2",
+    "term": "LPsiuG",
+    "tokens": [
+      "LPsiuG",
+      "2"
+    ],
+    "defect": "Whole term `LPsiuG` multiplied by 2 (coupling normalisation off by a factor of two).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 26,
+    "n_flagged": 5,
+    "n_substantive": 0,
+    "rule_hits": [
+      "(1/\u039b_{\u03a8u}) \u03ba_u^I **J**^{s ia} (\u016b^c_R \u03c3^{\u03bc\u03bd} \u03a8_us) G_{\u03bc\u03bd a} + H.c. \u2014 Eq. (sFmodel), line 2 | \u00a71.5 `LPsiuG`, **multiplied by an overall factor 2** | **disagree** | Color tensor, chirality, conjugation, \u03c3^{\u03bc\u03bd}, G^a_{\u03bc\u03bd}, flavour index and 1/\u039b power all agree. The **overall factor of 2 is not in the pap"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "\u00a71.5 `LPsiuG`, **multiplied by an overall factor 2** | **disagree** | Color tensor, chirality, conjugation, \u03c3^{\u03bc\u03bd}, G^a_{\u03bc\u03bd}, flavour index and 1/\u039b power all agree. The **overall factor of 2 is not in the paper**. See disagreement D1.",
+      "severity": "substantive",
+      "other_substantive": 0,
+      "other_list": [],
+      "note": "The reviewer isolates the LPsiuG factor-of-2 as the one substantive disagreement and explains its physical consequences for cross sections and limits, which would send a physicist to exactly the right place to check."
+    }
+  },
+  {
+    "id": "368sextets__drop_term",
+    "page": "368sextets",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+    "operator": "drop_term",
+    "term": "LPhidG",
+    "tokens": [
+      "LPhidG"
+    ],
+    "defect": "Interaction term `LPhidG` deleted from the model and from the total Lagrangian (a whole interaction is missing).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 11,
+    "n_flagged": 1,
+    "n_substantive": 0,
+    "rule_hits": [
+      "$\\frac{\\lambda_d^{XI}}{\\Lambda^2_{\\Phi_d}}\\bt{J}^{\\,s\\,ia}\\Phi_{ds}(\\overline{d^{\\rm c}_{\\rm R}}_{Ii}\\sigma^{\\mu\\nu}\\ell_{{\\rm R}X})G_{\\mu\\nu a}+$ H.c., Eq. `sSmodel` line 2 with $q=d$ (the equation is stated \"for $q\\in\\{u,d\\}$\"; $\\Lambda_{\\Phi_d}$ and $\\lambda_d^{XI}$ are used in the benchmark at l"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "D1. The $\\Phi_d$ leptoquark operator is missing. ... The reconstruction reports no `LPhidG` in `LTotal` and two unused parameters, `lamd` and `LamPhd`.",
+      "severity": "substantive",
+      "other_substantive": 0,
+      "other_list": "",
+      "note": "The reviewer isolates the missing LPhidG term as the sole substantive defect and correctly relegates the chirality remark, generation range, fixed widths, and undeclared quantum numbers to cosmetic or convention notes, which would send a physicist straight to the real gap."
+    }
+  },
+  {
+    "id": "368sextets__swap_chirality",
+    "page": "368sextets",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+    "operator": "swap_chirality",
+    "term": "LPsiuG",
+    "tokens": [
+      "LPsiuG",
+      "ProjM",
+      "ProjP"
+    ],
+    "defect": "First `ProjP` in `LPsiuG` changed to `ProjM` (a right-handed current became left-handed).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 27,
+    "n_flagged": 8,
+    "n_substantive": 1,
+    "rule_hits": [
+      "$\\frac{\\kappa_u^I}{\\Lambda_{\\Psi_u}}\\bt{J}^{\\,s\\,ia}(\\overbar{u^{c}_{R}}_{Ii}\\sigma^{\\mu\\nu}\\Psi_{us})G_{\\mu\\nu\\,a}+$H.c., Eq. \\eqref{sFmodel} (also Table IX, row \"Dirac $\\Psi_s$\", first entry) | `LPsiuG` (\u00a71.5) with $P_L$: $\\overbar{(u_L)^{c}}\\,\\sigma^{\\mu\\nu}\\Psi_{u,L}$ | **disagree** | **Chiralit",
+      "*1. Chirality of `LPsiuG` --- severity: substantive.**"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "Chirality. The paper uses the right-handed quark q^c_R. The file uses the left-handed projector. Colour tensor, sigma^{mu nu}, 1/Lambda power, generation index and h.c. all agree. This is the single substantive difference.",
+      "severity": "substantive",
+      "other_substantive": 0,
+      "other_list": [],
+      "note": "The reviewer names the exact term (LPsiuG), the exact projector swap (ProjP to ProjM, right-handed to left-handed), rates it substantive, and explains the physics consequence, so it would send a physicist straight to the right place."
+    }
+  },
+  {
+    "id": "ChernSimonsPortal__control",
+    "page": "ChernSimonsPortal",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ChernSimonsPortal/rerun/v3s_notools/s1/model/ChernSimonsPortal_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null,
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 19,
+    "n_flagged": 8,
+    "n_substantive": 0,
+    "rule_hits": [],
+    "rule_detected": null,
+    "judge": {
+      "named": "n/a",
+      "quote": "",
+      "severity": "none",
+      "other_substantive": 3,
+      "other_list": "D2 \u2014 Magnitude of the XZZ coefficient: reconstruction, paper eq. (40), and paper eq. (41) give three mutually inconsistent values for |g_ZZ| (factor-of-2 discrepancy), severity substantive.\nD3 \u2014 Missing X-Z-h and X-gamma-h vertices: paper's eq. (48)/eq. (15) carries Higgs-doublet terms the reconstruction omits entirely, severity substantive (small in rate).\nD4 \u2014 Non-abelian part of F_W dropped: reconstruction keeps only the abelian W field strength, so quartic vertices X W+ W- Z and X W+ W- gamma implied by the paper's eq. (48) are missing, severity substantive.",
+      "note": "Since this is a control file with no injected defect, the reviewer correctly reports the reconstruction as matching the model; the substantive items it raises are inconsistencies inside the paper itself (the XZZ normalisation and sign) or deliberate unitary-gauge omissions, and it labels them as open questions for a human rather than as reconstruction errors, which would send a physicist to the right place."
+    }
+  },
+  {
+    "id": "ChernSimonsPortal__factor2",
+    "page": "ChernSimonsPortal",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ChernSimonsPortal/rerun/v3s_notools/s1/model/ChernSimonsPortal_gen.fr",
+    "operator": "factor2",
+    "term": "LPortalNeutral",
+    "tokens": [
+      "LPortalNeutral",
+      "2"
+    ],
+    "defect": "Whole term `LPortalNeutral` multiplied by 2 (coupling normalisation off by a factor of two).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 26,
+    "n_flagged": 8,
+    "n_substantive": 1,
+    "rule_hits": [],
+    "rule_detected": false,
+    "judge": {
+      "named": "yes",
+      "quote": "The reconstruction multiplies the complete neutral portal by 2: $\\mathcal{L} = 2c_1\\,\\epsilon\\,Z X \\partial B$. The paper gives this operator with a single power of $c_1$ (eq. 48, eq. 15)... The factor 2 therefore doubles both neutral amplitudes and multiplies the $ZZ$ and $Z\\gamma$ partial widths by 4.",
+      "severity": "substantive",
+      "other_substantive": 2,
+      "other_list": [
+        "D2 (substantive part): the paper's own eq. (40) and eq. (41) are not mutually consistent on the ZZX vertex normalization (eq. 41 plus the W+W- width imply an effective coefficient of about c1 sW/sqrt2, while eq. (40) states 1/2 c1 sW) -- a normalization ambiguity in the paper itself, separate from the reconstruction's factor-2 defect.",
+        "D4 (substantive, scope): the reconstruction works in unitary gauge and omits the Stuckelberg field theta_X and D theta_X = d theta_X + X (eq. 39), the SU(2) x U(1)_Y x U(1)_X covariant portal form (eq. 48), and the resulting X-gamma-H and X-Z-H vertices plus the O(dh/v) terms of eq. (15)."
+      ],
+      "note": "The reviewer isolates the injected factor-of-2 defect as the single clear issue and tells the physicist to fix it first because it changes two branching ratios by a factor of 4, which sends the reader to the right place."
+    }
+  },
+  {
+    "id": "ChernSimonsPortal__drop_term",
+    "page": "ChernSimonsPortal",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ChernSimonsPortal/rerun/v3s_notools/s1/model/ChernSimonsPortal_gen.fr",
+    "operator": "drop_term",
+    "term": "LPortalCharged",
+    "tokens": [
+      "LPortalCharged"
+    ],
+    "defect": "Interaction term `LPortalCharged` deleted from the model and from the total Lagrangian (a whole interaction is missing).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 21,
+    "n_flagged": 8,
+    "n_substantive": 1,
+    "rule_hits": [
+      "$c_2$ charged portal (eq. 48, second term; eq. 59, third vertex; $\\Gamma_{XW^+W^-}$) | **no such term in the file.** `LPortalCharged` is used in `LTotal` but never defined (sec. 1.4) | missing-in-reconstruction | The paper needs this vertex. The file does not contain it. This is the main finding: se",
+      "hermiticity of the charged portal (eq. 48 is real) | `LTotal := ... + HC[LPortalCharged]` (sec. 1) | disagree | `LTotal` adds only the conjugate half, not the term plus its conjugate: see D2.",
+      "*D2. `LTotal` adds only `HC[LPortalCharged]`. Severity: substantive.**"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "D1. The $XW^+W^-$ term is absent from the implementation. Severity: substantive. ... The file names `LPortalCharged` in `LTotal` but never defines it, so the model has a $c_2$ parameter and a $c_2$ partial width with no vertex behind them.",
+      "severity": "substantive",
+      "other_substantive": 2,
+      "other_list": [
+        "D2. `LTotal` adds only `HC[LPortalCharged]` instead of the term plus its conjugate, giving a non-hermitian Lagrangian or the wrong weight for the XW+W- vertex.",
+        "D3. Possible factor-2 mismatch in the XZZ operator normalization versus eq. (40), which would move Gamma(X to ZZ) by a factor of 4; flagged as needing human verification."
+      ],
+      "note": "The reviewer names the deleted LPortalCharged term as the main finding and traces its effect through the vertex, the width, and the discovery channel, so it points a physicist to the right place."
+    }
+  },
+  {
+    "id": "pNG__control",
+    "page": "pNG",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/rerun/v3s_notools/s1/model/pNG_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null,
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 32,
+    "n_flagged": 11,
+    "n_substantive": 4,
+    "rule_hits": [],
+    "rule_detected": null,
+    "judge": {
+      "named": "n/a",
+      "quote": "",
+      "severity": "none",
+      "other_substantive": 4,
+      "other_list": "D2: pure CP-even scalar self-interactions (phi s, v_h phi s^2, v_s phi^2 s, phi^2 s^2, v_s s^3, s^4) are absent from LPortal3/LPortal4.\nD3: the mixed Higgs quartic lambda_Phi = (m_h^2 cos^2(theta) + m_H^2 sin^2(theta))/v_h^2 is not imposed; LSM keeps the plain SM value m_h^2/v_h^2.\nD4: mass eigenstates H and H2 do not carry the cos(theta)/sin(theta)-rescaled SM Yukawa and gauge couplings (H keeps full SM strength, H2 has none).\nD5: WH2 = 0, a zero total width for the 125.30 GeV mostly-doublet resonance that the paper gives a non-zero width.",
+      "note": "The reviewer's overall assessment correctly directs a physicist to the real gaps outside the dark-matter core -- missing CP-even self-couplings, the unrotated Higgs quartic, and the unrescaled SM couplings -- so it would send them to the right place before trusting rates that involve the visible sector."
+    }
+  },
+  {
+    "id": "pNG__factor2",
+    "page": "pNG",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/rerun/v3s_notools/s1/model/pNG_gen.fr",
+    "operator": "factor2",
+    "term": "LX",
+    "tokens": [
+      "LX",
+      "2"
+    ],
+    "defect": "Whole term `LX` multiplied by 2 (coupling normalisation off by a factor of two).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 25,
+    "n_flagged": 9,
+    "n_substantive": 4,
+    "rule_hits": [
+      "$(\\partial_\\mu S)^*(\\partial^\\mu S) \\supset \\tfrac12 \\partial_\\mu\\chi\\,\\partial^\\mu\\chi$ (2.2, 2.9) | `LX` $\\supset 2\\cdot\\tfrac12\\,\\partial_\\mu\\chi\\partial^\\mu\\chi = \\partial_\\mu\\chi\\partial^\\mu\\chi$ | **disagree** | The reconstruction carries an overall factor 2. The paper's complex kinetic term g",
+      "$\\chi$ mass term $-\\tfrac12 m_\\chi^2 \\chi^2$, $m_\\chi^2 = \\mu_S'^2$ (2.3, 2.8, text after 2.9) | `LX` $\\supset -2\\cdot\\tfrac12 M_\\chi^2\\chi^2 = -M_\\chi^2\\chi^2$ | **disagree** | Same factor 2. Kinetic and mass terms scale together, so the pole mass stays $M_\\chi$; all $\\chi$ interactions change.",
+      "\u2014 | extra overall factor 2 in `LX`; `LX := 2(expr;)` returns `Null` | **extra-in-reconstruction** | No counterpart in the paper. See D1 and D2.",
+      "*D2 \u2014 `LX` syntax. Severity: substantive.**"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "D1 \u2014 Factor 2 in the \u03c7 kinetic and mass terms. Severity: substantive. The paper gives \u00bd\u2202\u03bc\u03c7\u2202\u03bc\u03c7 \u2212 \u00bd m_\u03c7\u00b2\u03c7\u00b2; the reconstruction gives twice that.",
+      "severity": "substantive",
+      "other_substantive": 4,
+      "other_list": [
+        "D2 \u2014 `LX` syntax: `LX := 2 (Block[{mu}, ...];)` ends with `;` and returns `Null`, so it is unclear whether any \u03c7 term survives.",
+        "D3 \u2014 Missing pure scalar self-couplings (v_s s\u03c6\u00b2, v_h\u03c6s\u00b2, \u03c6\u00b2s\u00b2, s\u00b3, s\u2074) and the redefined \u03bb_\u03a6 of eq. (2.19).",
+        "D4 \u2014 SM coupling rescaling by cos\u03b8/sin\u03b8 cannot be confirmed: prose claims it but `LSM` is imported unmodified, and \u03b8 = 1.53 rad makes the rescaling large.",
+        "D5 \u2014 `WH2 -> 0.` fixed to zero even though H2\u2192\u03c7\u03c7 is kinematically open (2M_\u03c7 = 125.146 GeV < M_H2 = 125.30 GeV), affecting the resonance cross section."
+      ],
+      "note": "The reviewer names the injected LX factor-2 defect precisely, with the correct term, the correct kind of error, and the correct physical consequences, so a physicist would be sent straight to the right line and the right fix."
+    }
+  },
+  {
+    "id": "pNG__drop_term",
+    "page": "pNG",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/rerun/v3s_notools/s1/model/pNG_gen.fr",
+    "operator": "drop_term",
+    "term": "LPortal4",
+    "tokens": [
+      "LPortal4"
+    ],
+    "defect": "Interaction term `LPortal4` deleted from the model and from the total Lagrangian (a whole interaction is missing).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 27,
+    "n_flagged": 12,
+    "n_substantive": 4,
+    "rule_hits": [],
+    "rule_detected": false,
+    "judge": {
+      "named": "yes",
+      "quote": "1. **Missing quartic portal `\u03c7\u00b2\u03c6\u00b2` and `\u03c7\u00b2s\u00b2` (substantive).** The paper's eq. (2.2) contains `\u03bb_\u03a6S \u03a6\u2020\u03a6|S|\u00b2` and `(\u03bb_S/2)|S|\u2074` in full. Expanding them gives contact vertices `\u03c7\u03c7hh`, `\u03c7\u03c7hH` and `\u03c7\u03c7HH` with coefficients fixed by the same `\u03bb_\u03a6S` and `\u03bb_S`. The reconstruction keeps only the trilinear part of the same two operators and says in \u00a71.6 that no quartic portal is present. (See also disagreement 2, the paired `\u2212(\u03bb_S/8)\u03c7\u2074` term, and the three 'missing-in-reconstruction' table rows for `\u03c7\u00b2\u03c6\u00b2`, `\u03c7\u00b2s\u00b2`, and `\u03c7\u2074`.)",
+      "severity": "substantive",
+      "other_substantive": 3,
+      "other_list": "Missing scalar self-interactions of h and H (no hhh, hhH, hHH, HHH vertices; needed for h to HH and for chi chi to hh, hH, HH).\nMissing cos(theta)/sin(theta) rescaling of scalar couplings to SM fermions and gauge bosons (H2 ends up with no tree-level coupling to SM matter at all).\nlambda_Phi not re-fixed to the eq. (2.18) value (reconstruction keeps the SM value, which differs by a large factor at theta = 1.53).",
+      "note": "Yes, disagreements 1 and 2 (plus the matching table rows for the chi-chi-hh/hH/HH and chi^4 terms) isolate exactly the missing quartic-portal content that LPortal4 was supposed to supply, so a physicist would be pointed straight at the right term and the right kind of error."
+    }
+  },
+  {
+    "id": "331__control",
+    "page": "331",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v3s_tools/s1/model/331_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null,
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 51,
+    "n_flagged": 25,
+    "n_substantive": 9,
+    "rule_hits": [],
+    "rule_detected": null,
+    "judge": {
+      "named": "n/a",
+      "quote": "",
+      "severity": "none",
+      "other_substantive": 9,
+      "other_list": [
+        "D1: M_{Z'} mass is a factor sqrt(2) too small (file uses /6 in the mass formula instead of the paper's /3).",
+        "D2: g_X is treated as a free external input (0.5) instead of being derived from s_W and beta as the paper requires.",
+        "D3: No third-generation exotic current: the t-T-V' and b-T-Y' vertices are missing, so T is stable in the file.",
+        "D4: No heavy lepton currents: the ell-E_ell-Y' and nu_ell-E_ell-V' vertices are missing, leaving E_ell fully inert.",
+        "D5: The CKM factors V_ud and V_cs are dropped from the D-d-V' and S-s-V' currents.",
+        "D6: No Z' couplings to any SM or exotic fermion are present, so the Z' is stable and cannot be produced.",
+        "D7: The Y' and V' kinetic terms use an abelian curl instead of the non-abelian SU(3)_L field strength, so all triple and quartic gauge self-coupling vertices are missing.",
+        "D8: The entire scalar interaction sector is absent: no Higgs potential, no CP-even/CP-odd mixing matrices U and O, no mixing angles, and none of the VSS, VVS, VVSS, or scalar-fermion coupling tables.",
+        "D13: At the chosen benchmark (v_3 = 2 TeV) the resulting M_Z' sits below the paper's own dilepton exclusion limit of about 3.6-4 TeV."
+      ],
+      "note": "The reviewer's comparison correctly isolates two real coefficient defects (the Z' mass factor and the free g_X) from the much larger set of coverage gaps, so it would send a physicist to the right places in the file."
+    }
+  },
+  {
+    "id": "331__flip_charge",
+    "page": "331",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v3s_tools/s1/model/331_gen.fr",
+    "operator": "flip_charge",
+    "term": "DQ",
+    "tokens": [
+      "DQ",
+      "Y"
+    ],
+    "defect": "Quantum number `Y` of class `DQ` flipped from -1/3 to 1/3.",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 44,
+    "n_flagged": 16,
+    "n_substantive": 3,
+    "rule_hits": [
+      "Photon coupling of `Y`: `A Y^{+Q_Y} Y^{-Q_Y} = i a_+ e / 2` (Table `gauges`) | absent; `FS[Yp]` is the plain curl, `Yp` is not in `DC` | **missing-in-reconstruction** | See D3.",
+      "`Z`, `Z'` couplings of `Y` and `V`, and `V-W-Y` triple coupling (Table `gauges`) | absent | **missing-in-reconstruction** | See D3.",
+      "Hypercharge of `D`: `Y = Q = -1/3` for a `T^3 = 0` state; confirmed by `Dbar D A = -i(3sqrt(3)beta-1)e/6 = -ie/3` (Table `gauge-fermion`) | `Y_DQ = +1/3` | **disagree** | Sign flip. See D1. This is the most serious item.",
+      "`Tbar b Y^{-Q_Y}`, `g_L = -i e V_tb/(sqrt(2) s_W)` (Table `gauge-fermion`) | none | **missing-in-reconstruction** | See D7.",
+      "`ebar E_e Y^{+Q_Y}`, `mubar E_mu Y`, `taubar E_tau Y`, `g_L = -i g/sqrt(2)` (Table `gauge-fermion`) | none | **missing-in-reconstruction** | See D8.",
+      "*D8. The lepton currents through `Y'` and `V'` are absent. Severity: substantive.**"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "Hypercharge of `D`: `Y = Q = -1/3` for a `T^3 = 0` state; confirmed by `Dbar D A = -i(3sqrt(3)beta-1)e/6 = -ie/3` (Table `gauge-fermion`) | `Y_DQ = +1/3` | **disagree** | Sign flip. See D1. This is the most serious item.",
+      "severity": "substantive",
+      "other_substantive": 7,
+      "other_list": "D2: M_Z' is smaller than the paper value by a factor sqrt(2), breaking the paper's mass ordering M_Z' ~ 1.2 M_{V(Y)}.\nD3: The new vectors Y' and V' have no gauge interactions (missing photon, Z, Z' couplings and quartic terms).\nD4: Z' has no fermion couplings at all, so the paper's Z' phenomenology cannot be reproduced.\nD5: No scalar potential and no Yukawa sector, so the charged scalars have no decay channels.\nD7: The T quark has no current term, and t, b do not appear, leaving T stable.\nD8: The lepton currents through Y' and V' are absent, leaving the heavy leptons E_l stable.\nD9: h and the scalar mixing matrices U and O are absent, so the file cannot be used for the Higgs results of Sec. 3.",
+      "note": "The reviewer names this exact defect as D1, the sign-flipped hypercharge of D, calls it the most serious item, and gives the correct fix and cross-check, so it would send a physicist straight to the right place."
+    }
+  },
+  {
+    "id": "331__sqrt_swap",
+    "page": "331",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v3s_tools/s1/model/331_gen.fr",
+    "operator": "sqrt_swap",
+    "term": "v2",
+    "tokens": [
+      "v2",
+      "Sqrt"
+    ],
+    "defect": "Parameter `v2`: `Sqrt[vev^2 - v1^2]` replaced by `1/Sqrt[vev^2 - v1^2]` (a normalisation that divides now multiplies).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 42,
+    "n_flagged": 20,
+    "n_substantive": 9,
+    "rule_hits": [
+      "`M_Z'^2 = (g^2 + beta^2 g_X^2) v3^2 / 3`, equal to `c_W^2 g^2 v3^2 / (3 a_0^2)` (Sec. 2.2 and eq. (3)) | `MZp = Sqrt[(gw^2 + beta^2 gX^2) v3^2 / 6]` | **disagree** | The paper's term is `L = (1/6)(g^2+beta^2 g_X^2) v3^2 Z'^2`. For a real vector this term equals `(1/2) M^2 Z'^2`, so `M^2 = (...) v3^2",
+      "`v = sqrt(v1^2 + v2^2) = 246 GeV` (Sec. 2.1.1) | `v2 = 1/Sqrt[vev^2 - v1^2]` | **disagree** | The paper needs `v2 = Sqrt[vev^2 - v1^2]`. The file takes the reciprocal. The value becomes `0.0057 GeV^-1` in place of `174.2 GeV`.",
+      "`m_h^2 = 2(lambda_1 v1^4 + lambda_12 v1^2 v2^2 + lambda_2 v2^4)/v^2` (eq. (4)) | Not implemented | missing-in-reconstruction | The 125 GeV scalar stays the unmodified base-SM Higgs.",
+      "**`v2 = 1/Sqrt[vev^2 - v1^2]` \u2014 substantive.**",
+      "**`MH2` written with `vev` where the paper writes `v^2 = v1^2 + v2^2` \u2014 cosmetic.**"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "`v = sqrt(v1^2 + v2^2) = 246 GeV` (Sec. 2.1.1) | `v2 = 1/Sqrt[vev^2 - v1^2]` | **disagree** | The paper needs `v2 = Sqrt[vev^2 - v1^2]`. The file takes the reciprocal. The value becomes `0.0057 GeV^-1` in place of `174.2 GeV`.",
+      "severity": "substantive",
+      "other_substantive": 8,
+      "other_list": "M_Zp^2 divided by 6 in place of 3, making M_Z' too small by sqrt(2).\ngX used as a free input instead of being fixed via g_Y = g gX / sqrt(g^2+beta^2 gX^2) (paper value about 0.38).\nbeta treated as a free input while every new charge is hard-coded, so the file is only valid for beta = +1/sqrt(3).\nHpm declared as an SU(2)_L singlet instead of a mix of doublet components, giving the wrong Z H+ H- coupling.\nNo Z' couplings to fermions, so Z' production and decay (Sec. 4) cannot be simulated.\nNo T and no E_l currents (T-t/b and E_l-l/nu_l couplings absent).\nNo scalar sector dynamics: potential, mixing matrices U and O, and the VSS/VVS/VVSS and scalar-fermion tables are all absent.\nNo gauge self-couplings for Zp, Yp, Vp, so pair production of V and Y (Sec. 5.1) cannot be simulated.",
+      "note": "The reviewer names the exact defect, gives the correct fix and its numerical size, and rates it substantive, so it would send a physicist straight to the right place."
+    }
+  },
+  {
+    "id": "331__factor2",
+    "page": "331",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v3s_tools/s1/model/331_gen.fr",
+    "operator": "factor2",
+    "term": "LZp",
+    "tokens": [
+      "LZp",
+      "2"
+    ],
+    "defect": "Whole term `LZp` multiplied by 2 (coupling normalisation off by a factor of two).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 54,
+    "n_flagged": 28,
+    "n_substantive": 0,
+    "rule_hits": [],
+    "rule_detected": false,
+    "judge": {
+      "named": "yes",
+      "quote": "D1. The $Z'$ Lagrangian carries an overall factor 2 \u2014 **substantive** ... The file writes $\\mathcal{L}_{Z'}=2\\left[-\\frac14 Z'_{\\mu\\nu}Z'^{\\mu\\nu}+\\frac12M_{Z'}^2Z'^2\\right]$ with $M_{Z'}^2=(g^2+\\beta^2g_X^2)v_3^2/6$.",
+      "severity": "substantive",
+      "other_substantive": 7,
+      "other_list": [
+        "D2. Y' and V' have no gauge couplings \u2014 substantive",
+        "D3. No Z' coupling to any fermion \u2014 substantive",
+        "D4. Third-generation currents are absent \u2014 substantive",
+        "D5. Lepton charged currents are absent \u2014 substantive",
+        "D6. H\u00b1 is treated as an SU(2)_L singlet \u2014 substantive",
+        "D7. No scalar potential, no Yukawa sector, no scalar mixing \u2014 substantive",
+        "D8. CKM factors are missing on the down-type currents \u2014 substantive (small numerically)"
+      ],
+      "note": "The reviewer names the exact injected defect as D1 with a clear numeric check (823 GeV vs 582 GeV, a factor of sqrt2) and a concrete fix, so it sends a physicist straight to the right place."
+    }
+  },
+  {
+    "id": "331__drop_term",
+    "page": "331",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v3s_tools/s1/model/331_gen.fr",
+    "operator": "drop_term",
+    "term": "LNPcc",
+    "tokens": [
+      "LNPcc"
+    ],
+    "defect": "Interaction term `LNPcc` deleted from the model and from the total Lagrangian (a whole interaction is missing).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 55,
+    "n_flagged": 32,
+    "n_substantive": 7,
+    "rule_hits": [],
+    "rule_detected": false,
+    "judge": {
+      "named": "yes",
+      "quote": "3. **The whole interaction sector is absent \u2014 substantive.** No gauge self-coupling, no fermion current, no Yukawa coupling and no scalar potential appears. A human should confirm whether the source file was ever meant to carry vertices, or whether a `LTotal` summand was removed.",
+      "severity": "substantive",
+      "other_substantive": 8,
+      "other_list": "1. M_Z'^2 is a factor 2 too small.\n2. The v1^2/v2^2 term of M_Z'^2 is absent.\n4. Y^\u00b1 has electric charge +1 but no photon coupling.\n5. V^0 is neutral but must still couple to Z and Z'.\n6. H^\u00b1, H^\u00b1Q_Y and H^\u00b1Q_V are declared SU(2)_L singlets, giving wrong/absent Z couplings.\n7. g_X is an external input (0.5) instead of being derived (~0.38).\n8. The scalar mixing matrices U and O are absent.\n9. The SU(3)_L representation assignment (triplet vs anti-triplet generations) is not encoded.",
+      "note": "The reviewer flags the missing interaction sector as its own substantive disagreement and explicitly guesses a dropped `LTotal` summand, which would send a physicist straight to the injected defect, though it buries this among eight other substantive items so the single-term nature of the mutation is not obviously isolated."
+    }
+  },
+  {
+    "id": "331__swap_chirality",
+    "page": "331",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v3s_tools/s1/model/331_gen.fr",
+    "operator": "swap_chirality",
+    "term": "LNPcc",
+    "tokens": [
+      "LNPcc",
+      "ProjM",
+      "ProjP"
+    ],
+    "defect": "First `ProjM` in `LNPcc` changed to `ProjP` (a left-handed current became right-handed).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 39,
+    "n_flagged": 16,
+    "n_substantive": 0,
+    "rule_hits": [
+      "Residual $Z_2$: $Z_2(E_\\ell,D,S,T)=-$, $Z_2(Y,V)=-$, $Z_2(H^{\\pm Q_Y},H^{\\pm Q_V})=-$ (Eqs. `\\eqref{eq:odd1}`\u2013`\\eqref{eq:odd3}`) | not declared | **missing-in-reconstruction** | The surviving `LNPcc` vertices each join one $Z_2$-even and two $Z_2$-odd states, so the file does not break $Z_2$. It jus"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "u\u2013D\u2013Y' chirality is right-handed instead of left-handed. ... A human should compare the file's `ProjP` in the first `LNPcc` term with Table `gauge-fermion`, which gives $g_R=0$ for $\\bar D u Y^{+Q_Y}$, and with the $A^D$ amplitude in Sec. 5.1.1, which uses $P_L$ on both sides.",
+      "severity": "substantive",
+      "other_substantive": 10,
+      "other_list": "M_Z' is too small by a factor sqrt(2) (Lagrangian coefficient (1/6)(g^2+beta^2 g_X^2)v_3^2 misread as M^2 instead of (1/2)M^2).\ng_X is treated as a free external input (0.5) instead of being fixed by g and s_W via g_Y = g g_X / sqrt(g^2+beta^2 g_X^2).\nY' has no photon coupling and no covariant field strength; all three heavy vector masses are hand-written rather than derived from a gauge-covariant kinetic term.\nV' has no Z or Z' coupling although the paper gives nonzero ZV+V- and Z'V+V- vertices.\nAll Z' couplings to SM/exotic fermions are absent, so Zp is completely inert in the file.\nThird-generation couplings t-T-V' and T-b-Y' are absent, so TQ is inert.\nLepton couplings e-E_l-Y' and nu_l-E_l-V' are absent, so EL is inert.\nGauge self-couplings (VVV and VVVV, e.g. triple gauge vertices producing V/Y pairs) are absent.\nThe scalar sector beyond free masses is absent: Higgs potential, the h/H2/H3 mixing matrices U and O, gauge-scalar couplings, and scalar-fermion couplings.\nBenchmark inputs (v_3=2 TeV, g_X=0.5) give M_Z' about 0.6-0.8 TeV, far below the paper's own quoted limit of roughly 3.6-4 TeV for this beta branch.",
+      "note": "The reviewer names the exact vertex, cites the paper's table and amplitude that fix its chirality, marks it substantive, and even flags the resulting hermiticity break, so a physicist reading this would be sent straight to the correct ProjP/ProjM error in LNPcc."
+    }
+  },
+  {
+    "id": "Monotops__control",
+    "page": "Monotops",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/rerun/v3s_tools/s1/model/Monotops_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null,
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 32,
+    "n_flagged": 9,
+    "n_substantive": 2,
+    "rule_hits": [],
+    "rule_detected": null,
+    "judge": {
+      "named": "n/a",
+      "quote": "",
+      "severity": "none",
+      "other_substantive": 2,
+      "other_list": "Exchange symmetry of the axial diquark coupling b^q_VR (\u00a71.13): the reconstruction claims the symmetric flavour part survives, but the paper's text requires the antisymmetric part.\nScope of the \"+ h.c.\" in Eq. (1) (\u00a71.7, \u00a71.8): the reconstruction excludes the phi and V flavour-changing terms from the h.c., while the paper's single \"+ h.c.\" can be read as covering the whole equation, a reading that would change those cross sections by about a factor of four.",
+      "note": "The reviewer's overall assessment would send a physicist to the right place: it confirms every interaction term maps correctly while clearly flagging the two substantive open points (the axial diquark exchange-symmetry error and the h.c. scope ambiguity) that need real checking."
+    }
+  },
+  {
+    "id": "Monotops__flip_charge",
+    "page": "Monotops",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/rerun/v3s_tools/s1/model/Monotops_gen.fr",
+    "operator": "flip_charge",
+    "term": "vphi",
+    "tokens": [
+      "vphi",
+      "Q"
+    ],
+    "defect": "Quantum number `Q` of class `vphi` flipped from 2/3 to -2/3.",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 23,
+    "n_flagged": 7,
+    "n_substantive": 2,
+    "rule_hits": [
+      "$Q_\\varphi=+2/3$, fixed by both $\\varphi$ terms in Eq. (1) and by the RPV up-squark reading in Sec. \"Beyond the Standard Model Explorations\" | declared `Q -> -2/3` (\u00a72 field table) | **disagree** | Sign flip. The reconstruction detects the same problem on its own and states that both interaction ter"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "Electric charge of $\\varphi$ is $-2/3$ instead of $+2/3$ \u2014 substantive. A human should check the `QuantumNumbers -> {Q -> ...}` line of the `vphi` class against Eq. (1): both $\\varphi$ vertices and the paper's own RPV up-squark reading need $+2/3$, so the declared value breaks electric-charge conservation and flips the sign of the $\\varphi$\u2013photon coupling.",
+      "severity": "substantive",
+      "other_substantive": 1,
+      "other_list": "The $X$ kinetic term uses the plain curl, not the QCD covariant derivative \u2014 substantive; the colour-triplet vector $X$ has no gluon coupling from its kinetic term, which changes its production rate.",
+      "note": "The reviewer names the exact field and class (Q of vphi), states the correct sign and value, calls it substantive, and explains the physical consequence, so it sends a physicist straight to the right place."
+    }
+  },
+  {
+    "id": "Monotops__factor2",
+    "page": "Monotops",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/rerun/v3s_tools/s1/model/Monotops_gen.fr",
+    "operator": "factor2",
+    "term": "Lphiu",
+    "tokens": [
+      "Lphiu",
+      "2"
+    ],
+    "defect": "Whole term `Lphiu` multiplied by 2 (coupling normalisation off by a factor of two).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 30,
+    "n_flagged": 4,
+    "n_substantive": 2,
+    "rule_hits": [
+      "*D1 \u2014 Explicit overall factor 2 in the $\\phi\\bar u u$ term (`Lphiu`). Severity: substantive.**"
+    ],
+    "rule_detected": true,
+    "judge": {
+      "named": "yes",
+      "quote": "D1 \u2014 Explicit overall factor 2 in the $\\phi\\bar u u$ term (`Lphiu`). Severity: substantive. Eq. (1) writes $\\phi\\,\\bar u[a^0_{FC}+b^0_{FC}\\gamma_5]u$ with coefficient 1, while the reconstruction has $2\\,\\phi\\,\\bar u[a^0+b^0\\gamma^5]u$.",
+      "severity": "substantive",
+      "other_substantive": 1,
+      "other_list": "D2 \u2014 `LXkin` uses the abelian field strength `FS` instead of a QCD-covariant kinetic term, so the colour-triplet vector $X$ gets no gluon coupling from its kinetic term. Severity: substantive.",
+      "note": "The reviewer names the exact term, the exact factor, and the exact physical consequence (factor 4 in rate, factor 2 in extracted a_min), so it would send a physicist straight to the right place."
+    }
+  },
+  {
+    "id": "Monotops__drop_term",
+    "page": "Monotops",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/rerun/v3s_tools/s1/model/Monotops_gen.fr",
+    "operator": "drop_term",
+    "term": "LXChi",
+    "tokens": [
+      "LXChi"
+    ],
+    "defect": "Interaction term `LXChi` deleted from the model and from the total Lagrangian (a whole interaction is missing).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 21,
+    "n_flagged": 4,
+    "n_substantive": 0,
+    "rule_hits": [],
+    "rule_detected": false,
+    "judge": {
+      "named": "yes",
+      "quote": "**`$X_{\\mu,i}\\,\\bar u^i[a^{1/2}_{VR}\\gamma^\\mu + b^{1/2}_{VR}\\gamma^\\mu\\gamma_5]\\chi$` (Eq. 1, lines 202-203)** | **absent** \u2014 `LTotal` has no `$X\\!-\\!u\\!-\\!\\chi$` piece; `ahalfVR` and `bhalfVR` multiply nothing (\u00a71.7) | **missing-in-reconstruction**",
+      "severity": "substantive",
+      "other_substantive": 2,
+      "other_list": "`WX` = 50 GeV with no open `$X$` decay to `$t\\chi$`, so the width does not match the sum of available partial widths (substantive, item 3).\n`FS[X,mu,nu]` gives the abelian curl rather than a QCD-covariant field strength for the colour-triplet `$X$`, changing the `$X$`-gluon vertices (substantive, item 5).",
+      "note": "The reviewer names the exact missing vertex, its two symptoms (orphan parameters, inconsistent width), and its physical consequence (no monotop signal from X, contradicting the paper's BR(X to t chi) = 1 scenario), so it would send a physicist straight to the right place."
+    }
+  },
+  {
+    "id": "EffLRSM__real",
+    "page": "EffLRSM",
+    "kind": "real",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/model/EffLRSM_gen.fr",
+    "operator": "physicist_finding",
+    "term": null,
+    "tokens": [],
+    "defect": "Light neutrino written as the bare field `ve` where the paper has the charge conjugate nu^c (lepton number); and the Z_R coupling MULTIPLIES by Sqrt[1 - tan^2/kappa^2] where Eq. (8) DIVIDES.",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 31,
+    "n_flagged": 9,
+    "n_substantive": 2,
+    "rule_hits": [],
+    "rule_detected": null,
+    "judge": {
+      "named": "yes",
+      "quote": "D1: \"The paper writes the prefactor as $-\\kappa_R^f g\\big/\\sqrt{1-(1/\\kappa_R^f)^2\\tan^2\\theta_W}$, that is, the square root is in the denominator. The reconstruction writes `gZRq`, `gZRl` with the square root as a multiplying factor.\" D2: \"The paper writes $\\overline{\\nu^c_m}X_{\\ell m}$ in the $W_R$ lepton current. The reconstruction writes $\\bar\\nu_n$ with no charge conjugation.\"",
+      "severity": "substantive (D1, Z_R normalization: square root multiplies instead of divides); convention, can become substantive (D2, light-neutrino field not charge-conjugated)",
+      "other_substantive": 0,
+      "other_list": "",
+      "note": "The reviewer isolates the same two-part defect exactly (wrong placement of the Z_R square root and the missing nu-to-nu^c conjugation) and correctly ranks the Z_R normalization as the one substantive issue to settle first, so it would send a physicist to the right place."
+    }
+  },
+  {
+    "id": "GeneralU1__real",
+    "page": "GeneralU1",
+    "kind": "real",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/model/GeneralU1_gen.fr",
+    "operator": "physicist_finding",
+    "term": null,
+    "tokens": [],
+    "defect": "Neutrino Dirac Yukawa contracts LLbar[ii] with Phibar[ii] on a shared index (no Eps, not an SU(2) singlet); Higgs U(1)_X charge has the wrong sign (-xH/2 instead of +xH/2).",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 42,
+    "n_flagged": 8,
+    "n_substantive": 0,
+    "rule_hits": [],
+    "rule_detected": null,
+    "judge": {
+      "named": "partial",
+      "quote": "| $-Y_\\nu^{\\alpha\\beta}\\overline{\\ell_L^\\alpha}HN_R^\\beta+{\\rm H.c.}$ (Eq. `LYk`) | `LNuDiracYuk`: ... $\\delta_{ab}$ contraction (\u00a71) | **disagree** | ... the $SU(2)_L$ index contraction is direct, not $\\varepsilon_{ab}$. With the `SM.fr` doublet this operator is not electrically neutral. See D3.' -- and separately, D1: 'The reconstruction lists $Y_H=-1/2$ and flags `qHX`=$-x_H/2$ as an error that should be $+x_H/2$ ... The implementation's number, $-x_H/2$, is exactly the paper's charge.'",
+      "severity": "substantive",
+      "other_substantive": 2,
+      "other_list": "D6: no $Z'$ gauge kinetic term (`FS[Zp,mu,nu]` absent from the file) -- substantive, no propagator for $Z'$.\nD7: fixed `WZp`=10 GeV cannot track the paper's computed width across the $x_H$ scan in Fig. 1 -- substantive for phenomenology.",
+      "note": "The reviewer nails the missing-epsilon Dirac-Yukawa contraction as a real substantive defect (D3), but for the other half of the injected defect it argues the opposite of the injected claim -- that `qHX`=$-x_H/2$ is actually the paper's own charge and the reconstruction's '$+x_H/2$' correction is itself the mistake (D1) -- so a physicist is sent to the right place on the contraction bug but could be misdirected on the Higgs-charge sign."
+    }
+  },
+  {
+    "id": "368sextets__real",
+    "page": "368sextets",
+    "kind": "real",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/model/368sextets_gen.fr",
+    "operator": "physicist_finding",
+    "term": null,
+    "tokens": [],
+    "defect": "Dimension-5 and -6 sextet operators carry no 1/Lambda, 1/Lambda^2 suppression; couplings absorb the cutoff.",
+    "has_recon": true,
+    "has_cross": true,
+    "n_rows": 23,
+    "n_flagged": 2,
+    "n_substantive": 0,
+    "rule_hits": [],
+    "rule_detected": null,
+    "judge": {
+      "named": "yes",
+      "quote": "D2. The cutoff scale \u039b is absorbed into the coupling. Severity: substantive. The paper carries `1/\u039b_Psi_q`, `1/\u039b\u00b3_Psi_qB` and `1/\u039b\u00b2_Phi_q` as separate, explicit factors... The file has no `\u039b`. It has one coefficient per operator and enters it as the plain number `0.1`, with no unit attached.",
+      "severity": "substantive",
+      "other_substantive": 1,
+      "other_list": "D4. Normalisation of the triplet epsilon object inside the colour tensor: the reconstruction only says the file's K3bar is \"proportional to\" \u03b5_ijk instead of confirming the paper's footnote \u221a2\u00b7L\u0304_ijk = \u03b5_ijk, a possible missing factor of two in every rate.",
+      "note": "The reviewer correctly isolates the missing 1/Lambda suppression as the single largest, rate-changing issue and tells a physicist to settle it first, so the overall assessment points to the right place."
+    }
+  }
+]

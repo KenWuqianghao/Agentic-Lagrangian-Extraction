@@ -11,16 +11,17 @@ uv pip install -e ".[dev,web]"
 # Copy and fill in your ADS token (optional but recommended)
 cp .env.example .env
 
+# The CLI is `lag-extract`, not `lex`: macOS ships /usr/bin/lex (the flex lexer).
 # Default: select one theory paper with relevance ranking
-lex search "scalar leptoquark" -k BSM -k leptoquark --since 2015-01-01
+lag-extract search "scalar leptoquark" -k BSM -k leptoquark --since 2015-01-01
 
 # Abstract-focused search and ranking
-lex search "scalar leptoquark" -k BSM \
+lag-extract search "scalar leptoquark" -k BSM \
   --require-abstract --abstract-keyword-match \
   --semantic-scope abstract --no-download-pdfs
 
 # Probe LaTeX source for the selected paper
-lex search "scalar leptoquark" -k BSM --probe-latex-source
+lag-extract search "scalar leptoquark" -k BSM --probe-latex-source
 ```
 
 ### Key CLI flags
@@ -36,6 +37,11 @@ lex search "scalar leptoquark" -k BSM --probe-latex-source
 | `--use-ads / --no-ads` | on | Include NASA ADS (needs `ADS_API_TOKEN`) |
 | `--probe-latex-source` | off | Check arXiv `/src/` LaTeX availability |
 | `--theory-only` | on | Exclude experimental papers |
+| `--skip-arxiv` | off | INSPIRE-only search (skip arXiv API; use if rate-limited) |
+| `--w-cite` | 0.7 | Citation weight (combined ranking) |
+| `--w-recent` | 0.3 | Recency weight (combined ranking) |
+| `--out` | `runs/` | Audit log output directory |
+| `--data-dir` | `data/` | Root for cached PDFs and text |
 
 ### ADS setup
 
@@ -57,7 +63,7 @@ data/src/{arxiv_id}/     # Cached main .tex when --probe-latex-source
 ## Architecture
 
 ```
-CLI / lex-web
+CLI (lag-extract search) / lag-extract-web
   └─ run_search()
        ├─ InspireClient  → INSPIRE-HEP REST API
        ├─ ArxivClient    → arXiv Atom API
@@ -87,7 +93,7 @@ python scripts/latex_availability_benchmark.py --audit runs/{run_id}.json
 ## Web UI
 
 ```bash
-lex-web
+lag-extract-web
 # Open http://127.0.0.1:8000
 ```
 

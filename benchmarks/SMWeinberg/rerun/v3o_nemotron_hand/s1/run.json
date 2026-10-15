@@ -1,0 +1,37 @@
+{
+ "page": "SMWeinberg",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "hand",
+ "seed": 1,
+ "variant": "v3o_nemotron_hand",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 1199.0,
+ "tokens": {
+  "input": 71280,
+  "output": 9543,
+  "reasoning": 18101
+ },
+ "output_max": 128000,
+ "n_events": 20,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 5,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"cat << 'EOF'\\nSELF-AUDIT TABLE\\n\\n| term name | fields in the monom"
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "model.fr",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/SMWeinberg/rerun/v3o_nemotron_hand/s1/model/SMWeinberg_gen.fr"
+}

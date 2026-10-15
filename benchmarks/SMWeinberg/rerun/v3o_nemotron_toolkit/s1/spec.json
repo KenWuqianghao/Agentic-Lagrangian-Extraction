@@ -1,0 +1,134 @@
+{
+  "model_name": "SMWeinberg_gen",
+  "info": {
+    "authors": ["Benjamin Fuks", "Jonas Neundorf", "Krisztian Peters", "Richard Ruiz", "Matthias Saimpert"],
+    "version": "1.0.0",
+    "date": "24.09.2026",
+    "institutions": ["Sorbonne Universite", "DESY", "Institute of Nuclear Physics PAN", "CERN"],
+    "emails": ["fuks@lpthe.jussieu.fr", "jonas.neundorf@desy.de", "krisztian.peters@desy.de", "rruiz@ifj.edu.pl", "matthias.saimpert@cern.ch"]
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "interaction_order_limit": [["NP", 2]],
+  "feynman_gauge": true,
+  "vevs": [["Phi[2]", "vev"]],
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "Lambda",
+      "parameter_type": "External",
+      "value": "200000.",
+      "block_name": "NUPHYSICS",
+      "order_block": 1,
+      "interaction_order": ["NP", -1],
+      "description": "EFT cutoff scale [GeV], Eq.(108)"
+    },
+    {
+      "name": "Cll",
+      "parameter_type": "External",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "Cll[1,1]", "rhs": "0.", "delayed": false},
+        {"lhs": "Cll[1,2]", "rhs": "0.", "delayed": false},
+        {"lhs": "Cll[1,3]", "rhs": "0.", "delayed": false},
+        {"lhs": "Cll[2,1]", "rhs": "Cll[1,2]", "delayed": false},
+        {"lhs": "Cll[2,2]", "rhs": "1.", "delayed": false},
+        {"lhs": "Cll[2,3]", "rhs": "0.", "delayed": false},
+        {"lhs": "Cll[3,1]", "rhs": "Cll[1,3]", "delayed": false},
+        {"lhs": "Cll[3,2]", "rhs": "Cll[2,3]", "delayed": false},
+        {"lhs": "Cll[3,3]", "rhs": "0.", "delayed": false}
+      ],
+      "block_name": "NUPHYSICS",
+      "interaction_order": ["NP", 1],
+      "description": "Weinberg operator Wilson coefficient matrix C_5^{ll'}, symmetric, Eq.(108)",
+      "symmetric": true
+    },
+    {
+      "name": "mN",
+      "parameter_type": "Internal",
+      "value": "Abs[Cll[1,1]+Cll[1,2]+Cll[1,3]+Cll[2,2]+Cll[2,3]+Cll[3,3]]*vev^2/Lambda",
+      "block_name": "MASS",
+      "order_block": 9900012,
+      "description": "Unphysical Majorana neutrino mass m_N = |sum C_5^{ll'}| v^2/Lambda, Eq.(188)"
+    },
+    {
+      "name": "wN",
+      "parameter_type": "Internal",
+      "value": "1.*^-6",
+      "block_name": "WIDTH",
+      "order_block": 9900012,
+      "description": "Unphysical Majorana neutrino width (placeholder)"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "F",
+      "class_index": 100,
+      "class_name": "Nw",
+      "self_conjugate": true,
+      "indices": [],
+      "class_members": [],
+      "mass": {"sym": "mN", "value": "Internal"},
+      "width": {"sym": "wN", "value": "Internal"},
+      "quantum_numbers": {},
+      "unphysical": false,
+      "particle_name": "Nw",
+      "antiparticle_name": "Nw",
+      "full_name": "Weinberg Majorana neutrino",
+      "propagator_label": "Nw",
+      "propagator_type": "S",
+      "propagator_arrow": "Forward",
+      "pdg": 9900012
+    }
+  ],
+  "gauge_xi": [],
+  "lagrangian_terms": [
+    {
+      "name": "LNkin",
+      "expression": "I/2 Nwbar[sp].Ga[mu].del[Nw[sp], mu] - 1/2 mN Nwbar[sp].Nw[sp]",
+      "delayed": true
+    },
+    {
+      "name": "LintW",
+      "expression": "-gw/Sqrt[2] W[mu] Sum[Nwbar[sp].Ga[mu].ProjM.l[sp,ff], {ff, 3}]",
+      "delayed": true
+    },
+    {
+      "name": "LintZ",
+      "expression": "-gw/(2*cw) Z[mu] Sum[Nwbar[sp].Ga[mu].ProjM.vl[sp,ff], {ff, 3}]",
+      "delayed": true
+    },
+    {
+      "name": "Linth",
+      "expression": "-gw*mN/(2*MW) H (1 + gw/(4*MW) H) Sum[Nwbar[sp].ProjM.vl[sp,ff], {ff, 3}]",
+      "delayed": true
+    },
+    {
+      "name": "LintGP",
+      "expression": "-I*gw*mN/(2*Sqrt[2]*MW) GP (1 + gw/(2*MW) H) Sum[Nwbar[sp].ProjM.l[sp,ff] + bar[CC[l[sp,ff]]].ProjM.Nw[sp], {ff, 3}]",
+      "delayed": true
+    },
+    {
+      "name": "LintG0",
+      "expression": "-I*gw*mN/(2*MW) G0 (1 + gw/(2*MW) H) Sum[Nwbar[sp].ProjM.vl[sp,ff], {ff, 3}]",
+      "delayed": true
+    },
+    {
+      "name": "LintGPGP",
+      "expression": "gw^2*mN/(8*MW^2) (2 GP*GP Sum[bar[CC[l[sp,ff]]].ProjM.l[sp2,ff2], {ff, 3}, {ff2, 3}] + G0*G0 Sum[Nwbar[sp].ProjM.vl[sp,ff], {ff, 3}])",
+      "delayed": true
+    },
+    {
+      "name": "LintG0GP",
+      "expression": "gw^2*mN/(4*Sqrt[2]*MW^2) G0*GP Sum[Nwbar[sp].ProjM.l[sp,ff] + bar[CC[l[sp,ff]]].ProjM.Nw[sp], {ff, 3}]",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "LNkin + HC[LintW] + HC[LintZ] + HC[Linth] + HC[LintGP] + HC[LintG0] + HC[LintGPGP] + HC[LintG0GP]",
+      "delayed": true
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}

@@ -1,0 +1,38 @@
+{
+ "page": "pSPSS",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit",
+ "seed": 1,
+ "variant": "v3o_mimo_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3600.1,
+ "tokens": {
+  "input": 388719,
+  "output": 14475,
+  "reasoning": 140282
+ },
+ "output_max": 128000,
+ "n_events": 94,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 52,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"wc -l spec.json model.fr\"}"
+  ],
+  "frgen_runs": 1,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pSPSS/rerun/v3o_mimo_toolkit/s1/model/pSPSS_gen.fr",
+ "final_lint_findings": 0
+}

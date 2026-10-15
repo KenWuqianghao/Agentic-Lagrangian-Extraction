@@ -1,0 +1,308 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+From kernel 1 (Local):
+MergeModels::Params: Warning: Doubly defined parameter classes.
+From kernel 2 (Local):
+MergeModels::Params: Warning: Doubly defined parameter classes.
+From kernel 3 (Local):
+MergeModels::Params: Warning: Doubly defined parameter classes.
+From kernel 4 (Local):
+MergeModels::Params: Warning: Doubly defined parameter classes.
+From kernel 5 (Local):
+MergeModels::Params: Warning: Doubly defined parameter classes.
+
+General::stop: Further output of Warning: Doubly defined parameter classes. will be suppressed during this calculation.
+From kernel 5 (Local):
+LoadModel::FAMass: In FeynRules mode, all class members should be given a mass name.
+From kernel 6 (Local):
+LoadModel::FAMass: In FeynRules mode, all class members should be given a mass name.
+From kernel 1 (Local):
+LoadModel::FAMass: In FeynRules mode, all class members should be given a mass name.
+From kernel 2 (Local):
+LoadModel::FAMass: In FeynRules mode, all class members should be given a mass name.
+From kernel 5 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 6 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 7 (Local):
+LoadModel::FAMass: In FeynRules mode, all class members should be given a mass name.
+
+General::stop: Further output of In FeynRules mode, all class members should be given a mass name. will be suppressed during this calculation.
+From kernel 1 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 2 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+From kernel 5 (Local):
+LoadModel::Part: Warning : All particles should have different names.
+
+General::stop: Further output of Warning : All particles should have different names. will be suppressed during this calculation.
+Merging model-files...
+
+MergeModels::Params: Warning: Doubly defined parameter classes.
+This model implementation was created by
+Junjie Cao
+Yangle He
+Peiwen Wu
+Mengchao Zhang
+Jingya Zhu
+Model Version: 1.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+
+LoadModel::FAMass: In FeynRules mode, all class members should be given a mass name.
+
+LoadModel::Part: Warning : All particles should have different names.
+
+LoadModel::Part: Warning : All particles should have different names.
+
+LoadModel::FAMass: In FeynRules mode, all class members should be given a mass name.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+Model MDMmodel_gen loaded.
+[INFO] Lagrangian: LTotal
+HEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)
+HEPTAPOD-LAGRANGIAN|expression=LTotal|symbols=LTotal|terms=1141
+HEPTAPOD-RESIDUAL|count=1|fields=Tcol
+[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum
+
+Inner::incom: Length 0 of dimension 1 in {} is incommensurate with length 1 of dimension 1 in {Index[Colour, 1]}.
+
+Inner::incom: Length 0 of dimension 1 in {} is incommensurate with length 1 of dimension 1 in {Index[Colour, 1]}.
+
+Inner::incom: Length 0 of dimension 1 in {} is incommensurate with length 1 of dimension 1 in {Index[Colour, 2]}.
+
+General::stop: Further output of Inner::incom will be suppressed during this calculation.
+
+Part::partw: Part 1 of {} does not exist.
+
+Part::partw: Part 2 of {} does not exist.
+
+Part::partw: Part 1 of {} does not exist.
+
+General::stop: Further output of Part::partw will be suppressed during this calculation.
+HEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=fail|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. 45 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$F
+HEPTAPOD-CHECK|scope=model|name=kinetic_diagonal|verdict=fail|detail=Neglecting all terms with more than 2 particles. Non diagonal kinetic term found: I Cos[thetaL] tbar[Index[Spin, i$18612], Index[Colour, 1]] . del[tprime[Index[Spin, j$18612], Index[Colour, 1]], Index[Lorentz, mu]] Ga[Index[Lorentz, mu], Index[Spin, i$18612], Index[Spin, j$18612]] Sin[thetaL] + I Cos[thetaL] tbar[Index[Spin, i$18612], Index[Colour, 2]] . del[tprime[Index[Spin, j$18612], Index[Colo
+HEPTAPOD-CHECK|scope=model|name=mass_diagonal|verdict=fail|detail=Non diagonal mass term found: -(M Cos[thetaL] tbar[Index[Spin, i1$18611], Index[Colour, 1]] . tprime[Index[Spin, i1$18611], Index[Colour, 1]] Sin[thetaL]) - M Cos[thetaL] tbar[Index[Spin, i1$18611], Index[Colour, 2]] . tprime[Index[Spin, i1$18611], Index[Colour, 2]] Sin[thetaL] - M Cos[thetaL] tbar[Index[Spin, i1$18611], Index[Colour, 3]] . tprime[Index[Spin, i1$18611], Index[Colour, 3]] Sin[theta
+Neglecting all terms with more than 2 particles.
+Non diagonal mass term found: -(M*Cos[thetaL]*tbar[Index[Spin, i1$18611], Index[Colour, 1]] . tprime[Index[Spin, i1$18611], Index[Colour, 1]]*Sin[thetaL]) - M*Cos[thetaL]*tbar[Index[Spin, i1$18611], Index[Colour, 2]] . tprime[Index[Spin, i1$18611], Index[Colour, 2]]*Sin[thetaL] - M*Cos[thetaL]*tbar[Index[Spin, i1$18611], Index[Colour, 3]] . tprime[Index[Spin, i1$18611], Index[Colour, 3]]*Sin[thetaL]
+Non diagonal mass term found: -(M*Cos[thetaL]*tprimebar[Index[Spin, i1$18611], Index[Colour, 1]] . t[Index[Spin, i1$18611], Index[Colour, 1]]*Sin[thetaL]) - M*Cos[thetaL]*tprimebar[Index[Spin, i1$18611], Index[Colour, 2]] . t[Index[Spin, i1$18611], Index[Colour, 2]]*Sin[thetaL] - M*Cos[thetaL]*tprimebar[Index[Spin, i1$18611], Index[Colour, 3]] . t[Index[Spin, i1$18611], Index[Colour, 3]]*Sin[thetaL]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -(H*mS2*s*Cos[thetaS]*Sin[thetaS]) - (H*kappa*s*vev^2*Cos[thetaS]*Sin[thetaS])/2 - H*kappa*s*vev*Cos[thetaS]*PRIVATE`SortStrucConst[PRIVATE`SortStrucConst[f]] - (H*lambdaS*s*Cos[thetaS]*Sin[thetaS]*PRIVATE`SortStrucConst[PRIVATE`SortStrucConst[f]]^2)/2
+Non diagonal mass term found: -((Tcolbar*vev*yp*ProjM[Index[Spin, sp], Index[Spin, sp2$18565]]*t[Index[Spin, sp2$18565], Index[Colour, 1]])/Sqrt[2]) - (Tcolbar*vev*yp*ProjM[Index[Spin, sp], Index[Spin, sp2$18565]]*t[Index[Spin, sp2$18565], Index[Colour, 2]])/Sqrt[2] - (Tcolbar*vev*yp*ProjM[Index[Spin, sp], Index[Spin, sp2$18565]]*t[Index[Spin, sp2$18565], Index[Colour, 3]])/Sqrt[2]
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -((vev*yp*Ga[0] . Tcol*tbar[Index[Spin, sp2$18566], Index[Colour, 1]]*TensDot[Ga[0], ProjM][Index[Spin, sp2$18566], Index[Spin, sp]])/Sqrt[2]) - (vev*yp*Ga[0] . Tcol*tbar[Index[Spin, sp2$18566], Index[Colour, 2]]*TensDot[Ga[0], ProjM][Index[Spin, sp2$18566], Index[Spin, sp]])/Sqrt[2] - (vev*yp*Ga[0] . Tcol*tbar[Index[Spin, sp2$18566], Index[Colour, 3]]*TensDot[Ga[0], ProjM][Index[Spin, sp2$18566], Index[Spin, sp]])/Sqrt[2]
+HEPTAPOD-CHECK|scope=model|name=mass_spectrum|verdict=inconclusive|detail=
+[INFO] UFO output: /private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/vbench/open/v3o_nemotron_toolkit/MDMmodel/s1/MDMmodel_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+217 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 217.
+173 vertices obtained.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 173
+   - Saved vertices in InterfaceRun[ 1 ].
+Preparing Python output.
+
+Part::pkspec1: The expression PRIVATE`hold[a, Ext[2]] cannot be used as a part specification.
+
+Inner::normal: Nonatomic expression expected at position 3 in Inner[PRIVATE`TurnFermionicIndexDeltas, ProjM[Index[Spin, a], Index[Spin, Ext[2]]], List].
+
+Join::heads: Heads Inner and List at positions 1 and 2 are expected to be the same.
+
+Join::heads: Heads Inner and List at positions 1 and 2 are expected to be the same.
+
+Join::heads: Heads Inner and List at positions 1 and 2 are expected to be the same.
+
+General::stop: Further output of Join::heads will be suppressed during this calculation.
+
+Function::slotn: Slot number 2 in Ext[#2, opt___] -> Ext[#3, opt] &  cannot be filled from (Ext[#2, opt___] -> Ext[#3, opt] & )[1].
+
+Function::slotn: Slot number 3 in Ext[#2, opt___] -> Ext[#3, opt] &  cannot be filled from (Ext[#2, opt___] -> Ext[#3, opt] & )[1].
+
+Function::slotn: Slot number 3 in Ext[#2, opt___] -> Ext[#3, opt] &  cannot be filled from (Ext[#2, opt___] -> Ext[#3, opt] & )[{G0, 3}, 2].
+
+General::stop: Further output of Function::slotn will be suppressed during this calculation.
+
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+ReplaceAll::reps: {Rule[Ext[ProjM[Index[Spin, a], Index[Spin, Ext[2]]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+Part::pkspec1: The expression PRIVATE`hold[a, Ext[2]] cannot be used as a part specification.
+
+Inner::normal: Nonatomic expression expected at position 3 in Inner[PRIVATE`TurnFermionicIndexDeltas, ProjM[Index[Spin, a], Index[Spin, Ext[2]]], List].
+
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+ReplaceAll::reps: {Rule[Ext[ProjM[Index[Spin, a], Index[Spin, Ext[2]]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+Warning: Multi-Fermion operators are not yet fully supported!
+
+Part::pkspec1: The expression PRIVATE`OperatorChain[tbar[Index[Spin, a1], 1]] cannot be used as a part specification.
+
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+
+Inner::heads: Heads PRIVATE`OperatorChain and PRIVATE`dummylist at positions 3 and 2 are expected to be the same.
+
+Inner::heads: Heads PRIVATE`OperatorChain and PRIVATE`dummylist at positions 3 and 2 are expected to be the same.
+
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+
+ReplaceAll::reps: {Rule[Ext[PRIVATE`dummylist[{{G0, 1}}[[PRIVATE`OperatorChain[tbar[Index[Spin, a1], 1]]]], {{G0, 1}}[[PRIVATE`hold[a1, b]]]], opt___], Ext[PRIVATE`OperatorChain[tbar[Index[Spin, a1], 1]], opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+Warning: Multi-Fermion operators are not yet fully supported!
+
+Inner::heads: Heads PRIVATE`OperatorChain and PRIVATE`dummylist at positions 3 and 2 are expected to be the same.
+
+General::stop: Further output of Inner::heads will be suppressed during this calculation.
+
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+
+MapAt::partw: Part {1} of List does not exist.
+
+MapAt::partw: Part {1} of 1 does not exist.
+
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+From kernel 1 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 3 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 4 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 5 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 6 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 6 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+From kernel 1 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 3 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 4 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 5 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 6 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+From kernel 1 (Local):
+ReplaceAll::reps: {Rule[Ext[ProjM[Index[Spin, a], Index[Spin, Ext[2]]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 3 (Local):
+ReplaceAll::reps: {Rule[Ext[ProjM[Index[Spin, a], Index[Spin, Ext[2]]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 4 (Local):
+ReplaceAll::reps: {Rule[Ext[ProjM[Index[Spin, a], Index[Spin, Ext[2]]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 5 (Local):
+ReplaceAll::reps: {Rule[Ext[ProjM[Index[Spin, a], Index[Spin, Ext[2]]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 6 (Local):
+ReplaceAll::reps: {Rule[Ext[ProjM[Index[Spin, a], Index[Spin, Ext[2]]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of `1` is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing. will be suppressed during this calculation.
+From kernel 1 (Local):
+Part::pkspec1: The expression PRIVATE`OperatorChain[tbar[Index[Spin, a1], 1]] cannot be used as a part specification.
+From kernel 3 (Local):
+Part::pkspec1: The expression PRIVATE`OperatorChain[tbar[Index[Spin, a1], 1]] cannot be used as a part specification.
+From kernel 4 (Local):
+Part::pkspec1: The expression PRIVATE`OperatorChain[tbar[Index[Spin, a1], 1]] cannot be used as a part specification.
+From kernel 5 (Local):
+Part::pkspec1: The expression PRIVATE`OperatorChain[tbar[Index[Spin, a1], 1]] cannot be used as a part specification.
+From kernel 6 (Local):
+Part::pkspec1: The expression PRIVATE`OperatorChain[tbar[Index[Spin, a1], 1]] cannot be used as a part specification.
+
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 1 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 2 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 3 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 4 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 5 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+From kernel 1 (Local):
+ReplaceAll::reps: {Rule[Ext[L$ProjM[Index[Spin, a], Index[Spin, Ext[2]]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 2 (Local):
+ReplaceAll::reps: {Rule[Ext[L$ProjM[Index[Spin, a], Index[Spin, Ext[2]]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 3 (Local):
+ReplaceAll::reps: {Rule[Ext[L$ProjM[Index[Spin, a], Index[Spin, Ext[2]]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 4 (Local):
+ReplaceAll::reps: {Rule[Ext[L$ProjM[Index[Spin, a], Index[Spin, Ext[2]]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 5 (Local):
+ReplaceAll::reps: {Rule[Ext[L$ProjM[Index[Spin, a], Index[Spin, Ext[2]]], opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of `1` is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing. will be suppressed during this calculation.
+From kernel 1 (Local):
+Part::pkspec1: The expression PRIVATE`OperatorChain[tbar[Index[Spin, a1], 1]] cannot be used as a part specification.
+From kernel 2 (Local):
+Part::pkspec1: The expression PRIVATE`OperatorChain[tbar[Index[Spin, a1], 1]] cannot be used as a part specification.
+From kernel 3 (Local):
+Part::pkspec1: The expression PRIVATE`OperatorChain[tbar[Index[Spin, a1], 1]] cannot be used as a part specification.
+From kernel 4 (Local):
+Part::pkspec1: The expression PRIVATE`OperatorChain[tbar[Index[Spin, a1], 1]] cannot be used as a part specification.
+From kernel 5 (Local):
+Part::pkspec1: The expression PRIVATE`OperatorChain[tbar[Index[Spin, a1], 1]] cannot be used as a part specification.
+
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/173 .
+
+StringJoin::string: String expected at position 1 in PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>S<>PRIVATE`ConvertSpinToString[0]<>1.
+
+StringJoin::string: String expected at position 2 in PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>S<>PRIVATE`ConvertSpinToString[0]<>1.
+
+StringJoin::string: String expected at position 3 in PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>S<>PRIVATE`ConvertSpinToString[0]<>1.
+
+General::stop: Further output of StringJoin::string will be suppressed during this calculation.
+    - Writing files.
+Warning: Non positive interaction order QED.
+                This might reduce the efficiency of certain matrix element generators.
+                See logfile for more details.
+Done!
+[INFO] UFO complete: particles.py, vertices.py, couplings.py, parameters.py, coupling_orders.py all present.
+[INFO] Done.

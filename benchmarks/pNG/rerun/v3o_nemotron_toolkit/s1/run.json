@@ -1,0 +1,41 @@
+{
+ "page": "pNG",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "toolkit",
+ "seed": 1,
+ "variant": "v3o_nemotron_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3600.1,
+ "tokens": {
+  "input": 471724,
+  "output": 9939,
+  "reasoning": 25568
+ },
+ "output_max": 128000,
+ "n_events": 98,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 31,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-",
+   "bash:{\"command\": \"ls -la /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-",
+   "bash:{\"command\": \"find /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pN",
+   "bash:{\"command\": \"cat /private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-pNG"
+  ],
+  "frgen_runs": 4,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/rerun/v3o_nemotron_toolkit/s1/model/pNG_gen.fr",
+ "final_lint_findings": 0
+}

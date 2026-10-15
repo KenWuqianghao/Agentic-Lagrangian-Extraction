@@ -1,0 +1,38 @@
+{
+ "page": "Wprime",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit2",
+ "seed": 1,
+ "variant": "v3o_mimo_toolkit2",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 4382.5,
+ "tokens": {
+  "input": 269730,
+  "output": 5359,
+  "reasoning": 26388
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 0,
+ "n_events": 67,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 23,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"wc -l TASK.md && ls -la\"}"
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_spec"
+}

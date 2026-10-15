@@ -1,0 +1,22 @@
+{
+ "lag_symbol": "LNP",
+ "lag_resolution": {
+  "roots": [
+   "LNP"
+  ],
+  "legacy_symbol": "LNP",
+  "n_terms_defined": 7,
+  "ambiguous": false,
+  "changed_from_legacy": false
+ },
+ "compile_ok": false,
+ "timed_out": true,
+ "exit": -1,
+ "seconds": 1800.1,
+ "ufo_files": [],
+ "checks": {},
+ "protected_symbol_errors": 0,
+ "log_tail": "e suppressed during this calculation.\n\nN::precbd: Requested precision ff is not a machine-sized real number between $MinPrecision and $MaxPrecision.\n   - Loading gauge group classes.\n   - Loading parameter classes.\n\nN::precbd: Requested precision Index[Generation, ff] is not a machine-sized real number between $MinPrecision and $MaxPrecision.\n\nModel GeneralU1_gen loaded.\n\nPutIndices::NoIndexMath: -- Message text not found --\n\nThread::tdlen: Objects of unequal length in {} + {1387 Index[Generation, ISind1[Generation, ISind2]]} cannot be combined.\n\nN::precbd: Requested precision ff2 is not a machine-sized real number between $MinPrecision and $MaxPrecision.\n\nGeneral::stop: Further output of N::precbd will be suppressed during this calculation.\n[INFO] Total Lagrangian: LSM + LNP\n\nPutIndices::NoIndexMath: -- Message text not found --\n\nThread::tdlen: Objects of unequal length in {} + {1387 Index[Generation, ISind1[Generation, ISind2]]} cannot be combined.\n[INFO] Running FeynRules consistency checks.\nHEPTAPOD-CHECK-BEGIN: hermiticity\nChecking for hermiticity by calculating the Feynman rules contained in L-HC[L].\nIf the lagrangian is hermitian, then the number of vertices should be zero.\n",
+ "status": "compile_timeout",
+ "full_chain_pass": false
+}

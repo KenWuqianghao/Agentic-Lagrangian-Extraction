@@ -1,0 +1,181 @@
+{
+  "model_name": "pNG_gen",
+  "info": {
+    "authors": ["Chiara Arina", "Ankit Beniwal", "Celine Degrande", "Jan Heisig", "Andre Scaffidi"],
+    "version": "1.0.0",
+    "date": "2025-09-25",
+    "institutions": ["UCLouvain", "University of Adelaide"],
+    "emails": ["chiara.arina@uclouvain.be", "ankit.beniwal@uclouvain.be", "celine.degrande@uclouvain.be", "jan.heisig@uclouvain.be", "andre.scaffidi@adelaide.edu.au"]
+  },
+  "interaction_order_hierarchy": [
+    ["QCD", 1],
+    ["QED", 2],
+    ["NP", 1]
+  ],
+  "interaction_order_limit": [
+    ["QCD", 99],
+    ["QED", 99],
+    ["NP", 99]
+  ],
+  "feynman_gauge": true,
+  "vevs": [
+    ["Phi[2]", "vev"]
+  ],
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "m_chi",
+      "parameter_type": "External",
+      "value": "100.",
+      "block_name": "PNG",
+      "order_block": 1,
+      "interaction_order": ["NP", 1],
+      "description": "pNG DM mass [GeV]",
+      "definitions": []
+    },
+    {
+      "name": "vs",
+      "parameter_type": "External",
+      "value": "1000.",
+      "block_name": "PNG",
+      "order_block": 2,
+      "interaction_order": ["NP", 1],
+      "description": "Singlet VEV v_s [GeV]"
+    },
+    {
+      "name": "theta",
+      "parameter_type": "External",
+      "value": "0.1",
+      "block_name": "PNG",
+      "order_block": 3,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs mixing angle [rad]"
+    },
+    {
+      "name": "mH",
+      "parameter_type": "External",
+      "value": "200.",
+      "block_name": "PNG",
+      "order_block": 4,
+      "interaction_order": ["NP", 1],
+      "description": "Heavy Higgs mass [GeV]",
+      "definitions": []
+    },
+    {
+      "name": "lambdaPhi",
+      "parameter_type": "Internal",
+      "value": "(MH^2*Cos[theta]^2 + mH^2*Sin[theta]^2)/vev^2",
+      "interaction_order": ["QED", 2],
+      "description": "Higgs quartic coupling lambda_Phi"
+    },
+    {
+      "name": "lambdaS",
+      "parameter_type": "Internal",
+      "value": "(MH^2*Sin[theta]^2 + mH^2*Cos[theta]^2)/vs^2",
+      "interaction_order": ["NP", 1],
+      "description": "Singlet quartic coupling lambda_S"
+    },
+    {
+      "name": "lambdaPhiS",
+      "parameter_type": "Internal",
+      "value": "(mH^2 - MH^2)*Sin[theta]*Cos[theta]/(vev*vs)",
+      "interaction_order": ["NP", 1],
+      "description": "Portal coupling lambda_PhiS"
+    },
+    {
+      "name": "muSprime2",
+      "parameter_type": "Internal",
+      "value": "m_chi^2",
+      "description": "Soft breaking parameter mu_S'^2"
+    },
+    {
+      "name": "muPhi2",
+      "parameter_type": "Internal",
+      "value": "lambdaPhi*vev^2 + lambdaPhiS*vs^2",
+      "description": "Higgs quadratic parameter mu_Phi^2"
+    },
+    {
+      "name": "muS2",
+      "parameter_type": "Internal",
+      "value": "lambdaS*vs^2 + lambdaPhiS*vev^2 - muSprime2",
+      "description": "Singlet quadratic parameter mu_S^2"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "S",
+      "class_index": 100,
+      "class_name": "S",
+      "self_conjugate": false,
+      "indices": [],
+      "unphysical": true,
+      "definitions": [
+        "S -> (vs + (-Sin[theta]*H + Cos[theta]*HH) + I*chi)/Sqrt[2]",
+        "Sbar -> (vs + (-Sin[theta]*H + Cos[theta]*HH) - I*chi)/Sqrt[2]"
+      ],
+      "quantum_numbers": {}
+    },
+    {
+      "spin_type": "S",
+      "class_index": 101,
+      "class_name": "HH",
+      "self_conjugate": true,
+      "indices": [],
+      "mass": {
+        "sym": "mH",
+        "value": "200."
+      },
+      "width": {
+        "sym": "WHH",
+        "value": "Automatic"
+      },
+      "particle_name": "HH",
+      "antiparticle_name": "HH",
+      "pdg": 9900025,
+      "propagator_label": "HH",
+      "propagator_type": "D",
+      "propagator_arrow": "None",
+      "full_name": "Heavy Higgs",
+      "quantum_numbers": {}
+    },
+    {
+      "spin_type": "S",
+      "class_index": 102,
+      "class_name": "chi",
+      "self_conjugate": true,
+      "indices": [],
+      "mass": {
+        "sym": "m_chi",
+        "value": "100."
+      },
+      "width": {
+        "sym": "Wchi",
+        "value": "Automatic"
+      },
+      "particle_name": "chi",
+      "antiparticle_name": "chi",
+      "pdg": 9900055,
+      "propagator_label": "chi",
+      "propagator_type": "D",
+      "propagator_arrow": "None",
+      "full_name": "pNG DM",
+      "quantum_numbers": {}
+    }
+  ],
+  "gauge_xi": [],
+  "lagrangian_terms": [
+    {
+      "name": "LHiggsTotal",
+      "expression": "DC[Phibar, mu] DC[Phi, mu] + DC[Sbar, mu] DC[S, mu] - muPhi2/2 Phibar[ii] Phi[ii] + lambdaPhi/2 (Phibar[ii] Phi[ii])^2 - lambdaPhiS Phibar[ii] Phi[ii] Sbar S - lambdaS/2 (Sbar S)^2 + muSprime2/4 (S^2 + Sbar^2)",
+      "delayed": false
+    },
+    {
+      "name": "LTotal",
+      "expression": "LGauge + LFermions + LHiggsTotal + LYukawa + LGhost",
+      "delayed": false
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}

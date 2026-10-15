@@ -1,0 +1,63 @@
+{
+ "page": "368sextets",
+ "variant": "v1",
+ "seed": 1,
+ "agent": {
+  "ok": true,
+  "exit": 0,
+  "timed_out": false,
+  "seconds": 413.4,
+  "n_tool_calls": 6,
+  "read_paper": true,
+  "contaminated": false,
+  "outside_sandbox": [],
+  "files_read": [
+   "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/368sextets/rerun/v1/s1/sandbox/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+   "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/368sextets/rerun/v1/s1/sandbox/tools/frgen/frmodel.py",
+   "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/368sextets/rerun/v1/s1/sandbox/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+   "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/368sextets/rerun/v1/s1/sandbox/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+   "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/368sextets/rerun/v1/s1/sandbox/tools/feynrules/test_files/models/SM.fr",
+   "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/368sextets/rerun/v1/s1/sandbox/tools/frgen/render.py"
+  ],
+  "benign_outside": [],
+  "skipped": true
+ },
+ "render": {
+  "rendered": true,
+  "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/368sextets/rerun/v1/s1/model/368sextets_gen.fr"
+ },
+ "predicates": {
+  "available": true,
+  "results": {
+   "sextets_explicit_cutoffs": {
+    "resolved": true,
+    "detail": "External cutoffs ['LambPhid', 'LambPhiu', 'LambPsid', 'LambPsidB', 'LambPsiu', 'LambPsiuB'] with powers [1, 2, 3] on every field-strength operator"
+   }
+  },
+  "all_resolved": true
+ },
+ "validation": {
+  "lag_symbol": "LSextet",
+  "lag_resolution": {
+   "roots": [
+    "LSextet"
+   ],
+   "legacy_symbol": "LSextet",
+   "n_terms_defined": 6,
+   "ambiguous": false,
+   "changed_from_legacy": false
+  },
+  "compile_ok": false,
+  "timed_out": true,
+  "exit": -1,
+  "seconds": 600.1,
+  "ufo_files": [],
+  "checks": {
+   "hermiticity": true
+  },
+  "protected_symbol_errors": 0,
+  "log_tail": " p], Index[Sextet, n2]], s[Index[Spin, q1], Index[Colour, j2]]]*TensDot[0, ProjM][Index[Spin, q1], Index[Spin, SP$1]]*TensDot[Ga[Index[Lorentz, Ext[2]]], Ga[Index[Lorentz, Ext[1]]], 0][r$25906, Index[Spin, SP$1]] + LambPsid*Conjugate[kapu[Index[Generation, 3]]]*Eps[Index[Colour, j2], Index[Colour, Colour$1], Index[Colour, Colour$2]]*K6[Index[Sextet, n2], Index[Colour, Colour$2], Index[Colour, Colour$3]]*PRIVATE`OperatorChain[Psiubar[Index[Spin, p], Index[Sextet, n2]], t[Index[Spin, q1], Index[Colour, j2]]]*TensDot[0, ProjM][Index[Spin, q1], Index[Spin, SP$1]]*TensDot[Ga[Index[Lorentz, Ext[2]]], Ga[Index[Lorentz, Ext[1]]], 0][r$25912, Index[Spin, SP$1]] + LambPsid*Conjugate[kapu[Index[Generation, 1]]]*Eps[Index[Colour, j2], Index[Colour, Colour$1], Index[Colour, Colour$2]]*K6[Index[Sextet, n2], Index[Colour, Colour$2], Index[Colour, Colour$3]]*PRIVATE`OperatorChain[Psiubar[Index[Spin, p], Index[Sextet, n2]], u[Index[Spin, q1], Index[Colour, j2]]]*TensDot[0, ProjM][Index[Spin, q1], Index[Spin, SP$1]]*TensDot[Ga[Index[Lorentz, Ext[2]]], Ga[Index[Lorentz, Ext[1]]], 0][r$25918, Index[Spin, SP$1]]))/(LambPsid*LambPsiu)}\nHEPTAPOD-CHECK-END: hermiticity\nHEPTAPOD-CHECK-BEGIN: kinetic_terms\n",
+  "status": "compile_timeout",
+  "full_chain_pass": false
+ }
+}

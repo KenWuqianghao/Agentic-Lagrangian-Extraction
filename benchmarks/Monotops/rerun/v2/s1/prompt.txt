@@ -1,0 +1,52 @@
+You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.
+
+MODEL: Monotops (SimpleExtensions) — FeynRules DB entry based on arXiv:1106.6199.
+PAPER: full text at "eval/benchmark_runs/Monotops/text/1106.6199.txt" (read it with your file-reading tool; it is authoritative).
+SCHEMA: read tools/frgen/frmodel.py (pydantic FeynRulesModel).
+
+TASK — extract the COMPLETE new-physics content:
+1. Read the paper. Identify EVERY new particle beyond the Standard Model: spin (S/F/V), colour rep (singlet/triplet/sextet/octet), SU(2) rep, electric charge Q and/or hypercharge Y, mass parameter. COMPLETENESS IS SCORED — a model with several new states (multiplets, mass eigenstates, generations) must include all of them as separate ParticleClass entries (or class_members).
+2. Identify the new coupling/mass/mixing parameters (External unless clearly derived).
+3. Include the main new-physics lagrangian_terms (verbatim Mathematica strings, FeynRules idioms).
+
+SCHEMA RULES: all numeric physics values are STRINGS ("-1/3", "1500."); SM add-on => gauge_groups []; indices Colour/Gluon/Generation/SU2D/SU2W need NO declaration; any OTHER index (e.g. a colour-sextet index, a new-generation index) NEEDS an index_decls entry (range_kind "NoUnfold", correct size); every particle needs a unique class_index; self_conjugate=false for complex fields (distinct antiparticle), true for real/Majorana fields.
+
+OUTPUT: your FINAL message must contain exactly one fenced code block tagged json containing ONLY the FeynRulesModel JSON object (no commentary inside the fences). Set model_name to "Monotops_gen".
+
+SANDBOX: your working directory contains ONLY the paper text, tools/frgen/frmodel.py
+(the schema), tools/frgen/render.py (the renderer), and
+tools/feynrules/test_files/models/SM.fr (the Standard Model file this add-on is loaded
+on top of: take field names, index conventions and hypercharges from it). Nothing else
+exists here and nothing outside this directory may be read.
+
+## Physics-completeness rules (apply to every model)
+
+1. Free-field terms for every new particle class. Write a named kinetic + mass term for each new field even when the paper shows only L_int. Use the mass symbol declared in the class `Mass -> {M, value}`. Add the term to the total Lagrangian sum.
+   - Real vector (gauge singlet): `LXkin := -1/4 FS[X, mu, nu] FS[X, mu, nu] + 1/2 MX^2 X[mu] X[mu];` (the explicit form `-1/4 (del[X[nu], mu] - del[X[mu], nu])^2` is equivalent).
+   - Complex vector: `-1/2 FS[Xbar, mu, nu] FS[X, mu, nu] + MX^2 Xbar[mu] X[mu]`.
+   - Complex scalar: `DC[phibar, mu] DC[phi, mu] - Mphi^2 phibar phi`. Real scalar: `1/2 del[phi, mu] del[phi, mu] - 1/2 Mphi^2 phi^2`.
+   - Dirac fermion: `I psibar.Ga[mu].DC[psi, mu] - Mpsi psibar.psi`. Majorana fermion (`SelfConjugate -> True`): `I/2 psibar.Ga[mu].del[psi, mu] - 1/2 Mpsi psibar.psi`.
+
+2. Explicit EFT cutoffs. When the paper writes an operator with `1/Lambda^n` (or `1/M^n`, `1/f^n`), declare each distinct cutoff as an External parameter in GeV with the paper's benchmark value, e.g. `Lam == { ParameterType -> External, Value -> 1000., BlockName -> CUTOFF, InteractionOrder -> {QED, -1}, Description -> "EFT cutoff [GeV], Eq.(N)" }`. Write the factor `1/Lam^(d-4)` verbatim in the term, with `d` the operator mass dimension you computed in the self-audit. Keep the paper's dimensionless couplings (kappa, lambda, c_i) dimensionless with the paper's benchmark defaults. Do this for the term and for its `HC[...]` partner. Only if the paper's own implementation absorbs `kappa/Lambda^n` into one coefficient may you do the same; then the parameter Description must say "= kappa/Lambda^n, mass dimension -n, units GeV^-n" and the default must equal the paper's numeric `kappa/Lambda^n`. Never leave a dimensionful coefficient with an unexplained O(0.1) default.
+
+3. Charge conjugation. When the paper writes a fermion with a charge-conjugation superscript (`psi^c`, `\bar{psi^c}`, `psi^T C`, or a Majorana mass eigenstate that enters a chiral current with the opposite chirality), write it as `CC[psi]` (and `bar[CC[psi]]` for the conjugated bar). Never write the bare field. If the paper's benchmark sets that term's coefficient to zero, either drop the term or write it with `CC[...]`; never keep the term with the conjugation dropped. Use the class field with its Generation index (for example the SM class `vl[ff]`), not a class member like `ve[nn]`, because FeynRules reads an index on a class member as a spin index.
+
+4. SU(2) doublet contractions. Use the SM.fr conventions the add-on loads on: `Phi` has Y = +1/2, `LL` has Y = -1/2, `QL` has Y = +1/6, `Phi[1] = -I GP`, `Phi[2] = (vev + H + I G0)/Sqrt[2]`. Contract a doublet with an anti-doublet on a shared index: `LLbar[sp, ii, ff] ... Phi[ii]`. Contract two objects of the same conjugation type (`LLbar` with `Phibar`, `QLbar` with `Phibar`, i.e. any term the paper writes with `Htilde = i tau2 H*`) with `Eps[ii, jj]` on two distinct indices: `LLbar[sp, ii, ff] ... Phibar[jj] Eps[ii, jj]`. Never contract `LLbar[ii]` with `Phibar[ii]`. Model the SM Yukawas: `QLbar.dR Phi[ii]`, `LLbar.lR Phi[ii]`, `QLbar.uR Phibar[jj] Eps[ii, jj]`.
+
+5. New U(1) charges. Do not copy a paper's charge table literally when the paper's Yukawa equation and its table use different hypercharge conventions (for example the paper effectively uses Y(H) = -1/2). Re-derive the new-U(1) charge of every SM field, including the Higgs, from the requirement that all SM Yukawas and all new Yukawas are invariant under SM.fr conventions. Report which sign you chose and why. Do not put quantum numbers on a `SelfConjugate -> True` class; put a chiral charge on an Unphysical chiral class instead.
+
+6. Read only the paper. Do not open any cached or reference `.fr` file for the same model. If you see one, say so in the output and do not use it.
+
+## Mandatory self-audit table (produce it BEFORE the JSON)
+
+For every Lagrangian term you emit, output one row of this table. Then fix any row that fails before you write the JSON.
+
+| term name | fields in the monomial | operator mass dimension d | coupling symbol | coupling mass dimension (must be 4 - d) | 1/Lambda power present (must be d - 4, or "n/a" if d <= 4) | Q sum | Y sum | SU(2) contraction (singlet? which Eps or shared index) | SU(3) contraction | sum of each new U(1) charge (one column per U(1), must be 0) | lepton/baryon number sum (if the paper assigns them) | CC[] used where paper writes psi^c (yes/no/n/a) | Hermitian partner (HC[] or self-conjugate) |
+
+Rules for the table:
+- Field mass dimensions: scalar 1, vector 1, fermion 3/2, `FS[...]` 2, `del`/`DC` 1.
+- Every Q sum, Y sum, and new-U(1) sum must equal 0. Use the charges you declared in `QuantumNumbers` and the SM.fr charges for SM fields. If a sum is not 0, the term is wrong; fix the contraction or the charge before you continue.
+- If d > 4, the row must show `1/Lambda^(d-4)` and an External cutoff parameter, or a Description that states the absorbed dimension and units.
+- Add one row per new particle class that confirms its kinetic + mass term exists and is in the total Lagrangian sum.
+- Add one line under the table that lists every `SelfConjugate -> True` class and confirms it carries no `QuantumNumbers`.
+- Add one line that states whether any reference or cached model file was read (must be "none").

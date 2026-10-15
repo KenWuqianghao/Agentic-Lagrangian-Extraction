@@ -1,0 +1,86 @@
+(******************************************************************************)
+(*  HeavyN_gen (TEST: Z and h couplings only, no W)                           *)
+(******************************************************************************)
+
+M$ModelName = "HeavyN_gen";
+
+M$Information = {
+  Authors      -> "auto-extraction from arXiv:1602.06957",
+  Version      -> "1.0",
+  Date         -> "28. 09. 2026",
+  Institutions -> {"benchmark"},
+  Emails       -> "",
+  URLs         -> "https://arxiv.org/abs/1602.06957"
+};
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+M$ClassesDescription = {
+
+  F[110] == {
+    ClassName        -> NR,
+    SelfConjugate    -> False,
+    Mass             -> {mN, 500.},
+    Width            -> {WN, 0.},
+    QuantumNumbers   -> {LeptonNumber -> 1},
+    ParticleName     -> "n2",
+    AntiParticleName -> "n2~",
+    PDG              -> 10012,
+    PropagatorLabel  -> "N",
+    PropagatorType   -> S,
+    PropagatorArrow  -> Forward,
+    FullName         -> "Heavy neutrino"
+  },
+  F[111] == {
+    ClassName      -> NL,
+    Unphysical     -> True,
+    SelfConjugate  -> False,
+    Definitions    -> { NL[sp1_] :> Module[{sp2}, ProjM[sp1, sp2] NR[sp2]] }
+  },
+  F[112] == {
+    ClassName      -> NRr,
+    Unphysical     -> True,
+    SelfConjugate  -> False,
+    Definitions    -> { NRr[sp1_] :> Module[{sp2}, ProjP[sp1, sp2] NR[sp2]] }
+  }
+};
+
+M$Parameters = {
+
+  VlN == {
+    ParameterType    -> External,
+    Indices          -> {Index[Generation]},
+    Value            -> {VlN[1] -> 10.*^-3, VlN[2] -> 0., VlN[3] -> 0.},
+    BlockName        -> HNEUTRINO,
+    OrderBlock       -> 1,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[V, lN],
+    Description      -> "Active-heavy neutrino mixing V_lN, Eq. (7) of arXiv:1602.06957"
+  }
+};
+
+LNfree := Block[{mu},
+  I NRbar.Ga[mu].del[NR, mu] - mN NRbar.NR
+];
+
+(* Z coupling, Eq. (7) line 4: -(g/(2 cw)) Z Nbar V*_lN g^m P_L nu
+   (Nbar P_L nu = (P_L N)bar g nu, written with NL = P_L N) *)
+LNZ := Block[{mu, sp, ff},
+  -(gw/(2 cw)) Z[mu] Conjugate[VlN[ff]] NLbar[sp].Ga[mu].vl[sp, ff]
+];
+
+(* h coupling, Eq. (7) line 5: -(g mN/(2 MW)) h Nbar V*_lN P_L nu,
+   with g mN/(2 MW) = mN/vev;  Nbar P_L nu = (P_R N)bar nu, written with
+   NRr = P_R N;  the Goldstone partner G0 (Feynman gauge) comes from the
+   same Higgs-doublet structure (H + I G0) as in the SM Yukawa terms *)
+LNh := Block[{sp, ff},
+  -(mN/vev) Conjugate[VlN[ff]] (H + I G0) NRrbar[sp].vl[sp, ff]
+];
+
+LNew := LNZ + LNh;
+
+LTotal := LSM + LNfree + LNew + HC[LNew];

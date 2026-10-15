@@ -1,0 +1,43 @@
+{
+ "page": "ALRM_general",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "toolkit2",
+ "seed": 1,
+ "variant": "v3o_nemotron_toolkit2",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 824.8,
+ "tokens": {
+  "input": 412782,
+  "output": 27097,
+  "reasoning": 19322
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 11,
+ "n_events": 79,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 26,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [
+   "bash:./frgen spec.json 2>&1"
+  ],
+  "denied_attempts": [
+   "bash:{\"command\": \"./frgen spec.json 2>&1 | head -100\"}",
+   "bash:{\"command\": \"cat << 'EOF'\\n\\nSELF-AUDIT TABLE\\n\\n| term name | fields in the mon"
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": false,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ALRM_general/rerun/v3o_nemotron_toolkit2/s1/model/ALRM_general_gen.fr",
+ "final_lint_findings": 2
+}

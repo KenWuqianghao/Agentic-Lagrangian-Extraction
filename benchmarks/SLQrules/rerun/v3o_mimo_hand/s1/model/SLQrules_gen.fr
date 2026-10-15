@@ -1,0 +1,895 @@
+(*****************************************************************************************)
+(*****   SLQrules_gen: scalar leptoquark add-on on top of SM.fr (arXiv:2105.04844)  *****)
+(*****************************************************************************************)
+
+M$ModelName = "SLQrules_gen";
+
+M$Information = {
+  Authors      -> {"SLQrules extraction"},
+  Version      -> "1.0",
+  Date         -> "24. 09. 2026",
+  Institutions -> {"extracted from arXiv:2105.04844"},
+  Emails       -> {"n/a"},
+  URLs         -> "https://arxiv.org/abs/2105.04844"
+};
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+(******************************)
+(*****   Parameters   ********)
+(******************************)
+M$Parameters = {
+
+  (* ----- LQ masses (GeV) ----- *)
+  mSphi1 == {
+    ParameterType -> External,
+    Value         -> 1500.,
+    Description   -> "Mass of Phi1 (S1), GeV"
+  },
+  mSphit1 == {
+    ParameterType -> External,
+    Value         -> 1500.,
+    Description   -> "Mass of Phi_tilde1, GeV"
+  },
+  mSphi2 == {
+    ParameterType -> External,
+    Value         -> 1500.,
+    Description   -> "Mass of Phi2 (doublet), GeV"
+  },
+  mSphit2 == {
+    ParameterType -> External,
+    Value         -> 1500.,
+    Description   -> "Mass of Phi_tilde2 (doublet), GeV"
+  },
+  mSphi3 == {
+    ParameterType -> External,
+    Value         -> 1500.,
+    Description   -> "Mass of Phi3 (triplet), GeV"
+  },
+
+  (* ----- Dimension-1 mixing couplings A ----- *)
+  A1t2 == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Value            -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description      -> "A_{1 t2}: Phi1-Phi_tilde2-H mixing, mass dimension 1"
+  },
+  At23 == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Value            -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description      -> "A_{t23}: Phi_tilde2-Phi3-H mixing, mass dimension 1"
+  },
+  A1t2t2 == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Value            -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description      -> "A_{1 t2 t2}: triple LQ coupling, mass dimension 1"
+  },
+  At12t2 == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Value            -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description      -> "A_{t1 2 t2}: triple LQ coupling, mass dimension 1"
+  },
+
+  (* ----- Dimensionless couplings from L_2Phi ----- *)
+  Y1 == {
+    ParameterType -> External,
+    Value         -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description   -> "Y1 soft |Phi1|^2 H^dag H"
+  },
+  Yt1 == {
+    ParameterType -> External,
+    Value         -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description   -> "Y_tilde1 soft |Phi_tilde1|^2 H^dag H"
+  },
+  Y2 == {
+    ParameterType -> External,
+    Value         -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description   -> "Y2 soft |Phi2|^2 H^dag H"
+  },
+  Yt2 == {
+    ParameterType -> External,
+    Value         -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description   -> "Y_tilde2 soft |Phi_tilde2|^2 H^dag H"
+  },
+  Y3 == {
+    ParameterType -> External,
+    Value         -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description   -> "Y3 soft |Phi3|^2 H^dag H"
+  },
+  Y22 == {
+    ParameterType -> External,
+    Value         -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description   -> "Y22 portal (H^T i sigma2 Phi2)^dag (H^T i sigma2 Phi2)"
+  },
+  Yt2t2 == {
+    ParameterType -> External,
+    Value         -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description   -> "Y_t2t2 portal for Phi_tilde2"
+  },
+  Y33 == {
+    ParameterType -> External,
+    Value         -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description   -> "Y33 epsilon (H^dag sigma H) Phi3^dag Phi3 portal"
+  },
+  Y2t2 == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Value            -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y_{2 t2}: Phi2-Phi_tilde2-Higgs-Higgs mixing"
+  },
+  Yt13 == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Value            -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y_{t13}: Phi_tilde1-Phi3-Higgs-Higgs mixing"
+  },
+  Y13 == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Value            -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y_{13}: Phi1-Phi3-Higgs-Higgs mixing"
+  },
+
+  (* ----- Yukawa matrices LQ-quark-lepton / LQ-quark-quark ----- *)
+  YL1LL == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      YL1LL[1,1] -> 1.0, YL1LL[1,2] -> 1.0, YL1LL[1,3] -> 1.0,
+      YL1LL[2,1] -> 1.0, YL1LL[2,2] -> 1.0, YL1LL[2,3] -> 1.0,
+      YL1LL[3,1] -> 1.0, YL1LL[3,2] -> 1.0, YL1LL[3,3] -> 1.0
+    },
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y1^{LL} Yukawa matrix (Phi1 Q^c L)"
+  },
+  YL1RR == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      YL1RR[1,1] -> 1.0, YL1RR[1,2] -> 1.0, YL1RR[1,3] -> 1.0,
+      YL1RR[2,1] -> 1.0, YL1RR[2,2] -> 1.0, YL1RR[2,3] -> 1.0,
+      YL1RR[3,1] -> 1.0, YL1RR[3,2] -> 1.0, YL1RR[3,3] -> 1.0
+    },
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y1^{RR} Yukawa matrix (Phi1 u^c l)"
+  },
+  YL1QLL == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      YL1QLL[1,1] -> 1.0, YL1QLL[1,2] -> 1.0, YL1QLL[1,3] -> 1.0,
+      YL1QLL[2,1] -> 1.0, YL1QLL[2,2] -> 1.0, YL1QLL[2,3] -> 1.0,
+      YL1QLL[3,1] -> 1.0, YL1QLL[3,2] -> 1.0, YL1QLL[3,3] -> 1.0
+    },
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y1^{Q,LL} symmetric in flavour (Phi1 Q^c Q)"
+  },
+  YL1QRR == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      YL1QRR[1,1] -> 1.0, YL1QRR[1,2] -> 1.0, YL1QRR[1,3] -> 1.0,
+      YL1QRR[2,1] -> 1.0, YL1QRR[2,2] -> 1.0, YL1QRR[2,3] -> 1.0,
+      YL1QRR[3,1] -> 1.0, YL1QRR[3,2] -> 1.0, YL1QRR[3,3] -> 1.0
+    },
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y1^{Q,RR} (Phi1 u^c d)"
+  },
+  YLt1RR == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      YLt1RR[1,1] -> 1.0, YLt1RR[1,2] -> 1.0, YLt1RR[1,3] -> 1.0,
+      YLt1RR[2,1] -> 1.0, YLt1RR[2,2] -> 1.0, YLt1RR[2,3] -> 1.0,
+      YLt1RR[3,1] -> 1.0, YLt1RR[3,2] -> 1.0, YLt1RR[3,3] -> 1.0
+    },
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y_tilde1^{RR} (Phi_tilde1 d^c l)"
+  },
+  YLt1QRR == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      YLt1QRR[1,1] -> 0.0,  YLt1QRR[1,2] -> 1.0,  YLt1QRR[1,3] -> 1.0,
+      YLt1QRR[2,1] -> -1.0, YLt1QRR[2,2] -> 0.0,  YLt1QRR[2,3] -> 1.0,
+      YLt1QRR[3,1] -> -1.0, YLt1QRR[3,2] -> -1.0, YLt1QRR[3,3] -> 0.0
+    },
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y_tilde1^{Q,RR} antisymmetric (Phi_tilde1 u^c u)"
+  },
+  YL2RL == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      YL2RL[1,1] -> 1.0, YL2RL[1,2] -> 1.0, YL2RL[1,3] -> 1.0,
+      YL2RL[2,1] -> 1.0, YL2RL[2,2] -> 1.0, YL2RL[2,3] -> 1.0,
+      YL2RL[3,1] -> 1.0, YL2RL[3,2] -> 1.0, YL2RL[3,3] -> 1.0
+    },
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y2^{RL} (Phi2^T ubar i sigma2 L)"
+  },
+  YL2LR == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      YL2LR[1,1] -> 1.0, YL2LR[1,2] -> 1.0, YL2LR[1,3] -> 1.0,
+      YL2LR[2,1] -> 1.0, YL2LR[2,2] -> 1.0, YL2LR[2,3] -> 1.0,
+      YL2LR[3,1] -> 1.0, YL2LR[3,2] -> 1.0, YL2LR[3,3] -> 1.0
+    },
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y2^{LR} (Qbar^T l Phi2)"
+  },
+  YLt2RL == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      YLt2RL[1,1] -> 1.0, YLt2RL[1,2] -> 1.0, YLt2RL[1,3] -> 1.0,
+      YLt2RL[2,1] -> 1.0, YLt2RL[2,2] -> 1.0, YLt2RL[2,3] -> 1.0,
+      YLt2RL[3,1] -> 1.0, YLt2RL[3,2] -> 1.0, YLt2RL[3,3] -> 1.0
+    },
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y_tilde2^{RL} (Phi_tilde2^T dbar i sigma2 L)"
+  },
+  YL3LL == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      YL3LL[1,1] -> 1.0, YL3LL[1,2] -> 1.0, YL3LL[1,3] -> 1.0,
+      YL3LL[2,1] -> 1.0, YL3LL[2,2] -> 1.0, YL3LL[2,3] -> 1.0,
+      YL3LL[3,1] -> 1.0, YL3LL[3,2] -> 1.0, YL3LL[3,3] -> 1.0
+    },
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y3^{LL} (Q^c i sigma2 (sigma.Phi3)^dag L)"
+  },
+  YL3QLL == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      YL3QLL[1,1] -> 0.0,  YL3QLL[1,2] -> 1.0,  YL3QLL[1,3] -> 1.0,
+      YL3QLL[2,1] -> -1.0, YL3QLL[2,2] -> 0.0,  YL3QLL[2,3] -> 1.0,
+      YL3QLL[3,1] -> -1.0, YL3QLL[3,2] -> -1.0, YL3QLL[3,3] -> 0.0
+    },
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y3^{Q,LL} antisymmetric (Q^c i sigma2 (sigma.Phi3) Q)"
+  },
+
+  (* ----- Triple LQ couplings (dimensionless) ----- *)
+  Y1t12 == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Value            -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y_{1 t1 2}: Phi1 Phi_tilde1 (Phi2^T i sigma2 H)"
+  },
+  Y123 == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Value            -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y_{123}: Phi1 (H^dag sigma.Phi3 Phi2)"
+  },
+  Y1t23 == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Value            -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y_{1 t2 3}: Phi1 (Phi_tilde2^T i sigma2 sigma.Phi3 H)"
+  },
+  Yt123 == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Value            -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y_{t1 2 3}: Phi_tilde1 (Phi2^T i sigma2 sigma.Phi3 H)"
+  },
+  Y233 == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Value            -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y_{233}: (H^dag sigma^I Phi2)(Phi3^J i eps^{IJK} Phi3^K)"
+  },
+  Yt233 == {
+    ParameterType    -> External,
+    ComplexParameter -> True,
+    Value            -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description      -> "Y_{t2 33}: (Phi_tilde2^T i sigma2 sigma^I H)(Phi3^J i eps^{IJK} Phi3^K)"
+  },
+
+  (* ----- Quartic LQ: trivial Y^{(1)}_a ----- *)
+  Y1self == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description -> "Y^{(1)}_1 quartic self (Phi1^dag Phi1)^2"
+  },
+  Yt1self == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description -> "Y^{(1)}_t1 quartic self"
+  },
+  Y2self == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description -> "Y^{(1)}_2 quartic self"
+  },
+  Yt2self == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description -> "Y^{(1)}_t2 quartic self"
+  },
+  Y3self == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description -> "Y^{(1)}_3 quartic self"
+  },
+
+  (* ----- Quartic Y^{(3)}_a ----- *)
+  Y3on2 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description -> "Y^{(3)}_2 quartic colour-cross for Phi2"
+  },
+  Y3ont2 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description -> "Y^{(3)}_t2 quartic colour-cross for Phi_tilde2"
+  },
+  Y3on3 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description -> "Y^{(3)}_3 quartic colour-cross for Phi3"
+  },
+  Y5on3 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1},
+    Description -> "Y^{(5)}_3 quartic SU2 structure for Phi3"
+  },
+
+  (* ----- Quartic Y^{(1)}_{ab} and Y'^{(1)}_{ab} ----- *)
+  Y1ab1t1 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y^{(1)}_{1 t1}"
+  },
+  Yp1ab1t1 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'^{(1)}_{1 t1}"
+  },
+  Y1ab12 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y^{(1)}_{12}"
+  },
+  Yp1ab12 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'^{(1)}_{12}"
+  },
+  Y1ab1t2 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y^{(1)}_{1 t2}"
+  },
+  Yp1ab1t2 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'^{(1)}_{1 t2}"
+  },
+  Y1ab13 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y^{(1)}_{13} quartic pair"
+  },
+  Yp1ab13 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'^{(1)}_{13} quartic pair"
+  },
+  Y1abt12 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y^{(1)}_{t1 2}"
+  },
+  Yp1abt12 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'^{(1)}_{t1 2}"
+  },
+  Y1abt1t2 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y^{(1)}_{t1 t2}"
+  },
+  Yp1abt1t2 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'^{(1)}_{t1 t2}"
+  },
+  Y1abt13 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y^{(1)}_{t1 3}"
+  },
+  Yp1abt13 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'^{(1)}_{t1 3}"
+  },
+  Y1ab2t2 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y^{(1)}_{2 t2}"
+  },
+  Yp1ab2t2 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'^{(1)}_{2 t2}"
+  },
+  Y1ab23 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y^{(1)}_{23} quartic pair"
+  },
+  Yp1ab23 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'^{(1)}_{23} quartic pair"
+  },
+  Y1abt23 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y^{(1)}_{t2 3}"
+  },
+  Yp1abt23 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'^{(1)}_{t2 3}"
+  },
+
+  (* ----- Quartic Y^{(3)}_{2 t2}, Y^{(3)}_{a3} ----- *)
+  Y3on2t2 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y^{(3)}_{2 t2}"
+  },
+  Yp3on2t2 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'^{(3)}_{2 t2}"
+  },
+  Y3on23 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y^{(3)}_{23}"
+  },
+  Yp3on23 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'^{(3)}_{23}"
+  },
+  Y3ont23 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y^{(3)}_{t2 3}"
+  },
+  Yp3ont23 == {
+    ParameterType -> External, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'^{(3)}_{t2 3}"
+  },
+
+  (* ----- Quartic bracket terms (with h.c.) ----- *)
+  Y1223 == {
+    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y_{1223}"
+  },
+  Yp1223 == {
+    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'_{1223}"
+  },
+  Y1t2t23 == {
+    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y_{1 t2 t2 3}"
+  },
+  Yp1t2t23 == {
+    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'_{1 t2 t2 3}"
+  },
+  Yt1t223 == {
+    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y_{t1 t2 2 3}"
+  },
+  Ypt1t223 == {
+    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'_{t1 t2 2 3}"
+  },
+  Y1t1t22 == {
+    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y_{1 t1 t2 2}"
+  },
+  Yp1t1t22 == {
+    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y'_{1 t1 t2 2}"
+  },
+  Y1313 == {
+    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y_{1313}"
+  },
+  Y1333 == {
+    ParameterType -> External, ComplexParameter -> True, Value -> 1.0,
+    InteractionOrder -> {NP, 1}, Description -> "Y_{1333}"
+  }
+};
+
+(******************************)
+(*****  Particle classes  ****)
+(******************************)
+M$ClassesDescription = {
+
+  (* Phi1: colour triplet, SU(2) singlet, Y = -1/3, Q = -1/3 *)
+  S[100] == {
+    ClassName        -> Sphi1,
+    ClassMembers     -> {S1m13},
+    Indices          -> {Index[Colour]},
+    SelfConjugate    -> False,
+    QuantumNumbers   -> {Y -> -1/3, Q -> -1/3},
+    Mass             -> {mSphi1, 1500.},
+    Width            -> 0,
+    PropagatorLabel  -> "Sphi1",
+    PropagatorType   -> ScalarDash,
+    PropagatorArrow  -> None,
+    PDG              -> 41001,
+    ParticleName     -> "Sphi1",
+    AntiParticleName -> "Sphi1bar",
+    FullName         -> "LQ Phi1 (S1, charge -1/3)"
+  },
+
+  (* Phi_tilde1: colour triplet, SU(2) singlet, Y = -4/3, Q = -4/3 *)
+  S[101] == {
+    ClassName        -> Sphit1,
+    ClassMembers     -> {S1tm43},
+    Indices          -> {Index[Colour]},
+    SelfConjugate    -> False,
+    QuantumNumbers   -> {Y -> -4/3, Q -> -4/3},
+    Mass             -> {mSphit1, 1500.},
+    Width            -> 0,
+    PropagatorLabel  -> "Sphit1",
+    PropagatorType   -> ScalarDash,
+    PropagatorArrow  -> None,
+    PDG              -> 41002,
+    ParticleName     -> "Sphit1",
+    AntiParticleName -> "Sphit1bar",
+    FullName         -> "LQ Phi_tilde1 (charge -4/3)"
+  },
+
+  (* Phi2: colour triplet, SU(2) doublet, Y = 7/6; components Q = +5/3, +2/3 *)
+  S[102] == {
+    ClassName        -> Sphi2,
+    ClassMembers     -> {S2p53, S2p23},
+    Indices          -> {Index[SU2D], Index[Colour]},
+    FlavorIndex      -> SU2D,
+    SelfConjugate    -> False,
+    QuantumNumbers   -> {Y -> 7/6},
+    Mass             -> {mSphi2, 1500.},
+    Width            -> 0,
+    PropagatorLabel  -> "Sphi2",
+    PropagatorType   -> ScalarDash,
+    PropagatorArrow  -> None,
+    PDG              -> {41003, 41004},
+    ParticleName     -> {"S2p53", "S2p23"},
+    AntiParticleName -> {"S2p53bar", "S2p23bar"},
+    FullName         -> {"LQ Phi2 (+5/3)", "LQ Phi2 (+2/3)"}
+  },
+
+  (* Phi_tilde2: colour triplet, SU(2) doublet, Y = 1/6; components Q = +2/3, -1/3 *)
+  S[103] == {
+    ClassName        -> Sphit2,
+    ClassMembers     -> {S2tp23, S2tm13},
+    Indices          -> {Index[SU2D], Index[Colour]},
+    FlavorIndex      -> SU2D,
+    SelfConjugate    -> False,
+    QuantumNumbers   -> {Y -> 1/6},
+    Mass             -> {mSphit2, 1500.},
+    Width            -> 0,
+    PropagatorLabel  -> "Sphit2",
+    PropagatorType   -> ScalarDash,
+    PropagatorArrow  -> None,
+    PDG              -> {41005, 41006},
+    ParticleName     -> {"S2tp23", "S2tm13"},
+    AntiParticleName -> {"S2tp23bar", "S2tm13bar"},
+    FullName         -> {"LQ Phi_tilde2 (+2/3)", "LQ Phi_tilde2 (-1/3)"}
+  },
+
+  (* Phi3: colour triplet, SU(2) triplet (adjoint), Y = -1/3; Q = -1/3, +2/3, -4/3 *)
+  S[104] == {
+    ClassName        -> Sphi3,
+    ClassMembers     -> {S3m13, S3p23, S3m43},
+    Indices          -> {Index[SU2W], Index[Colour]},
+    FlavorIndex      -> SU2W,
+    SelfConjugate    -> False,
+    QuantumNumbers   -> {Y -> -1/3},
+    Mass             -> {mSphi3, 1500.},
+    Width            -> 0,
+    PropagatorLabel  -> "Sphi3",
+    PropagatorType   -> ScalarDash,
+    PropagatorArrow  -> None,
+    PDG              -> {41007, 41008, 41009},
+    ParticleName     -> {"S3m13", "S3p23", "S3m43"},
+    AntiParticleName -> {"S3m13bar", "S3p23bar", "S3m43bar"},
+    FullName         -> {"LQ Phi3 (-1/3)", "LQ Phi3 (+2/3)", "LQ Phi3 (-4/3)"}
+  }
+};
+
+(******************************)
+(*****   Lagrangian   ********)
+(******************************)
+
+(* --- Kinetic + mass terms (DC generates all SM gauge interactions) --- *)
+
+Lphi1kin := Block[{cc, mu},
+  DC[Sphi1bar[cc], mu] DC[Sphi1[cc], mu] - mSphi1^2 Sphi1bar[cc] Sphi1[cc]
+];
+
+Lphit1kin := Block[{cc, mu},
+  DC[Sphit1bar[cc], mu] DC[Sphit1[cc], mu] - mSphit1^2 Sphit1bar[cc] Sphit1[cc]
+];
+
+Lphi2kin := Block[{ii, cc, mu},
+  ExpandIndices[
+    DC[Sphi2bar[ii, cc], mu] DC[Sphi2[ii, cc], mu]
+      - mSphi2^2 Sphi2bar[ii, cc] Sphi2[ii, cc],
+    FlavorExpand -> SU2D]
+];
+
+Lphit2kin := Block[{ii, cc, mu},
+  ExpandIndices[
+    DC[Sphit2bar[ii, cc], mu] DC[Sphit2[ii, cc], mu]
+      - mSphit2^2 Sphit2bar[ii, cc] Sphit2[ii, cc],
+    FlavorExpand -> SU2D]
+];
+
+Lphi3kin := Block[{dd, cc, mu},
+  ExpandIndices[
+    DC[Sphi3bar[dd, cc], mu] DC[Sphi3[dd, cc], mu]
+      - mSphi3^2 Sphi3bar[dd, cc] Sphi3[dd, cc],
+    FlavorExpand -> SU2W]
+];
+
+(* --- L_2Phi: Higgs portals and LQ-LQ-Higgs(-Higgs) mixing --- *)
+
+L2Phi := Block[{ii, jj, kk, gg, dd, ee, ff, cc, nonHC},
+  nonHC =
+    (* soft |Phi|^2 H^dag H *)
+    - Y1 (Phibar[ii] Phi[ii]) Sphi1bar[cc] Sphi1[cc]
+    - Yt1 (Phibar[ii] Phi[ii]) Sphit1bar[cc] Sphit1[cc]
+    - ExpandIndices[
+        Y2 (Phibar[ii] Phi[ii]) Sphi2bar[ii, cc] Sphi2[ii, cc]
+          + Yt2 (Phibar[ii] Phi[ii]) Sphit2bar[ii, cc] Sphit2[ii, cc],
+        FlavorExpand -> SU2D]
+    - ExpandIndices[
+        Y3 (Phibar[ii] Phi[ii]) Sphi3bar[dd, cc] Sphi3[dd, cc],
+        FlavorExpand -> SU2W]
+    (* portals *)
+    - Y22 (Phibar[jj] Eps[jj, ii] Sphi2[ii, cc])
+          (Sphi2bar[dd, cc] Eps[dd, kk] Phi[kk])
+    - Yt2t2 (Phibar[jj] Eps[jj, ii] Sphit2[ii, cc])
+            (Sphit2bar[dd, cc] Eps[dd, kk] Phi[kk])
+    - I Y33 ExpandIndices[
+        Eps[dd, ee, ff] (Phibar[ii] PauliSigma[dd, ii, jj] Phi[jj])
+          Sphi3bar[ee, cc] Sphi3[ff, cc],
+        FlavorExpand -> SU2W]
+    (* dimension-1 A and dimension-0 Y mixing terms (+ h.c. added below) *)
+    + ExpandIndices[
+        A1t2 Sphit2bar[ii, cc] Phi[ii] Sphi1[cc]
+          + At23 Sphit2bar[ii, cc] PauliSigma[dd, ii, jj] Sphi3[dd, cc] Phi[jj]
+          + Y2t2 Sphi2bar[ii, cc] Phi[ii] Phi[jj] Eps[jj, kk] Sphit2[kk, cc]
+          + Yt13 ExpandIndices[
+              Phi[ii] Eps[ii, jj] Sphi3bar[dd, cc] PauliSigma[dd, gg, jj]
+                Phi[gg] Sphit1[cc],
+              FlavorExpand -> SU2W]
+          + Y13 Phibar[ii] PauliSigma[dd, ii, jj] Phi[jj] Sphi3[dd, cc] Sphi1bar[cc],
+        FlavorExpand -> SU2D];
+  nonHC + HC[nonHC]
+];
+
+(* --- L_f: LQ couplings to SM fermions (eq. LQ_yukawa) --- *)
+
+Lf := Block[{sp, ii, jj, gg, dd, cc, cc1, cc2, cc3, ff1, ff2, nonHC},
+  nonHC =
+    (* Phi1 *)
+    ExpandIndices[
+      YL1RR[ff1, ff2] bar[CC[uR]][sp, ff1, cc] lR[sp, ff2] Sphi1bar[cc]
+        + YL1LL[ff1, ff1, cc] 0 (* placeholder removed below *),
+      FlavorExpand -> {}];
+  (* rebuild cleanly without placeholder *)
+  nonHC =
+    ExpandIndices[
+      YL1RR[ff1, ff2] bar[CC[uR]][sp, ff1, cc] lR[sp, ff2] Sphi1bar[cc]
+        + YL1LL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc] Eps[ii, jj]
+            LL[sp, jj, ff2] Sphi1bar[cc]
+        + YL1QLL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc1] Eps[ii, jj]
+            QL[sp, jj, ff2, cc2] Sphi1[cc3] Eps[cc1, cc2, cc3]
+        + YL1QRR[ff1, ff2] bar[CC[uR]][sp, ff1, cc1] dR[sp, ff2, cc2]
+            Sphi1[cc3] Eps[cc1, cc2, cc3]
+        (* Phi_tilde1 *)
+        + YLt1RR[ff1, ff2] bar[CC[dR]][sp, ff1, cc] lR[sp, ff2] Sphit1bar[cc]
+        + YLt1QRR[ff1, ff2] bar[CC[uR]][sp, ff1, cc1] uR[sp, ff2, cc2]
+            Sphit1[cc3] Eps[cc1, cc2, cc3]
+        (* Phi2 *)
+        + YL2RL[ff1, ff2] bar[uR][sp, ff1, cc] LL[sp, ii, ff2]
+            Sphi2[jj, cc] Eps[ii, jj]
+        + YL2LR[ff1, ff2] QLbar[sp, ii, ff1, cc] lR[sp, ff2] Sphi2[ii, cc]
+        (* Phi_tilde2 *)
+        + YLt2RL[ff1, ff2] bar[dR][sp, ff1, cc] LL[sp, ii, ff2]
+            Sphit2[jj, cc] Eps[ii, jj]
+        (* Phi3 *)
+        + YL3LL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc] Eps[ii, gg]
+            PauliSigma[dd, jj, gg] Sphi3bar[dd, cc] LL[sp, jj, ff2]
+        + YL3QLL[ff1, ff2] bar[CC[QL]][sp, ii, ff1, cc1] Eps[ii, gg]
+            PauliSigma[dd, jj, gg] Sphi3[dd, cc3] QL[sp, jj, ff2, cc2]
+            Eps[cc1, cc2, cc3],
+      FlavorExpand -> {SU2D, SU2W}];
+  nonHC + HC[nonHC]
+];
+
+(* --- L_3Phi: triple LQ (-Higgs) interactions (eq. LQ_triplet_interactions) --- *)
+
+L3Phi := Block[{ii, jj, kk, gg, dd, ee, ff, cc, cc1, cc2, cc3, nonHC},
+  nonHC =
+    ExpandIndices[
+      A1t2t2 Sphi1[cc1] Sphit2[ii, cc2] Eps[ii, jj] Sphit2[jj, cc3]
+          Eps[cc1, cc2, cc3]
+        + At12t2 Sphit1[cc1] Sphi2[ii, cc2] Eps[ii, jj] Sphit2[jj, cc3]
+            Eps[cc1, cc2, cc3]
+        + Y1t12 Sphi1[cc1] Sphit1[cc2] Sphi2[ii, cc3] Eps[ii, jj] Phi[jj]
+            Eps[cc1, cc2, cc3]
+        + Y123 Sphi1[cc1] Phibar[ii] PauliSigma[dd, ii, jj] Sphi3[dd, cc3]
+            Sphi2[jj, cc2] Eps[cc1, cc2, cc3]
+        + Y1t23 Sphi1[cc1] Sphit2[ii, cc2] Eps[ii, jj]
+            PauliSigma[dd, jj, kk] Sphi3[dd, cc3] Phi[kk]
+            Eps[cc1, cc2, cc3]
+        + Yt123 Sphit1[cc1] Sphi2[ii, cc2] Eps[ii, jj]
+            PauliSigma[dd, jj, kk] Sphi3[dd, cc3] Phi[kk]
+            Eps[cc1, cc2, cc3]
+        + Y233 Phibar[ii] PauliSigma[dd, ii, jj] Sphi2[jj, cc1]
+            I Eps[dd, ee, ff] Sphi3[ee, cc2] Sphi3[ff, cc3]
+            Eps[cc1, cc2, cc3]
+        + Yt233 Sphit2[ii, cc1] Eps[ii, jj] PauliSigma[dd, jj, kk] Phi[kk]
+            I Eps[dd, ee, ff] Sphi3[ee, cc2] Sphi3[ff, cc3]
+            Eps[cc1, cc2, cc3],
+      FlavorExpand -> {SU2D, SU2W}];
+  nonHC + HC[nonHC]
+];
+
+(* --- L_4Phi: quartic LQ interactions (eq. LQ_quartic_interactions) --- *)
+
+L4Phi := Block[{ii, jj, kk, gg, dd, ee, ff, aa, bb, cc, cc1, cc2, cc3, cc4, nonHC},
+  nonHC =
+    (* trivial Y^{(1)}_a and Y^{(3)}_a, Y^{(5)}_3 *)
+    1/2 Y1self Sphi1bar[cc1] Sphi1[cc1] Sphi1bar[cc2] Sphi1[cc2]
+    + 1/2 Yt1self Sphit1bar[cc1] Sphit1[cc1] Sphit1bar[cc2] Sphit1[cc2]
+    + 1/2 ExpandIndices[
+        Y2self Sphi2bar[ii, cc1] Sphi2[ii, cc1] Sphi2bar[jj, cc2] Sphi2[jj, cc2]
+          + Y3on2 Sphi2bar[ii, cc1] Sphi2[jj, cc2] Sphi2bar[jj, cc2] Sphi2[ii, cc1]
+          + Yt2self Sphit2bar[ii, cc1] Sphit2[ii, cc1] Sphit2bar[jj, cc2] Sphit2[jj, cc2]
+          + Y3ont2 Sphit2bar[ii, cc1] Sphit2[jj, cc2] Sphit2bar[jj, cc2] Sphit2[ii, cc1],
+        FlavorExpand -> SU2D]
+    + 1/2 ExpandIndices[
+        Y3self Sphi3bar[dd, cc1] Sphi3[dd, cc1] Sphi3bar[ee, cc2] Sphi3[ee, cc2]
+          + Y3on3 Sphi3bar[dd, cc1] Sphi3[ee, cc2] Sphi3bar[ee, cc2] Sphi3[dd, cc1]
+          + Y5on3 Sphi3bar[dd, cc1] Sphi3[ee, cc1] Sphi3bar[dd, cc2] Sphi3[ee, cc2],
+        FlavorExpand -> SU2W]
+    (* Y^{(1)}_{ab} and Y'^{(1)}_{ab} for a != b *)
+    + Y1ab1t1 Sphi1bar[cc1] Sphi1[cc1] Sphit1bar[cc2] Sphit1[cc2]
+    + Yp1ab1t1 Sphi1bar[cc1] Sphit1[cc1] Sphit1bar[cc2] Sphi1[cc2]
+    + Y1ab12 Sphi1bar[cc1] Sphi1[cc1] Sphi2bar[ii, cc2] Sphi2[ii, cc2]
+    + Yp1ab12 Sphi1bar[cc1] Sphi2[ii, cc1] Sphi2bar[ii, cc2] Sphi1[cc2]
+    + Y1ab1t2 Sphi1bar[cc1] Sphi1[cc1] Sphit2bar[ii, cc2] Sphit2[ii, cc2]
+    + Yp1ab1t2 Sphi1bar[cc1] Sphit2[ii, cc1] Sphit2bar[ii, cc2] Sphi1[cc2]
+    + Y1ab13 Sphi1bar[cc1] Sphi1[cc1] Sphi3bar[dd, cc2] Sphi3[dd, cc2]
+    + Yp1ab13 Sphi1bar[cc1] Sphi3[dd, cc1] Sphi3bar[dd, cc2] Sphi1[cc2]
+    + Y1abt12 Sphit1bar[cc1] Sphit1[cc1] Sphi2bar[ii, cc2] Sphi2[ii, cc2]
+    + Yp1abt12 Sphit1bar[cc1] Sphi2[ii, cc1] Sphi2bar[ii, cc2] Sphit1[cc2]
+    + Y1abt1t2 Sphit1bar[cc1] Sphit1[cc1] Sphit2bar[ii, cc2] Sphit2[ii, cc2]
+    + Yp1abt1t2 Sphit1bar[cc1] Sphit2[ii, cc1] Sphit2bar[ii, cc2] Sphit1[cc2]
+    + Y1abt13 Sphit1bar[cc1] Sphit1[cc1] Sphi3bar[dd, cc2] Sphi3[dd, cc2]
+    + Yp1abt13 Sphit1bar[cc1] Sphi3[dd, cc1] Sphi3bar[dd, cc2] Sphit1[cc2]
+    + Y1ab2t2 Sphi2bar[ii, cc1] Sphi2[ii, cc1] Sphit2bar[jj, cc2] Sphit2[jj, cc2]
+    + Yp1ab2t2 Sphi2bar[ii, cc1] Sphit2[jj, cc1] Sphit2bar[jj, cc2] Sphi2[ii, cc2]
+    + Y1ab23 Sphi2bar[ii, cc1] Sphi2[ii, cc1] Sphi3bar[dd, cc2] Sphi3[dd, cc2]
+    + Yp1ab23 Sphi2bar[ii, cc1] Sphi3[dd, cc1] Sphi3bar[dd, cc2] Sphi2[ii, cc2]
+    + Y1abt23 Sphit2bar[ii, cc1] Sphit2[ii, cc1] Sphi3bar[dd, cc2] Sphi3[dd, cc2]
+    + Yp1abt23 Sphit2bar[ii, cc1] Sphi3[dd, cc1] Sphi3bar[dd, cc2] Sphit2[ii, cc2]
+    (* Y^{(3)}_{2 t2}, Y^{(3)}_{a3} *)
+    + Y3on2t2 Sphi2bar[ii, cc1] Sphit2[jj, cc2] Sphit2bar[jj, cc2] Sphi2[ii, cc1]
+    + Yp3on2t2 Sphi2bar[ii, cc1] Sphit2[jj, cc1] Sphit2bar[jj, cc2] Sphi2[ii, cc2]
+    + Y3on23 Sphi2bar[ii, cc1] PauliSigma[dd, ii, jj] Sphi3bar[dd, ...] (* fixed below *);
+  (* replace the incomplete a3 triplet-sigma structure with an explicit invariant form *)
+  nonHC =
+    nonHC
+    + Y3on23 ExpandIndices[
+        Sphi2bar[ii, cc1] PauliSigma[dd, ii, jj] Sphi2[jj, cc1]
+          Eps[dd, ee, ff] Sphi3bar[ee, cc2] Sphi3[ff, cc2],
+        FlavorExpand -> {SU2D, SU2W}]
+    + Yp3on23 ExpandIndices[
+        Sphi2bar[ii, cc1] PauliSigma[dd, ii, jj] Sphi2[jj, cc2]
+          Eps[dd, ee, ff] Sphi3bar[ee, cc1] Sphi3[ff, cc2],
+        FlavorExpand -> {SU2D, SU2W}]
+    + Y3ont23 ExpandIndices[
+        Sphit2bar[ii, cc1] PauliSigma[dd, ii, jj] Sphit2[jj, cc1]
+          Eps[dd, ee, ff] Sphi3bar[ee, cc2] Sphi3[ff, cc2],
+        FlavorExpand -> {SU2D, SU2W}]
+    + Yp3ont23 ExpandIndices[
+        Sphit2bar[ii, cc1] PauliSigma[dd, ii, jj] Sphit2[jj, cc2]
+          Eps[dd, ee, ff] Sphi3bar[ee, cc1] Sphi3[ff, cc2],
+        FlavorExpand -> {SU2D, SU2W}]
+    (* bracket terms with + h.c. *)
+    + ExpandIndices[
+        (Y1223 (Sphi1bar[cc1] Sphi2[ii, cc3] Sphi2bar[jj, cc2] Sphi3[kk, cc4]
+                 + Yp1223 (* placeholder *)) (* rebuilt below *),
+        FlavorExpand -> {}];
+  nonHC =
+    ExpandIndices[
+      (* Y1223 family: Phi1^dag (Phi2^dag (sigma.Phi3) Phi2) *)
+      (Y1223 Sphi1bar[cc1] Sphi2bar[ii, cc3] PauliSigma[dd, ii, jj]
+         Sphi3[dd, cc4] Sphi2[jj, cc2]
+       + Yp1223 Sphi1bar[cc1] Sphi2bar[ii, cc2] PauliSigma[dd, ii, jj]
+         Sphi3[dd, cc4] Sphi2[jj, cc3]) Eps[cc1, cc2, cc3, cc4] 0
+      (* colour deltas written explicitly: delta12 delta34 + delta14 delta23 *)
+      + Y1223 (Sphi1bar[cc1] Sphi2bar[ii, cc1] PauliSigma[dd, ii, jj]
+                 Sphi3[dd, cc3] Sphi2[jj, cc2])
+      + Yp1223 (Sphi1bar[cc1] Sphi2bar[ii, cc2] PauliSigma[dd, ii, jj]
+                 Sphi3[dd, cc3] Sphi2[jj, cc1])
+      + Y1t2t23 (Sphi1bar[cc1] Sphit2bar[ii, cc1] PauliSigma[dd, ii, jj]
+                   Sphi3[dd, cc3] Sphit2[jj, cc2])
+      + Yp1t2t23 (Sphi1bar[cc1] Sphit2bar[ii, cc2] PauliSigma[dd, ii, jj]
+                   Sphi3[dd, cc3] Sphit2[jj, cc1])
+      + Yt1t223 (Sphit1bar[cc1] Sphi2bar[ii, cc1] PauliSigma[dd, ii, jj]
+                   Sphi3[dd, cc3] Sphit2[jj, cc2])
+      + Ypt1t223 (Sphit1bar[cc1] Sphi2bar[ii, cc2] PauliSigma[dd, ii, jj]
+                   Sphi3[dd, cc3] Sphit2[jj, cc1])
+      + Y1t1t22 (Sphi1bar[cc1] Sphit1bar[cc3] Sphit2[ii, cc2] Sphi2[jj, cc4]
+                   Eps[ii, jj] (* colour deltas below expanded as two structures *)
+                   0
+                 + Sphi1bar[cc1] Sphit1[cc2] Sphit2bar[jj, cc3] Sphi2[ii, cc4]
+                   Eps[ii, jj] 0)
+      + Y1t1t22 (Sphi1bar[cc1] Sphit1bar[cc3] Sphit2[ii, cc3] Sphi2[jj, cc1]
+                   Eps[ii, jj]
+                 + Sphi1bar[cc1] Sphit1[cc1] Sphit2bar[jj, cc3] Sphi2[ii, cc3]
+                   Eps[ii, jj]) 0
+      + Y1t1t22 (Sphi1bar[cc1] Sphit1bar[cc2] Sphit2[ii, cc1] Sphi2[jj, cc2]
+                   Eps[ii, jj]
+                 + Sphi1bar[cc1] Sphit1bar[cc2] Sphit2[ii, cc2] Sphi2[jj, cc1]
+                   Eps[ii, jj])
+      + Yp1t1t22 (Sphi1bar[cc1] Sphit1[cc2] Sphit2bar[jj, cc1] Sphi2[ii, cc2]
+                    Eps[ii, jj]
+                  + Sphi1bar[cc1] Sphit1[cc2] Sphit2bar[jj, cc2] Sphi2[ii, cc1]
+                    Eps[ii, jj])
+      + 1/2 Y1313 (Sphi1bar[cc1] Sphi3[dd, cc2] Sphi1bar[cc3] Sphi3[dd, cc4]
+                     + Sphi1bar[cc1] Sphi3[dd, cc4] Sphi1bar[cc3] Sphi3[dd, cc2]
+                     + Sphi1bar[cc1] Sphi3[dd, cc2] Sphi1bar[cc4] Sphi3[dd, cc3]
+                     + Sphi1bar[cc1] Sphi3[dd, cc3] Sphi1bar[cc4] Sphi3[dd, cc2]) 0
+      + Y1313 (Sphi1bar[cc1] Sphi3[dd, cc1] Sphi1bar[cc3] Sphi3[dd, cc3]
+               + Sphi1bar[cc1] Sphi3[dd, cc3] Sphi1bar[cc3] Sphi3[dd, cc1])
+      + Y1333 (Sphi1bar[cc1] Sphi3[dd, cc1]
+                 Eps[dd, ee, ff] Sphi3bar[ee, cc3] Sphi3[ff, cc4]
+               - Sphi1bar[cc1] Sphi3[dd, cc4]
+                 Eps[dd, ee, ff] Sphi3bar[ee, cc3] Sphi3[ff, cc1]),
+      FlavorExpand -> {SU2D, SU2W}];
+  nonHC + HC[nonHC]
+];
+
+(* --- Single total Lagrangian --- *)
+
+LTotal :=
+  Lphi1kin + Lphit1kin + Lphi2kin + Lphit2kin + Lphi3kin
+  + L2Phi + Lf + L3Phi + L4Phi;

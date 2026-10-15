@@ -1,0 +1,151 @@
+(* ****************************************************************************** *)
+(* *****  FeynRules add-on model file                                       ***** *)
+(* *****  Top-philic colour-singlet vector resonance V1                     ***** *)
+(* *****  Extracted from arXiv:1604.07421 (Kim, Kong, Lee, Mohlabeng)       ***** *)
+(* *****  "Probing TeV scale Top-Philic Resonances with Boosted Top-Tagging" ***** *)
+(* *****  This file is loaded ON TOP OF SM.fr                               ***** *)
+(* ****************************************************************************** *)
+
+M$ModelName = "Top-Philic-Zprime_gen";
+
+M$Information = {
+  Authors      -> {"Automated extraction from arXiv:1604.07421"},
+  Version      -> "1.0",
+  Date         -> "09. 09. 2026",
+  Institutions -> {"n/a"},
+  Emails       -> {"n/a"},
+  URLs         -> "https://arxiv.org/abs/1604.07421"
+};
+
+(* ****************************************************************************** *)
+(* *****    Indices                                                         ***** *)
+(* ****************************************************************************** *)
+(* No new index is required.  The model uses only the indices already declared    *)
+(* by SM.fr (Generation, Colour, Gluon, SU2D, SU2W).                              *)
+(* No new colour representation is required: V1 is a colour singlet, so no        *)
+(* AddGaugeRepresentation[...] line is needed.                                    *)
+
+(* ****************************************************************************** *)
+(* *****    Interaction orders (as used by mg5)                             ***** *)
+(* ****************************************************************************** *)
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP,  1}
+};
+
+(* ****************************************************************************** *)
+(* *****    Particle classes                                                ***** *)
+(* ****************************************************************************** *)
+(* Eq.(1) of the paper: V1 is a colour-singlet, electrically neutral, real        *)
+(* (self-conjugate) spin-1 resonance that couples dominantly to the top quark.    *)
+
+M$ClassesDescription = {
+
+  V[100] == {
+    ClassName       -> V1,
+    SelfConjugate   -> True,
+    Mass            -> {MV1, 1500.},
+    Width           -> {WV1, 229.31},
+    ParticleName    -> "V1",
+    PDG             -> 32,
+    PropagatorLabel -> "V1",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "Top-philic colour-singlet vector resonance"
+  }
+
+};
+
+(* ****************************************************************************** *)
+(* *****    Parameters                                                      ***** *)
+(* ****************************************************************************** *)
+
+M$Parameters = {
+
+  (* -------------------- External parameters -------------------- *)
+
+  ct == {
+    ParameterType    -> External,
+    BlockName        -> TOPPHILIC,
+    OrderBlock       -> 1,
+    Value            -> 2.0,
+    InteractionOrder -> {NP, 1},
+    ComplexParameter -> False,
+    TeX              -> Subscript[c, t],
+    Description      -> "Overall V1-top coupling strength, ct = Sqrt[cL^2 + cR^2], Eq.(1); benchmark ct = 2.0"
+  },
+
+  thV == {
+    ParameterType    -> External,
+    BlockName        -> TOPPHILIC,
+    OrderBlock       -> 2,
+    Value            -> 1.5707963267948966,
+    ComplexParameter -> False,
+    TeX              -> Subscript[\[Theta], t],
+    Description      -> "Chirality angle theta of Eq.(1), Tan[theta] = cR/cL; benchmark theta = Pi/2 (purely right-handed coupling)"
+  },
+
+  (* -------------------- Internal parameters -------------------- *)
+  (* Eq.(1): cL = ct Cos[theta], cR = ct Sin[theta].  The resonance is        *)
+  (* top-philic, so only the (3,3) entry of the generation-space matrices is  *)
+  (* non-zero.  All nine components are given explicitly (no pattern rules).  *)
+
+  cVL == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    ComplexParameter -> False,
+    Value            -> {cVL[1,1] -> 0, cVL[1,2] -> 0, cVL[1,3] -> 0,
+                         cVL[2,1] -> 0, cVL[2,2] -> 0, cVL[2,3] -> 0,
+                         cVL[3,1] -> 0, cVL[3,2] -> 0, cVL[3,3] -> ct*Cos[thV]},
+    ParameterName    -> {cVL[1,1] -> cVL11, cVL[1,2] -> cVL12, cVL[1,3] -> cVL13,
+                         cVL[2,1] -> cVL21, cVL[2,2] -> cVL22, cVL[2,3] -> cVL23,
+                         cVL[3,1] -> cVL31, cVL[3,2] -> cVL32, cVL[3,3] -> cVL33},
+    InteractionOrder -> {NP, 1},
+    TeX              -> Superscript[c, L],
+    Description      -> "Left-handed V1 coupling matrix to up-type quarks; cVL[3,3] = ct Cos[thV] = cL of Eq.(1), all other entries vanish (top-philic)"
+  },
+
+  cVR == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    ComplexParameter -> False,
+    Value            -> {cVR[1,1] -> 0, cVR[1,2] -> 0, cVR[1,3] -> 0,
+                         cVR[2,1] -> 0, cVR[2,2] -> 0, cVR[2,3] -> 0,
+                         cVR[3,1] -> 0, cVR[3,2] -> 0, cVR[3,3] -> ct*Sin[thV]},
+    ParameterName    -> {cVR[1,1] -> cVR11, cVR[1,2] -> cVR12, cVR[1,3] -> cVR13,
+                         cVR[2,1] -> cVR21, cVR[2,2] -> cVR22, cVR[2,3] -> cVR23,
+                         cVR[3,1] -> cVR31, cVR[3,2] -> cVR32, cVR[3,3] -> cVR33},
+    InteractionOrder -> {NP, 1},
+    TeX              -> Superscript[c, R],
+    Description      -> "Right-handed V1 coupling matrix to up-type quarks; cVR[3,3] = ct Sin[thV] = cR of Eq.(1), all other entries vanish (top-philic)"
+  }
+
+};
+
+(* ****************************************************************************** *)
+(* *****    Lagrangian                                                      ***** *)
+(* ****************************************************************************** *)
+
+(* Free field terms for the new real vector V1: Proca kinetic + mass term. *)
+
+LV1Kin := Block[{mu, nu},
+  ExpandIndices[
+    -1/4 FS[V1, mu, nu] FS[V1, mu, nu] + 1/2 MV1^2 V1[mu] V1[mu]
+  ]];
+
+(* Eq.(1):  L_int = tbar Ga[mu] (cL ProjM + cR ProjP) t V1[mu]                *)
+(*                = ct tbar Ga[mu] (Cos[theta] ProjM + Sin[theta] ProjP) t V1[mu] *)
+(* Written as a matrix product in generation space between the class fields.  *)
+(* The couplings are real and V1 is self-conjugate, so the term is Hermitian  *)
+(* by itself and needs no HC[] partner.                                       *)
+
+LV1Top := Block[{mu},
+  ExpandIndices[
+    uqbar.cVL.Ga[mu].ProjM.uq V1[mu] + uqbar.cVR.Ga[mu].ProjP.uq V1[mu]
+  ]];
+
+(* Single total Lagrangian of the add-on. *)
+
+LTotal := LV1Kin + LV1Top;

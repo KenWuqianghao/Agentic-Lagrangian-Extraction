@@ -1,0 +1,36 @@
+{
+ "page": "ALRM_general",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "hand",
+ "seed": 1,
+ "variant": "v3o_mimo_hand",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3600.1,
+ "tokens": {
+  "input": 271587,
+  "output": 4939,
+  "reasoning": 87305
+ },
+ "output_max": 128000,
+ "n_events": 35,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 12,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la && wc -l paper/1911.12883_source.tex SM.fr\"}"
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_model_fr"
+}

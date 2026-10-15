@@ -1,0 +1,4 @@
+SCHEMA OK: 3 particle classes, 11 parameters, Lagrangian terms ['LZpKin', 'LPhiXKin', 'LNRKin', 'LZpInt', 'LPhiXPot', 'LNuYuk', 'LTotal']
+RENDERED: model.fr (169 lines). You may read it.
+LINT: 1 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are real defects; do not remove paper physics just to silence one.
+- [mg5] explicit_flavour_sum: `LNuYuk`: flavour matrix `Ynu` with explicit generation indices instead of matrix form (model.fr line 167)

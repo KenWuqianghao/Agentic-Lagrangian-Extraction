@@ -1,0 +1,13 @@
+SCHEMA OK: 17 particle classes, 14 parameters, Lagrangian terms ['LXkin', 'LPhikin', 'LPsi1Lkin', 'LPsi1Rkin', 'LPsi2Lkin', 'LPsi2Rkin', 'LChi1Lkin', 'LChi1Rkin', 'LChi2Lkin', 'LChi2Rkin', 'LFdm1mass', 'LFdm2mass', 'LFup1mass', 'LFdn3mass', 'LFdn4mass', 'LFup2mass', 'LYf1', 'LYF1', 'LYF2', 'LYFt1', 'LYFt2', 'LDH1', 'LDH2', 'LTotal']
+RENDERED: model.fr (356 lines). You may read it.
+LINT: 10 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are real defects; do not remove paper physics just to silence one.
+- [warn] explicit_index_in_dc: `LDH1`: covariant derivative on an explicitly indexed field `Phi` (model.fr line 352)
+- [warn] explicit_index_in_dc: `LDH2`: covariant derivative on an explicitly indexed field `Phibar` (model.fr line 354)
+- [checks] mixing_in_definitions: class `Psi1L` is defined as a mixture of ['Fdm1', 'Fdm2', 'Fup1']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 245)
+- [checks] mixing_in_definitions: class `Psi1R` is defined as a mixture of ['Fdm1', 'Fdm2']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 254)
+- [checks] mixing_in_definitions: class `Psi2L` is defined as a mixture of ['Fdn3', 'Fdn4']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 261)
+- [checks] mixing_in_definitions: class `Psi2R` is defined as a mixture of ['Fdn3', 'Fdn4', 'Fup2']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 268)
+- [checks] mixing_in_definitions: class `Chi1L` is defined as a mixture of ['Fdm1', 'Fdm2']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 277)
+- [checks] mixing_in_definitions: class `Chi1R` is defined as a mixture of ['Fdm1', 'Fdm2', 'Fup1']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 284)
+- [checks] mixing_in_definitions: class `Chi2L` is defined as a mixture of ['Fdn3', 'Fdn4', 'Fup2']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 293)
+- [checks] mixing_in_definitions: class `Chi2R` is defined as a mixture of ['Fdn3', 'Fdn4']; the mass basis of the partner fields declared in SM.fr is unchanged (model.fr line 302)

@@ -1,0 +1,40 @@
+{
+ "page": "Monotops",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit2",
+ "seed": 1,
+ "variant": "v3o_mimo_toolkit2",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 3365.3,
+ "tokens": {
+  "input": 332817,
+  "output": 19346,
+  "reasoning": 154270
+ },
+ "rate_limited": false,
+ "output_max": 128000,
+ "hook_runs": 3,
+ "n_events": 84,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 30,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"ls -la\"}"
+  ],
+  "frgen_runs": 3,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/rerun/v3o_mimo_toolkit2/s1/model/Monotops_gen.fr",
+ "final_lint_findings": 0
+}

@@ -1,0 +1,59 @@
+{
+ "page": "Top-Philic-Zprime",
+ "variant": "v2",
+ "seed": 2,
+ "agent": {
+  "ok": true,
+  "exit": 0,
+  "timed_out": false,
+  "seconds": 112.7,
+  "n_tool_calls": 6,
+  "read_paper": true,
+  "contaminated": false,
+  "outside_sandbox": [],
+  "benign_outside": [],
+  "files_read": [
+   "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-lydyw3je/eval/benchmark_runs/Top-Philic-Zprime/text/1604.07421.txt",
+   "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-lydyw3je/tools/frgen/frmodel.py",
+   "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-lydyw3je/eval/benchmark_runs/Top-Philic-Zprime/text/1604.07421.txt",
+   "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-lydyw3je/tools/feynrules/test_files/models/SM.fr"
+  ],
+  "skipped": true
+ },
+ "render": {
+  "rendered": true,
+  "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/Top-Philic-Zprime/rerun/v2/s2/model/Top-Philic-Zprime_gen.fr"
+ },
+ "predicates": {
+  "available": true,
+  "results": {
+   "zprime_free_field_terms": {
+    "resolved": true,
+    "detail": "kinetic + mass term for V1, summed into the total"
+   }
+  },
+  "all_resolved": true
+ },
+ "validation": {
+  "lag_symbol": "LTopPhilic",
+  "lag_resolution": {
+   "roots": [
+    "LTopPhilic"
+   ],
+   "legacy_symbol": "LTopPhilic",
+   "n_terms_defined": 3,
+   "ambiguous": false,
+   "changed_from_legacy": false
+  },
+  "compile_ok": false,
+  "timed_out": false,
+  "exit": 1,
+  "seconds": 5.0,
+  "ufo_files": [],
+  "checks": {},
+  "protected_symbol_errors": 0,
+  "log_tail": "Error: FeynRulesPath must be a directory. Got: /Users/kenwu/feynrules-current\n",
+  "status": "compile_failed",
+  "full_chain_pass": false
+ }
+}

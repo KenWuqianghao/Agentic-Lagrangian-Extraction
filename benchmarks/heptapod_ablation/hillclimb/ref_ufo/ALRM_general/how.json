@@ -1,0 +1,69 @@
+{
+ "model_files": [
+  "/home/deck/code/heptapod/eval/reference_cache/ALRM_general/ALRM_BF_uni_v2.fr"
+ ],
+ "load_sm": false,
+ "sm_file": null,
+ "lagrangian": "LVector + LMatter + LHiggs + LYuk + HC[LYuk] + LGhost + LagHEffective",
+ "seconds": 1609,
+ "ok": true,
+ "n_particles": 33,
+ "n_vertices": 1074,
+ "n_bsm_vertices": 1050,
+ "bsm_particles": [
+  "A",
+  "A1",
+  "A2",
+  "G",
+  "H0",
+  "H1",
+  "H2",
+  "H3",
+  "Hp1",
+  "Hp2",
+  "W",
+  "Wp",
+  "Zp",
+  "bp",
+  "dp",
+  "sp",
+  "tau__minus__"
+ ],
+ "example_bsm_vertex": [
+  "A1",
+  "A1",
+  "A1",
+  "A1"
+ ],
+ "evidence": "ALRM_BF_uni_v2.fr:20 M$GaugeGroups (U1BL, SU2L, SU2R, SU3C) and :76-180 declare all fields; pieces at :497 LVector, :500 LMatter, :519 LHiggs, :522 LYuk (no HC inside), :531 LGhost, :534 LagHEffective. The file has no total.",
+ "notes": "Full model, loaded alone. The total is inferred: sum of all pieces the file defines, with HC[LYuk] added because LYuk at :522-528 has no hermitian conjugate.",
+ "extra_args": [],
+ "command": [
+  "wolframscript",
+  "-f",
+  "/home/deck/code/hep-pr/validator-main/tools/feynrules/UFO_generator.wl",
+  "FeynRulesPath=/home/deck/hep-tools/feynrules-current",
+  "ModelPath=/home/deck/code/heptapod/eval/reference_cache/ALRM_general/ALRM_BF_uni_v2.fr",
+  "OutputDir=/home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/hillclimb/ref_ufo/ALRM_general/UFO",
+  "Checks=false",
+  "AddDecays=false",
+  "LoadSM=false",
+  "Lagrangian=LVector + LMatter + LHiggs + LYuk + HC[LYuk] + LGhost + LagHEffective"
+ ],
+ "problems": [],
+ "last_log_lines": [],
+ "attempts": [
+  {
+   "lagrangian": "LVector + LMatter + LHiggs + LYuk + HC[LYuk] + LGhost + LagHEffective",
+   "load_sm": false,
+   "model_files": [
+    "/home/deck/code/heptapod/eval/reference_cache/ALRM_general/ALRM_BF_uni_v2.fr"
+   ],
+   "extra": [],
+   "seconds": 1609,
+   "exit_code": 0,
+   "ok": true,
+   "problems": []
+  }
+ ]
+}

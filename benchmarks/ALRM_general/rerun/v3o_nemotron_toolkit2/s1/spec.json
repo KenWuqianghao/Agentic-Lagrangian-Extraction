@@ -1,0 +1,916 @@
+{
+  "model_name": "ALRM_general_gen",
+  "info": {
+    "authors": ["Mariana Frank", "Benjamin Fuks", "Ozer Ozdal"],
+    "version": "1.0.0",
+    "date": "2024-01-15",
+    "institutions": ["Concordia University", "LPTHE Sorbonne Universite", "IPHC Strasbourg"],
+    "emails": ["mariana.frank@concordia.ca", "fuks@lpthe.jussieu.fr", "ozer.ozdal@concordia.ca"]
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "interaction_order_limit": [["QCD", 99], ["QED", 99], ["NP", 99]],
+  "feynman_gauge": true,
+  "vevs": [],
+  "gauge_groups": [],
+  "index_decls": [
+    {
+      "name": "SU2R",
+      "range_kind": "NoUnfold",
+      "size": 2,
+      "style_symbol": "r"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "tb",
+      "parameter_type": "External",
+      "value": "4.58",
+      "block_name": "SMINPUTS",
+      "order_block": 5,
+      "interaction_order": ["NP", 1],
+      "description": "tan(beta) = k/vL, ratio of vevs"
+    },
+    {
+      "name": "gR",
+      "parameter_type": "External",
+      "value": "0.374",
+      "block_name": "SMINPUTS",
+      "order_block": 6,
+      "interaction_order": ["NP", 1],
+      "description": "SU(2)_R gauge coupling"
+    },
+    {
+      "name": "vevp",
+      "parameter_type": "External",
+      "value": "7799.",
+      "block_name": "SMINPUTS",
+      "order_block": 7,
+      "interaction_order": ["NP", 1],
+      "description": "v' = sqrt(k^2 + vR^2) [GeV], SU(2)_R breaking scale"
+    },
+    {
+      "name": "lam2",
+      "parameter_type": "External",
+      "value": "0.",
+      "block_name": "HPOTINPUTS",
+      "order_block": 1,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic coupling lambda_2"
+    },
+    {
+      "name": "lam3",
+      "parameter_type": "External",
+      "value": "0.0196",
+      "block_name": "HPOTINPUTS",
+      "order_block": 2,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic coupling lambda_3"
+    },
+    {
+      "name": "alp1",
+      "parameter_type": "External",
+      "value": "0.0144",
+      "block_name": "HPOTINPUTS",
+      "order_block": 3,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic coupling alpha_1"
+    },
+    {
+      "name": "alp2",
+      "parameter_type": "External",
+      "value": "0.0144",
+      "block_name": "HPOTINPUTS",
+      "order_block": 4,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic coupling alpha_2"
+    },
+    {
+      "name": "alp3",
+      "parameter_type": "External",
+      "value": "0.0144",
+      "block_name": "HPOTINPUTS",
+      "order_block": 5,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic coupling alpha_3"
+    },
+    {
+      "name": "kap",
+      "parameter_type": "External",
+      "value": "-31.08",
+      "block_name": "HPOTINPUTS",
+      "order_block": 6,
+      "interaction_order": ["NP", 1],
+      "description": "Higgs trilinear coupling kappa [GeV]"
+    },
+    {
+      "name": "Ghgg",
+      "parameter_type": "External",
+      "value": "0.",
+      "block_name": "EFFECTIVEHIGGS",
+      "order_block": 1,
+      "interaction_order": ["NP", 1],
+      "description": "Effective Hgg coupling"
+    },
+    {
+      "name": "Ghaa",
+      "parameter_type": "External",
+      "value": "0.",
+      "block_name": "EFFECTIVEHIGGS",
+      "order_block": 2,
+      "interaction_order": ["NP", 1],
+      "description": "Effective Haa coupling"
+    },
+    {
+      "name": "Mne",
+      "parameter_type": "External",
+      "value": "756.",
+      "block_name": "MASS",
+      "order_block": 6000012,
+      "interaction_order": ["NP", 1],
+      "description": "Mass of lightest scotino (n_1) [GeV]"
+    },
+    {
+      "name": "Mnm",
+      "parameter_type": "External",
+      "value": "971.",
+      "block_name": "MASS",
+      "order_block": 6000014,
+      "interaction_order": ["NP", 1],
+      "description": "Mass of second scotino (n_2) [GeV]"
+    },
+    {
+      "name": "Mnt",
+      "parameter_type": "External",
+      "value": "1202.",
+      "block_name": "MASS",
+      "order_block": 6000016,
+      "interaction_order": ["NP", 1],
+      "description": "Mass of third scotino (n_3) [GeV]"
+    },
+    {
+      "name": "MDP",
+      "parameter_type": "External",
+      "value": "1500.",
+      "block_name": "MASS",
+      "order_block": 6000001,
+      "interaction_order": ["NP", 1],
+      "description": "Mass of lightest exotic down quark (d') [GeV]"
+    },
+    {
+      "name": "MSP",
+      "parameter_type": "External",
+      "value": "1800.",
+      "block_name": "MASS",
+      "order_block": 6000003,
+      "interaction_order": ["NP", 1],
+      "description": "Mass of second exotic down quark (s') [GeV]"
+    },
+    {
+      "name": "MBP",
+      "parameter_type": "External",
+      "value": "2000.",
+      "block_name": "MASS",
+      "order_block": 6000005,
+      "interaction_order": ["NP", 1],
+      "description": "Mass of third exotic down quark (b') [GeV]"
+    },
+    {
+      "name": "CKMps12",
+      "parameter_type": "External",
+      "value": "0.225",
+      "block_name": "CKMBLOCK",
+      "order_block": 11,
+      "interaction_order": ["NP", 1],
+      "description": "sin(theta_12) for CKM' matrix"
+    },
+    {
+      "name": "CKMps23",
+      "parameter_type": "External",
+      "value": "0.04",
+      "block_name": "CKMBLOCK",
+      "order_block": 12,
+      "interaction_order": ["NP", 1],
+      "description": "sin(theta_23) for CKM' matrix"
+    },
+    {
+      "name": "CKMps13",
+      "parameter_type": "External",
+      "value": "0.0035",
+      "block_name": "CKMBLOCK",
+      "order_block": 13,
+      "interaction_order": ["NP", 1],
+      "description": "sin(theta_13) for CKM' matrix"
+    },
+    {
+      "name": "CKMpdel",
+      "parameter_type": "External",
+      "value": "1.2",
+      "block_name": "CKMBLOCK",
+      "order_block": 14,
+      "interaction_order": ["NP", 1],
+      "description": "CP-violating phase delta for CKM' matrix"
+    },
+    {
+      "name": "PMNSps12",
+      "parameter_type": "External",
+      "value": "0.55",
+      "block_name": "PMNSBLOCK",
+      "order_block": 11,
+      "interaction_order": ["NP", 1],
+      "description": "sin(theta_12) for PMNS' matrix"
+    },
+    {
+      "name": "PMNSps23",
+      "parameter_type": "External",
+      "value": "0.7",
+      "block_name": "PMNSBLOCK",
+      "order_block": 12,
+      "interaction_order": ["NP", 1],
+      "description": "sin(theta_23) for PMNS' matrix"
+    },
+    {
+      "name": "PMNSps13",
+      "parameter_type": "External",
+      "value": "0.15",
+      "block_name": "PMNSBLOCK",
+      "order_block": 13,
+      "interaction_order": ["NP", 1],
+      "description": "sin(theta_13) for PMNS' matrix"
+    },
+    {
+      "name": "PMNSpdel",
+      "parameter_type": "External",
+      "value": "0.",
+      "block_name": "PMNSBLOCK",
+      "order_block": 14,
+      "interaction_order": ["NP", 1],
+      "description": "CP-violating phase delta for PMNS' matrix"
+    },
+    {
+      "name": "MZp",
+      "parameter_type": "Internal",
+      "value": "Sqrt[gBL^2*sphw^2*vL^2 + gR^2*(cphw^4*k^2 + vR^2)/cphw^2]/2",
+      "interaction_order": ["NP", 1],
+      "description": "Z' boson mass [GeV]"
+    },
+    {
+      "name": "MWp",
+      "parameter_type": "Internal",
+      "value": "gR*Sqrt[k^2 + vR^2]/2",
+      "interaction_order": ["NP", 1],
+      "description": "W' boson mass [GeV]"
+    },
+    {
+      "name": "WZp",
+      "parameter_type": "Internal",
+      "value": "1.",
+      "interaction_order": ["NP", 1],
+      "description": "Z' boson width [GeV], placeholder"
+    },
+    {
+      "name": "WWp",
+      "parameter_type": "Internal",
+      "value": "1.",
+      "interaction_order": ["NP", 1],
+      "description": "W' boson width [GeV], placeholder"
+    },
+    {
+      "name": "MH1",
+      "parameter_type": "Internal",
+      "value": "Sqrt[- (alp2 - alp3)*(vL^2 + vR^2) - kap*vL*vR/(Sqrt[2]*k) + 2*k^2*lam2]",
+      "interaction_order": ["NP", 1],
+      "description": "Mass of H1^0 (CP-even) [GeV]"
+    },
+    {
+      "name": "MH2",
+      "parameter_type": "Internal",
+      "value": "Sqrt[(a + Sqrt[a^2 + 4*(b + a*MH0^2)])/2]",
+      "interaction_order": ["NP", 1],
+      "description": "Mass of H2^0 (CP-even) [GeV]"
+    },
+    {
+      "name": "MH3",
+      "parameter_type": "Internal",
+      "value": "Sqrt[(a - Sqrt[a^2 + 4*(b + a*MH0^2)])/2]",
+      "interaction_order": ["NP", 1],
+      "description": "Mass of H3^0 (CP-even) [GeV]"
+    },
+    {
+      "name": "MA1",
+      "parameter_type": "Internal",
+      "value": "Sqrt[- (alp2 - alp3)*(vL^2 + vR^2) - kap*vL*vR/(Sqrt[2]*k) + 2*k^2*lam2]",
+      "interaction_order": ["NP", 1],
+      "description": "Mass of A1^0 (CP-odd) [GeV]"
+    },
+    {
+      "name": "MA2",
+      "parameter_type": "Internal",
+      "value": "Sqrt[-kap/(Sqrt[2]*k*vL*vR)*(vL^2*vR^2 + k^2*(vL^2 + vR^2))]",
+      "interaction_order": ["NP", 1],
+      "description": "Mass of A2^0 (CP-odd) [GeV]"
+    },
+    {
+      "name": "MHp1",
+      "parameter_type": "Internal",
+      "value": "(k^2 + vL^2)/(2*k*vL)*(-2*(alp2 - alp3)*k*vL - Sqrt[2]*kap*vR)",
+      "interaction_order": ["NP", 1],
+      "description": "Mass of H1^+ (charged) [GeV]"
+    },
+    {
+      "name": "MHp2",
+      "parameter_type": "Internal",
+      "value": "(k^2 + vR^2)/(2*k*vR)*(-2*(alp2 - alp3)*k*vR - Sqrt[2]*kap*vL)",
+      "interaction_order": ["NP", 1],
+      "description": "Mass of H2^+ (charged) [GeV]"
+    },
+    {
+      "name": "v",
+      "parameter_type": "Internal",
+      "value": "Sqrt[1/(Sqrt[2]*Gf)]",
+      "interaction_order": ["QED", -1],
+      "description": "EW vev v = sqrt(k^2 + vL^2) [GeV]"
+    },
+    {
+      "name": "vL",
+      "parameter_type": "Internal",
+      "value": "v*Cos[ArcTan[tb]]",
+      "interaction_order": ["NP", 1],
+      "description": "vev of chi_L [GeV]"
+    },
+    {
+      "name": "k",
+      "parameter_type": "Internal",
+      "value": "v*Sin[ArcTan[tb]]",
+      "interaction_order": ["NP", 1],
+      "description": "vev of phi_2^0 [GeV]"
+    },
+    {
+      "name": "vR",
+      "parameter_type": "Internal",
+      "value": "Sqrt[vevp^2 - k^2]",
+      "interaction_order": ["NP", 1],
+      "description": "vev of chi_R [GeV]"
+    },
+    {
+      "name": "gL",
+      "parameter_type": "Internal",
+      "value": "2*MW/Sqrt[k^2 + vL^2]",
+      "interaction_order": ["QED", 1],
+      "description": "SU(2)_L gauge coupling"
+    },
+    {
+      "name": "gY",
+      "parameter_type": "Internal",
+      "value": "ee/cw",
+      "interaction_order": ["QED", 1],
+      "description": "Hypercharge gauge coupling"
+    },
+    {
+      "name": "gBL",
+      "parameter_type": "Internal",
+      "value": "gR*gY/Sqrt[gR^2 - gY^2]",
+      "interaction_order": ["NP", 1],
+      "description": "U(1)_B-L gauge coupling"
+    },
+    {
+      "name": "sphw",
+      "parameter_type": "Internal",
+      "value": "gBL/Sqrt[gBL^2 + gR^2]",
+      "interaction_order": ["NP", 1],
+      "description": "sin(phi_W) mixing angle"
+    },
+    {
+      "name": "cphw",
+      "parameter_type": "Internal",
+      "value": "gR/Sqrt[gBL^2 + gR^2]",
+      "interaction_order": ["NP", 1],
+      "description": "cos(phi_W) mixing angle"
+    },
+    {
+      "name": "stw",
+      "parameter_type": "Internal",
+      "value": "ee/gL",
+      "interaction_order": ["QED", 1],
+      "description": "sin(theta_W)"
+    },
+    {
+      "name": "ctw",
+      "parameter_type": "Internal",
+      "value": "Sqrt[1 - (ee/gL)^2]",
+      "interaction_order": ["QED", 1],
+      "description": "cos(theta_W)"
+    },
+    {
+      "name": "szw",
+      "parameter_type": "Internal",
+      "value": "Sin[(1/2)*ArcTan[(2*cphw*ctw*gL*gR*(cphw^2*k^2 - sphw^2*vL^2))/(-(gL^2 - cphw^2*ctw^2*gR^2)*cphw^2*k^2 - (gL^2 - ctw^2*gBL^2*sphw^2)*cphw^2*vL^2 + ctw^2*gR^2*vR^2)]]",
+      "interaction_order": ["NP", 1],
+      "description": "sin(zeta_W) Z-Z' mixing angle"
+    },
+    {
+      "name": "czw",
+      "parameter_type": "Internal",
+      "value": "Cos[(1/2)*ArcTan[(2*cphw*ctw*gL*gR*(cphw^2*k^2 - sphw^2*vL^2))/(-(gL^2 - cphw^2*ctw^2*gR^2)*cphw^2*k^2 - (gL^2 - ctw^2*gBL^2*sphw^2)*cphw^2*vL^2 + ctw^2*gR^2*vR^2)]]",
+      "interaction_order": ["NP", 1],
+      "description": "cos(zeta_W) Z-Z' mixing angle"
+    },
+    {
+      "name": "mu1",
+      "parameter_type": "Internal",
+      "value": "(alp1 + alp2)*(vL^2 + vR^2) + k^2*lam1 + kap*vL*vR/(Sqrt[2]*k)",
+      "interaction_order": ["NP", 1],
+      "description": "Higgs bilinear parameter mu1 [GeV]"
+    },
+    {
+      "name": "mu2",
+      "parameter_type": "Internal",
+      "value": "(alp1 + alp2)*k^2 + lam3*(vL^2 + vR^2)",
+      "interaction_order": ["NP", 1],
+      "description": "Higgs bilinear parameter mu2 [GeV]"
+    },
+    {
+      "name": "lam1",
+      "parameter_type": "Internal",
+      "value": "(Sqrt[2]*k*vL*vR*MH0^6 + a4*MH0^4 - 2*a2*MH0^2 - 4*(alp1+alp2)^2*kap*k^4*(vL^2 - vR^2)^2) / (2*k^3*(Sqrt[2]*vL*vR*MH0^4 + (kap*k - 2*Sqrt[2]*lam3*vL*vR)*(vL^2+vR^2)*MH0^2 - 2*kap*k*lam3*(vL^2-vR^2)^2))",
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic lambda_1 (derived from MH0)"
+    },
+    {
+      "name": "lam4",
+      "parameter_type": "Internal",
+      "value": "lam3 - kap*k/(Sqrt[2]*vL*vR)",
+      "interaction_order": ["NP", 1],
+      "description": "Higgs quartic lambda_4 (derived)"
+    },
+    {
+      "name": "a4",
+      "parameter_type": "Internal",
+      "value": "-2*Sqrt[2]*k*lam3*vL*vR*(vL^2+vR^2) + kap*(vL^2*vR^2 + k^2*(vL^2+vR^2))",
+      "interaction_order": ["NP", 1],
+      "description": "Intermediate parameter for lambda_1"
+    },
+    {
+      "name": "a2",
+      "parameter_type": "Internal",
+      "value": "2*Sqrt[2]*(alp1+alp2)^2*k^3*vL*vR*(vL^2+vR^2) + kap*(lam3*vL^2*vR^2*(vL^2+vR^2) + k^2*(4*(alp1+alp2)*vL^2*vR^2 + lam3*(vL^2-vR^2)^2))",
+      "interaction_order": ["NP", 1],
+      "description": "Intermediate parameter for lambda_1"
+    },
+    {
+      "name": "a",
+      "parameter_type": "Internal",
+      "value": "(vL*vR*(2*Sqrt[2]*k^3*lam1 - kap*vL*vR) + k*(2*Sqrt[2]*lam3*vL*vR - kap*k)*(vL^2+vR^2))/(Sqrt[2]*k*vL*vR) - MH0^2",
+      "interaction_order": ["NP", 1],
+      "description": "Intermediate parameter for H2,H3 masses"
+    },
+    {
+      "name": "b",
+      "parameter_type": "Internal",
+      "value": "(Sqrt[2]*kap*k^2*(4*(alp1+alp2)*vL^2*vR^2 + lam3*(vL^2-vR^2)^2) + (4*k^3*((alp1+alp2)^2 - lam1*lam3)*vL*vR + Sqrt[2]*kap*(k^4*lam1 + lam3*vL^2*vR^2))*(vL^2+vR^2))/(k*vL*vR)",
+      "interaction_order": ["NP", 1],
+      "description": "Intermediate parameter for H2,H3 masses"
+    },
+    {
+      "name": "MH0",
+      "parameter_type": "External",
+      "value": "125.",
+      "block_name": "MASS",
+      "order_block": 25,
+      "interaction_order": ["QED", 1],
+      "description": "SM-like Higgs mass H0^0 [GeV]"
+    },
+    {
+      "name": "CKMp",
+      "parameter_type": "Internal",
+      "indices": ["Generation", "Generation"],
+      "unitary": true,
+      "value_rules": [
+        {"lhs": "CKMp[1,1]", "rhs": "Cos[ArcSin[CKMps12]]*Cos[ArcSin[CKMps13]]", "delayed": false},
+        {"lhs": "CKMp[1,2]", "rhs": "Sin[ArcSin[CKMps12]]*Cos[ArcSin[CKMps13]]", "delayed": false},
+        {"lhs": "CKMp[1,3]", "rhs": "Sin[ArcSin[CKMps13]]*Exp[-I*CKMpdel]", "delayed": false},
+        {"lhs": "CKMp[2,1]", "rhs": "-Sin[ArcSin[CKMps12]]*Cos[ArcSin[CKMps23]] - Cos[ArcSin[CKMps12]]*Sin[ArcSin[CKMps23]]*Sin[ArcSin[CKMps13]]*Exp[I*CKMpdel]", "delayed": false},
+        {"lhs": "CKMp[2,2]", "rhs": "Cos[ArcSin[CKMps12]]*Cos[ArcSin[CKMps23]] - Sin[ArcSin[CKMps12]]*Sin[ArcSin[CKMps23]]*Sin[ArcSin[CKMps13]]*Exp[I*CKMpdel]", "delayed": false},
+        {"lhs": "CKMp[2,3]", "rhs": "Sin[ArcSin[CKMps23]]*Cos[ArcSin[CKMps13]]", "delayed": false},
+        {"lhs": "CKMp[3,1]", "rhs": "Sin[ArcSin[CKMps12]]*Sin[ArcSin[CKMps23]] - Cos[ArcSin[CKMps12]]*Cos[ArcSin[CKMps23]]*Sin[ArcSin[CKMps13]]*Exp[I*CKMpdel]", "delayed": false},
+        {"lhs": "CKMp[3,2]", "rhs": "-Cos[ArcSin[CKMps12]]*Sin[ArcSin[CKMps23]] - Sin[ArcSin[CKMps12]]*Cos[ArcSin[CKMps23]]*Sin[ArcSin[CKMps13]]*Exp[I*CKMpdel]", "delayed": false},
+        {"lhs": "CKMp[3,3]", "rhs": "Cos[ArcSin[CKMps23]]*Cos[ArcSin[CKMps13]]", "delayed": false}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "CKM' matrix for exotic quark mixing"
+    },
+    {
+      "name": "PMNSp",
+      "parameter_type": "Internal",
+      "indices": ["Generation", "Generation"],
+      "unitary": true,
+      "value_rules": [
+        {"lhs": "PMNSp[1,1]", "rhs": "Cos[ArcSin[PMNSps12]]*Cos[ArcSin[PMNSps13]]", "delayed": false},
+        {"lhs": "PMNSp[1,2]", "rhs": "Sin[ArcSin[PMNSps12]]*Cos[ArcSin[PMNSps13]]", "delayed": false},
+        {"lhs": "PMNSp[1,3]", "rhs": "Sin[ArcSin[PMNSps13]]*Exp[-I*PMNSpdel]", "delayed": false},
+        {"lhs": "PMNSp[2,1]", "rhs": "-Sin[ArcSin[PMNSps12]]*Cos[ArcSin[PMNSps23]] - Cos[ArcSin[PMNSps12]]*Sin[ArcSin[PMNSps23]]*Sin[ArcSin[PMNSps13]]*Exp[I*PMNSpdel]", "delayed": false},
+        {"lhs": "PMNSp[2,2]", "rhs": "Cos[ArcSin[PMNSps12]]*Cos[ArcSin[PMNSps23]] - Sin[ArcSin[PMNSps12]]*Sin[ArcSin[PMNSps23]]*Sin[ArcSin[PMNSps13]]*Exp[I*PMNSpdel]", "delayed": false},
+        {"lhs": "PMNSp[2,3]", "rhs": "Sin[ArcSin[PMNSps23]]*Cos[ArcSin[PMNSps13]]", "delayed": false},
+        {"lhs": "PMNSp[3,1]", "rhs": "Sin[ArcSin[PMNSps12]]*Sin[ArcSin[PMNSps23]] - Cos[ArcSin[PMNSps12]]*Cos[ArcSin[PMNSps23]]*Sin[ArcSin[PMNSps13]]*Exp[I*PMNSpdel]", "delayed": false},
+        {"lhs": "PMNSp[3,2]", "rhs": "-Cos[ArcSin[PMNSps12]]*Sin[ArcSin[PMNSps23]] - Sin[ArcSin[PMNSps12]]*Cos[ArcSin[PMNSps23]]*Sin[ArcSin[PMNSps13]]*Exp[I*PMNSpdel]", "delayed": false},
+        {"lhs": "PMNSp[3,3]", "rhs": "Cos[ArcSin[PMNSps23]]*Cos[ArcSin[PMNSps13]]", "delayed": false}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "PMNS' matrix for scotino mixing"
+    },
+    {
+      "name": "Ynu",
+      "parameter_type": "Internal",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "Ynu[1,1]", "rhs": "Sqrt[2]*Mve/(vL)", "delayed": false},
+        {"lhs": "Ynu[2,2]", "rhs": "Sqrt[2]*Mvm/(vL)", "delayed": false},
+        {"lhs": "Ynu[3,3]", "rhs": "Sqrt[2]*Mvt/(vL)", "delayed": false},
+        {"lhs": "Ynu[1,2]", "rhs": "0", "delayed": false},
+        {"lhs": "Ynu[2,1]", "rhs": "0", "delayed": false},
+        {"lhs": "Ynu[1,3]", "rhs": "0", "delayed": false},
+        {"lhs": "Ynu[3,1]", "rhs": "0", "delayed": false},
+        {"lhs": "Ynu[2,3]", "rhs": "0", "delayed": false},
+        {"lhs": "Ynu[3,2]", "rhs": "0", "delayed": false}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Neutrino Yukawa matrix (diagonal in mass basis)"
+    },
+    {
+      "name": "Yn",
+      "parameter_type": "Internal",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "Yn[1,1]", "rhs": "Sqrt[2]*Mne/(vR)", "delayed": false},
+        {"lhs": "Yn[2,2]", "rhs": "Sqrt[2]*Mnm/(vR)", "delayed": false},
+        {"lhs": "Yn[3,3]", "rhs": "Sqrt[2]*Mnt/(vR)", "delayed": false},
+        {"lhs": "Yn[1,2]", "rhs": "0", "delayed": false},
+        {"lhs": "Yn[2,1]", "rhs": "0", "delayed": false},
+        {"lhs": "Yn[1,3]", "rhs": "0", "delayed": false},
+        {"lhs": "Yn[3,1]", "rhs": "0", "delayed": false},
+        {"lhs": "Yn[2,3]", "rhs": "0", "delayed": false},
+        {"lhs": "Yn[3,2]", "rhs": "0", "delayed": false}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Scotino Yukawa matrix (diagonal in mass basis)"
+    },
+    {
+      "name": "Ydp",
+      "parameter_type": "Internal",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "Ydp[1,1]", "rhs": "Sqrt[2]*MDP/(vR)", "delayed": false},
+        {"lhs": "Ydp[2,2]", "rhs": "Sqrt[2]*MSP/(vR)", "delayed": false},
+        {"lhs": "Ydp[3,3]", "rhs": "Sqrt[2]*MBP/(vR)", "delayed": false},
+        {"lhs": "Ydp[1,2]", "rhs": "0", "delayed": false},
+        {"lhs": "Ydp[2,1]", "rhs": "0", "delayed": false},
+        {"lhs": "Ydp[1,3]", "rhs": "0", "delayed": false},
+        {"lhs": "Ydp[3,1]", "rhs": "0", "delayed": false},
+        {"lhs": "Ydp[2,3]", "rhs": "0", "delayed": false},
+        {"lhs": "Ydp[3,2]", "rhs": "0", "delayed": false}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Exotic down quark Yukawa matrix (diagonal in mass basis)"
+    },
+    {
+      "name": "Yd",
+      "parameter_type": "Internal",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "Yd[1,1]", "rhs": "Sqrt[2]*MD/(vL)", "delayed": false},
+        {"lhs": "Yd[2,2]", "rhs": "Sqrt[2]*MS/(vL)", "delayed": false},
+        {"lhs": "Yd[3,3]", "rhs": "Sqrt[2]*MB/(vL)", "delayed": false},
+        {"lhs": "Yd[1,2]", "rhs": "0", "delayed": false},
+        {"lhs": "Yd[2,1]", "rhs": "0", "delayed": false},
+        {"lhs": "Yd[1,3]", "rhs": "0", "delayed": false},
+        {"lhs": "Yd[3,1]", "rhs": "0", "delayed": false},
+        {"lhs": "Yd[2,3]", "rhs": "0", "delayed": false},
+        {"lhs": "Yd[3,2]", "rhs": "0", "delayed": false}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Down quark Yukawa matrix (diagonal in mass basis)"
+    },
+    {
+      "name": "Ye",
+      "parameter_type": "Internal",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "Ye[1,1]", "rhs": "Sqrt[2]*Me/k", "delayed": false},
+        {"lhs": "Ye[2,2]", "rhs": "Sqrt[2]*MMU/k", "delayed": false},
+        {"lhs": "Ye[3,3]", "rhs": "Sqrt[2]*MTA/k", "delayed": false},
+        {"lhs": "Ye[1,2]", "rhs": "0", "delayed": false},
+        {"lhs": "Ye[2,1]", "rhs": "0", "delayed": false},
+        {"lhs": "Ye[1,3]", "rhs": "0", "delayed": false},
+        {"lhs": "Ye[3,1]", "rhs": "0", "delayed": false},
+        {"lhs": "Ye[2,3]", "rhs": "0", "delayed": false},
+        {"lhs": "Ye[3,2]", "rhs": "0", "delayed": false}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Charged lepton Yukawa matrix (diagonal in mass basis)"
+    },
+    {
+      "name": "Yu",
+      "parameter_type": "Internal",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "Yu[1,1]", "rhs": "Sqrt[2]*MU/k", "delayed": false},
+        {"lhs": "Yu[2,2]", "rhs": "Sqrt[2]*MC/k", "delayed": false},
+        {"lhs": "Yu[3,3]", "rhs": "Sqrt[2]*MT/k", "delayed": false},
+        {"lhs": "Yu[1,2]", "rhs": "0", "delayed": false},
+        {"lhs": "Yu[2,1]", "rhs": "0", "delayed": false},
+        {"lhs": "Yu[1,3]", "rhs": "0", "delayed": false},
+        {"lhs": "Yu[3,1]", "rhs": "0", "delayed": false},
+        {"lhs": "Yu[2,3]", "rhs": "0", "delayed": false},
+        {"lhs": "Yu[3,2]", "rhs": "0", "delayed": false}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Up quark Yukawa matrix (diagonal in mass basis)"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "S",
+      "class_index": 107,
+      "class_name": "Phi",
+      "self_conjugate": false,
+      "indices": ["SU2D", "SU2R"],
+      "flavor_index": "SU2D",
+      "class_members": [],
+      "mass": null,
+      "width": null,
+      "quantum_numbers": {"Q": "0"},
+      "pdg": null,
+      "particle_name": null,
+      "antiparticle_name": null,
+      "full_name": null,
+      "propagator_label": null,
+      "propagator_type": null,
+      "propagator_arrow": null,
+      "unphysical": true,
+      "definitions": [
+        "Phi[1,1] -> -I GP",
+        "Phi[2,1] -> (vev + H + I G0)/Sqrt[2]",
+        "Phi[1,2] -> (H1p + I GP)/Sqrt[2]",
+        "Phi[2,2] -> (h0[1] + I A0[1])/Sqrt[2]"
+      ]
+    },
+    {
+      "spin_type": "S",
+      "class_index": 108,
+      "class_name": "ChiL",
+      "self_conjugate": false,
+      "indices": ["SU2D"],
+      "flavor_index": "SU2D",
+      "class_members": [],
+      "mass": null,
+      "width": null,
+      "quantum_numbers": {"Q": "0"},
+      "pdg": null,
+      "particle_name": null,
+      "antiparticle_name": null,
+      "full_name": null,
+      "propagator_label": null,
+      "propagator_type": null,
+      "propagator_arrow": null,
+      "unphysical": true,
+      "definitions": [
+        "ChiL[1] -> (H1p + I G1p)/Sqrt[2]",
+        "ChiL[2] -> (vL + h0[2] + I A0[2])/Sqrt[2]"
+      ]
+    },
+    {
+      "spin_type": "S",
+      "class_index": 109,
+      "class_name": "ChiR",
+      "self_conjugate": false,
+      "indices": ["SU2R"],
+      "flavor_index": "SU2R",
+      "class_members": [],
+      "mass": null,
+      "width": null,
+      "quantum_numbers": {"Q": "0"},
+      "pdg": null,
+      "particle_name": null,
+      "antiparticle_name": null,
+      "full_name": null,
+      "propagator_label": null,
+      "propagator_type": null,
+      "propagator_arrow": null,
+      "unphysical": true,
+      "definitions": [
+        "ChiR[1] -> (H2p + I G2p)/Sqrt[2]",
+        "ChiR[2] -> (vR + h0[3] + I A0[2])/Sqrt[2]"
+      ]
+    },
+    {
+      "spin_type": "V",
+      "class_index": 100,
+      "class_name": "Zp",
+      "self_conjugate": true,
+      "indices": [],
+      "flavor_index": null,
+      "class_members": [],
+      "mass": {"massless": false, "sym": "MZp", "value": "Internal"},
+      "width": {"massless": false, "sym": "WZp", "value": "Internal"},
+      "quantum_numbers": {"Q": "0"},
+      "pdg": 32,
+      "particle_name": "Zp",
+      "antiparticle_name": "Zp",
+      "full_name": "Z' boson",
+      "propagator_label": "Zp",
+      "propagator_type": "Sine",
+      "propagator_arrow": "None",
+      "unphysical": false,
+      "definitions": []
+    },
+    {
+      "spin_type": "V",
+      "class_index": 101,
+      "class_name": "Wp",
+      "self_conjugate": false,
+      "indices": [],
+      "flavor_index": null,
+      "class_members": [],
+      "mass": {"massless": false, "sym": "MWp", "value": "Internal"},
+      "width": {"massless": false, "sym": "WWp", "value": "Internal"},
+      "quantum_numbers": {"Q": "1"},
+      "pdg": 34,
+      "particle_name": "Wp+",
+      "antiparticle_name": "Wp-",
+      "full_name": "W' boson",
+      "propagator_label": "Wp",
+      "propagator_type": "Sine",
+      "propagator_arrow": "Forward",
+      "unphysical": false,
+      "definitions": []
+    },
+    {
+      "spin_type": "F",
+      "class_index": 102,
+      "class_name": "nl",
+      "self_conjugate": false,
+      "indices": ["Generation"],
+      "flavor_index": "Generation",
+      "class_members": ["n1", "n2", "n3"],
+      "mass": {"massless": false, "sym": "Mn", "members": [["Mne", "756."], ["Mnm", "971."], ["Mnt", "1202."]]},
+      "width": {"massless": true},
+      "quantum_numbers": {"Q": "0", "LeptonNumber": "1"},
+      "pdg": [6000012, 6000014, 6000016],
+      "particle_name": ["n1", "n2", "n3"],
+      "antiparticle_name": ["n1~", "n2~", "n3~"],
+      "full_name": ["Scotino 1", "Scotino 2", "Scotino 3"],
+      "propagator_label": ["nl", "n1", "n2", "n3"],
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward",
+      "unphysical": false,
+      "definitions": []
+    },
+    {
+      "spin_type": "F",
+      "class_index": 103,
+      "class_name": "dqp",
+      "self_conjugate": false,
+      "indices": ["Generation", "Colour"],
+      "flavor_index": "Generation",
+      "class_members": ["dp", "sp", "bp"],
+      "mass": {"massless": false, "sym": "Mdq", "members": [["MDP", "1500."], ["MSP", "1800."], ["MBP", "2000."]]},
+      "width": {"massless": true},
+      "quantum_numbers": {"Q": "-1/3"},
+      "pdg": [6000001, 6000003, 6000005],
+      "particle_name": ["dp", "sp", "bp"],
+      "antiparticle_name": ["dp~", "sp~", "bp~"],
+      "full_name": ["Exotic down quark d'", "Exotic strange quark s'", "Exotic bottom quark b'"],
+      "propagator_label": ["dqp", "dp", "sp", "bp"],
+      "propagator_type": "Straight",
+      "propagator_arrow": "Forward",
+      "unphysical": false,
+      "definitions": []
+    },
+    {
+      "spin_type": "S",
+      "class_index": 104,
+      "class_name": "h0",
+      "self_conjugate": true,
+      "indices": [],
+      "flavor_index": "Generation",
+      "class_members": ["H1", "H2", "H3"],
+      "mass": {"massless": false, "sym": "Mh0", "members": [["MH1", "193."], ["MH2", "907."], ["MH3", "1546."]]},
+      "width": {"massless": false, "sym": "Wh0", "members": [["WH1", "1."], ["WH2", "1."], ["WH3", "1."]]},
+      "quantum_numbers": {"Q": "0"},
+      "pdg": [35, 45, 55],
+      "particle_name": ["H1", "H2", "H3"],
+      "antiparticle_name": ["H1", "H2", "H3"],
+      "full_name": ["H1^0 (CP-even)", "H2^0 (CP-even)", "H3^0 (CP-even)"],
+      "propagator_label": ["h0", "H1", "H2", "H3"],
+      "propagator_type": "D",
+      "propagator_arrow": "None",
+      "unphysical": false,
+      "definitions": []
+    },
+    {
+      "spin_type": "S",
+      "class_index": 105,
+      "class_name": "A0",
+      "self_conjugate": true,
+      "indices": [],
+      "flavor_index": "Generation",
+      "class_members": ["A1", "A2"],
+      "mass": {"massless": false, "sym": "MA0", "members": [["MA1", "193."], ["MA2", "907."]]},
+      "width": {"massless": false, "sym": "WA0", "members": [["WA1", "1."], ["WA2", "1."]]},
+      "quantum_numbers": {"Q": "0"},
+      "pdg": [36, 46],
+      "particle_name": ["A1", "A2"],
+      "antiparticle_name": ["A1", "A2"],
+      "full_name": ["A1^0 (CP-odd)", "A2^0 (CP-odd)"],
+      "propagator_label": ["A0", "A1", "A2"],
+      "propagator_type": "D",
+      "propagator_arrow": "None",
+      "unphysical": false,
+      "definitions": []
+    },
+    {
+      "spin_type": "S",
+      "class_index": 106,
+      "class_name": "Hp",
+      "self_conjugate": false,
+      "indices": [],
+      "flavor_index": "Generation",
+      "class_members": ["H1p", "H2p"],
+      "mass": {"massless": false, "sym": "MHp", "members": [["MHp1", "907."], ["MHp2", "194."]]},
+      "width": {"massless": false, "sym": "WHp", "members": [["WHp1", "1."], ["WHp2", "1."]]},
+      "quantum_numbers": {"Q": "1"},
+      "pdg": [37, 47],
+      "particle_name": ["H1+", "H2+"],
+      "antiparticle_name": ["H1-", "H2-"],
+      "full_name": ["H1^+ (charged)", "H2^+ (charged)"],
+      "propagator_label": ["Hp", "H1p", "H2p"],
+      "propagator_type": "D",
+      "propagator_arrow": "None",
+      "unphysical": false,
+      "definitions": []
+    }
+  ],
+  "gauge_xi": [],
+  "lagrangian_terms": [
+    {
+      "name": "LZpKin",
+      "expression": "-1/4 FS[Zp, mu, nu] FS[Zp, mu, nu] + 1/2 MZp^2 Zp[mu] Zp[mu]",
+      "delayed": true
+    },
+    {
+      "name": "LWpKin",
+      "expression": "-1/2 FS[Wpbar, mu, nu] FS[Wp, mu, nu] + MWp^2 Wpbar[mu] Wp[mu]",
+      "delayed": true
+    },
+    {
+      "name": "LnKin",
+      "expression": "I nlbar.Ga[mu].DC[nl, mu] - nlbar.Mn.nl",
+      "delayed": true
+    },
+    {
+      "name": "LdqpKin",
+      "expression": "I dqpbar.Ga[mu].DC[dqp, mu] - dqpbar.Mdq.dqp",
+      "delayed": true
+    },
+    {
+      "name": "Lh0Kin",
+      "expression": "DC[h0, mu] DC[h0, mu] - h0.Mh0^2.h0",
+      "delayed": true
+    },
+    {
+      "name": "LA0Kin",
+      "expression": "1/2 del[A0, mu] del[A0, mu] - 1/2 A0.MA0^2.A0",
+      "delayed": true
+    },
+    {
+      "name": "LHpKin",
+      "expression": "DC[Hpbar, mu] DC[Hp, mu] - Hpbar.MHp^2.Hp",
+      "delayed": true
+    },
+    {
+      "name": "LYukawa",
+      "expression": "ExpandIndices[ -Yd[ff2, ff3] CKM[ff1, ff2] QLbar[sp, ii, ff1, cc].dR[sp, ff3, cc] Phi[ii] - Ye[ff1, ff3] LLbar[sp, ii, ff1].lR[sp, ff3] Phi[ii] - Yu[ff1, ff2] QLbar[sp, ii, ff1, cc].uR[sp, ff2, cc] Phibar[jj] Eps[ii, jj] - Ydp[ff2, ff3] CKMp[ff1, ff2] QLbar[sp, ii, ff1, cc].dqp[sp, ff3, cc] ChiL[ii] - Yn[ff1, ff3] LLbar[sp, ii, ff1].nl[sp, ff3] ChiRbar[ii] Eps[ii, jj] - Ynu[ff1, ff3] LLbar[sp, ii, ff1].vl[sp, ff3] ChiLbar[ii] Eps[ii, jj] + HC[...] ]",
+      "delayed": true
+    },
+    {
+      "name": "LHiggsPotential",
+      "expression": "-mu1^2 Tr[Phidag.Phi] - mu2^2 (ChiLdag.ChiL + ChiRdag.ChiR) + lam1 (Tr[Phidag.Phi])^2 + lam2 (Phi.Phihat).(Phihatdag.Phidag) + lam3 ((ChiLdag.ChiL)^2 + (ChiRdag.ChiR)^2) + 2*lam4 (ChiLdag.ChiL)(ChiRdag.ChiR) + 2*alp1 Tr[Phidag.Phi](ChiLdag.ChiL + ChiRdag.ChiR) + 2*alp2 ((ChiLdag.Phi)(ChiL.Phidag) + (Phidag.ChiRdag)(Phi.ChiR)) + 2*alp3 ((ChiLdag.Phihatdag)(ChiL.Phihat) + (Phihat.ChiRdag)(Phihatdag.ChiR)) + kap (ChiLdag.Phi.ChiR + ChiRdag.Phidag.ChiL)",
+      "delayed": true
+    },
+    {
+      "name": "LEffHiggs",
+      "expression": "-1/4 Ghgg H FS[G, mu, nu, aa] FS[G, mu, nu, aa] - 1/4 Ghaa H FS[A, mu, nu] FS[A, mu, nu]",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "LZpKin + LWpKin + LnKin + LdqpKin + Lh0Kin + LA0Kin + LHpKin + LYukawa + LHiggsPotential + LEffHiggs",
+      "delayed": true
+    }
+  ],
+  "raw_preamble": [
+    "AddGaugeRepresentation[SU3C -> {T, Colour}];",
+    "AddGaugeRepresentation[SU2L -> {Ta, SU2D}];",
+    "(* Additional gauge representations for SU(2)_R and U(1)_B-L are handled via quantum numbers *)"
+  ],
+  "raw_blocks": []
+}

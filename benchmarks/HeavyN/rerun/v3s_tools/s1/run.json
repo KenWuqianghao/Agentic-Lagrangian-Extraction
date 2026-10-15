@@ -1,0 +1,87 @@
+{
+ "page": "HeavyN",
+ "variant": "v3s_tools",
+ "seed": 1,
+ "mode": "tools",
+ "paper_source": "tex",
+ "paper_file": "1602.06957_source.tex",
+ "agent": {
+  "ok": true,
+  "error": null,
+  "exit": 0,
+  "timed_out": false,
+  "seconds": null,
+  "engine": "claude-code-subagent",
+  "model": "claude-sonnet-5",
+  "mode": "tools",
+  "tool_policy": "instructed+audited",
+  "audit_ok": true,
+  "audit_problems": [],
+  "n_tool_calls": 6,
+  "tool_names": [
+   "Read"
+  ],
+  "bundle_reads": 1,
+  "read_paper": true,
+  "contaminated": false,
+  "outside_sandbox": [],
+  "files_read": [
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HeavyN-ejahno0m/PROMPT.md",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HeavyN-ejahno0m/tools/frgen/frmodel.py",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HeavyN-ejahno0m/eval/benchmark_runs/HeavyN/text/1602.06957_source.tex",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HeavyN-ejahno0m/tools/feynrules/test_files/models/SM.fr",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HeavyN-ejahno0m/tools/frgen/render.py",
+   "/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HeavyN-ejahno0m/eval/benchmark_runs/HeavyN/text/1602.06957_source.tex"
+  ],
+  "transcript": "/Users/kenwu/.claude/projects/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/subagents/agent-a392ec4f28dc1158a.jsonl",
+  "skipped": true
+ },
+ "render": {
+  "rendered": true,
+  "fr": "/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/94cf8ff6-6dba-453e-b8ee-ad80d63999c8/scratchpad/hmain/eval/benchmark_runs/HeavyN/rerun/v3s_tools/s1/model/HeavyN_gen.fr"
+ },
+ "predicates": {
+  "available": true,
+  "results": {},
+  "all_resolved": false
+ },
+ "validation": {
+  "lag_symbol": "LTotal",
+  "lag_resolution": {
+   "roots": [
+    "LTotal"
+   ],
+   "legacy_symbol": "LTotal",
+   "n_terms_defined": 5,
+   "ambiguous": false,
+   "changed_from_legacy": false
+  },
+  "compile_ok": true,
+  "lagrangian_expression": "LSM + LTotal",
+  "timed_out": false,
+  "exit": 0,
+  "seconds": 64.1,
+  "ufo_files": [
+   "particles.py",
+   "parameters.py",
+   "couplings.py",
+   "vertices.py",
+   "lorentz.py"
+  ],
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "protected_symbol_errors": 0,
+  "log_tail": "",
+  "n_particles_ufo": 25,
+  "madgraph_import_ok": true,
+  "mg5_particles": 18,
+  "lepton_number_violation": false,
+  "mg5_tail": "",
+  "status": "compiled",
+  "full_chain_pass": false
+ }
+}

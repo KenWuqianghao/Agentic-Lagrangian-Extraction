@@ -1,0 +1,318 @@
+"""English text for failures.html (build_failures_page.py --lang en). Keys are
+(group, paper); labels and inline snippet notes are translated by the tables
+at the end. A missing entry stops the build."""
+
+CASES = {
+    ("vanilla", "331"): (
+        "compile fails",
+        "the agent knew",
+        "In the fermion bilinears the generation is a number and the colour is a free symbol, so "
+        "the index count does not match the class. FeynRules reports Inner::incom during the "
+        "expansion and then hits the recursion limit. Also, LTotal is a full Lagrangian with no "
+        "LSM in it, and the scorer added LSM once more. The agent's own check showed the same "
+        "error; the session ended while it waited for a background job.",
+        "A tool that gives a verdict per check in bounded time; a line in the task that the "
+        "scorer adds LSM.",
+    ),
+    ("vanilla", "ALRM_general"): (
+        "compile fails",
+        "the agent knew",
+        "The hermiticity check hits the recursion limit. LTotal is a full Lagrangian (with its "
+        "own gluon term) and has no LSM, so the scorer added LSM once more. The agent loaded the "
+        "model in FeynRules for the first time in the last minutes, saw the same error, and "
+        "wrote that the model was not finished. Which term causes the recursion was not "
+        "determined.",
+        "An early compile of a small model; a report that names the vertex that did not expand.",
+    ),
+    ("vanilla", "B-L-SM"): (
+        "hermiticity and mass_spectrum fail",
+        "scorer interface",
+        "LTotal builds the full Lagrangian from SM.fr's pieces (LGauge, LFermions, ...) and "
+        "never names LSM. The scorer sees no LSM and adds it, so the Standard Model is counted "
+        "twice and every SM mass is 2 or sqrt(2) times too large. The agent's own four checks "
+        "and its MadGraph import passed. This comes from my task text, which did not state the "
+        "scorer's rule; it is not the agent's error. Scored as written, mass_spectrum passes and "
+        "hermiticity still fails.",
+        "One line in the task: LTotal must contain LSM, or the scorer adds it.",
+    ),
+    ("vanilla", "GeneralU1"): (
+        "mass_spectrum and MadGraph fail",
+        "scorer interface + not tested",
+        "Two problems. First, the last version of LTotal has no LSM, so the SM is counted twice. "
+        "Second, MSphi is declared by the particle class and again in M$Parameters, and MadGraph "
+        "rejects the UFO. The last version was never tested: the agent's run timed out in the "
+        "queue for the Wolfram kernel. It ran neither WriteUFO nor a MadGraph import.",
+        "A kernel of its own; one MadGraph import test; the LSM rule.",
+    ),
+    ("vanilla", "MDMmodel"): (
+        "mass_spectrum fails (scored as written: pass)",
+        "scorer interface",
+        "As for B-L-SM: LTotal has no LSM, the scorer added it, the Higgs sector is counted "
+        "twice, and the H mass goes from 125 to 176.8. Scored with LTotal as written, the full "
+        "chain passes. But note: this LTotal is itself written on two lines, and the second line "
+        "(the Yukawa and mass terms) is cut. So this 'passing' model is not complete either.",
+        "The LSM rule.",
+    ),
+    ("vanilla", "Monotops"): (
+        "compile timeout (1350 s)",
+        "model too large",
+        "The model has many 3x3 flavour tensor parameters and expands to 1381 terms; the "
+        "hermiticity check does not finish in the time limit. The agent's own run gave no result "
+        "after more than 20 minutes, and it wrote that it had confirmed no check. Which term is "
+        "slowest was not determined.",
+        "Fast hermiticity feedback per term; fewer free entries in the flavour matrices.",
+    ),
+    ("vanilla", "SLQrules"): (
+        "compile timeout (1350 s)",
+        "model too large",
+        "Five leptoquarks with all quartic terms expand to 19509 terms. The agent loaded an "
+        "older version of the file once (it had a syntax error); after the fix its job was "
+        "stopped in the queue, so it never loaded the final file.",
+        "A kernel of its own from the start; a term count before the checks.",
+    ),
+    ("vanilla", "SMWeinberg"): (
+        "the scorer finds no single total Lagrangian",
+        "scorer interface",
+        "The file has two top-level L definitions that no other term uses: LTotal, and LNGGlep, "
+        "which the agent left out on purpose (its comment says 'NOT included in LTotal'). The "
+        "scorer needs exactly one, so it refused the file and did not compile it. The agent's "
+        "own four checks, UFO and MadGraph import passed. Scored as written, the four checks "
+        "pass and the MadGraph import fails.",
+        "One line in the task: no top-level L definition other than LTotal and its parts.",
+    ),
+    ("vanilla", "pSPSS"): (
+        "hermiticity, kinetic_diagonal and mass_spectrum fail",
+        "the agent knew",
+        "The agent did not declare the mixing in the standard way. It expanded the whole LSM, "
+        "rewrote the neutrinos with replacement rules, and cut terms by power of theta. That "
+        "breaks the pairs of conjugate terms: 39 non-hermitian vertices remain, and the n4 mass "
+        "is half its declared value. The agent knew two checks failed, wrote 'if you want me to "
+        "keep going, say so', and stopped. It also read 'mass terms are diagonal' as a "
+        "mass-spectrum pass.",
+        "The standard mixing method (in Definitions, or as explicit new interaction terms) "
+        "instead of rewriting LSM; the mass table returned as data.",
+    ),
+    ("harness", "SLQrules"): (
+        "compile fails (all 10 calls)",
+        "the report did not locate it",
+        "The total Lagrangian crashes during expansion (Thread::tdlen, then the recursion "
+        "limit). The report gave these two log lines and no block. The agent did not find it in "
+        "10 calls; 4 of them were bisection files that the harness refused as 'no total "
+        "Lagrangian'. A script that expands one block at a time, run afterwards, shows that one "
+        "block of 19 fails: LQKin.",
+        "On a compile failure, expand each block alone and report the one that fails.",
+    ),
+    ("harness", "331"): (
+        "mass_spectrum and MadGraph import fail",
+        "no numbers in the report",
+        "Two problems. First, the Higgs override changes the vev, and in Feynman gauge the ghost "
+        "masses then disagree with their declared values. The report said only 'mass_spectrum "
+        "fails' with no rows; the agent's last message says the size is unknown. Second, 14 "
+        "masses are declared by a particle class and again in M$Parameters, and MadGraph rejects "
+        "the UFO; this error first showed at call 10.",
+        "Show the disagreeing mass rows; when only ghosts disagree, point to unitary gauge; "
+        "check for parameters declared twice.",
+    ),
+    ("harness", "GeneralU1"): (
+        "kinetic_diagonal fails (8 calls)",
+        "no tool named it",
+        "The agent redeclared the Higgs doublet (S[11] Phi) as the protocol says, but as a "
+        "separate statement after the M$ClassesDescription list. FeynRules gives no error and "
+        "ignores it. The doublet is then not rotated, and the singlet's kinetic term leaves an "
+        "H-h2 cross term that nothing cancels. The agent rewrote the singlet term six times, all "
+        "off target. With this one block moved into the list and nothing else changed, the model "
+        "passes the full chain.",
+        "Lint: a class statement outside M$ClassesDescription.",
+    ),
+    ("harness", "SMWeinberg"): (
+        "hermiticity fails (all 10 calls)",
+        "the report named the class of cause only",
+        "The field l has two indices (spin, generation). In l[ff], FeynRules fills them from the "
+        "left, so ff is read as a spin index. The result is 16 vertices that do not reduce. '+ "
+        "HC[...]' is present, so the report's hint 'usually a missing HC' points the wrong way. "
+        "The report said 'an explicit spin or flavour index' but not that ff lands in the spin "
+        "slot; the lint was silent.",
+        "Lint: a fermion field with some, but not all, of its indices.",
+    ),
+    ("harness", "ALRM_general"): (
+        "no model delivered",
+        "not a chain failure",
+        "Before the first file write, one response used the whole 64000-token output limit "
+        "(almost all of it thinking). The session ended with an API error, so the Stop gate did "
+        "not run.",
+        "A higher output limit, or a rule to write the file in parts.",
+    ),
+    ("harness", "Monotops"): (
+        "chain pass, and the model is hollow",
+        "cut statement",
+        "The definition of LTotal is a complete expression at the end of its first line. "
+        "Mathematica treats the following lines, which start with '+', as a separate statement "
+        "with no effect. Every new interaction term is on the dropped lines. The UFO has the "
+        "Standard Model's 163 vertices and no vertex for any of the 6 new particles. The four "
+        "checks and MadGraph pass, and the referee, which reads the .fr text, found nothing "
+        "wrong.",
+        "Detect cut statements; fail a model whose new particle has no vertex.",
+    ),
+    ("harness", "pSPSS"): (
+        "chain pass, and the model is hollow",
+        "cut statement + index",
+        "Two problems on top of each other: the l[ff] index problem (hermiticity failed in the "
+        "first 9 calls) and cut statements. At call 10 the heavy-neutrino terms left the "
+        "Lagrangian (532 terms became 496), and hermiticity passed because they were gone. No "
+        "vertex of the UFO contains n4 or n5.",
+        "As above, plus the index-count check.",
+    ),
+    ("harness", "ChernSimonsPortal"): (
+        "chain pass, with one cut statement",
+        "cut statement",
+        "One top-level statement has a continuation line that starts with '+' or '-' and is "
+        "dropped. The new particles still have vertices, so the pass is not hollow, but the "
+        "model is smaller than the file the agent wrote.",
+        "Detect cut statements.",
+    ),
+    ("opt", "ALRM_general"): (
+        "hermiticity fails (10 calls)",
+        "cut statement",
+        "The definitions of LHp2 and LA2 are written on several lines, and the first line is "
+        "already a complete expression, so the conjugate terms on the later lines are dropped. "
+        "The report named the block (LHp2) with the hint 'missing HC'; it did not say that the "
+        "block holds 3 of its 18 terms. The agent tried 7 theories and kept the multi-line form "
+        "each time.",
+        "Detect cut statements.",
+    ),
+    ("opt", "MDMmodel"): (
+        "mass checks and MadGraph import fail (3 calls used)",
+        "the agent refused to continue",
+        "This time the agent kept the paper's t-T mixing term (group 2 deleted it to pass). The "
+        "term makes the mass matrix non-diagonal, and the file has no rotation of the top "
+        "sector. The report named the term exactly. The Stop gate blocked the agent three times; "
+        "each time it answered 'this needs a decision from you' and made no tool call, and the "
+        "fourth stop was allowed at the continuation limit. Seven validate calls were not used.",
+        "A recipe to redeclare the third quark generation; a Stop-gate rule for an agent that "
+        "refuses to continue.",
+    ),
+    ("opt", "SLQrules"): (
+        "compile timeout (1350 s)",
+        "model too large",
+        "The first 4 calls crashed (an SU(2) index in the wrong slot); the agent found the cause "
+        "itself at call 5. After that the full model needs more than 1350 s to compile. A "
+        "version without the Yukawa and higher-order blocks compiles in 185 s, but the "
+        "leptoquark mass mixing has no rotation and mass_diagonal fails. The report said only "
+        "'timed out, may need simplification', with no time per block.",
+        "Time per block in the report; a method to rotate the mass mixing.",
+    ),
+    ("opt", "GeneralU1"): (
+        "chain pass, and 3 new particles have no vertex",
+        "cut statement",
+        "This time the Phi declaration is inside the list and kinetic_diagonal passes. But the "
+        "second line of LTotal is dropped: the heavy-neutrino terms, every Z'-fermion coupling "
+        "and the Z' mass term are not in the UFO. The new check reported 'n1, n2, n3 have no "
+        "vertex' from call 3, but its hint pointed at partial index lists, the wrong place. The "
+        "agent used 7 more calls and did not find the cause.",
+        "Detect cut statements; a 'no vertex' report that does not guess the cause.",
+    ),
+    ("opt", "Monotops"): (
+        "chain pass, and 4 new particles have no vertex",
+        "cut statement",
+        "As for GeneralU1: every interaction term is on the dropped second line of LTotal. At "
+        "call 7 the agent moved two terms to the first line by chance and those two particles "
+        "got vertices; at call 8 it moved them back and the vertices were gone. In the same "
+        "calls the 'UFO parameters defined twice' report listed 20 names and gave two causes, "
+        "neither of them right, and the agent spent 7 calls on it.",
+        "Detect cut statements.",
+    ),
+    ("opt", "331"): (
+        "chain pass, with 9 cut statements",
+        "cut statement",
+        "The chain passes and every new particle has a vertex, but 9 statements lose their "
+        "continuation lines: 8 Yukawa lines and one mass term are not in the UFO. The referee, "
+        "reading the text, counted those Yukawa lines as implemented.",
+        "Detect cut statements.",
+    ),
+    ("opt", "SMWeinberg"): (
+        "chain pass, with 1 cut statement",
+        "cut statement",
+        "This time the agent gave the fermions all their indices from the first call, and "
+        "hermiticity passes. But one continuation line of LTotal is dropped, and 3 Goldstone "
+        "terms are not in the UFO.",
+        "Detect cut statements.",
+    ),
+}
+
+LABELS = {
+    "model.fr：index 数量不对的项": "model.fr: a term with the wrong index count",
+    "model.fr：LTotal 没有 LSM": "model.fr: LTotal without LSM",
+    "model.fr：LTotal": "model.fr: LTotal",
+    "评分器的日志": "the scorer's log",
+    "agent 的最后一条消息": "the agent's last message",
+    "评分器的日志：质量翻倍": "the scorer's log: masses doubled",
+    "按原样评分的结果": "result when scored as written",
+    "model.fr：MSphi 声明了两次": "model.fr: MSphi declared twice",
+    "model.fr：flavour 张量参数（共十几个）": (
+        "model.fr: a flavour tensor parameter (one of more than ten)"
+    ),
+    "model.fr：两个顶层的 L 项": "model.fr: two top-level L terms",
+    "model.fr：改写 LSM 的做法": "model.fr: LSM rewritten by rules",
+    "model.fr：LQKin 里的写法": "model.fr: the form used in LQKin",
+    "第 10 次调用的日志": "log of call 10",
+    "逐 block 定位的结果（事后运行）": "result of the per-block run (done afterwards)",
+    "第 10 次调用的日志：只有 ghost 不一致": "log of call 10: only ghosts disagree",
+    "model.fr：MH2 声明了两次": "model.fr: MH2 declared twice",
+    "model.fr：类列表在第 81 行结束": "model.fr: the class list ends at line 81",
+    "model.fr：Phi 的声明在列表外面": "model.fr: the Phi declaration is outside the list",
+    "移进列表后的真实运行": "real run with the block moved into the list",
+    "model.fr：l[ff] 的写法": "model.fr: the l[ff] form",
+    "第 10 次调用的报告": "report of call 10",
+    "第 10 次调用的日志：ff 在 Spin 位置": "log of call 10: ff is in the Spin slot",
+    "model.fr：被截断的地方": "model.fr: where the statement is cut",
+    "UFO 里新粒子的顶点数": "vertices of new particles in the UFO",
+    "model.fr：l[ff] 仍然在文件里": "model.fr: l[ff] is still in the file",
+    "第 9、10 次调用的项数": "term count at calls 9 and 10",
+    "第 10 次调用的 model.fr：被截断的地方": "model.fr at call 10: where the statements are cut",
+    "第 10 次调用的日志：LHp2 只剩第一行的内容": "log of call 10: LHp2 holds its first line only",
+    "第 3 次调用的日志": "log of call 3",
+    "Stop gate 的记录": "Stop gate log",
+    "每次调用的结果": "result of each call",
+    "第 7 次调用的日志（去掉大部分项之后）": "log of call 7 (most blocks removed)",
+    "最后一次循环内的结论": "last in-loop verdict",
+    "model.fr：被截断的地方（前 3 处）": "model.fr: where statements are cut (first 3)",
+}
+
+# Notes inside snippets: (regex, replacement).
+INLINE = [
+    (r"<-- 这一行不起作用", "<-- this line has no effect"),
+    (r"\.\.\. 还有 (\d+) 处", r"... \1 more"),
+    (r"(\d+) 个顶点，其中包含新粒子的：(\d+)", r"\1 vertices; with a new particle: \2"),
+    (r"（共 (\d+) 个 block）", r"(of \1 blocks)"),
+]
+
+UI = {
+    "title": "Every failing example: cause and code",
+    "sub": "Sonnet, 16 papers, one seed per group, one scorer. Each snippet was read from the "
+    "run's files when this page was built.",
+    "th": ("group", "full chain pass", "pass and the model is real", "examples on this page"),
+    "rows": (
+        "Group 1 · vanilla (a shell only)",
+        "Group 2 · harness (cc_sonnet_harness)",
+        "Group 3 · optimised",
+    ),
+    "note1": '"The model is real": the chain passes, no statement is cut, and every new particle '
+    "is in at least one UFO vertex. "
+    "This page has two kinds of example: runs that fail the chain, and runs that pass with a "
+    "hollow or incomplete model.",
+    "note2": "<b>A cut statement</b> is the most common hidden defect in the three groups. In a "
+    ".fr file a top-level statement that is a "
+    "complete expression at the end of a line ends there; a next line that starts with + or - is "
+    "a separate statement with no "
+    "effect. FeynRules, the four checks and MadGraph do not report it.",
+    "all": "All",
+    "groups": {
+        "vanilla": ("Group 1 · vanilla", "Claude Code with a shell, no heptapod"),
+        "harness": ("Group 2 · harness", "cc_sonnet_harness, the run of 2026-09-30"),
+        "opt": ("Group 3 · optimised", "the harness plus the new checks and prompt notes"),
+    },
+    "needs": "What it needs: ",
+    "footer": "Sources: benchmarks/heptapod_ablation/GROUPS.md and the three reports in "
+    "results/forensics/. The cause text comes from those "
+    'reports; where it says "not determined", it was not determined. One seed per group.',
+}

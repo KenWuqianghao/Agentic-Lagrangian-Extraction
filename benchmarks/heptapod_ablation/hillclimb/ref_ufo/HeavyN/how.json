@@ -1,0 +1,43 @@
+{
+ "model_files": [
+  "/home/deck/code/heptapod/eval/reference_cache/HeavyN/heavyN.fr"
+ ],
+ "load_sm": true,
+ "sm_file": "/home/deck/hep-tools/feynrules-current/Models/SM/SM.fr",
+ "lagrangian": "LFull",
+ "seconds": 65,
+ "ok": true,
+ "n_particles": 27,
+ "n_vertices": 253,
+ "n_bsm_vertices": 90,
+ "bsm_particles": [
+  "N1",
+  "N2",
+  "N3"
+ ],
+ "example_bsm_vertex": [
+  "e__plus__",
+  "N1",
+  "G__minus__"
+ ],
+ "evidence": "heavyN.fr:12 'Both model files are extensions of default FeynRules SM model file'; heavyN.fr:270 'LFull := LSM + LN'.",
+ "notes": "Add-on. Total is the file's own LFull.",
+ "extra_args": [],
+ "command": "wolframscript -f /home/deck/code/hep-pr/validator-main/tools/feynrules/UFO_generator.wl FeynRulesPath=/home/deck/hep-tools/feynrules-current ModelPath=/home/deck/code/heptapod/eval/reference_cache/HeavyN/heavyN.fr OutputDir=/home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/hillclimb/ref_ufo/HeavyN/UFO Checks=false AddDecays=false LoadSM=true Lagrangian=LFull",
+ "problems": [],
+ "last_log_lines": [],
+ "attempts": [
+  {
+   "lagrangian": "LFull",
+   "load_sm": true,
+   "model_files": [
+    "/home/deck/code/heptapod/eval/reference_cache/HeavyN/heavyN.fr"
+   ],
+   "extra": [],
+   "seconds": 65,
+   "exit_code": 0,
+   "ok": true,
+   "problems": []
+  }
+ ]
+}

@@ -1,0 +1,1765 @@
+{
+ "funnel": {
+  "v3s_notools": {
+   "delivered": 15,
+   "compiled": 11,
+   "hermiticity": 7,
+   "mass_diagonal": 5,
+   "all_checks": 4,
+   "madgraph": 4,
+   "full_chain": 2
+  },
+  "pi_qwen_harness": {
+   "delivered": 14,
+   "compiled": 11,
+   "hermiticity": 7,
+   "mass_diagonal": 10,
+   "all_checks": 7,
+   "madgraph": 4,
+   "full_chain": 4
+  },
+  "cc_sonnet_harness": {
+   "delivered": 15,
+   "compiled": 14,
+   "hermiticity": 13,
+   "mass_diagonal": 14,
+   "all_checks": 11,
+   "madgraph": 13,
+   "full_chain": 11
+  }
+ },
+ "tests": {
+  "v3s_notools vs pi_qwen_harness": {
+   "compiled": {
+    "only_first": 2,
+    "only_second": 2,
+    "p": 1.0
+   },
+   "mass_diagonal": {
+    "only_first": 1,
+    "only_second": 6,
+    "p": 0.125
+   },
+   "all_checks": {
+    "only_first": 1,
+    "only_second": 4,
+    "p": 0.375
+   },
+   "full_chain": {
+    "only_first": 0,
+    "only_second": 2,
+    "p": 0.5
+   }
+  },
+  "v3s_notools vs cc_sonnet_harness": {
+   "compiled": {
+    "only_first": 1,
+    "only_second": 4,
+    "p": 0.375
+   },
+   "mass_diagonal": {
+    "only_first": 1,
+    "only_second": 10,
+    "p": 0.0117
+   },
+   "all_checks": {
+    "only_first": 1,
+    "only_second": 8,
+    "p": 0.0391
+   },
+   "full_chain": {
+    "only_first": 0,
+    "only_second": 9,
+    "p": 0.0039
+   }
+  },
+  "pi_qwen_harness vs cc_sonnet_harness": {
+   "compiled": {
+    "only_first": 0,
+    "only_second": 3,
+    "p": 0.25
+   },
+   "mass_diagonal": {
+    "only_first": 0,
+    "only_second": 4,
+    "p": 0.125
+   },
+   "all_checks": {
+    "only_first": 0,
+    "only_second": 4,
+    "p": 0.125
+   },
+   "full_chain": {
+    "only_first": 0,
+    "only_second": 7,
+    "p": 0.0156
+   }
+  }
+ },
+ "inloop_vs_score": {
+  "pi_qwen_harness": {
+   "with_inloop_validation": 13,
+   "agent_last_pass": 4,
+   "agent_pass_and_scored_pass": 4,
+   "agent_pass_scored_fail": []
+  },
+  "cc_sonnet_harness": {
+   "with_inloop_validation": 15,
+   "agent_last_pass": 10,
+   "agent_pass_and_scored_pass": 10,
+   "agent_pass_scored_fail": []
+  }
+ },
+ "cc_rows": [
+  {
+   "page": "331",
+   "run": true,
+   "delivered": true,
+   "status": "compiled",
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "fail"
+   },
+   "mg5": false,
+   "full_chain": false,
+   "inloop_last_stage": "checks",
+   "validate_calls": 10,
+   "review_calls": 0,
+   "gate_blocks": 0,
+   "referee_verdict": null,
+   "referee_on_final_model": null,
+   "minutes": 234.6,
+   "input_tokens_total": 16923895,
+   "input_tokens_uncached": 384343,
+   "output_tokens": 294870,
+   "referee_input_tokens": 0,
+   "cost_usd": 7.79,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "ALRM_general",
+   "run": true,
+   "delivered": false,
+   "status": null,
+   "checks": null,
+   "mg5": null,
+   "full_chain": false,
+   "inloop_last_stage": null,
+   "validate_calls": 0,
+   "review_calls": 0,
+   "gate_blocks": 0,
+   "referee_verdict": null,
+   "referee_on_final_model": null,
+   "minutes": 48.7,
+   "input_tokens_total": 680863,
+   "input_tokens_uncached": 227607,
+   "output_tokens": 281778,
+   "referee_input_tokens": 0,
+   "cost_usd": 3.82,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "B-L-SM",
+   "run": true,
+   "delivered": true,
+   "status": "compiled",
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "mg5": true,
+   "full_chain": true,
+   "inloop_last_stage": "pass",
+   "validate_calls": 4,
+   "review_calls": 2,
+   "gate_blocks": 0,
+   "referee_verdict": "VERDICT: 0 PHYSICS-CHANGING, 1 COSMETIC",
+   "referee_on_final_model": true,
+   "minutes": 65.4,
+   "input_tokens_total": 5171370,
+   "input_tokens_uncached": 194130,
+   "output_tokens": 114855,
+   "referee_input_tokens": 309116,
+   "cost_usd": 4.42,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "ChernSimonsPortal",
+   "run": true,
+   "delivered": true,
+   "status": "compiled",
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "mg5": true,
+   "full_chain": true,
+   "inloop_last_stage": "pass",
+   "validate_calls": 2,
+   "review_calls": 2,
+   "gate_blocks": 0,
+   "referee_verdict": "VERDICT: NO DISCREPANCIES",
+   "referee_on_final_model": true,
+   "minutes": 35.6,
+   "input_tokens_total": 1636330,
+   "input_tokens_uncached": 98953,
+   "output_tokens": 32095,
+   "referee_input_tokens": 235015,
+   "cost_usd": 2.39,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "EffLRSM",
+   "run": true,
+   "delivered": true,
+   "status": "compiled",
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "mg5": true,
+   "full_chain": true,
+   "inloop_last_stage": "pass",
+   "validate_calls": 3,
+   "review_calls": 1,
+   "gate_blocks": 0,
+   "referee_verdict": "VERDICT: NO DISCREPANCIES",
+   "referee_on_final_model": true,
+   "minutes": 29.9,
+   "input_tokens_total": 1978415,
+   "input_tokens_uncached": 147434,
+   "output_tokens": 67597,
+   "referee_input_tokens": 188796,
+   "cost_usd": 1.99,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "GeneralU1",
+   "run": true,
+   "delivered": true,
+   "status": "compiled",
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "fail",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "mg5": true,
+   "full_chain": false,
+   "inloop_last_stage": "checks",
+   "validate_calls": 10,
+   "review_calls": 0,
+   "gate_blocks": 0,
+   "referee_verdict": null,
+   "referee_on_final_model": null,
+   "minutes": 165.8,
+   "input_tokens_total": 12549064,
+   "input_tokens_uncached": 298083,
+   "output_tokens": 210289,
+   "referee_input_tokens": 0,
+   "cost_usd": 5.75,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "HeavyN",
+   "run": true,
+   "delivered": true,
+   "status": "compiled",
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "mg5": true,
+   "full_chain": true,
+   "inloop_last_stage": "pass",
+   "validate_calls": 1,
+   "review_calls": 1,
+   "gate_blocks": 0,
+   "referee_verdict": "VERDICT: NO DISCREPANCIES",
+   "referee_on_final_model": true,
+   "minutes": 7.2,
+   "input_tokens_total": 741914,
+   "input_tokens_uncached": 80951,
+   "output_tokens": 25053,
+   "referee_input_tokens": 313112,
+   "cost_usd": 1.03,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "MDMmodel",
+   "run": true,
+   "delivered": true,
+   "status": "compiled",
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "mg5": true,
+   "full_chain": true,
+   "inloop_last_stage": "mg5",
+   "validate_calls": 10,
+   "review_calls": 1,
+   "gate_blocks": 0,
+   "referee_verdict": "VERDICT: 2 PHYSICS-CHANGING, 0 COSMETIC",
+   "referee_on_final_model": false,
+   "minutes": 161.9,
+   "input_tokens_total": 13353192,
+   "input_tokens_uncached": 292027,
+   "output_tokens": 157188,
+   "referee_input_tokens": 186870,
+   "cost_usd": 5.87,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "Monotops",
+   "run": true,
+   "delivered": true,
+   "status": "compiled",
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "mg5": true,
+   "full_chain": true,
+   "inloop_last_stage": "pass",
+   "validate_calls": 6,
+   "review_calls": 1,
+   "gate_blocks": 0,
+   "referee_verdict": "VERDICT: NO DISCREPANCIES",
+   "referee_on_final_model": true,
+   "minutes": 128.7,
+   "input_tokens_total": 8491352,
+   "input_tokens_uncached": 191620,
+   "output_tokens": 115610,
+   "referee_input_tokens": 233474,
+   "cost_usd": 4.19,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "NJLComposite",
+   "run": true,
+   "delivered": true,
+   "status": "compiled",
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "mg5": true,
+   "full_chain": true,
+   "inloop_last_stage": "pass",
+   "validate_calls": 10,
+   "review_calls": 1,
+   "gate_blocks": 0,
+   "referee_verdict": "VERDICT: 2 PHYSICS-CHANGING, 1 COSMETIC",
+   "referee_on_final_model": true,
+   "minutes": 180.0,
+   "input_tokens_total": 9130972,
+   "input_tokens_uncached": 225001,
+   "output_tokens": 106932,
+   "referee_input_tokens": 448748,
+   "cost_usd": 4.63,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "SLQrules",
+   "run": true,
+   "delivered": true,
+   "status": "compile_failed",
+   "checks": {},
+   "mg5": null,
+   "full_chain": false,
+   "inloop_last_stage": "compile",
+   "validate_calls": 10,
+   "review_calls": 0,
+   "gate_blocks": 0,
+   "referee_verdict": null,
+   "referee_on_final_model": null,
+   "minutes": 89.3,
+   "input_tokens_total": 32893977,
+   "input_tokens_uncached": 428302,
+   "output_tokens": 305040,
+   "referee_input_tokens": 0,
+   "cost_usd": 11.26,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "SMWeinberg",
+   "run": true,
+   "delivered": true,
+   "status": "compiled",
+   "checks": {
+    "hermiticity": "fail",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "mg5": true,
+   "full_chain": false,
+   "inloop_last_stage": "checks",
+   "validate_calls": 10,
+   "review_calls": 0,
+   "gate_blocks": 0,
+   "referee_verdict": null,
+   "referee_on_final_model": null,
+   "minutes": 134.4,
+   "input_tokens_total": 12956261,
+   "input_tokens_uncached": 349538,
+   "output_tokens": 157800,
+   "referee_input_tokens": 0,
+   "cost_usd": 5.5,
+   "n_blocked_tool_calls": 1,
+   "audit_ok": false,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "Top-Philic-Zprime",
+   "run": true,
+   "delivered": true,
+   "status": "compiled",
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "mg5": true,
+   "full_chain": true,
+   "inloop_last_stage": "pass",
+   "validate_calls": 2,
+   "review_calls": 1,
+   "gate_blocks": 0,
+   "referee_verdict": "VERDICT: NO DISCREPANCIES",
+   "referee_on_final_model": true,
+   "minutes": 39.0,
+   "input_tokens_total": 699105,
+   "input_tokens_uncached": 74740,
+   "output_tokens": 11972,
+   "referee_input_tokens": 185785,
+   "cost_usd": 0.77,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "Wprime",
+   "run": true,
+   "delivered": true,
+   "status": "compiled",
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "mg5": true,
+   "full_chain": true,
+   "inloop_last_stage": "pass",
+   "validate_calls": 2,
+   "review_calls": 1,
+   "gate_blocks": 0,
+   "referee_verdict": "VERDICT: NO DISCREPANCIES",
+   "referee_on_final_model": true,
+   "minutes": 14.8,
+   "input_tokens_total": 1293126,
+   "input_tokens_uncached": 89944,
+   "output_tokens": 32222,
+   "referee_input_tokens": 448912,
+   "cost_usd": 1.34,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "pNG",
+   "run": true,
+   "delivered": true,
+   "status": "compiled",
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "mg5": true,
+   "full_chain": true,
+   "inloop_last_stage": "pass",
+   "validate_calls": 1,
+   "review_calls": 1,
+   "gate_blocks": 0,
+   "referee_verdict": "VERDICT: NO DISCREPANCIES",
+   "referee_on_final_model": true,
+   "minutes": 12.7,
+   "input_tokens_total": 1452226,
+   "input_tokens_uncached": 106606,
+   "output_tokens": 43336,
+   "referee_input_tokens": 458124,
+   "cost_usd": 1.56,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  },
+  {
+   "page": "pSPSS",
+   "run": true,
+   "delivered": true,
+   "status": "compiled",
+   "checks": {
+    "hermiticity": "pass",
+    "kinetic_diagonal": "pass",
+    "mass_diagonal": "pass",
+    "mass_spectrum": "pass"
+   },
+   "mg5": true,
+   "full_chain": true,
+   "inloop_last_stage": "pass",
+   "validate_calls": 10,
+   "review_calls": 1,
+   "gate_blocks": 0,
+   "referee_verdict": "VERDICT: 1 PHYSICS-CHANGING, 0 COSMETIC",
+   "referee_on_final_model": true,
+   "minutes": 117.7,
+   "input_tokens_total": 8454322,
+   "input_tokens_uncached": 256321,
+   "output_tokens": 116640,
+   "referee_input_tokens": 475200,
+   "cost_usd": 4.68,
+   "n_blocked_tool_calls": 0,
+   "audit_ok": true,
+   "timed_out": false,
+   "exit": 0
+  }
+ ],
+ "cc_median": {
+  "minutes": 77.35,
+  "input_tokens_total": 6812846.0,
+  "input_tokens_uncached": 209565.5,
+  "output_tokens": 115232.5,
+  "cost_usd": 4.305
+ },
+ "cc_total_cost_usd": 66.99,
+ "table": {
+  "v3s_notools": {
+   "331": {
+    "delivered": false,
+    "compiled": false,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "no model",
+    "checks": {},
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "ALRM_general": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "B-L-SM": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": true,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "fail",
+     "mass_spectrum": "inconclusive"
+    },
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "ChernSimonsPortal": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "EffLRSM": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "fail"
+    },
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "GeneralU1": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": true,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "fail",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "fail",
+     "mass_spectrum": "inconclusive"
+    },
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "HeavyN": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "fail",
+     "mass_spectrum": "inconclusive"
+    },
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "MDMmodel": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "fail",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "fail",
+     "mass_spectrum": "inconclusive"
+    },
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "Monotops": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "fail",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "fail",
+     "mass_spectrum": "inconclusive"
+    },
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "NJLComposite": {
+    "delivered": true,
+    "compiled": false,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compile_failed",
+    "checks": {},
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "SLQrules": {
+    "delivered": true,
+    "compiled": false,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compile_timeout",
+    "checks": {},
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "SMWeinberg": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "fail",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "fail",
+     "mass_spectrum": "inconclusive"
+    },
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "Top-Philic-Zprime": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "Wprime": {
+    "delivered": true,
+    "compiled": false,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "no_lagrangian_symbol",
+    "checks": {},
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "pNG": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "pSPSS": {
+    "delivered": true,
+    "compiled": false,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compile_timeout",
+    "checks": {
+     "hermiticity": "fail",
+     "kinetic_diagonal": "fail",
+     "mass_diagonal": "fail",
+     "mass_spectrum": "inconclusive"
+    },
+    "seconds": null,
+    "tool_counts": null,
+    "agent_errors": null,
+    "agent_last_verdict": null
+   }
+  },
+  "pi_qwen_harness": {
+   "331": {
+    "delivered": false,
+    "compiled": false,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "no model",
+    "checks": {},
+    "seconds": 2079.1,
+    "tool_counts": {
+     "ls": 3,
+     "read": 5
+    },
+    "agent_errors": [],
+    "agent_last_verdict": null
+   },
+   "ALRM_general": {
+    "delivered": true,
+    "compiled": false,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "no_lagrangian_symbol",
+    "checks": {},
+    "seconds": 4042.2,
+    "tool_counts": {
+     "edit": 6,
+     "grep": 6,
+     "lint_model": 1,
+     "ls": 1,
+     "read": 18,
+     "write": 1
+    },
+    "agent_errors": [
+     "400 This model's maximum context length is 262144 tokens. However, you requested 0 output tokens and your prompt contains at least 262145 input tokens, for a total of at least 262145 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=262145)"
+    ],
+    "agent_last_verdict": null
+   },
+   "B-L-SM": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 2500.8,
+    "tool_counts": {
+     "edit": 3,
+     "find": 1,
+     "lint_model": 3,
+     "ls": 6,
+     "massbasis": 1,
+     "read": 5,
+     "validate_model": 2,
+     "write": 1
+    },
+    "agent_errors": [
+     "404 modal-http: workspace ac-3aM89shcSaGz7sdP84Yt2V is disabled\n"
+    ],
+    "agent_last_verdict": "madgraph_failed"
+   },
+   "ChernSimonsPortal": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 2331.9,
+    "tool_counts": {
+     "edit": 1,
+     "grep": 1,
+     "lint_model": 2,
+     "ls": 2,
+     "read": 7,
+     "review_model": 1,
+     "validate_model": 2,
+     "write": 1
+    },
+    "agent_errors": [],
+    "agent_last_verdict": "pass"
+   },
+   "EffLRSM": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": false,
+    "mass_diagonal": true,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "fail",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 3525.8,
+    "tool_counts": {
+     "edit": 8,
+     "grep": 3,
+     "lint_model": 6,
+     "ls": 2,
+     "read": 9,
+     "validate_model": 7,
+     "write": 2
+    },
+    "agent_errors": [],
+    "agent_last_verdict": "checks_failed"
+   },
+   "GeneralU1": {
+    "delivered": false,
+    "compiled": false,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "no model",
+    "checks": {},
+    "seconds": 1132.9,
+    "tool_counts": {
+     "ls": 3,
+     "read": 7
+    },
+    "agent_errors": [],
+    "agent_last_verdict": null
+   },
+   "HeavyN": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 3211.8,
+    "tool_counts": {
+     "find": 2,
+     "grep": 3,
+     "lint_model": 5,
+     "ls": 2,
+     "read": 5,
+     "validate_model": 5,
+     "write": 5
+    },
+    "agent_errors": [],
+    "agent_last_verdict": "madgraph_failed"
+   },
+   "MDMmodel": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "fail",
+     "kinetic_diagonal": "fail",
+     "mass_diagonal": "fail",
+     "mass_spectrum": "inconclusive"
+    },
+    "seconds": 2631.3,
+    "tool_counts": {
+     "edit": 3,
+     "find": 1,
+     "lint_model": 3,
+     "ls": 3,
+     "massbasis": 3,
+     "read": 7,
+     "validate_model": 2,
+     "write": 1
+    },
+    "agent_errors": [],
+    "agent_last_verdict": "checks_failed"
+   },
+   "Monotops": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 3420.7,
+    "tool_counts": {
+     "edit": 7,
+     "find": 1,
+     "grep": 3,
+     "lint_model": 6,
+     "ls": 3,
+     "read": 9,
+     "review_model": 1,
+     "validate_model": 6,
+     "write": 2
+    },
+    "agent_errors": [],
+    "agent_last_verdict": "pass"
+   },
+   "NJLComposite": {
+    "delivered": true,
+    "compiled": false,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compile_failed",
+    "checks": {},
+    "seconds": 2295.4,
+    "tool_counts": {
+     "edit": 6,
+     "grep": 1,
+     "lint_model": 2,
+     "ls": 1,
+     "read": 8,
+     "validate_model": 2,
+     "write": 3
+    },
+    "agent_errors": [],
+    "agent_last_verdict": "compile_failed"
+   },
+   "SLQrules": {
+    "delivered": true,
+    "compiled": false,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compile_failed",
+    "checks": {},
+    "seconds": 1959.5,
+    "tool_counts": {
+     "edit": 1,
+     "grep": 1,
+     "lint_model": 2,
+     "ls": 1,
+     "read": 10,
+     "validate_model": 1,
+     "write": 1
+    },
+    "agent_errors": [],
+    "agent_last_verdict": "compile_failed"
+   },
+   "SMWeinberg": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": false,
+    "mass_diagonal": true,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "fail",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 3209.2,
+    "tool_counts": {
+     "edit": 8,
+     "lint_model": 7,
+     "ls": 3,
+     "read": 4,
+     "validate_model": 6,
+     "write": 1
+    },
+    "agent_errors": [],
+    "agent_last_verdict": "checks_failed"
+   },
+   "Top-Philic-Zprime": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 1963.5,
+    "tool_counts": {
+     "grep": 2,
+     "lint_model": 2,
+     "ls": 4,
+     "read": 6,
+     "review_model": 1,
+     "validate_model": 2,
+     "write": 2
+    },
+    "agent_errors": [],
+    "agent_last_verdict": "pass"
+   },
+   "Wprime": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 2535.1,
+    "tool_counts": {
+     "edit": 7,
+     "grep": 1,
+     "lint_model": 9,
+     "ls": 2,
+     "read": 7,
+     "review_model": 1,
+     "validate_model": 6,
+     "write": 2
+    },
+    "agent_errors": [],
+    "agent_last_verdict": "madgraph_failed"
+   },
+   "pNG": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 1214.5,
+    "tool_counts": {
+     "grep": 3,
+     "lint_model": 1,
+     "ls": 1,
+     "massbasis": 2,
+     "read": 7,
+     "review_model": 1,
+     "validate_model": 1,
+     "write": 1
+    },
+    "agent_errors": [],
+    "agent_last_verdict": "pass"
+   },
+   "pSPSS": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": false,
+    "mass_diagonal": true,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "fail",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 2897.0,
+    "tool_counts": {
+     "edit": 1,
+     "grep": 1,
+     "lint_model": 1,
+     "ls": 1,
+     "read": 8,
+     "validate_model": 1,
+     "write": 1
+    },
+    "agent_errors": [
+     "400 This model's maximum context length is 262144 tokens. However, you requested 0 output tokens and your prompt contains at least 262145 input tokens, for a total of at least 262145 tokens. Please reduce the length of the input prompt or the number of requested output tokens. (parameter=input_tokens, value=262145)"
+    ],
+    "agent_last_verdict": "checks_failed"
+   }
+  },
+  "cc_sonnet_harness": {
+   "331": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "fail"
+    },
+    "seconds": 14078.3,
+    "tool_counts": {
+     "Edit": 23,
+     "Glob": 1,
+     "Grep": 1,
+     "Read": 15,
+     "Write": 1,
+     "lint_model": 11,
+     "validate_model": 10
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "checks_failed"
+   },
+   "ALRM_general": {
+    "delivered": false,
+    "compiled": false,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "no model",
+    "checks": {},
+    "seconds": 2924.0,
+    "tool_counts": {
+     "Glob": 1,
+     "Read": 4
+    },
+    "agent_errors": null,
+    "agent_last_verdict": null
+   },
+   "B-L-SM": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 3925.2,
+    "tool_counts": {
+     "Edit": 10,
+     "Glob": 1,
+     "Read": 7,
+     "Write": 1,
+     "lint_model": 5,
+     "massbasis": 2,
+     "review_model": 2,
+     "validate_model": 4
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "pass"
+   },
+   "ChernSimonsPortal": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 2133.2,
+    "tool_counts": {
+     "Edit": 3,
+     "Grep": 6,
+     "Read": 4,
+     "Write": 1,
+     "lint_model": 2,
+     "review_model": 2,
+     "validate_model": 2
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "pass"
+   },
+   "EffLRSM": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 1796.3,
+    "tool_counts": {
+     "Edit": 5,
+     "Glob": 1,
+     "Read": 3,
+     "Write": 1,
+     "lint_model": 3,
+     "review_model": 1,
+     "validate_model": 3
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "pass"
+   },
+   "GeneralU1": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": false,
+    "madgraph": true,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "fail",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 9947.5,
+    "tool_counts": {
+     "Edit": 31,
+     "Glob": 1,
+     "Grep": 3,
+     "Read": 7,
+     "Write": 1,
+     "lint_model": 12,
+     "massbasis": 1,
+     "validate_model": 10
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "checks_failed"
+   },
+   "HeavyN": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 434.4,
+    "tool_counts": {
+     "Edit": 5,
+     "Glob": 1,
+     "Read": 3,
+     "Write": 1,
+     "lint_model": 2,
+     "review_model": 1,
+     "validate_model": 1
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "pass"
+   },
+   "MDMmodel": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 9712.2,
+    "tool_counts": {
+     "Edit": 26,
+     "Glob": 1,
+     "Grep": 1,
+     "Read": 10,
+     "Write": 1,
+     "lint_model": 11,
+     "massbasis": 1,
+     "review_model": 1,
+     "validate_model": 10
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "madgraph_failed"
+   },
+   "Monotops": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 7723.8,
+    "tool_counts": {
+     "Edit": 25,
+     "Glob": 1,
+     "Grep": 6,
+     "Read": 9,
+     "Write": 1,
+     "lint_model": 7,
+     "review_model": 1,
+     "validate_model": 6
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "pass"
+   },
+   "NJLComposite": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 10799.5,
+    "tool_counts": {
+     "Edit": 18,
+     "Glob": 1,
+     "Grep": 1,
+     "Read": 8,
+     "Write": 6,
+     "lint_model": 6,
+     "review_model": 1,
+     "validate_model": 10
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "pass"
+   },
+   "SLQrules": {
+    "delivered": true,
+    "compiled": false,
+    "hermiticity": false,
+    "mass_diagonal": false,
+    "all_checks": false,
+    "madgraph": false,
+    "full_chain": false,
+    "status": "compile_failed",
+    "checks": {},
+    "seconds": 5360.3,
+    "tool_counts": {
+     "Edit": 47,
+     "Glob": 1,
+     "Grep": 7,
+     "Read": 28,
+     "Write": 1,
+     "lint_model": 8,
+     "validate_model": 10
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "compile_failed"
+   },
+   "SMWeinberg": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": false,
+    "mass_diagonal": true,
+    "all_checks": false,
+    "madgraph": true,
+    "full_chain": false,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "fail",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 8066.8,
+    "tool_counts": {
+     "Edit": 18,
+     "Glob": 1,
+     "Grep": 4,
+     "Read": 14,
+     "Write": 2,
+     "lint_model": 12,
+     "validate_model": 10
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "checks_failed"
+   },
+   "Top-Philic-Zprime": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 2342.4,
+    "tool_counts": {
+     "Edit": 1,
+     "Glob": 1,
+     "Grep": 1,
+     "Read": 2,
+     "Write": 1,
+     "lint_model": 2,
+     "review_model": 1,
+     "validate_model": 2
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "pass"
+   },
+   "Wprime": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 886.8,
+    "tool_counts": {
+     "Edit": 1,
+     "Grep": 4,
+     "Read": 5,
+     "Write": 1,
+     "lint_model": 2,
+     "review_model": 1,
+     "validate_model": 2
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "pass"
+   },
+   "pNG": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 761.4,
+    "tool_counts": {
+     "Grep": 5,
+     "Read": 8,
+     "Write": 1,
+     "lint_model": 1,
+     "massbasis": 2,
+     "review_model": 1,
+     "validate_model": 1
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "pass"
+   },
+   "pSPSS": {
+    "delivered": true,
+    "compiled": true,
+    "hermiticity": true,
+    "mass_diagonal": true,
+    "all_checks": true,
+    "madgraph": true,
+    "full_chain": true,
+    "status": "compiled",
+    "checks": {
+     "hermiticity": "pass",
+     "kinetic_diagonal": "pass",
+     "mass_diagonal": "pass",
+     "mass_spectrum": "pass"
+    },
+    "seconds": 7060.6,
+    "tool_counts": {
+     "Edit": 14,
+     "Grep": 3,
+     "Read": 7,
+     "Write": 1,
+     "lint_model": 11,
+     "review_model": 1,
+     "validate_model": 10
+    },
+    "agent_errors": null,
+    "agent_last_verdict": "pass"
+   }
+  }
+ }
+}

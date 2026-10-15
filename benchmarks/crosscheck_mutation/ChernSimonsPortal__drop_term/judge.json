@@ -1,0 +1,11 @@
+{
+  "named": "yes",
+  "quote": "D1. The $XW^+W^-$ term is absent from the implementation. Severity: substantive. ... The file names `LPortalCharged` in `LTotal` but never defines it, so the model has a $c_2$ parameter and a $c_2$ partial width with no vertex behind them.",
+  "severity": "substantive",
+  "other_substantive": 2,
+  "other_list": [
+    "D2. `LTotal` adds only `HC[LPortalCharged]` instead of the term plus its conjugate, giving a non-hermitian Lagrangian or the wrong weight for the XW+W- vertex.",
+    "D3. Possible factor-2 mismatch in the XZZ operator normalization versus eq. (40), which would move Gamma(X to ZZ) by a factor of 4; flagged as needing human verification."
+  ],
+  "note": "The reviewer names the deleted LPortalCharged term as the main finding and traces its effect through the vertex, the width, and the discovery channel, so it points a physicist to the right place."
+}

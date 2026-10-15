@@ -1,0 +1,36 @@
+{
+ "page": "MDMmodel",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "hand",
+ "seed": 1,
+ "variant": "v3o_mimo_hand",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3600.1,
+ "tokens": {
+  "input": 37567,
+  "output": 340,
+  "reasoning": 82
+ },
+ "output_max": 128000,
+ "n_events": 17,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 6,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"wc -l paper/1311.6661_source.tex SM.fr\"}"
+  ],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_model_fr"
+}

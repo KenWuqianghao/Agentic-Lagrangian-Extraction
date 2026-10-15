@@ -1,0 +1,34 @@
+{
+ "page": "B-L-SM",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "hand",
+ "seed": 1,
+ "variant": "v3o_mimo_hand",
+ "harness": "opencode 1.18.25",
+ "exit": null,
+ "timed_out": true,
+ "nudges": 0,
+ "seconds": 3600.1,
+ "tokens": {
+  "input": 207811,
+  "output": 3692,
+  "reasoning": 128821
+ },
+ "output_max": 128000,
+ "n_events": 35,
+ "length_stops": 1,
+ "audit": {
+  "tool_calls": 13,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_model_fr"
+}

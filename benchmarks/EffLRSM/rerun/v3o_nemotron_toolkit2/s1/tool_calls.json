@@ -1,0 +1,214 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: EffLRSM (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1610.08985.\n4: PAPER: the paper's LaTeX sour"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/paper/1610.08985_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/paper/1610.08985_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[a4paper,11pt,prd,superscriptaddress,showpacs,nofootinbib,floatfix,include graphics,showkeys,preprintnumbers]{revtex4-1}\n2: \\usepackage{amsmath,amsfonts,amssymb,array}\n3: \\usepackage{bm,bbm,bbm,bbold}\n4: \\usepackage{dsfont}\n5: \\usepackag"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDE"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "SM.fr"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/SM.fr"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                "
+ },
+ {
+  "tool": "write",
+  "input": {
+   "content": "{\n  \"model_name\": \"EffLRSM_gen\",\n  \"info\": {\n    \"authors\": [\"Olivier Mattelaer\", \"Manimala Mitra\", \"Richard Ruiz\"],\n    \"version\": \"1.0\",\n    \"date\": \"25. 09. 2026\",\n    \"institutions\": [\"Centre for Cosmology, Particle Physics and Phenomenology (CP3)\", \"Indian Institute of Science Education and Research Mohali (IISER Mohali)\", \"Institute for Particle Physics Phenomenology (IPPP)\"],\n    \"emails\": [\"olivier.mattelaer@uclouvain.be\", \"manimala@iisermohali.ac.in\", \"richard.ruiz@durham.ac.uk\"]\n  },\n  \"interaction_order_hierarchy\": [\n    [\"QCD\", 1],\n    [\"QED\", 2],\n    [\"NP\", 1]\n  ],\n  \"interaction_order_limit\": [\n    [\"QCD\", 99],\n    [\"QED\", 99],\n    [\"NP\", 99]\n  ],\n  \"feynman_gauge\": true,\n  \"vevs\": [],\n  \"gauge_groups\": [],\n  \"index_decls\": [],\n  \"parameters\": [\n    {\n      \"name\": \"kRq\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"WR coupling normalization to quarks, Eq.(2.1)\"\n    },\n    {\n      \"name\": \"kRl\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 2,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"WR coupling normalization to leptons, Eq.(2.2)\"\n    },\n    {\n      \"name\": \"MWR\",\n      \"parameter_type\": \"External\",\n      \"value\": \"3000.\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 3,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"WR boson mass [GeV], Eq.(2.17)\"\n    },\n    {\n      \"name\": \"MZR\",\n      \"parameter_type\": \"External\",\n      \"value\": \"5070.\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 4,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"ZR boson mass [GeV], Eq.(2.17)\"\n    },\n    {\n      \"name\": \"mN1\",\n      \"parameter_type\": \"External\",\n      \"value\": \"173.3\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 5,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Lightest heavy Majorana neutrino mass [GeV], Eq.(2.18)\"\n    },\n    {\n      \"name\": \"mN2\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.*^12\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 6,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Second heavy Majorana neutrino mass [GeV], Eq.(2.18)\"\n    },\n    {\n      \"name\": \"mN3\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.*^12\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 7,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Third heavy Majorana neutrino mass [GeV], Eq.(2.18)\"\n    },\n    {\n      \"name\": \"Ymix\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\"],\n      \"definitions\": [\n        {\n          \"lhs\": \"Ymix[1]\",\n          \"rhs\": \"1\"\n        },\n        {\n          \"lhs\": \"Ymix[2]\",\n          \"rhs\": \"1\"\n        },\n        {\n          \"lhs\": \"Ymix[3]\",\n          \"rhs\": \"1\"\n        }\n      ],\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Diagonal WR-lepton-heavy neutrino mixing, Eq.(2.7)\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 100,\n      \"class_name\": \"WR\",\n      \"self_conjugate\": false,\n      \"indices\": [],\n      \"flavor_index\": null,\n      \"class_members\": [\"WRp\", \"WRm\"],\n      \"mass\": {\n        \"sym\": \"MWR\",\n        \"value\": \"Internal\"\n      },\n      \"width\": {\n        \"sym\": \"WWR\",\n        \"value\": \"Internal\"\n      },\n      \"quantum_numbers\": {\n        \"Q\": \"1\"\n      },\n      \"pdg\": [9900024, -9900024],\n      \"particle_name\": [\"Wp\", \"Wm\"],\n      \"antiparticle_name\": [\"Wm\", \"Wp\"],\n      \"full_name\": [\"WR+\", \"WR-\"],\n      \"propagator_label\": \"WR\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"Forward\",\n      \"unphysical\": false,\n      \"definitions\": []\n    },\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 101,\n      \"class_name\": \"ZR\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"flavor_index\": null,\n      \"class_members\": [],\n      \"mass\": {\n        \"sym\": \"MZR\",\n        \"value\": \"Internal\"\n      },\n      \"width\": {\n        \"sym\": \"WZR\",\n        \"value\": \"Internal\"\n      },\n      \"quantum_numbers\": {\n        \"Q\": \"0\"\n      },\n      \"pdg\": 9900023,\n      \"particle_name\": \"ZR\",\n      \"antiparticle_name\": \"ZR\",\n      \"full_name\": \"ZR\",\n      \"propagator_label\": \"ZR\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"None\",\n      \"unphysical\": false,\n      \"definitions\": []\n    },\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 102,\n      \"class_name\": \"NR\",\n      \"self_conjugate\": true,\n      \"indices\": [\"Generation\"],\n      \"flavor_index\": \"Generation\",\n      \"class_members\": [\"N1\", \"N2\", \"N3\"],\n      \"mass\": {\n        \"sym\": \"mN\",\n        \"members\": [\n          [\"N1\", \"mN1\"],\n          [\"N2\", \"mN2\"],\n          [\"N3\", \"mN3\"]\n        ]\n      },\n      \"width\": {\n        \"massless\": true\n      },\n      \"quantum_numbers\": {},\n      \"pdg\": [9900012, 9900014, 9900016],\n      \"particle_name\": [\"N1\", \"N2\", \"N3\"],\n      \"antiparticle_name\": [\"N1\", \"N2\", \"N3\"],\n      \"full_name\": [\"Heavy Majorana neutrino 1\", \"Heavy Majorana neutrino 2\", \"Heavy Majorana neutrino 3\"],\n      \"propagator_label\": [\"N1\", \"N2\", \"N3\"],\n      \"propagator_type\": \"Straight\",\n      \"propagator_arrow\": \"Forward\",\n      \"unphysical\": false,\n      \"definitions\": []\n    }\n  ],\n  \"gauge_xi\": [],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"LWRkin\",\n      \"expression\": \"-1/2 FS[WRbar, mu, nu] FS[WR, mu, nu] + MWR^2 WRbar[mu] WR[mu]\",\n      \"delayed\": false\n    },\n    {\n      \"name\": \"LZRkin\",\n      \"expression\": \"-1/4 FS[ZR, mu, nu] FS[ZR, mu, nu] + 1/2 MZR^2 ZR[mu] ZR[mu]\",\n      \"delayed\": false\n    },\n    {\n      \"name\": \"LNRkin\",\n      \"expression\": \"I/2 NRbar[ff].Ga[mu].del[NR[ff], mu] - 1/2 mN[ff] NRbar[ff].NR[ff]\",\n      \"delayed\": false\n    },\n    {\n      \"name\": \"LWRqq\",\n      \"expression\": \"-kRq*gw/Sqrt[2] (uqbar[ff1, cc].Ga[mu].ProjP.dq[ff2, cc] WR[mu] + HC[uqbar[ff1, cc].Ga[mu].ProjP.dq[ff2, cc] WR[mu]])\",\n      \"delayed\": false\n    },\n    {\n      \"name\": \"LWRlep\",\n      \"expression\": \"-kRl*gw/Sqrt[2] (Ymix[ff] lbar[ff].Ga[mu].ProjP.NR[ff] WR[mu] + HC[Ymix[ff] lbar[ff].Ga[mu].ProjP.NR[ff] WR[mu]])\",\n      \"delayed\": false\n    },\n    {\n      \"name\": \"LZRqq\",\n      \"expression\": \"-kRq*gw/Sqrt[1 - (1/kRq)^2*sw2/cw2] ( uqbar[ff, cc].Ga[mu].(gLZu*ProjM + gRZu*ProjP).uq[ff, cc] ZR[mu] + dqbar[ff, cc].Ga[mu].(gLZd*ProjM + gRZd*ProjP).dq[ff, cc] ZR[mu] )\",\n      \"delayed\": false\n    },\n    {\n      \"name\": \"LZRlep\",\n      \"expression\": \"-kRl*gw/Sqrt[1 - (1/kRl)^2*sw2/cw2] ( vbar[ff].Ga[mu].(gLZv*ProjM + gRZv*ProjP).vl[ff] ZR[mu] + lbar[ff].Ga[mu].(gLZl*ProjM + gRZl*ProjP).l[ff] ZR[mu] )\",\n      \"delayed\": false\n    },\n    {\n      \"name\": \"LZRNR\",\n      \"expression\": \"-kRl*gw/Sqrt[1 - (1/kRl)^2*sw2/cw2] ( gLZN*NRbar[ff].Ga[mu].ProjM.NR[ff] + gRZN*NRbar[ff].Ga[mu].ProjP.NR[ff] ) ZR[mu]\",\n      \"delayed\": false\n    },\n    {\n      \"name\": \"LTotal\",\n      \"expression\": \"LWRkin + LZRkin + LNRkin + LWRqq + LWRlep + LZRqq + LZRlep + LZRNR\",\n      \"delayed\": false\n    }\n  ],\n  \"raw_preamble\": [\n    \"gLZu = (1/2 - 2/3)*(1/kRq^2)*sw2/cw2;\",\n    \"gRZu = 0 - (1/kRq^2)*sw2/cw2*(2/3);\",\n    \"gLZd = (-1/2 + 1/3)*(1/kRq^2)*sw2/cw2;\",\n    \"gRZd = -1/2 - (1/kRq^2)*sw2/cw2*(-1/3);\",\n    \"gLZv = (1/2 - 0)*(1/kRl^2)*sw2/cw2;\",\n    \"gRZv = 1/2 - (1/kRl^2)*sw2/cw2*0;\",\n    \"gLZl = (-1/2 + 1)*(1/kRl^2)*sw2/cw2;\",\n    \"gRZl = -1/2 - (1/kRl^2)*sw2/cw2*(-1);\",\n    \"gLZN = (1/2 - 0)*(1/kRl^2)*sw2/cw2;\",\n    \"gRZN = 1/2 - (1/kRl^2)*sw2/cw2*0;\"\n  ],\n  \"raw_blocks\": []\n}",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/spec.json"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA VALIDATION FAILED. Fix the fields named below and run ./frgen again.\nRemember: numeric values are strings (\"-1/3\", \"1500.\").\n\n2 validation errors for FeynRulesModel\nparticles.0\n  Value error, particle WR: multi-member class needs flavor_index [type=value_error, input_value={'spin_type': 'V', 'class.."
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "oldString": "\"particles\": [\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 100,\n      \"class_name\": \"WR\",\n      \"self_conjugate\": false,\n      \"indices\": [],\n      \"flavor_index\": null,\n      \"class_members\": [\"WRp\", \"WRm\"],\n      \"mass\": {\n        \"sym\": \"MWR\",\n        \"value\": \"Internal\"\n      },\n      \"width\": {\n        \"sym\": \"WWR\",\n        \"value\": \"Internal\"\n      },\n      \"quantum_numbers\": {\n        \"Q\": \"1\"\n      },\n      \"pdg\": [9900024, -9900024],\n      \"particle_name\": [\"Wp\", \"Wm\"],\n      \"antiparticle_name\": [\"Wm\", \"Wp\"],\n      \"full_name\": [\"WR+\", \"WR-\"],\n      \"propagator_label\": \"WR\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"Forward\",\n      \"unphysical\": false,\n      \"definitions\": []\n    },",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/spec.json",
+   "newString": "\"particles\": [\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 100,\n      \"class_name\": \"WR\",\n      \"self_conjugate\": false,\n      \"indices\": [],\n      \"flavor_index\": null,\n      \"class_members\": [],\n      \"mass\": {\n        \"sym\": \"MWR\",\n        \"value\": \"Internal\"\n      },\n      \"width\": {\n        \"sym\": \"WWR\",\n        \"value\": \"Internal\"\n      },\n      \"quantum_numbers\": {\n        \"Q\": \"1\"\n      },\n      \"pdg\": 9900024,\n      \"particle_name\": \"Wp\",\n      \"antiparticle_name\": \"Wm\",\n      \"full_name\": \"WR+\",\n      \"propagator_label\": \"WR\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"Forward\",\n      \"unphysical\": false,\n      \"definitions\": []\n    },"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA VALIDATION FAILED. Fix the fields named below and run ./frgen again.\nRemember: numeric values are strings (\"-1/3\", \"1500.\").\n\n1 validation error for FeynRulesModel\nparticles.2.mass\n  Value error, mass/width member N1: value 'mN1' is not a number, \"Internal\" or \"Automatic\" (FeynRules rejects anythin"
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/spec.json",
+   "newString": "\"mass\": {\n        \"sym\": \"mN\",\n        \"members\": [\n          [\"N1\", \"173.3\"],\n          [\"N2\", \"1.*^12\"],\n          [\"N3\", \"1.*^12\"]\n        ]\n      },",
+   "oldString": "\"mass\": {\n        \"sym\": \"mN\",\n        \"members\": [\n          [\"N1\", \"mN1\"],\n          [\"N2\", \"mN2\"],\n          [\"N3\", \"mN3\"]\n        ]\n      },"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 3 particle classes, 8 parameters, Lagrangian terms ['LWRkin', 'LZRkin', 'LNRkin', 'LWRqq', 'LWRlep', 'LZRqq', 'LZRlep', 'LZRNR', 'LTotal']\nRENDERED: model.fr (155 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: EffLRSM_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-----------------------------------------"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/spec.json"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/spec.json</path>\n<type>file</type>\n<content>\n1: {\n2:   \"model_name\": \"EffLRSM_gen\",\n3:   \"info\": {\n4:     \"authors\": [\"Olivier Mattelaer\", \"Manimala Mitra\", \"Richard Ruiz\"],\n5:     \"version\": \"1.0\",\n6:     \"date\": \"25. 09. 2026\",\n7:     \"institutions\": [\"Centre for Cosmology, Particle Physics and Phenomenology (CP3)"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "workdir": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8",
+   "command": "./frgen spec.json"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 3 particle classes, 8 parameters, Lagrangian terms ['LWRkin', 'LZRkin', 'LNRkin', 'LWRqq', 'LWRlep', 'LZRqq', 'LZRlep', 'LZRNR', 'LTotal']\nRENDERED: model.fr (155 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "newString": "\"mass\": {\n        \"sym\": \"MWR\",\n        \"value\": \"3000.\"\n      },\n      \"width\": {\n        \"sym\": \"WWR\",\n        \"value\": \"84.3\"\n      },",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/spec.json",
+   "oldString": "\"mass\": {\n        \"sym\": \"MWR\",\n        \"value\": \"Internal\"\n      },\n      \"width\": {\n        \"sym\": \"WWR\",\n        \"value\": \"Internal\"\n      },"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 3 particle classes, 8 parameters, Lagrangian terms ['LWRkin', 'LZRkin', 'LNRkin', 'LWRqq', 'LWRlep', 'LZRqq', 'LZRlep', 'LZRNR', 'LTotal']\nRENDERED: model.fr (155 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/spec.json",
+   "newString": "\"mass\": {\n        \"sym\": \"MZR\",\n        \"value\": \"5070.\"\n      },\n      \"width\": {\n        \"sym\": \"WZR\",\n        \"value\": \"114.\"\n      },",
+   "oldString": "\"mass\": {\n        \"sym\": \"MZR\",\n        \"value\": \"Internal\"\n      },\n      \"width\": {\n        \"sym\": \"WZR\",\n        \"value\": \"Internal\"\n      },"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 3 particle classes, 8 parameters, Lagrangian terms ['LWRkin', 'LZRkin', 'LNRkin', 'LWRqq', 'LWRlep', 'LZRqq', 'LZRlep', 'LZRNR', 'LTotal']\nRENDERED: model.fr (155 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "oldString": "\"raw_preamble\": [\n    \"gLZu = (1/2 - 2/3)*(1/kRq^2)*sw2/cw2;\",\n    \"gRZu = 0 - (1/kRq^2)*sw2/cw2*(2/3);\",\n    \"gLZd = (-1/2 + 1/3)*(1/kRq^2)*sw2/cw2;\",\n    \"gRZd = -1/2 - (1/kRq^2)*sw2/cw2*(-1/3);\",\n    \"gLZv = (1/2 - 0)*(1/kRl^2)*sw2/cw2;\",\n    \"gRZv = 1/2 - (1/kRl^2)*sw2/cw2*0;\",\n    \"gLZl = (-1/2 + 1)*(1/kRl^2)*sw2/cw2;\",\n    \"gRZl = -1/2 - (1/kRl^2)*sw2/cw2*(-1);\",\n    \"gLZN = (1/2 - 0)*(1/kRl^2)*sw2/cw2;\",\n    \"gRZN = 1/2 - (1/kRl^2)*sw2/cw2*0;\"\n  ],",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/spec.json",
+   "newString": "\"raw_preamble\": [\n    \"gLZu = (1/2 - 2/3)*(1/kRq^2)*sw2/cw2;\",\n    \"gRZu = 1/2 - (1/kRq^2)*sw2/cw2*(2/3);\",\n    \"gLZd = (-1/2 + 1/3)*(1/kRq^2)*sw2/cw2;\",\n    \"gRZd = -1/2 - (1/kRq^2)*sw2/cw2*(-1/3);\",\n    \"gLZv = (1/2 - 0)*(1/kRl^2)*sw2/cw2;\",\n    \"gRZv = 0;\",\n    \"gLZl = (-1/2 + 1)*(1/kRl^2)*sw2/cw2;\",\n    \"gRZl = -1/2 - (1/kRl^2)*sw2/cw2*(-1);\",\n    \"gLZN = 0;\",\n    \"gRZN = 1/2;\"\n  ],"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 3 particle classes, 8 parameters, Lagrangian terms ['LWRkin', 'LZRkin', 'LNRkin', 'LWRqq', 'LWRlep', 'LZRqq', 'LZRlep', 'LZRNR', 'LTotal']\nRENDERED: model.fr (155 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "newString": "{\n      \"name\": \"MZR\",\n      \"parameter_type\": \"External\",\n      \"value\": \"5070.\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 4,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"ZR boson mass [GeV], Eq.(2.17)\"\n    },\n    {\n      \"name\": \"WWR\",\n      \"parameter_type\": \"External\",\n      \"value\": \"84.3\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 8,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"WR boson width [GeV], Table 2\"\n    },\n    {\n      \"name\": \"WZR\",\n      \"parameter_type\": \"External\",\n      \"value\": \"114.\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 9,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"ZR boson width [GeV], Table 2\"\n    },\n    {\n      \"name\": \"mN1\",",
+   "oldString": "{\n      \"name\": \"MZR\",\n      \"parameter_type\": \"External\",\n      \"value\": \"5070.\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 4,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"ZR boson mass [GeV], Eq.(2.17)\"\n    },\n    {\n      \"name\": \"mN1\",",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/spec.json"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 3 particle classes, 10 parameters, Lagrangian terms ['LWRkin', 'LZRkin', 'LNRkin', 'LWRqq', 'LWRlep', 'LZRqq', 'LZRlep', 'LZRNR', 'LTotal']\nRENDERED: model.fr (155 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: EffLRSM_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-----------------------------------------"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/spec.json"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/spec.json</path>\n<type>file</type>\n<content>\n1: {\n2:   \"model_name\": \"EffLRSM_gen\",\n3:   \"info\": {\n4:     \"authors\": [\"Olivier Mattelaer\", \"Manimala Mitra\", \"Richard Ruiz\"],\n5:     \"version\": \"1.0\",\n6:     \"date\": \"25. 09. 2026\",\n7:     \"institutions\": [\"Centre for Cosmology, Particle Physics and Phenomenology (CP3)"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDELI"
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/spec.json",
+   "newString": "\"parameters\": [\n    {\n      \"name\": \"kRq\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"WR coupling normalization to quarks, Eq.(2.1)\"\n    },\n    {\n      \"name\": \"kRl\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 2,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"WR coupling normalization to leptons, Eq.(2.2)\"\n    },\n    {\n      \"name\": \"mN1\",\n      \"parameter_type\": \"External\",\n      \"value\": \"173.3\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 3,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Lightest heavy Majorana neutrino mass [GeV], Eq.(2.18)\"\n    },\n    {\n      \"name\": \"mN2\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.*^12\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 4,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Second heavy Majorana neutrino mass [GeV], Eq.(2.18)\"\n    },\n    {\n      \"name\": \"mN3\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.*^12\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 5,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Third heavy Majorana neutrino mass [GeV], Eq.(2.18)\"\n    },\n    {\n      \"name\": \"Ymix\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\"],\n      \"definitions\": [\n        {\n          \"lhs\": \"Ymix[1]\",\n          \"rhs\": \"1\"\n        },\n        {\n          \"lhs\": \"Ymix[2]\",\n          \"rhs\": \"1\"\n        },\n        {\n          \"lhs\": \"Ymix[3]\",\n          \"rhs\": \"1\"\n        }\n      ],\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Diagonal WR-lepton-heavy neutrino mixing, Eq.(2.7)\"\n    }\n  ],",
+   "oldString": "\"parameters\": [\n    {\n      \"name\": \"kRq\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"WR coupling normalization to quarks, Eq.(2.1)\"\n    },\n    {\n      \"name\": \"kRl\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 2,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"WR coupling normalization to leptons, Eq.(2.2)\"\n    },\n    {\n      \"name\": \"MWR\",\n      \"parameter_type\": \"External\",\n      \"value\": \"3000.\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 3,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"WR boson mass [GeV], Eq.(2.17)\"\n    },\n    {\n      \"name\": \"MZR\",\n      \"parameter_type\": \"External\",\n      \"value\": \"5070.\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 4,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"ZR boson mass [GeV], Eq.(2.17)\"\n    },\n    {\n      \"name\": \"WWR\",\n      \"parameter_type\": \"External\",\n      \"value\": \"84.3\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 8,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"WR boson width [GeV], Table 2\"\n    },\n    {\n      \"name\": \"WZR\",\n      \"parameter_type\": \"External\",\n      \"value\": \"114.\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 9,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"ZR boson width [GeV], Table 2\"\n    },\n    {\n      \"name\": \"mN1\",\n      \"parameter_type\": \"External\",\n      \"value\": \"173.3\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 5,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Lightest heavy Majorana neutrino mass [GeV], Eq.(2.18)\"\n    },\n    {\n      \"name\": \"mN2\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.*^12\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 6,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Second heavy Majorana neutrino mass [GeV], Eq.(2.18)\"\n    },\n    {\n      \"name\": \"mN3\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.*^12\",\n      \"block_name\": \"EffLRSM\",\n      \"order_block\": 7,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Third heavy Majorana neutrino mass [GeV], Eq.(2.18)\"\n    },\n    {\n      \"name\": \"Ymix\",\n      \"parameter_type\": \"Internal\",\n      \"indices\": [\"Generation\"],\n      \"definitions\": [\n        {\n          \"lhs\": \"Ymix[1]\",\n          \"rhs\": \"1\"\n        },\n        {\n          \"lhs\": \"Ymix[2]\",\n          \"rhs\": \"1\"\n        },\n        {\n          \"lhs\": \"Ymix[3]\",\n          \"rhs\": \"1\"\n        }\n      ],\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Diagonal WR-lepton-heavy neutrino mixing, Eq.(2.7)\"\n    }\n  ],"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 3 particle classes, 6 parameters, Lagrangian terms ['LWRkin', 'LZRkin', 'LNRkin', 'LWRqq', 'LWRlep', 'LZRqq', 'LZRlep', 'LZRNR', 'LTotal']\nRENDERED: model.fr (155 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: EffLRSM_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-----------------------------------------"
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/spec.json",
+   "oldString": "{\n      \"name\": \"LWRlep\",\n      \"expression\": \"-kRl*gw/Sqrt[2] (Ymix[ff] lbar[ff].Ga[mu].ProjP.NR[ff] WR[mu] + HC[Ymix[ff] lbar[ff].Ga[mu].ProjP.NR[ff] WR[mu]])\",\n      \"delayed\": false\n    },",
+   "newString": "{\n      \"name\": \"LWRlep\",\n      \"expression\": \"-kRl*gw/Sqrt[2] (Ymix[ff] NRbar[ff].Ga[mu].ProjP.l[ff] WR[mu] + HC[Ymix[ff] NRbar[ff].Ga[mu].ProjP.l[ff] WR[mu]])\",\n      \"delayed\": false\n    },"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 3 particle classes, 6 parameters, Lagrangian terms ['LWRkin', 'LZRkin', 'LNRkin', 'LWRqq', 'LWRlep', 'LZRqq', 'LZRlep', 'LZRNR', 'LTotal']\nRENDERED: model.fr (155 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: EffLRSM_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-----------------------------------------"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json",
+   "workdir": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 3 particle classes, 6 parameters, Lagrangian terms ['LWRkin', 'LZRkin', 'LNRkin', 'LWRqq', 'LWRlep', 'LZRqq', 'LZRlep', 'LZRNR', 'LTotal']\nRENDERED: model.fr (155 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json",
+   "workdir": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-EffLRSM-ofr11aj8"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 3 particle classes, 6 parameters, Lagrangian terms ['LWRkin', 'LZRkin', 'LNRkin', 'LWRqq', 'LWRlep', 'LZRqq', 'LZRlep', 'LZRNR', 'LTotal']\nRENDERED: model.fr (155 lines). You may read it.\nLINT: no findings.\n"
+ }
+]

@@ -1,0 +1,17 @@
+M$ModelName = "ovA";
+M$Information = {Authors -> {"test"}, Version -> "0", Date -> "2026-10-06"};
+M$InteractionOrderHierarchy = {{QCD,1},{QED,2},{NP,1}};
+
+M$Parameters = {
+  alp == {ParameterType -> External, BlockName -> NPMIX, OrderBlock -> 1, Value -> 0.2, InteractionOrder -> {NP,0}},
+  sa == {ParameterType -> Internal, Value -> Sin[alp]},
+  ca == {ParameterType -> Internal, Value -> Cos[alp]}
+};
+M$ClassesDescription = {
+  S[100] == {ClassName -> H2, SelfConjugate -> True, Mass -> {MH2, 300.}, Width -> {WH2, 1.}, PDG -> 9000035},
+  S[11] == {ClassName -> Phi, Unphysical -> True, Indices -> {Index[SU2D]}, FlavorIndex -> SU2D,
+    SelfConjugate -> False, QuantumNumbers -> {Y -> 1/2},
+    Definitions -> {Phi[1] -> -I GP, Phi[2] -> (vev + ca H - sa H2 + I G0)/Sqrt[2]}}
+};
+LH2 := 1/2 del[H2,mu] del[H2,mu] - 1/2 MH2^2 H2^2;
+LTotal := LSM + LH2;

@@ -1,0 +1,36 @@
+{
+ "page": "Top-Philic-Zprime",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit",
+ "seed": 1,
+ "variant": "v3o_mimo_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 926.4,
+ "tokens": {
+  "input": 123608,
+  "output": 4143,
+  "reasoning": 18451
+ },
+ "output_max": 128000,
+ "n_events": 54,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 20,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [],
+  "frgen_runs": 1,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3o_mimo_toolkit/s1/model/Top-Philic-Zprime_gen.fr",
+ "final_lint_findings": 0
+}

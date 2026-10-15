@@ -1,0 +1,950 @@
+{
+ "rule": "single_model: every vote cast agrees and >= 2 were cast; scorable: single_model AND the benchmark reference implements the paper's model",
+ "n_papers": 28,
+ "n_selected": 18,
+ "n_scorable": 16,
+ "selected": [
+  "331",
+  "ALRM_general",
+  "B-L-SM",
+  "ChernSimonsPortal",
+  "EffLRSM",
+  "GeneralU1",
+  "HeavyN",
+  "LeptoQuark",
+  "MDMmodel",
+  "Monotops",
+  "NJLComposite",
+  "SLQrules",
+  "SMWeinberg",
+  "Top-Philic-Zprime",
+  "Wprime",
+  "pNG",
+  "pSPSS",
+  "topBSM"
+ ],
+ "scorable": [
+  "331",
+  "ALRM_general",
+  "B-L-SM",
+  "ChernSimonsPortal",
+  "EffLRSM",
+  "GeneralU1",
+  "HeavyN",
+  "MDMmodel",
+  "Monotops",
+  "NJLComposite",
+  "SLQrules",
+  "SMWeinberg",
+  "Top-Philic-Zprime",
+  "Wprime",
+  "pNG",
+  "pSPSS"
+ ],
+ "contested": [
+  "368sextets"
+ ],
+ "undecided": [
+  "VLC_LN"
+ ],
+ "multi_model": [
+  "CHEIDI",
+  "DMsimp",
+  "HNLs",
+  "HiggsCharacterisation",
+  "MSSMD",
+  "Sextets",
+  "Triplets",
+  "VLQ"
+ ],
+ "pairing_problems": {
+  "LeptoQuark": "reference VLferm.fr is a vector-like-fermion add-on the paper never defines; the paper's U1+Z'+G' model is in vector_LQ.fr/Zprime.fr/coloron.fr",
+  "CHEIDI": "benchmark text is arXiv:1010.3251v2 (a FeynRules-WHIZARD interface paper, no model); HEIDI.fr implements the withdrawn v1 physics",
+  "VLC_LN": "reference VLC.fr implements only a collider subset (pion + rho triplets) of the paper's L+N composite model",
+  "topBSM": "reference now thu.fr (flavour-changing Higgs currents, 0 new fields); the old topBSM.fr pairing was a different paper",
+  "MSSMD": "listed publication is a CMS search (CMS-HIG-18-003), not the paper that defines the 39-field MSSMD Lagrangian"
+ },
+ "rows": [
+  {
+   "page": "331",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "331 model with general beta (SU(3)C x SU(3)L x U(1)X; scalar triplets rho, eta, chi; heavy quarks D,S,T; heavy leptons E_l; gauge bosons Z', V, Y); studied at beta = +-sqrt(3), +-1/sqrt(3)"
+   ],
+   "reference_implements": "331.fr implements the general-beta 331 model of Sec. 2 with beta as an external parameter (Bet); this one file covers all four paper benchmarks. The sibling files 331_-1.fr, 331_1.fr, 331_-3.fr, 331_3.fr are the same model with beta hard-coded to -1/sqrt(3), +1/sqrt(3), -sqrt(3), +sqrt(3) and numeric charges.",
+   "reference_is_superset": false,
+   "confusion_risk": "medium",
+   "reader_confidence": 0.9,
+   "refuted_by": [],
+   "evidence": [
+    "Abstract: 'Four benchmark 331 models, beta = +-sqrt(3) and beta = +-1/sqrt(3), are studied in this work.' Sec. 1: 'different versions of the 331 model ... characterized by a parameter called beta.'",
+    "Sec. 2.1 Eq. (2.2)-(2.3): three Higgs triplets rho, eta, chi with vevs v1, v2, v3; Eq. (2.9) Higgs potential with lambda_i, lambda_ij, lambda'_ij and sqrt(2) f eps rho eta chi. Sec. 2.3 Eq. (2.56),(2.58): q1L,q2L triplets, q3L anti-triplet, all leptons anti-triplets with (e, -nu, E). Sec. 2.4 Eq. (2.61)-(2.62): Yukawa terms.",
+    "Sec. 2.5 Eq. (2.65)-(2.66) and Table 1: beta = +-n/sqrt(3), n=1,3 gives the four charge assignments; the field content is the same for every beta, only Q and X charges change.",
+    "Reference 331.fr header: 'FeynRules mod-file for the 331 model where beta is general'; M$vevs = {Rho[2],v},{Phi[1],v2},{Chi[3],v3}; beta == {ParameterType -> Internal, Value -> Bet}; charges written as Q -> 1/6-Sqrt[3] beta/2 (Jq12), Q -> 1/6+Sqrt[3] beta/2 (Jt), Q -> -1/2+Sqrt[3] beta/2 (EE). LHiggs and LYukawa match Eq. (2.9) and Eq. (2.61)-(2.62)."
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper defines one model: the 331 gauge extension with one fixed field content (three scalar triplets, two quark triplets plus one anti-triplet, three lepton anti-triplets, right-handed singlets for u, d, D/S/T, e, E) and one Lagrangian (Eqs. 2.8-2.9, 2.32, 2.54, 2.60-2.62). The parameter beta only sets the U(1)X and electric charges of the new states. This is the 'one-parameter family of U(1) charges' case in the definition, so it is single-model. The four benchmarks beta = +-sqrt(3), +-1/sqrt(3) are parameter points, not separate models. The scored reference 331.fr keeps beta general (external parameter Bet), so it matches the paper's Sec. 2 directly and covers all four benchmarks. It adds no fields beyond the paper; ghosts and Goldstones are gauge-fixing content (Feynman gauge), not new physics. Confusion risk is medium, not low, for two reasons. First, the abstract and text call the four beta choices 'benchmark 331 models' and 'different versions', so an agent may hard-code one beta value with integer charges (as the sibling files do) instead of the general-beta form the reference uses; field names and Q/X values would then differ from 331.fr. Second, the paper lists Feynman rules in unitary gauge (Appendix A) while the reference uses Feynman gauge with ghosts. Neither choice changes the field content or symmetry, so the model itself is the same. Naming differences: the reference calls the eta triplet Phi and the rho vev v (paper: v1)."
+  },
+  {
+   "page": "368sextets",
+   "single_model": false,
+   "contested": true,
+   "undecided": false,
+   "votes_single": "2/3",
+   "n_votes_cast": 3,
+   "scorable": false,
+   "pairing_problem": null,
+   "n_models_reader": 2,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "Sextet fermion qg-portal model (eq. 12: Psi_u, Psi_d)",
+    "Sextet scalar q-lepton-g model (eq. 13: Phi_u, Phi_d)"
+   ],
+   "reference_implements": "all-in-one",
+   "reference_is_superset": false,
+   "confusion_risk": "medium",
+   "reader_confidence": 0.8,
+   "refuted_by": [
+    "physics",
+    "reference"
+   ],
+   "evidence": [
+    "Intro (Sec. I): 'we construct two simplified models of color-sextet fields and explore the phenomenology of these particles at the LHC'; abstract instead says 'a simple but novel model of color-sextet fields'.",
+    "Sec. III eq. (12): 'The sextet fermion models are defined by L \u2283 \u03a8\u0304_q(iD\u0338\u2212m)\u03a8_q + (1/\u039b)[\u03ba J^{sia}(q^c_R \u03c3^{\u03bc\u03bd} \u03a8_q) G + H.c.] + (1/\u039b\u00b3)[\u03ba_B J(q^c_R \u03a8_q) B G + H.c.]' for q \u2208 {u,d}; eq. (13) scalars: '(1/\u039b\u00b2)[\u03bb J \u03a6_q (q^c_R \u03c3^{\u03bc\u03bd} \u2113_R) G + H.c.]'.",
+    "Table X ('Exotic field content of color-sextet models considered in Section III'): \u03a6u (6,1,1/3) L=\u22121; \u03a6d (6,1,4/3) L=\u22121; \u03a8u (6,1,\u22122/3) L=0; \u03a8d (6,1,1/3) L=0. Then: 'We implement these simplified models in version 2.3.43 of FeynRules'.",
+    "Reference header: 'sFu = (6, 1, -2/3); sFd = (6, 1, 1/3); sSu = (6, 1, 1/3) (Lepton number -1); sSd = (6, 1, 4/3) (Lepton number -1)'; Lagrangian 'LSextet := LSextetKin + LFu + LFd + LSu + LSd' with CFu/CFBu/CFd/CFBd/CSu/CSd couplings matching eqs. (12)-(13)."
+   ],
+   "refuter_reasons": [
+    "The classifier counts the sextet-fermion sector (eq. 12) and the sextet-scalar sector (eq. 13) as two models. Under the working definition a paper is multi-model only when it offers distinct alternatives an implementer must choose between. This paper offers no such choice. Section III fixes ONE field content (Table X: Phi_u, Phi_d, Psi_u, Psi_d, all present together), ONE symmetry structure (SM gauge group plus accidental lepton number), and one Lagrangian (the sum of eqs. 12 and 13 for q=u,d). The paper states it implements 'these simplified models' in a single FeynRules implementation, and the reference file by co-author Murphy is exactly that union: four fields with the Table X charges and LSextet := LSextetKin + LFu + LFd + LSu + LSd, with no extra operators or fields. The fermion and scalar sectors do not couple to each other in eqs. (12)-(13), so they are decoupled sub-sectors of one Lagrangian, not competing alternatives; studying them separately (Figs. 3-4 vs Fig. 5) is analogous to studying special cases of one model. The paper's own wording is inconsistent and cannot be used to count: the abstract says 'a simple but novel model', the intro says 'two simplified models' and, two paragraphs later, 'a simplified model of color-sextet scalars and fermions' (singular, containing both species). Taking the plural literally would also give 4 models, since eq. (12) says 'the sextet fermion models ... for q in {u,d}', so the classifier's choice of 2 is a partial literal reading. The classifier itself concedes that the field content is unambiguous and that the page can be reclassified as single-model; with an all-in-one reference that is not a superset and no implementer choice, the correct verdict is single-model, n_models=1. Section II is an operator catalog with generic hypercharges, not a set of defined models, and Section III explicitly picks 'a small subset' of it; it does not change the count.",
+    "The classifier counts two models because the intro says \"two simplified models\". The benchmark definition does not count by the paper's words. It counts by alternatives an implementer must choose between. This paper gives no such choice. Table X fixes one particle content: Phi_u (6,1,1/3), Phi_d (6,1,4/3), Psi_u (6,1,-2/3), Psi_d (6,1,1/3). Eqs. (12) and (13) give one Lagrangian for these four fields under one symmetry structure (SM gauge group plus lepton number). The scalar and fermion sextets are not alternatives for the same state. They have different hypercharges and lepton numbers, and the paper simulates all four together (Fig. 2 pair production of both spins, Figs. 3-4 fermions, Fig. 5 scalars). The reference implementation confirms this. It is one file with one M$ModelName (\"368_sextets\"), one Lagrangian LSextet = LSextetKin + LFu + LFd + LSu + LSd, and exactly the four Table X fields. The FeynRules author (paper co-author T. Murphy) lists all four as \"The new particles\" and does not describe variants or a choice. The reference contains exactly the eq. (12)-(13) operators: no |H|^2 G term, no diquark operators, no extra fields. It is not a superset and not a subset. The paper's own model-count language is inconsistent (abstract: \"a simple but novel model\"; intro: \"two simplified models\" and \"a simplified model of color-sextet scalars and fermions\"; Sec. III: \"the sextet fermion models\" for q in {u,d}), so it cannot fix the count. The Psi_u focus in Fig. 6 is a special case of the one model, which the definition says stays single-model. Verdict: single model, n_models = 1."
+   ],
+   "notes": "The paper has two layers. Section II is a catalog of EFT operators for color sextets (not a model: generic hypercharges, ~100 operators). Section III picks the 3\u22976\u22978 invariant and defines two simplified models: a sextet fermion model (eq. 12, with up- and down-type copies \u03a8u, \u03a8d) and a sextet scalar model (eq. 13, with \u03a6u, \u03a6d). The paper calls them 'two simplified models' but presents all four fields together in Table X and implements them together in FeynRules. The sectors do not couple to each other, so the union is one consistent Lagrangian. The benchmark reference (by co-author T. Murphy) is exactly this union: four fields with the Table X charges and lepton numbers, kinetic terms, and the eq. (12)/(13) operators built with J^{sia} = -i\u221a2 L t3 K\u0304 per eq. (A18) (K6, T, K3bar). No |H|^2 operator, no diquark (3\u22973\u22976bar) operators, no extra fields: not a superset. Cutoffs \u039b are absorbed into the couplings (CFu etc.); \u039b is not a separate parameter. Confusion risk is medium: (a) an agent could implement only the fermion sector or only \u03a8u, since the abstract says 'a model' and the phenomenology and Fig. 6 focus on \u03a8u, while the scalars are 'neglected so far'; (b) an agent could over-implement operators from Tables VIII/IX (e.g. the |H|^2 G term or diquark couplings); (c) the J^{sia} tensor must be built from FeynRules' K6/K3 objects, which is an implementation trap rather than a model-choice trap. The most natural reading of Table X plus 'We implement these simplified models' leads to the reference's four-field content, so most agents should converge on it. If the orchestrator prefers to treat a decoupled union that the authors implemented as one file as a single model, this page can be reclassified as single-model with n_models=1; the field content is unambiguous either way."
+  },
+  {
+   "page": "ALRM_general",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "ALRSM (alternative left-right symmetric model: SU(3)c x SU(2)L x SU(2)R' x U(1)B-L gauge group plus global U(1)S)"
+   ],
+   "reference_implements": "ALRSM",
+   "reference_is_superset": false,
+   "confusion_risk": "low",
+   "reader_confidence": 0.95,
+   "refuted_by": [],
+   "evidence": [
+    "Abstract: 'We perform a consistent analysis of the alternative left-right symmetric model emerging from E6 grand unification.'",
+    "Sec. 2: 'It is based on the SU(3)c x SU(2)L x SU(2)R' x U(1)B-L gauge group, to which we supplement a global U(1)S symmetry'; Table 1 lists the full field content (QL, QR, d'L, dR, LL, LR, nL, nuR; phi, chiL, chiR; G, WL, WR, B). Eq. (2.3) gives the Yukawa Lagrangian, eq. (2.4) the scalar potential, eq. (2.16) effective H0 couplings to gluons/photons.",
+    "Sec. 2: 'There are three different ways to embed SU(2)H into SU(3)H' (LRSM, ALRSM, Inert Doublet Model) ... 'We are interested here in the second option.' The LRSM and IDM are only mentioned as context, not offered as alternatives to implement.",
+    "Sec. 3: 'we have implemented the model presented in section 2 into FeynRules ... publicly released on the FeynRules model database' (footnote: ALRM_general). Sec. 6, Table 3: BM I, BM II, BM III are parameter points of the same model, not distinct models."
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper defines exactly one model, the ALRSM, and the reference .fr is the authors' own FeynRules implementation of that model (same author, same field names, PDG codes, parameter names and Les Houches blocks as paper Tables 7-8; same Yukawa terms as eq. 2.3 and same potential as eq. 2.4, with lam1, mu1^2, mu2^2, lam4 derived per eqs. A.3 and A.10). The reference is not a superset: it contains nothing the paper does not define. Minor points that could cause small deviations but not a different model: (1) the reference file is a unitary-gauge variant ('uni' in the filename; no Goldstone bosons or electroweak ghosts are declared, only the gluon ghost), while the paper discusses Goldstones G0_1, G0_2, G+-_1, G+-_2 in eqs. 2.7-2.8 and stresses a correct Goldstone sector for Feynman-gauge tools, so an agent might add Goldstones; (2) the reference implements the generalised lepton number as a LNumber quantum number, which an agent might omit; (3) paper Table 7 has a typo for the H0_i PDG codes (25, 25, 45, 55) where the reference uses 25, 35, 45, 55; (4) the paper's three benchmark scenarios (Table 3) are parameter points only. The paper is unusually explicit (appendix C documents the FeynRules implementation), so an agent reading only the paper should reproduce the reference model."
+  },
+  {
+   "page": "B-L-SM",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "Minimal gauged U(1)_B-L extension of the SM (Z' gauge boson, SM-singlet scalar chi with B-L charge +2, three RH Majorana neutrinos with B-L charge -1; kinetic mixing g-tilde = 0)"
+   ],
+   "reference_implements": "The paper's single model: the minimal (pure) B-L model with no U(1)_Y-U(1)_B-L kinetic mixing. B-L.fr (Basso & Pruna, 'pure B-L model' v1.1) has gauge groups SU3C x SU2L x U1Y x U1BL with one coupling g1p, fields Zp (plus Bp/ghZp/ghBp/phip gauge artefacts), H2 (second Higgs mixed with H1 via Sa/Ca), and three heavy Majorana neutrinos nH mixed with light nL; x = MZp/(2 g1p), matching the paper's x = MZ'/(2 g'1).",
+   "reference_is_superset": false,
+   "confusion_risk": "low",
+   "reader_confidence": 0.9,
+   "refuted_by": [],
+   "evidence": [
+    "Paper Sec. 2: 'In addition to the particle content of the SM, the U(1)B-L model contains an Abelian gauge field B'_mu, a SM singlet scalar field chi and three RH neutrinos N_i' with charges Y_B-L = +2 and -1; Eqs. (2.2), (2.3), (2.5), (2.6) give the potential, covariant derivative, RH-neutrino kinetic term and Dirac+Majorana Yukawas.",
+    "Paper Sec. 2: 'we omit the Abelian mixing between U(1)B-L and U(1)Y, g-tilde = 0, as a simplification. This means we consider the minimal gauged B-L model.'",
+    "Paper Sec. 3.4 / Table 1: 'six extra free parameters' (MZ', g'1, Mh2, sin alpha, MNi, VlN); Cases A-E are parameter choices and scans of the same model; Sec. 2 says the Z'-only, singlet-scalar-only and singlet-neutrino-only scenarios arise 'by taking an appropriate limit'.",
+    "Reference B-L.fr header: 'This is the FeynRules mod-file for the pure B-L model', Authors Basso & Pruna, ref. arXiv:0812.4313; M$GaugeGroups has U1BL {GaugeBoson -> Bp, Charge -> BL, CouplingConstant -> g1p} and no gt parameter; M$ClassesDescription has nH (Heavy neutrino 1-3, SelfConjugate), Zp (PDG 9900032), H2 (PDG 9900026), phip Goldstone of Zp."
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper is a phenomenology/Contur study of one UV-complete model. Cases A-E in Table 1 are benchmark parameter slices, not separate models. The other reference files: B-L_4.fr and B-L-N_4.fr are Wei Liu's (paper co-author) 2019 rewrites of the same model, differing only in whether the neutrino mixing is external or internal; minimal_Zp.fr (Basso) is the general U(1)' model with a Z-Z' kinetic-mixing coupling gt, which the paper explicitly switches off (g-tilde = 0), so B-L.fr is the correct benchmark. Field content of B-L.fr matches the paper exactly; the Feynman-gauge Goldstones and ghosts are gauge-fixing artefacts, and the CKM matrix is SM. Minor sources of implementation (not model) divergence for an agent: (1) Eq. (2.3) and the Appendix 7.1 RGEs keep the g-tilde term, so an agent might add a kinetic-mixing parameter fixed to zero; (2) the reference diagonalises the per-generation 2x2 seesaw into nL/nH mass eigenstates with San/Can (Eq. 2.9 of the paper) and uses diagonal Yukawas, which the paper adopts as its simplification; an agent could instead write the general 3x3 Yukawas of Eq. (2.6) without diagonalisation. Neither changes the field content or symmetry structure."
+  },
+  {
+   "page": "CHEIDI",
+   "single_model": false,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "0/3",
+   "n_votes_cast": 3,
+   "scorable": false,
+   "pairing_problem": "benchmark text is arXiv:1010.3251v2 (a FeynRules-WHIZARD interface paper, no model); HEIDI.fr implements the withdrawn v1 physics",
+   "n_models_reader": 0,
+   "n_models_refuters": [
+    0,
+    0
+   ],
+   "model_names": [],
+   "reference_implements": "none of the paper's content. HEIDI.fr implements the compact-extra-dimension HEIDI Higgs model, which appears only in the withdrawn arXiv v1 of 1010.3251. The benchmark text is v2 and contains no HEIDI definition.",
+   "reference_is_superset": true,
+   "confusion_risk": "high",
+   "reader_confidence": 0.95,
+   "refuted_by": [],
+   "evidence": [
+    "Paper header: 'arXiv:1010.3251v2 [hep-ph] 26 Apr 2012', title 'Introducing an interface between FeynRules and WHIZARD'; abstract: 'we present an interface which extends FeynRules to provide this functionality also for the Whizard package' (a tool paper, not a model paper).",
+    "Sec. 4 'Usage examples' only loads pre-existing models: 4.1 SM (LoadModel[\"Models/SM/SM.fr\"]), 4.2 MSSM (LoadModel[\"Models/MSSM/MSSM.fr\"]), 4.3 Three-Site Higgsless Model (LoadModel[\"3-Site-particles.fr\", ...]); none has its field content or Lagrangian defined in the text.",
+    "Sec. 5 Conclusions: 'investigate models whose particle content depend on the point in parameter space, which is however a separate project and will be presented elsewhere [54]' \u2014 the HEIDI study was removed from this version.",
+    "grep for heidi|golden|extra dimension|bulk|compact in the paper text: zero hits (only 'Kaluza-Klein' once, describing the Three-Site model)."
+   ],
+   "refuter_reasons": [],
+   "notes": "Version mismatch between the benchmark text and the reference. The text is arXiv:1010.3251v2, which was retitled and stripped of the HEIDI physics; it is a pure interface/tool paper. The reference HEIDI.fr (plus HEIDI_bundle.fr, which bundles the Hdecay` width table and the Heidi` numerical spectrum calculator) implements the HEIDI model from v1: the SM Higgs replaced by a tower of n scalar modes Hh[k] with numerically computed masses, widths and wavefunction xi[k], unitarity gauge only, plus an optional effective ggh coupling. Nothing in the v2 text lets an agent reconstruct this: no field content, no Lagrangian, no parameters (compactification scale, bulk mass, 5D coupling, cutoff). An agent reading only the paper would most likely produce the Three-Site Higgsless Model (the only BSM model whose spectrum is described: W', Z', heavy fermions, nonlinear sigma field Eq. (1)), or the MSSM, or a plain SM export. Any of these would score against a reference with a completely different field set. Recommend either swapping the text for arXiv:1010.3251v1 or dropping/relabelling this page."
+  },
+  {
+   "page": "ChernSimonsPortal",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "SM + anomalous U(1)_X vector boson X with D'Hoker-Farhi/Chern-Simons couplings c1 (XZZ, XZgamma) and c2 (XWW)"
+   ],
+   "reference_implements": "The low-energy effective model of Sec. 2 (eq. 1, eq. 5) and Sec. 5 (vertices eqs. 27-28): SM plus one neutral massive vector xb. The reference reparametrizes the couplings (cW, cZ, cZgamma instead of c1, c2) and adds a Cmu muon coupling the paper does not have. The file declares only the field and parameters; it contains no Lagrangian.",
+   "reference_is_superset": true,
+   "confusion_risk": "medium",
+   "reader_confidence": 0.8,
+   "refuted_by": [],
+   "evidence": [
+    "Abstract: 'If the new fermions have SM charges, but are too heavy to be created at LHC, and the SM fermions are not charged under the extra gauge field'",
+    "Sec. 2, eq. (1): 'At energies accessible at LHC and below the masses of the new heavy fermions, the theory in question is simply the SM plus a massive vector boson X' with Stueckelberg field theta_X",
+    "Sec. 2, eq. (5): L_int = c1 (H^dag DH/|H|^2) Dtheta_X F_Y + c2 (H F_W DH^dag/|H|^2) Dtheta_X; Sec. 5 eqs. (27)-(28): XZZ and XZgamma vertices are both proportional to c1, XW+W- to c2",
+    "Sec. 4, Tables 4-5, eq. (24): realistic SU(2)xU(1)_YxU(1)_X UV completion with heavy chiral fermions psi1, psi2, chi1, chi2 (doublets and singlets) and heavy Higgs Phi, 'all states have heavy masses ~ F<Phi>' above 10 TeV; presented as the origin of c1, c2, not as a separate model to simulate"
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper studies one model at collider energies: the SM plus one neutral massive vector X with dimension-4 anomaly-induced couplings to ZZ, Zgamma and WW. Two free couplings c1 and c2 control these vertices. The heavy fermion sectors are derivations, not alternatives: Sec. 2 gives a toy U(1)_A x U(1)_B model (Table 1), Sec. 3 a toy U(1)_Y x U(1)_X model with 4 Dirac fermions (Tables 2-3), and Sec. 4 a realistic SU(2) x U(1)_Y x U(1)_X charge assignment (Tables 4-5). All heavy states sit above 10 TeV and never enter the phenomenology of Sec. 5, so I count them as one model with a UV explanation. Reference file issues: (1) It has no Lagrangian at all, only M$ClassesDescription and M$Parameters, so any Lagrangian-level scoring against it is ill-defined. (2) It uses three independent couplings cW, cZ, cZgamma. The paper uses two: c1 fixes XZZ and XZgamma with a fixed ratio (sin theta_w / 2 vs cos theta_w), and c2 fixes XWW. (3) It adds Cmu, an X-muon coupling. The paper states SM fermions are neutral under U(1)_X, so this is a sector the paper never defines. This is why reference_is_superset is true, although the reference is a minimal file, not a large library. Confusion risk is medium: an agent that reads only the paper will get the field content right (one self-conjugate massive vector), but it will likely name and count the couplings as c1, c2 (not cW, cZ, cZgamma, Cmu), and it may try to implement the Stueckelberg field theta_X or the Sec. 4 heavy fermions and Phi as explicit fields."
+  },
+  {
+   "page": "DMsimp",
+   "single_model": false,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "0/3",
+   "n_votes_cast": 3,
+   "scorable": false,
+   "pairing_problem": null,
+   "n_models_reader": 2,
+   "n_models_refuters": [
+    2,
+    2
+   ],
+   "model_names": [
+    "Spin-0 mediator Y0 (scalar/pseudoscalar couplings) + Dirac DM chi, top-philic",
+    "Spin-1 mediator Y1 (vector/axial-vector couplings) + Dirac DM chi, top (+bottom for axial)"
+   ],
+   "reference_implements": "none (dm_s_spin2.fr is a spin-2 mediator model the paper never defines; the paper's models are dm_s_spin0.fr and dm_s_spin1.fr)",
+   "reference_is_superset": true,
+   "confusion_risk": "high",
+   "reader_confidence": 0.95,
+   "refuted_by": [],
+   "evidence": [
+    "Sec. 2: 'The DM particle (chi) is taken to be a Dirac fermion ... The mediator can be chosen to be either a scalar (Y0) or a vector (Y1).' Eq. (1) gives the Y0 scalar/pseudoscalar couplings to chi and t; Eq. (2) gives the Y1 vector/axial couplings to chi, t and b.",
+    "Sec. 6 Conclusions: 'a simplified dark matter model within MG5aMC, involving a spin-0 or spin-1 mediator, coupling preferentially to the top quark ... four mediator types: scalar, pseudoscalar, vector and axial-vector.' No spin-2 mediator appears anywhere in the paper.",
+    "dm_s_spin2.fr header: M\\$ModelName = \"DMsimp_s_spin2\"; References -> {\"G. Das et al., arXiv:1605.09359\",\"S. Kraml et al., arXiv:1701.07008\"}; fields Xr (real scalar DM), Xd (Dirac DM), Xv (vector DM), T[1] Y2 'Spin-2 mediator' coupled to the full SM energy-momentum tensor (gTg, gTw, gTb, gTq, gTq3, gTl, gTh) with cut-off Lambda.",
+    "dm_s_spin0.fr and dm_s_spin1.fr headers both list References -> {\"O. Mattelaer et al., arXiv:1508.00564\", ...}; their fields are Xr, Xc, Xd + Y0 (S[9]) and Xr, Xc, Xd + Y1 (V[7]) respectively, matching Eqs. (1)-(2)."
+   ],
+   "refuter_reasons": [],
+   "notes": "Paper 1508.00564 (Mattelaer, Vryonidou) is multi-model: two distinct mediator alternatives (spin-0 Y0 vs spin-1 Y1) with Dirac DM, each with two coupling scenarios (S/P and V/A) that are parameter choices, not separate models. Eq. (3) also quotes the infinite-top-mass gluon EFT Lagrangian (gS_t alpha_s/(12 pi v) G G Y0 + gP_t alpha_s/(8 pi v) G Gtilde Y0) but only as a limit used for comparison in Fig. 9, so I do not count it as a third model. The benchmark reference dm_s_spin2.fr is a mismatch, not merely a superset: it implements the DMsimp spin-2 model of Das et al. 1605.09359 (Y2 tensor mediator coupled to T_mu_nu of every SM sector, plus real-scalar, Dirac, and vector DM) and contains neither Y0 nor Y1. An agent reading only this paper will write a scalar or vector mediator model and cannot reproduce the spin-2 reference. The paper's own models are in dm_s_spin0.fr and dm_s_spin1.fr (both cite 1508.00564); those files are themselves supersets (Xr/Xc scalar DM, couplings to all six quark flavours, gluon EFT operators gSg/gPg with Lambda, and in spin-1 also lepton, neutrino and flavour-changing monotop couplings; the _ew.fr files add h/W/B couplings). Recommendation: re-point this benchmark page to dm_s_spin0.fr or dm_s_spin1.fr, or split it into two pages, one per mediator spin."
+  },
+  {
+   "page": "EffLRSM",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "Effective LRSM (SM + WR, ZR, three Majorana N)"
+   ],
+   "reference_implements": "Effective LRSM (SM + WR, ZR, three Majorana N)",
+   "reference_is_superset": false,
+   "confusion_risk": "low",
+   "reader_confidence": 0.95,
+   "refuted_by": [],
+   "evidence": [
+    "Sec. II: 'The Effective LRSM field content consists of the usual SM states, the W\u00b1R and ZR gauge bosons ... and three heavy Majorana neutrinos Ni, aligned with the RH chiral states.'",
+    "Sec. III A: 'We implement the SM Lagrangian ... in the Feynman gauge and the Lagrangian terms of Eqs. (4)-(8) in the Unitary gauge into FR 2.3.10' (Eq. 4: WR-q-q' with kappa_R^q and V_CKM'; Eq. 5: WR-l-N with Y_lN; Eq. 8-10: ZR neutral currents with g_L/g_R coefficients)",
+    "Reference header: 'Contains WR^+/- and ZR gauge bosons as well as three massive Majorana neutrinos ... SM Lagrangian is written in the Feynman Gauge. LRSM Extension is written in Unitary gauge'; References -> 'O. Mattelaer, et. al., [arXiv:1610.XXXXX]' (same authors as 1610.08985)",
+    "Reference M$ClassesDescription: V[32] ZR (MZR 5070), V[34] WR (MWR 3000, WWR 84.3), F[31] Nl = {N1,N2,N3} Majorana; LWRTmp and LZRTmp reproduce Eqs. (4), (5), (8)-(10) with kRq, kRl, VCKMR, YlN; matches Table II (MWR=3 TeV, Gamma_WR=84.3 GeV, MZR=5070, Gamma_ZR=114) and Eq. (19)"
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper is the release paper for this exact FeynRules model (EffLRSM@NLO, ref. [34]). It defines one model: SM + WR, ZR (mass eigenstates, no scalar sector, no non-Abelian VR self-couplings) + three Majorana N with WR charged currents (Eqs. 4-5) and ZR neutral currents (Eqs. 8-10). Parameter choices (kappa_R^q, kappa_R^l = 0.75 or 1; MWR scans; Eq. 19 masses) are benchmark points, not separate models. The reference file implements exactly these fields and terms; it is not a superset. Small places an agent could diverge from the reference, none of which change the model: (1) Eq. (5) contains a light-neutrino mixing term X_lm that Eq. (7) sets to zero and the reference omits, so an agent might add a WR-nu-l term with a zero parameter; (2) overall sign convention of the couplings (paper writes -kappa g/sqrt2, reference writes +ee/sw/Sqrt[2]); (3) the reference sets mN3 = 1e14 GeV while Eq. (19) uses 1e12 GeV for both N2 and N3 (benchmark value only); (4) an agent might be tempted to add VR self-interactions or the mass relation Eq. (18), which the paper explicitly excludes or treats as independent. The reference includes ZR couplings to light nu_L, consistent with Sec. II text and Table I."
+  },
+  {
+   "page": "GeneralU1",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "Minimal U(1)X extension (U(1)X = xH*U(1)Y + xPhi*U(1)B-L) with Z', 3 RHNs and singlet scalar Phi"
+   ],
+   "reference_implements": "Minimal U(1)X extension (the only model in the paper)",
+   "reference_is_superset": false,
+   "confusion_risk": "medium",
+   "reader_confidence": 0.92,
+   "refuted_by": [],
+   "evidence": [
+    "Sec. II: 'The model we consider here is based on the gauge group SU(3)C x SU(2)L x U(1)Y x U(1)X. The particle content is shown in Table I.' Table I lists SM fields + N_R^i + Phi with charges as functions of (xH, xPhi).",
+    "Table I caption: 'Particle content of the minimal U(1)X model ... The scalar charges xH, xPhi are real parameters. The B-L case is obtained with the choice xH = 0 and xPhi = 1.' Sec. II: 'Without the loss of generality we fix xPhi = 1 in this paper.' Table II lists xH = -2,-1,-0.5,0,0.5,1,2 as benchmark points of the same charge family.",
+    "Paper ref. [49]: 'A. Das and S. Mandal, FeynRules file for the general U(1) extended SM, https://feynrules.irmp.ucl.ac.be/wiki/GeneralU1' \u2014 same authors as the reference .fr (M$Information Authors -> {Sanjoy Mandal, Arindam Das}, M$ModelName = U1XGeneric).",
+    ".fr header: 'FeynRules mod-file for the generic U(1)_X model ... Contains three massive Majorana neutrinos and a scalar ... Heavy neutrino masses MNi and mixing parameters VlNi ... considered as independent parameter.' Charges in M$ClassesDescription (LL: BL -> -(1/2)xH - xPhi; lR: -xH - xPhi; QL: (1/6)xH + (1/3)xPhi; uR: (2/3)xH + (1/3)xPhi; dR: -(1/3)xH + (1/3)xPhi; NR: -xPhi; Phi doublet: xH/2; Chi singlet: 2 xPhi) match Table I exactly."
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper defines one model: SM + U(1)X gauge boson Z' + three generation-universal RHNs + one SM-singlet scalar Phi, with U(1)X charges parameterized by (xH, xPhi). The xH benchmark values (Table II), B-L (xH=0) and U(1)R (xH=-2) are special points of the same one-parameter charge family, not separate models. The reference U1XGeneric.fr is the authors' own file (paper ref. [49]) and implements exactly this model with the same charge assignments; every sector in the .fr (RHN Yukawa, Majorana mass from Chi, scalar potential with mixing, Z-Zp mass mixing) is defined in Sec. II, so it is not a superset library. Confusion risk is medium for implementation-level reasons, not model identity: (1) the .fr treats light and heavy neutrinos as Majorana mass eigenstates (nL, nH) with an explicit light-heavy mixing parametrization (VeN1..VtaN3, Sm, Tm, VV, UPMNS matrices, unphysical nuF/nuH/nuHp/NR/NRc), while the paper only writes the seesaw matrix Eq. 5 and never uses the neutrino sector in its phenomenology (it assumes Z'->NN is kinematically closed), so an agent would likely write a simpler RHN sector (e.g. Weyl SM neutrinos + Majorana N with no mixing inputs); (2) the .fr is in Feynman gauge with Zp Goldstone (phiZp) and Goldstone mixing (GZ/GZp, sg/cg) and ghosts, whereas the paper does not specify gauge; (3) the .fr keeps a scalar mixing angle Sa and a second physical scalar H2, while the paper says the H-Phi mixing is negligible (small lambda'); (4) the paper fixes xPhi = 1 but the .fr keeps xPhi as an external parameter. The core field content, gauge group, charges, and Lagrangian structure are unambiguous from Table I and Eqs. 1-6."
+  },
+  {
+   "page": "HNLs",
+   "single_model": false,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "0/3",
+   "n_votes_cast": 3,
+   "scorable": false,
+   "pairing_problem": null,
+   "n_models_reader": 2,
+   "n_models_refuters": [
+    2,
+    2
+   ],
+   "model_names": [
+    "Majorana HNL (type-I seesaw, Eq. 2.1: n singlets N_R with Majorana mass)",
+    "Dirac / pseudo-Dirac HNL (inverse or linear seesaw, Eq. 2.3: 2n singlets in pairs N_L, N_R with Dirac mass)"
+   ],
+   "reference_implements": "Dirac HNL model (Eq. 2.3, one heavy N4, mixing matrix of Eq. B.1). The sibling file effective_HeavyN_Majorana.fr implements the Majorana model (Eq. 2.1, mixing matrix Eq. B.2).",
+   "reference_is_superset": true,
+   "confusion_risk": "high",
+   "reader_confidence": 0.9,
+   "refuted_by": [],
+   "evidence": [
+    "Abstract: 'the effective Lagrangians obtained for both the Dirac and Majorana scenarios are made publicly available as FeynRules models'; Sec. 7: 'This has been done separately for Dirac and Majorana HNLs.'",
+    "Sec. 2, Eq. (2.1) vs Eq. (2.3): Majorana case adds n singlets N_R with mass term -(1/2) M_j N_R,j N^c_R,j; Dirac case adds '2n extra singlets ... in Dirac pairs N_L,j, N_R,j' with mass term -M_j N_L,j N_R,j. Appendix B gives two different 4x4 mixing matrices, Eq. (B.1) Dirac and Eq. (B.2) Majorana.",
+    "Reference effective_HeavyN_Dirac.fr: M$ModelName = \"effective_HeavyN_Dirac_v103\"; F[16] NR and F[17] NL both SelfConjugate -> False; vl carries LeptonNumber -> 1; LYukawa contains '- MN4 NLbar[sp,ff1].NR[sp,ff1]'; HEAV -> {-theta*/r, 1/r} and the PMNS entries reproduce Eq. (B.1). The Majorana file instead uses NR/NRc with SelfConjugate -> True and '- MN4/2 NRcbar.NR' with Eq. (B.2) entries.",
+    "Superset: the reference declares B mesons Bu (521), Bc (541), B0 (511), B0s (531), Bstar (523) with fB, fBc leptonic couplings and B->pi, B->D, Bs->Ds, Bs->K semileptonic form factors. The paper never mentions B mesons; its scope is 'all relevant effective operators involving mesons with masses up to 2 GeV' (pi, K, D, Ds, eta, eta', rho, omega, phi, K*; semileptonic K->pi and D->K only, Tables 2-3). The reference also has a Mesons=False quark-level switch that the paper only mentions in passing."
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper presents two alternatives with different field content (Majorana: N_R only; Dirac: N_L + N_R) and ships them as two separate FeynRules models, so it is multi-model by the prompt definition. Both share the same effective meson Lagrangian of Sec. 3 (Table 7), so the meson sector is common; the difference is the neutrino sector, self-conjugacy, the mass term, and the mixing-matrix parametrization. Confusion risk is high for a paper-only agent: (1) the paper introduces the Majorana case first as 'the simplest extension' and treats Dirac as 'alternatively', so an agent may pick Majorana; the only steer toward Dirac is the DUNE section (Sec. 6). (2) The reference includes a B-meson sector (5 extra fields plus many form-factor parameters) the paper never defines, so a faithful paper extraction will have fewer fields than the reference's 21. (3) The reference encodes the Appendix B mixing matrix (theta_e, theta_mu, theta_tau, r) into HEAV/PMNS internal parameters; an agent may instead use a generic U_alpha4 mixing. (4) The reference uses constant form factors at <q^2> from a cubic fit in M4 (Appendix D default option), which an agent is unlikely to reproduce. Minor: the Dirac file header comment says 'used for Majorana neutrinos' (copy-paste error); the M$ModelName and field content confirm it is the Dirac model."
+  },
+  {
+   "page": "HeavyN",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "SM + heavy (Majorana) neutrino N with phenomenological active-heavy mixing V_lN (Feynman gauge, with Goldstone couplings)"
+   ],
+   "reference_implements": "heavyN.fr implements the paper's single model (SM + heavy Majorana N with V_lN mixing, CC/NC/Higgs/Goldstone couplings, Feynman gauge). heavyN_Dirac.fr is the Dirac variant from Pascoli et al. 1805.09335 and heavyN_vSMEFTdim6.fr adds dim-6 vSMEFT operators from Cirigliano et al. 2105.11462; neither belongs to this paper.",
+   "reference_is_superset": true,
+   "confusion_risk": "medium",
+   "reader_confidence": 0.9,
+   "refuted_by": [],
+   "evidence": [
+    "Paper, 'Heavy Neutrino Model' section after Eq. (8): 'For simplicity, we consider only one heavy mass eigenstate, labeled by N. This does not affect our conclusions.'",
+    "Paper Eq. (9): L_Int with W (g/sqrt2 N^c V*_lN gamma^mu P_L l), Z (g/2cosW N^c V*_lN gamma^mu P_L nu_l), and h (g mN/2MW N^c V*_lN P_L nu_l) terms + H.c.; 'Computational Setup': 'We implement the above Lagrangian with Goldstone boson couplings in the Feynman gauge into FeynRules'.",
+    "heavyN.fr header: 'Contains three massive Majorana neutrinos ... At NLO, the model was implemented in Degrande, et al. [arXiv:1602.06957]'; M$ClassesDescription declares N1, N2, N3 with SelfConjugate -> True, PDG 9900012/14/16, plus LNCC, LNNC, LNH, LNG sectors.",
+    "heavyN_Dirac.fr header: 'three massive Dirac neutrinos ... first implemented in Pascoli, et. al. [arXiv:1805.09335]' (SelfConjugate -> False); heavyN_vSMEFTdim6.fr header: 'subset of vSMEFT operators at dimension six ... Cirigliano, et al. [arXiv:2105.11462]' with Lambda and Wilson coefficients."
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper is single-model: one fixed field content (a heavy neutrino N that mixes with the three active neutrinos) and one Lagrangian, Eq. (9), plus Goldstone couplings in Feynman gauge. The production channels (CC/NC Drell-Yan, DY+1j, gluon fusion, W-gamma VBF) and the 14 vs 100 TeV runs are process and parameter choices, not separate models. The benchmark reference heavyN.fr is the correct file for this paper (its header and M$Information cite 1602.06957 as the NLO implementation). It is a mild superset: it declares three Majorana states N1, N2, N3 with a full 3x3 real mixing block (VeN1..VtaN3), while the paper text restricts to 'only one heavy mass eigenstate'; the Lagrangian sectors (CC, NC, Higgs, Goldstone) match Eq. (9) one-to-one. Confusion risks for a paper-only agent: (1) the paper never uses the word 'Majorana' explicitly; it signals Majorana nature only through N^c notation, 'lepton number-violating final states', and the Atre et al. citation, so a Dirac N is a plausible misreading (the presence of heavyN_Dirac.fr shows the authors themselves built that variant later); (2) field count 1 vs 3 -- the text says one N but the MG5 snippets use 'n2', so an agent may write one N (or guess several); (3) the Goldstone couplings and the relative sign between Yukawa and gauge terms are not written out in the paper (reference changelog v2.2 'Corrected relative sign'); (4) the reference takes V_lN real, the paper writes V*_lN. None of these change the model identity, but (1) and (2) could change the field declarations an agent produces."
+  },
+  {
+   "page": "HiggsCharacterisation",
+   "single_model": false,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "0/2",
+   "n_votes_cast": 2,
+   "scorable": false,
+   "pairing_problem": null,
+   "n_models_reader": 3,
+   "n_models_refuters": [
+    3,
+    null
+   ],
+   "model_names": [
+    "Spin-0 X0 (CP-mixed scalar, 0+/0- via angle alpha; eqs. 2.2, 2.4)",
+    "Spin-1 X1 (1+/1- via kappa conditions; eqs. 2.8, 2.11, 2.12)",
+    "Spin-2 X2 (2+, couples to SM energy-momentum tensors; eqs. 2.15, 2.16)"
+   ],
+   "reference_implements": "all-in-one",
+   "reference_is_superset": false,
+   "confusion_risk": "high",
+   "reader_confidence": 0.8,
+   "refuted_by": [],
+   "evidence": [
+    "Sect. 2: 'plus a new bosonic state X(JP) with spin/parity assignments JP = 0+, 0-, 1+, 1-, and 2+'; eq. (2.1) L_HC,J = L_SM-H + L_J, one Lagrangian per spin J.",
+    "Sect. 2.1 eqs. (2.2),(2.4) define the spin-0 X0 sector; sect. 2.2 eqs. (2.8),(2.11),(2.12) the spin-1 X1 sector; sect. 2.3 eqs. (2.15),(2.16) the spin-2 X2 sector via E-M tensors (only the QED tensors, eqs. 2.17-2.18, are written out).",
+    "Sect. 2: 'We dub it Higgs Characterisation model; it is publicly available at the FeynRules on-line database' - the paper frames all three spins as one FeynRules implementation.",
+    "Reference HiggsCharacterisation.fr: M$ModelName = \"HiggsCharac\", v3.4, References -> arXiv:1306.6464; M$ClassesDescription declares S[1] X0, V[5] X1, T[1] X2; LagHC := LSM + L0v + L1 + L2 + L0v6."
+   ],
+   "refuter_reasons": [],
+   "notes": "Classification. The paper presents three alternative spin hypotheses (scalar X0, vector X1, tensor X2) for one observed boson, each with its own Lagrangian L_J (eq. 2.1). The task definition lists 'spin-0 vs spin-1 vs spin-2' alternatives as multi-model, so n_models = 3. The 0+/0- and 1+/1- cases are parameter limits of the same field (alpha, eqs. 2.13-2.14), not separate models. The paper itself, however, calls the bundle one 'Higgs Characterisation model' and the reference implements all three fields in one file, so reference_implements = all-in-one.\n\nReference structure. HiggsCharacterisation.fr (v3.4, 17.10.2013, authors de Aquino and Mawatari) declares exactly the three paper fields X0 (PDG 5000000), X1 (5000001), X2 (5000002). It contains L0v (eq. 2.4 vector couplings, incl. the derivative kHda/kHdz/kHdw terms), L1 (eqs. 2.8, 2.11, 2.12 with kqa/kqb/kla/klb instead of the paper's kappa_fa/kappa_fb), and L2 (eqs. 2.15-2.16 with kq, kl, kg, ka, kz, kw). The Table 2 g couplings match (e.g. gHaa = 47 alpha/(18 pi v), gHgg = -alpha_s/(3 pi v)).\n\nSuperset caveats (minor, so flag set false). (a) L0v6: an effective gg X0 X0 vertex (kHHgg, kAAgg) added in v3.3 after the paper; the paper only says four-point operators are 'work in progress'. (b) Gauge-fixing terms TGFg/TGFa in the spin-2 E-M tensor, a MadGraph technicality the paper does not mention. (c) Full SM E-M tensors (W charged currents, MZ^2/MW^2 mass terms, Yukawa mass terms TYq/TYl) that the paper only cites from refs. [46, 48].\n\nWhy confusion risk is high. (1) The scored file omits eq. (2.2) (X0 Yukawa) and the kappa_SM ZZ/WW term; these are realised in the companion SM_HC.fr by renaming the SM Higgs to X0 (Phi[2] -> (vev + ca X0 + I G0)/Sqrt[2]) and inserting kSM, kHtt, kAtt etc. An agent reading only the paper will most likely write all of eqs. (2.2) and (2.4) into its new-physics file and keep or drop the SM Higgs H on its own judgement. (2) The paper gives only the QED E-M tensor; the spin-2 sector must be reconstructed from external references. (3) An agent may split the three spins into separate files or implement only one hypothesis. Field content (3 fields) is explicit in the paper, so the mismatch is mostly in Lagrangian placement and spin-2 details rather than in particle content.\n\nOther reference files. HC.fr is v4.1 (2016) of the same all-in-one model with added kq3, X2-Z-A and X0 contact terms. HiggsCharacterization.fr is v2.0 (April 2013, pre-paper) with a different field list (X1, X1p, X0x, X2) and higher-dimension spin-2 operators the paper dropped. SM_HC.fr and SM_HC3.fr are the modified SM (Higgs renamed X0) that the HC files import as LSM."
+  },
+  {
+   "page": "LeptoQuark",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": false,
+   "pairing_problem": "reference VLferm.fr is a vector-like-fermion add-on the paper never defines; the paper's U1+Z'+G' model is in vector_LQ.fr/Zprime.fr/coloron.fr",
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "U1 + Z' + G' phenomenological vector-triplet model (eqs. 9-11, textures eq. 13)"
+   ],
+   "reference_implements": "none: VLferm.fr is a vector-like fermion add-on (Ln, Le, Qu, Qd; doublets chiL, chiQ) that the paper never defines. The paper's model is implemented by the other three files together (vector_LQ.fr = eq. 9, Zprime.fr = eq. 10, coloron.fr = eq. 11).",
+   "reference_is_superset": true,
+   "confusion_risk": "high",
+   "reader_confidence": 0.92,
+   "refuted_by": [],
+   "evidence": [
+    "Abstract: 'We analyse three representations that necessarily appear together ... a colour-singlet (Z\u2032), a colour-triplet (the U1 leptoquark), and a colour octet (G\u2032).'",
+    "Sec. 3: 'Having motivated the minimal set {G\u2032, Z\u2032, U1} of massive vectors ... We define the general Lagrangian for these vectors as follows' -> eqs. (9), (10), (11); coupling textures in eq. (13).",
+    "Sec. 3: 'We also ignore any possible interactions of the extra vectors among themselves and to any other particles related to the UV completion of the model (either scalars or fermions).' -> no vector-like fermions in the paper.",
+    "Sec. 4: 'we implement the model described in section 3 in FeynRules 2.3.32 ... available at https://feynrules.irmp.ucl.ac.be/wiki/LeptoQuark.'"
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper defines one model: the minimal vector set {U1 ~ (3,1,2/3), Z' ~ (1,1,0), G' ~ (8,1,0)} with a single phenomenological Lagrangian (eqs. 9-11), flavour textures (eq. 13), and free non-minimal gauge couplings kappa_U, kappa~_U, kappa_G', kappa~_G'. Section 2 discusses gauge vs strongly-interacting UV completions only as motivation; no second Lagrangian is written. Parameter benchmarks (beta_R^33 in {0, 0.5, 1}, kappa_U in {0,1}, widths) are scans, not separate models. The benchmark scores against VLferm.fr, which is the wrong file for this paper. VLferm.fr is a 2022 add-on by Fuentes-Martin and Faroughy (Faroughy is not a paper author). It adds SU(2) doublet vector-like fermions chiL ~ (1,2,-1/2) and chiQ ~ (3,2,1/6) with couplings to U1, Z', G' and mixing terms to 2nd/3rd generation SM fermions. It is not standalone: it uses VLQ, Zp, Gp, gU, gZp, gGp, and newCKM, which are declared in the other three files. An agent that reads only the paper will write vector_LQ + Zprime + coloron content and will never produce Ln/Le/Qu/Qd, so a mismatch is near certain. Recommendation: re-point the LeptoQuark reference to the set {vector_LQ.fr, Zprime.fr, coloron.fr} (or concatenate them), and drop VLferm.fr from the scored reference."
+  },
+  {
+   "page": "MDMmodel",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "Minimal Dilaton Model (SM + singlet scalar S + vector-like top partner T)"
+   ],
+   "reference_implements": "Minimal Dilaton Model (the only model in the paper)",
+   "reference_is_superset": false,
+   "confusion_risk": "low",
+   "reader_confidence": 0.93,
+   "refuted_by": [],
+   "evidence": [
+    "Sec. II: 'The Minimal Dilaton Model extends the SM by one gauge singlet scalar field S ... and one fermion field T with the same quantum number as the right-handed top quark'; Lagrangian Eq.(2), potential Eq.(3)",
+    "Eq.(4) scalar mixing H0=(v+h cos \u03b8S - s sin \u03b8S)/sqrt2, S=f+h sin \u03b8S+s cos \u03b8S; Eq.(9) top mixing q3L^u=cos \u03b8L tL+sin \u03b8L t'L, TL=-sin \u03b8L tL+cos \u03b8L t'L",
+    "Intro/Sec. III-IV: 'Heavy dilaton scenario' (130<ms<1000 GeV, Eq.12) and 'Light dilaton scenario' (0<ms<62 GeV) are mass ranges of the same model, not different field content",
+    "Reference header: M$ModelName = \"Minimal Dilaton Model\"; S[21] sDM 'the dilaton particle', F[7] tp, F[26] TR, F[27] TL; S[31] S -> vevf + h ss + sDM cs; Phi[2] -> (vev + h cs - sDM ss + I G0)/Sqrt[2]"
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper defines exactly one model: SM plus a real gauge-singlet scalar S (linearized dilaton) and one vector-like SU(2)-singlet, Y=2/3 top partner T. The heavy and light dilaton scenarios are only ranges of the dilaton mass ms; the field content and Lagrangian are the same. NT (number of T fields) is fixed to 1 in the paper. The reference .fr implements the same model with the same mixing conventions (Eq. 4 and Eq. 9) and the same parametrization as Eq. (5) (external eta, ts, sl; internal dkappa, dlamh, dlams). It is a full SM + MDM file in Feynman gauge with ghosts and Goldstones; it adds no sector the paper does not define, so it is not a superset. Detail-level divergences that an agent could produce without changing the model: (1) the reference keeps the paper's odd sign '-1/2 del[S,mu] del[S,mu]' from Eq.(2), an agent may write the standard +1/2; (2) the paper defines only the left-handed top mixing angle \u03b8L, the reference adds a right-handed angle with sr = MT sl/(MTP cl) and cr = 1 as an approximation; (3) an agent might choose kappa, lamH, lamS as external instead of eta, ts, ms; (4) the reference splits u, c, t into separate classes and keeps only Cabibbo CKM mixing. None of these change the model identity."
+  },
+  {
+   "page": "MSSMD",
+   "single_model": false,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "0/3",
+   "n_votes_cast": 3,
+   "scorable": false,
+   "pairing_problem": "listed publication is a CMS search (CMS-HIG-18-003), not the paper that defines the 39-field MSSMD Lagrangian",
+   "n_models_reader": 2,
+   "n_models_refuters": [
+    2,
+    2
+   ],
+   "model_names": [
+    "NMSSM benchmark (h1,2 -> 2 a1 -> 4 mu)",
+    "Dark SUSY benchmark (MSSM + broken U(1)_D: h -> 2 n1 -> 2 nD + 2 gamma_D -> 4 mu + X)"
+   ],
+   "reference_implements": "Dark SUSY benchmark (MSSM + broken U(1)_D with dark photon AD and dark neutralino neuD)",
+   "reference_is_superset": true,
+   "confusion_risk": "high",
+   "reader_confidence": 0.9,
+   "refuted_by": [],
+   "evidence": [
+    "Abstract: 'It is then interpreted in the context of the next-to-minimal supersymmetric standard model and a dark supersymmetry model that allows for nonnegligible light boson lifetimes.'",
+    "Sec. 1: 'Two different classes of benchmark models are used ... the next-to-minimal supersymmetric standard model (NMSSM) [1, 5-12] and supersymmetry (SUSY) models with hidden sectors (dark SUSY) [3, 13, 14].' Also: 'This dark photon can couple to SM particles via a small kinetic mixing parameter epsilon with SM photons.'",
+    "Sec. 4: 'Higgs bosons are forced to decay to a pair of SUSY neutralinos n1 via h -> 2n1. Each SUSY neutralino in turn decays to a dark photon and a dark neutralino via n1 -> nD + gammaD. The dark neutralino mass mnD is set to 1 GeV' (mh=125, mn1=10 GeV; generated with MADGRAPH 4.5.2 + BRIDGE 2.24).",
+    "Sec. 1: 'A more thorough description of the NMSSM and dark SUSY models ... is included in Refs. [15] and [18].' The paper writes no Lagrangian and no field table for either model."
+   ],
+   "refuter_reasons": [],
+   "notes": "This is a CMS experimental search paper (model-independent limit), not a model-building paper. It uses two benchmark model classes with different field content: (1) NMSSM with h1/h2 and light pseudoscalar a1; (2) dark SUSY = MSSM plus a broken U(1)_D giving a dark photon gamma_D (kinetic mixing epsilon with the photon) and a dark neutralino nD. The paper defines neither model beyond decay topologies and mass points; it defers the model descriptions to Refs. [15] and [18]. The benchmark reference implements only the dark SUSY benchmark. The reference is a superset: it is the full FeynRules MSSM superfield implementation (squarks, sleptons, gluino, charginos, four neutralinos, 2HDM Higgs sector, soft terms, ghosts; 39 fields) plus the dark sector, whereas the paper's dark SUSY topology uses only h, n1, nD, gamma_D and muons. The reference also deviates from the paper's physics description: it has no kinetic-mixing parameter epsilon; instead it uses a direct vector coupling gd (=0.001) of AD to muons and a direct I*gd n1-nD-AD vertex, with the U(1)_D gaugino set to zero. An agent reading only the paper would have to choose between NMSSM and dark SUSY, would almost certainly write a simplified model (h, n1, nD, gamma_D, explicit h-n1-n1 coupling, epsilon F F_D kinetic mixing) rather than a full MSSM superfield file, and would not reproduce the reference's direct gd couplings. Confusion risk is therefore high."
+  },
+  {
+   "page": "Monotops",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "Monotop simplified effective theory (Eq. 1): SM + invisible scalar phi, invisible fermion chi, invisible vector V, coloured scalar resonance varphi, coloured scalar tilde-varphi (4-fermion), coloured vector resonance X"
+   ],
+   "reference_implements": "The single Eq. (1) simplified model; all six fields present (SMET=phi, FMET=chi, VMET=V, phiC=varphi, tphiC=tilde-varphi, VC=X), with $Flag4F toggling the tilde-varphi four-fermion piece",
+   "reference_is_superset": false,
+   "confusion_risk": "low",
+   "reader_confidence": 0.9,
+   "refuted_by": [],
+   "evidence": [
+    "Abstract: 'We build a simplified model that encompasses all the possible (tree-level) production mechanisms'",
+    "Sec. 'Effective theory for monotops': 'we account for all cases within a single simplified theory'; fields phi, chi, V (missing energy) and varphi, tilde-varphi, X (colour-fundamental) -> Eq. (1)",
+    "Sec. 'Model-independent searches': 'We have implemented the Lagrangian of Eq. (1) into MadGraph via FeynRules'; the five scenarios are coupling/mass choices (b = b-tilde = 0, a = 0.1, m_chi, resonance mass)",
+    "monotops.fr header: 'SM + monotops', References -> arXiv:1106.6199; M$ClassesDescription declares FMET, VMET, VC, SMET, phiC, tphiC; LMono = L0+L1+L120+L121+$Flag4F*L120p + h.c. mirrors Eq. (1) term by term"
+   ],
+   "refuter_reasons": [],
+   "notes": "Paper and reference agree on field content one-to-one; the five scenarios (I-V, plus I' and II') are parameter points of one Lagrangian. Residual ambiguities an agent could resolve differently from the reference: (a) the paper never states that chi, phi, V are self-conjugate, while the reference declares FMET, SMET, VMET as SelfConjugate->True (Majorana chi, real phi and V); (b) electric charges of the coloured states (varphi Q=2/3, tilde-varphi Q=-1/3, X Q=2/3) are implied by the Lagrangian terms, not stated; (c) default masses differ in detail (reference MSC=tMSC=1000 GeV vs paper 3 TeV for the four-fermion limit, MFM=MVM=MSM=50 GeV). The paper writes 'two classes of models' (fermionic vs bosonic missing energy), which an agent might misread as two separate models, but Eq. (1) unifies them explicitly. None of these change the field list, so confusion risk is low."
+  },
+  {
+   "page": "NJLComposite",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "NJL composite scalar leptoquark model (R2 and R2-tilde SU(2) doublets, colour triplets, replicated for 3 generations)"
+   ],
+   "reference_implements": "the single NJL composite scalar LQ model of Sec. II (Table I, Eqs. 1-3), replicated for all three fermion generations",
+   "reference_is_superset": false,
+   "confusion_risk": "medium",
+   "reader_confidence": 0.9,
+   "refuted_by": [],
+   "evidence": [
+    "Abstract: 'we focus on the phenomenology of the scalar leptoquarks at the LHC and the High-Luminosity option' -- only scalar LQs are studied.",
+    "Sec. II, Table I: four colour-triplet composite bosons Pi^{5/3}, Pi^{-1/3}, Pi_u^{2/3}, Pi_d^{2/3} for the first generation; Eq. (1) kinetic + mass term, Eq. (2) covariant derivative, Eq. (3) contact Lagrangian L_CI with couplings g_Pi = (F_Pi/Lambda)^2; doublets Pi_{1/6} = (Pi_u^{2/3}, Pi^{-1/3}) and Pi_{7/6} = (Pi^{5/3}, Pi_d^{2/3}).",
+    "Sec. II: 'The spectra in Table (I), interactions (3), can be generalized by nu_e, e, u, d -> nu_mu, mu, c, s for the second generation, and ... for the third generation.' Sec. III: 'the interactions have been implemented up to the 3rd fermion generation with the corresponding couplings.'",
+    "Reference NJL_MODEL_LQ.fr: M$ModelName = \"NJLCompositeModel-LQ\"; M$ClassesDescription declares 12 physical colour-triplet scalars (Pi53/Pi13/Piu23/Pid23 x uno/due/tre, LeptonNumber -1) plus 6 Unphysical SU2D doublets Phi1/2/5/6/7/8 with Y = 7/6 and 1/6; parameters lc, mpi, FPi53, FPi13, FPid23, FPiu23 -> Ypi = (F/lc)^2. No Lagrangian block is present in the file."
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper defines exactly one new-physics model: scalar colour-triplet leptoquarks Phi ~ (lbar_R q_L) that form two SU(2)_L doublets (Y = 7/6, R2; Y = 1/6, R2-tilde), with SM gauge kinetic terms (Eq. 1-2) and generation-diagonal contact Yukawa couplings to lbar_R q_L (Eq. 3), copied for the three fermion generations. Masses M_Pi and couplings g_Pi (called lambda) are free parameters and are scanned; lambda_eu, lambda_muc, lambda_taub are parameter choices, not separate models. Eq. (4) flavor-mixed couplings are mentioned as possible but the paper treats couplings as diagonal free parameters. The reference matches this content (18 fields = 12 physical + 6 unphysical doublets) and is not a superset. Note the reference .fr contains only parameters and particle classes; there is no Lagrangian definition in the file. Confusion risk is medium for structural reasons, not model-choice reasons: (a) Table I and Eq. (3) are written for the first generation only, so an agent might implement one generation (6 fields) or one generation-indexed field set instead of 18 separate classes; (b) Eq. (3) uses nu_R, which the SM FeynRules model does not treat as interacting, so an agent might add right-handed neutrino fields that the reference does not declare; (c) the reference uses one common mass MassB = mpi for all 12 scalars, while the paper says masses differ across generations; (d) an agent might skip the unphysical doublet fields and write gauge couplings on the physical fields directly. The physics model itself is unambiguous."
+  },
+  {
+   "page": "SLQrules",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "SM + all five scalar leptoquarks (Phi1, Phi1~, Phi2, Phi2~, Phi3) with complete LQ Lagrangian incl. Higgs mixing, triple and quartic self-interactions"
+   ],
+   "reference_implements": "all-in-one",
+   "reference_is_superset": false,
+   "confusion_risk": "low",
+   "reader_confidence": 0.92,
+   "refuted_by": [],
+   "evidence": [
+    "Abstract: 'we consider the five representations Phi1, Phi~1, Phi2, Phi~2 and Phi3 and include the triple and quartic self-interactions, as well as couplings to the SM fermions, gauge bosons and the Higgs'",
+    "Eq. (22)-(24): five scalar LQ reps (3,1,-1/3), (3,1,-4/3), (3,2,7/6), (3,2,1/6), (3,3,-1/3); L_LQ = L_2Phi + L_kin + L_f + L_3Phi + L_4Phi; mass mixing after EWSB in Eqs. (25)-(32), fermion couplings Eq. (43), triple Eq. (46), quartic Eq. (49)",
+    "Sec. 4.1.2 / Listing 2: the scalar LQ fields 'were merged into the model file SLQrules/SLQrules.fr'; unphysical gauge fields Phi_a are replaced by physical mass eigenstates Phi-hat via rotation matrices W^q (Eq. 50); Table 3 lists LQall, LQ2Phi, LQkin, LQf, LQ3Phi, LQ4Phi",
+    "Reference SLQrules.fr header: M$ModelName = \"SLQrules\"; 'FeynRules model file including all scalar LQ'; M$ClassesDescription has 9 physical hat fields + 5 Unphysical multiplets (S1m13, S1tm43, R2, R2t, S3) = 14; tail: LQall := LQ2Phi + LQkin + LQf + LQ3Phi + LQ4Phi"
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper is a single general model: all five scalar leptoquark representations added to the SM at once with the complete renormalizable Lagrangian. It offers no alternative representations, benchmark models, or EFT-vs-UV choice. The reference SLQrules.fr is the authors' own model file and implements exactly this model; it is not a superset. SLQrules.2.fr is a variant with corrected mass-parameter values (Sqrt applied); SM.fr is the standard FeynRules SM file. Main implementation risk for an agent is bookkeeping rather than model identity: the reference uses 9 physical mass-eigenstate fields plus 5 unphysical gauge multiplets linked by O(v^2) rotation matrices W13mat/W23mat/W43mat (Eq. 30); an agent could instead declare only the 5 gauge multiplets or only the 9 mass eigenstates, and could omit parts of the large quartic sector (28 terms in LQ4Phi). The paper's Sec. 4.1.2 and Listing 2 describe the physical/unphysical split explicitly, so this risk is moderate-to-low. Note also the reference parameter comments write R2 as (3,2,-7/6) and R2~ as (3,2,-1/6) while the field QuantumNumbers use Y -> 7/6 and 1/6, matching the paper's Eq. (22)."
+  },
+  {
+   "page": "SMWeinberg",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "SMWeinberg: SM + d=5 Weinberg operator, implemented as one auxiliary Majorana neutrino N with mN = |sum C_ll'| v^2/Lambda"
+   ],
+   "reference_implements": "SMWeinberg (the paper's single model, via the auxiliary-N prescription of Appendix Eqs. 23-29 and Table II)",
+   "reference_is_superset": false,
+   "confusion_risk": "medium",
+   "reader_confidence": 0.9,
+   "refuted_by": [],
+   "evidence": [
+    "Paper Eq. (2): L5 = C5^{ll'}/Lambda (Phi.L^c_l)(L_l'.Phi) + H.c. -- the only new-physics Lagrangian; Eq. (4) L_SMEFT = L_SM + L5 + O(Lambda^-2)",
+    "Paper, 'Signal and Background Simulation': 'extending the FeynRules implementation of the SM (version 1.4.7) by a single Majorana neutrino N with mass mN and EW boson couplings governed by Eq. (8)'; Eq. (9): mN = |Cee+Cemu+Cetau+Cmumu+Cmutau+Ctautau| v^2/Lambda",
+    "Paper Appendix Eqs. (23)-(29) give the full UFO interaction Lagrangian (W, Z, h, G+, G0, hh, G+G+, G0G0, G0G+ terms); Table II lists Lambda, Cll (6 entries, NUPHYSICS 1-7), mN internal, wN internal, PDG 9900012",
+    "Reference header: 'Extends SM (sm.fr) by one massive Majorana neutrino that couples to all SM leptons through Wilson coefficients Cll and has mass set by Cll and EFT scale'; 'The model was implemented in Fuks, et al [arXiv:2012.09882]'"
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper defines one model: the SM plus the d=5 Weinberg operator. It presents the same physics in two forms: (a) the gauge-invariant operator expanded after EWSB (Eqs. 5, 18-22) as Majorana bilinears of SM neutrinos, and (b) a practical prescription that models the LNV (nu_l nu^c_l') current as one unphysical Majorana neutrino N with universal couplings and mN = |sum C| v^2/Lambda (Eqs. 8, 9, 23-29). Form (b) is the implementation, not a separate model. The reference weinberg_NLO.fr implements form (b) exactly: one field N1, six real Wilson coefficients plus Lambda, internal mN1, and Lagrangian terms that match Eqs. (23)-(29) including the G+G+ l^c PL l' contact term (coefficient gw^2 mN/(4 MW^2) = 2 x gw^2 mN/(8 MW^2)). Surface convention differences: the reference writes the CC term with a + sign (paper Eq. 8/23 has -), and writes Goldstone terms in the Hermitian-conjugate form (lbar.ProjP.N1 GPbar, N1bar.ProjP.CC[l]) with +I. sm.fr is the stock SM 1.4.7 base that the paper says it extends; it is not extra content. Confusion risk is medium: an agent reading only the paper could (1) implement the Weinberg operator directly as neutrino Majorana mass and Higgs couplings without the auxiliary N field, which changes field content; or (2) weight N couplings by the individual C_ll' instead of using universal couplings with all flavor dependence in mN (Eq. 9). The appendix and Table II are explicit enough that a careful agent should match the reference."
+  },
+  {
+   "page": "Sextets",
+   "single_model": false,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "0/3",
+   "n_votes_cast": 3,
+   "scorable": false,
+   "pairing_problem": null,
+   "n_models_reader": 2,
+   "n_models_refuters": [
+    2,
+    2
+   ],
+   "model_names": [
+    "Antitriplet scalar diquark (3bar of SU(3)C, Eq. 2.1 with K_abc = eps_abc/sqrt2, flavour-antisymmetric couplings)",
+    "Sextet scalar diquark (6 of SU(3)C, Eq. 2.1 with the K6 Clebsch-Gordan matrices of Eq. A.6)"
+   ],
+   "reference_implements": "Sextet scalar diquark only, as an all-in-one file: three colour-sextet SU(2)-singlet scalars six1 = (6,1,1/3) (couples to QQ and UD), six2 = (6,1,-2/3) (DD), six3 = (6,1,4/3) (UU), i.e. three of the four Table 1 electroweak rows in the sextet colour representation. The antitriplet diquark and the SU(2)-triplet (3,1/3) sextet are not implemented.",
+   "reference_is_superset": true,
+   "confusion_risk": "high",
+   "reader_confidence": 0.85,
+   "refuted_by": [],
+   "evidence": [
+    "Sec. 2: 'The diquark may be either an antitriplet or a sextet under SU(3)C, independently of the electroweak quantum numbers. Also, the diquark may be either a scalar or vector boson. For simplicity ... we concentrate on the scalar case.'",
+    "Table 1 caption: 'In each case the SU(3)C quantum number may be either 3bar or 6'; rows list (SU(2)L, Y) = (1,1/3)->QQ,UD; (3,1/3)->QQ; (1,2/3)->DD; (1,4/3)->UU.",
+    "Eq. (2.1): L = 2 sqrt2 [ Kbar_iab D_i qbar_a (lambdaL PL + lambdaR PR) q^C_b + h.c. ] -- one generic post-EWSB Lagrangian for a single field D in either colour representation; Sec. 5 numerics use both the antitriplet (du, ds) and the sextet (uu, uc, cc), and 'for the sextet case we only consider initial states that can result in a charge +4/3 final state'.",
+    "Reference header (SextetDiquarks.fr, C. Duhr): 'The convention and notations follow 0909.2666 ... The new particles are six1 = (6, 1, 1/3), six2 = (6, 1, -2/3), six3 = (6, 1, 4/3)'; M$ClassesDescription declares S[100] six1, S[200] six2, S[300] six3 with Index[Sextet] and AddGaugeRepresentation[SU3C -> {T6, Sextet}]."
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper is an NLO-QCD phenomenology paper, not a model-building paper. It defines one generic coupling (Eq. 2.1) and explicitly offers the colour representation (3bar vs 6) as an alternative the reader must choose, and computes results for both. Table 1 is a catalogue of 4 electroweak assignments (x2 colour reps = up to 8 distinct field contents); the paper says 'we are not concerned about the electroweak structure of the diquark'. I count 2 principal models (antitriplet vs sextet) since those are the two the numerics distinguish. The benchmark reference picks the sextet branch only and bundles three SU(2)-singlet sextets (Y = 1/3, -2/3, 4/3) into one file with generation-indexed coupling matrices (LQQR, LUDL, LDDL, LUUL, made diagonal by MFV.rst), assigns chirality per field according to gauge invariance (six1 gets both ProjP and ProjM; six2 and six3 only ProjM), and adds a scalar potential (Higgs portal + sextet quartics) that the paper never defines. An agent reading only the paper would most plausibly write either (a) a single sextet field of charge 4/3 coupling to uu (the only sextet state used in Sec. 5-6), possibly with both lambdaL and lambdaR on that one field, or (b) both an antitriplet and a sextet diquark; neither matches the three-field reference, and none would include the LHS/LSS potential. Reference defect noted: LSextetKin line 233 uses MSIX2^2 for the six3 mass term instead of MSIX3^2. Superset flag is true because of the potential sector and the three-field content, but the reference is also a subset with respect to colour (no antitriplet) and SU(2) (no (3,1/3) triplet)."
+  },
+  {
+   "page": "Top-Philic-Zprime",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "Top-philic colour-singlet vector resonance V1 (simplified model)"
+   ],
+   "reference_implements": "Top-philic colour-singlet vector resonance V1 (simplified model)",
+   "reference_is_superset": false,
+   "confusion_risk": "low",
+   "reader_confidence": 0.97,
+   "refuted_by": [],
+   "evidence": [
+    "Sec. 2.1: 'We consider a color singlet vector particle (V1) which dominantly couples to top and anti-top' with Eq. (2.1) L_int = ct tbar gamma^mu (cos theta P_L + sin theta P_R) t V1^mu",
+    "Sec. 2.2: 'There are three free parameters, the vector resonance mass (MV1), the overall coupling strength (ct) and the chirality (theta)'; 'We set theta = pi/2 for the rest of discussion'",
+    "Sec. 3: 'Our model implementation is based on the Lagrangian of Eq. (2.1) with parameters MV1, ct and theta'",
+    "Sec. 5 Summary: 'we have considered a case with a color singlet vector resonance, V1. In a simplified model...'"
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper defines exactly one new-physics model: a colour-singlet, self-conjugate vector V1 that couples only to top quarks through Eq. (2.1). The three free parameters (MV1, ct, theta) are a parameter family, not separate models. The contact interaction of Eq. (2.3) is the EFT limit used only to compare with the ATLAS four-top bound, not a separate model. The light-resonance decays (Zh, bb, WW) and the dark-sector bridge mentioned in the summary point to other references and are not defined here. The reference .fr (written by the paper authors) implements exactly Eq. (2.1): one field, two parameters (ct1, theta1 default pi/2), one Lagrangian term. It is not a superset. Minor implementation details an agent could choose differently: the reference gives only the interaction term (no explicit kinetic or mass term for v1), uses PDG 6000055, and gives theta1 the default 1.5708 to match the paper's theta = pi/2 choice. None of these change the physics content."
+  },
+  {
+   "page": "Triplets",
+   "single_model": false,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "0/3",
+   "n_votes_cast": 3,
+   "scorable": false,
+   "pairing_problem": null,
+   "n_models_reader": 2,
+   "n_models_refuters": [
+    2,
+    2
+   ],
+   "model_names": [
+    "Antitriplet (3bar) scalar diquark D, with Table 1 EW options",
+    "Sextet (6) scalar diquark D, with Table 1 EW options"
+   ],
+   "reference_implements": "Antitriplet scalar diquark only, Table 1 row 1 (SU(2)_L singlet, |Y|=1/3, couples to QQ and UD): one field trip1 with Index[Colour], Q=Y=-1/3, coupling d-bar . CC[u] with both projectors via Eps[k,i,j]. The other files SextetDiquarks.fr and SextetDiquarks.2.fr (byte-identical) implement the sextet case all-in-one with three fields six1 (Y=1/3, QQ/UD), six2 (Y=-2/3, DD), six3 (Y=4/3, UU); the SU(2) triplet row of Table 1 is not implemented anywhere.",
+   "reference_is_superset": true,
+   "confusion_risk": "high",
+   "reader_confidence": 0.9,
+   "refuted_by": [],
+   "evidence": [
+    "Abstract: 'a scalar resonant state (\"diquark\") in a color representation of antitriplet or sextet'",
+    "Sec. 2: 'The diquark may be either an antitriplet or a sextet under SU(3)C, independently of the electroweak quantum numbers. Also, the diquark may be either a scalar or vector boson. ... we concentrate on the scalar case.'",
+    "Table 1 lists four (SU(2)_L, U(1)_Y) rows: (1,1/3)->QQ,UD; (3,1/3)->QQ; (1,2/3)->DD; (1,4/3)->UU; 'In each case the SU(3)C quantum number may be either 3bar or 6.'",
+    "Eq. (2.1): L = 2 sqrt2 [ Kbar^i_ab D_i qbar^a (lambda_L P_L + lambda_R P_R) q^C_b + h.c. ]; Sec. 5 and Figs. 4-7 split every result into 'Antitriplet' and 'Sextet' cases"
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper is an NLO QCD calculation, not a model-building paper. It writes one generic Lagrangian (Eq. 2.1) but leaves the colour representation (3bar or 6) and the electroweak assignment (four rows of Table 1) as alternatives the implementer must choose. Sec. 2 says the authors 'are not concerned about the electroweak structure'. Counting colour x EW gives 8 combinations; the paper itself only ever distinguishes the two colour cases, so n_models is reported as 2 with 4 EW sub-options each. The benchmark reference picks one of these: antitriplet, SU(2) singlet, Y=1/3 (ud diquark). Superset is mild: no extra fields, but the reference adds a Higgs-portal term and a quartic self-coupling (LPot) that the paper never writes, generation-index coupling matrices (paper: 'sum over quark flavors suppressed', couplings 'completely independent'), and a nonzero width (paper: 'We do not consider the decay of the diquark'). Confusion sources for a paper-only agent: (1) implementing both colour reps or only the sextet, since the abstract, Sec. 5, Sec. 6 and Appendix A give the sextet equal or greater emphasis and list the sextet Clebsch-Gordans first (Eq. A.6); (2) choosing a different Table 1 EW row (DD, UU, or the SU(2) triplet); (3) declaring the field as the 3bar with Q=+1/3 (the paper's D) rather than the reference's colour-3 trip1 with Q=-1/3; (4) omitting LPot; (5) using scalar lambda_L, lambda_R instead of 3x3 generation matrices; (6) chirality labels: the reference names LQQR with ProjP and LUDL with ProjM, while the paper's Sec. 2 text associates lambda_R with right-handed quarks. Also note the reference header typo '(6, 1, -1/3)' for a triplet field. The page name 'Triplets' is not visible to an agent that reads only the paper."
+  },
+  {
+   "page": "VLC_LN",
+   "single_model": false,
+   "contested": false,
+   "undecided": true,
+   "votes_single": "1/1",
+   "n_votes_cast": 1,
+   "scorable": false,
+   "pairing_problem": "reference VLC.fr implements only a collider subset (pion + rho triplets) of the paper's L+N composite model",
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    null,
+    null
+   ],
+   "model_names": [
+    "L+N half-composite 2HDM: SU(N) confining theory with Dirac fermions L (SM lepton doublet) and N (singlet); low-energy pion octet = triplet pi3 + composite Higgs doublet K2 + singlet eta, with K2-H mixing and SM-gauge anomaly terms"
+   ],
+   "reference_implements": "Only a collider subset of the L+N model: the pion triplet (pi0, pi+) with its W/B anomaly decay term, plus a spin-1 rho triplet (rho0, rho+) coupled to SM left-handed fermion currents (gV = gw^2/grho) and to the pions. The reference header names Barducci, Redi, Tesi (2018), so it comes from the later collider follow-up paper, not from 1508.01112. It omits the K2 doublet, the eta singlet, the K2-H mixing (the 2HDM structure), the CP-violating Yukawa phases, and the relaxion field.",
+   "reference_is_superset": true,
+   "confusion_risk": "high",
+   "reader_confidence": 0.85,
+   "refuted_by": [],
+   "evidence": [
+    "Paper Sec. 2: 'We add to the SM a doublet L and a singlet N in the fundamental representation of SU(N) plus their conjugates' (eq. 2); eq. (5) pion octet 8 = 3_0 + 2_{1/2} + 1_0 (pi3, K2, eta); eq. (8) contains the K2^dagger H mixing term and pi3, eta mass terms",
+    "Paper Sec. 3.2, eq. (26)-(27): anomaly couplings pi3 W B-dual and eta W W-dual / B B-dual; 'their production can also be mediated by composite spin-1 resonances. We will study in detail the collider phenomenology in a separate publication' - the paper never writes rho couplings",
+    "Paper Sec. 3: 'the 5-flavors V + L model where we replace the singlet N with a triplet V' is only a passing mention, not worked out; Sec. 4 relaxion adds only the coupling (34) phi/f G G-dual and computes the vacuum energy, no full phi Lagrangian",
+    "Reference header: M\\$ModelName = \"VLC_LN\"; Authors -> {\"Daniele Barducci, Michele Redi, Andrea Tesi\"}; Date -> \"28. 05. 2018\" - different authors/date from Antipin-Redi 2015"
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper defines one model. It is the L+N vector-like confinement model with Yukawa couplings to the elementary Higgs. The low-energy theory is a chiral Lagrangian (eqs. 6-8) with a pion triplet pi3, a composite doublet K2, and a singlet eta. The K2-H mixing gives a type-I 2HDM. The V+L variant is only named once. The relaxion section (Sec. 4) reuses the same model and adds only an axion-like coupling to the SU(N) gluons; it does not define a second full model. The reference file does not match this paper. Its header names Barducci, Redi, Tesi (May 2018). It implements a collider-vertex file: pion triplet with W couplings and the anomaly term (N=3, f_pi = m_rho/g_rho), plus a rho vector triplet with rho-fermion and rho-pi-pi couplings that the paper never writes. It is a superset in the rho sector and a subset elsewhere: no K2 doublet, no eta, no K2-H mixing, no CP phases, no relaxion. An agent that reads only the paper will most likely write pi3 + K2 + eta with Higgs mixing and anomaly terms, and no rho. This is a very different field content from the reference. The anomaly normalization in the reference also appears to differ by a factor 2 from eq. (26) (no 1/2 from the dual tensor). Reference file: /Users/kenwu/Documents/Github/heptapod/eval/reference_cache/VLC_LN/VLC.fr. Paper text: /Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/VLC_LN/text/1508.01112.txt."
+  },
+  {
+   "page": "VLQ",
+   "single_model": false,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "0/3",
+   "n_votes_cast": 3,
+   "scorable": false,
+   "pairing_problem": null,
+   "n_models_reader": 2,
+   "n_models_refuters": [
+    2,
+    2
+   ],
+   "model_names": [
+    "Vector-like SU(2)_L singlet t' (Q=+2/3) with t-t' mixing angle theta (Sec. 2.1)",
+    "Sequential fourth generation t', b' with unitary 4x4 CKM (Sec. 2.2)"
+   ],
+   "reference_implements": "unclear; closest match is model 1 (vector-like t' singlet) as the T(2/3) sub-sector of a generic 4-VLQ library. The reference is Buchkremer-Cacciapaglia-Deandrea-Panizzi 2013 (X, T, B, Y with arbitrary couplings), not either model of hep-ph/0607115. The fourth-generation model (chiral b', 4x4 CKM) is not in the reference.",
+   "reference_is_superset": true,
+   "confusion_risk": "high",
+   "reader_confidence": 0.92,
+   "refuted_by": [],
+   "evidence": [
+    "Paper intro: 'we present two minimal extensions of the SM that allow a value for Vtb considerably different from one' (Sec. 1, lines 79-80)",
+    "Paper Sec. 2.1, Eqs. (11)-(12): 'introduce one Q = +2/3 vector-like quark ... iso-singlet'; 'only two new parameters beyond the SM, namely the t-t' mixing angle theta and the t' mass'; FCNC Z/H couplings in Eqs. (14)-(16)",
+    "Paper Sec. 2.2, Eq. (31): 'addition of a fourth generation ... presence of b' implies a unitary V4x4 mixing matrix' with three extra angles theta_u, theta_v, theta_w; Conclusions: 'either a vector-like up-type quark (t') or fourth generation quarks (t' and b')'",
+    "Reference VLQ.fr header: 'FeynRules mod-file for Model Independent searches of top partners X(5/3), T(2/3), B(-1/3) & Y(-4/3) with arbitrary couplings', Authors Buchkremer, Cacciapaglia, Deandrea, Panizzi, Version 1.2.5, Date 10.04.2013"
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper (Alwall et al. 2006, 'Is Vtb ~ 1?') is a multi-model paper. It defines two alternatives with different field content: (1) one vector-like SU(2)_L singlet up-type quark t' whose W/Z/H couplings all follow from one mixing angle theta and one mass (Eqs. 5-16); (2) a full chiral fourth generation t', b' with a unitary 4x4 CKM parametrized by three angles (Eq. 31), plus a remark that fourth-generation leptons are needed for anomaly cancellation. It also mentions in passing a vector-like singlet b' variant (Eq. 17) and dismisses it. The benchmark reference VLQ.fr is not an implementation of this paper. It is the 2013 model-independent top-partner library (arXiv:1305.4172): four vector-like quarks X(5/3), T(2/3), B(-1/3), Y(-4/3), each with generic left- and right-handed couplings to W, Z, H for all three SM generations, parametrized by kappa, zeta and branching-ratio inputs; SM couplings are not modified by mixing. X, Y and B never appear in the paper, and the paper's cos^2(theta) suppression of Ztt and the theta-derived coupling relations are not in the reference. The second reference file VLQ_Chromomagnetic.fr adds a chromomagnetic dipole operator (LChromoT, LChromoB with scale Lambda), which the paper also never defines. An agent that reads only the paper would write a 1-field t' singlet model with mixing angle theta, or a 2-quark fourth-generation model, and would not produce X(5/3) or Y(-4/3). The paper-to-reference pairing for this page looks mismatched; the reference belongs to a different arXiv paper."
+  },
+  {
+   "page": "Wprime",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "General W' with arbitrary left/right (C^L, C^R) couplings to quarks and leptons (Eq. 1); W'_L, W'_R and the top-flavor example are coupling choices of the same model"
+   ],
+   "reference_implements": "General W' of Eq. (1): weff.fr (M$ModelName 'WEff', cites Sullivan PRD 66 075011) declares one field V[7] Wp (PDG 34) with LWprime = gL/Sqrt[2]*(vlbar.Ga.ProjM.CLl.l + uqbar.Ga.ProjM.CLq.dq)*Wp + gR/Sqrt[2]*(... ProjP ...)*Wp + h.c.; defaults kL=0, kR=1 select the purely right-handed W'_R case used in the paper's numerics",
+   "reference_is_superset": false,
+   "confusion_risk": "medium",
+   "reader_confidence": 0.92,
+   "refuted_by": [],
+   "evidence": [
+    "Abstract: 'fully differential production and decay of a W' boson, with arbitrary vector and axial-vector couplings, to any final state'",
+    "Eq. (1): 'The most general Lorentz invariant Lagrangian describing the coupling of a W' to fermions may be written as L = g/sqrt2 fbar_i gamma^mu (C^R_{fifj} P_R + C^L_{fifj} P_L) W' f_j + H.c.'; Eq. (2) is the same Lagrangian rewritten with gR cos(zeta) V^R and gL sin(zeta) V^L",
+    "Sec. III A: 'we stick to the assumption that the W' has purely right- or left-handed interactions' and Conclusions Eqs. (48)-(49) top-flavor example: both are coupling choices, not new field content",
+    "Reference header: M$ModelName = \"WEff\"; References->{\"Z. Sullivan, Phys. Rev. D 66 (2002) 075011.\"}; M$ClassesDescription contains only V[7] Wp (PDG 34, Q=1); parameters CRq, CRl, CLq, CLl (3x3) plus kL, kR scale factors"
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper is a single-model paper. It defines one new charged vector W' with one Lagrangian (Eq. 1) and one parameter set (C^L, C^R matrices, or equivalently gL, gR, zeta, omega, V^L, V^R in Eq. 2). Purely left-handed, purely right-handed, lepton-decay-open vs closed, and the top-flavor example are limits or parameter points of the same model. The reference weff.fr (Fuks, FeynRules WEff model) is a one-to-one implementation of Eq. (1): gL/gR times C^L/C^R with Wp coupling to nu-l and u-d for all three generations, both chiralities, no W'-W-Z or W'-W-gamma couplings, no kinetic term written (FeynRules derives the propagator from the class declaration). The reference is not a superset. The main confusion risk is the right-handed neutrino: the abstract and Eq. (28) treat nuR as possibly massive (m = m_nuR), so an agent reading only the paper may add a heavy nuR field (2 new fields) or may drop the leptonic coupling for the closed-channel case, while the reference uses the massless SM neutrino with a right-handed projector. A second, minor risk is parameterization (Eq. 2 style gR cos zeta V^R, gL sin zeta V^L, CP phase omega) versus the reference's C^{L,R} plus kL, kR; this is physically equivalent. Reference default CRq values (CRq[1,1]=1, CRq[2,1]=0) differ from the paper's CKM choice Eq. (24), but that is a parameter value, not a model difference."
+  },
+  {
+   "page": "pNG",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "pNG DM: SM + complex scalar singlet S with softly broken global U(1) (Higgs portal, residual Z2 x CP)"
+   ],
+   "reference_implements": "the pNG DM model of Sec. 2 (the only model in the paper)",
+   "reference_is_superset": false,
+   "confusion_risk": "low",
+   "reader_confidence": 0.97,
+   "refuted_by": [],
+   "evidence": [
+    "Abstract: global fit 'within the pseudo-Nambu-Goldstone dark matter (DM) model emerging from an additional complex scalar singlet with a softly broken global U(1) symmetry'",
+    "Sec. 2, eqs. (2.1)-(2.3): L = LSM + LS + Lsoft, LS = |dS|^2 + muS^2/2 |S|^2 - lamPhiS Phi^dag Phi |S|^2 - lamS/2 |S|^4, Lsoft = muS'^2/4 (S^2 + S*^2); eq. (2.17): '4 free parameters {m_chi, v_s, theta, m_H}'",
+    "Sec. 1 footnote 2: 'Our FeynRules, UFO, CalcHEP and FeynArts model files are publicly available at the FeynRules database' (feynrules wiki/pNG) -- the reference is the paper's own file, author A. Beniwal",
+    "Reference header: 'FeynRules (.fr) file for the SM + pseudo-Nambu-Goldstone (pNG) DM in a softly broken U(1) scalar singlet model'; Lagrangian LS := del[Sbar,mu] del[S,mu] + muSsq/2 Sbar S - lambdaS/2 (Sbar S)^2, Lint := -lambdaPS Phibar Phi Sbar S, Lsoft := muSpsq/4 (S^2 + Sbar^2)"
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper is a global-fit study of one fixed model. Its Sec. 2 writes the full Lagrangian, the unitary-gauge field decomposition, the mass matrix, the mixing angle and the four free parameters. The reference .fr is the SM plus exactly this scalar sector: new fields h2 (the paper's H), X (the pNG DM chi) and the unphysical complex singlet S; internal parameters lambdaP, lambdaS, lambdaPS, muSpsq, muPsq, muSsq are the paper's eqs. (2.18)-(2.20). Default values (Mh2=300, mX=100, vs=300, theta=pi/4) are benchmark inputs, not model content. The paper mentions a Z3-extended version (ref. [43]) and an N-scalar U(1) x S_N generalisation (footnote 1) only as citations; it does not define them. Possible minor deviations by an extraction agent are convention-level only: sign of the mixing rotation, Feynman vs unitary gauge, parameter names. None changes field content or symmetry structure."
+  },
+  {
+   "page": "pSPSS",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": true,
+   "pairing_problem": null,
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "pSPSS (phenomenological symmetry protected seesaw scenario: SM + two sterile Majorana neutrinos N1, N2 forming a pseudo-Dirac pair n4, n5 with mass splitting Delta m and damping lambda)"
+   ],
+   "reference_implements": "pSPSS (section 4.3 / section 5.1 of the paper)",
+   "reference_is_superset": false,
+   "confusion_risk": "low",
+   "reader_confidence": 0.92,
+   "refuted_by": [],
+   "evidence": [
+    "Abstract: 'With the phenomenological symmetry protected seesaw scenario (pSPSS), we introduce a minimal framework ... and present a FeynRules implementation usable in Monte Carlo generators.'",
+    "Sec. 4.3, eq. (4.17): m4/5 = mM(1 + |theta|^2/2) -/+ Delta m/2; 'The relevant parameters of the pSPSS are thus the three active-sterile mixing parameters theta, the heavy neutrino Majorana mass mM, its mass splitting parameters Delta m, and the damping parameter lambda.'",
+    "Sec. 5.1: 'the SM Lagrangian has to be extended by two sterile Majorana neutrinos denoted by N1 (N1L) and N2 (N2L)'; physical fields 'n4 (n4) and n5 (n5)'; PhiNP/vevNP, Un, UnCL, nL, RemoveHigherOrder all named; Table 2 lists the PSPSS block mmaj, deltam, theta1-3, damping.",
+    "Reference header: M$ModelName = \"pSPSS\", Version 1.2, 'phenomenological Symmetry Protected Seesaw with light Dirac neutrinos'; changelog 'v1.1: Light neutrinos are now Dirac', 'v1.2: Correct light neutrino mass normalisation.'"
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper presents the SPSS symmetric limit (eq. 4.2), the SPSS with small breaking terms y2, muM, mu'M (eq. 4.11, mass matrix 4.12, with linear and inverse seesaw as limits), and then reduces it to the pSPSS (sec. 4.3). All three share the same field content (SM + N1 + N2) and the same approximate LNLS; the pSPSS is the only one the paper implements and is the explicit target of sec. 5 and the conclusion. The five benchmarks in Table 1 are parameter points. Appendix A's single-Majorana (A.1) and Dirac (A.4) Lagrangians and Table 3 are comparison cases the paper argues are insufficient; they are not proposed models. The reference .fr is v1.2 (2024-01-24), which post-dates the paper's v1.0: light neutrinos vl are declared Dirac (SelfConjugate -> False) with nL[1..3] = vl*Sqrt[2], which the paper does not mention; default values also differ (Mmaj 20 vs Table 2's 100; theta2 1e-4 vs 1e-3). These are declaration and default details, not distinct physics, and do not make the reference a superset. An agent reading only the paper would almost certainly write the pSPSS as in sec. 5.1; the residual risk is in field-level details (light-neutrino self-conjugacy and Sqrt[2] normalisation in nL, the PhiNP/vevNP trick, the RemoveHigherOrder truncation of the Un expansion), and possibly implementing eq. (4.11) breaking terms instead of a direct deltaM, which the paper explicitly steers away from."
+  },
+  {
+   "page": "topBSM",
+   "single_model": true,
+   "contested": false,
+   "undecided": false,
+   "votes_single": "3/3",
+   "n_votes_cast": 3,
+   "scorable": false,
+   "pairing_problem": "reference now thu.fr (flavour-changing Higgs currents, 0 new fields); the old topBSM.fr pairing was a different paper",
+   "n_models_reader": 1,
+   "n_models_refuters": [
+    1,
+    1
+   ],
+   "model_names": [
+    "SM + flavour-changing top-Higgs dim-6 EFT (O_uphi + O_uG, flavour structures (1,3),(3,1),(2,3),(3,2))"
+   ],
+   "reference_implements": "the single paper model: SM + O_uphi and O_uG for all four flavour structures (u-t and c-t, both chiralities), normalised as in Eqs. (2)-(5) and (7)",
+   "reference_is_superset": false,
+   "confusion_risk": "low",
+   "reader_confidence": 0.88,
+   "refuted_by": [],
+   "evidence": [
+    "Eq. (1): L_EFT = L_SM + sum_i C_i O_i / Lambda^2 + H.c. -- one EFT Lagrangian, no new fields",
+    "Eqs. (2)-(5): O^(1,3)_uG = yt gs (qbar sigma^{mu nu} T^A t) phitilde G^A_{mu nu}; O^(1,3)_uphi = -yt^3 (phi^dag phi)(qbar t) phitilde; plus (3,1); 'replacing the up-quark field with the charm-quark field gives the same set of operators with (2,3) and (3,2) flavor structures'",
+    "Setup: 'There are two main Lorentz structures that contribute to the t -> u_i h decay, the dimension-six Yukawa interaction O_uphi, and the chromomagnetic operator O_uG.'",
+    "thu.fr header: 'Flavor changing Higgs current feynman-rules model', 'Requires the SM.fr module'; no M$ClassesDescription (0 new fields); parameters O13uphi,O23uphi,O31uphi,O32uphi,O13ug,O23ug,O31ug,O32ug,LambdaS; Lagrangian -(LOuphi terms)(Sqrt[2] ymt/vev)^3/LambdaS^2 + (LOug terms) gs Sqrt[2] ymt/vev/LambdaS^2, which matches Eqs. (2)-(5) with yt = Sqrt[2] mt/v from Eq. (7)"
+   ],
+   "refuter_reasons": [],
+   "notes": "The paper (Zhang & Maltoni, t -> u_i h at NLO in QCD) defines one EFT: SM plus two dimension-six operators, O_uphi (flavour-changing Yukawa) and O_uG (flavour-changing chromomagnetic), each with four flavour structures (1,3),(3,1),(2,3),(3,2). No new fields, no new symmetry. The paper also writes two EOM-vanishing counterterm operators O(1), O(2) (Eqs. 33-34) but states they can be ignored; these are not a separate model. Special cases (focus on (1,3), Lambda = 1 TeV, real coefficients) are parameter choices, not separate models. The benchmark reference thu.fr implements exactly this operator set with the paper's normalisation (yt^3 for O_uphi, gs yt for O_uG, 1/Lambda^2) and is not a superset. The second file in the directory, topBSM.fr, is an unrelated MadGraph4-derived library of top-philic resonances (S0, O0, S1, O1, S2); it does not correspond to any model in this paper and is not the scored file. Residual (implementation-level, not model-level) risks for an agent reading only the paper: (a) it may drop O_uG because the paper says it 'contributes only at NLO'; (b) it may implement only the (1,3)/(3,1) u-t structures since the paper says it 'focuses' on them and calls the charm extension trivial; (c) it may apply the dim-4 counterterm shift of Eq. (12) (phi^dag phi - v^2/2) or implement only the tree-level tuh vertex of Eq. (8)/(11) instead of the full gauge-invariant operators; (d) yt normalisation conventions. None of these change field content or symmetry structure, so the paper is clearly single-model."
+  }
+ ]
+}

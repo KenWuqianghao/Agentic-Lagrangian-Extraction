@@ -1,0 +1,1 @@
+Gathering charge assignments and Lagrangian details from the paper for the audit table.

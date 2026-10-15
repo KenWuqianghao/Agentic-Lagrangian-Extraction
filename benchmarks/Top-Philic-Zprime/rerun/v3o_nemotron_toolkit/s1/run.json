@@ -1,0 +1,36 @@
+{
+ "page": "Top-Philic-Zprime",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "toolkit",
+ "seed": 1,
+ "variant": "v3o_nemotron_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 1033.2,
+ "tokens": {
+  "input": 393983,
+  "output": 6027,
+  "reasoning": 12940
+ },
+ "output_max": 128000,
+ "n_events": 80,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 23,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [],
+  "frgen_runs": 4,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3o_nemotron_toolkit/s1/model/Top-Philic-Zprime_gen.fr",
+ "final_lint_findings": 0
+}

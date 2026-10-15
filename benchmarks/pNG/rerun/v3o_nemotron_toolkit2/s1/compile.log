@@ -1,0 +1,107 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+From kernel 2 (Local):
+LoadModel::FAMass: In FeynRules mode, all class members should be given a mass name.
+From kernel 4 (Local):
+LoadModel::FAMass: In FeynRules mode, all class members should be given a mass name.
+From kernel 6 (Local):
+LoadModel::FAMass: In FeynRules mode, all class members should be given a mass name.
+From kernel 3 (Local):
+LoadModel::FAMass: In FeynRules mode, all class members should be given a mass name.
+From kernel 7 (Local):
+LoadModel::FAMass: In FeynRules mode, all class members should be given a mass name.
+
+General::stop: Further output of In FeynRules mode, all class members should be given a mass name. will be suppressed during this calculation.
+Merging model-files...
+This model implementation was created by
+Chiara Arina
+Ankit Beniwal
+Celine Degrande
+Jan Heisig
+Andre Scaffidi
+Model Version: 1.0.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+
+LoadModel::FAMass: In FeynRules mode, all class members should be given a mass name.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+Model pNG_gen loaded.
+[INFO] Lagrangian: LSM + LTotal
+HEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)
+HEPTAPOD-LAGRANGIAN|expression=LSM + LTotal|symbols=LSM,LTotal|terms=1241
+HEPTAPOD-RESIDUAL|count=2|fields=Phi,theta
+[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+General::stop: Further output of QN::NonConserv will be suppressed during this calculation.
+HEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=fail|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. 17 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$F
+HEPTAPOD-CHECK|scope=model|name=kinetic_diagonal|verdict=fail|detail=Neglecting all terms with more than 2 particles. Non diagonal kinetic term found: -(Cos[theta] del[H, Index[Lorentz, mu]] del[HH, Index[Lorentz, mu]] Sin[theta])
+HEPTAPOD-CHECK|scope=model|name=mass_diagonal|verdict=fail|detail=Warning: not numerical value encountered. Unable to decide whether mass term is diagonal Non diagonal mass term found:                                                                                                  2                                          2                                        H HH muSprime2 Cos[theta] Sin[theta]   H HH lambdaPhiS vev  Cos[theta] Sin[theta]   3 H HH lambdaS v
+Neglecting all terms with more than 2 particles.
+Warning: not numerical value encountered. Unable to decide whether mass term is diagonal
+Non diagonal mass term found: -(H*HH*lambdaPhiS*vev*vs*Cos[theta]) - (H*HH*muSprime2*Cos[theta]*Sin[theta])/2 + (H*HH*lambdaPhiS*vev^2*Cos[theta]*Sin[theta])/2 + (3*H*HH*lambdaS*vs^2*Cos[theta]*Sin[theta])/2
+HEPTAPOD-CHECK|scope=model|name=mass_spectrum|verdict=inconclusive|detail=
+[INFO] UFO output: /private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/vbench/open/v3o_nemotron_toolkit2/pNG/s1/pNG_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+260 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 260.
+233 vertices obtained.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 233
+   - Saved vertices in InterfaceRun[ 1 ].
+Quantum number Q not conserved in vertex {A, Phibar, W}.
+Quantum number Y not conserved in vertex {A, Phibar, W}.
+Quantum number Q not conserved in vertex {Phibar, W}.
+Quantum number Y not conserved in vertex {Phibar, W}.
+Quantum number Q not conserved in vertex {W, W}.
+Quantum number Q not conserved in vertex {A, Phibar, Wbar}.
+Quantum number Y not conserved in vertex {A, Phibar, Wbar}.
+Quantum number Q not conserved in vertex {Phibar, Wbar}.
+Quantum number Y not conserved in vertex {Phibar, Wbar}.
+Quantum number Q not conserved in vertex {Wbar, Wbar}.
+Quantum number Q not conserved in vertex {Phibar, W, Z}.
+Quantum number Y not conserved in vertex {Phibar, W, Z}.
+Quantum number Q not conserved in vertex {Phibar, Wbar, Z}.
+Quantum number Y not conserved in vertex {Phibar, Wbar, Z}.
+Preparing Python output.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/233 .
+    - Writing files.
+
+StringJoin::string: String expected at position 2 in P.<>CreateObjectParticleName[PartNameMG[Phibar]].
+
+StringJoin::string: String expected at position 2 in P.<>CreateObjectParticleName[PartNameMG[Phi]].
+
+StringJoin::string: String expected at position 2 in P.<>CreateObjectParticleName[PartNameMG[Phibar]].
+
+General::stop: Further output of StringJoin::string will be suppressed during this calculation.
+Warning: Non positive interaction order QED.
+                This might reduce the efficiency of certain matrix element generators.
+                See logfile for more details.
+Done!
+[INFO] UFO complete: particles.py, vertices.py, couplings.py, parameters.py, coupling_orders.py all present.
+[INFO] Done.

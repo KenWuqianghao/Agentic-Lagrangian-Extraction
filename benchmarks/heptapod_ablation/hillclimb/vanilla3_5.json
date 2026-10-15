@@ -1,0 +1,138 @@
+{
+ "vanilla3": {
+  "papers_scored": 5,
+  "chain_pass": 3,
+  "mean_metric": 0.427,
+  "mean_f1_any": 0.483,
+  "mean_recall_of_passes": 0.676,
+  "rows": [
+   {
+    "paper": "331",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 1.0,
+    "recall": 0.372,
+    "f1": 0.543,
+    "matched": 70,
+    "generated": 70,
+    "reference": 188,
+    "metric": 0.543,
+    "missing": [
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=-1,col=1 bsm:spin1,q=1,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1 sm:25",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 bsm:spin3,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=1,col=1 sm:22",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=1,col=1 sm:23",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:22 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:23 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:24"
+    ],
+    "extra": []
+   },
+   {
+    "paper": "ALRM_general",
+    "chain": false,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.966,
+    "recall": 0.163,
+    "f1": 0.279,
+    "matched": 28,
+    "generated": 29,
+    "reference": 172,
+    "metric": 0.0,
+    "missing": [
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=-1,col=1 bsm:spin1,q=1,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=-1,col=1 bsm:spin3,q=1,col=1 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin1,q=1,col=1 sm:25",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 bsm:spin3,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=0,col=1 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=1,col=1",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=1,col=1 sm:22",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 bsm:spin3,q=1,col=1 sm:23",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:22 sm:24",
+     "bsm:spin1,q=-1,col=1 bsm:spin1,q=0,col=1 sm:23 sm:24"
+    ],
+    "extra": [
+     "bsm:spin3,q=0,col=1 sm:25 sm:25"
+    ]
+   },
+   {
+    "paper": "Wprime",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 0.667,
+    "recall": 1.0,
+    "f1": 0.8,
+    "matched": 4,
+    "generated": 6,
+    "reference": 4,
+    "metric": 0.8,
+    "missing": [],
+    "extra": [
+     "bsm:spin2,q=0,col=1 bsm:spin3,q=-1,col=1 sm:cl",
+     "bsm:spin2,q=0,col=1 bsm:spin3,q=1,col=1 sm:cl"
+    ]
+   },
+   {
+    "paper": "EffLRSM",
+    "chain": false,
+    "has_ufo": false,
+    "reference_ok": true,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "matched": 0,
+    "generated": 0,
+    "reference": 9,
+    "metric": 0.0,
+    "missing": [
+     "bsm:spin2,q=0,col=1 bsm:spin2,q=0,col=1 bsm:spin3,q=0,col=1",
+     "bsm:spin2,q=0,col=1 bsm:spin3,q=-1,col=1 sm:cl",
+     "bsm:spin2,q=0,col=1 bsm:spin3,q=1,col=1 sm:cl",
+     "bsm:spin3,q=-1,col=1 sm:dq sm:uq",
+     "bsm:spin3,q=0,col=1 sm:cl sm:cl",
+     "bsm:spin3,q=0,col=1 sm:dq sm:dq",
+     "bsm:spin3,q=0,col=1 sm:nu sm:nu",
+     "bsm:spin3,q=0,col=1 sm:uq sm:uq",
+     "bsm:spin3,q=1,col=1 sm:dq sm:uq"
+    ],
+    "extra": []
+   },
+   {
+    "paper": "MDMmodel",
+    "chain": true,
+    "has_ufo": true,
+    "reference_ok": true,
+    "precision": 1.0,
+    "recall": 0.655,
+    "f1": 0.792,
+    "matched": 19,
+    "generated": 19,
+    "reference": 29,
+    "metric": 0.792,
+    "missing": [
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=-0.6667,col=3 sm:uq",
+     "bsm:spin1,q=0,col=1 bsm:spin2,q=0.6667,col=3 sm:uq",
+     "bsm:spin2,q=-0.6667,col=3 bsm:spin2,q=0.6667,col=3 sm:22",
+     "bsm:spin2,q=-0.6667,col=3 bsm:spin2,q=0.6667,col=3 sm:23",
+     "bsm:spin2,q=-0.6667,col=3 sm:23 sm:uq",
+     "bsm:spin2,q=-0.6667,col=3 sm:24 sm:dq",
+     "bsm:spin2,q=-0.6667,col=3 sm:25 sm:uq",
+     "bsm:spin2,q=0.6667,col=3 sm:23 sm:uq",
+     "bsm:spin2,q=0.6667,col=3 sm:24 sm:dq",
+     "bsm:spin2,q=0.6667,col=3 sm:25 sm:uq"
+    ],
+    "extra": []
+   }
+  ]
+ }
+}

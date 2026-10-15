@@ -1,0 +1,1 @@
+SM.fr confirms `uq/dq/l` are Dirac physical fields (`lR = ProjP l`), so `ProjP` placements are valid. Now re-reading the paper's exact Eqs. (2),(3),(5),(7)-(9) and any L/B assignments for the audit.

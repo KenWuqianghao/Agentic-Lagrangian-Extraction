@@ -1,0 +1,15 @@
+{
+ "tool_calls": 77,
+ "read_paper": true,
+ "escapes": [],
+ "forbidden": [],
+ "denied_attempts": [
+  "bash:{\"command\": \"ls -la\"}",
+  "bash:{\"command\": \"rg -n '^\\\\s*([A-Za-z][A-Za-z0-9]*|\\\\w+\\\\[[^\\\\]]*\\\\])\\\\s*==\\\\s*\\\\{' ",
+  "bash:{\"command\": \"rg -n 'benchmark|Benchmark|\\u03b2=|beta =|\\\\\\\\\\\\\\\\beta=|\\\\\\\\beta =|"
+ ],
+ "frgen_runs": 0,
+ "contaminated": false,
+ "audit_ok": true,
+ "tampered": []
+}

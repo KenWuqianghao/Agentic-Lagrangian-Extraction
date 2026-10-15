@@ -1,0 +1,280 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+From kernel 1 (Local):
+IntOrder::Overwrite: Warning: Conflicting definitions for InteractionOrder Hierachy found for NP. Last definition is kept.
+From kernel 2 (Local):
+IntOrder::Overwrite: Warning: Conflicting definitions for InteractionOrder Hierachy found for NP. Last definition is kept.
+From kernel 3 (Local):
+IntOrder::Overwrite: Warning: Conflicting definitions for InteractionOrder Hierachy found for NP. Last definition is kept.
+From kernel 4 (Local):
+IntOrder::Overwrite: Warning: Conflicting definitions for InteractionOrder Hierachy found for NP. Last definition is kept.
+From kernel 5 (Local):
+IntOrder::Overwrite: Warning: Conflicting definitions for InteractionOrder Hierachy found for NP. Last definition is kept.
+
+General::stop: Further output of Warning: Conflicting definitions for InteractionOrder `1` found for `2`. Last definition is kept. will be suppressed during this calculation.
+From kernel 1 (Local):
+MergeModels::Params: Warning: Doubly defined parameter classes.
+From kernel 2 (Local):
+MergeModels::Params: Warning: Doubly defined parameter classes.
+From kernel 3 (Local):
+MergeModels::Params: Warning: Doubly defined parameter classes.
+From kernel 4 (Local):
+MergeModels::Params: Warning: Doubly defined parameter classes.
+From kernel 5 (Local):
+MergeModels::Params: Warning: Doubly defined parameter classes.
+
+General::stop: Further output of Warning: Doubly defined parameter classes. will be suppressed during this calculation.
+From kernel 2 (Local):
+ReplaceAll::reps: {8} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 4 (Local):
+ReplaceAll::reps: {8} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 8 (Local):
+ReplaceAll::reps: {8} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 2 (Local):
+ReplaceAll::reps: {8} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 3 (Local):
+ReplaceAll::reps: {8} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of `1` is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing. will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+From kernel 8 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+Merging model-files...
+
+IntOrder::Overwrite: Warning: Conflicting definitions for InteractionOrder Hierachy found for NP. Last definition is kept.
+
+MergeModels::Params: Warning: Doubly defined parameter classes.
+This model implementation was created by
+EffLRSM benchmark extraction (arXiv:1610.08985)
+Model Version: 1.0
+http://feynrules.irmp.ucl.ac.be/wiki/EffLRSM
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+ReplaceAll::reps: {8} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+ReplaceAll::reps: {8} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+ReplaceAll::reps: {8} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+
+Model EffLRSM_gen loaded.
+[INFO] Lagrangian: LTotal
+HEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)
+HEPTAPOD-LAGRANGIAN|expression=LTotal|symbols=LTotal|terms=586
+HEPTAPOD-RESIDUAL|count=0|fields=
+
+Global`a$::shdw: Symbol a$ appears in multiple contexts {Global`, FeynRules`}; definitions in context Global` may shadow or be shadowed by other definitions.
+[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+HEPTAPOD-HERM|i=1|fields=WRbar|expr=((-1/2*I)*ee*kappaRell*(Conjugate[Ymix[Index[Generation, 1], Index[Generation, 1]]]*(lbar[Index[Spin, a]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . NR1*Ga[0, r$18639, 1] + lbar[Index[Spin, b]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . Ga[5] . NR1*Ga[0, r$18640, 1] - lbar[Index[Spin, c]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . NR1*Ga[0, r$22518, Index[Spin, 1]] - lbar[Index[Spin, d]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . Ga[5] . NR1*Ga[0, r$22519, Index[Spin, 1]]) + Conjugate[Ymix[Index[Generation, 2], Index[Generation, 2]]]*(lbar[Index[Spin, a]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . NR2*Ga[0, r$18641, 2] + lbar[Index[Spin, b]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . Ga[5] . NR2*Ga[0, r$18642, 2] - lbar[Index[Spin, c]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . NR2*Ga[0, r$22520, Index[Spin, 2]] - lbar[Index[Spin, d]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . Ga[5] . NR2*Ga[0, r$22521, Index[Spin, 2]]) + Conjugate[Ymix[Index[Generation, 3], Index[Generation, 3]]]*(lbar[Index[Spin, a]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . NR3*Ga[0, r$18643, 3] + lbar[Index[Spin, b]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . Ga[5] . NR3*Ga[0, r$18644, 3] - lbar[Index[Spin, c]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . NR3*Ga[0, r$22522, Index[Spin, 3]] - lbar[Index[Spin, d]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . Ga[5] . NR3*Ga[0, r$22523, Index[Spin, 3]])))/(Sqrt[2]*sw)
+HEPTAPOD-HERM|i=2|fields=WR|expr=((-1/2*I)*ee*kappaRell*(NR1 . Ga[Index[Lorentz, Ext[1]]] . l[Index[Spin, 1]]*Ymix[Index[Generation, 1], Index[Generation, 1]] + NR1 . Ga[Index[Lorentz, Ext[1]]] . Ga[5] . l[Index[Spin, 1]]*Ymix[Index[Generation, 1], Index[Generation, 1]] - NR1 . Ga[Index[Lorentz, Ext[1]]] . l[Index[Spin, a]]*Ga[0, 1, r$18639]*Ga[0, Index[Spin, b], r$22446]*Ymix[Index[Generation, 1], Index[Generation, 1]] - NR1 . Ga[Index[Lorentz, Ext[1]]] . Ga[5] . l[Index[Spin, c]]*Ga[0, 1, r$18640]*Ga[0, Index[Spin, d], r$22448]*Ymix[Index[Generation, 1], Index[Generation, 1]] + NR2 . Ga[Index[Lorentz, Ext[1]]] . l[Index[Spin, 2]]*Ymix[Index[Generation, 2], Index[Generation, 2]] + NR2 . Ga[Index[Lorentz, Ext[1]]] . Ga[5] . l[Index[Spin, 2]]*Ymix[Index[Generation, 2], Index[Generation, 2]] - NR2 . Ga[Index[Lorentz, Ext[1]]] . l[Index[Spin, a]]*Ga[0, 2, r$18641]*Ga[0, Index[Spin, b], r$22450]*Ymix[Index[Generation, 2], Index[Generation, 2]] - NR2 . Ga[Index[Lorentz, Ext[1]]] . Ga[5] . l[Index[Spin, c]]*Ga[0, 2, r$18642]*Ga[0, Index[Spin, d], r$22452]*Ymix[Index[Generation, 2], Index[Generation, 2]] + NR3 . Ga[Index[Lorentz, Ext[1]]] . l[Index[Spin, 3]]*Ymix[Index[Generation, 3], Index[Generation, 3]] + NR3 . Ga[Index[Lorentz, Ext[1]]] . Ga[5] . l[Index[Spin, 3]]*Ymix[Index[Generation, 3], Index[Generation, 3]] - NR3 . Ga[Index[Lorentz, Ext[1]]] . l[Index[Spin, a]]*Ga[0, 3, r$18643]*Ga[0, Index[Spin, b], r$22454]*Ymix[Index[Generation, 3], Index[Generation, 3]] - NR3 . Ga[Index[Lorentz, Ext[1]]] . Ga[5] . l[In
+HEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=fail|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. 6 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$Fe
+HEPTAPOD-CHECK|scope=model|name=kinetic_diagonal|verdict=pass|detail=Neglecting all terms with more than 2 particles. All kinetic terms are diagonal.
+HEPTAPOD-CHECK|scope=model|name=mass_diagonal|verdict=pass|detail=All mass terms are diagonal.
+Neglecting all terms with more than 2 particles.
+All mass terms are diagonal.
+Getting mass spectrum.
+Checking for less then 0.1% agreement with model file values.
+HEPTAPOD-MASS|particle=H|derived=125.00000000000006|declared=125.|agrees=True
+HEPTAPOD-MASS|particle=ghWm|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=ghWp|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=ghZ|derived=91.18760000000003|declared=91.1876|agrees=True
+HEPTAPOD-MASS|particle=NR1|derived=173.3|declared=173.3|agrees=True
+HEPTAPOD-MASS|particle=NR2|derived=1.*^12|declared=1.*^12|agrees=True
+HEPTAPOD-MASS|particle=NR3|derived=1.*^12|declared=1.*^12|agrees=True
+HEPTAPOD-MASS|particle=b|derived=4.700000000000002|declared=4.7|agrees=True
+HEPTAPOD-MASS|particle=d|derived=0.005040000000000001|declared=0.00504|agrees=True
+HEPTAPOD-MASS|particle=s|derived=0.10100000000000002|declared=0.101|agrees=True
+HEPTAPOD-MASS|particle=e|derived=0.0005110000000000001|declared=0.000511|agrees=True
+HEPTAPOD-MASS|particle=mu|derived=0.10566000000000003|declared=0.10566|agrees=True
+HEPTAPOD-MASS|particle=ta|derived=1.7770000000000006|declared=1.777|agrees=True
+HEPTAPOD-MASS|particle=c|derived=1.2700000000000002|declared=1.27|agrees=True
+HEPTAPOD-MASS|particle=t|derived=172.00000000000003|declared=172.|agrees=True
+HEPTAPOD-MASS|particle=u|derived=0.002550000000000001|declared=0.00255|agrees=True
+HEPTAPOD-MASS|particle=W|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=WR|derived=3000.|declared=3000.|agrees=True
+HEPTAPOD-MASS|particle=Z|derived=91.18760000000003|declared=91.1876|agrees=True
+HEPTAPOD-MASS|particle=ZR|derived=5070.|declared=5070.|agrees=True
+HEPTAPOD-CHECK|scope=model|name=mass_spectrum|verdict=pass|detail=
+HEPTAPOD-HERMBLOCK|block=LNkin|contents=NR1 NR1bar;NR2 NR2bar;NR3 NR3bar
+HEPTAPOD-HERMBLOCK|block=LNmass|contents=NR1 NR1bar;NR2 NR2bar;NR3 NR3bar
+HEPTAPOD-HERMBLOCK|block=LTotal|contents=G0 G0 G0 G0;G0 G0 GP GPbar;GP GP GPbar GPbar;G0 G0 H H;GP GPbar H H;H H H H;G0 G0;GP GPbar;H H;G0 G0 H;GP GPbar H;H H H;H;;A A G0 G0;A A GP GPbar;A A H H;A A H;A A;A G0 H;A G0;A GP GPbar;G G;W Wbar;WR WRbar;Z Z;ZR ZR;ghAbar ghWm W;ghAbar ghWp Wbar;ghA ghAbar;ghA ghWmbar GPbar;ghA ghWmbar Wbar;G0 ghWm ghWmbar;ghWm ghWmbar H;ghWm ghWmbar;A ghWm ghWmbar;ghWm ghWmbar Z;ghWmbar ghZ GPbar;ghWmbar ghZ Wbar;ghA ghWpbar GP;ghA ghWpbar W;G0 ghWp ghWpbar;ghWp ghWpbar H;ghWp ghWpbar;A ghWp ghWpbar;ghWp ghWpbar Z;ghWpbar ghZ GP;ghWpbar ghZ W;ghWm ghZbar GP;ghWm ghZbar W;ghWp ghZbar GPbar;ghWp ghZbar Wbar;ghZ ghZbar H;ghZ ghZbar;ghG ghGbar;NR1 NR1bar;NR2 NR2bar;NR3 NR3bar;G ghG ghGbar;G G G;G G G G;A A G0 GP;A A GP H;A A GP;A G0 GP;A GP H;A GP;A A G0 GPbar;A A GPbar H;A A GPbar;A G0 GPbar;A GPbar H;A GPbar;bbar c GPbar;bbar GPbar t;bbar GPbar u;c dbar GPbar;dbar GPbar t;dbar GPbar u;c GPbar sbar;GPbar sbar t;GPbar sbar u;bbar G0;bbar d G0;bbar G0 s;dbar G0;d dbar G0;dbar G0 s;G0 sbar;d G0 sbar;G0 s sbar;bbar H;bbar d H;bbar H s;dbar H;d dbar H;dbar H s;H sbar;d H sbar;H s sbar;bbar;bbar d;bbar s;dbar;d dbar;dbar s;sbar;d sbar;s sbar;ebar GPbar ve;GPbar mubar vm;GPbar tabar vt;e ebar G0;G0 mu mubar;G0 ta tabar;e ebar H;H mu mubar;H ta tabar;e ebar;mu mubar;ta tabar;cbar GP;cbar d GP;cbar GP s;GP tbar;d GP tbar;GP s tbar;GP ubar;d GP ubar;GP s ubar;c cbar G0;G0 t tbar;G0 u ubar;c cbar H;H t tbar;H u ubar;c cbar;t tbar;u ubar;A W Wbar;A G0 GP W;A GP GPbar W;A GP H W;A GP W;G0 GP W;GP GPbar W;GP H W;GP W;A G0 G0 W;A G0 GPbar W;A GPbar H W;A H H W;A GPbar W;A H W;A W;G0 GPbar W;G0 H W;G0 W;GPbar H W;GPbar W;G0 GP W W;GP GPbar W W;GP H W W;GP W W;G0 G0 W W;G0 GPbar W W;GPbar H W W;H H W W;GPbar W W;H W W;W W;A G0 GP Wbar;A GP GPbar Wbar;A GP H Wbar;A GP Wbar;G0 GP Wbar;GP GPbar Wbar;GP H Wbar;GP Wbar;A G0 G0 Wbar;A G0 GPbar Wbar;A GPbar H Wbar;A H H Wbar;A GPbar Wbar;A H Wbar;A Wbar;G0 GPbar Wbar;G0 H Wbar;G0 Wbar;GPbar H Wbar;GPbar Wbar;A A W Wbar;G0 GP W Wbar;GP GPbar W Wbar;GP H W Wbar;GP W Wbar;G0 G0 W Wbar;G0 GPbar W Wbar;GPbar H W Wbar;H H W Wbar;GPbar W Wbar;H W Wbar;W Wbar Z;G0 GP Wbar Wbar;GP GPbar Wbar Wbar;GP H Wbar Wbar;GP Wbar Wbar;G0 G0 Wbar Wbar;G0 GPbar Wbar Wbar;GPbar H Wbar Wbar;H H Wbar Wbar;GPbar Wbar Wbar;H Wbar Wbar;Wbar Wbar;W W Wbar Wbar;lbar NR1 WRbar;lbar NR2 WRbar;lbar NR3 WRbar;e GP vebar;GP mu vmbar;GP ta vtbar;l NR1bar WR;l NR2bar WR;l NR3bar WR;A G0 G0 Z;A GP GPbar Z;A H H Z;A H Z;A Z;G0 H Z;G0 Z;GP GPbar Z;A G0 GP Z;A GP H Z;A GP Z;G0 GP Z;GP H Z;GP Z;A G0 GPbar Z;A GPbar H Z;A GPbar Z;G0 GPbar Z;GPbar H Z;GPbar Z;G0 GP W Z;GP GPbar W Z;GP H W Z;GP W Z;G0 G0 W Z;G0 GPbar W Z;GPbar H W Z;H H W Z;GPbar W Z;H W Z;W Z;G0 GP Wbar Z;GP GPbar Wbar Z;GP H Wbar Z;GP Wbar Z;G0 G0 Wbar Z;G0 GPbar Wbar Z;GPbar H Wbar Z;H H Wbar Z;GPbar Wbar Z;H Wbar Z;Wbar Z;A W Wbar Z;G0 G0 Z Z;GP GPbar Z Z;H H Z Z;H Z Z;G0 GP Z Z;GP H Z Z;GP Z Z;G0 GPbar Z Z;GPbar H Z Z;GPbar Z Z;W Wbar Z Z;bbar ZR;d dbar ZR;s sbar ZR;e ebar ZR;mu mubar ZR;ta tabar ZR;c cbar ZR;t tbar ZR;u ubar ZR;ve vebar ZR;vm vmbar ZR;vt vtbar ZR;A ve vebar;A vm vmbar;A vt vtbar;A e ebar;A mu mubar;A ta tabar;ve vebar;vm vmbar;vt vtbar;A c cbar;A t tbar;A u ubar;A bbar;A bbar d;A bbar s;A dbar;A d dbar;A dbar s;A sbar;A d sbar;A s sbar;c cbar G;G t tbar;G u ubar;bbar G;bbar d G;bbar G s;dbar G;d dbar G;dbar G s;G sbar;d G sbar;G s sbar;c cbar W;t tbar W;u ubar W;c cbar Wbar;t tbar Wbar;u ubar Wbar;bbar c W;bbar t W;bbar u W;c dbar W;dbar t W;dbar u W;c sbar W;sbar t W;sbar u W;bbar c Wbar;bbar t Wbar;bbar u Wbar;c dbar Wbar;dbar t Wbar;dbar u Wbar;c sbar Wbar;sbar t Wbar;sbar u Wbar;ve vebar W;vm vmbar W;vt vtbar W;ve vebar Wbar;vm vmbar Wbar;vt vtbar Wbar;ebar ve W;mubar vm W;tabar vt W;ebar ve Wbar;mubar vm Wbar;tabar vt Wbar;cbar W;cbar d W;cbar s W;tbar W;d tbar W;s tbar W;ubar W;d ubar W;s ubar W;cbar Wbar;cbar d Wbar;cbar s Wbar;tbar Wbar;d tbar Wbar;s tbar Wbar;ubar Wbar;d ubar Wbar;s ubar Wbar;dbar W;d dbar W;dbar s W;bbar W;bbar d W;bbar s W;dbar Wbar;d dbar Wbar;dbar s Wbar;bbar Wbar;bbar d Wbar;bbar s Wbar;e vebar W;mu vmbar W;ta vtbar W;e vebar Wbar;mu vmbar Wbar;ta vtbar Wbar;e ebar W;mu mubar W;ta tabar W;e ebar Wbar;mu mubar Wbar;ta tabar Wbar;c cbar Z;t tbar Z;u ubar Z;A bbar c;A bbar t;A bbar u;A c dbar;A dbar t;A dbar u;A c sbar;A sbar t;A sbar u;bbar c Z;bbar t Z;bbar u Z;c dbar Z;dbar t Z;dbar u Z;c sbar Z;sbar t Z;sbar u Z;ve vebar Z;vm vmbar Z;vt vtbar Z;A ebar ve;A mubar vm;A tabar vt;ebar ve Z;mubar vm Z;tabar vt Z;A cbar;A cbar d;A cbar s;A tbar;A d tbar;A s tbar;A ubar;A d ubar;A s ubar;cbar Z;cbar d Z;cbar s Z;tbar Z;d tbar Z;s tbar Z;ubar Z;d ubar Z;s ubar Z;sbar Z;d sbar Z;s sbar Z;bbar Z;bbar d Z;bbar s Z;A e vebar;A mu vmbar;A ta vtbar;e vebar Z;mu vmbar Z;ta vtbar Z;e ebar Z;mu mubar Z;ta tabar Z;dbar Z;d dbar Z;dbar s Z;d ubar WR;s ubar WR;ubar WR;cbar d WR;cbar s WR;cbar WR;d tbar WR;s tbar WR;tbar WR;bbar c WRbar;bbar t WRbar;bbar u WRbar;c dbar WRbar;dbar t WRbar;dbar u WRbar;c sbar WRbar;sbar t WRbar;sbar u WRbar;NR1 NR1bar ZR;NR2 NR2bar ZR;NR3 NR3bar ZR
+HEPTAPOD-HERMBLOCK|block=LWRkin|contents=WR WRbar
+HEPTAPOD-HERMBLOCK|block=LWRlepton|contents=lbar NR1 WRbar;lbar NR2 WRbar;lbar NR3 WRbar;l NR1bar WR;l NR2bar WR;l NR3bar WR
+HEPTAPOD-HERMBLOCK|block=LWRquark|contents=d ubar WR;s ubar WR;ubar WR;cbar d WR;cbar s WR;cbar WR;d tbar WR;s tbar WR;tbar WR;bbar c WRbar;bbar t WRbar;bbar u WRbar;c dbar WRbar;dbar t WRbar;dbar u WRbar;c sbar WRbar;sbar t WRbar;sbar u WRbar
+HEPTAPOD-HERMBLOCK|block=LZRN|contents=NR1 NR1bar ZR;NR2 NR2bar ZR;NR3 NR3bar ZR
+HEPTAPOD-HERMBLOCK|block=LZRkin|contents=ZR ZR
+HEPTAPOD-HERMBLOCK|block=LZRlepton|contents=e ebar ZR;mu mubar ZR;ta tabar ZR;ve vebar ZR;vm vmbar ZR;vt vtbar ZR
+HEPTAPOD-HERMBLOCK|block=LZRquark|contents=bbar ZR;d dbar ZR;s sbar ZR;c cbar ZR;t tbar ZR;u ubar ZR
+[INFO] UFO output: /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/cc_replay/EffLRSM/validation/call1/round0/UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+229 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 229.
+198 vertices obtained.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 198
+   - Saved vertices in InterfaceRun[ 1 ].
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+General::stop: Further output of QN::NonConserv will be suppressed during this calculation.
+Quantum number Q not conserved in vertex {WRbar}.
+Quantum number Q not conserved in vertex {WR}.
+Preparing Python output.
+
+Part::pkspec1: The expression lbar[Index[Spin, a]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . NR1 cannot be used as a part specification.
+
+Inner::incom: Length 0 of dimension 1 in {} is incommensurate with length 1 of dimension 1 in {lbar[Index[Spin, a]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . NR1}.
+
+Inner::normal: Nonatomic expression expected at position 3 in Inner[PRIVATE`TurnFermionicIndexDeltas, lbar[Index[Spin, a]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . NR1, List].
+
+Join::heads: Heads Inner and List at positions 1 and 2 are expected to be the same.
+
+Join::heads: Heads Inner and List at positions 1 and 2 are expected to be the same.
+
+Join::heads: Heads Inner and List at positions 1 and 2 are expected to be the same.
+
+General::stop: Further output of Join::heads will be suppressed during this calculation.
+
+Function::slotn: Slot number 2 in Ext[#2, opt___] -> Ext[#3, opt] &  cannot be filled from (Ext[#2, opt___] -> Ext[#3, opt] & )[1].
+
+Function::slotn: Slot number 3 in Ext[#2, opt___] -> Ext[#3, opt] &  cannot be filled from (Ext[#2, opt___] -> Ext[#3, opt] & )[1].
+
+Function::slotn: Slot number 3 in Ext[#2, opt___] -> Ext[#3, opt] &  cannot be filled from (Ext[#2, opt___] -> Ext[#3, opt] & )[{WRbar, 1}, 2].
+
+General::stop: Further output of Function::slotn will be suppressed during this calculation.
+
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+
+MapAt::partw: Part {1} of List does not exist.
+
+MapAt::partw: Part {1} of 1 does not exist.
+
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+From kernel 1 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 2 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 3 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 4 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+From kernel 5 (Local):
+MapAt::partw: Part {1} of PRIVATE`TurnFermionicIndexDeltas does not exist.
+
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of MapAt::partw will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+From kernel 1 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 2 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 3 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 4 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 5 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+From kernel 1 (Local):
+ReplaceAll::reps: {Rule[Ext[lbar[Index[Spin, a]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . NR1, opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 2 (Local):
+ReplaceAll::reps: {Rule[Ext[lbar[Index[Spin, a]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . NR1, opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 3 (Local):
+ReplaceAll::reps: {Rule[Ext[lbar[Index[Spin, a]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . NR1, opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 4 (Local):
+ReplaceAll::reps: {Rule[Ext[lbar[Index[Spin, a]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . NR1, opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 5 (Local):
+ReplaceAll::reps: {Rule[Ext[lbar[Index[Spin, a]] . Ga[0] . Ga[Index[Lorentz, Ext[1]]] . NR1, opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of `1` is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing. will be suppressed during this calculation.
+
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+From kernel 1 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 2 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 3 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 4 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+From kernel 5 (Local):
+Rule::argrx: Rule called with 6 arguments; 2 arguments are expected.
+
+General::stop: Further output of Rule::argrx will be suppressed during this calculation.
+From kernel 1 (Local):
+ReplaceAll::reps: {Rule[Ext[lbar[Index[Spin, a]] . L$Ga[0] . L$Ga[Index[Lorentz, Ext[1]]] . NR1, opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 2 (Local):
+ReplaceAll::reps: {Rule[Ext[lbar[Index[Spin, a]] . L$Ga[0] . L$Ga[Index[Lorentz, Ext[1]]] . NR1, opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 3 (Local):
+ReplaceAll::reps: {Rule[Ext[lbar[Index[Spin, a]] . L$Ga[0] . L$Ga[Index[Lorentz, Ext[1]]] . NR1, opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 4 (Local):
+ReplaceAll::reps: {Rule[Ext[lbar[Index[Spin, a]] . L$Ga[0] . L$Ga[Index[Lorentz, Ext[1]]] . NR1, opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 5 (Local):
+ReplaceAll::reps: {Rule[Ext[lbar[Index[Spin, a]] . L$Ga[0] . L$Ga[Index[Lorentz, Ext[1]]] . NR1, opt___], Ext[List, opt], Ext[#2, opt___], Ext[#3, opt], Ext[2, opt___], Ext[#3, opt]]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of `1` is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing. will be suppressed during this calculation.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/198 .
+
+StringJoin::string: String expected at position 1 in PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>V<>PRIVATE`ConvertSpinToString[0]<>1.
+
+StringJoin::string: String expected at position 2 in PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>V<>PRIVATE`ConvertSpinToString[0]<>1.
+
+StringJoin::string: String expected at position 3 in PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>V<>PRIVATE`ConvertSpinToString[0]<>1.
+
+General::stop: Further output of StringJoin::string will be suppressed during this calculation.
+    - Writing files.
+Done!
+[INFO] UFO complete: particles.py, vertices.py, couplings.py, parameters.py, coupling_orders.py all present.
+[INFO] Done.

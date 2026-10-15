@@ -1,0 +1,18 @@
+# CodeRabbit config: review code and docs, skip stored benchmark results and binaries
+# (keeps PRs under the 300-file limit)
+reviews:
+  path_filters:
+    - "!**/*.json"
+    - "!**/*.jsonl"
+    - "!**/*.txt"
+    - "!**/*.log"
+    - "!**/*.fr"
+    - "!**/*.wl"
+    - "!benchmarks/**/*.html"
+    - "!benchmarks/**/*.md"
+    - "!**/*.png"
+    - "!**/*.svg"
+    - "!**/*.pdf"
+    - "!**/*.zip"
+    - "!**/*.tsv"
+    - "!**/*.diff"

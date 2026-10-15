@@ -1,0 +1,34 @@
+{
+ "page": "pSPSS",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "toolkit",
+ "seed": 1,
+ "variant": "v3o_nemotron_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": 1,
+ "timed_out": true,
+ "nudges": 2,
+ "seconds": 3600.0,
+ "tokens": {
+  "input": 127321,
+  "output": 5921,
+  "reasoning": 15827
+ },
+ "output_max": 128000,
+ "n_events": 38,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 9,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_spec"
+}

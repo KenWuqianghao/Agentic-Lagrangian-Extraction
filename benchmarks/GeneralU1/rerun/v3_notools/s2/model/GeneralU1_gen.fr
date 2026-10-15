@@ -1,0 +1,225 @@
+(* FeynRules add-on: minimal general U(1)_X extension of the SM              *)
+(* A. Das, P. S. B. Dev, Y. Hosotani, S. Mandal, arXiv:2104.10902            *)
+(* New states: Z' gauge boson, 3 Majorana RHNs N1,N2,N3, real singlet phiX   *)
+(* Loaded on top of SM.fr                                                    *)
+
+M$ModelName = "GeneralU1_gen";
+
+M$Information = {
+  Authors      -> {"automated extraction from arXiv:2104.10902"},
+  Version      -> "1.0",
+  Date         -> "09. 09. 2026",
+  Institutions -> {"-"},
+  Emails       -> {"-"},
+  References   -> {"A. Das, P. S. B. Dev, Y. Hosotani, S. Mandal, arXiv:2104.10902"},
+  URLs         -> "https://arxiv.org/abs/2104.10902"
+};
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP,  1}
+};
+
+(* No new index is required: Colour, Gluon, Generation, SU2D and SU2W are    *)
+(* declared by SM.fr and every new state is a colour singlet.                *)
+
+(* U(1)_X charges, Table I:                                                  *)
+(*   q_L: xH/6 + xphi/3     u_R: 2 xH/3 + xphi/3    d_R: -xH/3 + xphi/3      *)
+(*   l_L: -xH/2 - xphi      e_R: -xH - xphi         N_R: -xphi               *)
+(* The paper's H has Y = -1/2 (it writes qbar_L H u_R), so it is the         *)
+(* conjugate of the SM.fr doublet Phi (Y = +1/2). Invariance of the three    *)
+(* SM.fr Yukawas fixes X(Phi_SM.fr) = + xH/2. The charges are symbolic, so   *)
+(* they enter the Lagrangian as parameters, not as numeric QuantumNumbers.   *)
+
+M$Parameters = {
+
+  gX == {
+    ParameterType    -> External,
+    BlockName        -> ZPINPUTS,
+    OrderBlock       -> 1,
+    Value            -> 0.4,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[g, X],
+    Description      -> "U(1)_X gauge coupling g'; benchmark 0.4 for MZp = 7.5 TeV"
+  },
+  xH == {
+    ParameterType -> External,
+    BlockName     -> ZPINPUTS,
+    OrderBlock    -> 2,
+    Value         -> 2.,
+    TeX           -> Subscript[x, H],
+    Description   -> "U(1)_X charge parameter x_H (Table I); x_H=0 with x_Phi=1 is B-L"
+  },
+  xphi == {
+    ParameterType -> External,
+    BlockName     -> ZPINPUTS,
+    OrderBlock    -> 3,
+    Value         -> 1.,
+    Description   -> "U(1)_X charge parameter x_Phi; fixed to 1 in the paper"
+  },
+  vX == {
+    ParameterType -> External,
+    BlockName     -> ZPINPUTS,
+    OrderBlock    -> 4,
+    Value         -> 9375.,
+    Description   -> "U(1)_X VEV v_Phi in GeV; with gX=0.4, xphi=1 gives MZp = 7.5 TeV"
+  },
+  lamHP == {
+    ParameterType    -> External,
+    BlockName        -> ZPINPUTS,
+    OrderBlock       -> 5,
+    Value            -> 0.001,
+    InteractionOrder -> {NP, 2},
+    Description      -> "Higgs portal quartic lambda'; the paper works in the small lambda' limit where the h-phiX mixing is negligible"
+  },
+  yv == {
+    ParameterType    -> External,
+    Indices          -> {Index[Generation], Index[Generation]},
+    BlockName        -> YUKNU,
+    ComplexParameter -> False,
+    InteractionOrder -> {NP, 1},
+    Value            -> {yv[1,1] -> 1.*^-6, yv[1,2] -> 0.,     yv[1,3] -> 0.,
+                         yv[2,1] -> 0.,     yv[2,2] -> 1.*^-6, yv[2,3] -> 0.,
+                         yv[3,1] -> 0.,     yv[3,2] -> 0.,     yv[3,3] -> 1.*^-6},
+    TeX              -> Subscript[Y, \[Nu]],
+    Description      -> "Dirac neutrino Yukawa Y_nu, Eq.(1); m_D = Y_nu v/Sqrt[2]"
+  },
+
+  xq == { ParameterType -> Internal, Value -> xH/6 + xphi/3,
+          Description -> "U(1)_X charge of the quark doublet q_L (Table I)" },
+  xu == { ParameterType -> Internal, Value -> 2 xH/3 + xphi/3,
+          Description -> "U(1)_X charge of u_R (Table I)" },
+  xd == { ParameterType -> Internal, Value -> -xH/3 + xphi/3,
+          Description -> "U(1)_X charge of d_R (Table I)" },
+  xl == { ParameterType -> Internal, Value -> -xH/2 - xphi,
+          Description -> "U(1)_X charge of the lepton doublet l_L (Table I)" },
+  xe == { ParameterType -> Internal, Value -> -xH - xphi,
+          Description -> "U(1)_X charge of e_R (Table I)" },
+  xn == { ParameterType -> Internal, Value -> -xphi,
+          Description -> "U(1)_X charge of N_R (Table I)" },
+
+  MZp == {
+    ParameterType -> Internal,
+    Value         -> gX Sqrt[4 xphi^2 vX^2 + xH^2 vev^2/4],
+    TeX           -> Subscript[M, Zp],
+    Description   -> "Z' mass: g' Sqrt[4 x_Phi^2 v_Phi^2 + x_H^2 v^2/4] ~ 2 g' x_Phi v_Phi"
+  },
+  lamX == {
+    ParameterType    -> Internal,
+    Value            -> MphiX^2/(2 vX^2),
+    InteractionOrder -> {NP, 2},
+    Description      -> "U(1)_X scalar quartic lambda_Phi = M_phiX^2/(2 v_Phi^2)"
+  },
+  yN == {
+    ParameterType    -> Internal,
+    Indices          -> {Index[Generation], Index[Generation]},
+    ComplexParameter -> False,
+    InteractionOrder -> {NP, 1},
+    Value            -> {yN[1,1] -> Sqrt[2] MN1/vX, yN[1,2] -> 0,              yN[1,3] -> 0,
+                         yN[2,1] -> 0,              yN[2,2] -> Sqrt[2] MN2/vX, yN[2,3] -> 0,
+                         yN[3,1] -> 0,              yN[3,2] -> 0,              yN[3,3] -> Sqrt[2] MN3/vX},
+    TeX              -> Subscript[Y, N],
+    Description      -> "Majorana Yukawa Y_N, Eq.(1); m_N = Y_N v_Phi/Sqrt[2]"
+  }
+};
+
+(* WZp = 1257.3 GeV is the total width of Eqs.(6),(7) summed over the three  *)
+(* generations of SM fermions at the default point (MZp = 7500 GeV,          *)
+(* gX = 0.4, xH = 2, xphi = 1). Z' -> N N is closed since m_N > M_Zp.        *)
+
+M$ClassesDescription = {
+
+  V[100] == {
+    ClassName       -> Zp,
+    SelfConjugate   -> True,
+    Mass            -> {MZp, Internal},
+    Width           -> {WZp, 1257.3},
+    ParticleName    -> "Zp",
+    PDG             -> 9900032,
+    PropagatorLabel -> "Zp",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    FullName        -> "Zprime"
+  },
+
+  S[100] == {
+    ClassName       -> phiX,
+    SelfConjugate   -> True,
+    Mass            -> {MphiX, 3000.},
+    Width           -> {WphiX, 1.},
+    ParticleName    -> "phiX",
+    PDG             -> 9900025,
+    PropagatorLabel -> "phiX",
+    PropagatorType  -> D,
+    PropagatorArrow -> None,
+    FullName        -> "U1X singlet scalar"
+  },
+
+  F[100] == {
+    ClassName       -> NM,
+    ClassMembers    -> {N1, N2, N3},
+    Indices         -> {Index[Generation]},
+    FlavorIndex     -> Generation,
+    SelfConjugate   -> True,
+    Mass            -> {MN, {MN1, 8000.}, {MN2, 8000.}, {MN3, 8000.}},
+    Width           -> {{WN1, 1.}, {WN2, 1.}, {WN3, 1.}},
+    PropagatorLabel -> {"N", "N1", "N2", "N3"},
+    PropagatorType  -> Straight,
+    PropagatorArrow -> None,
+    PDG             -> {9900012, 9900014, 9900016},
+    ParticleName    -> {"N1", "N2", "N3"},
+    FullName        -> {"HeavyNeutrino1", "HeavyNeutrino2", "HeavyNeutrino3"}
+  },
+
+  F[110] == {
+    ClassName      -> NR,
+    Unphysical     -> True,
+    Indices        -> {Index[Generation]},
+    FlavorIndex    -> Generation,
+    SelfConjugate  -> False,
+    QuantumNumbers -> {Y -> 0},
+    Definitions    -> { NR[sp1_, ff_] :> Module[{sp2}, ProjP[sp1, sp2] NM[sp2, ff]] }
+  }
+};
+
+(* ***  Lagrangian  *** *)
+
+LZpkin := Block[{mu, nu},
+  -1/4 FS[Zp, mu, nu] FS[Zp, mu, nu] + 1/2 MZp^2 Zp[mu] Zp[mu]];
+
+LphiXkin := Block[{mu},
+  1/2 del[phiX, mu] del[phiX, mu] - 1/2 MphiX^2 phiX^2];
+
+LNkin := Block[{mu},
+  ExpandIndices[I/2 NMbar.Ga[mu].del[NM, mu]
+    - 1/2 MN1 N1bar.N1 - 1/2 MN2 N2bar.N2 - 1/2 MN3 N3bar.N3]];
+
+LZpferm := Block[{mu},
+  ExpandIndices[-gX Zp[mu] (
+      xq QLbar.Ga[mu].QL + xl LLbar.Ga[mu].LL
+    + xu uRbar.Ga[mu].uR + xd dRbar.Ga[mu].dR
+    + xe lRbar.Ga[mu].lR + xn NRbar.Ga[mu].NR),
+    FlavorExpand -> SU2D] /.
+  {CKM[a_, b_] Conjugate[CKM[a_, c_]] -> IndexDelta[b, c],
+   CKM[b_, a_] Conjugate[CKM[c_, a_]] -> IndexDelta[b, c]}];
+
+LZpphiX := Block[{mu},
+  2 gX^2 xphi^2 (2 vX phiX + phiX^2) Zp[mu] Zp[mu]];
+
+LNYukM := ExpandIndices[-1/(2 Sqrt[2]) phiX NMbar.yN.NM];
+
+LNYukD := Block[{sp, ii, jj, ff1, ff2, yuk},
+  yuk = ExpandIndices[
+     -yv[ff1, ff2] LLbar[sp, ii, ff1].NR[sp, ff2] Phibar[jj] Eps[ii, jj],
+     FlavorExpand -> SU2D];
+  yuk + HC[yuk]];
+
+LphiXpot := -lamX vX phiX^3 - lamX/4 phiX^4;
+
+LportalX := Block[{ii},
+  ExpandIndices[-lamHP (Phibar[ii] Phi[ii] - vev^2/2) (vX phiX + 1/2 phiX^2),
+    FlavorExpand -> SU2D]];
+
+LTotal := LZpkin + LphiXkin + LNkin + LZpferm + LZpphiX
+        + LNYukM + LNYukD + LphiXpot + LportalX;

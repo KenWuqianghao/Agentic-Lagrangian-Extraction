@@ -1,0 +1,1 @@
+Continuing with the reading/verification phase. Next: lock down the remaining facts needed for the spec (SM class names + B/Wi definitions, frmodel schema keys, gauge-mixing formulas, benchmark values).

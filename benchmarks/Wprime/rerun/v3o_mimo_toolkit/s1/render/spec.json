@@ -1,0 +1,174 @@
+{
+  "model_name": "Wprime_gen",
+  "info": {
+    "authors": ["Zack Sullivan"],
+    "version": "1.0",
+    "date": "23. 07. 2002",
+    "institutions": ["Fermi National Accelerator Laboratory"],
+    "emails": []
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "interaction_order_limit": [],
+  "feynman_gauge": null,
+  "vevs": [],
+  "gauge_groups": [],
+  "index_decls": [],
+  "gauge_xi": [],
+  "raw_preamble": [],
+  "raw_blocks": [],
+  "parameters": [
+    {
+      "name": "gRp",
+      "parameter_type": "External",
+      "value": "0.653",
+      "complex": false,
+      "block_name": "WPCOUP",
+      "interaction_order": ["NP", 1],
+      "description": "Right-handed W' gauge coupling g_R (default g = sqrt(8 mW^2 GF/sqrt(2)))"
+    },
+    {
+      "name": "gLp",
+      "parameter_type": "External",
+      "value": "0.",
+      "complex": false,
+      "block_name": "WPCOUP",
+      "interaction_order": ["NP", 1],
+      "description": "Left-handed W' gauge coupling g_L (0 = pure right-handed benchmark)"
+    },
+    {
+      "name": "zeta",
+      "parameter_type": "External",
+      "value": "0.",
+      "complex": false,
+      "block_name": "WPCOUP",
+      "interaction_order": ["NP", 1],
+      "description": "Left-right mixing angle zeta (Eq. lagrangian); usually very small"
+    },
+    {
+      "name": "omega",
+      "parameter_type": "External",
+      "value": "0.",
+      "complex": false,
+      "block_name": "WPCOUP",
+      "interaction_order": ["NP", 1],
+      "description": "CP-violating phase omega (Eq. lagrangian), absorbable into V^R"
+    },
+    {
+      "name": "VRp",
+      "parameter_type": "External",
+      "value": null,
+      "value_rules": [
+        {"lhs": "VRp[1,1]", "rhs": "0.9751", "delayed": false},
+        {"lhs": "VRp[1,2]", "rhs": "0.2215", "delayed": false},
+        {"lhs": "VRp[1,3]", "rhs": "0.0035", "delayed": false},
+        {"lhs": "VRp[2,1]", "rhs": "0.2210", "delayed": false},
+        {"lhs": "VRp[2,2]", "rhs": "0.9743", "delayed": false},
+        {"lhs": "VRp[2,3]", "rhs": "0.0410", "delayed": false},
+        {"lhs": "VRp[3,1]", "rhs": "0.0090", "delayed": false},
+        {"lhs": "VRp[3,2]", "rhs": "0.0400", "delayed": false},
+        {"lhs": "VRp[3,3]", "rhs": "1.0000", "delayed": false}
+      ],
+      "complex": false,
+      "block_name": "WPCOUP",
+      "interaction_order": ["NP", 1],
+      "indices": ["Generation", "Generation"],
+      "description": "Right-handed generalized CKM matrix V^R (Eq. ckm: SM CKM with |V_tb|=1)"
+    },
+    {
+      "name": "VLq",
+      "parameter_type": "External",
+      "value": null,
+      "value_rules": [
+        {"lhs": "VLq[1,1]", "rhs": "0.9751", "delayed": false},
+        {"lhs": "VLq[1,2]", "rhs": "0.2215", "delayed": false},
+        {"lhs": "VLq[1,3]", "rhs": "0.0035", "delayed": false},
+        {"lhs": "VLq[2,1]", "rhs": "0.2210", "delayed": false},
+        {"lhs": "VLq[2,2]", "rhs": "0.9743", "delayed": false},
+        {"lhs": "VLq[2,3]", "rhs": "0.0410", "delayed": false},
+        {"lhs": "VLq[3,1]", "rhs": "0.0090", "delayed": false},
+        {"lhs": "VLq[3,2]", "rhs": "0.0400", "delayed": false},
+        {"lhs": "VLq[3,3]", "rhs": "1.0000", "delayed": false}
+      ],
+      "complex": false,
+      "block_name": "WPCOUP",
+      "interaction_order": ["NP", 1],
+      "indices": ["Generation", "Generation"],
+      "description": "Left-handed generalized CKM matrix V^L (Eq. ckm)"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "V",
+      "class_index": 100,
+      "class_name": "Wp",
+      "self_conjugate": false,
+      "indices": [],
+      "class_members": [],
+      "mass": {"sym": "MWp", "value": "500."},
+      "width": {"sym": "WWp", "value": "16.701"},
+      "quantum_numbers": {"Q": "1"},
+      "pdg": 34,
+      "particle_name": "Wp",
+      "antiparticle_name": "Wpbar",
+      "full_name": "W prime",
+      "propagator_label": "Wp",
+      "propagator_type": "Sine",
+      "propagator_arrow": "Forward",
+      "unphysical": false,
+      "definitions": []
+    },
+    {
+      "spin_type": "F",
+      "class_index": 101,
+      "class_name": "NR",
+      "self_conjugate": false,
+      "indices": ["Generation"],
+      "flavor_index": "Generation",
+      "class_members": ["ne", "nm", "nt"],
+      "mass": {"sym": "MNR", "value": "100."},
+      "width": {"massless": true},
+      "quantum_numbers": {"LeptonNumber": "1"},
+      "pdg": [9900012, 9900014, 9900016],
+      "particle_name": ["vre", "vrm", "vrt"],
+      "antiparticle_name": ["vre~", "vrm~", "vrt~"],
+      "full_name": ["Right-handed electron neutrino", "Right-handed muon neutrino", "Right-handed tau neutrino"],
+      "propagator_label": ["nr", "nrm", "nrt"],
+      "propagator_type": "S",
+      "propagator_arrow": "Forward",
+      "unphysical": false,
+      "definitions": []
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "LWpkin",
+      "expression": "-1/2 FS[Wpbar, mu, nu] FS[Wp, mu, nu] + MWp^2 Wpbar[mu] Wp[mu]",
+      "delayed": true
+    },
+    {
+      "name": "LNRkin",
+      "expression": "I NRbar.Ga[mu].DC[NR, mu] - MNR NRbar.NR",
+      "delayed": true
+    },
+    {
+      "name": "LWpq",
+      "expression": "ExpandIndices[(gRp Cos[zeta] Exp[I omega] uqbar.VRp.Ga[mu].ProjP.dq + gLp Sin[zeta] uqbar.VLq.Ga[mu].ProjM.dq) Wp[mu]/Sqrt[2], FlavorExpand -> Generation]",
+      "delayed": true
+    },
+    {
+      "name": "LWpl",
+      "expression": "ExpandIndices[(gRp Cos[zeta] Exp[I omega] NRbar.Ga[mu].ProjP.l + gLp Sin[zeta] vlbar.Ga[mu].ProjM.l) Wp[mu]/Sqrt[2], FlavorExpand -> Generation]",
+      "delayed": true
+    },
+    {
+      "name": "LWpFerm",
+      "expression": "LWpq + LWpl + HC[LWpq + LWpl]",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "LWpkin + LNRkin + LWpFerm",
+      "delayed": true
+    }
+  ]
+}

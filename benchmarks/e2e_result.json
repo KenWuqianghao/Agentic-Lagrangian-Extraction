@@ -1,0 +1,120 @@
+{
+ "stages": [
+  {
+   "stage": "literature",
+   "ok": true,
+   "seconds": 1.2,
+   "detail": {
+    "tex_path": "text/1603.04993_source.tex",
+    "chars": 305040,
+    "keys": [
+     "arxiv_id",
+     "cached",
+     "chars",
+     "main_tex",
+     "n_files",
+     "preview",
+     "schema",
+     "source_dir",
+     "source_type",
+     "status",
+     "tex_path"
+    ]
+   },
+   "error": null
+  },
+  {
+   "stage": "frgen",
+   "ok": true,
+   "seconds": 0.0,
+   "detail": {
+    "fr_path": "S1_LQ_E2E.fr",
+    "n_particles": 1,
+    "n_parameters": 1
+   },
+   "error": null
+  },
+  {
+   "stage": "validate",
+   "ok": true,
+   "seconds": 44.4,
+   "detail": {
+    "status": "ok",
+    "passed": true,
+    "n_checks": 10,
+    "n_failed": 0,
+    "checks": {
+     "ufo_generation": true,
+     "ufo_file:__init__.py": true,
+     "ufo_file:particles.py": true,
+     "ufo_file:parameters.py": true,
+     "ufo_file:vertices.py": true,
+     "ufo_file:couplings.py": true,
+     "madgraph:import": true,
+     "wl:hermiticity": true,
+     "wl:kinetic_terms": true,
+     "wl:mass_spectrum": true
+    }
+   },
+   "error": null
+  },
+  {
+   "stage": "reverse",
+   "ok": true,
+   "seconds": 144.3,
+   "detail": {
+    "status": "ok",
+    "package": "review/REVIEW.pdf",
+    "reconstruction_chars": 3985
+   },
+   "error": null
+  },
+  {
+   "stage": "limits",
+   "ok": true,
+   "seconds": 23.4,
+   "detail": {
+    "n_papers": 6,
+    "n_bounds": 0,
+    "keywords": [
+     "leptoquark"
+    ],
+    "note": null,
+    "errors": null,
+    "top_papers": [
+     {
+      "year": "2026",
+      "title": "Search for a leptoquark in events with a hadronically decaying $\u03c4$-lepton and missing transverse momentum using $pp$ collisions at $\\sqrt{s}=13$ TeV with the ATLAS detector",
+      "citations": 0
+     },
+     {
+      "year": "2026",
+      "title": "The LHC as Lepton-Proton Collider: Search for the Resonant Production of Leptoquarks",
+      "citations": 0
+     },
+     {
+      "year": "2026",
+      "title": "Leptoquark searches with electrons and muons in the final state",
+      "citations": 0
+     },
+     {
+      "year": "2025",
+      "title": "Exploration at the high-energy frontier: ATLAS Run 2 searches investigating the exotic jungle beyond the Standard Model",
+      "citations": 53
+     },
+     {
+      "year": "2025",
+      "title": "Search for electroweak production of vector-like leptons in $\u03c4$-lepton and $b$-jet final states in $pp$ collisions at $\\sqrt{s}$ = 13 TeV with the ATLAS detector",
+      "citations": 5
+     }
+    ],
+    "sample": []
+   },
+   "error": null
+  }
+ ],
+ "passed": 5,
+ "total": 5,
+ "arxiv_id": "1603.04993",
+ "model_name": "S1_LQ_E2E"
+}

@@ -1,0 +1,27 @@
+RUN-TAG: XM-JUDGE-Top-Philic-Zprime__drop_term
+
+You are grading the output of an automated physics reviewer. Read exactly two
+files with the Read tool, nothing else, no shell, no search:
+  /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/crosscheck_mutation/Top-Philic-Zprime__drop_term/crosscheck.md   (the reviewer's term-by-term comparison of a model against a paper)
+  /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/crosscheck_mutation/Top-Philic-Zprime__drop_term/case.json    (metadata; the field "defect" describes ONE defect that was
+            deliberately injected into the model, or null for a control file)
+
+Answer these questions and write the answer as JSON to /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/crosscheck_mutation/Top-Philic-Zprime__drop_term/judge.json with the Write
+tool (exactly once), then reply with the single line DONE.
+
+JSON fields:
+  "named": "yes" | "partial" | "no" | "n/a"  -- does the reviewer's document
+      point at the injected defect? "yes" = a disagree/missing/extra row or a
+      listed disagreement describes this specific defect (the right term or
+      field AND the right kind of error: sign, factor, missing contraction,
+      missing conjugation, missing cutoff, missing term, wrong chirality);
+      "partial" = the right term or field is flagged but the stated error is
+      different or vague; "no" = not flagged; "n/a" = control file.
+  "quote": the sentence or table row that names it (empty if "no").
+  "severity": the severity the reviewer gave it (substantive / convention /
+      cosmetic / none).
+  "other_substantive": number of OTHER disagreements the reviewer marked
+      substantive that are not this defect (for a control file: all of them).
+  "other_list": one line each for those other substantive disagreements.
+  "note": one sentence of your own on whether the reviewer's overall
+      assessment would send a physicist to the right place.

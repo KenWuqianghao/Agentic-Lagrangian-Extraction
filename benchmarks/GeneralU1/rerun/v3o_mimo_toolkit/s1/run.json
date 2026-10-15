@@ -1,0 +1,40 @@
+{
+ "page": "GeneralU1",
+ "model": "mimo",
+ "model_id": "opencode/mimo-v2.6-flash-free",
+ "arm": "toolkit",
+ "seed": 1,
+ "variant": "v3o_mimo_toolkit",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 1817.2,
+ "tokens": {
+  "input": 370627,
+  "output": 13069,
+  "reasoning": 56878
+ },
+ "output_max": 128000,
+ "n_events": 127,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 58,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [
+   "bash:{\"command\": \"grep -n \\\"Field\\\\|Class\\\\|Name\\\\|Phi\\\\|LL\\\\|Phibar\\\" SM.fr | head -",
+   "bash:{\"command\": \"ls -la \\\"$HOME/Documents/Github/heptapod/tools/feynrules/test_files",
+   "read:{\"filePath\": \"/Users/USER/Documents/Github/heptapod/tools/feynrules/test_files/m"
+  ],
+  "frgen_runs": 1,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "spec.json",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3o_mimo_toolkit/s1/model/GeneralU1_gen.fr",
+ "final_lint_findings": 0
+}

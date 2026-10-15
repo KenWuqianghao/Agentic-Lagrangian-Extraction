@@ -1,0 +1,527 @@
+[
+  {
+    "id": "Top-Philic-Zprime__control",
+    "page": "Top-Philic-Zprime",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3_notools/s2/model/Top-Philic-Zprime_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null
+  },
+  {
+    "id": "Top-Philic-Zprime__factor2",
+    "page": "Top-Philic-Zprime",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3_notools/s2/model/Top-Philic-Zprime_gen.fr",
+    "operator": "factor2",
+    "term": "LV1Top",
+    "tokens": [
+      "LV1Top",
+      "2"
+    ],
+    "defect": "Whole term `LV1Top` multiplied by 2 (coupling normalisation off by a factor of two)."
+  },
+  {
+    "id": "Top-Philic-Zprime__drop_term",
+    "page": "Top-Philic-Zprime",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3_notools/s2/model/Top-Philic-Zprime_gen.fr",
+    "operator": "drop_term",
+    "term": "LV1Top",
+    "tokens": [
+      "LV1Top"
+    ],
+    "defect": "Interaction term `LV1Top` deleted from the model and from the total Lagrangian (a whole interaction is missing)."
+  },
+  {
+    "id": "Top-Philic-Zprime__swap_chirality",
+    "page": "Top-Philic-Zprime",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3_notools/s2/model/Top-Philic-Zprime_gen.fr",
+    "operator": "swap_chirality",
+    "term": "LV1Kin",
+    "tokens": [
+      "LV1Kin",
+      "ProjM",
+      "ProjP"
+    ],
+    "defect": "First `ProjM` in `LV1Kin` changed to `ProjP` (a left-handed current became right-handed)."
+  },
+  {
+    "id": "EffLRSM__control",
+    "page": "EffLRSM",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null
+  },
+  {
+    "id": "EffLRSM__flip_charge",
+    "page": "EffLRSM",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+    "operator": "flip_charge",
+    "term": "WR",
+    "tokens": [
+      "WR",
+      "Q"
+    ],
+    "defect": "Quantum number `Q` of class `WR` flipped from 1 to -1."
+  },
+  {
+    "id": "EffLRSM__drop_cc",
+    "page": "EffLRSM",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+    "operator": "drop_cc",
+    "term": "LWRl",
+    "tokens": [
+      "LWRl",
+      "CC",
+      "vlbar"
+    ],
+    "defect": "Charge conjugation dropped in `LWRl`: `CC[vlbar]` -> `vlbar` (the fermion-number-violating structure becomes a fermion-number-conserving one)."
+  },
+  {
+    "id": "EffLRSM__sqrt_swap",
+    "page": "EffLRSM",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+    "operator": "sqrt_swap",
+    "term": "nZRq",
+    "tokens": [
+      "nZRq",
+      "Sqrt"
+    ],
+    "defect": "Parameter `nZRq`: `Sqrt[1 - tw2/kapRq^2]` replaced by `1/Sqrt[1 - tw2/kapRq^2]` (a normalisation that divides now multiplies)."
+  },
+  {
+    "id": "EffLRSM__factor2",
+    "page": "EffLRSM",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+    "operator": "factor2",
+    "term": "LWRq",
+    "tokens": [
+      "LWRq",
+      "2"
+    ],
+    "defect": "Whole term `LWRq` multiplied by 2 (coupling normalisation off by a factor of two)."
+  },
+  {
+    "id": "EffLRSM__drop_term",
+    "page": "EffLRSM",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+    "operator": "drop_term",
+    "term": "LZRl",
+    "tokens": [
+      "LZRl"
+    ],
+    "defect": "Interaction term `LZRl` deleted from the model and from the total Lagrangian (a whole interaction is missing)."
+  },
+  {
+    "id": "EffLRSM__swap_chirality",
+    "page": "EffLRSM",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+    "operator": "swap_chirality",
+    "term": "LWRq",
+    "tokens": [
+      "LWRq",
+      "ProjM",
+      "ProjP"
+    ],
+    "defect": "First `ProjP` in `LWRq` changed to `ProjM` (a right-handed current became left-handed)."
+  },
+  {
+    "id": "GeneralU1__control",
+    "page": "GeneralU1",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s1/model/GeneralU1_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null
+  },
+  {
+    "id": "GeneralU1__drop_eps",
+    "page": "GeneralU1",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s1/model/GeneralU1_gen.fr",
+    "operator": "drop_eps",
+    "term": "LNuYuk",
+    "tokens": [
+      "LNuYuk",
+      "Eps",
+      "ii"
+    ],
+    "defect": "SU(2) epsilon contraction removed from `LNuYuk`: `Eps[ii, jj]` dropped and both doublets contracted on the shared index `ii` (the term is no longer an SU(2) singlet)."
+  },
+  {
+    "id": "GeneralU1__flip_charge",
+    "page": "GeneralU1",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s1/model/GeneralU1_gen.fr",
+    "operator": "flip_charge",
+    "term": "NR",
+    "tokens": [
+      "NR",
+      "LeptonNumber"
+    ],
+    "defect": "Quantum number `LeptonNumber` of class `NR` flipped from 1 to -1."
+  },
+  {
+    "id": "GeneralU1__sqrt_swap",
+    "page": "GeneralU1",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s1/model/GeneralU1_gen.fr",
+    "operator": "sqrt_swap",
+    "term": "MHX",
+    "tokens": [
+      "MHX",
+      "Sqrt"
+    ],
+    "defect": "Parameter `MHX`: `Sqrt[2 lamX vX^2]` replaced by `1/Sqrt[2 lamX vX^2]` (a normalisation that divides now multiplies)."
+  },
+  {
+    "id": "GeneralU1__factor2",
+    "page": "GeneralU1",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s1/model/GeneralU1_gen.fr",
+    "operator": "factor2",
+    "term": "LZpF",
+    "tokens": [
+      "LZpF",
+      "2"
+    ],
+    "defect": "Whole term `LZpF` multiplied by 2 (coupling normalisation off by a factor of two)."
+  },
+  {
+    "id": "GeneralU1__drop_term",
+    "page": "GeneralU1",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s1/model/GeneralU1_gen.fr",
+    "operator": "drop_term",
+    "term": "LPotX",
+    "tokens": [
+      "LPotX"
+    ],
+    "defect": "Interaction term `LPotX` deleted from the model and from the total Lagrangian (a whole interaction is missing)."
+  },
+  {
+    "id": "368sextets__control",
+    "page": "368sextets",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null
+  },
+  {
+    "id": "368sextets__flip_charge",
+    "page": "368sextets",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+    "operator": "flip_charge",
+    "term": "Phiu",
+    "tokens": [
+      "Phiu",
+      "Y"
+    ],
+    "defect": "Quantum number `Y` of class `Phiu` flipped from 1/3 to -1/3."
+  },
+  {
+    "id": "368sextets__drop_cutoff",
+    "page": "368sextets",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+    "operator": "drop_cutoff",
+    "term": "LPsiuG",
+    "tokens": [
+      "LPsiuG",
+      "LamPsu"
+    ],
+    "defect": "Cutoff factor `/LamPsu` removed from `LPsiuG`; the operator is no longer suppressed by the cutoff and its coefficient changes mass dimension."
+  },
+  {
+    "id": "368sextets__drop_cc",
+    "page": "368sextets",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+    "operator": "drop_cc",
+    "term": "LPsiuG",
+    "tokens": [
+      "LPsiuG",
+      "CC",
+      "uqbar"
+    ],
+    "defect": "Charge conjugation dropped in `LPsiuG`: `CC[uqbar]` -> `uqbar` (the fermion-number-violating structure becomes a fermion-number-conserving one)."
+  },
+  {
+    "id": "368sextets__factor2",
+    "page": "368sextets",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+    "operator": "factor2",
+    "term": "LPsiuG",
+    "tokens": [
+      "LPsiuG",
+      "2"
+    ],
+    "defect": "Whole term `LPsiuG` multiplied by 2 (coupling normalisation off by a factor of two)."
+  },
+  {
+    "id": "368sextets__drop_term",
+    "page": "368sextets",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+    "operator": "drop_term",
+    "term": "LPhidG",
+    "tokens": [
+      "LPhidG"
+    ],
+    "defect": "Interaction term `LPhidG` deleted from the model and from the total Lagrangian (a whole interaction is missing)."
+  },
+  {
+    "id": "368sextets__swap_chirality",
+    "page": "368sextets",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+    "operator": "swap_chirality",
+    "term": "LPsiuG",
+    "tokens": [
+      "LPsiuG",
+      "ProjM",
+      "ProjP"
+    ],
+    "defect": "First `ProjP` in `LPsiuG` changed to `ProjM` (a right-handed current became left-handed)."
+  },
+  {
+    "id": "ChernSimonsPortal__control",
+    "page": "ChernSimonsPortal",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ChernSimonsPortal/rerun/v3s_notools/s1/model/ChernSimonsPortal_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null
+  },
+  {
+    "id": "ChernSimonsPortal__factor2",
+    "page": "ChernSimonsPortal",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ChernSimonsPortal/rerun/v3s_notools/s1/model/ChernSimonsPortal_gen.fr",
+    "operator": "factor2",
+    "term": "LPortalNeutral",
+    "tokens": [
+      "LPortalNeutral",
+      "2"
+    ],
+    "defect": "Whole term `LPortalNeutral` multiplied by 2 (coupling normalisation off by a factor of two)."
+  },
+  {
+    "id": "ChernSimonsPortal__drop_term",
+    "page": "ChernSimonsPortal",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ChernSimonsPortal/rerun/v3s_notools/s1/model/ChernSimonsPortal_gen.fr",
+    "operator": "drop_term",
+    "term": "LPortalCharged",
+    "tokens": [
+      "LPortalCharged"
+    ],
+    "defect": "Interaction term `LPortalCharged` deleted from the model and from the total Lagrangian (a whole interaction is missing)."
+  },
+  {
+    "id": "pNG__control",
+    "page": "pNG",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/rerun/v3s_notools/s1/model/pNG_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null
+  },
+  {
+    "id": "pNG__factor2",
+    "page": "pNG",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/rerun/v3s_notools/s1/model/pNG_gen.fr",
+    "operator": "factor2",
+    "term": "LX",
+    "tokens": [
+      "LX",
+      "2"
+    ],
+    "defect": "Whole term `LX` multiplied by 2 (coupling normalisation off by a factor of two)."
+  },
+  {
+    "id": "pNG__drop_term",
+    "page": "pNG",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/rerun/v3s_notools/s1/model/pNG_gen.fr",
+    "operator": "drop_term",
+    "term": "LPortal4",
+    "tokens": [
+      "LPortal4"
+    ],
+    "defect": "Interaction term `LPortal4` deleted from the model and from the total Lagrangian (a whole interaction is missing)."
+  },
+  {
+    "id": "331__control",
+    "page": "331",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v3s_tools/s1/model/331_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null
+  },
+  {
+    "id": "331__flip_charge",
+    "page": "331",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v3s_tools/s1/model/331_gen.fr",
+    "operator": "flip_charge",
+    "term": "DQ",
+    "tokens": [
+      "DQ",
+      "Y"
+    ],
+    "defect": "Quantum number `Y` of class `DQ` flipped from -1/3 to 1/3."
+  },
+  {
+    "id": "331__sqrt_swap",
+    "page": "331",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v3s_tools/s1/model/331_gen.fr",
+    "operator": "sqrt_swap",
+    "term": "v2",
+    "tokens": [
+      "v2",
+      "Sqrt"
+    ],
+    "defect": "Parameter `v2`: `Sqrt[vev^2 - v1^2]` replaced by `1/Sqrt[vev^2 - v1^2]` (a normalisation that divides now multiplies)."
+  },
+  {
+    "id": "331__factor2",
+    "page": "331",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v3s_tools/s1/model/331_gen.fr",
+    "operator": "factor2",
+    "term": "LZp",
+    "tokens": [
+      "LZp",
+      "2"
+    ],
+    "defect": "Whole term `LZp` multiplied by 2 (coupling normalisation off by a factor of two)."
+  },
+  {
+    "id": "331__drop_term",
+    "page": "331",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v3s_tools/s1/model/331_gen.fr",
+    "operator": "drop_term",
+    "term": "LNPcc",
+    "tokens": [
+      "LNPcc"
+    ],
+    "defect": "Interaction term `LNPcc` deleted from the model and from the total Lagrangian (a whole interaction is missing)."
+  },
+  {
+    "id": "331__swap_chirality",
+    "page": "331",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v3s_tools/s1/model/331_gen.fr",
+    "operator": "swap_chirality",
+    "term": "LNPcc",
+    "tokens": [
+      "LNPcc",
+      "ProjM",
+      "ProjP"
+    ],
+    "defect": "First `ProjM` in `LNPcc` changed to `ProjP` (a left-handed current became right-handed)."
+  },
+  {
+    "id": "Monotops__control",
+    "page": "Monotops",
+    "kind": "control",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/rerun/v3s_tools/s1/model/Monotops_gen.fr",
+    "operator": null,
+    "term": null,
+    "tokens": [],
+    "defect": null
+  },
+  {
+    "id": "Monotops__flip_charge",
+    "page": "Monotops",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/rerun/v3s_tools/s1/model/Monotops_gen.fr",
+    "operator": "flip_charge",
+    "term": "vphi",
+    "tokens": [
+      "vphi",
+      "Q"
+    ],
+    "defect": "Quantum number `Q` of class `vphi` flipped from 2/3 to -2/3."
+  },
+  {
+    "id": "Monotops__factor2",
+    "page": "Monotops",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/rerun/v3s_tools/s1/model/Monotops_gen.fr",
+    "operator": "factor2",
+    "term": "Lphiu",
+    "tokens": [
+      "Lphiu",
+      "2"
+    ],
+    "defect": "Whole term `Lphiu` multiplied by 2 (coupling normalisation off by a factor of two)."
+  },
+  {
+    "id": "Monotops__drop_term",
+    "page": "Monotops",
+    "kind": "mutant",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/rerun/v3s_tools/s1/model/Monotops_gen.fr",
+    "operator": "drop_term",
+    "term": "LXChi",
+    "tokens": [
+      "LXChi"
+    ],
+    "defect": "Interaction term `LXChi` deleted from the model and from the total Lagrangian (a whole interaction is missing)."
+  },
+  {
+    "id": "EffLRSM__real",
+    "page": "EffLRSM",
+    "kind": "real",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/model/EffLRSM_gen.fr",
+    "operator": "physicist_finding",
+    "term": null,
+    "tokens": [],
+    "defect": "Light neutrino written as the bare field `ve` where the paper has the charge conjugate nu^c (lepton number); and the Z_R coupling MULTIPLIES by Sqrt[1 - tan^2/kappa^2] where Eq. (8) DIVIDES."
+  },
+  {
+    "id": "GeneralU1__real",
+    "page": "GeneralU1",
+    "kind": "real",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/model/GeneralU1_gen.fr",
+    "operator": "physicist_finding",
+    "term": null,
+    "tokens": [],
+    "defect": "Neutrino Dirac Yukawa contracts LLbar[ii] with Phibar[ii] on a shared index (no Eps, not an SU(2) singlet); Higgs U(1)_X charge has the wrong sign (-xH/2 instead of +xH/2)."
+  },
+  {
+    "id": "368sextets__real",
+    "page": "368sextets",
+    "kind": "real",
+    "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/model/368sextets_gen.fr",
+    "operator": "physicist_finding",
+    "term": null,
+    "tokens": [],
+    "defect": "Dimension-5 and -6 sextet operators carry no 1/Lambda, 1/Lambda^2 suppression; couplings absorb the cutoff."
+  }
+]

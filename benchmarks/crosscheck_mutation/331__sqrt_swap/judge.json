@@ -1,0 +1,8 @@
+{
+  "named": "yes",
+  "quote": "`v = sqrt(v1^2 + v2^2) = 246 GeV` (Sec. 2.1.1) | `v2 = 1/Sqrt[vev^2 - v1^2]` | **disagree** | The paper needs `v2 = Sqrt[vev^2 - v1^2]`. The file takes the reciprocal. The value becomes `0.0057 GeV^-1` in place of `174.2 GeV`.",
+  "severity": "substantive",
+  "other_substantive": 8,
+  "other_list": "M_Zp^2 divided by 6 in place of 3, making M_Z' too small by sqrt(2).\ngX used as a free input instead of being fixed via g_Y = g gX / sqrt(g^2+beta^2 gX^2) (paper value about 0.38).\nbeta treated as a free input while every new charge is hard-coded, so the file is only valid for beta = +1/sqrt(3).\nHpm declared as an SU(2)_L singlet instead of a mix of doublet components, giving the wrong Z H+ H- coupling.\nNo Z' couplings to fermions, so Z' production and decay (Sec. 4) cannot be simulated.\nNo T and no E_l currents (T-t/b and E_l-l/nu_l couplings absent).\nNo scalar sector dynamics: potential, mixing matrices U and O, and the VSS/VVS/VVSS and scalar-fermion tables are all absent.\nNo gauge self-couplings for Zp, Yp, Vp, so pair production of V and Y (Sec. 5.1) cannot be simulated.",
+  "note": "The reviewer names the exact defect, gives the correct fix and its numerical size, and rates it substantive, so it would send a physicist straight to the right place."
+}

@@ -1,0 +1,13 @@
+{
+  "id": "GeneralU1__sqrt_swap",
+  "page": "GeneralU1",
+  "kind": "mutant",
+  "source": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s1/model/GeneralU1_gen.fr",
+  "operator": "sqrt_swap",
+  "term": "MHX",
+  "tokens": [
+    "MHX",
+    "Sqrt"
+  ],
+  "defect": "Parameter `MHX`: `Sqrt[2 lamX vX^2]` replaced by `1/Sqrt[2 lamX vX^2]` (a normalisation that divides now multiplies)."
+}

@@ -1,0 +1,29 @@
+{
+ "page": "HNLs",
+ "variant": "v2",
+ "seed": 1,
+ "agent": {
+  "ok": true,
+  "exit": 0,
+  "timed_out": false,
+  "seconds": 463.5,
+  "n_tool_calls": 6,
+  "read_paper": true,
+  "contaminated": false,
+  "outside_sandbox": [],
+  "benign_outside": [],
+  "files_read": [
+   "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HNLs-ztu_863n/eval/benchmark_runs/HNLs/text/2007.03701.txt",
+   "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HNLs-ztu_863n/tools/frgen/frmodel.py",
+   "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HNLs-ztu_863n/eval/benchmark_runs/HNLs/text/2007.03701.txt",
+   "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HNLs-ztu_863n/eval/benchmark_runs/HNLs/text/2007.03701.txt",
+   "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HNLs-ztu_863n/eval/benchmark_runs/HNLs/text/2007.03701.txt",
+   "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HNLs-ztu_863n/tools/feynrules/test_files/models/SM.fr"
+  ]
+ },
+ "render": {
+  "rendered": false,
+  "reason": "schema_validation_failed",
+  "detail": "Error: Schema Validation Failed\n- Reason: 1 validation error for FeynRulesModel\nparameters.3.parameter_name\n  Input should be a valid string [type=string_type, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_type\n- Fix the fields named above. Remember: numeric values are strings (e.g. \"-1/3\", \"1500.\"), and see the FeynRulesModel schema."
+ }
+}

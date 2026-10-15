@@ -1,0 +1,35 @@
+{
+ "page": "HeavyN",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "hand",
+ "seed": 1,
+ "variant": "v3o_nemotron_hand",
+ "harness": "opencode 1.18.25",
+ "exit": 0,
+ "timed_out": false,
+ "nudges": 0,
+ "seconds": 1132.6,
+ "tokens": {
+  "input": 134217,
+  "output": 6062,
+  "reasoning": 15744
+ },
+ "output_max": 128000,
+ "n_events": 23,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 5,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": true,
+ "source": "model.fr",
+ "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/HeavyN/rerun/v3o_nemotron_hand/s1/model/HeavyN_gen.fr"
+}

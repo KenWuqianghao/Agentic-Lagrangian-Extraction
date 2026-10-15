@@ -1,0 +1,46 @@
+{
+ "model_files": [
+  "/home/deck/code/heptapod/eval/reference_cache/Monotops/monotops.fr"
+ ],
+ "load_sm": true,
+ "sm_file": "/home/deck/hep-tools/feynrules-current/Models/SM/SM.fr",
+ "lagrangian": "LSM + LMono",
+ "seconds": 75,
+ "ok": true,
+ "n_particles": 30,
+ "n_vertices": 235,
+ "n_bsm_vertices": 72,
+ "bsm_particles": [
+  "fmet",
+  "phic",
+  "smet",
+  "tphic",
+  "vc",
+  "vmet"
+ ],
+ "example_bsm_vertex": [
+  "c__tilde__",
+  "c",
+  "smet"
+ ],
+ "evidence": "monotops.fr:3 header 'SM + monotops'; monotops.fr:119-129 'LMono := Module[...]' uses SM fields uq, dq and already adds its HC; monotops.fr:17 '$Flag4F = 1'.",
+ "notes": "Add-on. Total LSM + LMono is inferred (file has no total).",
+ "extra_args": [],
+ "command": "wolframscript -f /home/deck/code/hep-pr/validator-main/tools/feynrules/UFO_generator.wl FeynRulesPath=/home/deck/hep-tools/feynrules-current ModelPath=/home/deck/code/heptapod/eval/reference_cache/Monotops/monotops.fr OutputDir=/home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/hillclimb/ref_ufo/Monotops/UFO Checks=false AddDecays=false LoadSM=true Lagrangian=LSM + LMono",
+ "problems": [],
+ "last_log_lines": [],
+ "attempts": [
+  {
+   "lagrangian": "LSM + LMono",
+   "load_sm": true,
+   "model_files": [
+    "/home/deck/code/heptapod/eval/reference_cache/Monotops/monotops.fr"
+   ],
+   "extra": [],
+   "seconds": 75,
+   "exit_code": 0,
+   "ok": true,
+   "problems": []
+  }
+ ]
+}

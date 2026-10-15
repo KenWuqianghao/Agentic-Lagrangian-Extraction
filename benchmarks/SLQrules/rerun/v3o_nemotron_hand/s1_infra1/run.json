@@ -1,0 +1,34 @@
+{
+ "page": "SLQrules",
+ "model": "nemotron",
+ "model_id": "opencode/nemotron-3-ultra-free",
+ "arm": "hand",
+ "seed": 1,
+ "variant": "v3o_nemotron_hand",
+ "harness": "opencode 1.18.25",
+ "exit": 1,
+ "timed_out": false,
+ "nudges": 3,
+ "seconds": 1537.5,
+ "tokens": {
+  "input": 168500,
+  "output": 1078,
+  "reasoning": 796
+ },
+ "output_max": 128000,
+ "n_events": 52,
+ "length_stops": 0,
+ "audit": {
+  "tool_calls": 7,
+  "read_paper": true,
+  "escapes": [],
+  "forbidden": [],
+  "denied_attempts": [],
+  "frgen_runs": 0,
+  "contaminated": false,
+  "audit_ok": true,
+  "tampered": []
+ },
+ "rendered": false,
+ "reason": "no_model_fr"
+}

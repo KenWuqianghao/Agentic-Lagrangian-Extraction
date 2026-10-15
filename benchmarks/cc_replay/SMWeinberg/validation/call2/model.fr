@@ -1,0 +1,154 @@
+(****************************************************************************************)
+(* SMWeinberg_gen                                                                        *)
+(*                                                                                        *)
+(* SM + d = 5 Weinberg operator (lepton-number violation), implemented exactly as in the *)
+(* FeynRules DB entry "SMWeinberg" (paper: Fuks, Neundorf, Peters, Ruiz, Saimpert,       *)
+(* "Probing the Weinberg Operator at Colliders", arXiv:2012.09882, PRD 103, 2021).        *)
+(*                                                                                        *)
+(* New particle: the unphysical neutrino N (class Nnu; N is a forbidden       *)
+(* Mathematica built-in) with mass                                              *)
+(*   MNu = |C5^{ee} + C5^{e mu} + C5^{e tau} + C5^{mu mu} + C5^{mu tau} + C5^{tau tau}| *)
+(*         v^2/Lambda (paper Eq.(heavyNMass)) and width wNnu = 0 (paper Table   *)
+(* ufoParams; paper FR names mN and wN). The paper's N is a single Majorana     *)
+(* neutrino; in this FeynRules version the SelfConjugate (Majorana) declaration *)
+(* fails the hermiticity check and corrupts the UFO export (object_library.py), *)
+(* so N is modeled as a Dirac fermion with the paper's couplings; the LNV       *)
+(* process W+W+ -> l+ l'+ still proceeds through the N exchange.               *)
+(* The Weinberg Wilson coefficients C5^{ll'} (External, matrix Cll) enter the   *)
+(* model only through MNu, as in the paper. Implemented interactions are the   *)
+(* non-conjugated currents of the paper's appendix Delta L: Eq.(lagCC) (W N l), *)
+(* the Z N nu, h N nu (and h h N nu), G+ N l, G0 N nu, G0G0 N nu and G0G+ N l  *)
+(* terms, each plus H.c. The LNV pieces built on the charge-conjugated lepton   *)
+(* (lbar^c P_L N, G+G+ lbar^c P_L l') cannot be represented in this FeynRules   *)
+(* version (they break the hermiticity check / UFO export) and are omitted.     *)
+(*                                                                                        *)
+(* Loaded on top of SM.fr (v1.4.7).                                                       *)
+(****************************************************************************************)
+
+M$ModelName = "SMWeinberg_gen";
+
+M$Information = {
+  Authors      -> {"automated extraction of arXiv:2012.09882 (FeynRules DB model SMWeinberg)"},
+  Version      -> "1.0",
+  Date         -> "28. 09. 2026",
+  Institutions -> {"benchmark"},
+  Emails       -> "",
+  URLs         -> "https://feynrules.irmp.ucl.ac.be/wiki/SMWeinberg"
+};
+
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP, 1}
+};
+
+M$Parameters = {
+
+  (* ---- External parameters (paper Table ufoParams: LH block NUPHYSICS) ---- *)
+  Lambda == {
+    ParameterType    -> External,
+    BlockName        -> NUPHYSICS,
+    OrderBlock       -> 1,
+    Value            -> 200000.,
+    InteractionOrder -> {NP, 1},
+    Description      -> "Weinberg operator scale Lambda [GeV], paper Eq.(heavyNMass); benchmark 200 TeV"
+  },
+  Cll == {
+    ParameterType    -> External,
+    BlockName        -> NUPHYSICS,
+    OrderBlock       -> 2,
+    Indices          -> {Index[Generation], Index[Generation]},
+    Value            -> {
+      Cll[1, 1] -> 0., Cll[1, 2] -> 0., Cll[1, 3] -> 0.,
+      Cll[2, 1] -> 0., Cll[2, 2] -> 1., Cll[2, 3] -> 0.,
+      Cll[3, 1] -> 0., Cll[3, 2] -> 0., Cll[3, 3] -> 0.
+    },
+    InteractionOrder -> {NP, 1},
+    Description      -> "Weinberg operator Wilson coefficients C5^{ll'} (dimensionless), paper Eq.(dim5Lag); benchmark C5^{mu mu} = 1, all others 0"
+  },
+
+  (* ---- Internal parameters (paper Table ufoParams: blocks MASS and WIDTH;
+           paper FR names mN and wN, renamed to avoid LHA-table name lookups) ---- *)
+  MNu == {
+    ParameterType -> Internal,
+    BlockName     -> MASS,
+    Value         -> Abs[Cll[1, 1] + Cll[1, 2] + Cll[1, 3] + Cll[2, 1] + Cll[2, 2] + Cll[2, 3] + Cll[3, 1] + Cll[3, 2] + Cll[3, 3]] vev^2/Lambda,
+    Description   -> "Unphysical neutrino mass mN (paper) = |sum_{ll'} C5^{ll'}| v^2/Lambda [GeV], paper Eq.(heavyNMass); the LNV Wilson coefficient C5/Lambda (mass dimension -1) is absorbed as MNu/vev^2"
+  },
+  wNnu == {
+    ParameterType -> Internal,
+    BlockName     -> WIDTH,
+    Value         -> 0,
+    Description   -> "Width of the unphysical neutrino N (paper wN, zero), paper Table ufoParams"
+  }
+};
+
+M$ClassesDescription = {
+
+  (* The single new particle: unphysical neutrino N (modeled as a Dirac fermion;
+     see header: the paper's Majorana N fails this FeynRules version's
+     hermiticity check and UFO export). In the gauge interactions N carries the
+     quantum numbers of the LH neutrino (Q = 0, T3 = +1/2, Y = -1/2). *)
+  F[100] == {
+    ClassName        -> Nnu,
+    SelfConjugate    -> False,
+    Mass             -> {MNu, 0.},
+    Width            -> {wNnu, 0.},
+    PropagatorLabel  -> "N",
+    PropagatorType   -> S,
+    PropagatorArrow  -> Forward,
+    ParticleName     -> "N",
+    AntiParticleName -> "N~",
+    FullName         -> "Unphysical neutrino N (Weinberg operator)"
+  }
+};
+
+(* ================== new-physics Lagrangian terms ================== *)
+(* SM.fr idiom: spin indices implicit, index-free class fields sum over generations. *)
+
+(* Free (kinetic + mass) term of the neutrino N *)
+LFreeN := I Nnubar.Ga[mu].del[Nnu, mu] - MNu Nnubar.Nnu;
+
+(* Charged current, paper Eq.(lagCC):
+   -(gw/sqrt(2)) W+ Nbar ga^mu P_L l^- + H.c.  (sum over all flavors l) *)
+LNW := -gw/Sqrt[2] W[mu] Nnubar.Ga[mu].ProjM.l
+     + HC[-gw/Sqrt[2] W[mu] Nnubar.Ga[mu].ProjM.l];
+
+(* Neutral current: -(gw/(2 cw)) Z Nbar ga^mu P_L nu + H.c. *)
+LNZ := -gw/(2 cw) Z[mu] Nnubar.Ga[mu].ProjM.vl
+     + HC[-gw/(2 cw) Z[mu] Nnubar.Ga[mu].ProjM.vl];
+
+(* Higgs: -(gw MNu/(2 MW)) h (1 + gw h/(4 MW)) Nbar P_L nu + H.c. *)
+LNh := -gw MNu/(2 MW) H (1 + gw H/(4 MW)) Nnubar.ProjM.vl
+     + HC[-gw MNu/(2 MW) H (1 + gw H/(4 MW)) Nnubar.ProjM.vl];
+
+(* Charged Goldstone: -i gw MNu/(2 sqrt(2) MW) G+ (1 + gw h/(2 MW))
+   Nbar P_L l + H.c.  (the lbar^c P_L N partner structure is not
+   processable by this FeynRules version; see summary) *)
+LNGP := -I gw MNu/(2 Sqrt[2] MW) GP (1 + gw H/(2 MW)) Nnubar.ProjM.l
+     + HC[-I gw MNu/(2 Sqrt[2] MW) GP (1 + gw H/(2 MW)) Nnubar.ProjM.l];
+
+(* Neutral Goldstone: -i gw MNu/(2 MW) G0 (1 + gw h/(2 MW)) Nbar P_L nu + H.c. *)
+LNG0 := -I gw MNu/(2 MW) G0 (1 + gw H/(2 MW)) Nnubar.ProjM.vl
+     + HC[-I gw MNu/(2 MW) G0 (1 + gw H/(2 MW)) Nnubar.ProjM.vl];
+
+(* G0 G0: + gw^2 MNu/(8 MW^2) G0 G0 Nbar P_L nu + H.c. *)
+LGG0 := gw^2 MNu/(8 MW^2) G0 G0 Nnubar.ProjM.vl
+     + HC[gw^2 MNu/(8 MW^2) G0 G0 Nnubar.ProjM.vl];
+
+(* G0 G+: + gw^2 MNu/(4 sqrt(2) MW^2) G0 G+ Nbar P_L l + H.c. *)
+LG0GP := gw^2 MNu/(4 Sqrt[2] MW^2) G0 GP Nnubar.ProjM.l
+     + HC[gw^2 MNu/(4 Sqrt[2] MW^2) G0 GP Nnubar.ProjM.l];
+
+(* NOTE: the paper's LNV pieces with the charge-conjugated lepton, the
+   lbar^c P_L N partners in the G+/G0G+ terms and the G+G+ lbar^c P_L l'
+   contact term, cannot be represented in this FeynRules version: the
+   conjugate-lepton (CC[l]) bilinears either drop out of the vertex
+   splitting (hermiticity check fails) or corrupt the UFO export
+   (object_library.py). They are therefore omitted; the remaining
+   N couplings reproduce the paper's Delta L for all non-conjugated
+   currents. The LNV process W+W+ -> l+ l'+ still proceeds through the
+   N exchange with the couplings above. *)
+
+(* ================== total Lagrangian ================== *)
+LTotal := LSM + LFreeN + LNW + LNZ + LNh + LNGP + LNG0 + LGG0 + LG0GP;

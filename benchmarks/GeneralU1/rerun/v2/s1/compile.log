@@ -1,0 +1,249 @@
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+From kernel 2 (Local):
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+From kernel 3 (Local):
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+From kernel 5 (Local):
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+From kernel 6 (Local):
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+From kernel 8 (Local):
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+
+General::stop: Further output of Format::nosym will be suppressed during this calculation.
+From kernel 2 (Local):
+N::argt: N called with 3 arguments; 1 or 2 arguments are expected.
+From kernel 3 (Local):
+N::argt: N called with 3 arguments; 1 or 2 arguments are expected.
+From kernel 5 (Local):
+N::argt: N called with 3 arguments; 1 or 2 arguments are expected.
+From kernel 6 (Local):
+N::argt: N called with 3 arguments; 1 or 2 arguments are expected.
+From kernel 8 (Local):
+N::argt: N called with 3 arguments; 1 or 2 arguments are expected.
+
+General::stop: Further output of N::argt will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of N::argt will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of N::argt will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of N::argt will be suppressed during this calculation.
+From kernel 6 (Local):
+General::stop: Further output of N::argt will be suppressed during this calculation.
+From kernel 8 (Local):
+General::stop: Further output of N::argt will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+Merging model-files...
+This model implementation was created by
+O. Mattelaer
+M. Mitra
+R. Ruiz
+Model Version: 1.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+
+Format::nosym: PRIVATE`ii$__ does not contain a symbol to attach a rule to.
+
+N::argt: N called with 3 arguments; 1 or 2 arguments are expected.
+
+N::argt: N called with 3 arguments; 1 or 2 arguments are expected.
+
+N::argt: N called with 3 arguments; 1 or 2 arguments are expected.
+
+General::stop: Further output of N::argt will be suppressed during this calculation.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+Model EffLRSM_gen loaded.
+
+N::precbd: Requested precision ff is not a machine-sized real number between $MinPrecision and $MaxPrecision.
+
+N::precbd: Requested precision ff is not a machine-sized real number between $MinPrecision and $MaxPrecision.
+
+N::precbd: Requested precision ff2 is not a machine-sized real number between $MinPrecision and $MaxPrecision.
+
+General::stop: Further output of N::precbd will be suppressed during this calculation.
+[INFO] Total Lagrangian: LSM + LEffLRSM
+[INFO] Running FeynRules consistency checks.
+HEPTAPOD-CHECK-BEGIN: hermiticity
+Checking for hermiticity by calculating the Feynman rules contained in L-HC[L].
+If the lagrangian is hermitian, then the number of vertices should be zero.
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Collecting the different structures that enter the vertex.
+No vertices found.
+0 vertices obtained.
+The lagrangian is hermitian.
+HEPTAPOD-CHECK-ERROR
+HEPTAPOD-CHECK-END: hermiticity
+HEPTAPOD-CHECK-BEGIN: kinetic_terms
+Neglecting all terms with more than 2 particles.
+All kinetic terms are diagonal.
+HEPTAPOD-CHECK-ERROR
+HEPTAPOD-CHECK-END: kinetic_terms
+HEPTAPOD-CHECK-BEGIN: mass_spectrum
+Neglecting all terms with more than 2 particles.
+All mass terms are diagonal.
+Getting mass spectrum.
+Checking for less then 0.1% agreement with model file values.
+HEPTAPOD-CHECK-ERROR
+HEPTAPOD-CHECK-END: mass_spectrum
+[INFO] UFO output: /tmp/rerun_bench/v2_s1/EffLRSM_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+From kernel 6 (Local):
+N::precbd: Requested precision ff is not a machine-sized real number between $MinPrecision and $MaxPrecision.
+From kernel 7 (Local):
+N::precbd: Requested precision ff is not a machine-sized real number between $MinPrecision and $MaxPrecision.
+From kernel 6 (Local):
+N::precbd: Requested precision Index[Generation, ff] is not a machine-sized real number between $MinPrecision and $MaxPrecision.
+From kernel 7 (Local):
+N::precbd: Requested precision Index[Generation, ff] is not a machine-sized real number between $MinPrecision and $MaxPrecision.
+From kernel 6 (Local):
+N::precbd: Requested precision Index[Generation, ff] is not a machine-sized real number between $MinPrecision and $MaxPrecision.
+From kernel 6 (Local):
+General::stop: Further output of N::precbd will be suppressed during this calculation.
+
+General::stop: Further output of N::precbd will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of N::precbd will be suppressed during this calculation.
+Collecting the different structures that enter the vertex.
+100 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 100.
+8 vertices obtained.
+Flavor expansion of the vertices: Dynamic[FR$Count1] / 8
+
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+
+ReplaceRepeated::reps: {Join[{dq[1] -> d, dq[2] -> s, dq[3] -> b}, IndexRange[(bar dq)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar dq][[Index[MR$Null]]]], {l[1] -> e, l[2] -> mu, l[3] -> ta}, IndexRange[(bar l)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar l][[Index[MR$Null]]]], {1. -> N1, 2. -> N2, 3. -> N3}, IndexRange[(bar N)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar N][[Index[MR$Null]]]], {uq[1] -> u, uq[2] -> c, uq[3] -> t}, IndexRange[(bar uq)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar uq][[Index[MR$Null]]]], {vl[1] -> ve, vl[2] -> vm, vl[3] -> vt}, IndexRange[(bar vl)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar vl][[Index[MR$Null]]]], {CC[dq][1] -> CC[d], CC[dq][2] -> CC[s], CC[dq][3] -> CC[b]}, {CC[l][1] -> CC[e], CC[l][2] -> CC[mu], CC[l][3] -> CC[ta]}, {CC[uq][1] -> CC[u], CC[uq][2] -> CC[c], CC[uq][3] -> CC[t]}, {CC[vl][1] -> CC[ve], CC[vl][2] -> CC[vm], CC[vl][3] -> CC[vt]}]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+ReplaceRepeated::reps: {Join[{dq[1] -> d, dq[2] -> s, dq[3] -> b}, IndexRange[(bar dq)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar dq][[Index[MR$Null]]]], {l[1] -> e, l[2] -> mu, l[3] -> ta}, IndexRange[(bar l)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar l][[Index[MR$Null]]]], {1. -> N1, 2. -> N2, 3. -> N3}, IndexRange[(bar N)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar N][[Index[MR$Null]]]], {uq[1] -> u, uq[2] -> c, uq[3] -> t}, IndexRange[(bar uq)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar uq][[Index[MR$Null]]]], {vl[1] -> ve, vl[2] -> vm, vl[3] -> vt}, IndexRange[(bar vl)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar vl][[Index[MR$Null]]]], {CC[dq][1] -> CC[d], CC[dq][2] -> CC[s], CC[dq][3] -> CC[b]}, {CC[l][1] -> CC[e], CC[l][2] -> CC[mu], CC[l][3] -> CC[ta]}, {CC[uq][1] -> CC[u], CC[uq][2] -> CC[c], CC[uq][3] -> CC[t]}, {CC[vl][1] -> CC[ve], CC[vl][2] -> CC[vm], CC[vl][3] -> CC[vt]}]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+
+General::stop: Further output of Join::heads will be suppressed during this calculation.
+
+ReplaceRepeated::reps: {Join[{dq[1] -> d, dq[2] -> s, dq[3] -> b}, IndexRange[(bar dq)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar dq][[Index[MR$Null]]]], {l[1] -> e, l[2] -> mu, l[3] -> ta}, IndexRange[(bar l)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar l][[Index[MR$Null]]]], {1. -> N1, 2. -> N2, 3. -> N3}, IndexRange[(bar N)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar N][[Index[MR$Null]]]], {uq[1] -> u, uq[2] -> c, uq[3] -> t}, IndexRange[(bar uq)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar uq][[Index[MR$Null]]]], {vl[1] -> ve, vl[2] -> vm, vl[3] -> vt}, IndexRange[(bar vl)[Index[MR$Null]] -> PRIVATE`$ClassMembers[bar vl][[Index[MR$Null]]]], {CC[dq][1] -> CC[d], CC[dq][2] -> CC[s], CC[dq][3] -> CC[b]}, {CC[l][1] -> CC[e], CC[l][2] -> CC[mu], CC[l][3] -> CC[ta]}, {CC[uq][1] -> CC[u], CC[uq][2] -> CC[c], CC[uq][3] -> CC[t]}, {CC[vl][1] -> CC[ve], CC[vl][2] -> CC[vm], CC[vl][3] -> CC[vt]}]} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of ReplaceRepeated::reps will be suppressed during this calculation.
+
+First::nofirst: {} has zero length and no first element.
+   - Saved vertices in InterfaceRun[ 1 ].
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number GhostNumber not conserved in vertex {ghG, ghG}.
+Preparing Python output.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+From kernel 1 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 2 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 3 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 4 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 5 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+From kernel 1 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 2 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 3 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 4 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 5 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+
+General::stop: Further output of Join::heads will be suppressed during this calculation.
+From kernel 1 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 2 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 3 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 4 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+From kernel 5 (Local):
+Part::pkspec1: The expression Index[MR$Null] cannot be used as a part specification.
+
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+From kernel 5 (Local):
+General::stop: Further output of Part::pkspec1 will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+From kernel 1 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 2 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 3 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 4 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+From kernel 5 (Local):
+Join::heads: Heads List and IndexRange at positions 1 and 2 are expected to be the same.
+
+General::stop: Further output of Join::heads will be suppressed during this calculation.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/8 .
+
+StringJoin::string: String expected at position 1 in PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>1.
+
+StringJoin::string: String expected at position 2 in PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>1.
+
+StringJoin::string: String expected at position 3 in PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>PRIVATE`ConvertSpinToString[0]<>1.
+
+General::stop: Further output of StringJoin::string will be suppressed during this calculation.
+    - Writing files.
+Done!
+[INFO] Done.

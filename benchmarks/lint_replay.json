@@ -1,0 +1,6068 @@
+[
+ {
+  "id": "331/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v2/s1/model/331_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Zp` uses index V[20]; SM.fr uses the low indices",
+    "line": 315
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Yp` uses index V[21]; SM.fr uses the low indices",
+    "line": 327
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Vp` uses index V[22]; SM.fr uses the low indices",
+    "line": 341
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `WY` uses index V[23]; SM.fr uses the low indices",
+    "line": 355
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `H2` uses index S[20]; SM.fr uses the low indices",
+    "line": 364
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `H3` uses index S[21]; SM.fr uses the low indices",
+    "line": 376
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `H0` uses index S[22]; SM.fr uses the low indices",
+    "line": 388
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Hp` uses index S[23]; SM.fr uses the low indices",
+    "line": 400
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `HY` uses index S[24]; SM.fr uses the low indices",
+    "line": 414
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `HV` uses index S[25]; SM.fr uses the low indices",
+    "line": 428
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `rhoT` uses index S[30]; SM.fr uses the low indices",
+    "line": 442
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `etaT` uses index S[31]; SM.fr uses the low indices",
+    "line": 450
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `chiT` uses index S[32]; SM.fr uses the low indices",
+    "line": 458
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `DQ` uses index F[20]; SM.fr uses the low indices",
+    "line": 466
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `SQ` uses index F[21]; SM.fr uses the low indices",
+    "line": 481
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `TQ` uses index F[22]; SM.fr uses the low indices",
+    "line": 496
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `EL` uses index F[23]; SM.fr uses the low indices",
+    "line": 511
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `q1L` uses index F[30]; SM.fr uses the low indices",
+    "line": 528
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `q2L` uses index F[31]; SM.fr uses the low indices",
+    "line": 536
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `q3L` uses index F[32]; SM.fr uses the low indices",
+    "line": 544
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `lL` uses index F[33]; SM.fr uses the low indices",
+    "line": 552
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LYVkin`: covariant derivative on an explicitly indexed field `WYbar`",
+    "line": 564
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `L331`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `rhoT` is defined as a mixture of ['H0', 'H2', 'H3', 'Hp']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 443
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `etaT` is defined as a mixture of ['H0', 'H2', 'H3']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 451
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `chiT` is defined as a mixture of ['H0', 'H2', 'H3', 'HV', 'HY']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 459
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `q1L` is defined as a mixture of ['DQ', 'dq', 'uq']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 529
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `q2L` is defined as a mixture of ['SQ', 'dq', 'uq']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 537
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `q3L` is defined as a mixture of ['TQ', 'dq', 'uq']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 545
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `lL` is defined as a mixture of ['EL', 'l', 'vl']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 553
+   }
+  ]
+ },
+ {
+  "id": "331/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/rerun/v3s_tools/s1/model/331_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LH2`: none of its parameters (MH2) carries an InteractionOrder",
+    "line": 341
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LH0`: none of its parameters (MH0) carries an InteractionOrder",
+    "line": 345
+   }
+  ]
+ },
+ {
+  "id": "368sextets/rerun/v1/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v1/s1/model/368sextets_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "compile",
+    "message": "`LPsiKin`: covariant derivative on `Psiu` with an explicit colour-type index",
+    "line": 197
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LPhiKin`: covariant derivative on an explicitly indexed field `Phiubar`",
+    "line": 199
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LSextet`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LPsiqG` uses `JJ` which is neither declared here nor by SM.fr",
+    "line": 201
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LPsiqBG` uses `JJ` which is neither declared here nor by SM.fr",
+    "line": 203
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LPhiqlG` uses `JJ` which is neither declared here nor by SM.fr",
+    "line": 205
+   },
+   {
+    "rule": "sextet_without_representation",
+    "stage": "warn",
+    "message": "index `Sextet` has range 6 but there is no AddGaugeRepresentation",
+    "line": 18
+   }
+  ]
+ },
+ {
+  "id": "368sextets/rerun/v1/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v1/s2/model/368sextets_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "compile",
+    "message": "`LSextetKin`: covariant derivative on `Psiu` with an explicit colour-type index",
+    "line": 204
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LSextets`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LPsiqG0` uses `Jsix` which is neither declared here nor by SM.fr",
+    "line": 206
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LPsiqGB0` uses `Jsix` which is neither declared here nor by SM.fr",
+    "line": 208
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LPhiqlG0` uses `Jsix` which is neither declared here nor by SM.fr",
+    "line": 210
+   },
+   {
+    "rule": "sextet_without_representation",
+    "stage": "warn",
+    "message": "index `Sextet` has range 6 but there is no AddGaugeRepresentation",
+    "line": 25
+   }
+  ]
+ },
+ {
+  "id": "368sextets/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v2/s1/model/368sextets_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LPhiukin`: covariant derivative on an explicitly indexed field `Phiubar`",
+    "line": 201
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LPhidkin`: covariant derivative on an explicitly indexed field `Phidbar`",
+    "line": 203
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LSextet`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "sextet_without_representation",
+    "stage": "warn",
+    "message": "index `Sextet` has range 6 but there is no AddGaugeRepresentation",
+    "line": 20
+   }
+  ]
+ },
+ {
+  "id": "368sextets/rerun/v2/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v2/s2/model/368sextets_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LPhiukin`: covariant derivative on an explicitly indexed field `Phiubar`",
+    "line": 204
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LPhidkin`: covariant derivative on an explicitly indexed field `Phidbar`",
+    "line": 206
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LSextet`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "sextet_without_representation",
+    "stage": "warn",
+    "message": "index `Sextet` has range 6 but there is no AddGaugeRepresentation",
+    "line": 27
+   }
+  ]
+ },
+ {
+  "id": "368sextets/rerun/v3_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s1/model/368sextets_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "368sextets/rerun/v3_notools/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_notools/s2/model/368sextets_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "368sextets/rerun/v3_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_tools/s1/model/368sextets_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "368sextets/rerun/v3_tools/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3_tools/s2/model/368sextets_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "368sextets/rerun/v3txt_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3txt_tools/s1/model/368sextets_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "368sextets/rerun/v3txt_tools/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/368sextets/rerun/v3txt_tools/s2/model/368sextets_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "ALRM_general/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ALRM_general/rerun/v2/s1/model/ALRM_general_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `yuA` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 488
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `ydA` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 496
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `yeA` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 504
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `yvA` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 512
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `ydpA` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 520
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `ynA` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 528
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LNPscal`: covariant derivative on an explicitly indexed field `ChiLbar`",
+    "line": 832
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNPWp`: flavour matrix `CKMp` with explicit generation indices instead of matrix form",
+    "line": 834
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNPyuk`: flavour matrix `yuA` with explicit generation indices instead of matrix form",
+    "line": 838
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LALRSM`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNPyuk` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 838
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNPpot` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 840
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Phibd` is defined as a mixture of ['A1', 'A2', 'G0', 'GP', 'GZp', 'H', 'Hp1', 'h1', 'h2', 'h3']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 715
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `ChiL` is defined as a mixture of ['A2', 'G0', 'GP', 'GZp', 'H', 'Hp1', 'h2', 'h3']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 724
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `ChiR` is defined as a mixture of ['A2', 'G0', 'GWp', 'GZp', 'H', 'Hp2', 'h2', 'h3']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 733
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `QR` is defined as a mixture of ['dqp', 'uq']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 742
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `LR` is defined as a mixture of ['l', 'nl']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 751
+   }
+  ]
+ },
+ {
+  "id": "ALRM_general/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ALRM_general/rerun/v3s_notools/s1/model/ALRM_general_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": false,
+   "label": "mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "bad_particle_name",
+    "stage": "mg5",
+    "message": "class `dqp`: ParticleName {\"d'\",\"s'\",\"b'\"} is not a valid UFO identifier",
+    "line": 378
+   },
+   {
+    "rule": "bad_particle_name",
+    "stage": "mg5",
+    "message": "class `dqp`: AntiParticleName {\"d'~\",\"s'~\",\"b'~\"} is not a valid UFO identifier",
+    "line": 378
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LnuMass`: none of its parameters (Mvdiag) carries an InteractionOrder",
+    "line": 463
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `chiL0` is defined as a mixture of ['H', 'H2', 'H3']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 417
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `chiR0` is defined as a mixture of ['H', 'H2', 'H3']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 419
+   }
+  ]
+ },
+ {
+  "id": "B-L-SM/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/B-L-SM/rerun/v2/s1/model/B-L-SM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LhMix`: none of its parameters (cosa, sina) carries an InteractionOrder",
+    "line": 187
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `yn` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 60
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `yM` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 69
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNYukD`: flavour matrix `yn` with explicit generation indices instead of matrix form",
+    "line": 191
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LBL`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LhMix` uses `Ml` which is neither declared here nor by SM.fr",
+    "line": 187
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `chi` is defined as a mixture of ['H', 'h2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 145
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `vR` is defined as a mixture of ['NN', 'vl']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 167
+   }
+  ]
+ },
+ {
+  "id": "B-L-SM/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/B-L-SM/rerun/v3s_notools/s1/model/B-L-SM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNuYuk`: flavour matrix `yN` with explicit generation indices instead of matrix form",
+    "line": 232
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `chi` is defined as a mixture of ['GBp', 'HP']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "B-L-SM/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/B-L-SM/rerun/v3s_tools/s1/model/B-L-SM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LYukNu`: flavour matrix `yv` with explicit generation indices instead of matrix form",
+    "line": 173
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LScalarBL` uses `DCBL` which is neither declared here nor by SM.fr",
+    "line": 167
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `chi` is defined as a mixture of ['GZp', 'H', 'h2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 127
+   }
+  ]
+ },
+ {
+  "id": "CHEIDI/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/CHEIDI/rerun/v2/s1/model/CHEIDI_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": false,
+   "label": "mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "bad_particle_name",
+    "stage": "mg5",
+    "message": "class `Wp`: ParticleName \"W'+\" is not a valid UFO identifier",
+    "line": 138
+   },
+   {
+    "rule": "bad_particle_name",
+    "stage": "mg5",
+    "message": "class `Wp`: AntiParticleName \"W'-\" is not a valid UFO identifier",
+    "line": 139
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Wp` uses index V[5]; SM.fr uses the low indices",
+    "line": 131
+   },
+   {
+    "rule": "bad_particle_name",
+    "stage": "mg5",
+    "message": "class `Zp`: ParticleName \"Z'\" is not a valid UFO identifier",
+    "line": 151
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Zp` uses index V[6]; SM.fr uses the low indices",
+    "line": 145
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Gp0` uses index S[4]; SM.fr uses the low indices",
+    "line": 157
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `GpP` uses index S[5]; SM.fr uses the low indices",
+    "line": 170
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `vlP` uses index F[5]; SM.fr uses the low indices",
+    "line": 185
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `lP` uses index F[6]; SM.fr uses the low indices",
+    "line": 202
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `uqP` uses index F[7]; SM.fr uses the low indices",
+    "line": 219
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `dqP` uses index F[8]; SM.fr uses the low indices",
+    "line": 236
+   }
+  ]
+ },
+ {
+  "id": "ChernSimonsPortal/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ChernSimonsPortal/rerun/v2/s1/model/ChernSimonsPortal_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `X` uses index V[50]; SM.fr uses the low indices",
+    "line": 139
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `hX` uses index S[50]; SM.fr uses the low indices",
+    "line": 151
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `XD1u` uses index F[50]; SM.fr uses the low indices",
+    "line": 163
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `XD1d` uses index F[51]; SM.fr uses the low indices",
+    "line": 177
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `XS1` uses index F[52]; SM.fr uses the low indices",
+    "line": 191
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `XD2u` uses index F[53]; SM.fr uses the low indices",
+    "line": 205
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `XD2d` uses index F[54]; SM.fr uses the low indices",
+    "line": 219
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `XS2` uses index F[55]; SM.fr uses the low indices",
+    "line": 233
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Psi1L` uses index F[60]; SM.fr uses the low indices",
+    "line": 247
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Chi1R` uses index F[61]; SM.fr uses the low indices",
+    "line": 256
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Psi1R` uses index F[62]; SM.fr uses the low indices",
+    "line": 265
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Chi1L` uses index F[63]; SM.fr uses the low indices",
+    "line": 272
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Psi2R` uses index F[64]; SM.fr uses the low indices",
+    "line": 279
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Chi2L` uses index F[65]; SM.fr uses the low indices",
+    "line": 288
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Psi2L` uses index F[66]; SM.fr uses the low indices",
+    "line": 297
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Chi2R` uses index F[67]; SM.fr uses the low indices",
+    "line": 304
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LDF1`: covariant derivative on an explicitly indexed field `Phi`",
+    "line": 329
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LDF2`: covariant derivative on an explicitly indexed field `Phi`",
+    "line": 331
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Psi1L` is defined as a mixture of ['XD1d', 'XD1u']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 248
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Chi1R` is defined as a mixture of ['XD1d', 'XD1u']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 257
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Psi2R` is defined as a mixture of ['XD2d', 'XD2u']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 280
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Chi2L` is defined as a mixture of ['XD2d', 'XD2u']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 289
+   }
+  ]
+ },
+ {
+  "id": "ChernSimonsPortal/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ChernSimonsPortal/rerun/v3s_notools/s1/model/ChernSimonsPortal_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "ChernSimonsPortal/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ChernSimonsPortal/rerun/v3s_tools/s1/model/ChernSimonsPortal_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "DMsimp/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/DMsimp/rerun/v2/s1/model/DMsimp_gen.fr",
+  "outcome": {
+   "harness": true,
+   "compile": null,
+   "checks": null,
+   "mg5": null,
+   "label": "harness"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "ambiguous_total",
+    "stage": "harness",
+    "message": "2 root Lagrangian symbols: LDMsimp, LDMsimpTopEFT",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "EffLRSM/rerun/v1/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v1/s1/model/EffLRSM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "fail"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `WR` uses index V[20]; SM.fr uses the low indices",
+    "line": 121
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `ZR` uses index V[21]; SM.fr uses the low indices",
+    "line": 135
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `NR` uses index F[20]; SM.fr uses the low indices",
+    "line": 148
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LEffLRSM`, not LTotal",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "EffLRSM/rerun/v1/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v1/s2/model/EffLRSM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": false,
+   "label": "mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `YN` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 100
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `XL` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 109
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LEffLRSM`, not LTotal",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "EffLRSM/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v2/s1/model/EffLRSM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": false,
+   "label": "mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "protected_name",
+    "stage": "warn",
+    "message": "`N` is a Mathematica built-in (loads with a warning; renaming is safer)",
+    "line": 6
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `YN` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 41
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `XN` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 49
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LWRqq`: flavour matrix `VCKMR` with explicit generation indices instead of matrix form",
+    "line": 161
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LWRlN`: flavour matrix `YN` with explicit generation indices instead of matrix form",
+    "line": 163
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LEffLRSM`, not LTotal",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "EffLRSM/rerun/v2/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v2/s2/model/EffLRSM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "fail"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `WR` uses index V[20]; SM.fr uses the low indices",
+    "line": 112
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `ZR` uses index V[21]; SM.fr uses the low indices",
+    "line": 126
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `NR` uses index F[20]; SM.fr uses the low indices",
+    "line": 138
+   }
+  ]
+ },
+ {
+  "id": "EffLRSM/rerun/v3_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s1/model/EffLRSM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "EffLRSM/rerun/v3_notools/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_notools/s2/model/EffLRSM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "EffLRSM/rerun/v3_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_tools/s1/model/EffLRSM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "EffLRSM/rerun/v3_tools/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3_tools/s2/model/EffLRSM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "EffLRSM/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3s_notools/s1/model/EffLRSM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "fail"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "EffLRSM/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3s_tools/s1/model/EffLRSM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "EffLRSM/rerun/v3txt_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3txt_tools/s1/model/EffLRSM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "EffLRSM/rerun/v3txt_tools/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/rerun/v3txt_tools/s2/model/EffLRSM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "GeneralU1/rerun/v1/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v1/s1/model/GeneralU1_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "protected_name",
+    "stage": "warn",
+    "message": "`N` is a Mathematica built-in (loads with a warning; renaming is safer)",
+    "line": 6
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Zp` uses index V[5]; SM.fr uses the low indices",
+    "line": 134
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `phiX` uses index S[4]; SM.fr uses the low indices",
+    "line": 147
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `GZp` uses index S[5]; SM.fr uses the low indices",
+    "line": 160
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `N` uses index F[5]; SM.fr uses the low indices",
+    "line": 174
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `ghZp` uses index U[5]; SM.fr uses the low indices",
+    "line": 190
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `NR` uses index F[16]; SM.fr uses the low indices",
+    "line": 201
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `PhiX` uses index S[12]; SM.fr uses the low indices",
+    "line": 210
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `yN` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 123
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LYukN`: flavour matrix `ynu` with explicit generation indices instead of matrix form",
+    "line": 235
+   }
+  ]
+ },
+ {
+  "id": "GeneralU1/rerun/v1/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v1/s2/model/GeneralU1_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Zp` uses index V[5]; SM.fr uses the low indices",
+    "line": 141
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `vR` uses index F[5]; SM.fr uses the low indices",
+    "line": 153
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Hx` uses index S[4]; SM.fr uses the low indices",
+    "line": 168
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `G0x` uses index S[5]; SM.fr uses the low indices",
+    "line": 180
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `NR` uses index F[16]; SM.fr uses the low indices",
+    "line": 193
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `PhiX` uses index S[12]; SM.fr uses the low indices",
+    "line": 202
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LPortal`: none of its parameters (lamHX) carries an InteractionOrder",
+    "line": 225
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `yN` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 129
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LHiggsZp`: covariant derivative on an explicitly indexed field `Phi`",
+    "line": 223
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LYukawaX`: flavour matrix `ynu` with explicit generation indices instead of matrix form",
+    "line": 227
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LU1X`, not LTotal",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "GeneralU1/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v2/s1/model/GeneralU1_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Zp` uses index V[10]; SM.fr uses the low indices",
+    "line": 151
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `phiX` uses index S[10]; SM.fr uses the low indices",
+    "line": 163
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Nh` uses index F[10]; SM.fr uses the low indices",
+    "line": 175
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `NR` uses index F[11]; SM.fr uses the low indices",
+    "line": 190
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `PhiX` uses index S[11]; SM.fr uses the low indices",
+    "line": 199
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `yN` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 128
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `yNu` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 138
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNYukD`: flavour matrix `yNu` with explicit generation indices instead of matrix form",
+    "line": 218
+   }
+  ]
+ },
+ {
+  "id": "GeneralU1/rerun/v2/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v2/s2/model/GeneralU1_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `ynu` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 144
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LZpHiggs`: covariant derivative on an explicitly indexed field `Phi`",
+    "line": 238
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LnuYuk`: flavour matrix `ynu` with explicit generation indices instead of matrix form",
+    "line": 244
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `chix` is defined as a mixture of ['GZp', 'phix']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 194
+   }
+  ]
+ },
+ {
+  "id": "GeneralU1/rerun/v3_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s1/model/GeneralU1_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNuYuk`: flavour matrix `ynu` with explicit generation indices instead of matrix form",
+    "line": 302
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNuYuk` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 302
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LPotX` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 314
+   }
+  ]
+ },
+ {
+  "id": "GeneralU1/rerun/v3_notools/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_notools/s2/model/GeneralU1_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNYukD`: flavour matrix `yv` with explicit generation indices instead of matrix form",
+    "line": 212
+   }
+  ]
+ },
+ {
+  "id": "GeneralU1/rerun/v3_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_tools/s1/model/GeneralU1_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "GeneralU1/rerun/v3_tools/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3_tools/s2/model/GeneralU1_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNYuk`: flavour matrix `yNu` with explicit generation indices instead of matrix form",
+    "line": 175
+   }
+  ]
+ },
+ {
+  "id": "GeneralU1/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3s_notools/s1/model/GeneralU1_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNuDirac`: flavour matrix `yN` with explicit generation indices instead of matrix form",
+    "line": 189
+   }
+  ]
+ },
+ {
+  "id": "GeneralU1/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3s_tools/s1/model/GeneralU1_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNuDirac`: flavour matrix `ynu` with explicit generation indices instead of matrix form",
+    "line": 176
+   }
+  ]
+ },
+ {
+  "id": "GeneralU1/rerun/v3txt_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3txt_tools/s1/model/GeneralU1_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNDir`: flavour matrix `yNu` with explicit generation indices instead of matrix form",
+    "line": 206
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNDir` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 206
+   }
+  ]
+ },
+ {
+  "id": "GeneralU1/rerun/v3txt_tools/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/rerun/v3txt_tools/s2/model/GeneralU1_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNuYuk`: flavour matrix `yDN` with explicit generation indices instead of matrix form",
+    "line": 192
+   }
+  ]
+ },
+ {
+  "id": "HeavyN/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/HeavyN/rerun/v2/s1/model/HeavyN_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "majorana_mass_no_half",
+    "stage": "checks",
+    "message": "`LNKin`: Majorana mass term for `N1` without the 1/2",
+    "line": 156
+   },
+   {
+    "rule": "majorana_mass_no_half",
+    "stage": "checks",
+    "message": "`LNKin`: Majorana mass term for `N2` without the 1/2",
+    "line": 156
+   },
+   {
+    "rule": "majorana_mass_no_half",
+    "stage": "checks",
+    "message": "`LNKin`: Majorana mass term for `N3` without the 1/2",
+    "line": 156
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNGP` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 164
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNG0` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 166
+   }
+  ]
+ },
+ {
+  "id": "HeavyN/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/HeavyN/rerun/v3s_notools/s1/model/HeavyN_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "HeavyN/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/HeavyN/rerun/v3s_tools/s1/model/HeavyN_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "HiggsCharacterisation/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/HiggsCharacterisation/rerun/v2/s1/model/HiggsCharacterisation_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LHC`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LX0VV` uses `FSDual` which is neither declared here nor by SM.fr",
+    "line": 509
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LX1WW` uses `FSDual` which is neither declared here nor by SM.fr",
+    "line": 513
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LX2q` uses `Mu` which is neither declared here nor by SM.fr",
+    "line": 517
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LX2l` uses `Ml` which is neither declared here nor by SM.fr",
+    "line": 519
+   }
+  ]
+ },
+ {
+  "id": "LeptoQuark/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/LeptoQuark/rerun/v2/s1/model/LeptoQuark_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `betaR` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 230
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `zetaq` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 237
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `zetau` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 244
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `zetad` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 251
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `zetae` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 264
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `kappaq` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 271
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `kappau` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 278
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `kappad` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 285
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LU1Kin`: covariant derivative on an explicitly indexed field `U1bar`",
+    "line": 337
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LU1Int`: flavour matrix `betaL` with explicit generation indices instead of matrix form",
+    "line": 341
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LZpInt`: flavour matrix `zetaq` with explicit generation indices instead of matrix form",
+    "line": 345
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "compile",
+    "message": "`LGpKin`: covariant derivative on `Gp` with an explicit colour-type index",
+    "line": 347
+   }
+  ]
+ },
+ {
+  "id": "MDMmodel/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/MDMmodel/rerun/v2/s1/model/MDMmodel_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LMDM`, not LTotal",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "MDMmodel/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/MDMmodel/rerun/v3s_notools/s1/model/MDMmodel_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "sm_class_redeclared",
+    "stage": "warn",
+    "message": "class `s` is already declared by SM.fr (doubly-defined class)",
+    "line": null
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Sf` is defined as a mixture of ['H', 's']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": null
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Hgf` is defined as a mixture of ['H', 's']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "MDMmodel/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/MDMmodel/rerun/v3s_tools/s1/model/MDMmodel_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "sm_class_redeclared",
+    "stage": "warn",
+    "message": "class `s` is already declared by SM.fr (doubly-defined class)",
+    "line": 71
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Sgauge` is defined as a mixture of ['H', 's']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 83
+   }
+  ]
+ },
+ {
+  "id": "MSSMD/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/MSSMD/rerun/v2/s1/model/MSSMD_gen.fr",
+  "outcome": {
+   "harness": true,
+   "compile": null,
+   "checks": null,
+   "mg5": null,
+   "label": "harness"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`La1ff`: none of its parameters (tb) carries an InteractionOrder",
+    "line": 170
+   },
+   {
+    "rule": "ambiguous_total",
+    "stage": "harness",
+    "message": "2 root Lagrangian symbols: LgaDmix, LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`La1ff` uses `Ml` which is neither declared here nor by SM.fr",
+    "line": 170
+   }
+  ]
+ },
+ {
+  "id": "Monotops/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/rerun/v2/s1/model/Monotops_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_failed"
+  },
+  "checks": {
+   "hermiticity": false,
+   "kinetic_terms": true,
+   "mass_spectrum": true
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LphiresKin`: covariant derivative on an explicitly indexed field `phiresbar`",
+    "line": 255
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LphitilKin`: covariant derivative on an explicitly indexed field `phitilbar`",
+    "line": 257
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LxresKin`: covariant derivative on an explicitly indexed field `xresbar`",
+    "line": 259
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LFC`: flavour matrix `aFC0` with explicit generation indices instead of matrix form",
+    "line": 261
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LMonotop`, not LTotal",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "Monotops/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/rerun/v3s_notools/s1/model/Monotops_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "Monotops/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/rerun/v3s_tools/s1/model/Monotops_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`Lphiu`: flavour matrix `a0FC` with explicit generation indices instead of matrix form",
+    "line": 227
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LVu`: flavour matrix `a1FC` with explicit generation indices instead of matrix form",
+    "line": 229
+   }
+  ]
+ },
+ {
+  "id": "NJLComposite/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/NJLComposite/rerun/v2/s1/model/NJLComposite_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LLQKin`: covariant derivative on an explicitly indexed field `Pi76bar`",
+    "line": 142
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LNJLLQ`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Pi76` is defined as a mixture of ['Pi23d', 'Pi53']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 123
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Pi16` is defined as a mixture of ['Pi23u', 'Pim13']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 132
+   }
+  ]
+ },
+ {
+  "id": "NJLComposite/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/NJLComposite/rerun/v3s_notools/s1/model/NJLComposite_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_failed"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "feynrules_symbol_name",
+    "stage": "compile",
+    "message": "`HC` is a FeynRules symbol",
+    "line": 84
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LPiKin`: covariant derivative on an explicitly indexed field `Pi0u`",
+    "line": 402
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LLQKin`: covariant derivative on an explicitly indexed field `Pi53bar`",
+    "line": 412
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LPiCI` uses `Ga5` which is neither declared here nor by SM.fr",
+    "line": 447
+   }
+  ]
+ },
+ {
+  "id": "NJLComposite/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/NJLComposite/rerun/v3s_tools/s1/model/NJLComposite_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "fail"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "SLQrules/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/SLQrules/rerun/v2/s1/model/SLQrules_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_failed"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LQkin`: covariant derivative on an explicitly indexed field `S1m13bar`",
+    "line": 968
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LQall`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `S1m13` is defined as a mixture of ['R2tm13hat', 'S1m13hat', 'S3m13hat']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 783
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `S1tm43` is defined as a mixture of ['S1tm43hat', 'S3m43hat']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 873
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `R2` is defined as a mixture of ['R2p23hat', 'R2p53hat', 'R2tp23hat', 'S3p23hat']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 798
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `R2t` is defined as a mixture of ['R2p23hat', 'R2tm13hat', 'R2tp23hat', 'S1m13hat', 'S3m13hat', 'S3p23hat']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 798
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `S3` is defined as a mixture of ['R2p23hat', 'R2tm13hat', 'R2tp23hat', 'S1m13hat', 'S1tm43hat', 'S3m13hat', 'S3m43hat', 'S3p23hat']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 813
+   }
+  ]
+ },
+ {
+  "id": "SLQrules/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/SLQrules/rerun/v3s_notools/s1/model/SLQrules_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LQmass`: none of its parameters (mR2, mR2t, mS1, mS1t, mS3) carries an InteractionOrder",
+    "line": 267
+   }
+  ]
+ },
+ {
+  "id": "SLQrules/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/SLQrules/rerun/v3s_tools/s1/model/SLQrules_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LkinPhi1`: covariant derivative on an explicitly indexed field `Phi1bar`",
+    "line": 536
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LkinPhi1t`: covariant derivative on an explicitly indexed field `Phi1tbar`",
+    "line": 538
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LkinPhi2`: covariant derivative on an explicitly indexed field `Phi2bar`",
+    "line": 540
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LkinPhi2t`: covariant derivative on an explicitly indexed field `Phi2tbar`",
+    "line": 542
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LkinPhi3`: covariant derivative on an explicitly indexed field `Phi3bar`",
+    "line": 544
+   }
+  ]
+ },
+ {
+  "id": "SMWeinberg/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/SMWeinberg/rerun/v2/s1/model/SMWeinberg_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "protected_name",
+    "stage": "warn",
+    "message": "`N` is a Mathematica built-in (loads with a warning; renaming is safer)",
+    "line": 6
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNGP` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 72
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNG0` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 74
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNGG` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 76
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNG0GP` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 78
+   }
+  ]
+ },
+ {
+  "id": "SMWeinberg/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/SMWeinberg/rerun/v3s_notools/s1/model/SMWeinberg_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "SMWeinberg/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/SMWeinberg/rerun/v3s_tools/s1/model/SMWeinberg_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "Sextets/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Sextets/rerun/v2/s1/model/Sextets_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `T6` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 30
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LD3Kin`: covariant derivative on an explicitly indexed field `D3uubar`",
+    "line": 291
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LDQ6`: flavour matrix `lamL6uu` with explicit generation indices instead of matrix form",
+    "line": 311
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LDQ3`: flavour matrix `lamL3uu` with explicit generation indices instead of matrix form",
+    "line": 321
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LDiquark`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "sextet_without_representation",
+    "stage": "warn",
+    "message": "index `Sextet` has range 6 but there is no AddGaugeRepresentation",
+    "line": 6
+   }
+  ]
+ },
+ {
+  "id": "Top-Philic-Zprime/rerun/v1/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v1/s1/model/Top-Philic-Zprime_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LTopPhilic`, not LTotal",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "Top-Philic-Zprime/rerun/v1/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v1/s2/model/Top-Philic-Zprime_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LTopPhilic`, not LTotal",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "Top-Philic-Zprime/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v2/s1/model/Top-Philic-Zprime_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LTopPhilic`, not LTotal",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "Top-Philic-Zprime/rerun/v2/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v2/s2/model/Top-Philic-Zprime_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LTopPhilic`, not LTotal",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "Top-Philic-Zprime/rerun/v3_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3_notools/s1/model/Top-Philic-Zprime_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "Top-Philic-Zprime/rerun/v3_notools/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3_notools/s2/model/Top-Philic-Zprime_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "Top-Philic-Zprime/rerun/v3_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3_tools/s1/model/Top-Philic-Zprime_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "Top-Philic-Zprime/rerun/v3_tools/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3_tools/s2/model/Top-Philic-Zprime_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "Top-Philic-Zprime/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3s_notools/s1/model/Top-Philic-Zprime_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": false,
+   "label": "mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "Top-Philic-Zprime/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3s_tools/s1/model/Top-Philic-Zprime_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": false,
+   "label": "mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "Top-Philic-Zprime/rerun/v3txt_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3txt_tools/s1/model/Top-Philic-Zprime_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "Top-Philic-Zprime/rerun/v3txt_tools/s2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/rerun/v3txt_tools/s2/model/Top-Philic-Zprime_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "Triplets/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Triplets/rerun/v2/s1/model/Triplets_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LDQudKin`: covariant derivative on an explicitly indexed field `phiudbar`",
+    "line": 116
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LDQddKin`: covariant derivative on an explicitly indexed field `phiddbar`",
+    "line": 118
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LDQuuKin`: covariant derivative on an explicitly indexed field `phiuubar`",
+    "line": 120
+   }
+  ]
+ },
+ {
+  "id": "VLC_LN/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/VLC_LN/rerun/v2/s1/model/VLC_LN_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LK2kin`: covariant derivative on an explicitly indexed field `K2bar`",
+    "line": 314
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`Lpi3kin`: covariant derivative on an explicitly indexed field `pi3`",
+    "line": 316
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LVLCLN`, not LTotal",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "VLQ/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/VLQ/rerun/v2/s1/model/VLQ_gen.fr",
+  "outcome": {
+   "harness": true,
+   "compile": null,
+   "checks": null,
+   "mg5": null,
+   "label": "harness"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `tp` uses index F[5]; SM.fr uses the low indices",
+    "line": 83
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `bp` uses index F[6]; SM.fr uses the low indices",
+    "line": 98
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `lp` uses index F[7]; SM.fr uses the low indices",
+    "line": 113
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `vp` uses index F[8]; SM.fr uses the low indices",
+    "line": 127
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `tpL` uses index F[16]; SM.fr uses the low indices",
+    "line": 141
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `tpR` uses index F[17]; SM.fr uses the low indices",
+    "line": 149
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `bpL` uses index F[18]; SM.fr uses the low indices",
+    "line": 157
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `bpR` uses index F[19]; SM.fr uses the low indices",
+    "line": 165
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `LL4` uses index F[20]; SM.fr uses the low indices",
+    "line": 173
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `lR4` uses index F[21]; SM.fr uses the low indices",
+    "line": 182
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `vR4` uses index F[22]; SM.fr uses the low indices",
+    "line": 189
+   },
+   {
+    "rule": "ambiguous_total",
+    "stage": "harness",
+    "message": "2 root Lagrangian symbols: LGen4, LTotal",
+    "line": null
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `LL4` is defined as a mixture of ['lp', 'vp']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 174
+   }
+  ]
+ },
+ {
+  "id": "Wprime/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Wprime/rerun/v2/s1/model/Wprime_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": false,
+   "label": "mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "bad_particle_name",
+    "stage": "mg5",
+    "message": "class `Wp`: ParticleName \"W'+\" is not a valid UFO identifier",
+    "line": 128
+   },
+   {
+    "rule": "bad_particle_name",
+    "stage": "mg5",
+    "message": "class `Wp`: AntiParticleName \"W'-\" is not a valid UFO identifier",
+    "line": 129
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LWpLeptons`: flavour matrix `CLl` with explicit generation indices instead of matrix form",
+    "line": 160
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LWprime`, not LTotal",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "Wprime/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Wprime/rerun/v3s_notools/s1/model/Wprime_gen.fr",
+  "outcome": {
+   "harness": true,
+   "compile": null,
+   "checks": null,
+   "mg5": null,
+   "label": "harness"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "ambiguous_total",
+    "stage": "harness",
+    "message": "2 root Lagrangian symbols: LWpLepton, LTotal",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "Wprime/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Wprime/rerun/v3s_tools/s1/model/Wprime_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_failed"
+  },
+  "checks": {},
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "fieldless_term",
+    "stage": "mg5",
+    "message": "`LWpInt` contains no field",
+    "line": 111
+   }
+  ]
+ },
+ {
+  "id": "pNG/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/rerun/v2/s1/model/pNG_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `H2` uses index S[4]; SM.fr uses the low indices",
+    "line": 110
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `chi` uses index S[5]; SM.fr uses the low indices",
+    "line": 122
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `SS` uses index S[12]; SM.fr uses the low indices",
+    "line": 134
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `sing` uses index S[13]; SM.fr uses the low indices",
+    "line": 140
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `phih` uses index S[14]; SM.fr uses the low indices",
+    "line": 146
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LSsoft`: none of its parameters (muSp2) carries an InteractionOrder",
+    "line": 162
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `sing` is defined as a mixture of ['H', 'H2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 141
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `phih` is defined as a mixture of ['H', 'H2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 147
+   }
+  ]
+ },
+ {
+  "id": "pNG/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/rerun/v3s_notools/s1/model/pNG_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `phi1` is defined as a mixture of ['H', 'H2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": null
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `s1` is defined as a mixture of ['H', 'H2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "pNG/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/rerun/v3s_tools/s1/model/pNG_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "sm_class_redeclared",
+    "stage": "warn",
+    "message": "class `Phi` is already declared by SM.fr (doubly-defined class)",
+    "line": 80
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Phi` uses index S[11]; SM.fr uses the low indices",
+    "line": 79
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LSoftpNG`: none of its parameters (muSp2) carries an InteractionOrder",
+    "line": 124
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LHiggsPortal`: covariant derivative on an explicitly indexed field `Phibar`",
+    "line": 120
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Phi` is defined as a mixture of ['G0', 'GP', 'H', 'H2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 80
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Ssing` is defined as a mixture of ['H', 'H2', 'chi']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 89
+   }
+  ]
+ },
+ {
+  "id": "pSPSS/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pSPSS/rerun/v2/s1/model/pSPSS_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LNmass`: none of its parameters (Mmaj) carries an InteractionOrder",
+    "line": 200
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LpSPSS`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LpSPSS` uses `RemoveHigherOrder` which is neither declared here nor by SM.fr",
+    "line": 206
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `nL` is defined as a mixture of ['n4', 'n5', 'vl']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 147
+   }
+  ]
+ },
+ {
+  "id": "pSPSS/rerun/v3s_notools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pSPSS/rerun/v3s_notools/s1/model/pSPSS_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "sm_class_redeclared",
+    "stage": "warn",
+    "message": "class `LL` is already declared by SM.fr (doubly-defined class)",
+    "line": null
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `LL` uses index F[11]; SM.fr uses the low indices",
+    "line": 199
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LNPmass`: none of its parameters (Mmaj) carries an InteractionOrder",
+    "line": 226
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNPyukawa` uses `RemoveHigherOrder` which is neither declared here nor by SM.fr",
+    "line": 231
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LpSPSS` uses `RemoveHigherOrder` which is neither declared here nor by SM.fr",
+    "line": 246
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `N1L` is defined as a mixture of ['n4', 'n5']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": null
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `N2L` is defined as a mixture of ['n4', 'n5']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": null
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `LL` is defined as a mixture of ['l', 'n4', 'n5', 'vl']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "pSPSS/rerun/v3s_tools/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pSPSS/rerun/v3s_tools/s1/model/pSPSS_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "rerun",
+  "findings": [
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`Ln4`: none of its parameters (MN4) carries an InteractionOrder",
+    "line": 117
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`Ln5`: none of its parameters (MN5) carries an InteractionOrder",
+    "line": 119
+   }
+  ]
+ },
+ {
+  "id": "topBSM/rerun/v2/s1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/topBSM/rerun/v2/s1/model/topBSM_gen.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "rerun",
+  "findings": []
+ },
+ {
+  "id": "331/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": true,
+   "compile": null,
+   "checks": null,
+   "mg5": null,
+   "label": "harness"
+  },
+  "checks": {},
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LFermionGauge331`: covariant derivative on an explicitly indexed field `psi`",
+    "line": 666
+   },
+   {
+    "rule": "ambiguous_total",
+    "stage": "harness",
+    "message": "8 root Lagrangian symbols: LHiggs331, LGauge331Mass, LYukawaQuark331, LYukawaLepton331, LFermionGauge331, LZpFermions331, LGaugeSelf331, LScalarFermion331",
+    "line": null
+   },
+   {
+    "rule": "fieldless_term",
+    "stage": "mg5",
+    "message": "`LYukawaLepton331` contains no field",
+    "line": 664
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `H2` is SelfConjugate and carries QuantumNumbers {Q -> 0, ColourRep -> 1, SU2Rep -> 1}",
+    "line": 465
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `H3` is SelfConjugate and carries QuantumNumbers {Q -> 0, ColourRep -> 1, SU2Rep -> 1}",
+    "line": 478
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `H0` is SelfConjugate and carries QuantumNumbers {Q -> 0, ColourRep -> 1, SU2Rep -> 1}",
+    "line": 491
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `Zp` is SelfConjugate and carries QuantumNumbers {Q -> 0, ColourRep -> 1, SU2Rep -> 1}",
+    "line": 546
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYukawaQuark331` uses `JR` which is neither declared here nor by SM.fr",
+    "line": 662
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYukawaLepton331` uses `ER` which is neither declared here nor by SM.fr",
+    "line": 664
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LZpFermions331` uses `GHZpL` which is neither declared here nor by SM.fr",
+    "line": 668
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LGaugeSelf331` uses `VVV` which is neither declared here nor by SM.fr",
+    "line": 670
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LScalarFermion331` uses `Ml` which is neither declared here nor by SM.fr",
+    "line": 672
+   }
+  ]
+ },
+ {
+  "id": "331/repair_corrected/round1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/repair_corrected/round1/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_failed"
+  },
+  "checks": {},
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LFermionGauge331`: covariant derivative on an explicitly indexed field `psi`",
+    "line": 666
+   },
+   {
+    "rule": "fieldless_term",
+    "stage": "mg5",
+    "message": "`LYukawaLepton331` contains no field",
+    "line": 664
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `H2` is SelfConjugate and carries QuantumNumbers {Q -> 0, ColourRep -> 1, SU2Rep -> 1}",
+    "line": 465
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `H3` is SelfConjugate and carries QuantumNumbers {Q -> 0, ColourRep -> 1, SU2Rep -> 1}",
+    "line": 478
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `H0` is SelfConjugate and carries QuantumNumbers {Q -> 0, ColourRep -> 1, SU2Rep -> 1}",
+    "line": 491
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `Zp` is SelfConjugate and carries QuantumNumbers {Q -> 0, ColourRep -> 1, SU2Rep -> 1}",
+    "line": 546
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYukawaQuark331` uses `JR` which is neither declared here nor by SM.fr",
+    "line": 662
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYukawaLepton331` uses `ER` which is neither declared here nor by SM.fr",
+    "line": 664
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LZpFermions331` uses `GHZpL` which is neither declared here nor by SM.fr",
+    "line": 668
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LGaugeSelf331` uses `VVV` which is neither declared here nor by SM.fr",
+    "line": 670
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LScalarFermion331` uses `Ml` which is neither declared here nor by SM.fr",
+    "line": 672
+   }
+  ]
+ },
+ {
+  "id": "331/repair_corrected/round2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/repair_corrected/round2/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_failed"
+  },
+  "checks": {},
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LFermionGauge331`: covariant derivative on an explicitly indexed field `psi`",
+    "line": 662
+   },
+   {
+    "rule": "fieldless_term",
+    "stage": "mg5",
+    "message": "`LYukawaLepton331` contains no field",
+    "line": 660
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYukawaQuark331` uses `JR` which is neither declared here nor by SM.fr",
+    "line": 658
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYukawaLepton331` uses `ER` which is neither declared here nor by SM.fr",
+    "line": 660
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LZpFermions331` uses `GHZpL` which is neither declared here nor by SM.fr",
+    "line": 664
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LGaugeSelf331` uses `VVV` which is neither declared here nor by SM.fr",
+    "line": 666
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LScalarFermion331` uses `Ml` which is neither declared here nor by SM.fr",
+    "line": 668
+   }
+  ]
+ },
+ {
+  "id": "331/repair_corrected/round3",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/331/repair_corrected/round3/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_failed"
+  },
+  "checks": {},
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LFermionGauge331`: covariant derivative on an explicitly indexed field `psi`",
+    "line": 810
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `xirho` is SelfConjugate and carries QuantumNumbers {Q -> 0, ColourRep -> 1, SU2Rep -> 1}",
+    "line": 645
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `xieta` is SelfConjugate and carries QuantumNumbers {Q -> 0, ColourRep -> 1, SU2Rep -> 1}",
+    "line": 651
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `xichi` is SelfConjugate and carries QuantumNumbers {Q -> 0, ColourRep -> 1, SU2Rep -> 1}",
+    "line": 657
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `zetarho` is SelfConjugate and carries QuantumNumbers {Q -> 0, ColourRep -> 1, SU2Rep -> 1}",
+    "line": 663
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `zetaeta` is SelfConjugate and carries QuantumNumbers {Q -> 0, ColourRep -> 1, SU2Rep -> 1}",
+    "line": 669
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `zetachi` is SelfConjugate and carries QuantumNumbers {Q -> 0, ColourRep -> 1, SU2Rep -> 1}",
+    "line": 675
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYukawaQuark331` uses `JR` which is neither declared here nor by SM.fr",
+    "line": 806
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYukawaLepton331` uses `ER` which is neither declared here nor by SM.fr",
+    "line": 808
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LZpFermions331` uses `GHZpL` which is neither declared here nor by SM.fr",
+    "line": 812
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LGaugeSelf331` uses `VVV` which is neither declared here nor by SM.fr",
+    "line": 814
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LScalarFermion331` uses `Ml` which is neither declared here nor by SM.fr",
+    "line": 816
+   }
+  ]
+ },
+ {
+  "id": "ALRM_general/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ALRM_general/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": true,
+   "compile": null,
+   "checks": null,
+   "mg5": null,
+   "label": "harness"
+  },
+  "checks": {},
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Zp` uses index V[31]; SM.fr uses the low indices",
+    "line": 365
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Wp` uses index V[32]; SM.fr uses the low indices",
+    "line": 378
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `nl` uses index F[31]; SM.fr uses the low indices",
+    "line": 392
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `dqp` uses index F[32]; SM.fr uses the low indices",
+    "line": 409
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `h0` uses index S[31]; SM.fr uses the low indices",
+    "line": 426
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `A0` uses index S[32]; SM.fr uses the low indices",
+    "line": 441
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Hp` uses index S[33]; SM.fr uses the low indices",
+    "line": 456
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LYALRM`: none of its parameters (alp1, alp2, alp3, kap, lam1, lam2, lam3, lam4, mu1sq, mu2sq) carries an InteractionOrder",
+    "line": 482
+   },
+   {
+    "rule": "ambiguous_total",
+    "stage": "harness",
+    "message": "4 root Lagrangian symbols: LYALRM, LSALRM, LFALRM, LeffALRM",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYALRM` uses `Yu` which is neither declared here nor by SM.fr",
+    "line": 482
+   }
+  ]
+ },
+ {
+  "id": "ALRM_general/repair_corrected/round1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ALRM_general/repair_corrected/round1/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {},
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Zp` uses index V[31]; SM.fr uses the low indices",
+    "line": 365
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Wp` uses index V[32]; SM.fr uses the low indices",
+    "line": 378
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `nl` uses index F[31]; SM.fr uses the low indices",
+    "line": 392
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `dqp` uses index F[32]; SM.fr uses the low indices",
+    "line": 409
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `h0` uses index S[31]; SM.fr uses the low indices",
+    "line": 426
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `A0` uses index S[32]; SM.fr uses the low indices",
+    "line": 441
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Hp` uses index S[33]; SM.fr uses the low indices",
+    "line": 456
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LYALRM`: none of its parameters (alp1, alp2, alp3, kap, lam1, lam2, lam3, lam4, mu1sq, mu2sq) carries an InteractionOrder",
+    "line": 482
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYALRM` uses `Yu` which is neither declared here nor by SM.fr",
+    "line": 482
+   }
+  ]
+ },
+ {
+  "id": "ALRM_general/repair_corrected/round2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ALRM_general/repair_corrected/round2/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {},
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Zp` uses index V[31]; SM.fr uses the low indices",
+    "line": 366
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Wp` uses index V[32]; SM.fr uses the low indices",
+    "line": 378
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `nl` uses index F[31]; SM.fr uses the low indices",
+    "line": 392
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `dqp` uses index F[32]; SM.fr uses the low indices",
+    "line": 409
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `h0` uses index S[31]; SM.fr uses the low indices",
+    "line": 426
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `A0` uses index S[32]; SM.fr uses the low indices",
+    "line": 440
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Hp` uses index S[33]; SM.fr uses the low indices",
+    "line": 454
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LYALRM`: none of its parameters (alp1, alp2, alp3, kap, lam1, lam2, lam3, lam4, mu1sq, mu2sq) carries an InteractionOrder",
+    "line": 480
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYALRM` uses `Yu` which is neither declared here nor by SM.fr",
+    "line": 480
+   }
+  ]
+ },
+ {
+  "id": "ALRM_general/repair_corrected/round3",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ALRM_general/repair_corrected/round3/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_timeout"
+  },
+  "checks": {},
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Zp` uses index V[31]; SM.fr uses the low indices",
+    "line": 384
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Wp` uses index V[32]; SM.fr uses the low indices",
+    "line": 396
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `nl` uses index F[31]; SM.fr uses the low indices",
+    "line": 410
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `dqp` uses index F[32]; SM.fr uses the low indices",
+    "line": 427
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `h0` uses index S[31]; SM.fr uses the low indices",
+    "line": 444
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `A0` uses index S[32]; SM.fr uses the low indices",
+    "line": 458
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Hp` uses index S[33]; SM.fr uses the low indices",
+    "line": 472
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `PhiBD` uses index S[34]; SM.fr uses the low indices",
+    "line": 488
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `chiL` uses index S[35]; SM.fr uses the low indices",
+    "line": 502
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `chiR` uses index S[36]; SM.fr uses the low indices",
+    "line": 516
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LYALRM`: none of its parameters (alp1, alp2, alp3, kap, lam1, lam2, lam3, lam4, mu1sq, mu2sq) carries an InteractionOrder",
+    "line": 540
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYALRM` uses `Yu` which is neither declared here nor by SM.fr",
+    "line": 540
+   }
+  ]
+ },
+ {
+  "id": "B-L-SM/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/B-L-SM/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "protected_name",
+    "stage": "warn",
+    "message": "`N` is a Mathematica built-in (loads with a warning; renaming is safer)",
+    "line": 6
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNuYukNonHC`: flavour matrix `ynu` with explicit generation indices instead of matrix form",
+    "line": 228
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `N` is SelfConjugate and carries QuantumNumbers {Q -> 0, Y -> 0, BL -> -1}",
+    "line": 192
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Chi` is defined as a mixture of ['GZp', 'H', 'H2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 185
+   }
+  ]
+ },
+ {
+  "id": "B-L-SM/repair_corrected/round1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/B-L-SM/repair_corrected/round1/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "sm_parameter_redeclared",
+    "stage": "warn",
+    "message": "parameter `lam` is already declared by SM.fr",
+    "line": 90
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNuYukNonHC`: flavour matrix `ynu` with explicit generation indices instead of matrix form",
+    "line": 236
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `ChiBL` is defined as a mixture of ['GZp', 'H', 'H2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 193
+   }
+  ]
+ },
+ {
+  "id": "B-L-SM/repair_corrected/round2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/B-L-SM/repair_corrected/round2/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "sm_parameter_redeclared",
+    "stage": "warn",
+    "message": "parameter `lam` is already declared by SM.fr",
+    "line": 90
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNuYukNonHC`: flavour matrix `ynu` with explicit generation indices instead of matrix form",
+    "line": 236
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `ChiBL` is defined as a mixture of ['GZp', 'H', 'H2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 193
+   }
+  ]
+ },
+ {
+  "id": "B-L-SM/repair_corrected/round3",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/B-L-SM/repair_corrected/round3/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "sm_parameter_redeclared",
+    "stage": "warn",
+    "message": "parameter `lam` is already declared by SM.fr",
+    "line": 89
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNuYukNonHC`: flavour matrix `ynu` with explicit generation indices instead of matrix form",
+    "line": 233
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `ChiBL` is defined as a mixture of ['GZp', 'H', 'H2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 190
+   }
+  ]
+ },
+ {
+  "id": "ChernSimonsPortal/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ChernSimonsPortal/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": true,
+   "compile": null,
+   "checks": null,
+   "mg5": null,
+   "label": "harness"
+  },
+  "checks": {},
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `xb` uses index V[92]; SM.fr uses the low indices",
+    "line": 42
+   },
+   {
+    "rule": "ambiguous_total",
+    "stage": "harness",
+    "message": "2 root Lagrangian symbols: LChernSimonsPortal, LChernSimonsPortalBroken",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "ChernSimonsPortal/repair_corrected/round1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ChernSimonsPortal/repair_corrected/round1/model.fr",
+  "outcome": {
+   "harness": true,
+   "compile": null,
+   "checks": null,
+   "mg5": null,
+   "label": "harness"
+  },
+  "checks": {},
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `xb` uses index V[92]; SM.fr uses the low indices",
+    "line": 42
+   },
+   {
+    "rule": "ambiguous_total",
+    "stage": "harness",
+    "message": "2 root Lagrangian symbols: LChernSimonsPortal, LTot",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "ChernSimonsPortal/repair_corrected/round2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/ChernSimonsPortal/repair_corrected/round2/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `xb` uses index V[92]; SM.fr uses the low indices",
+    "line": 42
+   }
+  ]
+ },
+ {
+  "id": "EffLRSM/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "protected_name",
+    "stage": "warn",
+    "message": "`N` is a Mathematica built-in (loads with a warning; renaming is safer)",
+    "line": 6
+   }
+  ]
+ },
+ {
+  "id": "EffLRSM/repair_corrected/round1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/repair_corrected/round1/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": []
+ },
+ {
+  "id": "EffLRSM/repair_corrected/round2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/repair_corrected/round2/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": []
+ },
+ {
+  "id": "EffLRSM/repair_corrected/round3",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/EffLRSM/repair_corrected/round3/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": []
+ },
+ {
+  "id": "GeneralU1/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_failed"
+  },
+  "checks": {},
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "protected_name",
+    "stage": "warn",
+    "message": "`N` is a Mathematica built-in (loads with a warning; renaming is safer)",
+    "line": 6
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LNuDiracYuk`: none of its parameters (yNu) carries an InteractionOrder",
+    "line": 241
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `yNu` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 146
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LHiggsX`: covariant derivative on an explicitly indexed field `Phi`",
+    "line": 237
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNuDiracYuk`: flavour matrix `yNu` with explicit generation indices instead of matrix form",
+    "line": 241
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LGeneralU1`, not LTotal",
+    "line": null
+   }
+  ]
+ },
+ {
+  "id": "GeneralU1/repair_corrected/round1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/repair_corrected/round1/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "fail"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LNuDiracYuk`: none of its parameters (yNu) carries an InteractionOrder",
+    "line": 237
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `yNu` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 146
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LHiggsX`: covariant derivative on an explicitly indexed field `Phi`",
+    "line": 233
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNuDiracYuk`: flavour matrix `yNu` with explicit generation indices instead of matrix form",
+    "line": 237
+   }
+  ]
+ },
+ {
+  "id": "GeneralU1/repair_corrected/round2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/GeneralU1/repair_corrected/round2/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `yNu` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 144
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LHiggsX`: covariant derivative on an explicitly indexed field `Phi`",
+    "line": 233
+   },
+   {
+    "rule": "explicit_flavour_sum",
+    "stage": "mg5",
+    "message": "`LNuDiracYuk`: flavour matrix `yNu` with explicit generation indices instead of matrix form",
+    "line": 237
+   }
+  ]
+ },
+ {
+  "id": "HeavyN/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/HeavyN/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "repair",
+  "findings": []
+ },
+ {
+  "id": "MDMmodel/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/MDMmodel/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "sm_class_redeclared",
+    "stage": "warn",
+    "message": "class `Phi` is already declared by SM.fr (doubly-defined class)",
+    "line": 180
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `h` uses index S[1]; SM.fr uses the low indices",
+    "line": 131
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `sDM` uses index S[21]; SM.fr uses the low indices",
+    "line": 144
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `tp` uses index F[7]; SM.fr uses the low indices",
+    "line": 157
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `S` uses index S[31]; SM.fr uses the low indices",
+    "line": 172
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Phi` uses index S[11]; SM.fr uses the low indices",
+    "line": 179
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `TR` uses index F[26]; SM.fr uses the low indices",
+    "line": 188
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `TL` uses index F[27]; SM.fr uses the low indices",
+    "line": 196
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LHiggsMDM`: covariant derivative on an explicitly indexed field `Phibar`",
+    "line": 208
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LMDMNP`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LHiggsMDM` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 208
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYukawaDM` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 210
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `S` is defined as a mixture of ['h', 'sDM']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 173
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Phi` is defined as a mixture of ['G0', 'GP', 'h', 'sDM']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 180
+   }
+  ]
+ },
+ {
+  "id": "MDMmodel/repair_corrected/round1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/MDMmodel/repair_corrected/round1/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "sm_class_redeclared",
+    "stage": "warn",
+    "message": "class `Phi` is already declared by SM.fr (doubly-defined class)",
+    "line": 177
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `h` uses index S[1]; SM.fr uses the low indices",
+    "line": 131
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `sDM` uses index S[21]; SM.fr uses the low indices",
+    "line": 143
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `tp` uses index F[7]; SM.fr uses the low indices",
+    "line": 155
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `S` uses index S[31]; SM.fr uses the low indices",
+    "line": 170
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Phi` uses index S[11]; SM.fr uses the low indices",
+    "line": 176
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `TR` uses index F[26]; SM.fr uses the low indices",
+    "line": 185
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `TL` uses index F[27]; SM.fr uses the low indices",
+    "line": 193
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LHiggsMDM`: covariant derivative on an explicitly indexed field `Phibar`",
+    "line": 205
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LMDMNP`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LHiggsMDM` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 205
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYukawaDM` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 207
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `S` is defined as a mixture of ['h', 'sDM']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 171
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Phi` is defined as a mixture of ['G0', 'GP', 'h', 'sDM']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 177
+   }
+  ]
+ },
+ {
+  "id": "MDMmodel/repair_corrected/round2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/MDMmodel/repair_corrected/round2/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "sm_class_redeclared",
+    "stage": "warn",
+    "message": "class `Phi` is already declared by SM.fr (doubly-defined class)",
+    "line": 177
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `h` uses index S[1]; SM.fr uses the low indices",
+    "line": 131
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `sDM` uses index S[21]; SM.fr uses the low indices",
+    "line": 143
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `tp` uses index F[7]; SM.fr uses the low indices",
+    "line": 155
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `S` uses index S[31]; SM.fr uses the low indices",
+    "line": 170
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Phi` uses index S[11]; SM.fr uses the low indices",
+    "line": 176
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `TR` uses index F[26]; SM.fr uses the low indices",
+    "line": 185
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `TL` uses index F[27]; SM.fr uses the low indices",
+    "line": 193
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LMDMNP`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LHiggsMDM` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 205
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYukawaDM` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 207
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `S` is defined as a mixture of ['h', 'sDM']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 171
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Phi` is defined as a mixture of ['G0', 'GP', 'h', 'sDM']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 177
+   }
+  ]
+ },
+ {
+  "id": "MDMmodel/repair_corrected/round3",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/MDMmodel/repair_corrected/round3/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "sm_class_redeclared",
+    "stage": "warn",
+    "message": "class `Phi` is already declared by SM.fr (doubly-defined class)",
+    "line": 177
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `h` uses index S[1]; SM.fr uses the low indices",
+    "line": 131
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `sDM` uses index S[21]; SM.fr uses the low indices",
+    "line": 143
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `tp` uses index F[7]; SM.fr uses the low indices",
+    "line": 155
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `S` uses index S[31]; SM.fr uses the low indices",
+    "line": 170
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Phi` uses index S[11]; SM.fr uses the low indices",
+    "line": 176
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `TR` uses index F[26]; SM.fr uses the low indices",
+    "line": 185
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `TL` uses index F[27]; SM.fr uses the low indices",
+    "line": 193
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LMDMNP`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LHiggsMDM` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 205
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LYukawaDM` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 207
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `S` is defined as a mixture of ['h', 'sDM']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 171
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Phi` is defined as a mixture of ['G0', 'GP', 'h', 'sDM']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 177
+   }
+  ]
+ },
+ {
+  "id": "Monotops/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Monotops/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `FMET` uses index F[5]; SM.fr uses the low indices",
+    "line": 186
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `VMET` uses index V[7]; SM.fr uses the low indices",
+    "line": 199
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `VC` uses index V[8]; SM.fr uses the low indices",
+    "line": 212
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `SMET` uses index S[4]; SM.fr uses the low indices",
+    "line": 227
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `phiC` uses index S[5]; SM.fr uses the low indices",
+    "line": 240
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `tphiC` uses index S[6]; SM.fr uses the low indices",
+    "line": 255
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `B0FC` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 33
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `B1FC` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 53
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `B12S` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 73
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `tB12S` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 93
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `BQS` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 113
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `tBQS` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 133
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `B12V` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 153
+   },
+   {
+    "rule": "pattern_rule_definition",
+    "stage": "mg5",
+    "message": "parameter `BQV` uses a pattern rule in Definitions/Value; FeynRules exports it verbatim as a UFO name",
+    "line": 173
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LMono`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `FMET` is SelfConjugate and carries QuantumNumbers {Q -> 0, Y -> 0, ColourRep -> 1}",
+    "line": 187
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `VMET` is SelfConjugate and carries QuantumNumbers {Q -> 0, Y -> 0, ColourRep -> 1}",
+    "line": 200
+   },
+   {
+    "rule": "selfconjugate_with_qn",
+    "stage": "warn",
+    "message": "class `SMET` is SelfConjugate and carries QuantumNumbers {Q -> 0, Y -> 0, ColourRep -> 1}",
+    "line": 228
+   }
+  ]
+ },
+ {
+  "id": "NJLComposite/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/NJLComposite/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "compile",
+    "message": "`LkinNJL`: covariant derivative on `Pi5e` with an explicit colour-type index",
+    "line": 278
+   }
+  ]
+ },
+ {
+  "id": "SLQrules/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/SLQrules/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_failed"
+  },
+  "checks": {},
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LQ4Phi`: none of its parameters (Y1223, Y1313, Y1333, Y1t1t22, Y1t22t3, Y1t2t23, Y2t2x3, Y2tx3, Y2x3, Y3x3, Y3x5, Yprime1223, Yprime1t1t22, Yprime1t22t3, Yprime1t2t23, Yprime2t2x3) carries an InteractionOrder",
+    "line": 668
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LQkin`: covariant derivative on an explicitly indexed field `HC`",
+    "line": 662
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LQ2Phi` uses `S3` which is neither declared here nor by SM.fr",
+    "line": 660
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LQf` uses `ProjR` which is neither declared here nor by SM.fr",
+    "line": 664
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LQ3Phi` uses `S1` which is neither declared here nor by SM.fr",
+    "line": 666
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LQ4Phi` uses `Phia` which is neither declared here nor by SM.fr",
+    "line": 668
+   }
+  ]
+ },
+ {
+  "id": "SLQrules/repair_corrected/round1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/SLQrules/repair_corrected/round1/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": false,
+   "checks": null,
+   "mg5": null,
+   "label": "compile_failed"
+  },
+  "checks": {},
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LQ4Phi`: none of its parameters (Y1223, Y1313, Y1333, Y1t1t22, Y1t22t3, Y1t2t23, Y2t2x3, Y2tx3, Y2x3, Y3x3, Y3x5, Yprime1223, Yprime1t1t22, Yprime1t22t3, Yprime1t2t23, Yprime2t2x3) carries an InteractionOrder",
+    "line": 668
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LQkin`: covariant derivative on an explicitly indexed field `HC`",
+    "line": 662
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LQ2Phi` uses `S3` which is neither declared here nor by SM.fr",
+    "line": 660
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LQf` uses `ProjR` which is neither declared here nor by SM.fr",
+    "line": 664
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LQ3Phi` uses `S1` which is neither declared here nor by SM.fr",
+    "line": 666
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LQ4Phi` uses `Phia` which is neither declared here nor by SM.fr",
+    "line": 668
+   }
+  ]
+ },
+ {
+  "id": "SLQrules/repair_corrected/round2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/SLQrules/repair_corrected/round2/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LQ4Phi`: none of its parameters (Y1223, Y1313, Y1333, Y1t1t22, Y1t22t3, Y1t2t23, Y2t2x3, Y2tx3, Y2x3, Y3x3, Y3x5, Yprime1223, Yprime1t1t22, Yprime1t22t3, Yprime1t2t23, Yprime2t2x3) carries an InteractionOrder",
+    "line": 712
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LQkin`: covariant derivative on an explicitly indexed field `HC`",
+    "line": 706
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LQf` uses `ProjR` which is neither declared here nor by SM.fr",
+    "line": 708
+   }
+  ]
+ },
+ {
+  "id": "SLQrules/repair_corrected/round3",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/SLQrules/repair_corrected/round3/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`LQ4Phi`: none of its parameters (Y1223, Y1313, Y1333, Y1t1t22, Y1t22t3, Y1t2t23, Y2t2x3, Y2tx3, Y2x3, Y3x3, Y3x5, Yprime1223, Yprime1t1t22, Yprime1t22t3, Yprime1t2t23, Yprime2t2x3) carries an InteractionOrder",
+    "line": 712
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LQkin`: covariant derivative on an explicitly indexed field `HC`",
+    "line": 706
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LQf` uses `ProjR` which is neither declared here nor by SM.fr",
+    "line": 708
+   }
+  ]
+ },
+ {
+  "id": "SMWeinberg/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/SMWeinberg/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "repair",
+  "findings": []
+ },
+ {
+  "id": "Top-Philic-Zprime/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Top-Philic-Zprime/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": true,
+   "mg5": true,
+   "label": "pass"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "repair",
+  "findings": []
+ },
+ {
+  "id": "Wprime/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Wprime/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LkinWp`: covariant derivative on an explicitly indexed field `Wp`",
+    "line": 141
+   }
+  ]
+ },
+ {
+  "id": "Wprime/repair_corrected/round1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Wprime/repair_corrected/round1/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LkinWp`: covariant derivative on an explicitly indexed field `Wp`",
+    "line": 140
+   }
+  ]
+ },
+ {
+  "id": "Wprime/repair_corrected/round2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Wprime/repair_corrected/round2/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LkinWp`: covariant derivative on an explicitly indexed field `Wp`",
+    "line": 139
+   }
+  ]
+ },
+ {
+  "id": "Wprime/repair_corrected/round3",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/Wprime/repair_corrected/round3/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "pass",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LkinWp`: covariant derivative on an explicitly indexed field `Wp`",
+    "line": 139
+   }
+  ]
+ },
+ {
+  "id": "pNG/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "sm_class_redeclared",
+    "stage": "warn",
+    "message": "class `Phi` is already declared by SM.fr (doubly-defined class)",
+    "line": 127
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `h2` uses index S[2]; SM.fr uses the low indices",
+    "line": 100
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `X` uses index S[3]; SM.fr uses the low indices",
+    "line": 113
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Phi` uses index S[11]; SM.fr uses the low indices",
+    "line": 126
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `S` uses index S[12]; SM.fr uses the low indices",
+    "line": 135
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`Lsoft`: none of its parameters (muSpsq) carries an InteractionOrder",
+    "line": 150
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LHiggsPng`: covariant derivative on an explicitly indexed field `Phibar`",
+    "line": 144
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LScalarPng`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LHiggsPng` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 144
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`Lint` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 148
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Phi` is defined as a mixture of ['G0', 'GP', 'h2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 127
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `S` is defined as a mixture of ['X', 'h2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 136
+   }
+  ]
+ },
+ {
+  "id": "pNG/repair_corrected/round1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/repair_corrected/round1/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "sm_class_redeclared",
+    "stage": "warn",
+    "message": "class `Phi` is already declared by SM.fr (doubly-defined class)",
+    "line": 125
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `h2` uses index S[2]; SM.fr uses the low indices",
+    "line": 100
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `X` uses index S[3]; SM.fr uses the low indices",
+    "line": 112
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Phi` uses index S[11]; SM.fr uses the low indices",
+    "line": 124
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `S` uses index S[12]; SM.fr uses the low indices",
+    "line": 133
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`Lsoft`: none of its parameters (muSpsq) carries an InteractionOrder",
+    "line": 148
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LHiggsPng`: covariant derivative on an explicitly indexed field `Phibar`",
+    "line": 142
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LScalarPng`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LHiggsPng` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 142
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`Lint` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 146
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Phi` is defined as a mixture of ['G0', 'GP', 'h2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 125
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `S` is defined as a mixture of ['X', 'h2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 134
+   }
+  ]
+ },
+ {
+  "id": "pNG/repair_corrected/round2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/repair_corrected/round2/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "sm_class_redeclared",
+    "stage": "warn",
+    "message": "class `Phi` is already declared by SM.fr (doubly-defined class)",
+    "line": 125
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `h2` uses index S[2]; SM.fr uses the low indices",
+    "line": 100
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `X` uses index S[13]; SM.fr uses the low indices",
+    "line": 112
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Phi` uses index S[3]; SM.fr uses the low indices",
+    "line": 124
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `S` uses index S[12]; SM.fr uses the low indices",
+    "line": 133
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`Lsoft`: none of its parameters (muSpsq) carries an InteractionOrder",
+    "line": 148
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LHiggsPng`: covariant derivative on an explicitly indexed field `Phibar`",
+    "line": 142
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LScalarPng`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LHiggsPng` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 142
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`Lint` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 146
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Phi` is defined as a mixture of ['G0', 'GP', 'h2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 125
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `S` is defined as a mixture of ['X', 'h2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 134
+   }
+  ]
+ },
+ {
+  "id": "pNG/repair_corrected/round3",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pNG/repair_corrected/round3/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": true,
+   "label": "checks_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "pass",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "sm_class_redeclared",
+    "stage": "warn",
+    "message": "class `Phi` is already declared by SM.fr (doubly-defined class)",
+    "line": 125
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `h2` uses index S[3]; SM.fr uses the low indices",
+    "line": 100
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `X` uses index S[13]; SM.fr uses the low indices",
+    "line": 112
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `Phi` uses index S[2]; SM.fr uses the low indices",
+    "line": 124
+   },
+   {
+    "rule": "low_class_index",
+    "stage": "warn",
+    "message": "class `S` uses index S[12]; SM.fr uses the low indices",
+    "line": 133
+   },
+   {
+    "rule": "missing_interaction_order",
+    "stage": "mg5",
+    "message": "`Lsoft`: none of its parameters (muSpsq) carries an InteractionOrder",
+    "line": 148
+   },
+   {
+    "rule": "explicit_index_in_dc",
+    "stage": "warn",
+    "message": "`LHiggsPng`: covariant derivative on an explicitly indexed field `Phibar`",
+    "line": 142
+   },
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LScalarPng`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LHiggsPng` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 142
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`Lint` uses `Not` which is neither declared here nor by SM.fr",
+    "line": 146
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `Phi` is defined as a mixture of ['G0', 'GP', 'h2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 125
+   },
+   {
+    "rule": "mixing_in_definitions",
+    "stage": "checks",
+    "message": "class `S` is defined as a mixture of ['X', 'h2']; the mass basis of the partner fields declared in SM.fr is unchanged",
+    "line": 134
+   }
+  ]
+ },
+ {
+  "id": "pSPSS/repair_corrected/round0",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pSPSS/repair_corrected/round0/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "total_not_named_ltotal",
+    "stage": "warn",
+    "message": "the single root is `LpSPSS`, not LTotal",
+    "line": null
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNP` uses `PhiNPbar` which is neither declared here nor by SM.fr",
+    "line": 176
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LpSPSS` uses `RemoveHigherOrder` which is neither declared here nor by SM.fr",
+    "line": 178
+   }
+  ]
+ },
+ {
+  "id": "pSPSS/repair_corrected/round1",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pSPSS/repair_corrected/round1/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNP` uses `PhiNPbar` which is neither declared here nor by SM.fr",
+    "line": 175
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LTot` uses `RemoveHigherOrder` which is neither declared here nor by SM.fr",
+    "line": 177
+   }
+  ]
+ },
+ {
+  "id": "pSPSS/repair_corrected/round2",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pSPSS/repair_corrected/round2/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "fail",
+   "mass_spectrum": "inconclusive"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNP` uses `PhiNPbar` which is neither declared here nor by SM.fr",
+    "line": 175
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LTot` uses `RemoveHigherOrder` which is neither declared here nor by SM.fr",
+    "line": 177
+   }
+  ]
+ },
+ {
+  "id": "pSPSS/repair_corrected/round3",
+  "fr": "/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/pSPSS/repair_corrected/round3/model.fr",
+  "outcome": {
+   "harness": false,
+   "compile": true,
+   "checks": false,
+   "mg5": false,
+   "label": "checks+mg5_failed"
+  },
+  "checks": {
+   "hermiticity": "fail",
+   "kinetic_diagonal": "fail",
+   "mass_diagonal": "pass",
+   "mass_spectrum": "pass"
+  },
+  "source": "repair",
+  "findings": [
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LNP` uses `PhiNPbar` which is neither declared here nor by SM.fr",
+    "line": 175
+   },
+   {
+    "rule": "undeclared_symbol",
+    "stage": "warn",
+    "message": "`LTot` uses `RemoveHigherOrder` which is neither declared here nor by SM.fr",
+    "line": 177
+   }
+  ]
+ }
+]

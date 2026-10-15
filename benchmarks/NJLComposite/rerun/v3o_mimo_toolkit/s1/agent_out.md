@@ -1,0 +1,1 @@
+Reading key paper regions for exact coefficients before editing.

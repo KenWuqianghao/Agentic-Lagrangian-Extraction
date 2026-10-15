@@ -1,0 +1,260 @@
+{
+  "model_name": "EffLRSM_gen",
+  "info": {
+    "authors": ["O. Mattelaer", "M. Mitra", "R. Ruiz"],
+    "version": "1.0.0",
+    "date": "24.09.2026",
+    "institutions": [
+      "CP3, Universite catholique de Louvain",
+      "IISER Mohali",
+      "IPPP, Durham University"
+    ],
+    "emails": [
+      "olivier.mattelaer@uclouvain.be",
+      "manimala@iisermohali.ac.in",
+      "richard.ruiz@durham.ac.uk"
+    ]
+  },
+  "interaction_order_hierarchy": [["QCD", 1], ["QED", 2], ["NP", 1]],
+  "interaction_order_limit": [],
+  "feynman_gauge": null,
+  "vevs": [],
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "kRq",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "LRSMINPUTS",
+      "order_block": 1,
+      "interaction_order": ["NP", 1],
+      "description": "kappa_R^q, WR/ZR coupling normalization to quarks, Eqs. (2) and (6); benchmark 1.0"
+    },
+    {
+      "name": "kRl",
+      "parameter_type": "External",
+      "value": "1.",
+      "block_name": "LRSMINPUTS",
+      "order_block": 2,
+      "interaction_order": ["NP", 1],
+      "description": "kappa_R^l, WR/ZR coupling normalization to leptons, Eqs. (3) and (6); benchmark 1.0"
+    },
+    {
+      "name": "VCKMR",
+      "parameter_type": "External",
+      "complex": false,
+      "block_name": "LRSMIXING",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "VCKMR[1,1]", "rhs": "1"},
+        {"lhs": "VCKMR[1,2]", "rhs": "0"},
+        {"lhs": "VCKMR[1,3]", "rhs": "0"},
+        {"lhs": "VCKMR[2,1]", "rhs": "0"},
+        {"lhs": "VCKMR[2,2]", "rhs": "1"},
+        {"lhs": "VCKMR[2,3]", "rhs": "0"},
+        {"lhs": "VCKMR[3,1]", "rhs": "0"},
+        {"lhs": "VCKMR[3,2]", "rhs": "0"},
+        {"lhs": "VCKMR[3,3]", "rhs": "1"}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Right-handed CKM matrix V_CKM', diagonal with unit entries, Eq. (2) and Sec. II"
+    },
+    {
+      "name": "YR",
+      "parameter_type": "External",
+      "complex": false,
+      "block_name": "LRSMIXING",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "YR[1,1]", "rhs": "1"},
+        {"lhs": "YR[1,2]", "rhs": "0"},
+        {"lhs": "YR[1,3]", "rhs": "0"},
+        {"lhs": "YR[2,1]", "rhs": "0"},
+        {"lhs": "YR[2,2]", "rhs": "1"},
+        {"lhs": "YR[2,3]", "rhs": "0"},
+        {"lhs": "YR[3,1]", "rhs": "0"},
+        {"lhs": "YR[3,2]", "rhs": "0"},
+        {"lhs": "YR[3,3]", "rhs": "1"}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Heavy-light lepton mixing matrix Y_lm', benchmark |Y_eN1|=|Y_muN2|=|Y_tauN3|=1, Eq. (5)"
+    },
+    {
+      "name": "X",
+      "parameter_type": "External",
+      "complex": false,
+      "block_name": "LRSMIXING",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "X[1,1]", "rhs": "0"},
+        {"lhs": "X[1,2]", "rhs": "0"},
+        {"lhs": "X[1,3]", "rhs": "0"},
+        {"lhs": "X[2,1]", "rhs": "0"},
+        {"lhs": "X[2,2]", "rhs": "0"},
+        {"lhs": "X[2,3]", "rhs": "0"},
+        {"lhs": "X[3,1]", "rhs": "0"},
+        {"lhs": "X[3,2]", "rhs": "0"},
+        {"lhs": "X[3,3]", "rhs": "0"}
+      ],
+      "interaction_order": ["NP", 1],
+      "description": "Light-heavy neutrino mixing matrix X_lm, Eq. (4); benchmark |X|=0 so the nu^c term of Eq. (3) is dropped"
+    },
+    {
+      "name": "tan2W",
+      "parameter_type": "Internal",
+      "value": "(sw/cw)^2",
+      "description": "tan^2(theta_W) = sw^2/cw^2, Eqs. (6)-(8)"
+    },
+    {
+      "name": "normZRq",
+      "parameter_type": "Internal",
+      "value": "-kRq gw/Sqrt[1 - tan2W/kRq^2]",
+      "interaction_order": ["NP", 1],
+      "description": "Overall ZR normalization for quarks: -kappa_R^q g / Sqrt[1-(1/kappa_R^q)^2 tan^2 theta_W], Eq. (6)"
+    },
+    {
+      "name": "normZRl",
+      "parameter_type": "Internal",
+      "value": "-kRl gw/Sqrt[1 - tan2W/kRl^2]",
+      "interaction_order": ["NP", 1],
+      "description": "Overall ZR normalization for leptons: -kappa_R^l g / Sqrt[1-(1/kappa_R^l)^2 tan^2 theta_W], Eq. (6)"
+    },
+    {
+      "name": "cZqL",
+      "parameter_type": "Internal",
+      "value": "normZRq*(-1/6)*tan2W/kRq^2",
+      "interaction_order": ["NP", 1],
+      "description": "ZR coupling to u_L and d_L: norm * (T3L-Q) kappa^-2 tan^2, T3L-Q = -1/6, Eq. (7)"
+    },
+    {
+      "name": "cZuR",
+      "parameter_type": "Internal",
+      "value": "normZRq*(1/2 - (2/3)*tan2W/kRq^2)",
+      "interaction_order": ["NP", 1],
+      "description": "ZR coupling to u_R: norm * (T3R - kappa^-2 tan^2 Q), T3R=1/2, Q=2/3, Eq. (8)"
+    },
+    {
+      "name": "cZdR",
+      "parameter_type": "Internal",
+      "value": "normZRq*(-1/2 + (1/3)*tan2W/kRq^2)",
+      "interaction_order": ["NP", 1],
+      "description": "ZR coupling to d_R: norm * (T3R - kappa^-2 tan^2 Q), T3R=-1/2, Q=-1/3, Eq. (8)"
+    },
+    {
+      "name": "cZlL",
+      "parameter_type": "Internal",
+      "value": "normZRl*(1/2)*tan2W/kRl^2",
+      "interaction_order": ["NP", 1],
+      "description": "ZR coupling to e_L and nu_L: norm * (T3L-Q) kappa^-2 tan^2 = 1/2, Eqs. (7)"
+    },
+    {
+      "name": "cZeR",
+      "parameter_type": "Internal",
+      "value": "normZRl*(-1/2 + tan2W/kRl^2)",
+      "interaction_order": ["NP", 1],
+      "description": "ZR coupling to e_R: norm * (T3R - kappa^-2 tan^2 Q), T3R=-1/2, Q=-1, Eq. (8)"
+    },
+    {
+      "name": "cZNR",
+      "parameter_type": "Internal",
+      "value": "normZRl*1/2",
+      "interaction_order": ["NP", 1],
+      "description": "ZR coupling to N_R: norm * g_R with g_R = T3R = 1/2, Q = 0, Eq. (8)"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "V",
+      "class_index": 100,
+      "class_name": "WR",
+      "self_conjugate": false,
+      "mass": {"sym": "MWR", "value": "3000."},
+      "width": {"massless": true},
+      "quantum_numbers": {"Q": "1", "Y": "1"},
+      "pdg": 9900024,
+      "particle_name": "wr+",
+      "antiparticle_name": "wr-",
+      "full_name": "WR",
+      "propagator_label": "wr",
+      "propagator_type": "Sine",
+      "propagator_arrow": "Forward"
+    },
+    {
+      "spin_type": "V",
+      "class_index": 101,
+      "class_name": "ZR",
+      "self_conjugate": true,
+      "mass": {"sym": "MZR", "value": "5070."},
+      "width": {"massless": true},
+      "quantum_numbers": {},
+      "pdg": 9900023,
+      "particle_name": "zr",
+      "full_name": "ZR",
+      "propagator_label": "zr",
+      "propagator_type": "Sine",
+      "propagator_arrow": "None"
+    },
+    {
+      "spin_type": "F",
+      "class_index": 100,
+      "class_name": "NR",
+      "class_members": ["N1", "N2", "N3"],
+      "indices": ["Generation"],
+      "flavor_index": "Generation",
+      "self_conjugate": true,
+      "mass": {
+        "sym": "MNR",
+        "members": [["MN1", "173.3"], ["MN2", "1.*^12"], ["MN3", "1.*^12"]]
+      },
+      "width": {"massless": true},
+      "quantum_numbers": {},
+      "pdg": [9900012, 9900014, 9900016],
+      "particle_name": ["n1", "n2", "n3"],
+      "full_name": ["N1", "N2", "N3"],
+      "propagator_label": ["n1", "n2", "n3"],
+      "propagator_type": "Straight",
+      "propagator_arrow": "None"
+    }
+  ],
+  "gauge_xi": [],
+  "lagrangian_terms": [
+    {
+      "name": "LWRkin",
+      "delayed": true,
+      "expression": "-1/2 FS[WRbar, mu, nu] FS[WR, mu, nu] + MWR^2 WRbar[mu] WR[mu]"
+    },
+    {
+      "name": "LZRkin",
+      "delayed": true,
+      "expression": "-1/4 FS[ZR, mu, nu] FS[ZR, mu, nu] + 1/2 MZR^2 ZR[mu] ZR[mu]"
+    },
+    {
+      "name": "LNkin",
+      "delayed": true,
+      "expression": "I/2 NRbar.Ga[mu].del[NR, mu] - 1/2 MN1 N1bar.N1 - 1/2 MN2 N2bar.N2 - 1/2 MN3 N3bar.N3"
+    },
+    {
+      "name": "LWRqq",
+      "delayed": true,
+      "expression": "-(kRq gw/Sqrt[2]) uqbar.VCKMR.Ga[mu].ProjP.dq WR[mu] + HC[-(kRq gw/Sqrt[2]) uqbar.VCKMR.Ga[mu].ProjP.dq WR[mu]]"
+    },
+    {
+      "name": "LWRln",
+      "delayed": true,
+      "expression": "-(kRl gw/Sqrt[2]) NRbar.YR.Ga[mu].ProjP.l WR[mu] + HC[-(kRl gw/Sqrt[2]) NRbar.YR.Ga[mu].ProjP.l WR[mu]]"
+    },
+    {
+      "name": "LZRff",
+      "delayed": true,
+      "expression": "ZR[mu] (cZqL uqbar.Ga[mu].ProjM.uq + cZuR uqbar.Ga[mu].ProjP.uq + cZqL dqbar.Ga[mu].ProjM.dq + cZdR dqbar.Ga[mu].ProjP.dq + cZlL lbar.Ga[mu].ProjM.l + cZeR lbar.Ga[mu].ProjP.l + cZlL vlbar.Ga[mu].ProjM.vl + cZNR NRbar.Ga[mu].ProjP.NR)"
+    },
+    {
+      "name": "LTotal",
+      "delayed": true,
+      "expression": "LWRkin + LZRkin + LNkin + LWRqq + LWRln + LZRff"
+    }
+  ],
+  "raw_preamble": [],
+  "raw_blocks": []
+}

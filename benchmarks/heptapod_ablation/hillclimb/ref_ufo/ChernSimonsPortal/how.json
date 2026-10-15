@@ -1,0 +1,48 @@
+{
+ "model_files": [
+  "/home/deck/code/heptapod/eval/reference_cache/ChernSimonsPortal/Chern-Simons-Portal.fr"
+ ],
+ "load_sm": true,
+ "sm_file": "/home/deck/hep-tools/feynrules-current/Models/SM/SM.fr",
+ "lagrangian": "",
+ "seconds": 0,
+ "ok": false,
+ "n_particles": 0,
+ "n_vertices": 0,
+ "n_bsm_vertices": 0,
+ "bsm_particles": [],
+ "example_bsm_vertex": null,
+ "evidence": "Chern-Simons-Portal.fr:1-33 is the whole file: it declares V[92] xb and 4 parameters and ends after M$Parameters. It has no Lagrangian definition. The discovery run in compile.log lists only the SM symbols LFermions, LGauge, LGhost, LHiggs, LSM, LYukawa.",
+ "notes": "Not compiled: the reference file defines no Lagrangian, so there is no published expression to compile. LSM alone gives no vertex with xb. The file is an add-on (uses no SM declaration of its own).",
+ "extra_args": [],
+ "command": null,
+ "problems": [
+  "no UFO directory"
+ ],
+ "last_log_lines": [
+  "For more information, type ModelInformation[].",
+  "   - Loading particle classes.",
+  "   - Loading gauge group classes.",
+  "   - Loading parameter classes.",
+  "Model ChernSimons loaded.",
+  "Error: no Lagrangian given. Pass Lagrangian=<expression>, e.g. Lagrangian=\"LSM + LBSM\" or Lagrangian=\"LNP\".",
+  "[INFO] Lagrangian-like symbols defined by this model: LFermions, LGauge, LGhost, LHiggs, LSM, LYukawa",
+  "===== exit code 1"
+ ],
+ "attempts": [
+  {
+   "lagrangian": "",
+   "load_sm": true,
+   "model_files": [
+    "/home/deck/code/heptapod/eval/reference_cache/ChernSimonsPortal/Chern-Simons-Portal.fr"
+   ],
+   "extra": [],
+   "seconds": 0,
+   "exit_code": null,
+   "ok": false,
+   "problems": [
+    "no UFO directory"
+   ]
+  }
+ ]
+}

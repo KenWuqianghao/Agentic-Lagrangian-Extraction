@@ -1,0 +1,307 @@
+(********************************************************************)
+(*  pSPSS - phenomenological symmetry protected seesaw scenario     *)
+(*  arXiv:2210.10738 (Antusch, Hajer, Roskopp), new-physics part    *)
+(*  FeynRules add-on for SM.fr                                      *)
+(*                                                                  *)
+(*  Content: two sterile neutrinos N1L, N2L (interaction           *)
+(*  eigenstates) whose pseudo-Dirac mass eigenstates n4, n5        *)
+(*  (masses eq.(24)) mix with the SM neutrinos through the          *)
+(*  active-sterile mixing UnCL (upper 3x5 block of U_n, eq.(18));  *)
+(*  plus the Higgs doublet PhiNP with the NP vev vevNP and the     *)
+(*  Yukawa coupling yvn (eq.(8)).                                   *)
+(*                                                                  *)
+(*  Implementation notes (see self-audit):                         *)
+(*  - The model is written in the mass basis: n4, n5 are physical, *)
+(*    N1L, N2L, nL, PhiNP are Unphysical with Definitions.         *)
+(*  - The SM terms are untouched; the rotated SM charged and       *)
+(*    neutral currents give the explicit LmixW / LmixZ terms.      *)
+(*  - The vev part of the Yukawa term (m_D = theta m_M bilinear)   *)
+(*    is diagonalised into M4, M5 and the mixing and is not        *)
+(*    written separately.                                           *)
+(********************************************************************)
+
+M$ModelName = "pSPSS_gen";
+
+M$Information = {
+  Authors      -> {"extraction from arXiv:2210.10738"},
+  Version      -> "1.0",
+  Date         -> "28. 09. 2026",
+  Institutions -> {"benchmark extraction"},
+  Emails       -> {"n/a"},
+  URLs         -> "https://arxiv.org/abs/2210.10738"
+};
+
+M$InteractionOrderHierarchy = {{QCD, 1}, {QED, 2}, {NP, 1}};
+
+(* index running over the five mass eigenstate neutrinos n1..n3 (light), n4, n5 (heavy) *)
+IndexRange[Index[Neutrino]] = NoUnfold[Range[5]];
+IndexStyle[Neutrino, ni];
+
+(* ============================ Parameters ============================ *)
+
+M$Parameters = {
+
+  (* ---- external, block PSPSS (positions as in the paper's Table 3) ---- *)
+  Mmaj == {
+    ParameterType    -> External,
+    BlockName        -> PSPSS,
+    OrderBlock       -> 1,
+    Value            -> 100.,
+    InteractionOrder -> {NP, 1},
+    Description      -> "Majorana mass m_M of the pseudo-Dirac pair [GeV], eq.(24)"
+  },
+  deltaM == {
+    ParameterType -> External,
+    BlockName     -> PSPSS,
+    OrderBlock    -> 2,
+    Value         -> 1.*^-12,
+    Description   -> "mass splitting Delta m of the pseudo-Dirac pair [GeV], eq.(24)"
+  },
+  theta1 == {
+    ParameterType    -> External,
+    BlockName        -> PSPSS,
+    OrderBlock       -> 3,
+    Value            -> 0.,
+    InteractionOrder -> {NP, 1},
+    Description      -> "active-sterile mixing theta_e (real), eq.(16)"
+  },
+  theta2 == {
+    ParameterType    -> External,
+    BlockName        -> PSPSS,
+    OrderBlock       -> 4,
+    Value            -> 1.*^-3,
+    InteractionOrder -> {NP, 1},
+    Description      -> "active-sterile mixing theta_mu (real), eq.(16)"
+  },
+  theta3 == {
+    ParameterType    -> External,
+    BlockName        -> PSPSS,
+    OrderBlock       -> 5,
+    Value            -> 0.,
+    InteractionOrder -> {NP, 1},
+    Description      -> "active-sterile mixing theta_tau (real), eq.(16)"
+  },
+  damping == {
+    ParameterType -> External,
+    BlockName     -> PSPSS,
+    OrderBlock    -> 6,
+    Value         -> 0.,
+    Description   -> "damping parameter lambda of the heavy neutrino-antineutrino oscillations; used only by the MadGraph oscillation patch, not by the Lagrangian"
+  },
+
+  (* ---- external, block NP ---- *)
+  vevNP == {
+    ParameterType    -> External,
+    BlockName        -> NP,
+    OrderBlock       -> 1,
+    Value            -> 246.22,
+    InteractionOrder -> {NP, -1},
+    Description      -> "Higgs vev [GeV], copy of the SM vev with interaction order {NP,-1} for the MadGraph power counting (paper sec. 5.1)"
+  },
+
+  (* ---- internal ---- *)
+  thetasq == {
+    ParameterType    -> Internal,
+    BlockName        -> PSPSS,
+    Value            -> theta1^2 + theta2^2 + theta3^2,
+    InteractionOrder -> {NP, 2},
+    Description      -> "|theta|^2 = theta_e^2 + theta_mu^2 + theta_tau^2 (theta taken real, benchmark values of the paper are real)"
+  },
+  M4 == {
+    ParameterType -> Internal,
+    BlockName     -> PSPSS,
+    Value         -> Mmaj (1 + thetasq/2) - deltaM/2,
+    Description   -> "mass of the heavy mass eigenstate n4 [GeV], eq.(24)"
+  },
+  M5 == {
+    ParameterType -> Internal,
+    BlockName     -> PSPSS,
+    Value         -> Mmaj (1 + thetasq/2) + deltaM/2,
+    Description   -> "mass of the heavy mass eigenstate n5 [GeV], eq.(24)"
+  },
+  yvn == {
+    ParameterType    -> Internal,
+    BlockName        -> PSPSS,
+    Indices          -> {Index[Generation]},
+    Value            -> {
+      yvn[1] -> Sqrt[2] theta1 Mmaj/vevNP,
+      yvn[2] -> Sqrt[2] theta2 Mmaj/vevNP,
+      yvn[3] -> Sqrt[2] theta3 Mmaj/vevNP
+    },
+    InteractionOrder -> {NP, 1},
+    Description      -> "Yukawa vector y_{alpha 1} with m_D = y v = theta m_M, v = vevNP/Sqrt[2] = 174 GeV (paper eq.(8) and sec. 2)"
+  },
+  Un == {
+    ParameterType    -> Internal,
+    BlockName        -> PSPSS,
+    Indices          -> {Index[Neutrino], Index[Neutrino]},
+    InteractionOrder -> {NP, 1},
+    Value            -> {
+      Un[1, 1] -> 1 - thetasq/2,  Un[1, 2] -> -theta1 theta2/2,  Un[1, 3] -> -theta1 theta3/2,  Un[1, 4] -> -I theta1/Sqrt[2],  Un[1, 5] -> theta1/Sqrt[2],
+      Un[2, 1] -> -theta2 theta1/2,  Un[2, 2] -> 1 - thetasq/2,  Un[2, 3] -> -theta2 theta3/2,  Un[2, 4] -> -I theta2/Sqrt[2],  Un[2, 5] -> theta2/Sqrt[2],
+      Un[3, 1] -> -theta3 theta1/2,  Un[3, 2] -> -theta3 theta2/2,  Un[3, 3] -> 1 - thetasq/2,  Un[3, 4] -> -I theta3/Sqrt[2],  Un[3, 5] -> theta3/Sqrt[2],
+      Un[4, 1] -> -theta1,          Un[4, 2] -> -theta2,          Un[4, 3] -> -theta3,          Un[4, 4] -> -I/Sqrt[2] (1 - thetasq/2),  Un[4, 5] -> 1/Sqrt[2] (1 - thetasq/2),
+      Un[5, 1] -> -theta1,          Un[5, 2] -> -theta2,          Un[5, 3] -> -theta3,          Un[5, 4] -> I/Sqrt[2] (1 - thetasq/2),   Un[5, 5] -> 1/Sqrt[2] (1 - thetasq/2)
+    },
+    Description      -> "mixing matrix U_n (5x5), eq.(18), valid up to O(theta^2); rows = interaction eigenstates (nu_e, nu_mu, nu_tau, N1, N2), columns = mass eigenstates (n1, n2, n3, n4, n5)"
+  },
+  UnCL == {
+    ParameterType    -> Internal,
+    BlockName        -> PSPSS,
+    Indices          -> {Index[Generation], Index[Neutrino]},
+    InteractionOrder -> {NP, 1},
+    Value            -> {
+      UnCL[1, 1] -> 1 - thetasq/2,  UnCL[1, 2] -> -theta1 theta2/2,  UnCL[1, 3] -> -theta1 theta3/2,  UnCL[1, 4] -> -I theta1/Sqrt[2],  UnCL[1, 5] -> theta1/Sqrt[2],
+      UnCL[2, 1] -> -theta2 theta1/2,  UnCL[2, 2] -> 1 - thetasq/2,  UnCL[2, 3] -> -theta2 theta3/2,  UnCL[2, 4] -> -I theta2/Sqrt[2],  UnCL[2, 5] -> theta2/Sqrt[2],
+      UnCL[3, 1] -> -theta3 theta1/2,  UnCL[3, 2] -> -theta3 theta2/2,  UnCL[3, 3] -> 1 - thetasq/2,  UnCL[3, 4] -> -I theta3/Sqrt[2],  UnCL[3, 5] -> theta3/Sqrt[2]
+    },
+    Description      -> "upper 3x5 block U'_CL of U_n (active-sterile mixing matrix, paper eq.(29)), used for the index contraction of the mixed W and Z couplings"
+  }
+};
+
+(* ============================ Classes ============================ *)
+
+M$ClassesDescription = {
+
+(* heavy neutral lepton mass eigenstates (physical) *)
+  F[100] == {
+    ClassName       -> n4,
+    SelfConjugate   -> True,
+    Mass            -> {M4, 100.},
+    Width           -> 0,
+    ParticleName    -> "n4",
+    PDG             -> 8000011,
+    PropagatorLabel -> "n4",
+    PropagatorType  -> S,
+    PropagatorArrow -> Forward,
+    FullName        -> "heavy neutral lepton n4 (lighter member of the pseudo-Dirac pair, eq.(24))"
+  },
+  F[101] == {
+    ClassName       -> n5,
+    SelfConjugate   -> True,
+    Mass            -> {M5, 100.},
+    Width           -> 0,
+    ParticleName    -> "n5",
+    PDG             -> 8000012,
+    PropagatorLabel -> "n5",
+    PropagatorType  -> S,
+    PropagatorArrow -> Forward,
+    FullName        -> "heavy neutral lepton n5 (heavier member of the pseudo-Dirac pair, eq.(24))"
+  },
+
+(* sterile neutrino interaction eigenstates (unphysical; defined through the heavy
+    2x2 Takagi block of U_n in terms of the mass eigenstates) *)
+  F[102] == {
+    ClassName       -> N1L,
+    Unphysical      -> True,
+    SelfConjugate   -> False,
+    Definitions     -> {N1L[sp1_] :> -I/Sqrt[2] n4[sp1] + 1/Sqrt[2] n5[sp1]},
+    FullName        -> "sterile neutrino N1 (interaction eigenstate), row 4 of U_n"
+  },
+  F[103] == {
+    ClassName       -> N2L,
+    Unphysical      -> True,
+    SelfConjugate   -> False,
+    Definitions     -> {N2L[sp1_] :> I/Sqrt[2] n4[sp1] + 1/Sqrt[2] n5[sp1]},
+    FullName        -> "sterile neutrino N2 (interaction eigenstate), row 5 of U_n"
+  },
+
+(* field containing all mass eigenstate neutrinos n_i (paper sec. 5.1);
+    light components = the SM neutrino mass eigenstates (= vl to O(theta)),
+    heavy components = n4, n5 *)
+  F[104] == {
+    ClassName       -> nL,
+    Unphysical      -> True,
+    SelfConjugate   -> False,
+    Indices         -> {Index[Neutrino]},
+    FlavorIndex     -> Neutrino,
+    Definitions     -> {
+      nL[sp1_, 1] :> vl[sp1, 1],
+      nL[sp1_, 2] :> vl[sp1, 2],
+      nL[sp1_, 3] :> vl[sp1, 3],
+      nL[sp1_, 4] :> n4[sp1],
+      nL[sp1_, 5] :> n5[sp1]
+    },
+    FullName        -> "field of all five mass eigenstate neutrinos (n1, n2, n3 light; n4, n5 heavy)"
+  },
+
+(* Higgs doublet with the NP vev (paper sec. 5.1) and its vev-subtracted fluctuation *)
+  S[100] == {
+    ClassName       -> PhiNP,
+    Unphysical      -> True,
+    SelfConjugate   -> False,
+    Indices         -> {Index[SU2D]},
+    FlavorIndex     -> SU2D,
+    QuantumNumbers  -> {Y -> 1/2},
+    Definitions     -> {
+      PhiNP[1] -> -I GP,
+      PhiNP[2] -> (vevNP + H + I G0)/Sqrt[2]
+    },
+    FullName        -> "Higgs doublet with the NP vev vevNP"
+  },
+  S[101] == {
+    ClassName       -> PhiNPfluc,
+    Unphysical      -> True,
+    SelfConjugate   -> False,
+    Indices         -> {Index[SU2D]},
+    FlavorIndex     -> SU2D,
+    QuantumNumbers  -> {Y -> 1/2},
+    Definitions     -> {
+      PhiNPfluc[1] -> -I GP,
+      PhiNPfluc[2] -> (H + I G0)/Sqrt[2]
+    },
+    FullName        -> "Higgs fluctuation (vevNP removed); in the mass basis the vev part of the Yukawa term is the diagonalised m_D = theta m_M bilinear"
+  }
+};
+
+(* ============================ Lagrangian ============================ *)
+
+(* kinetic terms of the sterile neutrinos (paper sec. 5.1, "added to LFermions");
+   with the Definitions above they become the canonical kinetic terms of n4 and n5 *)
+LNPkin := Block[{mu}, I (N1Lbar.Ga[mu].del[N1L, mu] + N2Lbar.Ga[mu].del[N2L, mu])];
+
+(* symmetric-limit Majorana mass  -1/2 m_M (N1bar^c N2 + N2bar^c N1), paper eq.(19),
+   written with the interaction eigenstates; expands to -1/2 m_M (n4bar^c n4 + n5bar^c n5) *)
+LNPmass := Block[{sp1}, -1/2 Mmaj CC[N1Lbar[sp1]].N2L[sp1]] +
+  HC[Block[{sp1}, -1/2 Mmaj CC[N1Lbar[sp1]].N2L[sp1]]];
+
+(* mass-basis correction to the pSPSS masses m_{4,5} = m_M (1 + |theta|^2/2) -/+ Delta m/2,
+   eq.(24); together with LNPmass the quadratic terms are -1/2 M4 n4bar^c n4 - 1/2 M5 n5bar^c n5 *)
+LNPmasscorr := Block[{sp1},
+  -1/2 (M4 - Mmaj) CC[n4bar[sp1]].n4[sp1] - 1/2 (M5 - Mmaj) CC[n5bar[sp1]].n5[sp1]
+];
+
+(* Yukawa term -y_{alpha} N1bar^c Htilde'^dagger ell_alpha, paper eq.(8)/(19):
+   in SM.fr conventions  Htilde'^dagger ell = - Eps Phi ell, hence the plus sign below;
+   Y = 0 - 1/2 + 1/2 = 0 with LL (Y=-1/2) and the Y=+1/2 doublet.
+   Only the Higgs fluctuation enters: the vev part is the diagonalised m_D bilinear. *)
+LNPYuk := Block[{sp1, ii, jj, ff1},
+  yvn[ff1] CC[N1Lbar[sp1]].LL[sp1, ii, ff1].PhiNPfluc[jj].Eps[ii, jj]
+] + HC[Block[{sp1, ii, jj, ff1},
+  yvn[ff1] CC[N1Lbar[sp1]].LL[sp1, ii, ff1].PhiNPfluc[jj].Eps[ii, jj]
+]];
+
+(* charged-current mixing: the rotated SM charged current  W l n_{4,5},
+   coupling UnCL[ff,4..5] = -/+ I theta_ff/Sqrt[2] (paper eq.(29) and appendix eq.(46)-(47)) *)
+LmixW := Block[{mu, sp, ff1},
+  gw/Sqrt[2] (
+    (UnCL[ff1, 4] lbar[sp, ff1].Ga[mu].ProjM.n4[sp] + UnCL[ff1, 5] lbar[sp, ff1].Ga[mu].ProjM.n5[sp]) Wbar[mu]
+    + (Conjugate[UnCL[ff1, 4]] n4bar[sp].Ga[mu].ProjM.l[sp, ff1] + Conjugate[UnCL[ff1, 5]] n5bar[sp].Ga[mu].ProjM.l[sp, ff1]) W[mu]
+  )
+];
+
+(* neutral-current mixing: the rotated SM neutral current (T3 = 1/2) with
+   (U_CL^dagger U_CL)_{ij}: heavy-heavy O(theta^2) and light-heavy O(theta) pieces *)
+LmixZ := Block[{mu, sp, ff},
+  ee/(2 sw cw) Z[mu] (
+     thetasq/2 n4bar[sp].Ga[mu].ProjM.n4[sp]
+   + thetasq/2 n5bar[sp].Ga[mu].ProjM.n5[sp]
+   + I thetasq/2 n4bar[sp].Ga[mu].ProjM.n5[sp]
+   - I thetasq/2 n5bar[sp].Ga[mu].ProjM.n4[sp]
+   + (UnCL[ff, 4] vlbar[sp, ff].Ga[mu].ProjM.n4[sp] + Conjugate[UnCL[ff, 4]] n4bar[sp].Ga[mu].ProjM.vl[sp, ff])
+   + (UnCL[ff, 5] vlbar[sp, ff].Ga[mu].ProjM.n5[sp] + Conjugate[UnCL[ff, 5]] n5bar[sp].Ga[mu].ProjM.vl[sp, ff])
+  )
+];
+
+(* complete pSPSS Lagrangian: SM + new physics *)
+LTotal := LSM + LNPkin + LNPmass + LNPmasscorr + LNPYuk + LmixW + LmixZ;

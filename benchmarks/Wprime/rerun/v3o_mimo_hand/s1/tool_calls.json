@@ -1,0 +1,99 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: Wprime (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:hep-ph/0207290.\n4: PAPER: the paper's LaTeX so"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/paper/hep-ph_0207290_source.tex"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/paper/hep-ph_0207290_source.tex",
+   "limit": 500
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/paper/hep-ph_0207290_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentstyle[prd,aps,epsfig]{revtex}\n2: \n3: \\newcommand{\\wpr}{$W^\\prime$~}\n4: \\newcommand{\\wprm}{W^\\prime}\n5: \\newcommand{\\wprmp}{W^{\\prime\\,+}}\n6: \\newcommand{\\mwpsq}{m^2_{W^\\prime}}\n7: \\newcommand{\\mtsq}{m^2_{t}}\n8: \n9: \\newcommand{\\beq}{\\begin"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/SM.fr",
+   "limit": 500
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                 "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/paper/hep-ph_0207290_source.tex",
+   "offset": 501,
+   "limit": 600
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/paper/hep-ph_0207290_source.tex</path>\n<type>file</type>\n<content>\n501: \\begin{table}[htb]\n502: \\caption{Total width of the $W^\\prime$, and its branching ratio into\n503: $t\\bar b$, at LO and NLO in QCD, when decays to quarks or leptons are\n504: both included.  Errors are due to the top-quark mass uncertainty,\n505: $m"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/SM.fr",
+   "offset": 501,
+   "limit": 240
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/SM.fr</path>\n<type>file</type>\n<content>\n501:     BlockName     -> YUKAWA,\n502:     OrderBlock    -> 1,\n503:     Value         -> 5.04*^-3,\n504:     Description   -> \"Down Yukawa mass\"\n505:   },\n506:   ymup == {\n507:     ParameterType -> External,\n508:     BlockName     -> YUKAWA,\n509:     OrderBlock    -> 2,\n510:   "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/paper/hep-ph_0207290_source.tex",
+   "limit": 700,
+   "offset": 1101
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/paper/hep-ph_0207290_source.tex</path>\n<type>file</type>\n<content>\n1101: In order to obtain a better estimator of the uncertainty of a generic\n1102: observable $O$, we introduce \\cite{Sullivan:2001ry,Nadolsky:2001yg} the\n1103: ``modified tolerance method'' (MTM) master formula.  We define the maximum\n1104: positive a"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/model.fr",
+   "content": "(***********************************************************************)\n(******          FeynRules add-on: Wprime model (Wprime_gen)     ******)\n(******   Extracted from arXiv:hep-ph/0207290 (Zack Sullivan)     ******)\n(******   Load on top of SM.fr (no M$GaugeGroups block)           ******)\n(***********************************************************************)\n\n(* All indices (Colour, Gluon, Generation, SU2D, SU2W) are declared by SM.fr;\n   this model introduces no new index. *)\n\n(* ************************** *)\n(* *****  Information   ***** *)\n(* ************************** *)\n\nM$ModelName = \"Wprime_gen\";\n\nM$Information = {\n  Authors      -> {\"Extracted from hep-ph/0207290\"},\n  Version      -> \"1.0\",\n  Date         -> \"2026\",\n  Institutions -> {\"arXiv:hep-ph/0207290\"},\n  Emails       -> {\"na\"},\n  URLs          -> \"https://arxiv.org/abs/hep-ph/0207290\"\n};\n\n(* ************************** *)\n(* ***** Interaction orders ***** *)\n(* ************************** *)\n\nM$InteractionOrderHierarchy = {\n  {QCD, 1},\n  {QED, 2},\n  {NP,  1}\n};\n\n(* ************************** *)\n(* ***** Particle classes **** *)\n(* ************************** *)\n\nM$ClassesDescription = {\n\n(* New heavy charged gauge boson W' (colour and SU(2) singlet, Q = +1) *)\n  V[100] == {\n    ClassName        -> Wp,\n    SelfConjugate    -> False,\n    Mass             -> {MWp, 500.},\n    Width            -> {WWp, 16.195},\n    QuantumNumbers   -> {Q -> 1},\n    PDG              -> 34,\n    PropagatorLabel  -> \"Wp\",\n    PropagatorType   -> Sine,\n    PropagatorArrow  -> Forward,\n    ParticleName     -> \"Wp\",\n    AntiParticleName -> \"Wpbar\",\n    FullName         -> \"W prime\"\n  },\n\n(* Right-handed neutrinos, one per generation (mass eigenstates nu_R) *)\n  F[100] == {\n    ClassName        -> nur,\n    ClassMembers     -> {nur1, nur2, nur3},\n    Indices          -> {Index[Generation]},\n    FlavorIndex      -> Generation,\n    SelfConjugate    -> False,\n    Mass             -> {Mnur, 0.},\n    Width            -> 0,\n    QuantumNumbers   -> {LeptonNumber -> 1},\n    PDG              -> {18, 20, 22},\n    PropagatorLabel  -> {\"Nur\", \"Nur1\", \"Nur2\", \"Nur3\"},\n    PropagatorType   -> S,\n    PropagatorArrow  -> Forward,\n    ParticleName     -> {\"Nur1\", \"Nur2\", \"Nur3\"},\n    AntiParticleName -> {\"Nur1bar\", \"Nur2bar\", \"Nur3bar\"},\n    FullName         -> {\"Right-handed neutrino 1\", \"Right-handed neutrino 2\", \"Right-handed neutrino 3\"}\n  }\n};\n\n(* ************************** *)\n(* *****   Parameters   ***** *)\n(* ************************** *)\n\nM$Parameters = {\n\n(* New gauge couplings, mixing angle and CP phase of Eq.(2) *)\n  gR == {\n    ParameterType    -> External,\n    BlockName        -> WPRIME,\n    OrderBlock       -> 1,\n    Value            -> 0.653,\n    InteractionOrder -> {NP, 1},\n    TeX              -> Subscript[g, R],\n    Description      -> \"Right-handed W' gauge coupling, Eq.(2); g = Sqrt[8 mW^2 GF/Sqrt[2]] = 0.653\"\n  },\n  gL == {\n    ParameterType    -> External,\n    BlockName        -> WPRIME,\n    OrderBlock       -> 2,\n    Value            -> 0.653,\n    InteractionOrder -> {NP, 1},\n    TeX              -> Subscript[g, L],\n    Description      -> \"Left-handed W' gauge coupling, Eq.(2)\"\n  },\n  zeta == {\n    ParameterType -> External,\n    BlockName     -> WPRIME,\n    OrderBlock    -> 3,\n    Value         -> 0.,\n    TeX           -> \\[Zeta],\n    Description   -> \"Left-right mixing angle, Eq.(2); paper: |zeta| smaller than a few 10^-5 to 10^-2; 0 = purely right-handed benchmark\"\n  },\n  omega == {\n    ParameterType -> External,\n    BlockName     -> WPRIME,\n    OrderBlock    -> 4,\n    Value         -> 0.,\n    TeX           -> \\[Omega],\n    Description   -> \"CP-violating phase of Eq.(2), absorbable into V^R\"\n  },\n\n(* Generalised CKM (GCKM) matrices of Eq.(2): quark sector, Eq.(16) benchmark *)\n  VLq == {\n    ParameterType -> External,\n    Indices       -> {Index[Generation], Index[Generation]},\n    BlockName     -> VLBLOCK,\n    OrderBlock    -> 1,\n    Value         -> {\n      VLq[1,1] -> 0.9751, VLq[1,2] -> 0.2215, VLq[1,3] -> 0.0035,\n      VLq[2,1] -> 0.2210, VLq[2,2] -> 0.9743, VLq[2,3] -> 0.0410,\n      VLq[3,1] -> 0.0090, VLq[3,2] -> 0.0400, VLq[3,3] -> 1.0000\n    },\n    TeX           -> Superscript[V, Lq],\n    Description   -> \"Left-handed GCKM matrix, quarks; benchmark = Eq.(16)\"\n  },\n  VRq == {\n    ParameterType -> External,\n    Indices       -> {Index[Generation], Index[Generation]},\n    BlockName     -> VRBLOCK,\n    OrderBlock    -> 1,\n    Value         -> {\n      VRq[1,1] -> 0.9751, VRq[1,2] -> 0.2215, VRq[1,3] -> 0.0035,\n      VRq[2,1] -> 0.2210, VRq[2,2] -> 0.9743, VRq[2,3] -> 0.0410,\n      VRq[3,1] -> 0.0090, VRq[3,2] -> 0.0400, VRq[3,3] -> 1.0000\n    },\n    TeX           -> Superscript[V, Rq],\n    Description   -> \"Right-handed GCKM matrix, quarks; benchmark = Eq.(16)\"\n  },\n\n(* Generalised CKM (GCKM) matrices of Eq.(2): lepton sector, identity benchmark *)\n  VLl == {\n    ParameterType -> External,\n    Indices       -> {Index[Generation], Index[Generation]},\n    BlockName     -> VLBLOCK,\n    OrderBlock    -> 2,\n    Value         -> {\n      VLl[1,1] -> 1., VLl[1,2] -> 0., VLl[1,3] -> 0.,\n      VLl[2,1] -> 0., VLl[2,2] -> 1., VLl[2,3] -> 0.,\n      VLl[3,1] -> 0., VLl[3,2] -> 0., VLl[3,3] -> 1.\n    },\n    TeX           -> Superscript[V, Ll],\n    Description   -> \"Left-handed GCKM matrix, leptons; benchmark = identity matrix\"\n  },\n  VRl == {\n    ParameterType -> External,\n    Indices       -> {Index[Generation], Index[Generation]},\n    BlockName     -> VRBLOCK,\n    OrderBlock    -> 2,\n    Value         -> {\n      VRl[1,1] -> 1., VRl[1,2] -> 0., VRl[1,3] -> 0.,\n      VRl[2,1] -> 0., VRl[2,2] -> 1., VRl[2,3] -> 0.,\n      VRl[3,1] -> 0., VRl[3,2] -> 0., VRl[3,3] -> 1.\n    },\n    TeX           -> Superscript[V, Rl],\n    Description   -> \"Right-handed GCKM matrix, leptons; benchmark = identity matrix\"\n  }\n};\n\n(* ************************** *)\n(* *****   Lagrangian   ***** *)\n(* ************************** *)\n\n(* Free kinetic and mass term of the W' (complex vector, gauge singlet) *)\nLWpkin := Block[{mu, nu},\n  -1/2 FS[Wpbar, mu, nu] FS[Wp, mu, nu] + MWp^2 Wpbar[mu] Wp[mu]\n];\n\n(* Free kinetic and mass term of the right-handed neutrinos (Dirac fermions) *)\nLnurkin := Block[{mu},\n  I nurbar.Ga[mu].DC[nur, mu] - Mnur nurbar.nur\n];\n\n(* W' couplings to fermions, Eqs.(1)-(2):\n   L = 1/Sqrt[2] fbar_i gamma_mu (gR e^{i omega} Cos[zeta] V^R_ij P_R\n       + gL Sin[zeta] V^L_ij P_L) W' f_j + H.c.\n   Right-handed leptonic current uses the new nu_R field (W' -> l nu_R),\n   left-handed leptonic current uses the SM neutrino (W' -> l nu). *)\nLWpF := Block[{mu, LWpint},\n  LWpint = ExpandIndices[\n    (1/Sqrt[2]) Wp[mu] (\n      gR Cos[zeta] Exp[I omega] (uqbar.VRq.Ga[mu].ProjP.dq + nurbar.VRl.Ga[mu].ProjP.l)\n      + gL Sin[zeta] (uqbar.VLq.Ga[mu].ProjM.dq + vlbar.VLl.Ga[mu].ProjM.l)\n    ),\n    FlavorExpand -> Generation\n  ];\n  LWpint + HC[LWpint]\n];\n\n(* Total Lagrangian *)\nLTotal := LWpkin + Lnurkin + LWpF;\n"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/model.fr</path>\n<type>file</type>\n<content>\n1: (***********************************************************************)\n2: (******          FeynRules add-on: Wprime model (Wprime_gen)     ******)\n3: (******   Extracted from arXiv:hep-ph/0207290 (Zack Sullivan)     ******)\n4: (******   Load on top of SM.fr (no M$Gaug"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "*.fr"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/model.fr"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*.fr"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-oelettlg/model.fr"
+ }
+]

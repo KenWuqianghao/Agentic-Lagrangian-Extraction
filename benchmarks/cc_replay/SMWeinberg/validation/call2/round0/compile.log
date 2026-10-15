@@ -1,0 +1,224 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+From kernel 1 (Local):
+ReplaceAll::reps: {2} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 2 (Local):
+ReplaceAll::reps: {2} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 3 (Local):
+ReplaceAll::reps: {2} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 7 (Local):
+ReplaceAll::reps: {2} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+From kernel 1 (Local):
+ReplaceAll::reps: {2} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of `1` is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing. will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+From kernel 3 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+From kernel 7 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+From kernel 4 (Local):
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+
+General::stop: Further output of Further output of `1` will be suppressed during this calculation. will be suppressed during this calculation.
+Merging model-files...
+This model implementation was created by
+automated extraction of arXiv:2012.09882 (FeynRules DB model SMWeinberg)
+Model Version: 1.0
+https://feynrules.irmp.ucl.ac.be/wiki/SMWeinberg
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+ReplaceAll::reps: {2} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+ReplaceAll::reps: {2} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+ReplaceAll::reps: {2} is neither a list of replacement rules nor a valid dispatch table and so cannot be used for replacing.
+
+General::stop: Further output of ReplaceAll::reps will be suppressed during this calculation.
+
+Model SMWeinberg_gen loaded.
+[INFO] Lagrangian: LTotal
+HEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)
+HEPTAPOD-LAGRANGIAN|expression=LTotal|symbols=LTotal|terms=522
+HEPTAPOD-RESIDUAL|count=0|fields=
+
+Global`a$::shdw: Symbol a$ appears in multiple contexts {Global`, FeynRules`}; definitions in context Global` may shadow or be shadowed by other definitions.
+[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+General::stop: Further output of QN::NonConserv will be suppressed during this calculation.
+HEPTAPOD-HERM|i=1|fields=Nnubar,e,G0,GP|unreduced=|expr=((I/4)*ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(Sqrt[2]*MW^2*sw^2)
+HEPTAPOD-HERM|i=2|fields=Nnubar,e,GP,H|unreduced=|expr=(ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(4*Sqrt[2]*MW^2*sw^2)
+HEPTAPOD-HERM|i=3|fields=Nnubar,e,GP|unreduced=|expr=(ee*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(2*Sqrt[2]*MW*sw)
+HEPTAPOD-HERM|i=4|fields=Nnubar,mu,G0,GP|unreduced=|expr=((I/4)*ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(Sqrt[2]*MW^2*sw^2)
+HEPTAPOD-HERM|i=5|fields=Nnubar,mu,GP,H|unreduced=|expr=(ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(4*Sqrt[2]*MW^2*sw^2)
+HEPTAPOD-HERM|i=6|fields=Nnubar,mu,GP|unreduced=|expr=(ee*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(2*Sqrt[2]*MW*sw)
+HEPTAPOD-HERM|i=7|fields=Nnubar,ta,G0,GP|unreduced=|expr=((I/4)*ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(Sqrt[2]*MW^2*sw^2)
+HEPTAPOD-HERM|i=8|fields=Nnubar,ta,GP,H|unreduced=|expr=(ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(4*Sqrt[2]*MW^2*sw^2)
+HEPTAPOD-HERM|i=9|fields=Nnubar,ta,GP|unreduced=|expr=(ee*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(2*Sqrt[2]*MW*sw)
+HEPTAPOD-HERM|i=10|fields=Nnubar,ve,G0|unreduced=|expr=((I/4)*ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW^2*sw^2)
+HEPTAPOD-HERM|i=11|fields=Nnubar,ve,G0,H|unreduced=|expr=(ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(4*MW^2*sw^2)
+HEPTAPOD-HERM|i=12|fields=Nnubar,ve,H|unreduced=|expr=((-1/4*I)*ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW^2*sw^2)
+HEPTAPOD-HERM|i=13|fields=Nnubar,ve,G0|unreduced=|expr=(ee*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(2*MW*sw)
+HEPTAPOD-HERM|i=14|fields=Nnubar,ve,H|unreduced=|expr=((-1/2*I)*ee*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW*sw)
+HEPTAPOD-HERM|i=15|fields=Nnubar,vm,G0|unreduced=|expr=((I/4)*ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW^2*sw^2)
+HEPTAPOD-HERM|i=16|fields=Nnubar,vm,G0,H|unreduced=|expr=(ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(4*MW^2*sw^2)
+HEPTAPOD-HERM|i=17|fields=Nnubar,vm,H|unreduced=|expr=((-1/4*I)*ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW^2*sw^2)
+HEPTAPOD-HERM|i=18|fields=Nnubar,vm,G0|unreduced=|expr=(ee*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(2*MW*sw)
+HEPTAPOD-HERM|i=19|fields=Nnubar,vm,H|unreduced=|expr=((-1/2*I)*ee*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW*sw)
+HEPTAPOD-HERM|i=20|fields=Nnubar,vt,G0|unreduced=|expr=((I/4)*ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW^2*sw^2)
+HEPTAPOD-HERM|i=21|fields=Nnubar,vt,G0,H|unreduced=|expr=(ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(4*MW^2*sw^2)
+HEPTAPOD-HERM|i=22|fields=Nnubar,vt,H|unreduced=|expr=((-1/4*I)*ee^2*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW^2*sw^2)
+HEPTAPOD-HERM|i=23|fields=Nnubar,vt,G0|unreduced=|expr=(ee*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(2*MW*sw)
+HEPTAPOD-HERM|i=24|fields=Nnubar,vt,H|unreduced=|expr=((-1/2*I)*ee*MNu*ProjM[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW*sw)
+HEPTAPOD-HERM|i=25|fields=ebar,Nnu,G0,GPbar|unreduced=|expr=((-1/4*I)*ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(Sqrt[2]*MW^2*sw^2)
+HEPTAPOD-HERM|i=26|fields=ebar,Nnu,GPbar,H|unreduced=|expr=(ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(4*Sqrt[2]*MW^2*sw^2)
+HEPTAPOD-HERM|i=27|fields=ebar,Nnu,GPbar|unreduced=|expr=(ee*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(2*Sqrt[2]*MW*sw)
+HEPTAPOD-HERM|i=28|fields=mubar,Nnu,G0,GPbar|unreduced=|expr=((-1/4*I)*ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(Sqrt[2]*MW^2*sw^2)
+HEPTAPOD-HERM|i=29|fields=mubar,Nnu,GPbar,H|unreduced=|expr=(ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(4*Sqrt[2]*MW^2*sw^2)
+HEPTAPOD-HERM|i=30|fields=mubar,Nnu,GPbar|unreduced=|expr=(ee*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(2*Sqrt[2]*MW*sw)
+HEPTAPOD-HERM|i=31|fields=tabar,Nnu,G0,GPbar|unreduced=|expr=((-1/4*I)*ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(Sqrt[2]*MW^2*sw^2)
+HEPTAPOD-HERM|i=32|fields=tabar,Nnu,GPbar,H|unreduced=|expr=(ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(4*Sqrt[2]*MW^2*sw^2)
+HEPTAPOD-HERM|i=33|fields=tabar,Nnu,GPbar|unreduced=|expr=(ee*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(2*Sqrt[2]*MW*sw)
+HEPTAPOD-HERM|i=34|fields=vebar,Nnu,G0|unreduced=|expr=((-1/4*I)*ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW^2*sw^2)
+HEPTAPOD-HERM|i=35|fields=vebar,Nnu,G0,H|unreduced=|expr=(ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(4*MW^2*sw^2)
+HEPTAPOD-HERM|i=36|fields=vebar,Nnu,H|unreduced=|expr=((I/4)*ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW^2*sw^2)
+HEPTAPOD-HERM|i=37|fields=vebar,Nnu,G0|unreduced=|expr=(ee*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(2*MW*sw)
+HEPTAPOD-HERM|i=38|fields=vebar,Nnu,H|unreduced=|expr=((I/2)*ee*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW*sw)
+HEPTAPOD-HERM|i=39|fields=vmbar,Nnu,G0|unreduced=|expr=((-1/4*I)*ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW^2*sw^2)
+HEPTAPOD-HERM|i=40|fields=vmbar,Nnu,G0,H|unreduced=|expr=(ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(4*MW^2*sw^2)
+HEPTAPOD-HERM|i=41|fields=vmbar,Nnu,H|unreduced=|expr=((I/4)*ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW^2*sw^2)
+HEPTAPOD-HERM|i=42|fields=vmbar,Nnu,G0|unreduced=|expr=(ee*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(2*MW*sw)
+HEPTAPOD-HERM|i=43|fields=vmbar,Nnu,H|unreduced=|expr=((I/2)*ee*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW*sw)
+HEPTAPOD-HERM|i=44|fields=vtbar,Nnu,G0|unreduced=|expr=((-1/4*I)*ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW^2*sw^2)
+HEPTAPOD-HERM|i=45|fields=vtbar,Nnu,G0,H|unreduced=|expr=(ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(4*MW^2*sw^2)
+HEPTAPOD-HERM|i=46|fields=vtbar,Nnu,H|unreduced=|expr=((I/4)*ee^2*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW^2*sw^2)
+HEPTAPOD-HERM|i=47|fields=vtbar,Nnu,G0|unreduced=|expr=(ee*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(2*MW*sw)
+HEPTAPOD-HERM|i=48|fields=vtbar,Nnu,H|unreduced=|expr=((I/2)*ee*MNu*ProjP[Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(MW*sw)
+HEPTAPOD-HERM|i=49|fields=Nnubar,e,W|unreduced=|expr=((-I)*ee*TensDot[Ga[Index[Lorentz, Ext[3]]], ProjM][Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(Sqrt[2]*sw)
+HEPTAPOD-HERM|i=50|fields=Nnubar,mu,W|unreduced=|expr=((-I)*ee*TensDot[Ga[Index[Lorentz, Ext[3]]], ProjM][Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(Sqrt[2]*sw)
+HEPTAPOD-HERM|i=51|fields=Nnubar,ta,W|unreduced=|expr=((-I)*ee*TensDot[Ga[Index[Lorentz, Ext[3]]], ProjM][Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(Sqrt[2]*sw)
+HEPTAPOD-HERM|i=52|fields=ebar,Nnu,Wbar|unreduced=|expr=(I*ee*TensDot[Ga[Index[Lorentz, Ext[3]]], ProjM][Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(Sqrt[2]*sw)
+HEPTAPOD-HERM|i=53|fields=mubar,Nnu,Wbar|unreduced=|expr=(I*ee*TensDot[Ga[Index[Lorentz, Ext[3]]], ProjM][Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(Sqrt[2]*sw)
+HEPTAPOD-HERM|i=54|fields=tabar,Nnu,Wbar|unreduced=|expr=(I*ee*TensDot[Ga[Index[Lorentz, Ext[3]]], ProjM][Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(Sqrt[2]*sw)
+HEPTAPOD-HERM|i=55|fields=Nnubar,ve,Z|unreduced=|expr=((-1/2*I)*ee*TensDot[Ga[Index[Lorentz, Ext[3]]], ProjM][Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(cw*sw)
+HEPTAPOD-HERM|i=56|fields=Nnubar,vm,Z|unreduced=|expr=((-1/2*I)*ee*TensDot[Ga[Index[Lorentz, Ext[3]]], ProjM][Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(cw*sw)
+HEPTAPOD-HERM|i=57|fields=Nnubar,vt,Z|unreduced=|expr=((-1/2*I)*ee*TensDot[Ga[Index[Lorentz, Ext[3]]], ProjM][Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(cw*sw)
+HEPTAPOD-HERM|i=58|fields=vebar,Nnu,Z|unreduced=|expr=((I/2)*ee*TensDot[Ga[Index[Lorentz, Ext[3]]], ProjM][Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(cw*sw)
+HEPTAPOD-HERM|i=59|fields=vmbar,Nnu,Z|unreduced=|expr=((I/2)*ee*TensDot[Ga[Index[Lorentz, Ext[3]]], ProjM][Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(cw*sw)
+HEPTAPOD-HERM|i=60|fields=vtbar,Nnu,Z|unreduced=|expr=((I/2)*ee*TensDot[Ga[Index[Lorentz, Ext[3]]], ProjM][Index[Spin, Ext[1]], Index[Spin, Ext[2]]])/(cw*sw)
+HEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=fail|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. 60 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$F
+HEPTAPOD-CHECK|scope=model|name=kinetic_diagonal|verdict=pass|detail=Neglecting all terms with more than 2 particles. All kinetic terms are diagonal.
+HEPTAPOD-CHECK|scope=model|name=mass_diagonal|verdict=pass|detail=All mass terms are diagonal.
+Neglecting all terms with more than 2 particles.
+All mass terms are diagonal.
+Getting mass spectrum.
+Checking for less then 0.1% agreement with model file values.
+HEPTAPOD-MASS|particle=H|derived=125.00000000000006|declared=125.|agrees=True
+HEPTAPOD-MASS|particle=ghWm|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=ghWp|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=ghZ|derived=91.18760000000003|declared=91.1876|agrees=True
+HEPTAPOD-MASS|particle=b|derived=4.700000000000002|declared=4.7|agrees=True
+HEPTAPOD-MASS|particle=d|derived=0.005040000000000001|declared=0.00504|agrees=True
+HEPTAPOD-MASS|particle=s|derived=0.10100000000000002|declared=0.101|agrees=True
+HEPTAPOD-MASS|particle=e|derived=0.0005110000000000001|declared=0.000511|agrees=True
+HEPTAPOD-MASS|particle=mu|derived=0.10566000000000003|declared=0.10566|agrees=True
+HEPTAPOD-MASS|particle=ta|derived=1.7770000000000006|declared=1.777|agrees=True
+HEPTAPOD-MASS|particle=c|derived=1.2700000000000002|declared=1.27|agrees=True
+HEPTAPOD-MASS|particle=t|derived=172.00000000000003|declared=172.|agrees=True
+HEPTAPOD-MASS|particle=u|derived=0.002550000000000001|declared=0.00255|agrees=True
+HEPTAPOD-MASS|particle=W|derived=79.82435974619786|declared=79.82435974619784|agrees=True
+HEPTAPOD-MASS|particle=Z|derived=91.18760000000003|declared=91.1876|agrees=True
+HEPTAPOD-CHECK|scope=model|name=mass_spectrum|verdict=pass|detail=
+HEPTAPOD-HERMBLOCK|block=LFreeN|contents=Nnu Nnubar
+HEPTAPOD-HERMBLOCK|block=LG0GP|contents=e G0 GP Nnubar;G0 GP mu Nnubar;G0 GP Nnubar ta
+HEPTAPOD-HERMBLOCK|block=LGG0|contents=G0 G0 Nnubar ve;G0 G0 Nnubar vm;G0 G0 Nnubar vt
+HEPTAPOD-HERMBLOCK|block=LNG0|contents=G0 H Nnubar ve;G0 H Nnubar vm;G0 H Nnubar vt;G0 Nnubar ve;G0 Nnubar vm;G0 Nnubar vt
+HEPTAPOD-HERMBLOCK|block=LNGP|contents=e GP H Nnubar;GP H mu Nnubar;GP H Nnubar ta;e GP Nnubar;GP mu Nnubar;GP Nnubar ta
+HEPTAPOD-HERMBLOCK|block=LNW|contents=e Nnubar W;mu Nnubar W;Nnubar ta W
+HEPTAPOD-HERMBLOCK|block=LNZ|contents=Nnubar ve Z;Nnubar vm Z;Nnubar vt Z
+HEPTAPOD-HERMBLOCK|block=LNh|contents=H H Nnubar ve;H H Nnubar vm;H H Nnubar vt;H Nnubar ve;H Nnubar vm;H Nnubar vt
+[INFO] UFO output: /Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/cc_replay/SMWeinberg/validation/call2/round0/UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+220 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 220.
+193 vertices obtained.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 193
+   - Saved vertices in InterfaceRun[ 1 ].
+Quantum number LeptonNumber not conserved in vertex {G0, GP, Nnubar, e}.
+Quantum number LeptonNumber not conserved in vertex {G0, GP, Nnubar, mu}.
+Quantum number LeptonNumber not conserved in vertex {G0, GP, Nnubar, ta}.
+Quantum number LeptonNumber not conserved in vertex {GP, H, Nnubar, e}.
+Quantum number LeptonNumber not conserved in vertex {GP, H, Nnubar, mu}.
+Quantum number LeptonNumber not conserved in vertex {GP, H, Nnubar, ta}.
+Quantum number LeptonNumber not conserved in vertex {GP, Nnubar, e}.
+Quantum number LeptonNumber not conserved in vertex {GP, Nnubar, mu}.
+Quantum number LeptonNumber not conserved in vertex {GP, Nnubar, ta}.
+Quantum number LeptonNumber not conserved in vertex {G0, G0, Nnubar, ve}.
+Quantum number LeptonNumber not conserved in vertex {G0, G0, Nnubar, vm}.
+Quantum number LeptonNumber not conserved in vertex {G0, G0, Nnubar, vt}.
+Quantum number LeptonNumber not conserved in vertex {G0, H, Nnubar, ve}.
+Quantum number LeptonNumber not conserved in vertex {G0, H, Nnubar, vm}.
+Quantum number LeptonNumber not conserved in vertex {G0, H, Nnubar, vt}.
+Quantum number LeptonNumber not conserved in vertex {H, H, Nnubar, ve}.
+Quantum number LeptonNumber not conserved in vertex {H, H, Nnubar, vm}.
+Quantum number LeptonNumber not conserved in vertex {H, H, Nnubar, vt}.
+Quantum number LeptonNumber not conserved in vertex {G0, Nnubar, ve}.
+Quantum number LeptonNumber not conserved in vertex {G0, Nnubar, vm}.
+Quantum number LeptonNumber not conserved in vertex {G0, Nnubar, vt}.
+Quantum number LeptonNumber not conserved in vertex {H, Nnubar, ve}.
+Quantum number LeptonNumber not conserved in vertex {H, Nnubar, vm}.
+Quantum number LeptonNumber not conserved in vertex {H, Nnubar, vt}.
+Quantum number LeptonNumber not conserved in vertex {W, Nnubar, e}.
+Quantum number LeptonNumber not conserved in vertex {W, Nnubar, mu}.
+Quantum number LeptonNumber not conserved in vertex {W, Nnubar, ta}.
+Quantum number LeptonNumber not conserved in vertex {Z, Nnubar, ve}.
+Quantum number LeptonNumber not conserved in vertex {Z, Nnubar, vm}.
+Quantum number LeptonNumber not conserved in vertex {Z, Nnubar, vt}.
+Preparing Python output.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/193 .
+    - Writing files.
+
+StringJoin::string: String expected at position 1 in ClassAttributeCreation[lhacode, PYList[{1, 1} /. 2], 19]<>).
+
+
+StringJoin::string: String expected at position 1 in ClassAttributeCreation[lhacode, PYList[{1, 2} /. 2], 19]<>).
+
+
+StringJoin::string: String expected at position 1 in ClassAttributeCreation[lhacode, PYList[{1, 3} /. 2], 19]<>).
+
+
+General::stop: Further output of StringJoin::string will be suppressed during this calculation.
+Done!
+[INFO] UFO complete: particles.py, vertices.py, couplings.py, parameters.py, coupling_orders.py all present.
+[INFO] Done.

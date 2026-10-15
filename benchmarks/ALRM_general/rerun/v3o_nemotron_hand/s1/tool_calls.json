@@ -1,0 +1,207 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-8_2vasnp/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-8_2vasnp/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: ALRM_general (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:1911.12883.\n4: PAPER: the paper's "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-8_2vasnp/paper/1911.12883_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-8_2vasnp/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n1: \\pdfoutput=1\n2: \\documentclass[a4paper,10pt]{article}\n3: \\usepackage{jheppub,amsmath,amsfonts,amssymb,xcolor,graphicx,hyperref}\n4: \\usepackage[utf8x]{inputenc}\n5: \\usepackage[section]{placeins}\n6: \\hypersetup{colorlinks=true,linkcolor=blue,citeco"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-8_2vasnp/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-8_2vasnp/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                           "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-8_2vasnp/paper/1911.12883_source.tex",
+   "offset": 906
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-8_2vasnp/paper/1911.12883_source.tex</path>\n<type>file</type>\n<content>\n906: associated with different $Z'$ mass ranges, lighter $Z'$-bosons being associated\n907: with smaller neutron-DM scattering rates. Second, down-type quarks play a\n908: special role in the ALRSM as they do not couple to the $Z'$-boson. This impacts"
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Declare new indices (if any beyond SM.fr)",
+     "status": "in_progress",
+     "priority": "high"
+    },
+    {
+     "content": "Declare M$ModelName, M$Information, M$InteractionOrderHierarchy",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Declare new gauge parameters (gR, gBL, etc.) and Higgs potential parameters",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Declare new fermion classes: exotic quarks d'p, scotinos nl",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Declare new gauge boson classes: Zp, Wp",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Declare new scalar classes: H1^0, H2^0, H3^0, A1^0, A2^0, H1^\u00b1, H2^\u00b1, plus Goldstones",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Declare new unphysical gauge/scalar fields for symmetry breaking",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write Lagrangian: kinetic + mass terms for all new particles",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write Yukawa Lagrangian for new fermions",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write scalar potential",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write gauge boson mass/mixing terms from Higgs kinetic terms",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write effective Higgs couplings a_H^g, a_H^a",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Define LTotal and all Definitions for mass eigenstates",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Produce self-audit table",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write model.fr to disk",
+     "status": "pending",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Declare new indices (if any beyond SM.fr)\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Declare M$ModelName, M$Information, M$InteractionOrderHierarchy\",\n    \"status\": \"pending\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Declare new gauge parameters (gR, gBL, etc.) and Higgs potential parameters\",\n    \"status\": \"pending\",\n    \"priority\":"
+ },
+ {
+  "tool": "todowrite",
+  "input": {
+   "todos": [
+    {
+     "content": "Declare new indices (if any beyond SM.fr)",
+     "status": "completed",
+     "priority": "high"
+    },
+    {
+     "content": "Declare M$ModelName, M$Information, M$InteractionOrderHierarchy",
+     "status": "in_progress",
+     "priority": "high"
+    },
+    {
+     "content": "Declare new gauge parameters (gR, gBL, etc.) and Higgs potential parameters",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Declare new fermion classes: exotic quarks d'p, scotinos nl, nuR",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Declare new gauge boson classes: Zp, Wp, WR, BBL",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Declare new scalar classes: phi, chiL, chiR (gauge eigenstates) and mass eigenstates",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write Lagrangian: kinetic + mass terms for all new particles",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write Yukawa Lagrangian for new fermions",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write scalar potential",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write gauge boson mass/mixing from Higgs kinetic terms",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write effective Higgs couplings a_H^g, a_H^a",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Define LTotal and all Definitions for mass eigenstates",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Produce self-audit table",
+     "status": "pending",
+     "priority": "high"
+    },
+    {
+     "content": "Write model.fr to disk",
+     "status": "pending",
+     "priority": "high"
+    }
+   ]
+  },
+  "status": "completed",
+  "output": "[\n  {\n    \"content\": \"Declare new indices (if any beyond SM.fr)\",\n    \"status\": \"completed\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Declare M$ModelName, M$Information, M$InteractionOrderHierarchy\",\n    \"status\": \"in_progress\",\n    \"priority\": \"high\"\n  },\n  {\n    \"content\": \"Declare new gauge parameters (gR, gBL, etc.) and Higgs potential parameters\",\n    \"status\": \"pending\",\n    \"priority"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "content": "(***************************************************************************************************************)\n(******                    FeynRules mod-file for the ALRM_general_gen model                              ******)\n(******                     Alternative Left-Right Symmetric Model from E6 GUT                            ******)\n(******                                                                                                   ******)\n(******     Based on arXiv:1911.12883 [hep-ph]                                                            ******)\n(******     Authors: Mariana Frank, Benjamin Fuks, Ozer Ozdal                                             ******)\n(******     FeynRules implementation for MadGraph/MadDM/MicrOMEGAs                                        ******)\n(***************************************************************************************************************)\n\n(* ************************** *)\n(* *****  Information   ***** *)\n(* ************************** *)\nM$ModelName = \"ALRM_general_gen\";\n\nM$Information = {\n  Authors      -> {\"Mariana Frank\", \"Benjamin Fuks\", \"Ozer Ozdal\"},\n  Version      -> \"1.0\",\n  Date         -> \"24.09.2026\",\n  Institutions -> {\"Concordia University\", \"LPTHE Sorbonne Universite\", \"Concordia University\"},\n  Emails       -> {\"mariana.frank@concordia.ca\", \"fuks@lpthe.jussieu.fr\", \"ozer.ozdal@concordia.ca\"},\n  URLs         -> \"http://feynrules.irmp.ucl.ac.be/wiki/ALRM_general\",\n  References   -> {\"arXiv:1911.12883 [hep-ph]\"}\n};\n\n(* ************************** *)\n(* *****  Gauge groups  ***** *)\n(* ************************** *)\n(* No new gauge groups beyond SM.fr - this is an add-on model *)\n\n(* ************************** *)\n(* *****    Indices     ***** *)\n(* ************************** *)\n(* All SM indices (Colour, Gluon, Generation, SU2D, SU2W) are declared in SM.fr *)\n(* No new indices needed for this model *)\n\n(* ************************** *)\n(* *** Interaction orders *** *)\n(* ***  (as used by mg5)  *** *)\n(* ************************** *)\nM$InteractionOrderHierarchy = {\n  {QCD, 1},\n  {QED, 2},\n  {NP,  1}\n};\n\n(* ************************** *)\n(* *****   Parameters   ***** *)\n(* ************************** *)\nM$Parameters = {\n\n  (* ============================= *)\n  (* External electroweak inputs *)\n  (* ============================= *)\n  (* These override SM.fr values for LEP scheme *)\n  aEWM1 == {\n    ParameterType    -> External,\n    BlockName        -> SMINPUTS,\n    OrderBlock       -> 1,\n    Value            -> 127.9,\n    InteractionOrder -> {QED, -2},\n    Description      -> \"Inverse of the EW coupling constant at the Z pole\"\n  },\n  Gf == {\n    ParameterType    -> External,\n    BlockName        -> SMINPUTS,\n    OrderBlock       -> 2,\n    Value            -> 1.16637*^-5,\n    InteractionOrder -> {QED, 2},\n    TeX              -> Subscript[G, f],\n    Description      -> \"Fermi constant\"\n  },\n  aS == {\n    ParameterType    -> External,\n    BlockName        -> SMINPUTS,\n    OrderBlock       -> 3,\n    Value            -> 0.1184,\n    InteractionOrder -> {QCD, 2},\n    TeX              -> Subscript[\\[Alpha], s],\n    Description      -> \"Strong coupling constant at the Z pole\"\n  },\n  MZ == {\n    ParameterType    -> External,\n    BlockName        -> SMINPUTS,\n    OrderBlock       -> 4,\n    Value            -> 91.1876,\n    InteractionOrder -> {QED, -2},\n    TeX              -> Subscript[M, Z],\n    Description      -> \"Z boson mass [GeV]\"\n  },\n\n  (* ============================= *)\n  (* ALRSM-specific external parameters *)\n  (* ============================= *)\n  tb == {\n    ParameterType    -> External,\n    BlockName        -> SMINPUTS,\n    OrderBlock       -> 5,\n    Value            -> 4.58,\n    TeX              -> Subscript[t, \\[Beta]],\n    Description      -> \"tan(beta) = k/vL, ratio of Higgs bidoublet to left triplet vevs\"\n  },\n  gR == {\n    ParameterType    -> External,\n    BlockName        -> SMINPUTS,\n    OrderBlock       -> 6,\n    Value            -> 0.374,\n    InteractionOrder -> {NP, 1},\n    TeX              -> Subscript[g, R],\n    Description      -> \"SU(2)_R' gauge coupling\"\n  },\n  vevp == {\n    ParameterType    -> External,\n    BlockName        -> SMINPUTS,\n    OrderBlock       -> 7,\n    Value            -> 7799.,\n    TeX              -> Subscript[v, '],\n    Description      -> \"SU(2)_R' breaking scale v' = sqrt(k^2 + vR^2) [GeV]\"\n  },\n\n  (* Scalar potential parameters *)\n  lam2 == {\n    ParameterType    -> External,\n    BlockName        -> HPOTINPUTS,\n    OrderBlock       -> 1,\n    Value            -> 0.,\n    InteractionOrder -> {NP, 2},\n    TeX              -> Subscript[\\[Lambda], 2],\n    Description      -> \"Higgs potential quartic coupling lambda_2 (set to 0 in scan)\"\n  },\n  lam3 == {\n    ParameterType    -> External,\n    BlockName        -> HPOTINPUTS,\n    OrderBlock       -> 2,\n    Value            -> 0.0196,\n    InteractionOrder -> {NP, 2},\n    TeX              -> Subscript[\\[Lambda], 3],\n    Description      -> \"Higgs potential quartic coupling lambda_3\"\n  },\n  alp1 == {\n    ParameterType    -> External,\n    BlockName        -> HPOTINPUTS,\n    OrderBlock       -> 3,\n    Value            -> 0.0144,\n    InteractionOrder -> {NP, 2},\n    TeX              -> Subscript[\\[Alpha], 1],\n    Description      -> \"Higgs potential quartic coupling alpha_1\"\n  },\n  alp2 == {\n    ParameterType    -> External,\n    BlockName        -> HPOTINPUTS,\n    OrderBlock       -> 4,\n    Value            -> 0.0144,\n    InteractionOrder -> {NP, 2},\n    TeX              -> Subscript[\\[Alpha], 2],\n    Description      -> \"Higgs potential quartic coupling alpha_2\"\n  },\n  alp3 == {\n    ParameterType    -> External,\n    BlockName        -> HPOTINPUTS,\n    OrderBlock       -> 5,\n    Value            -> 0.0144,\n    InteractionOrder -> {NP, 2},\n    TeX              -> Subscript[\\[Alpha], 3],\n    Description      -> \"Higgs potential quartic coupling alpha_3\"\n  },\n  kap == {\n    ParameterType    -> External,\n    BlockName        -> HPOTINPUTS,\n    OrderBlock       -> 6,\n    Value            -> -31.08,\n    InteractionOrder -> {NP, 1},\n    TeX              -> \\[Kappa],\n    Description      -> \"Higgs potential trilinear coupling kappa [GeV] (must be negative)\"\n  },\n\n  (* Effective Higgs couplings *)\n  Ghgg == {\n    ParameterType    -> External,\n    BlockName        -> EFFECTIVEHIGGS,\n    OrderBlock       -> 1,\n    Value            -> 0.,\n    InteractionOrder -> {NP, 1},\n    TeX              -> Subscript[a, H]^g,\n    Description      -> \"Effective H0^0 coupling to gluons\"\n  },\n  Ghaa == {\n    ParameterType    -> External,\n    BlockName        -> EFFECTIVEHIGGS,\n    OrderBlock       -> 2,\n    Value            -> 0.,\n    InteractionOrder -> {NP, 1},\n    TeX              -> Subscript[a, H]^a,\n    Description      -> \"Effective H0^0 coupling to photons\"\n  },\n\n  (* ============================= *)\n  (* Fermion mass parameters - new physics *)\n  (* ============================= *)\n  Mne == {\n    ParameterType    -> External,\n    BlockName        -> MASS,\n    OrderBlock       -> 6000012,\n    Value            -> 756.,\n    TeX              -> Subscript[M, n_e],\n    Description      -> \"Lightest scotino (DM candidate) mass [GeV]\"\n  },\n  Mnm == {\n    ParameterType    -> External,\n    BlockName        -> MASS,\n    OrderBlock       -> 6000014,\n    Value            -> 971.,\n    TeX              -> Subscript[M, n_mu],\n    Description      -> \"Second scotino mass [GeV]\"\n  },\n  Mnt == {\n    ParameterType    -> External,\n    BlockName        -> MASS,\n    OrderBlock       -> 6000016,\n    Value            -> 1202.,\n    TeX              -> Subscript[M, n_tau],\n    Description      -> \"Third scotino mass [GeV]\"\n  },\n  MDP == {\n    ParameterType    -> External,\n    BlockName        -> MASS,\n    OrderBlock       -> 6000001,\n    Value            -> 1500.,\n    TeX              -> Subscript[M, d'],\n    Description      -> \"Lightest exotic down-type quark mass [GeV]\"\n  },\n  MSP == {\n    ParameterType    -> External,\n    BlockName        -> MASS,\n    OrderBlock       -> 6000003,\n    Value            -> 1800.,\n    TeX              -> Subscript[M, s'],\n    Description      -> \"Second exotic down-type quark mass [GeV]\"\n  },\n  MBP == {\n    ParameterType    -> External,\n    BlockName        -> MASS,\n    OrderBlock       -> 6000005,\n    Value            -> 2000.,\n    TeX              -> Subscript[M, b'],\n    Description      -> \"Third exotic down-type quark mass [GeV]\"\n  },\n\n  (* Neutrino masses (Dirac) *)\n  Mve == {\n    ParameterType    -> External,\n    BlockName        -> MASS,\n    OrderBlock       -> 12,\n    Value            -> 0.,\n    TeX              -> Subscript[M, \\[Nu]_e],\n    Description      -> \"Electron neutrino mass [GeV]\"\n  },\n  Mvm == {\n    ParameterType    -> External,\n    BlockName        -> MASS,\n    OrderBlock       -> 14,\n    Value            -> 0.,\n    TeX              -> Subscript[M, \\[Nu]_mu],\n    Description      -> \"Muon neutrino mass [GeV]\"\n  },\n  Mvt == {\n    ParameterType    -> External,\n    BlockName        -> MASS,\n    OrderBlock       -> 16,\n    Value            -> 0.,\n    TeX              -> Subscript[M, \\[Nu]_tau],\n    Description      -> \"Tau neutrino mass [GeV]\"\n  },\n\n  (* ============================= *)\n  (* CKM and PMNS matrices *)\n  (* ============================= *)\n  (* SM CKM - Wolfenstein parameterization *)\n  CKMlam == {\n    ParameterType    -> External,\n    BlockName        -> CKMBLOCK,\n    OrderBlock       -> 1,\n    Value            -> 0.227736,\n    TeX              -> \\[Lambda],\n    Description      -> \"Wolfenstein lambda parameter\"\n  },\n  CKMA == {\n    ParameterType    -> External,\n    BlockName        -> CKMBLOCK,\n    OrderBlock       -> 2,\n    Value            -> 0.814,\n    TeX              -> A,\n    Description      -> \"Wolfenstein A parameter\"\n  },\n  CKMrho == {\n    ParameterType    -> External,\n    BlockName        -> CKMBLOCK,\n    OrderBlock       -> 3,\n    Value            -> 0.135,\n    TeX              -> \\[Rho],\n    Description      -> \"Wolfenstein rho bar parameter\"\n  },\n  CKMeta == {\n    ParameterType    -> External,\n    BlockName        -> CKMBLOCK,\n    OrderBlock       -> 4,\n    Value            -> 0.349,\n    TeX              -> \\[Eta],\n    Description      -> \"Wolfenstein eta bar parameter\"\n  },\n\n  (* CKM' matrix - standard parameterization *)\n  CKMps12 == {\n    ParameterType    -> External,\n    BlockName        -> CKMBLOCK,\n    OrderBlock       -> 11,\n    Value            -> 0.227736,\n    TeX              -> Subscript[s, 12]^{CKM'},\n    Description      -> \"sin(theta_12) in CKM' matrix\"\n  },\n  CKMps23 == {\n    ParameterType    -> External,\n    BlockName        -> CKMBLOCK,\n    OrderBlock       -> 12,\n    Value            -> 0.041,\n    TeX              -> Subscript[s, 23]^{CKM'},\n    Description      -> \"sin(theta_23) in CKM' matrix\"\n  },\n  CKMps13 == {\n    ParameterType    -> External,\n    BlockName        -> CKMBLOCK,\n    OrderBlock       -> 13,\n    Value            -> 0.0035,\n    TeX              -> Subscript[s, 13]^{CKM'},\n    Description      -> \"sin(theta_13) in CKM' matrix\"\n  },\n  CKMpdel == {\n    ParameterType    -> External,\n    BlockName        -> CKMBLOCK,\n    OrderBlock       -> 14,\n    Value            -> 1.2,\n    TeX              -> Subscript[\\[Delta], CKM'],\n    Description      -> \"CP-violating phase in CKM' matrix\"\n  },\n\n  (* PMNS matrix - standard parameterization *)\n  PMNSs12 == {\n    ParameterType    -> External,\n    BlockName        -> PMNSBLOCK,\n    OrderBlock       -> 1,\n    Value            -> 0.55,\n    TeX              -> Subscript[s, 12]^{PMNS},\n    Description      -> \"sin(theta_12) in PMNS matrix\"\n  },\n  PMNSs23 == {\n    ParameterType    -> External,\n    BlockName        -> PMNSBLOCK,\n    OrderBlock       -> 2,\n    Value            -> 0.71,\n    TeX              -> Subscript[s, 23]^{PMNS},\n    Description      -> \"sin(theta_23) in PMNS matrix\"\n  },\n  PMNSs13 == {\n    ParameterType    -> External,\n    BlockName        -> PMNSBLOCK,\n    OrderBlock       -> 3,\n    Value            -> 0.15,\n    TeX              -> Subscript[s, 13]^{PMNS},\n    Description      -> \"sin(theta_13) in PMNS matrix\"\n  },\n  PMNSdel == {\n    ParameterType    -> External,\n    BlockName        -> PMNSBLOCK,\n    OrderBlock       -> 4,\n    Value            -> 1.2,\n    TeX              -> Subscript[\\[Delta], PMNS],\n    Description      -> \"CP-violating phase in PMNS matrix\"\n  },\n\n  (* PMNS' matrix - standard parameterization *)\n  PMNSps12 == {\n    ParameterType    -> External,\n    BlockName        -> PMNSBLOCK,\n    OrderBlock       -> 11,\n    Value            -> 0.55,\n    TeX              -> Subscript[s, 12]^{PMNS'},\n    Description      -> \"sin(theta_12) in PMNS' matrix\"\n  },\n  PMNSps23 == {\n    ParameterType    -> External,\n    BlockName        -> PMNSBLOCK,\n    OrderBlock       -> 12,\n    Value            -> 0.71,\n    TeX              -> Subscript[s, 23]^{PMNS'},\n    Description      -> \"sin(theta_23) in PMNS' matrix\"\n  },\n  PMNSps13 == {\n    ParameterType    -> External,\n    BlockName        -> PMNSBLOCK,\n    OrderBlock       -> 13,\n    Value            -> 0.15,\n    TeX              -> Subscript[s, 13]^{PMNS'},\n    Description      -> \"sin(theta_13) in PMNS' matrix\"\n  },\n  PMNSpdel == {\n    ParameterType    -> External,\n    BlockName        -> PMNSBLOCK,\n    OrderBlock       -> 14,\n    Value            -> 1.2,\n    TeX              -> Subscript[\\[Delta], PMNS'],\n    Description      -> \"CP-violating phase in PMNS' matrix\"\n  }\n};",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ALRM_general-8_2vasnp/model.fr"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ }
+]

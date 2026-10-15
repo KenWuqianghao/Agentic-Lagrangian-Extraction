@@ -21,8 +21,8 @@ Stage 1 of the HEPSIM5 pipeline: search **INSPIRE**, **arXiv**, and **NASA ADS**
 ```mermaid
 flowchart TD
     subgraph entry [Entry points]
-        CLI[lex search]
-        WEB[lex-web → POST /api/search]
+        CLI[lag-extract search]
+        WEB[lag-extract-web → POST /api/search]
         API[run_search in Python]
     end
 
@@ -32,7 +32,7 @@ flowchart TD
         AQ[ArxivClient.build_query]
     end
 
-    subgraph fetch [Parallel API search]
+    subgraph fetch [API search, one source after another]
         INSPIRE[INSPIRE /api/literature]
         ARXIV[arXiv Atom API]
         ADS[ADS Search API]
@@ -76,7 +76,7 @@ flowchart TD
 |------|----------------|------|
 | 1 | Build INSPIRE, arXiv, and ADS query strings from `SearchQuery` | `pipeline/search.py` → `clients/*.py` |
 | 2 | Open rate-limited HTTP client | `clients/_http.py` |
-| 3 | Search INSPIRE, arXiv, and ADS **in parallel** (thread pool) | `pipeline/search.py` |
+| 3 | Search INSPIRE, then arXiv, then ADS; a failed source is an audit error, and all three failing stops the run | `pipeline/search.py` |
 | 4 | Parse API responses into `PaperRecord` lists | `clients/inspire.py`, `clients/arxiv.py`, `clients/ads.py` |
 | 5 | Merge and deduplicate records | `pipeline/dedup.py` |
 | 6 | Fill missing INSPIRE citation counts by arXiv ID | `pipeline/citations.py` |
@@ -92,7 +92,7 @@ The orchestrator is **`run_search()`** in `src/lagrangian_extraction/pipeline/se
 
 ## Entry points
 
-### 1. CLI — `lex search`
+### 1. CLI — `lag-extract search`
 
 | Piece | Location |
 |-------|----------|
@@ -102,10 +102,10 @@ The orchestrator is **`run_search()`** in `src/lagrangian_extraction/pipeline/se
 | Prints selected paper | `_print_selected_paper()` |
 
 ```bash
-lex search "scalar leptoquark" -k BSM -k leptoquark --since 2015-01-01
+lag-extract search "scalar leptoquark" -k BSM -k leptoquark --since 2015-01-01
 ```
 
-### 2. Web UI — `lex-web`
+### 2. Web UI — `lag-extract-web`
 
 | Piece | Location |
 |-------|----------|
@@ -132,7 +132,7 @@ paper = audit.selected_paper
 
 ```
 src/lagrangian_extraction/
-├── cli.py                 # Typer CLI (lex search)
+├── cli.py                 # Typer CLI (lag-extract search)
 ├── config.py              # Settings, rate limits, category constants
 ├── models.py              # SearchQuery, PaperRecord, AuditRun
 ├── utils.py               # normalize_arxiv_id, quote_search_term
@@ -153,7 +153,7 @@ src/lagrangian_extraction/
 │   └── audit.py           # Atomic JSON audit log writer
 └── web/
     ├── app.py             # FastAPI routes
-    ├── server.py          # uvicorn entry (lex-web)
+    ├── server.py          # uvicorn entry (lag-extract-web)
     └── static/            # index.html, style.css, app.js
 ```
 

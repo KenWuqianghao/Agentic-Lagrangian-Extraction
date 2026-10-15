@@ -1,0 +1,1050 @@
+{
+ "variant": "v2",
+ "agent_model": "claude-opus-5",
+ "rows": [
+  {
+   "page": "Top-Philic-Zprime",
+   "variant": "v2",
+   "seed": 2,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 112.7,
+    "n_tool_calls": 6,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-lydyw3je/eval/benchmark_runs/Top-Philic-Zprime/text/1604.07421.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-lydyw3je/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-lydyw3je/eval/benchmark_runs/Top-Philic-Zprime/text/1604.07421.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-lydyw3je/tools/feynrules/test_files/models/SM.fr"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/Top-Philic-Zprime/rerun/v2/s2/model/Top-Philic-Zprime_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "zprime_free_field_terms": {
+      "resolved": true,
+      "detail": "kinetic + Proca mass term present, declared mass symbol shared, summed into total"
+     }
+    },
+    "all_resolved": true
+   }
+  },
+  {
+   "page": "368sextets",
+   "variant": "v2",
+   "seed": 2,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 298.0,
+    "n_tool_calls": 5,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-4ato_j2d/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-4ato_j2d/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-4ato_j2d/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-4ato_j2d/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-4ato_j2d/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/368sextets/rerun/v2/s2/model/368sextets_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "sextets_explicit_cutoffs": {
+      "resolved": false,
+      "detail": "CFu term and/or its HC partner lacks /Lambda^1"
+     }
+    },
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "EffLRSM",
+   "variant": "v2",
+   "seed": 2,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 320.3,
+    "n_tool_calls": 5,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-4ns0jrzg/eval/benchmark_runs/EffLRSM/text/1610.08985.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-4ns0jrzg/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-4ns0jrzg/eval/benchmark_runs/EffLRSM/text/1610.08985.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-4ns0jrzg/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-EffLRSM-4ns0jrzg/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/EffLRSM/rerun/v2/s2/model/EffLRSM_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "efflrsm_charge_conjugation": {
+      "resolved": true,
+      "detail": "no bare light-neutrino field on any W_R line (CC[...] used or X term dropped)"
+     }
+    },
+    "all_resolved": true
+   }
+  },
+  {
+   "page": "GeneralU1",
+   "variant": "v2",
+   "seed": 2,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 601.4,
+    "n_tool_calls": 5,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-vjda2mj4/eval/benchmark_runs/GeneralU1/text/2104.10902.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-vjda2mj4/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-vjda2mj4/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-vjda2mj4/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/GeneralU1/rerun/v2/s2/model/GeneralU1_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "generalu1_eps_and_higgs_charge": {
+      "resolved": false,
+      "detail": "no LNuDiracYuk term"
+     }
+    },
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "331",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 1478.3,
+    "n_tool_calls": 7,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-331-clsle8kj/eval/benchmark_runs/331/text/1611.09337.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-331-clsle8kj/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-331-clsle8kj/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-331-clsle8kj/eval/benchmark_runs/331/text/1611.09337.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-331-clsle8kj/eval/benchmark_runs/331/text/1611.09337.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-331-clsle8kj/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/331/rerun/v2/s1/model/331_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "ALRM_general",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 1698.2,
+    "n_tool_calls": 5,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-ALRM_general-5tb2axyo/eval/benchmark_runs/ALRM_general/text/1911.12883.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-ALRM_general-5tb2axyo/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-ALRM_general-5tb2axyo/eval/benchmark_runs/ALRM_general/text/1911.12883.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-ALRM_general-5tb2axyo/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-ALRM_general-5tb2axyo/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/ALRM_general/rerun/v2/s1/model/ALRM_general_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "topBSM",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 343.9,
+    "n_tool_calls": 4,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-topBSM-qvisnovi/eval/benchmark_runs/topBSM/text/1305.7386.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-topBSM-qvisnovi/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-topBSM-qvisnovi/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-topBSM-qvisnovi/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/topBSM/rerun/v2/s1/model/topBSM_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "ChernSimonsPortal",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 600.9,
+    "n_tool_calls": 4,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-ChernSimonsPortal-os9ojrzv/eval/benchmark_runs/ChernSimonsPortal/text/0901.0639.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-ChernSimonsPortal-os9ojrzv/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-ChernSimonsPortal-os9ojrzv/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-ChernSimonsPortal-os9ojrzv/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/ChernSimonsPortal/rerun/v2/s1/model/ChernSimonsPortal_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "DMsimp",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 223.1,
+    "n_tool_calls": 4,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-DMsimp-if4vl5ki/eval/benchmark_runs/DMsimp/text/1508.00564.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-DMsimp-if4vl5ki/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-DMsimp-if4vl5ki/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-DMsimp-if4vl5ki/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/DMsimp/rerun/v2/s1/model/DMsimp_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "EffLRSM",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 331.2,
+    "n_tool_calls": 5,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "eval/benchmark_runs/EffLRSM/text/1610.08985.txt",
+     "tools/frgen/frmodel.py",
+     "eval/benchmark_runs/EffLRSM/text/1610.08985.txt",
+     "tools/feynrules/test_files/models/SM.fr",
+     "tools/frgen/render.py"
+    ],
+    "skipped": true
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/EffLRSM/rerun/v2/s1/model/EffLRSM_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "efflrsm_charge_conjugation": {
+      "resolved": true,
+      "detail": "no bare light-neutrino field on any W_R line (CC[...] used or X term dropped)"
+     }
+    },
+    "all_resolved": true
+   }
+  },
+  {
+   "page": "GeneralU1",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 592.9,
+    "n_tool_calls": 4,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-q0mq3gd4/eval/benchmark_runs/GeneralU1/text/2104.10902.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-q0mq3gd4/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-GeneralU1-q0mq3gd4/tools/feynrules/test_files/models/SM.fr"
+    ],
+    "skipped": true
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/GeneralU1/rerun/v2/s1/model/GeneralU1_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "generalu1_eps_and_higgs_charge": {
+      "resolved": true,
+      "detail": "Eps-contracted Dirac Yukawa; Higgs U(1)X charge xPhiH = xH/2"
+     }
+    },
+    "all_resolved": true
+   }
+  },
+  {
+   "page": "HeavyN",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 258.8,
+    "n_tool_calls": 3,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HeavyN-p_vrumz4/eval/benchmark_runs/HeavyN/text/1602.06957.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HeavyN-p_vrumz4/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HeavyN-p_vrumz4/tools/feynrules/test_files/models/SM.fr"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/HeavyN/rerun/v2/s1/model/HeavyN_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "HNLs",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 463.5,
+    "n_tool_calls": 6,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HNLs-ztu_863n/eval/benchmark_runs/HNLs/text/2007.03701.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HNLs-ztu_863n/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HNLs-ztu_863n/eval/benchmark_runs/HNLs/text/2007.03701.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HNLs-ztu_863n/eval/benchmark_runs/HNLs/text/2007.03701.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HNLs-ztu_863n/eval/benchmark_runs/HNLs/text/2007.03701.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HNLs-ztu_863n/tools/feynrules/test_files/models/SM.fr"
+    ]
+   },
+   "render": {
+    "rendered": false,
+    "reason": "schema_validation_failed",
+    "detail": "Error: Schema Validation Failed\n- Reason: 1 validation error for FeynRulesModel\nparameters.3.parameter_name\n  Input should be a valid string [type=string_type, input_value={}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_type\n- Fix the fields named above. Remember: numeric values are strings (e.g. \"-1/3\", \"1500.\"), and see the FeynRulesModel schema."
+   }
+  },
+  {
+   "page": "B-L-SM",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 608.7,
+    "n_tool_calls": 5,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-B-L-SM-odv3uh0a/eval/benchmark_runs/B-L-SM/text/1811.11452.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-B-L-SM-odv3uh0a/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-B-L-SM-odv3uh0a/eval/benchmark_runs/B-L-SM/text/1811.11452.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-B-L-SM-odv3uh0a/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-B-L-SM-odv3uh0a/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/B-L-SM/rerun/v2/s1/model/B-L-SM_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "MDMmodel",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 550.8,
+    "n_tool_calls": 4,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-MDMmodel-q6b7n7ye/eval/benchmark_runs/MDMmodel/text/1311.6661.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-MDMmodel-q6b7n7ye/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-MDMmodel-q6b7n7ye/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-MDMmodel-q6b7n7ye/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/MDMmodel/rerun/v2/s1/model/MDMmodel_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "Monotops",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 353.8,
+    "n_tool_calls": 4,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Monotops-c_6vlh4w/eval/benchmark_runs/Monotops/text/1106.6199.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Monotops-c_6vlh4w/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Monotops-c_6vlh4w/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Monotops-c_6vlh4w/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/Monotops/rerun/v2/s1/model/Monotops_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "pNG",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 379.7,
+    "n_tool_calls": 5,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-pNG-o8ss6cyh/eval/benchmark_runs/pNG/text/1912.04008.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-pNG-o8ss6cyh/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-pNG-o8ss6cyh/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-pNG-o8ss6cyh/eval/benchmark_runs/pNG/text/1912.04008.txt"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/pNG/rerun/v2/s1/model/pNG_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "Sextets",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 773.7,
+    "n_tool_calls": 8,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Sextets-acm7xtqx/eval/benchmark_runs/Sextets/text/0909.2666.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Sextets-acm7xtqx/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Sextets-acm7xtqx/tools/frgen/render.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Sextets-acm7xtqx/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Sextets-acm7xtqx/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Sextets-acm7xtqx/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Sextets-acm7xtqx/tools/feynrules/test_files/models/SM.fr"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/Sextets/rerun/v2/s1/model/Sextets_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "368sextets",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 375.9,
+    "n_tool_calls": 4,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-ios4n1j6/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-ios4n1j6/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-ios4n1j6/eval/benchmark_runs/368sextets/text/2110.11359.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-368sextets-ios4n1j6/tools/feynrules/test_files/models/SM.fr"
+    ],
+    "skipped": true
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/368sextets/rerun/v2/s1/model/368sextets_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "sextets_explicit_cutoffs": {
+      "resolved": true,
+      "detail": "External cutoffs ['LamPhid', 'LamPhiu', 'LamPsid', 'LamPsidB', 'LamPsiu', 'LamPsiuB'] with powers [1, 2, 3] on every field-strength operator"
+     }
+    },
+    "all_resolved": true
+   }
+  },
+  {
+   "page": "SLQrules",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 859.1,
+    "n_tool_calls": 6,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-SLQrules-1hkf_y0a/eval/benchmark_runs/SLQrules/text/2105.04844.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-SLQrules-1hkf_y0a/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-SLQrules-1hkf_y0a/eval/benchmark_runs/SLQrules/text/2105.04844.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-SLQrules-1hkf_y0a/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-SLQrules-1hkf_y0a/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/SLQrules/rerun/v2/s1/model/SLQrules_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "pSPSS",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 438.5,
+    "n_tool_calls": 5,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-pSPSS-flecoxoy/eval/benchmark_runs/pSPSS/text/2210.10738.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-pSPSS-flecoxoy/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-pSPSS-flecoxoy/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-pSPSS-flecoxoy/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/pSPSS/rerun/v2/s1/model/pSPSS_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "SMWeinberg",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 289.4,
+    "n_tool_calls": 3,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "eval/benchmark_runs/SMWeinberg/text/2012.09882.txt",
+     "tools/frgen/frmodel.py",
+     "tools/feynrules/test_files/models/SM.fr"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/SMWeinberg/rerun/v2/s1/model/SMWeinberg_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "Top-Philic-Zprime",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 114.6,
+    "n_tool_calls": 6,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-ynl8fery/eval/benchmark_runs/Top-Philic-Zprime/text/1604.07421.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-ynl8fery/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-ynl8fery/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Top-Philic-Zprime-ynl8fery/eval/benchmark_runs/Top-Philic-Zprime/text/1604.07421.txt"
+    ],
+    "skipped": true
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/Top-Philic-Zprime/rerun/v2/s1/model/Top-Philic-Zprime_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {
+     "zprime_free_field_terms": {
+      "resolved": true,
+      "detail": "kinetic + mass term for V1, summed into the total"
+     }
+    },
+    "all_resolved": true
+   }
+  },
+  {
+   "page": "Triplets",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 623.6,
+    "n_tool_calls": 4,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Triplets-pi4nl_u3/eval/benchmark_runs/Triplets/text/0909.2666.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Triplets-pi4nl_u3/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Triplets-pi4nl_u3/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Triplets-pi4nl_u3/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/Triplets/rerun/v2/s1/model/Triplets_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "VLQ",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 562.1,
+    "n_tool_calls": 4,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-VLQ-61i52o_4/eval/benchmark_runs/VLQ/text/hep-ph_0607115.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-VLQ-61i52o_4/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-VLQ-61i52o_4/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-VLQ-61i52o_4/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/VLQ/rerun/v2/s1/model/VLQ_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "LeptoQuark",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 305.5,
+    "n_tool_calls": 4,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "eval/benchmark_runs/LeptoQuark/text/1901.10480.txt",
+     "tools/frgen/frmodel.py",
+     "eval/benchmark_runs/LeptoQuark/text/1901.10480.txt",
+     "tools/feynrules/test_files/models/SM.fr"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/LeptoQuark/rerun/v2/s1/model/LeptoQuark_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "Wprime",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 282.9,
+    "n_tool_calls": 5,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Wprime-n6boz6yh/eval/benchmark_runs/Wprime/text/hep-ph_0207290.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Wprime-n6boz6yh/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Wprime-n6boz6yh/eval/benchmark_runs/Wprime/text/hep-ph_0207290.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Wprime-n6boz6yh/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-Wprime-n6boz6yh/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/Wprime/rerun/v2/s1/model/Wprime_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "MSSMD",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 265.0,
+    "n_tool_calls": 4,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-MSSMD-2jfffr06/eval/benchmark_runs/MSSMD/text/1812.00380.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-MSSMD-2jfffr06/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-MSSMD-2jfffr06/eval/benchmark_runs/MSSMD/text/1812.00380.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-MSSMD-2jfffr06/tools/feynrules/test_files/models/SM.fr"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/MSSMD/rerun/v2/s1/model/MSSMD_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "CHEIDI",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 560.7,
+    "n_tool_calls": 5,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-CHEIDI-rrq81_h3/eval/benchmark_runs/CHEIDI/text/1010.3251.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-CHEIDI-rrq81_h3/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-CHEIDI-rrq81_h3/eval/benchmark_runs/CHEIDI/text/1010.3251.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-CHEIDI-rrq81_h3/tools/feynrules/test_files/models/SM.fr"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/CHEIDI/rerun/v2/s1/model/CHEIDI_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "HiggsCharacterisation",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 455.9,
+    "n_tool_calls": 5,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HiggsCharacterisation-i_vblzdn/eval/benchmark_runs/HiggsCharacterisation/text/1306.6464.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HiggsCharacterisation-i_vblzdn/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HiggsCharacterisation-i_vblzdn/eval/benchmark_runs/HiggsCharacterisation/text/1306.6464.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HiggsCharacterisation-i_vblzdn/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-HiggsCharacterisation-i_vblzdn/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/HiggsCharacterisation/rerun/v2/s1/model/HiggsCharacterisation_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "NJLComposite",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 395.2,
+    "n_tool_calls": 4,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-NJLComposite-hvzvn_6q/eval/benchmark_runs/NJLComposite/text/2311.18472.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-NJLComposite-hvzvn_6q/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-NJLComposite-hvzvn_6q/eval/benchmark_runs/NJLComposite/text/2311.18472.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-NJLComposite-hvzvn_6q/tools/feynrules/test_files/models/SM.fr"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/NJLComposite/rerun/v2/s1/model/NJLComposite_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  },
+  {
+   "page": "VLC_LN",
+   "variant": "v2",
+   "seed": 1,
+   "agent": {
+    "ok": true,
+    "exit": 0,
+    "timed_out": false,
+    "seconds": 522.5,
+    "n_tool_calls": 4,
+    "read_paper": true,
+    "contaminated": false,
+    "outside_sandbox": [],
+    "benign_outside": [],
+    "files_read": [
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-VLC_LN-be5zfrz8/eval/benchmark_runs/VLC_LN/text/1508.01112.txt",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-VLC_LN-be5zfrz8/tools/frgen/frmodel.py",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-VLC_LN-be5zfrz8/tools/feynrules/test_files/models/SM.fr",
+     "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/rerun-VLC_LN-be5zfrz8/tools/frgen/render.py"
+    ]
+   },
+   "render": {
+    "rendered": true,
+    "fr": "/Users/kenwu/Documents/Github/heptapod/eval/benchmark_runs/VLC_LN/rerun/v2/s1/model/VLC_LN_gen.fr"
+   },
+   "predicates": {
+    "available": true,
+    "results": {},
+    "all_resolved": false
+   }
+  }
+ ]
+}

@@ -1,0 +1,682 @@
+{
+ "end_to_end": {
+  "papers": 11,
+  "predictions": {
+   "B-L-SM": {
+    "none": "fail",
+    "compile": "fail",
+    "heptapod": "pass",
+    "full": "pass"
+   },
+   "ChernSimonsPortal": {
+    "none": "pass",
+    "compile": "pass",
+    "heptapod": "pass",
+    "full": "pass"
+   },
+   "EffLRSM": {
+    "none": "fail",
+    "compile": "fail",
+    "heptapod": "uncertain",
+    "full": "pass"
+   },
+   "HeavyN": {
+    "none": "pass",
+    "compile": "pass",
+    "heptapod": "pass",
+    "full": "pass"
+   },
+   "MDMmodel": {
+    "none": "fail",
+    "compile": "fail",
+    "heptapod": "fail",
+    "full": "fail"
+   },
+   "Monotops": {
+    "none": "fail",
+    "compile": "fail",
+    "heptapod": "fail",
+    "full": "fail"
+   },
+   "NJLComposite": {
+    "none": "fail",
+    "compile": "fail",
+    "heptapod": "fail",
+    "full": "fail"
+   },
+   "Top-Philic-Zprime": {
+    "none": "fail",
+    "compile": "fail",
+    "heptapod": "uncertain",
+    "full": "pass"
+   },
+   "Wprime": {
+    "none": "fail",
+    "compile": "fail",
+    "heptapod": "pass",
+    "full": "pass"
+   },
+   "pNG": {
+    "none": "pass",
+    "compile": "pass",
+    "heptapod": "pass",
+    "full": "pass"
+   },
+   "pSPSS": {
+    "none": "fail",
+    "compile": "fail",
+    "heptapod": "fail",
+    "full": "fail"
+   }
+  },
+  "scenarios": {
+   "optimistic": [
+    0.9,
+    0.05
+   ],
+   "central": [
+    0.75,
+    0.1
+   ],
+   "pessimistic": [
+    0.6,
+    0.15
+   ]
+  },
+  "expected_endpoint_passes_per_seed": {
+   "optimistic": {
+    "none": 3.1,
+    "compile": 3.1,
+    "heptapod": 5.65,
+    "full": 6.5
+   },
+   "central": {
+    "none": 3.05,
+    "compile": 3.05,
+    "heptapod": 5.0,
+    "full": 5.65
+   },
+   "pessimistic": {
+    "none": 3.0,
+    "compile": 3.0,
+    "heptapod": 4.35,
+    "full": 4.8
+   }
+  },
+  "power": [
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "optimistic",
+    "seeds": 1,
+    "power": 0.009
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "optimistic",
+    "seeds": 2,
+    "power": 0.421
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "optimistic",
+    "seeds": 3,
+    "power": 0.689
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "optimistic",
+    "seeds": 4,
+    "power": 0.863
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "optimistic",
+    "seeds": 5,
+    "power": 0.941
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "optimistic",
+    "seeds": 6,
+    "power": 0.975
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "central",
+    "seeds": 1,
+    "power": 0.015
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "central",
+    "seeds": 2,
+    "power": 0.179
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "central",
+    "seeds": 3,
+    "power": 0.309
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "central",
+    "seeds": 4,
+    "power": 0.434
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "central",
+    "seeds": 5,
+    "power": 0.552
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "central",
+    "seeds": 6,
+    "power": 0.644
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "pessimistic",
+    "seeds": 1,
+    "power": 0.015
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "pessimistic",
+    "seeds": 2,
+    "power": 0.086
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "pessimistic",
+    "seeds": 3,
+    "power": 0.129
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "pessimistic",
+    "seeds": 4,
+    "power": 0.188
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "pessimistic",
+    "seeds": 5,
+    "power": 0.239
+   },
+   {
+    "contrast": "heptapod vs compile",
+    "scenario": "pessimistic",
+    "seeds": 6,
+    "power": 0.287
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "optimistic",
+    "seeds": 1,
+    "power": 0.028
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "optimistic",
+    "seeds": 2,
+    "power": 0.707
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "optimistic",
+    "seeds": 3,
+    "power": 0.924
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "optimistic",
+    "seeds": 4,
+    "power": 0.99
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "optimistic",
+    "seeds": 5,
+    "power": 0.999
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "optimistic",
+    "seeds": 6,
+    "power": 1.0
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "central",
+    "seeds": 1,
+    "power": 0.033
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "central",
+    "seeds": 2,
+    "power": 0.333
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "central",
+    "seeds": 3,
+    "power": 0.534
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "central",
+    "seeds": 4,
+    "power": 0.707
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "central",
+    "seeds": 5,
+    "power": 0.826
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "central",
+    "seeds": 6,
+    "power": 0.883
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "pessimistic",
+    "seeds": 1,
+    "power": 0.021
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "pessimistic",
+    "seeds": 2,
+    "power": 0.146
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "pessimistic",
+    "seeds": 3,
+    "power": 0.211
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "pessimistic",
+    "seeds": 4,
+    "power": 0.324
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "pessimistic",
+    "seeds": 5,
+    "power": 0.408
+   },
+   {
+    "contrast": "full vs compile",
+    "scenario": "pessimistic",
+    "seeds": 6,
+    "power": 0.483
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "optimistic",
+    "seeds": 1,
+    "power": 0.0
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "optimistic",
+    "seeds": 2,
+    "power": 0.001
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "optimistic",
+    "seeds": 3,
+    "power": 0.002
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "optimistic",
+    "seeds": 4,
+    "power": 0.006
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "optimistic",
+    "seeds": 5,
+    "power": 0.007
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "optimistic",
+    "seeds": 6,
+    "power": 0.009
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "central",
+    "seeds": 1,
+    "power": 0.0
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "central",
+    "seeds": 2,
+    "power": 0.009
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "central",
+    "seeds": 3,
+    "power": 0.012
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "central",
+    "seeds": 4,
+    "power": 0.014
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "central",
+    "seeds": 5,
+    "power": 0.014
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "central",
+    "seeds": 6,
+    "power": 0.015
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "pessimistic",
+    "seeds": 1,
+    "power": 0.002
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "pessimistic",
+    "seeds": 2,
+    "power": 0.009
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "pessimistic",
+    "seeds": 3,
+    "power": 0.011
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "pessimistic",
+    "seeds": 4,
+    "power": 0.014
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "pessimistic",
+    "seeds": 5,
+    "power": 0.015
+   },
+   {
+    "contrast": "compile vs none",
+    "scenario": "pessimistic",
+    "seeds": 6,
+    "power": 0.012
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "optimistic",
+    "seeds": 1,
+    "power": 0.0
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "optimistic",
+    "seeds": 2,
+    "power": 0.043
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "optimistic",
+    "seeds": 3,
+    "power": 0.087
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "optimistic",
+    "seeds": 4,
+    "power": 0.126
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "optimistic",
+    "seeds": 5,
+    "power": 0.161
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "optimistic",
+    "seeds": 6,
+    "power": 0.218
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "central",
+    "seeds": 1,
+    "power": 0.004
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "central",
+    "seeds": 2,
+    "power": 0.033
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "central",
+    "seeds": 3,
+    "power": 0.053
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "central",
+    "seeds": 4,
+    "power": 0.068
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "central",
+    "seeds": 5,
+    "power": 0.085
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "central",
+    "seeds": 6,
+    "power": 0.088
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "pessimistic",
+    "seeds": 1,
+    "power": 0.006
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "pessimistic",
+    "seeds": 2,
+    "power": 0.025
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "pessimistic",
+    "seeds": 3,
+    "power": 0.03
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "pessimistic",
+    "seeds": 4,
+    "power": 0.039
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "pessimistic",
+    "seeds": 5,
+    "power": 0.049
+   },
+   {
+    "contrast": "full vs heptapod",
+    "scenario": "pessimistic",
+    "seeds": 6,
+    "power": 0.054
+   }
+  ]
+ },
+ "repair": {
+  "units": [
+   "cc_sonnet_harness:B-L-SM",
+   "cc_sonnet_harness:EffLRSM",
+   "cc_sonnet_harness:SMWeinberg",
+   "cc_sonnet_harness:pSPSS",
+   "pi_qwen_harness:B-L-SM",
+   "pi_qwen_harness:ChernSimonsPortal",
+   "pi_qwen_harness:SMWeinberg",
+   "pi_qwen_harness:Top-Philic-Zprime",
+   "pi_qwen_harness:pSPSS",
+   "pi_qwen_plain:HeavyN",
+   "pi_qwen_plain:Top-Philic-Zprime",
+   "v3s_notools:B-L-SM",
+   "v3s_notools:EffLRSM",
+   "v3s_notools:GeneralU1",
+   "v3s_notools:HeavyN",
+   "v3s_notools:MDMmodel",
+   "v3s_notools:Monotops",
+   "v3s_notools:SMWeinberg"
+  ],
+  "rates": {
+   "h 0.30, g 0.10": [
+    0.3,
+    0.1
+   ],
+   "h 0.45, g 0.10": [
+    0.45,
+    0.1
+   ],
+   "h 0.60, g 0.10": [
+    0.6,
+    0.1
+   ],
+   "h 0.45, g 0.20": [
+    0.45,
+    0.2
+   ],
+   "d 0.60, h 0.45": [
+    0.6,
+    0.45
+   ],
+   "d 0.65, h 0.35": [
+    0.65,
+    0.35
+   ]
+  },
+  "power": [
+   {
+    "rates": "h 0.30, g 0.10",
+    "seeds": 1,
+    "power": 0.152
+   },
+   {
+    "rates": "h 0.30, g 0.10",
+    "seeds": 2,
+    "power": 0.445
+   },
+   {
+    "rates": "h 0.30, g 0.10",
+    "seeds": 3,
+    "power": 0.676
+   },
+   {
+    "rates": "h 0.45, g 0.10",
+    "seeds": 1,
+    "power": 0.492
+   },
+   {
+    "rates": "h 0.45, g 0.10",
+    "seeds": 2,
+    "power": 0.886
+   },
+   {
+    "rates": "h 0.45, g 0.10",
+    "seeds": 3,
+    "power": 0.985
+   },
+   {
+    "rates": "h 0.60, g 0.10",
+    "seeds": 1,
+    "power": 0.819
+   },
+   {
+    "rates": "h 0.60, g 0.10",
+    "seeds": 2,
+    "power": 0.996
+   },
+   {
+    "rates": "h 0.60, g 0.10",
+    "seeds": 3,
+    "power": 1.0
+   },
+   {
+    "rates": "h 0.45, g 0.20",
+    "seeds": 1,
+    "power": 0.216
+   },
+   {
+    "rates": "h 0.45, g 0.20",
+    "seeds": 2,
+    "power": 0.541
+   },
+   {
+    "rates": "h 0.45, g 0.20",
+    "seeds": 3,
+    "power": 0.736
+   },
+   {
+    "rates": "d 0.60, h 0.45",
+    "seeds": 1,
+    "power": 0.083
+   },
+   {
+    "rates": "d 0.60, h 0.45",
+    "seeds": 2,
+    "power": 0.185
+   },
+   {
+    "rates": "d 0.60, h 0.45",
+    "seeds": 3,
+    "power": 0.276
+   },
+   {
+    "rates": "d 0.65, h 0.35",
+    "seeds": 1,
+    "power": 0.286
+   },
+   {
+    "rates": "d 0.65, h 0.35",
+    "seeds": 2,
+    "power": 0.658
+   },
+   {
+    "rates": "d 0.65, h 0.35",
+    "seeds": 3,
+    "power": 0.843
+   }
+  ]
+ },
+ "sims": 4000
+}

@@ -1,0 +1,44 @@
+{
+ "model_files": [
+  "/home/deck/code/heptapod/eval/reference_cache/SMWeinberg/sm.fr",
+  "/home/deck/code/heptapod/eval/reference_cache/SMWeinberg/weinberg_NLO.fr"
+ ],
+ "load_sm": true,
+ "sm_file": "/home/deck/code/heptapod/eval/reference_cache/SMWeinberg/sm.fr",
+ "lagrangian": "LFull",
+ "seconds": 63,
+ "ok": true,
+ "n_particles": 25,
+ "n_vertices": 235,
+ "n_bsm_vertices": 60,
+ "bsm_particles": [
+  "N1"
+ ],
+ "example_bsm_vertex": [
+  "e__plus__",
+  "N1",
+  "G0",
+  "G__minus__"
+ ],
+ "evidence": "weinberg_NLO.fr:3 'Extends SM (sm.fr) by one massive Majorana neutrino'; weinberg_NLO.fr:202 'LFull := LSM + LD5'.",
+ "notes": "Add-on. Loaded with the sm.fr of the reference directory through _tools/compile_multi.wl (the driver can load only the FeynRules SM.fr).",
+ "extra_args": [],
+ "command": "wolframscript -f /home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/hillclimb/ref_ufo/_tools/compile_multi.wl FeynRulesPath=/home/deck/hep-tools/feynrules-current ModelFiles=/home/deck/code/heptapod/eval/reference_cache/SMWeinberg/sm.fr,/home/deck/code/heptapod/eval/reference_cache/SMWeinberg/weinberg_NLO.fr OutputDir=/home/deck/code/ALE-ablation/benchmarks/heptapod_ablation/hillclimb/ref_ufo/SMWeinberg/UFO Lagrangian=LFull",
+ "problems": [],
+ "last_log_lines": [],
+ "attempts": [
+  {
+   "lagrangian": "LFull",
+   "load_sm": true,
+   "model_files": [
+    "/home/deck/code/heptapod/eval/reference_cache/SMWeinberg/sm.fr",
+    "/home/deck/code/heptapod/eval/reference_cache/SMWeinberg/weinberg_NLO.fr"
+   ],
+   "extra": [],
+   "seconds": 63,
+   "exit_code": 0,
+   "ok": true,
+   "problems": []
+  }
+ ]
+}

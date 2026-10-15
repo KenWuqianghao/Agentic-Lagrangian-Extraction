@@ -1,0 +1,438 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: Wprime (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:hep-ph/0207290.\n4: PAPER: the paper's LaTeX so"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/frgen\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/fr_lint.py\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDEL"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentstyle[prd,aps,epsfig]{revtex}\n2: \n3: \\newcommand{\\wpr}{$W^\\prime$~}\n4: \\newcommand{\\wprm}{W^\\prime}\n5: \\newcommand{\\wprmp}{W^{\\prime\\,+}}\n6: \\newcommand{\\mwpsq}{m^2_{W^\\prime}}\n7: \\newcommand{\\mtsq}{m^2_{t}}\n8: \n9: \\newcommand{\\beq}{\\begin"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                 "
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex",
+   "offset": 911
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex</path>\n<type>file</type>\n<content>\n911: \\begin{tabular}{d|d@{\\hspace*{2em}}l@{\\hspace*{1em}}l@{\\hspace*{1em}}l@{\\hspace*{3em}}l@{\\hspace*{1em}}|d@{\\hspace*{2em}}l@{\\hspace*{1em}}l@{\\hspace*{1em}}l@{\\hspace*{3em}}l}\n912: Mass (GeV)&$\\sigma_{\\mathrm LO}$ (pb)&\\multicolumn{3}{l}{$\\delta\\s"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDELIN"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and the\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/frgen"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/frgen</path>\n<type>file</type>\n<content>\n1: #!/bin/sh\n2: FRGEN_TOOLKIT=\"$(pwd)/tools\" exec \"/private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/venv/bin/python\" \"/Users/kenwu/Documents/Github/Agentic-Lagrangian-Extraction/benchmarks/open_"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/frgen/templates/model.fr.j2"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/frgen/templates/model.fr.j2</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: {{ model_name }}                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*------------"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/frgen/__init__.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/frgen/__init__.py</path>\n<type>file</type>\n<content>\n\n\n(End of file - total 0 lines)\n</content>"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: Wprime (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:hep-ph/0207290.\n4: PAPER: the paper's LaTeX so"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDEL"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/frgen/render.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/frgen/render.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # render.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines, see GUIDELIN"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/fr_lint.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n1: #!/usr/bin/env python3\n2: \"\"\"Deterministic lints for an agent-written FeynRules add-on (.fr) file.\n3: \n4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n5: MadGraph import in the benchmark (prompt_addendum_v3.txt rules 9-15 and the\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                                 "
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "ls -la && wc -l TASK.md tools/frgen/frmodel.py tools/frgen/render.py tools/fr_lint.py SM.fr paper/hep-ph_0207290_source.tex"
+  },
+  "status": "error",
+  "output": "The user has specified a rule which prevents you from using this specific tool call. Here are some of the relevant rules [{\"permission\":\"*\",\"action\":\"allow\",\"pattern\":\"*\"},{\"permission\":\"bash\",\"pattern\":\"*\",\"action\":\"deny\"},{\"permission\":\"bash\",\"pattern\":\"./frgen *\",\"action\":\"allow\"},{\"permission\":\"bash\",\"pattern\":\"./frgen\",\"action\":\"allow\"}]"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentstyle[prd,aps,epsfig]{revtex}\n2: \n3: \\newcommand{\\wpr}{$W^\\prime$~}\n4: \\newcommand{\\wprm}{W^\\prime}\n5: \\newcommand{\\wprmp}{W^{\\prime\\,+}}\n6: \\newcommand{\\mwpsq}{m^2_{W^\\prime}}\n7: \\newcommand{\\mtsq}{m^2_{t}}\n8: \n9: \\newcommand{\\beq}{\\begin"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex",
+   "offset": 911
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex</path>\n<type>file</type>\n<content>\n911: \\begin{tabular}{d|d@{\\hspace*{2em}}l@{\\hspace*{1em}}l@{\\hspace*{1em}}l@{\\hspace*{3em}}l@{\\hspace*{1em}}|d@{\\hspace*{2em}}l@{\\hspace*{1em}}l@{\\hspace*{1em}}l@{\\hspace*{3em}}l}\n912: Mass (GeV)&$\\sigma_{\\mathrm LO}$ (pb)&\\multicolumn{3}{l}{$\\delta\\s"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/spec.json",
+   "content": "{\n  \"model_name\": \"Wprime_gen\",\n  \"info\": {\n    \"authors\": [\"Zack Sullivan\"],\n    \"version\": \"1.0\",\n    \"date\": \"23. 07. 2002\",\n    \"institutions\": [\"Fermi National Accelerator Laboratory\"],\n    \"emails\": []\n  },\n  \"interaction_order_hierarchy\": [[\"QCD\", 1], [\"QED\", 2], [\"NP\", 1]],\n  \"interaction_order_limit\": [],\n  \"feynman_gauge\": null,\n  \"vevs\": [],\n  \"gauge_groups\": [],\n  \"index_decls\": [],\n  \"gauge_xi\": [],\n  \"raw_preamble\": [],\n  \"raw_blocks\": [],\n  \"parameters\": [\n    {\n      \"name\": \"gRp\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.653\",\n      \"complex\": false,\n      \"block_name\": \"WPCOUP\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Right-handed W' gauge coupling g_R (default g = sqrt(8 mW^2 GF/sqrt(2)))\"\n    },\n    {\n      \"name\": \"gLp\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.\",\n      \"complex\": false,\n      \"block_name\": \"WPCOUP\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Left-handed W' gauge coupling g_L (0 = pure right-handed benchmark)\"\n    },\n    {\n      \"name\": \"zeta\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.\",\n      \"complex\": false,\n      \"block_name\": \"WPCOUP\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Left-right mixing angle zeta (Eq. lagrangian); usually very small\"\n    },\n    {\n      \"name\": \"omega\",\n      \"parameter_type\": \"External\",\n      \"value\": \"0.\",\n      \"complex\": false,\n      \"block_name\": \"WPCOUP\",\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"CP-violating phase omega (Eq. lagrangian), absorbable into V^R\"\n    },\n    {\n      \"name\": \"VRp\",\n      \"parameter_type\": \"External\",\n      \"value\": null,\n      \"value_rules\": [\n        {\"lhs\": \"VRp[1,1]\", \"rhs\": \"0.9751\", \"delayed\": false},\n        {\"lhs\": \"VRp[1,2]\", \"rhs\": \"0.2215\", \"delayed\": false},\n        {\"lhs\": \"VRp[1,3]\", \"rhs\": \"0.0035\", \"delayed\": false},\n        {\"lhs\": \"VRp[2,1]\", \"rhs\": \"0.2210\", \"delayed\": false},\n        {\"lhs\": \"VRp[2,2]\", \"rhs\": \"0.9743\", \"delayed\": false},\n        {\"lhs\": \"VRp[2,3]\", \"rhs\": \"0.0410\", \"delayed\": false},\n        {\"lhs\": \"VRp[3,1]\", \"rhs\": \"0.0090\", \"delayed\": false},\n        {\"lhs\": \"VRp[3,2]\", \"rhs\": \"0.0400\", \"delayed\": false},\n        {\"lhs\": \"VRp[3,3]\", \"rhs\": \"1.0000\", \"delayed\": false}\n      ],\n      \"complex\": false,\n      \"block_name\": \"WPCOUP\",\n      \"interaction_order\": [\"NP\", 1],\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"description\": \"Right-handed generalized CKM matrix V^R (Eq. ckm: SM CKM with |V_tb|=1)\"\n    },\n    {\n      \"name\": \"VLq\",\n      \"parameter_type\": \"External\",\n      \"value\": null,\n      \"value_rules\": [\n        {\"lhs\": \"VLq[1,1]\", \"rhs\": \"0.9751\", \"delayed\": false},\n        {\"lhs\": \"VLq[1,2]\", \"rhs\": \"0.2215\", \"delayed\": false},\n        {\"lhs\": \"VLq[1,3]\", \"rhs\": \"0.0035\", \"delayed\": false},\n        {\"lhs\": \"VLq[2,1]\", \"rhs\": \"0.2210\", \"delayed\": false},\n        {\"lhs\": \"VLq[2,2]\", \"rhs\": \"0.9743\", \"delayed\": false},\n        {\"lhs\": \"VLq[2,3]\", \"rhs\": \"0.0410\", \"delayed\": false},\n        {\"lhs\": \"VLq[3,1]\", \"rhs\": \"0.0090\", \"delayed\": false},\n        {\"lhs\": \"VLq[3,2]\", \"rhs\": \"0.0400\", \"delayed\": false},\n        {\"lhs\": \"VLq[3,3]\", \"rhs\": \"1.0000\", \"delayed\": false}\n      ],\n      \"complex\": false,\n      \"block_name\": \"WPCOUP\",\n      \"interaction_order\": [\"NP\", 1],\n      \"indices\": [\"Generation\", \"Generation\"],\n      \"description\": \"Left-handed generalized CKM matrix V^L (Eq. ckm)\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 100,\n      \"class_name\": \"Wp\",\n      \"self_conjugate\": false,\n      \"indices\": [],\n      \"class_members\": [],\n      \"mass\": {\"sym\": \"MWp\", \"value\": \"500.\"},\n      \"width\": {\"sym\": \"WWp\", \"value\": \"16.701\"},\n      \"quantum_numbers\": {\"Q\": \"1\"},\n      \"pdg\": 34,\n      \"particle_name\": \"Wp\",\n      \"antiparticle_name\": \"Wpbar\",\n      \"full_name\": \"W prime\",\n      \"propagator_label\": \"Wp\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"Forward\",\n      \"unphysical\": false,\n      \"definitions\": []\n    },\n    {\n      \"spin_type\": \"F\",\n      \"class_index\": 101,\n      \"class_name\": \"NR\",\n      \"self_conjugate\": false,\n      \"indices\": [\"Generation\"],\n      \"flavor_index\": \"Generation\",\n      \"class_members\": [\"ne\", \"nm\", \"nt\"],\n      \"mass\": {\"sym\": \"MNR\", \"value\": \"100.\"},\n      \"width\": {\"massless\": true},\n      \"quantum_numbers\": {\"LeptonNumber\": \"1\"},\n      \"pdg\": [9900012, 9900014, 9900016],\n      \"particle_name\": [\"vre\", \"vrm\", \"vrt\"],\n      \"antiparticle_name\": [\"vre~\", \"vrm~\", \"vrt~\"],\n      \"full_name\": [\"Right-handed electron neutrino\", \"Right-handed muon neutrino\", \"Right-handed tau neutrino\"],\n      \"propagator_label\": [\"nr\", \"nrm\", \"nrt\"],\n      \"propagator_type\": \"S\",\n      \"propagator_arrow\": \"Forward\",\n      \"unphysical\": false,\n      \"definitions\": []\n    }\n  ],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"LWpkin\",\n      \"expression\": \"-1/2 FS[Wpbar, mu, nu] FS[Wp, mu, nu] + MWp^2 Wpbar[mu] Wp[mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LNRkin\",\n      \"expression\": \"I NRbar.Ga[mu].DC[NR, mu] - MNR NRbar.NR\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LWpq\",\n      \"expression\": \"ExpandIndices[(gRp Cos[zeta] Exp[I omega] uqbar.VRp.Ga[mu].ProjP.dq + gLp Sin[zeta] uqbar.VLq.Ga[mu].ProjM.dq) Wp[mu]/Sqrt[2], FlavorExpand -> Generation]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LWpl\",\n      \"expression\": \"ExpandIndices[(gRp Cos[zeta] Exp[I omega] NRbar.Ga[mu].ProjP.l + gLp Sin[zeta] vlbar.Ga[mu].ProjM.l) Wp[mu]/Sqrt[2], FlavorExpand -> Generation]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LWpFerm\",\n      \"expression\": \"LWpq + LWpl + HC[LWpq + LWpl]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LTotal\",\n      \"expression\": \"LWpkin + LNRkin + LWpFerm\",\n      \"delayed\": true\n    }\n  ]\n}\n"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: Wprime (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:hep-ph/0207290.\n4: PAPER: the paper's LaTeX so"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/spec.json"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/spec.json</path>\n<type>file</type>\n<content>\n1: {\n2:   \"model_name\": \"Wprime_gen\",\n3:   \"info\": {\n4:     \"authors\": [\"Zack Sullivan\"],\n5:     \"version\": \"1.0\",\n6:     \"date\": \"23. 07. 2002\",\n7:     \"institutions\": [\"Fermi National Accelerator Laboratory\"],\n8:     \"emails\": []\n9:   },\n10:   \"interaction_order_hierarch"
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/*"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/TASK.md\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/frgen\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/spec.json\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json",
+   "workdir": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 2 particle classes, 6 parameters, Lagrangian terms ['LWpkin', 'LNRkin', 'LWpq', 'LWpl', 'LWpFerm', 'LTotal']\nRENDERED: model.fr (114 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: Wprime_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*-------------------------------------------"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "^(Classes|Fermion|Scalar|Vector|Ghost|Unphysical|\\s*(uq|dq|l|vl|nr|ne|nm|nt|vr|Wp|zeta|omega|gRp|gLp|VRp|VLq|MWp|WWp|MNR)\\b)",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr"
+  },
+  "status": "completed",
+  "output": "Found 6 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/model.fr:\n  Line 18:   gRp == {\n\n  Line 26:   gLp == {\n\n  Line 34:   zeta == {\n\n  Line 42:   omega == {\n\n  Line 50:   VRp == {\n\n  Line 59:   VLq == {\n"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "\\b(ne|nm|nt|NR|Wp|zeta|omega|VRp|VLq|gRp|gLp|vr[emt])\\b",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr"
+  },
+  "status": "completed",
+  "output": "Found 72 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/TASK.md:\n  Line 60: 10. Names. Class names, parameter names and index names must not be Mathematica built-ins or FeynRules symbols: never `N`, `C`, `D`, `E`, `I`, `K`, `O`, `HC`, `CC`, `FS`, `DC`, `del`, `Eps`, `Ga`, `ProjP`, `ProjM`, and never a name SM.fr already declares (`H`, `Phi`, `Z`, `W`, `A`, `G`,"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "pattern": "g_R|g_R|\\\\\\\\sqrt|Lagrangian|mathcal\\{L\\}|Gamma|width",
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex"
+  },
+  "status": "completed",
+  "output": "Found 78 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex:\n  Line 34: partial width of the $W^\\prime$ boson, and in the full two-to-two\n\n  Line 73: The most general Lorentz invariant Lagrangian describing the coupling\n\n  Line 91: {\\cal L} = \\frac{1}{\\sqrt{2}} \\overline{f}_i\\gamma_\\mu \\bigl( g_R\n\n  Line 150: propagator that uses lea"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex",
+   "offset": 70,
+   "limit": 50
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex</path>\n<type>file</type>\n<content>\n70: \\wpr boson to any final state with arbitrary vector and axial-vector\n71: couplings.\n72: \n73: The most general Lorentz invariant Lagrangian describing the coupling\n74: of a \\wpr to fermions may be written as\n75: \\beq\n76: {\\cal L} = \\frac{g}{\\sqrt{2"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr",
+   "pattern": "ClassName|ClassMembers|ParticleName"
+  },
+  "status": "completed",
+  "output": "Found 71 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/TASK.md:\n  Line 60: 10. Names. Class names, parameter names and index names must not be Mathematica built-ins or FeynRules symbols: never `N`, `C`, `D`, `E`, `I`, `K`, `O`, `HC`, `CC`, `FS`, `DC`, `del`, `Eps`, `Ga`, `ProjP`, `ProjM`, and never a name SM.fr already declares (`H`, `Phi`, `Z`, `W`, `A`, `G`,"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex",
+   "pattern": "g_R|sqrt\\{8|0\\.653|g =|right-handed|new part|neutrino"
+  },
+  "status": "completed",
+  "output": "Found 16 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex:\n  Line 37: results based on whether the mass of the right-handed neutrino $\\nu_R$\n\n  Line 66: advantageous to search for these new particles directly.  In order to\n\n  Line 87: via a purely left- or right-handed current.  In order to make contact\n\n  Line 91: {\\cal L} = \\frac"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/fr_lint.py",
+   "pattern": "def |finding|stage"
+  },
+  "status": "completed",
+  "output": "Found 48 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/fr_lint.py:\n  Line 9: Each finding carries the STAGE it predicts:\n\n  Line 70:     stage: str  # compile | checks | mg5 | harness | warn\n\n  Line 77: def strip_comments(text: str) -> str:\n\n  Line 96: def _matching(text: str, open_idx: int) -> int:\n\n  Line 111: def _block(text: str, name: str) -> str:\n\n"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex",
+   "pattern": "0\\.653|0\\.9751|0\\.2215|16\\.7|500|100|m_\\{\\\\\\\\nu|m_\\\\\\\\nu|nu_R|ckm|V_\\{tb\\}|9751|2215|0035"
+  },
+  "status": "completed",
+  "output": "Found 51 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex:\n  Line 23: Accelerator Laboratory, Batavia, IL, 60510-0500}\n\n  Line 37: results based on whether the mass of the right-handed neutrino $\\nu_R$\n\n  Line 109: right-handed neutrino $\\nu_R$ is kinematically allowed, are\n\n  Line 112: If $m_{\\nu_R} \\agt m_{\\wprm}$ the decay to $\\"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex",
+   "limit": 80,
+   "offset": 440
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex</path>\n<type>file</type>\n<content>\n440: 850. & 7.212 & 7.420 & 6.754 & 7.061 \\\\ \\\\\n441: 900. & 7.637 & 7.855 & 7.204 & 7.518 \\\\ \\\\\n442: 950. & 8.061 & 8.290 & 7.651 & 7.972 \\\\ \\\\\n443: 1000.& 8.485 & 8.725 & 8.096 & 8.425\n444: \\end{tabular}\n445: \\end{center}\n446: \\end{table}\n447: \n448: "
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex",
+   "pattern": "label\\{eq:ckm|newpart|right-handed neutrino mass|m_\\{\\\\\\\\wprm\\} = 500|benchmark|we use g|g_R =|g_R="
+  },
+  "status": "completed",
+  "output": "Found 1 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex:\n  Line 371: \\right) \\,. \\label{eq:ckm}\n"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex",
+   "limit": 40,
+   "offset": 355
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex</path>\n<type>file</type>\n<content>\n355: Fermilab Tevatron, we make definite predictions of the \\wpr partial\n356: and total widths.  In all numerical results we use $m_t=175\\pm 5$ GeV,\n357: $G_F=1.16639\\times 10^{-5}$ GeV$^{-2}$, and $m_W=80.4$ GeV.  We use a\n358: two-loop running of $\\"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex",
+   "pattern": "g_R|g=|g =|\\\\\\\\sqrt\\{8|GF|G_F|m_\\{\\\\\\\\wprm\\}|m_W|\\\\\\\\nu_R.*GeV|GeV.*\\\\\\\\nu_R|m_\\{\\\\\\\\nu_R\\}"
+  },
+  "status": "completed",
+  "output": "Found 7 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex:\n  Line 91: {\\cal L} = \\frac{1}{\\sqrt{2}} \\overline{f}_i\\gamma_\\mu \\bigl( g_R\n\n  Line 198: G_F/\\sqrt{2}$, as in the standard model.  Because we have assumed there\n\n  Line 203: \\bigl| g_L \\sin\\zeta\\, V^L_{f_if_j} \\bigr|^2 + \\bigl| g_R\n\n  Line 357: $G_F=1.16639\\times 10^{-5}$ G"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex",
+   "pattern": "m_\\{\\\\\\\\nu_R\\} =|m_\\{\\\\\\\\nu_R\\}=|nu_R mass|mass of.*nu_R|\\\\\\\\nu_R.*mass|light.*nu_R|heavy.*nu_R"
+  },
+  "status": "completed",
+  "output": "Found 2 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex:\n  Line 37: results based on whether the mass of the right-handed neutrino $\\nu_R$\n\n  Line 576: fluxes, and the heavy particle in the final state ($t$ or $\\nu_R$) has\n"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr",
+   "pattern": "g\\[|gw|\\\"g\\\"|CouplingConstant"
+  },
+  "status": "completed",
+  "output": "Found 10 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/TASK.md:\n  Line 60: 10. Names. Class names, parameter names and index names must not be Mathematica built-ins or FeynRules symbols: never `N`, `C`, `D`, `E`, `I`, `K`, `O`, `HC`, `CC`, `FS`, `DC`, `del`, `Eps`, `Ga`, `ProjP`, `ProjM`, and never a name SM.fr already declares (`H`, `Phi`, `Z`, `W`, `A`, `G`,"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex",
+   "limit": 30,
+   "offset": 185
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex</path>\n<type>file</type>\n<content>\n185: appears daunting, a factorization of the couplings occurs in the\n186: partial widths of Eq.~(\\ref{eq:widfact}) that greatly simplifies the\n187: calculation.  The leading order partial widths are\n188: \\bea\n189: \\Gamma_{\\mathrm LO}(\\wprm\\to t{\\bar "
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex",
+   "pattern": "0\\.65|0\\.66|g_\\{R\\}|g_\\{L\\}|g_R=|g_R =|equal to g|g_R.*g.*L|right.*coupling"
+  },
+  "status": "completed",
+  "output": "Found 3 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex:\n  Line 97: $g_{R(L)}$ are the right (left) gauge couplings, and\n\n  Line 106: right-handed \\wpr bosons, with standard-model-like couplings, that\n\n  Line 892: 400. & 9.773 & $^{+1.12}_{-0.95}$ & $^{+0.18}_{-0.19}$ & $^{+0.66}_{-0.49}$ & $^{+13.5}_{-11.2}$ & 13.26 & $^{+0.75}_{"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/fr_lint.py",
+   "limit": 120,
+   "offset": 160
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/fr_lint.py</path>\n<type>file</type>\n<content>\n160: \n161: def lint_text(raw: str) -> List[Finding]:\n162:     text = strip_comments(raw)\n163:     F: List[Finding] = []\n164:     classes = _entries(_block(text, \"ClassesDescription\"))\n165:     params = _entries(_block(text, \"Parameters\"))\n166:     terms = term_defs("
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/fr_lint.py",
+   "pattern": "ne\\b|SM_CLASSES|reserved|built"
+  },
+  "status": "completed",
+  "output": "Found 100 matches (more matches available)\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/fr_lint.py:\n  Line 4: Every rule encodes one construct that broke a compile, a FeynRules check or a\n\n  Line 31: # Mathematica built-ins and FeynRules symbols a class, parameter or index must\n\n  Line 42: SM_CLASSES: Set[str] = set(re.findall(r\"ClassName\\s*->\\s*(\\w+)\", _SM_TEX"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr",
+   "limit": 100,
+   "offset": 125
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr</path>\n<type>file</type>\n<content>\n125: (* Gauge bosons: physical vector fields *)\n126:   V[1] == { \n127:     ClassName       -> A, \n128:     SelfConjugate   -> True,  \n129:     Mass            -> 0,  \n130:     Width           -> 0,  \n131:     ParticleName    -> \"a\", \n132:     PDG             -> 22, \n133:     P"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr",
+   "limit": 80,
+   "offset": 270
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr</path>\n<type>file</type>\n<content>\n270: \n271: (* Fermions: physical fields *)\n272:   F[1] == {\n273:     ClassName        -> vl,\n274:     ClassMembers     -> {ve,vm,vt},\n275:     Indices          -> {Index[Generation]},\n276:     FlavorIndex      -> Generation,\n277:     SelfConjugate    -> False,\n278:     Mass   "
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/fr_lint.py",
+   "pattern": "PROTECTED|FR_SYMBOLS|charge|Quantum"
+  },
+  "status": "completed",
+  "output": "Found 13 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/frgen/render.py:\n  Line 68: # FeynRules QuantumNumbers holds only additive (U(1)-type) charges. Colour/SU2/\n\n  Line 70: # if left in QuantumNumbers, FeynRules emits an unevaluated `Colour[field]` into\n\n  Line 176:         (\"Charge\", g.charge),\n\n  Line 272:         (\"QuantumNumbers\",\n\n\n/private/var/fo"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/paper/hep-ph_0207290_source.tex",
+   "pattern": "m_\\{\\\\\\\\nu_R\\}|nu_R.*GeV|GeV.*nu_R|\\\\\\\\nu_R.*[0-9]+"
+  },
+  "status": "completed",
+  "output": "No files found"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json",
+   "workdir": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 2 particle classes, 6 parameters, Lagrangian terms ['LWpkin', 'LNRkin', 'LWpq', 'LWpl', 'LWpFerm', 'LTotal']\nRENDERED: model.fr (114 lines). You may read it.\nLINT: no findings.\n"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/fr_lint.py",
+   "pattern": "PROTECTED = |FR_SYMBOLS = "
+  },
+  "status": "completed",
+  "output": "Found 2 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/tools/fr_lint.py:\n  Line 33: FR_SYMBOLS = {\"HC\", \"CC\", \"FS\", \"DC\", \"del\", \"Eps\", \"Ga\", \"ProjP\", \"ProjM\", \"T\",\n\n  Line 36: PROTECTED = {\"N\", \"C\", \"D\", \"E\", \"I\", \"K\", \"O\", \"Pi\", \"Gamma\", \"Beta\", \"Zeta\",\n"
+ },
+ {
+  "tool": "grep",
+  "input": {
+   "path": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/SM.fr",
+   "pattern": "QuantumNumbers|Y ->"
+  },
+  "status": "completed",
+  "output": "Found 27 matches\n/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-Wprime-g_o1zmwb/TASK.md:\n  Line 70: 15. Declarations. Every field used in a term is declared; every parameter used in a term is declared with a numeric default; every `SelfConjugate -> True` class has no `QuantumNumbers`; a Majorana mass term is `-1/2 M psibar.psi`.\n\n  Line 80: - Every Q sum, Y sum, and new-U(1) sum must "
+ }
+]

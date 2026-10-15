@@ -1,0 +1,90 @@
+(* ************************** *)
+(* *****  Information   ***** *)
+(* ************************** *)
+M$ModelName = "Top-Philic-Zprime_gen";
+
+M$Information = {
+  Authors      -> {"Automated Lagrangian extraction"},
+  Version      -> "1.0",
+  Date         -> "17. 09. 2026",
+  References   -> {"arXiv:1604.07421"}
+};
+
+(* ************************** *)
+(* *** Interaction orders *** *)
+(* ************************** *)
+M$InteractionOrderHierarchy = {
+  {QCD, 1},
+  {QED, 2},
+  {NP,  1}
+};
+
+(* ************************** *)
+(* *****   Parameters   ***** *)
+(* ************************** *)
+M$Parameters = {
+
+  (* External parameters *)
+  ct == {
+    ParameterType    -> External,
+    BlockName        -> TOPPHILIC,
+    OrderBlock       -> 1,
+    Value            -> 2.0,
+    InteractionOrder -> {NP, 1},
+    TeX              -> Subscript[c, t],
+    Description      -> "Overall coupling strength of the top-philic vector resonance V1 to top quarks, ct = Sqrt[cL^2+cR^2], Eq.(1) of 1604.07421"
+  },
+  thetat == {
+    ParameterType -> External,
+    BlockName     -> TOPPHILIC,
+    OrderBlock    -> 2,
+    Value         -> Pi/2,
+    TeX           -> \[Theta],
+    Description   -> "Chirality angle of the V1-top coupling, tan(theta) = cR/cL, Eq.(1) of 1604.07421; paper benchmark theta = pi/2 (purely right-handed coupling)"
+  },
+
+  (* Internal parameters *)
+  WZp == {
+    ParameterType -> Internal,
+    Value         -> (ct^2 MZp)/(8 Pi) Sqrt[1 - 4 MT^2/MZp^2] (1 - (MT^2/MZp^2) (1 - 3 Sin[2 thetat])),
+    TeX           -> Subscript[\[CapitalGamma], Zp],
+    Description   -> "Total width of the top-philic resonance V1 -> t tbar, Eq.(2) of 1604.07421"
+  }
+};
+
+(* ************************** *)
+(* **** Particle classes **** *)
+(* ************************** *)
+M$ClassesDescription = {
+
+(* New colour- and SU(2)-singlet vector resonance V1 (top-philic Z'), Sec. II A of 1604.07421 *)
+  V[100] == {
+    ClassName       -> Zp,
+    SelfConjugate   -> True,
+    Mass            -> {MZp, 1500.},
+    Width           -> {WZp, Internal},
+    PropagatorLabel -> "Zp",
+    PropagatorType  -> Sine,
+    PropagatorArrow -> None,
+    PDG             -> 32,
+    ParticleName    -> "zp",
+    FullName        -> "Top-philic vector resonance V1"
+  }
+};
+
+(* ************************** *)
+(* *****   Lagrangian   ***** *)
+(* ************************** *)
+
+(* Free kinetic + mass term for the new vector resonance (real singlet vector) *)
+LZpKin := Block[{mu, nu},
+  -1/4 FS[Zp, mu, nu] FS[Zp, mu, nu] + 1/2 MZp^2 Zp[mu] Zp[mu]
+];
+
+(* Top-philic current: L = tbar.Ga[mu].(cL ProjM + cR ProjP).t Zp[mu], Eq.(1) of 1604.07421,
+   with cL = ct Cos[thetat], cR = ct Sin[thetat] *)
+LZpTop := Block[{mu},
+  ct (Cos[thetat] tbar.Ga[mu].ProjM.t + Sin[thetat] tbar.Ga[mu].ProjP.t) Zp[mu]
+];
+
+LTotal := LZpKin + LZpTop;

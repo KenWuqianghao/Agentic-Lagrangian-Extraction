@@ -1,0 +1,116 @@
+[INFO] Wolfram $VersionNumber = 15.
+[WARN] Wolfram >= 14 detected. FeynRules 2.3.49 requires the Commutator/MatrixSymbol unprotect patch (FeynRules PR #6) on this kernel; without it the UFO export produces malformed output.
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+Merging model-files...
+This model implementation was created by
+Stefan Antusch
+Jan Hajer
+Johannes Rosskopp
+Model Version: 1.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+Model pSPSS_gen loaded.
+[INFO] Lagrangian: LTotal
+HEPTAPOD-GAUGE|feynman=True|source=SM.fr (inherited unless the model overrides it)
+HEPTAPOD-LAGRANGIAN|expression=LTotal|symbols=LTotal|terms=717
+HEPTAPOD-RESIDUAL|count=0|fields=
+[INFO] Running consistency checks: hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+General::stop: Further output of QN::NonConserv will be suppressed during this calculation.
+HEPTAPOD-CHECK|scope=model|name=hermiticity|verdict=fail|detail=Checking for hermiticity by calculating the Feynman rules contained in L-HC[L]. If the lagrangian is hermitian, then the number of vertices should be zero. Starting Feynman rule calculation. Expanding the Lagrangian... Expanding the indices over 8 cores Collecting the different structures that enter the vertex. 81 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$F
+HEPTAPOD-CHECK|scope=model|name=kinetic_diagonal|verdict=fail|detail=Neglecting all terms with more than 2 particles. Non diagonal kinetic term found: -I Conjugate[Un[Index[NIndex, 4], Index[NIndex, 5]]] del[n4bar[Index[Spin, j$18656]], Index[Lorentz, mu]] . n5[Index[Spin, i$18656]] Ga[Index[Lorentz, mu], Index[Spin, j$18656], Index[Spin, i$18656]] Un[Index[NIndex, 4], Index[NIndex, 4]] + I Conjugate[Un[Index[NIndex, 4], Index[NIndex, 4]]] n4bar[Index[Spin, i$18656
+HEPTAPOD-CHECK|scope=model|name=mass_diagonal|verdict=fail|detail=Non diagonal mass term found:                                                                                                                                                           vevNP Conjugate[yvn[Index[Generation, 2]]] vmbar[Index[Spin, sp2$18601]] . n4[Index[Spin, r$18591]] ProjP[Index[Spin, sp2$18601], Index[Spin, r$18591]] Un[Index[NIndex, 4], Index[NIndex, 4]] -(Mmaj Conjugate[Un[Index
+Neglecting all terms with more than 2 particles.
+Non diagonal mass term found: -(Mmaj*Conjugate[Un[Index[NIndex, 5], Index[NIndex, 2]]]*vmbar[Index[Spin, r$18589]] . n4[Index[Spin, r$18589]]*Un[Index[NIndex, 4], Index[NIndex, 4]]) + (vevNP*Conjugate[yvn[Index[Generation, 2]]]*vmbar[Index[Spin, sp2$18601]] . n4[Index[Spin, r$18591]]*ProjP[Index[Spin, sp2$18601], Index[Spin, r$18591]]*Un[Index[NIndex, 4], Index[NIndex, 4]])/Sqrt[2]
+Non diagonal mass term found: -(Mmaj*Conjugate[Un[Index[NIndex, 5], Index[NIndex, 2]]]*vmbar[Index[Spin, r$18589]] . n5[Index[Spin, r$18589]]*Un[Index[NIndex, 4], Index[NIndex, 5]]) + (vevNP*Conjugate[yvn[Index[Generation, 2]]]*vmbar[Index[Spin, sp2$18603]] . n5[Index[Spin, r$18591]]*ProjP[Index[Spin, sp2$18603], Index[Spin, r$18591]]*Un[Index[NIndex, 4], Index[NIndex, 5]])/Sqrt[2]
+Non diagonal mass term found: -(Mmaj*Conjugate[Un[Index[NIndex, 4], Index[NIndex, 4]]]*n4bar[Index[Spin, sp1]] . vm[Index[Spin, sp1]]*Un[Index[NIndex, 5], Index[NIndex, 2]]) + (vevNP*Conjugate[Un[Index[NIndex, 4], Index[NIndex, 4]]]*n4bar[Index[Spin, sp1]] . vm[Index[Spin, sp2$18597]]*ProjM[Index[Spin, sp1], Index[Spin, sp2$18597]]*yvn[Index[Generation, 2]])/Sqrt[2]
+Non diagonal mass term found: -(Mmaj*Conjugate[Un[Index[NIndex, 4], Index[NIndex, 5]]]*n5bar[Index[Spin, sp1]] . vm[Index[Spin, sp1]]*Un[Index[NIndex, 5], Index[NIndex, 2]]) + (vevNP*Conjugate[Un[Index[NIndex, 4], Index[NIndex, 5]]]*n5bar[Index[Spin, sp1]] . vm[Index[Spin, sp2$18599]]*ProjM[Index[Spin, sp1], Index[Spin, sp2$18599]]*yvn[Index[Generation, 2]])/Sqrt[2]
+HEPTAPOD-CHECK|scope=model|name=mass_spectrum|verdict=inconclusive|detail=
+[INFO] UFO output: /private/tmp/claude-501/-Users-kenwu-Documents-Github-Agentic-Lagrangian-Extraction/1089330d-3c9c-41bb-9364-fd67b7037eed/scratchpad/vbench/open/v3o_mimo_toolkit/pSPSS/s1/pSPSS_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+280 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 280.
+229 vertices obtained.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 229
+   - Saved vertices in InterfaceRun[ 1 ].
+Quantum number LeptonNumber not conserved in vertex {GPbar, ebar, n4}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, mubar, n4}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, tabar, n4}.
+Quantum number LeptonNumber not conserved in vertex {G0, vebar, n4}.
+Quantum number LeptonNumber not conserved in vertex {H, vebar, n4}.
+Quantum number LeptonNumber not conserved in vertex {G0, vmbar, n4}.
+Quantum number LeptonNumber not conserved in vertex {H, vmbar, n4}.
+Quantum number LeptonNumber not conserved in vertex {G0, vtbar, n4}.
+Quantum number LeptonNumber not conserved in vertex {H, vtbar, n4}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, ebar, n5}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, mubar, n5}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, tabar, n5}.
+Quantum number LeptonNumber not conserved in vertex {G0, vebar, n5}.
+Quantum number LeptonNumber not conserved in vertex {H, vebar, n5}.
+Quantum number LeptonNumber not conserved in vertex {G0, vmbar, n5}.
+Quantum number LeptonNumber not conserved in vertex {H, vmbar, n5}.
+Quantum number LeptonNumber not conserved in vertex {G0, vtbar, n5}.
+Quantum number LeptonNumber not conserved in vertex {H, vtbar, n5}.
+Quantum number LeptonNumber not conserved in vertex {GP, n4bar, e}.
+Quantum number LeptonNumber not conserved in vertex {G0, n4bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {H, n4bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {GP, n5bar, e}.
+Quantum number LeptonNumber not conserved in vertex {G0, n5bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {H, n5bar, ve}.
+Quantum number LeptonNumber not conserved in vertex {GP, n4bar, mu}.
+Quantum number LeptonNumber not conserved in vertex {G0, n4bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {H, n4bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {GP, n5bar, mu}.
+Quantum number LeptonNumber not conserved in vertex {G0, n5bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {H, n5bar, vm}.
+Quantum number LeptonNumber not conserved in vertex {GP, n4bar, ta}.
+Quantum number LeptonNumber not conserved in vertex {G0, n4bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {H, n4bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {GP, n5bar, ta}.
+Quantum number LeptonNumber not conserved in vertex {G0, n5bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {H, n5bar, vt}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, ebar, n4}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, ebar, n5}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, mubar, n4}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, mubar, n5}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, tabar, n4}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, tabar, n5}.
+Quantum number LeptonNumber not conserved in vertex {Z, vebar, n4}.
+Quantum number LeptonNumber not conserved in vertex {Z, vebar, n5}.
+Quantum number LeptonNumber not conserved in vertex {Z, vmbar, n4}.
+Quantum number LeptonNumber not conserved in vertex {Z, vmbar, n5}.
+Quantum number LeptonNumber not conserved in vertex {Z, vtbar, n4}.
+Quantum number LeptonNumber not conserved in vertex {Z, vtbar, n5}.
+Preparing Python output.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/229 .
+    - Writing files.
+Done!
+[INFO] UFO complete: particles.py, vertices.py, couplings.py, parameters.py, coupling_orders.py all present.
+[INFO] Done.

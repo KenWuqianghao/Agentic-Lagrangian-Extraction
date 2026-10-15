@@ -1,0 +1,95 @@
+{
+  "model_name": "Top-Philic-Zprime_gen",
+  "info": {
+    "authors": [
+      "Jeong Han Kim",
+      "Kyoungchul Kong",
+      "Seung J. Lee",
+      "Gopolang Mohlabeng"
+    ],
+    "version": "1.0",
+    "date": "2016"
+  },
+  "interaction_order_hierarchy": [
+    ["QCD", 1],
+    ["QED", 2],
+    ["NP", 1]
+  ],
+  "gauge_groups": [],
+  "index_decls": [],
+  "parameters": [
+    {
+      "name": "ct",
+      "parameter_type": "External",
+      "value": "2.",
+      "block_name": "TOPZP",
+      "order_block": 1,
+      "interaction_order": ["NP", 1],
+      "description": "overall coupling strength of V1 to the top quark, c_t, benchmark value, Eq. (1)"
+    },
+    {
+      "name": "th",
+      "parameter_type": "External",
+      "value": "Pi/2",
+      "block_name": "TOPZP",
+      "order_block": 2,
+      "description": "chirality angle theta with tan(theta) = c_R/c_L, benchmark theta = Pi/2, Eq. (1)"
+    },
+    {
+      "name": "Ptop",
+      "parameter_type": "Internal",
+      "indices": ["Generation", "Generation"],
+      "value_rules": [
+        {"lhs": "Ptop[1,1]", "rhs": "0."},
+        {"lhs": "Ptop[1,2]", "rhs": "0."},
+        {"lhs": "Ptop[1,3]", "rhs": "0."},
+        {"lhs": "Ptop[2,1]", "rhs": "0."},
+        {"lhs": "Ptop[2,2]", "rhs": "0."},
+        {"lhs": "Ptop[2,3]", "rhs": "0."},
+        {"lhs": "Ptop[3,1]", "rhs": "0."},
+        {"lhs": "Ptop[3,2]", "rhs": "0."},
+        {"lhs": "Ptop[3,3]", "rhs": "1."}
+      ],
+      "description": "generation projector onto the top quark, Ptop[ff,gg] = delta[ff,3] delta[gg,3]; makes V1 top-philic"
+    },
+    {
+      "name": "WV1",
+      "parameter_type": "Internal",
+      "value": "ct^2*MV1/(8*Pi)*Sqrt[1-4*MT^2/MV1^2]*(1-MT^2/MV1^2*(1-3*Sin[2*th]))",
+      "description": "total width of V1 into t tbar, Eq. (2), in GeV"
+    }
+  ],
+  "particles": [
+    {
+      "spin_type": "V",
+      "class_index": 100,
+      "class_name": "V1",
+      "self_conjugate": true,
+      "mass": {"sym": "MV1", "value": "1500."},
+      "width": {"sym": "WV1", "value": "Internal"},
+      "pdg": 9000001,
+      "particle_name": "V1",
+      "full_name": "top-philic color singlet vector resonance V1",
+      "propagator_label": "V1",
+      "propagator_type": "Sine",
+      "propagator_arrow": "None"
+    }
+  ],
+  "lagrangian_terms": [
+    {
+      "name": "LV1kin",
+      "expression": "Block[{mu, nu}, -1/4 FS[V1, mu, nu] FS[V1, mu, nu] + 1/2 MV1^2 V1[mu] V1[mu]]",
+      "delayed": true
+    },
+    {
+      "name": "LV1int",
+      "expression": "Block[{mu}, ct Cos[th] uqbar.Ptop.Ga[mu].ProjP.uq V1[mu] + ct Sin[th] uqbar.Ptop.Ga[mu].ProjM.uq V1[mu]]",
+      "delayed": true
+    },
+    {
+      "name": "LTotal",
+      "expression": "LV1kin + LV1int",
+      "delayed": true
+    }
+  ]
+}

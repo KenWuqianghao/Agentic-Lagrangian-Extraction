@@ -1,0 +1,119 @@
+[
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/TASK.md"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/TASK.md</path>\n<type>file</type>\n<content>\n1: You are benchmarking automated extraction of a BSM physics model from its paper, to be compared against the physicist's own FeynRules implementation.\n2: \n3: MODEL: ChernSimonsPortal (SimpleExtensions) \u2014 FeynRules DB entry based on arXiv:0901.0639.\n4: PAPER: the"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/paper/0901.0639_source.tex"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/paper/0901.0639_source.tex</path>\n<type>file</type>\n<content>\n1: \\documentclass[12pt]{article}\n2: \n3: \\bibliographystyle{JHEP-2} \n4:   \n5: \\IfFileExists{srcltx.sty}{\\usepackage[active]{srcltx}}\n6: \n7: \\usepackage{amssymb,amsmath,bm,array}\n8: \\usepackage[sort&compress,square,comma]{natbib} \n9: \\usepackage{g"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/tools/frgen/frmodel.py"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/tools/frgen/frmodel.py</path>\n<type>file</type>\n<content>\n1: \"\"\"\n2: # frmodel.py is a part of the HEPTAPOD package.\n3: # Copyright (C) 2025 HEPTAPOD authors (see AUTHORS for details).\n4: # HEPTAPOD is licensed under the GNU GPL v3 or later, see LICENSE for details.\n5: # Please respect the MCnet Guidelines,"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/paper/0901.0639_source.tex",
+   "offset": 1475
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/paper/0901.0639_source.tex</path>\n<type>file</type>\n<content>\n1475: \n1476: $m_{l^+l^-}=m_Z\\pm 5\\gev$, $p_T(\\gamma)>50\\gev$, $p_T(l^+,l^-,l')>10\\gev$, missing $E_T$ greater than $10\\gev$ and $m_{\\gamma l^+l^-}>500\\gev$.  Thus, for $10\\, {\\rm fb}^{-1}$ of integrated luminosity at the LHC, when $c_i=1$ ($c_i="
+ },
+ {
+  "tool": "glob",
+  "input": {
+   "pattern": "**/SM.fr"
+  },
+  "status": "completed",
+  "output": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/SM.fr"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/SM.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/SM.fr</path>\n<type>file</type>\n<content>\n1: (***************************************************************************************************************)\n2: (******                       This is the FeynRules mod-file for the Standard model                       ******)\n3: (******                      "
+ },
+ {
+  "tool": "write",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/spec.json",
+   "content": "{\n  \"model_name\": \"ChernSimonsPortal_gen\",\n  \"info\": {\n    \"authors\": [\"Extracted from arXiv:0901.0639\"],\n    \"version\": \"1.0\",\n    \"date\": \"2026-09-25\",\n    \"institutions\": [],\n    \"emails\": []\n  },\n  \"interaction_order_hierarchy\": [\n    [\"QCD\", 1],\n    [\"QED\", 2],\n    [\"NP\", 1]\n  ],\n  \"interaction_order_limit\": [\n    [\"NP\", 2]\n  ],\n  \"feynman_gauge\": true,\n  \"vevs\": [],\n  \"gauge_groups\": [],\n  \"index_decls\": [],\n  \"parameters\": [\n    {\n      \"name\": \"MX\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1000.\",\n      \"block_name\": \"CHERNSIMONS\",\n      \"order_block\": 1,\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Mass of the X boson [GeV], Eq.(414)\"\n    },\n    {\n      \"name\": \"c1\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"CHERNSIMONS\",\n      \"order_block\": 2,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Chern-Simons portal coupling c1 for XZZ/XZgamma, Eq.(48)\"\n    },\n    {\n      \"name\": \"c2\",\n      \"parameter_type\": \"External\",\n      \"value\": \"1.\",\n      \"block_name\": \"CHERNSIMONS\",\n      \"order_block\": 3,\n      \"interaction_order\": [\"NP\", 1],\n      \"description\": \"Chern-Simons portal coupling c2 for XWW, Eq.(48)\"\n    },\n    {\n      \"name\": \"WX\",\n      \"parameter_type\": \"Internal\",\n      \"value\": \"(c1^2*sw^2*MX^3/(192*Pi*MZ^2))*(1-4*MZ^2/MX^2)^(5/2) + (c2^2*MX^3/(48*Pi*MW^2))*(1-4*MW^2/MX^2)^(5/2) + (c1^2*cw^2*MX^3/(96*Pi*MZ^2))*(1-MZ^2/MX^2)^3*(1+MZ^2/MX^2)\",\n      \"interaction_order\": [\"NP\", 0],\n      \"description\": \"Total width of X boson, sum of partial widths Eq.(41)\"\n    }\n  ],\n  \"particles\": [\n    {\n      \"spin_type\": \"V\",\n      \"class_index\": 100,\n      \"class_name\": \"X\",\n      \"self_conjugate\": true,\n      \"indices\": [],\n      \"mass\": {\n        \"sym\": \"MX\",\n        \"value\": \"1000.\"\n      },\n      \"width\": {\n        \"sym\": \"WX\",\n        \"value\": \"Internal\"\n      },\n      \"quantum_numbers\": {},\n      \"pdg\": 9000001,\n      \"particle_name\": \"X\",\n      \"antiparticle_name\": \"X\",\n      \"full_name\": \"X boson\",\n      \"propagator_label\": \"X\",\n      \"propagator_type\": \"Sine\",\n      \"propagator_arrow\": \"None\",\n      \"unphysical\": false,\n      \"definitions\": []\n    }\n  ],\n  \"gauge_xi\": [\n    [\"X\", \"GaugeXi[X]\"]\n  ],\n  \"lagrangian_terms\": [\n    {\n      \"name\": \"LXkin\",\n      \"expression\": \"-1/4 FS[X, mu, nu] FS[X, mu, nu] + 1/2 MX^2 X[mu] X[mu]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LXZZ\",\n      \"expression\": \"c1/2*sw*Eps[mu, nu, lambda, rho]*X[mu]*Z[nu]*del[Z[lambda], rho]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LXZgamma\",\n      \"expression\": \"c1*cw*Eps[mu, nu, lambda, rho]*X[mu]*Z[nu]*del[A[lambda], rho]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LXWW\",\n      \"expression\": \"c2*Eps[mu, nu, lambda, rho]*X[mu]*W[nu]*del[Wbar[lambda], rho] + HC[c2*Eps[mu, nu, lambda, rho]*X[mu]*W[nu]*del[Wbar[lambda], rho]]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LTotal\",\n      \"expression\": \"LXkin + LXZZ + LXZgamma + LXWW\",\n      \"delayed\": true\n    }\n  ],\n  \"raw_preamble\": [],\n  \"raw_blocks\": []\n}"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 1 particle classes, 4 parameters, Lagrangian terms ['LXkin', 'LXZZ', 'LXZgamma', 'LXWW', 'LTotal']\nRENDERED: model.fr (71 lines). You may read it.\nLINT: 1 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the "
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 1 particle classes, 4 parameters, Lagrangian terms ['LXkin', 'LXZZ', 'LXZgamma', 'LXWW', 'LTotal']\nRENDERED: model.fr (71 lines). You may read it.\nLINT: 1 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are real de"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: ChernSimonsPortal_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*---------------------"
+ },
+ {
+  "tool": "edit",
+  "input": {
+   "newString": "{\n      \"name\": \"LXZZ\",\n      \"expression\": \"c1/2*sw*Eps[mu, nu, lambda, rho]*X[mu]*Z[nu]*(del[Z[lambda], rho] - del[Z[rho], lambda])\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LXZgamma\",\n      \"expression\": \"c1*cw*Eps[mu, nu, lambda, rho]*X[mu]*Z[nu]*(del[A[lambda], rho] - del[A[rho], lambda])\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LXWW\",\n      \"expression\": \"c2*Eps[mu, nu, lambda, rho]*X[mu]*W[nu]*(del[Wbar[lambda], rho] - del[Wbar[rho], lambda]) + HC[c2*Eps[mu, nu, lambda, rho]*X[mu]*W[nu]*(del[Wbar[lambda], rho] - del[Wbar[rho], lambda])]\",\n      \"delayed\": true\n    }",
+   "oldString": "{\n      \"name\": \"LXZZ\",\n      \"expression\": \"c1/2*sw*Eps[mu, nu, lambda, rho]*X[mu]*Z[nu]*del[Z[lambda], rho]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LXZgamma\",\n      \"expression\": \"c1*cw*Eps[mu, nu, lambda, rho]*X[mu]*Z[nu]*del[A[lambda], rho]\",\n      \"delayed\": true\n    },\n    {\n      \"name\": \"LXWW\",\n      \"expression\": \"c2*Eps[mu, nu, lambda, rho]*X[mu]*W[nu]*del[Wbar[lambda], rho] + HC[c2*Eps[mu, nu, lambda, rho]*X[mu]*W[nu]*del[Wbar[lambda], rho]]\",\n      \"delayed\": true\n    }",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/spec.json"
+  },
+  "status": "completed",
+  "output": "Edit applied successfully.\n\n[toolkit check, run automatically after this change to spec.json]\nSCHEMA OK: 1 particle classes, 4 parameters, Lagrangian terms ['LXkin', 'LXZZ', 'LXZgamma', 'LXWW', 'LTotal']\nRENDERED: model.fr (71 lines). You may read it.\nLINT: 1 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = th"
+ },
+ {
+  "tool": "read",
+  "input": {
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/model.fr"
+  },
+  "status": "completed",
+  "output": "<path>/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/model.fr</path>\n<type>file</type>\n<content>\n1: (*--------------------------------------------------------------------*)\n2: (* Model: ChernSimonsPortal_gen                                              *)\n3: (* Generated by HEPTAPOD GenerateFeynRulesModelTool.                    *)\n4: (*---------------------"
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 1 particle classes, 4 parameters, Lagrangian terms ['LXkin', 'LXZZ', 'LXZgamma', 'LXWW', 'LTotal']\nRENDERED: model.fr (71 lines). You may read it.\nLINT: 1 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are real de"
+ },
+ {
+  "tool": "write",
+  "input": {
+   "content": "# Self-Audit Table for ChernSimonsPortal_gen\n\n| term name | fields in the monomial | operator mass dimension d | coupling symbol | coupling mass dimension (must be 4 - d) | 1/Lambda power present (must be d - 4, or \"n/a\" if d <= 4) | Q sum | Y sum | SU(2) contraction (singlet? which Eps or shared index) | SU(3) contraction | sum of each new U(1) charge (one column per U(1), must be 0) | lepton/baryon number sum (if the paper assigns them) | CC[] used where paper writes psi^c (yes/no/n/a) | fraction/root placement checked against (equation, LaTeX line, or \"n/a\") | Hermitian partner (HC[] or self-conjugate) |\n|-----------|------------------------|---------------------------|-----------------|------------------------------------------|-------------------------------------------------------------|-------|-------|--------------------------------------------------------|-------------------|--------------------------------------------------------------|-----------------------------------------------------|-----------------------------------------------|-----------------------------------------------------------------------------|------------------------------------------|\n| LXkin     | X, X; FS[X], FS[X]     | 4                         | 1 (implicit)    | 0                                        | n/a                                                         | 0     | 0     | singlet (X is SU(2) singlet)                          | singlet           | U(1)_X: 0                                                    | n/a                                                 | n/a                                           | n/a                                                                         | self-conjugate (real)                    |\n| LXZZ      | X, Z, Z                | 4                         | c1*sw/2         | 0                                        | n/a                                                         | 0     | 0     | singlet (all SU(2) singlets)                          | singlet           | U(1)_X: 0                                                    | n/a                                                 | n/a                                           | LaTeX Eq.(40): `\\frac12\\bc1\\,\\sw`                                           | self-conjugate (all fields real)         |\n| LXZgamma  | X, Z, A                | 4                         | c1*cw           | 0                                        | n/a                                                         | 0     | 0     | singlet (all SU(2) singlets)                          | singlet           | U(1)_X: 0                                                    | n/a                                                 | n/a                                           | LaTeX Eq.(40): `\\bc1\\,\\cw`                                                  | self-conjugate (all fields real)         |\n| LXWW      | X, W, Wbar             | 4                         | c2              | 0                                        | n/a                                                         | 0     | 0     | singlet (W+ W- form SU(2) singlet)                    | singlet           | U(1)_X: 0                                                    | n/a                                                 | n/a                                           | LaTeX Eq.(1271): `\\bc2`                                                     | explicit HC[] added                      |\n| LTotal    | sum of above           | 4                         | \u2014               | \u2014                                        | n/a                                                         | \u2014     | \u2014     | \u2014                                                      | \u2014                 | \u2014                                                            | \u2014                                                   | \u2014                                             | \u2014                                                                           | \u2014                                        |\n\n**Additional checks:**\n\n- Kinetic + mass term for every new particle class: **LXkin** provides kinetic (`-1/4 FS[X]^2`) and mass (`1/2 MX^2 X^2`) for X boson (class V[100]), included in LTotal.\n- Non-fundamental colour representations: **none** (X is colour singlet).\n- SelfConjugate -> True classes: **X** (V[100]) has `SelfConjugate -> True` and carries **no QuantumNumbers** (empty dict).\n- Name collision check: Class names: `X` (not in SM.fr). Parameter names: `MX`, `c1`, `c2`, `WX` (none conflict with SM.fr: `MZ`, `MW`, `MH`, `ee`, `gs`, `gw`, `sw`, `cw`, `vev`, `lam`, `aEW`, `aS`, `Gf`, `ym*`, `cabi`, `CKM`, `yl`, `yu`, `yd`). Index names: none new (only uses Lorentz indices `mu,nu,lambda,rho` and SM indices `Colour`, `Gluon`, `Generation`, `SU2D`, `SU2W` which are built-in). No Mathematica/FeynRules built-ins used (`N`, `C`, `D`, `E`, `I`, `K`, `O`, `HC`, `CC`, `FS`, `DC`, `del`, `Eps`, `Ga`, `ProjP`, `ProjM` \u2014 note `Eps` is used as Levi-Civita tensor with 4 Lorentz indices, distinct from SU(2) `Eps` with 3 indices; FeynRules distinguishes by index count).\n- Single total Lagrangian: **LTotal = LXkin + LXZZ + LXZgamma + LXWW**; all terms appear exactly once.\n- Reference/cached model file read: **none** (only paper LaTeX source and SM.fr schema/conventions used).",
+   "filePath": "/private/var/folders/pf/fm0v0g_52r754cfv3r4lqv980000gn/T/ob-ChernSimonsPortal-3fyyt8cy/SELF_AUDIT.md"
+  },
+  "status": "completed",
+  "output": "Wrote file successfully."
+ },
+ {
+  "tool": "bash",
+  "input": {
+   "command": "./frgen spec.json"
+  },
+  "status": "completed",
+  "output": "SCHEMA OK: 1 particle classes, 4 parameters, Lagrangian terms ['LXkin', 'LXZZ', 'LXZgamma', 'LXWW', 'LTotal']\nRENDERED: model.fr (71 lines). You may read it.\nLINT: 1 finding(s). Each names the stage it predicts will fail (compile, checks = a FeynRules consistency check, mg5 = MadGraph import, harness = the total Lagrangian cannot be identified, warn = may still pass). Fix the ones that are real de"
+ }
+]

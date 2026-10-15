@@ -1,0 +1,213 @@
+[INFO] Loading via explicit file: /Users/kenwu/feynrules-current/FeynRules.m
+ - FeynRules - 
+Version: 2.3.49 (*29 September 2021).
+Authors: A. Alloul, N. Christensen, C. Degrande, C. Duhr, B. Fuks
+ 
+Please cite:
+    - Comput.Phys.Commun.185:2250-2300,2014 (arXiv:1310.1921);
+    - Comput.Phys.Commun.180:1614-1641,2009 (arXiv:0806.4194).
+ 
+http://feynrules.phys.ucl.ac.be
+ 
+The FeynRules palette can be opened using the command FRPalette[].
+[INFO] Loading SM from: /Users/kenwu/feynrules-current/Models/SM/SM.fr
+Merging model-files...
+This model implementation was created by
+S. Antusch
+J. Hajer
+J. Rosskopp
+Model Version: 1.0
+For more information, type ModelInformation[].
+
+   - Loading particle classes.
+   - Loading gauge group classes.
+   - Loading parameter classes.
+
+Model pSPSS_gen loaded.
+[INFO] Total Lagrangian: LSM + LpSPSS
+[INFO] Running FeynRules consistency checks.
+HEPTAPOD-CHECK-BEGIN: hermiticity
+Checking for hermiticity by calculating the Feynman rules contained in L-HC[L].
+If the lagrangian is hermitian, then the number of vertices should be zero.
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+No vertices found.
+0 vertices obtained.
+The lagrangian is hermitian.
+HEPTAPOD-CHECK-END: hermiticity
+HEPTAPOD-CHECK-BEGIN: kinetic_terms
+Neglecting all terms with more than 2 particles.
+All kinetic terms are diagonal.
+HEPTAPOD-CHECK-END: kinetic_terms
+HEPTAPOD-CHECK-BEGIN: mass_spectrum
+Neglecting all terms with more than 2 particles.
+Non diagonal mass term found: -(Mmaj*Conjugate[Un[Index[NuGeneration, 4], Index[NuGeneration, 4]]]*Conjugate[Un[Index[NuGeneration, 5], Index[NuGeneration, 2]]]*vmbar[Index[Spin, r$18808]] . n4[Index[Spin, r$18809]]*ProjP[Index[Spin, r$18808], Index[Spin, r$18809]]) - Mmaj*Conjugate[Un[Index[NuGeneration, 4], Index[NuGeneration, 2]]]*Conjugate[Un[Index[NuGeneration, 5], Index[NuGeneration, 4]]]*vmbar[Index[Spin, r$18826]] . n4[Index[Spin, r$18827]]*ProjP[Index[Spin, r$18826], Index[Spin, r$18827]] + (vevNP*Conjugate[Un[Index[NuGeneration, 4], Index[NuGeneration, 4]]]*Conjugate[UnCL[Index[Generation, 1], Index[NuGeneration, 2]]]*Conjugate[yvn[Index[Generation, 1]]]*vmbar[Index[Spin, r$18882]] . n4[Index[Spin, r$18883]]*ProjP[Index[Spin, r$18882], Index[Spin, r$18883]])/Sqrt[2] + (vevNP*Conjugate[Un[Index[NuGeneration, 4], Index[NuGeneration, 4]]]*Conjugate[UnCL[Index[Generation, 2], Index[NuGeneration, 2]]]*Conjugate[yvn[Index[Generation, 2]]]*vmbar[Index[Spin, r$18882]] . n4[Index[Spin, r$18883]]*ProjP[Index[Spin, r$18882], Index[Spin, r$18883]])/Sqrt[2] + (vevNP*Conjugate[Un[Index[NuGeneration, 4], Index[NuGeneration, 4]]]*Conjugate[UnCL[Index[Generation, 3], Index[NuGeneration, 2]]]*Conjugate[yvn[Index[Generation, 3]]]*vmbar[Index[Spin, r$18882]] . n4[Index[Spin, r$18883]]*ProjP[Index[Spin, r$18882], Index[Spin, r$18883]])/Sqrt[2]
+Non diagonal mass term found: -(Mmaj*Conjugate[Un[Index[NuGeneration, 4], Index[NuGeneration, 5]]]*Conjugate[Un[Index[NuGeneration, 5], Index[NuGeneration, 2]]]*vmbar[Index[Spin, r$18810]] . n5[Index[Spin, r$18811]]*ProjP[Index[Spin, r$18810], Index[Spin, r$18811]]) - Mmaj*Conjugate[Un[Index[NuGeneration, 4], Index[NuGeneration, 2]]]*Conjugate[Un[Index[NuGeneration, 5], Index[NuGeneration, 5]]]*vmbar[Index[Spin, r$18838]] . n5[Index[Spin, r$18839]]*ProjP[Index[Spin, r$18838], Index[Spin, r$18839]] + (vevNP*Conjugate[Un[Index[NuGeneration, 4], Index[NuGeneration, 5]]]*Conjugate[UnCL[Index[Generation, 1], Index[NuGeneration, 2]]]*Conjugate[yvn[Index[Generation, 1]]]*vmbar[Index[Spin, r$18890]] . n5[Index[Spin, r$18891]]*ProjP[Index[Spin, r$18890], Index[Spin, r$18891]])/Sqrt[2] + (vevNP*Conjugate[Un[Index[NuGeneration, 4], Index[NuGeneration, 5]]]*Conjugate[UnCL[Index[Generation, 2], Index[NuGeneration, 2]]]*Conjugate[yvn[Index[Generation, 2]]]*vmbar[Index[Spin, r$18890]] . n5[Index[Spin, r$18891]]*ProjP[Index[Spin, r$18890], Index[Spin, r$18891]])/Sqrt[2] + (vevNP*Conjugate[Un[Index[NuGeneration, 4], Index[NuGeneration, 5]]]*Conjugate[UnCL[Index[Generation, 3], Index[NuGeneration, 2]]]*Conjugate[yvn[Index[Generation, 3]]]*vmbar[Index[Spin, r$18890]] . n5[Index[Spin, r$18891]]*ProjP[Index[Spin, r$18890], Index[Spin, r$18891]])/Sqrt[2]
+Non diagonal mass term found: -(Mmaj*n4bar[Index[Spin, sp2$18786]] . vm[Index[Spin, sp2$18785]]*ProjM[Index[Spin, sp2$18786], Index[Spin, sp2$18785]]*Un[Index[NuGeneration, 4], Index[NuGeneration, 4]]*Un[Index[NuGeneration, 5], Index[NuGeneration, 2]]) - Mmaj*n4bar[Index[Spin, sp2$18785]] . vm[Index[Spin, sp2$18786]]*ProjM[Index[Spin, sp2$18785], Index[Spin, sp2$18786]]*Un[Index[NuGeneration, 4], Index[NuGeneration, 2]]*Un[Index[NuGeneration, 5], Index[NuGeneration, 4]] + (vevNP*n4bar[Index[Spin, sp2$18848]] . vm[Index[Spin, sp2$18851]]*ProjM[Index[Spin, sp2$18848], Index[Spin, sp2$18851]]*Un[Index[NuGeneration, 4], Index[NuGeneration, 4]]*UnCL[Index[Generation, 1], Index[NuGeneration, 2]]*yvn[Index[Generation, 1]])/Sqrt[2] + (vevNP*n4bar[Index[Spin, sp2$18848]] . vm[Index[Spin, sp2$18851]]*ProjM[Index[Spin, sp2$18848], Index[Spin, sp2$18851]]*Un[Index[NuGeneration, 4], Index[NuGeneration, 4]]*UnCL[Index[Generation, 2], Index[NuGeneration, 2]]*yvn[Index[Generation, 2]])/Sqrt[2] + (vevNP*n4bar[Index[Spin, sp2$18848]] . vm[Index[Spin, sp2$18851]]*ProjM[Index[Spin, sp2$18848], Index[Spin, sp2$18851]]*Un[Index[NuGeneration, 4], Index[NuGeneration, 4]]*UnCL[Index[Generation, 3], Index[NuGeneration, 2]]*yvn[Index[Generation, 3]])/Sqrt[2]
+Non diagonal mass term found: -(Mmaj*n5bar[Index[Spin, sp2$18786]] . vm[Index[Spin, sp2$18785]]*ProjM[Index[Spin, sp2$18786], Index[Spin, sp2$18785]]*Un[Index[NuGeneration, 4], Index[NuGeneration, 5]]*Un[Index[NuGeneration, 5], Index[NuGeneration, 2]]) - Mmaj*n5bar[Index[Spin, sp2$18785]] . vm[Index[Spin, sp2$18786]]*ProjM[Index[Spin, sp2$18785], Index[Spin, sp2$18786]]*Un[Index[NuGeneration, 4], Index[NuGeneration, 2]]*Un[Index[NuGeneration, 5], Index[NuGeneration, 5]] + (vevNP*n5bar[Index[Spin, sp2$18848]] . vm[Index[Spin, sp2$18851]]*ProjM[Index[Spin, sp2$18848], Index[Spin, sp2$18851]]*Un[Index[NuGeneration, 4], Index[NuGeneration, 5]]*UnCL[Index[Generation, 1], Index[NuGeneration, 2]]*yvn[Index[Generation, 1]])/Sqrt[2] + (vevNP*n5bar[Index[Spin, sp2$18848]] . vm[Index[Spin, sp2$18851]]*ProjM[Index[Spin, sp2$18848], Index[Spin, sp2$18851]]*Un[Index[NuGeneration, 4], Index[NuGeneration, 5]]*UnCL[Index[Generation, 2], Index[NuGeneration, 2]]*yvn[Index[Generation, 2]])/Sqrt[2] + (vevNP*n5bar[Index[Spin, sp2$18848]] . vm[Index[Spin, sp2$18851]]*ProjM[Index[Spin, sp2$18848], Index[Spin, sp2$18851]]*Un[Index[NuGeneration, 4], Index[NuGeneration, 5]]*UnCL[Index[Generation, 3], Index[NuGeneration, 2]]*yvn[Index[Generation, 3]])/Sqrt[2]
+HEPTAPOD-CHECK-END: mass_spectrum
+[INFO] UFO output: /tmp/rerun_bench/v2_s1/pSPSS_UFO  (AddDecays -> False)
+ --- Universal FeynRules Output (UFO) v 1.1 ---
+Starting Feynman rule calculation.
+Expanding the Lagrangian...
+Expanding the indices over 8 cores
+Collecting the different structures that enter the vertex.
+136 possible non-zero vertices have been found -> starting the computation: Dynamic[FR$FeynmanRules] / 136.
+128 vertices obtained.
+
+Table::iterb: Iterator {Index[NuGeneration, Ext[1]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+
+Table::iterb: Iterator {Index[NuGeneration, Ext[2]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+
+Table::iterb: Iterator {Index[NuGeneration, Ext[2]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+
+General::stop: Further output of Table::iterb will be suppressed during this calculation.
+From kernel 5 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[1]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+From kernel 6 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[2]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+From kernel 7 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[1]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+From kernel 8 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[1]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+From kernel 1 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[2]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+
+General::stop: Further output of Table::iterb will be suppressed during this calculation.
+From kernel 6 (Local):
+General::stop: Further output of Table::iterb will be suppressed during this calculation.
+From kernel 7 (Local):
+General::stop: Further output of Table::iterb will be suppressed during this calculation.
+From kernel 5 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[1]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+From kernel 6 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[2]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+From kernel 7 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[1]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+From kernel 8 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[1]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+From kernel 5 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[1]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+
+General::stop: Further output of Table::iterb will be suppressed during this calculation.
+From kernel 6 (Local):
+General::stop: Further output of Table::iterb will be suppressed during this calculation.
+From kernel 7 (Local):
+General::stop: Further output of Table::iterb will be suppressed during this calculation.
+
+Symbol::symname: The string "ISUMObjectaI5[Index[NuGeneration, Ext[1]]]Conjugate[UnCL[Index[Generation, 1], Index[NuGeneration, Ext[1]]]] Conjugate[yvn[Index[Generation, 1]]] + Conjugate[UnCL[Index[Generation, 2], Index[NuGeneration, Ext[1]]]] Conjugate[yvn[Index[Generation, 2]]] + Conjugate[UnCL[Index[Generation, 3], Index[NuGeneration, Ext[1]]]] Conjugate[yvn[Index[Generation, 3]]]" cannot be used for a symbol name. A symbol name must start with a letter followed by letters and numbers.
+
+Symbol::symname: The string "ISUMObjectaI8[Index[NuGeneration, Ext[1]]]UnCL[Index[Generation, 1], Index[NuGeneration, Ext[1]]] yvn[Index[Generation, 1]] + UnCL[Index[Generation, 2], Index[NuGeneration, Ext[1]]] yvn[Index[Generation, 2]] + UnCL[Index[Generation, 3], Index[NuGeneration, Ext[1]]] yvn[Index[Generation, 3]]" cannot be used for a symbol name. A symbol name must start with a letter followed by letters and numbers.
+
+Symbol::symname: The string "ISUMObjectaI9[Index[NuGeneration, Ext[2]]]UnCL[Index[Generation, 1], Index[NuGeneration, Ext[2]]] yvn[Index[Generation, 1]] + UnCL[Index[Generation, 2], Index[NuGeneration, Ext[2]]] yvn[Index[Generation, 2]] + UnCL[Index[Generation, 3], Index[NuGeneration, Ext[2]]] yvn[Index[Generation, 3]]" cannot be used for a symbol name. A symbol name must start with a letter followed by letters and numbers.
+
+General::stop: Further output of Symbol::symname will be suppressed during this calculation.
+From kernel 5 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[1]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+From kernel 6 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[1]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+From kernel 7 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[2]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+From kernel 8 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[1]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+From kernel 5 (Local):
+Table::iterb: Iterator {Index[NuGeneration, Ext[1]], NoUnfold[{1, 2, 3, 4, 5}]} does not have appropriate bounds.
+
+General::stop: Further output of Table::iterb will be suppressed during this calculation.
+From kernel 1 (Local):
+General::stop: Further output of Table::iterb will be suppressed during this calculation.
+From kernel 2 (Local):
+General::stop: Further output of Table::iterb will be suppressed during this calculation.
+Flavor expansion of the vertices distributed over 8 cores: Dynamic[FR$Count1] / 128
+   - Saved vertices in InterfaceRun[ 1 ].
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number LeptonNumber not conserved in vertex {G0, nLbar, CC[ve]}.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+Quantum number LeptonNumber not conserved in vertex {H, nLbar, CC[ve]}.
+
+QN::NonConserv: Warning: non quantum number conserving vertex encountered!
+
+General::stop: Further output of QN::NonConserv will be suppressed during this calculation.
+Quantum number LeptonNumber not conserved in vertex {GPbar, ebar, CC[ve]}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, mubar, CC[ve]}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, tabar, CC[ve]}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, ebar, CC[vm]}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, mubar, CC[vm]}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, tabar, CC[vm]}.
+Quantum number LeptonNumber not conserved in vertex {G0, vebar, CC[vm]}.
+Quantum number LeptonNumber not conserved in vertex {G0, vmbar, CC[vm]}.
+Quantum number LeptonNumber not conserved in vertex {G0, vtbar, CC[vm]}.
+Quantum number LeptonNumber not conserved in vertex {H, vebar, CC[vm]}.
+Quantum number LeptonNumber not conserved in vertex {H, vmbar, CC[vm]}.
+Quantum number LeptonNumber not conserved in vertex {H, vtbar, CC[vm]}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, ebar, CC[vt]}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, mubar, CC[vt]}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, tabar, CC[vt]}.
+Quantum number LeptonNumber not conserved in vertex {G0, vebar, CC[vt]}.
+Quantum number LeptonNumber not conserved in vertex {G0, vtbar, CC[vt]}.
+Quantum number LeptonNumber not conserved in vertex {H, vebar, CC[vt]}.
+Quantum number LeptonNumber not conserved in vertex {H, vtbar, CC[vt]}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, ebar, n4}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, mubar, n4}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, tabar, n4}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, ebar, n5}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, mubar, n5}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, tabar, n5}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, ebar, nL}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, mubar, nL}.
+Quantum number LeptonNumber not conserved in vertex {GPbar, tabar, nL}.
+Quantum number LeptonNumber not conserved in vertex {GP, nLbar, e}.
+Quantum number LeptonNumber not conserved in vertex {GP, nLbar, mu}.
+Quantum number LeptonNumber not conserved in vertex {GP, nLbar, ta}.
+Quantum number LeptonNumber not conserved in vertex {GP, CC[ebar], ve}.
+Quantum number LeptonNumber not conserved in vertex {GP, CC[mubar], ve}.
+Quantum number LeptonNumber not conserved in vertex {GP, CC[tabar], ve}.
+Quantum number LeptonNumber not conserved in vertex {GP, CC[ebar], vm}.
+Quantum number LeptonNumber not conserved in vertex {GP, CC[mubar], vm}.
+Quantum number LeptonNumber not conserved in vertex {GP, CC[tabar], vm}.
+Quantum number LeptonNumber not conserved in vertex {G0, CC[vebar], vm}.
+Quantum number LeptonNumber not conserved in vertex {G0, CC[vmbar], vm}.
+Quantum number LeptonNumber not conserved in vertex {G0, CC[vtbar], vm}.
+Quantum number LeptonNumber not conserved in vertex {H, CC[vebar], vm}.
+Quantum number LeptonNumber not conserved in vertex {H, CC[vmbar], vm}.
+Quantum number LeptonNumber not conserved in vertex {H, CC[vtbar], vm}.
+Quantum number LeptonNumber not conserved in vertex {GP, CC[ebar], vt}.
+Quantum number LeptonNumber not conserved in vertex {GP, CC[mubar], vt}.
+Quantum number LeptonNumber not conserved in vertex {GP, CC[tabar], vt}.
+Quantum number LeptonNumber not conserved in vertex {G0, CC[vebar], vt}.
+Quantum number LeptonNumber not conserved in vertex {G0, CC[vtbar], vt}.
+Quantum number LeptonNumber not conserved in vertex {H, CC[vebar], vt}.
+Quantum number LeptonNumber not conserved in vertex {H, CC[vtbar], vt}.
+Quantum number LeptonNumber not conserved in vertex {GP, n4bar, e}.
+Quantum number LeptonNumber not conserved in vertex {GP, n4bar, mu}.
+Quantum number LeptonNumber not conserved in vertex {GP, n4bar, ta}.
+Quantum number LeptonNumber not conserved in vertex {GP, n5bar, e}.
+Quantum number LeptonNumber not conserved in vertex {GP, n5bar, mu}.
+Quantum number LeptonNumber not conserved in vertex {GP, n5bar, ta}.
+Quantum number LeptonNumber not conserved in vertex {G0, CC[nLbar], ve}.
+Quantum number LeptonNumber not conserved in vertex {H, CC[nLbar], ve}.
+Quantum number LeptonNumber not conserved in vertex {W, nLbar, e}.
+Quantum number LeptonNumber not conserved in vertex {W, nLbar, mu}.
+Quantum number LeptonNumber not conserved in vertex {W, nLbar, ta}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, ebar, nL}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, mubar, nL}.
+Quantum number LeptonNumber not conserved in vertex {Wbar, tabar, nL}.
+Preparing Python output.
+    - Splitting vertices into building blocks.
+Splitting of vertices distributed over 8 kernels.
+    - Optimizing: Dynamic[PRIVATE`PY$SplitVertexCounter]/238 .
+    - Writing files.
+
+StringJoin::string: String expected at position 2 in P.<>CreateObjectParticleName[PartNameMG[nL]].
+
+StringJoin::string: String expected at position 2 in P.<>CreateObjectParticleName[PartNameMG[nL]].
+
+StringJoin::string: String expected at position 2 in P.<>CreateObjectParticleName[PartNameMG[nL]].
+
+General::stop: Further output of StringJoin::string will be suppressed during this calculation.
+Done!
+[INFO] Done.

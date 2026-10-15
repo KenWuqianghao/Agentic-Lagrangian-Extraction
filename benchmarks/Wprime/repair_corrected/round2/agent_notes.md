@@ -1,0 +1,9 @@
+The file now reads correctly and both fixes are in place. This is my final report.
+
+Summary of changes to `model.fr`:
+
+1. **Removed the extra spin index in the Majorana mass bilinear.** `LkinNuR` wrote the mass term as `bar[vR][sp1,i].vR[sp1,i]`, pinning the same explicit spinor index `sp1` on both sides and then joining them with `.` — the FeynRules convention for a plain mass bilinear (no Dirac matrix in between) is to leave the spinor index out entirely and let `.` do the implicit spin contraction, as in `bar[vR][i].vR[i]`. The stray `sp1` left a dangling spin-space structure that FeynRules could not reduce to a plain number, which is exactly why `mass_diagonal` failed with "not numerical value encountered ... Non diagonal mass term found" and `mass_spectrum` came back inconclusive — both symptoms untouched by the prior repair attempt because that attempt never touched this line. I changed the term to `- 1/2 MvR bar[vR][i].vR[i]`, keeping the Majorana `1/2` factor and the generation index `i`, so the mass matrix is now a clean, manifestly diagonal `MvR` times the identity, matching the declared `Mass -> {MvR, 100.}`.
+
+2. **Removed `QuantumNumbers -> {Q -> 0}` from the self-conjugate `vR` class.** A self-conjugate (Majorana) field must not carry an explicit `QuantumNumbers` declaration (it triggered the `LoadModel::QN` warning and the `selfconjugate_quantum_numbers` heuristic tag); dropping the line removes the warning without changing any physics, since the field was already neutral.
+
+No fields, couplings, masses, or interaction terms were otherwise altered — the `Wp` sector, the W′–fermion coupling terms, and all parameter values are untouched, so the physics content is preserved while only the two technical FeynRules-syntax/declaration defects were corrected.
