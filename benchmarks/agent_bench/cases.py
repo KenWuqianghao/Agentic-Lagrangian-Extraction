@@ -18,6 +18,7 @@ Tiers follow the difficulty axis ToolBench uses, adapted to this toolkit:
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
@@ -90,7 +91,8 @@ def _archive_value_matches(workdir: Path, ctx: Dict[str, Any]) -> Dict[str, Any]
     truth = int(rows[0]["n"])
 
     answer = ctx.get("final_text") or ""
-    found = str(truth) in answer
+    # Whole numbers only: a substring test passes "21" on "2021" or an arXiv id.
+    found = re.search(rf"(?<![\w.]){truth}(?!\w|[.,]\d)", answer) is not None
     return {
         "scored": True,
         "passed": found,

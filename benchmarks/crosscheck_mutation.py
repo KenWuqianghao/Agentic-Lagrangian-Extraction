@@ -43,7 +43,9 @@ import types
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-HEPTAPOD = Path.home() / "Documents/Github/heptapod"
+HEPTAPOD = Path(os.environ.get("HEPTAPOD_REPO", "~/Documents/Github/heptapod")).expanduser()
+if not (HEPTAPOD / "tools/reverse/sanitize.py").is_file():
+    sys.exit(f"crosscheck_mutation.py: no heptapod checkout at {HEPTAPOD}; set HEPTAPOD_REPO")
 TEXT_ROOT = HEPTAPOD / "eval/benchmark_runs"
 
 
@@ -631,7 +633,7 @@ def audit(args):
                         "crosscheck.md",
                     ) and Path(p).resolve().parent in (sb.resolve().parent, sb.resolve()):
                         continue
-                    if not str(Path(p).resolve()).startswith(str(sb.resolve())):
+                    if not Path(p).resolve().is_relative_to(sb.resolve()):
                         problems.append(f"Read outside sandbox: {p}")
                 elif name == "Write":
                     if Path(p).resolve() != output.resolve():

@@ -31,7 +31,7 @@ from .trace import (
 
 TOOLBASE_LOG = Path.home() / ".toolbase" / "logs" / "tool_calls.jsonl"
 
-HEPTAPOD = Path("/Users/kenwu/Documents/Github/heptapod")
+HEPTAPOD = Path(os.environ.get("HEPTAPOD_REPO", "/Users/kenwu/Documents/Github/heptapod"))
 MCP_SERVER = HEPTAPOD / "scripts" / "serve_lagrangian_mcp.py"
 VENV_PY = HEPTAPOD / ".venv" / "bin" / "python"
 
@@ -145,8 +145,10 @@ class ClaudeCodeDriver(Driver):
             out, err, code = proc.stdout, proc.stderr, proc.returncode
             timed_out = False
         except subprocess.TimeoutExpired as e:
-            out = (e.stdout or "") if isinstance(e.stdout, str) else ""
-            err = (e.stderr or "") + f"\ntimed out after {case.timeout_s}s"
+            # TimeoutExpired carries bytes even with text=True.
+            out, err = (v.decode("utf-8", "replace") if isinstance(v, bytes) else (v or "")
+                        for v in (e.stdout, e.stderr))
+            err += f"\ntimed out after {case.timeout_s}s"
             code, timed_out = 124, True
         t1 = time.time()
 

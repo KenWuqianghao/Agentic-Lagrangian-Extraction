@@ -11,18 +11,21 @@ reconstruction -> paper cross-check -> REVIEW.pdf) against the model's own
 paper, then assemble ian_review_bundle/<model>/{<model>.fr, REVIEW.pdf} plus
 a README inventory, and zip it.
 
-Resumable: models whose <page>/review/*/REVIEW.pdf already exists are skipped
-on re-run. Reverse checks run serially (each spawns two codex instances).
+Resumable: a model is skipped on re-run when its REVIEW.pdf exists and its
+reverse check finished (crosscheck.md, or reconstruction.md with no paper).
+An aborted run still writes REVIEW.pdf, so the PDF alone is not enough.
+Reverse checks run serially (each spawns two codex instances).
 
 Usage:
-    python eval/benchmark_runs/build_ian_bundle.py            # run + assemble
-    python eval/benchmark_runs/build_ian_bundle.py --assemble # bundle only
+    python benchmarks/build_ian_bundle.py            # run + assemble
+    python benchmarks/build_ian_bundle.py --assemble # bundle only
 """
 
 from __future__ import annotations
 
 import glob
 import json
+import os
 import shutil
 import sys
 import time
@@ -30,11 +33,12 @@ import zipfile
 from pathlib import Path
 
 HERE = Path(__file__).parent
-REPO = HERE.parent.parent
-sys.path.insert(0, str(REPO))
+HEPTAPOD = Path(os.environ.get("HEPTAPOD_REPO", "~/Documents/Github/heptapod")).expanduser()
+sys.path.insert(0, str(HEPTAPOD))
 
 import config  # noqa: E402
 from tools.reverse.reverse_tool import ReverseLagrangianTool  # noqa: E402
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import validation_benchmark as vb  # noqa: E402
 
@@ -77,10 +81,10 @@ def _reviews(page: str, name: str) -> list[Path]:
 
 
 def run_reverse(page: str, fr: Path) -> dict:
-    existing = _reviews(page, "REVIEW.pdf")
-    if existing:
-        return {"skipped": True, "review_package": str(existing[0].relative_to(HERE))}
     paper = paper_for(page)
+    existing = _reviews(page, "REVIEW.pdf")
+    if existing and _reviews(page, "crosscheck.md" if paper else "reconstruction.md"):
+        return {"skipped": True, "review_package": str(existing[0].relative_to(HERE))}
     tool = ReverseLagrangianTool(
         base_directory=str(HERE),
         blank_agent_cmd=getattr(config, "blank_agent_cmd", DEFAULT_AGENT),

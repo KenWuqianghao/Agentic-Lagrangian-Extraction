@@ -18,7 +18,8 @@
 # Requires: `codex mcp add heptapod -- <repo>/.venv/bin/python <repo>/scripts/serve_lagrangian_mcp.py`
 # and a config.py with feynrules_path / wolframscript_path / mg5_path set.
 set -uo pipefail
-REPO="$(cd "$(dirname "$0")/../.." && pwd)"
+# The heptapod checkout: the demo model, the benchmark runs and the MCP server live there.
+REPO="${HEPTAPOD_REPO:-$HOME/Documents/Github/heptapod}"
 TARGET="${1:-demo}"
 WD="$(mktemp -d "${TMPDIR:-/tmp}/codex_loop.XXXXXX")"
 mkdir -p "$WD/model"
@@ -26,7 +27,8 @@ mkdir -p "$WD/model"
 if [ "$TARGET" = "demo" ]; then
   # Seed a broken (non-Hermitian) S1: drop the Hermitian-conjugate Yukawa term.
   sed 's/L1YukRR := L1YukRRNonHC + HC\[L1YukRRNonHC\];/L1YukRR := L1YukRRNonHC;/' \
-    "$REPO/tools/feynrules/test_files/models/S1_LQ_RR.fr" > "$WD/model/S1.fr"
+    "$REPO/tools/feynrules/test_files/models/S1_LQ_RR.fr" > "$WD/model/S1.fr" \
+    || { echo "cannot seed the demo model from $REPO"; exit 1; }
   MODEL="model/S1.fr"
 else
   cp "$REPO/eval/benchmark_runs/$TARGET/model/${TARGET}_gen.fr" "$WD/model/${TARGET}.fr" \

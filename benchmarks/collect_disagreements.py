@@ -121,9 +121,15 @@ def _bullets(body: list[str]) -> list[str]:
     """Bullet items, each joined with its continuation lines."""
     items: list[str] = []
     current: list[str] | None = None
+    indent = 0
     for line in body:
         m = BULLET_RE.match(line)
-        if m:
+        lead = len(line) - len(line.lstrip())
+        if m and current is not None and lead > indent:
+            # a nested bullet belongs to its parent disagreement
+            current.append(m.group(1).strip())
+        elif m:
+            indent = lead
             if current:
                 items.append(" ".join(current))
             current = [m.group(1).strip()]

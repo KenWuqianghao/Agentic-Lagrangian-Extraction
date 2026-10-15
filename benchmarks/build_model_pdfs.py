@@ -25,13 +25,14 @@ Usage:
 
 from __future__ import annotations
 
+import os
 import re
 import subprocess
 import sys
 from pathlib import Path
 
 HERE = Path(__file__).parent
-HEPTAPOD = Path("/Users/kenwu/Documents/Github/heptapod")
+HEPTAPOD = Path(os.environ.get("HEPTAPOD_REPO", "~/Documents/Github/heptapod")).expanduser()
 sys.path.insert(0, str(HEPTAPOD))
 
 from tools.frgen.fr_parser import parse_lagrangian_terms  # noqa: E402
@@ -102,11 +103,12 @@ def _final_fr(model: str) -> tuple[Path | None, str]:
     failing model is a draft that was never accepted.
     """
     for phase in ("repair3", "repair2", "repair"):
+        if (HERE / model / phase / "final.fr").is_file():
+            return HERE / model / phase / "final.fr", f"{phase}/final.fr (re-validated)"
+    for phase in ("repair3", "repair2", "repair"):
         d = HERE / model / phase
         if not d.is_dir():
             continue
-        if (d / "final.fr").is_file():
-            return d / "final.fr", f"{phase}/final.fr (re-validated)"
         for rd in sorted(d.glob("round*"), reverse=True):
             if (rd / "model.fr").is_file():
                 return rd / "model.fr", f"{phase}/{rd.name}/model.fr (last attempt)"
@@ -251,7 +253,11 @@ def coverage() -> list[tuple[str, str, int]]:
     for d in sorted(p for p in HERE.iterdir() if p.is_dir()):
         if d.name in ("ian_review_bundle", "review_bundle", "__pycache__"):
             continue
-        pdfs = sorted(d.glob("review/*.pdf")) + sorted(d.glob("*.pdf"))
+        pdfs = (
+            sorted(d.glob("dossier/*.pdf"))
+            + sorted(d.glob("review/*.pdf"))
+            + sorted(d.glob("*.pdf"))
+        )
         if pdfs:
             out.append((d.name, pdfs[0].name, _pages(pdfs[0])))
         else:

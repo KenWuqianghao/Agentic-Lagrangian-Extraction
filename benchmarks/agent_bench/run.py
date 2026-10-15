@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 import time
 from pathlib import Path
@@ -34,11 +35,10 @@ sys.path.insert(0, str(HERE.parent.parent))
 
 from benchmarks.agent_bench.cases import Case, default_cases  # noqa: E402
 from benchmarks.agent_bench.drivers import (  # noqa: E402
-    DRIVERS, DriverUnavailable, availability,
+    DRIVERS, HEPTAPOD, DriverUnavailable, availability,
 )
 
-HEPTAPOD = Path("/Users/kenwu/Documents/Github/heptapod")
-ASTER = Path("/Users/kenwu/Documents/Github/aster")
+ASTER = Path(os.environ.get("ASTER_REPO", "/Users/kenwu/Documents/Github/aster"))
 OUT_ROOT = HERE.parent / "agent_bench_runs"
 
 
@@ -149,7 +149,7 @@ def main() -> int:
 
     if args.list:
         print(f"{'case':28} {'tier':>4}  {'external':22} description")
-        for c in default_cases():
+        for c in cases:
             print(f"{c.case_id:28} {c.tier:>4}  "
                   f"{','.join(c.needs_external) or '-':22} {c.description[:60]}")
         return 0

@@ -37,7 +37,7 @@ def main() -> int:
     flips, doubled, runs, report_rows = [], [], [], []
     for e in entries:
         rescored = "new_checks" in e
-        if rescored and not e.get("lagrangian_expression", "").startswith("LSM + "):
+        if rescored and not (e.get("lagrangian_expression") or "").startswith("LSM + "):
             doubled.append(e["run"])
         if ":" in e["run"]:                                   # a report row
             report_rows.append(e)

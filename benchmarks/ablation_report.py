@@ -189,6 +189,9 @@ def main() -> int:
     variants = [v for v in args.variants.split(",") if v]
     pages = [p for p in args.pages.split(",") if p]
     cands = {c["page"]: c for c in json.loads((HERE / "db_candidates.json").read_text())["candidates"]}
+    unknown = [p for p in pages if p not in cands]
+    if unknown:
+        ap.error(f"--pages: not in db_candidates.json: {', '.join(unknown)}")
 
     rows = [collect(p, v, k, cands[p]) for v in variants for p in pages
             for k in range(1, args.seeds + 1)]
