@@ -100,3 +100,18 @@ def test_the_agent_writes_its_sandbox_but_no_other_host_path(tmp_path):
         assert (sb / "model.fr").is_file() and not (host / "claude").exists()
     finally:
         shutil.rmtree(host)
+
+
+@needs_bwrap
+def test_the_agent_cannot_read_the_hosts_credentials(tmp_path, monkeypatch):
+    sb, home = tmp_path / "sb", Path(tempfile.mkdtemp(dir="/var/tmp"))
+    sb.mkdir()
+    (home / ".ssh").mkdir()
+    (home / ".ssh" / "id_ed25519").write_text("PRIVATE KEY")
+    (home / ".netrc").write_text("password hunter2")
+    monkeypatch.setattr(isolation, "SECRETS", (home / ".ssh", home / ".netrc", home / ".aws"))
+    try:
+        out = _in_sandbox(sb, f"cat {home}/.ssh/id_ed25519 {home}/.netrc; echo done")
+        assert "done" in out and "PRIVATE KEY" not in out and "hunter2" not in out
+    finally:
+        shutil.rmtree(home)

@@ -10,14 +10,14 @@ is out of the agent's reach. The agent writes only to its sandbox, the
 else (~/.local, the Wolfram init files) would run outside the sandbox later.
 
 Linux: bubblewrap mounts the host read-only, with empty writable directories
-over ~/code, ~/Documents, /tmp, ~/.cache and ~/.claude (only the credentials
-file is bound back), binds back the named paths, and runs the agent in its own
-PID namespace, so every process it starts ends with it. macOS: sandbox-exec
-denies reads of the same trees, of the repository, of /tmp and of other
-runs' sandboxes, and writes outside the sandbox, the named paths, the user
-temporary directory, the user caches and Claude Code's ~/.claude; it cannot
-end leftover processes, so the wolframscript wrapper records the ones that
-hold a kernel slot.
+over ~/code, ~/Documents, /tmp, ~/.cache, ~/.claude (only the credentials file
+is bound back) and the SECRETS, binds back the named paths, and runs the agent
+in its own PID namespace, so every process it starts ends with it. macOS:
+sandbox-exec denies reads of the same trees, of the SECRETS, of the repository,
+of /tmp and of other runs' sandboxes, and writes outside the sandbox, the named
+paths, the user temporary directory, the user caches and Claude Code's
+~/.claude; it cannot end leftover processes, so the wolframscript wrapper
+records the ones that hold a kernel slot.
 """
 
 from __future__ import annotations
@@ -48,6 +48,20 @@ WOLFRAM_KERNEL = Path("/Applications/Wolfram Engine.app/Contents/MacOS/WolframKe
 # The software the scorer shares with the agent. The agent can run it but not change it: a
 # setting it saves (MadGraph's auto_convert_model, say) would change every later verdict.
 TOOLCHAIN = (FEYNRULES, MG5, Path("/opt/homebrew")) if MAC else (HOME / "hep-tools",)
+# Credentials the agent's shell could read and send out. Claude Code's own login stays readable:
+# claude runs in the same sandbox.
+SECRETS = tuple(
+    HOME / p
+    for p in (
+        ".ssh",
+        ".gnupg",
+        ".config/gh",
+        ".git-credentials",
+        ".netrc",
+        ".aws",
+        ".claude-oauth-token",
+    )
+)
 # After a timeout the agent gets SIGTERM, then SIGKILL if it is still running this much later.
 KILL_GRACE = 60
 
@@ -141,6 +155,7 @@ def isolate(
             HOME / ".claude" / "projects",
             REPO,
             Path("/tmp").resolve(),
+            *SECRETS,
         )
 
         def paths(ps):
@@ -174,6 +189,11 @@ def isolate(
         ]
     binds = [x for p in (*TOOLCHAIN, *read_only) for x in ("--ro-bind", str(p), str(p))]
     binds += [x for p in read_write for x in ("--bind", str(p), str(p))]
+    for p in SECRETS:
+        if p.is_dir():
+            binds += ["--tmpfs", str(p)]
+        elif p.exists():
+            binds += ["--ro-bind", "/dev/null", str(p)]
     # Claude Code refreshes its login in this file; the rest of ~/.claude stays out of reach.
     creds = HOME / ".claude" / ".credentials.json"
     if creds.is_file():
