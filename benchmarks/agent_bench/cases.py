@@ -94,6 +94,9 @@ def _archive_value_matches(workdir: Path, ctx: Dict[str, Any]) -> Dict[str, Any]
     import importlib.util
     mod_path = (Path(ctx["aster"]) / "aster_toolkit" / "measurements"
                 / "archive_interface.py")
+    if not mod_path.is_file():
+        return {"scored": False, "passed": False,
+                "reason": f"no aster checkout at {ctx['aster']}; set ASTER_REPO"}
     spec = importlib.util.spec_from_file_location("_aster_archive", mod_path)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)

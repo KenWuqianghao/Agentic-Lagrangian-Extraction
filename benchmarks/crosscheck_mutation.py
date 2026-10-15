@@ -625,15 +625,17 @@ def audit(args):
                 tools.append(name)
                 p = inp.get("file_path") or inp.get("path") or ""
                 if name == "Read":
-                    if Path(p).name in (
+                    # the policy makes the sandbox the working directory: a relative path is in it
+                    read_path = Path(p) if Path(p).is_absolute() else sb / p
+                    if read_path.name in (
                         "prompt_recon.txt",
                         "prompt_cross.txt",
                         "prompt_judge.txt",
                         "case.json",
                         "crosscheck.md",
-                    ) and Path(p).resolve().parent in (sb.resolve().parent, sb.resolve()):
+                    ) and read_path.resolve().parent in (sb.resolve().parent, sb.resolve()):
                         continue
-                    if not Path(p).resolve().is_relative_to(sb.resolve()):
+                    if not p or not read_path.resolve().is_relative_to(sb.resolve()):
                         problems.append(f"Read outside sandbox: {p}")
                 elif name == "Write":
                     if Path(p).resolve() != output.resolve():

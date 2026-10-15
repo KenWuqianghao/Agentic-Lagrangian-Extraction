@@ -38,7 +38,7 @@ from benchmarks.agent_bench.drivers import (  # noqa: E402
     DRIVERS, HEPTAPOD, DriverUnavailable, availability,
 )
 
-ASTER = Path(os.environ.get("ASTER_REPO", "/Users/kenwu/Documents/Github/aster"))
+ASTER = Path(os.environ.get("ASTER_REPO", "~/Documents/Github/aster")).expanduser()
 OUT_ROOT = HERE.parent / "agent_bench_runs"
 
 
