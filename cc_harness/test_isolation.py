@@ -6,6 +6,7 @@ from __future__ import annotations
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from pathlib import Path
 
@@ -83,3 +84,19 @@ def test_the_agent_runs_the_shared_toolchain_but_cannot_change_it(tmp_path, monk
     )
     assert "= True" in out and "denied" in out
     assert (tools / "mg5_configuration.txt").read_text() == "auto_convert_model = True"
+
+
+@needs_bwrap
+def test_the_agent_writes_its_sandbox_but_no_other_host_path(tmp_path):
+    # /var/tmp stands for ~/.local and the Wolfram init files: the user can write it and no
+    # empty directory covers it.
+    sb, host = tmp_path / "sb", Path(tempfile.mkdtemp(dir="/var/tmp"))
+    sb.mkdir()
+    try:
+        out = _in_sandbox(
+            sb, f"echo x > {sb}/model.fr && echo wrote; echo x > {host}/claude || echo denied"
+        )
+        assert "wrote" in out and "denied" in out
+        assert (sb / "model.fr").is_file() and not (host / "claude").exists()
+    finally:
+        shutil.rmtree(host)
