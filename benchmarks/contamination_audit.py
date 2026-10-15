@@ -28,8 +28,11 @@ lists or measures (ls, find, wc, stat) is "listed". A path to the cache itself
 including the run's own. A script file the agent runs (python3 x.py) can open
 paths that its command line does not name; the audit cannot see into it. A
 reference path on its command line is "listed", and the run counts in
-script_runs. The pattern of grep, rg, sed or awk is not a path: in
-`ls reference_cache | grep reference_cache` only ls names the cache.
+script_runs. Only the command word of a stage counts: in `find
+reference_cache -name cat` the word cat is a value, and the stage is a
+listing. The pattern of grep, rg, sed or awk is not a path: in `ls
+reference_cache | grep reference_cache` only ls names the cache. A cp into
+the cache does not read its destination.
 
 Writes contamination_audit.json next to this file.
 
@@ -45,7 +48,9 @@ from collections import Counter
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-READ = re.compile(r"\b(cat|sed|head|tail|less|more|awk|grep|rg|python3?|bat|nl|diff|cmp|cp)\b")
+READ = re.compile(
+    r"cat|sed|head|tail|less|more|awk|e?grep|fgrep|rg|python[\d.]*|bat|nl|diff|cmp|cp"
+)
 REF = re.compile(r"reference_cache(?:/([^/\s'\"]+))?")
 SCRIPT = re.compile(r"\b(?:python3?|sh|bash|zsh)\s+(?!-)\S+\.(?:py|sh)\b")
 SEPARATORS = {"|", "||", "&&", ";", "&"}
@@ -55,12 +60,14 @@ PATTERN_FIRST: dict[str, set[str]] = {
     "grep": {"-A", "-B", "-C", "-m", "-d", "-D", "--context"},
     "egrep": {"-A", "-B", "-C", "-m"},
     "fgrep": {"-A", "-B", "-C", "-m"},
-    "rg": {"-A", "-B", "-C", "-m", "-g", "-t", "-T", "-M", "-j", "-E", "--glob", "--iglob",
-           "--type", "--type-not", "--max-count", "--context"},
+    "rg": {"-A", "-B", "-C", "-m", "-g", "-t", "-T", "-M", "-j", "-E", "--glob",
+           "--iglob", "--type", "--type-not", "--max-count", "--context"},
     "sed": {"-l"},
     "awk": {"-F", "-v"},
 }
 PATTERN_OPTS = ("-e", "-f", "--regexp", "--file")
+WRAPPERS = {"sudo", "env", "nice", "nohup", "time", "command", "xargs"}
+EXEC = {"-exec", "-execdir", "-ok", "-okdir"}
 
 
 def commands(events_path: Path) -> list[str]:
@@ -89,9 +96,8 @@ def stages(cmd: str) -> list[str]:
         words = shlex.split(cmd)
         if len(words) == 3 and words[1] in ("-c", "-lc"):
             cmd = words[2]
-        if "<<" in cmd:  # a heredoc body is code, not shell: keep it whole
-            return [cmd]
-        lex = shlex.shlex(cmd, posix=True, punctuation_chars=True)
+        head, here, body = cmd.partition("<<")  # a heredoc body is code, not shell
+        lex = shlex.shlex(head, posix=True, punctuation_chars=True)
         lex.whitespace_split = True
         tokens = list(lex)
     except ValueError:
@@ -102,26 +108,73 @@ def stages(cmd: str) -> list[str]:
             out.append([])
         else:
             out[-1].append(t)
-    return [" ".join(st) for st in out if st]
+    out = [st for st in out if st]
+    if here and out:  # the body stays with the command that reads it
+        return [shlex.join(st) for st in out[:-1]] + [shlex.join(out[-1]) + " " + here + body]
+    return [shlex.join(st) for st in out]
 
 
-def operands(stage: str) -> str:
-    """`stage` without the patterns of grep, rg, sed or awk."""
-    try:
-        words = shlex.split(stage)
-    except ValueError:
-        return stage
-    takes_value = PATTERN_FIRST.get(Path(words[0]).name) if words else None
-    if takes_value is None:
-        return stage
-    given = any(w in PATTERN_OPTS or w.startswith(("--regexp=", "--file=")) for w in words)
-    out, i = [words[0]], 1
+def command(words: list[str]) -> int:
+    """Index of the command word: after VAR=value words, sudo, env, xargs and timeout N."""
+    i = 0
     while i < len(words):
-        w = words[i]
+        name = Path(words[i]).name
+        if re.fullmatch(r"\w+=.*", words[i]) or name in WRAPPERS:
+            i += 1
+            while i < len(words) and words[i].startswith("-"):
+                i += 1
+        elif name == "timeout":
+            i += 2
+        else:
+            return i
+    return i
+
+
+def roles(stage: str) -> tuple[str, str]:
+    """(the words of `stage` whose files it reads, the words it names and does not read).
+
+    A pattern of grep, rg, sed or awk is in neither. The destination of cp is named.
+    """
+    head = stage.partition("<<")[0]
+    try:
+        words = shlex.split(head)
+    except ValueError:
+        return "", stage
+    i = command(words)
+    if i >= len(words):
+        return "", stage
+    name = Path(words[i]).name
+    if name == "find":
+        x = next((j for j, w in enumerate(words) if w in EXEC), None)
+        shows = x is not None and x + 1 < len(words) and READ.fullmatch(Path(words[x + 1]).name)
+        return (stage, "") if shows else ("", stage)
+    if not READ.fullmatch(name) or SCRIPT.match(" ".join(words[i:])):
+        return "", stage  # a script file's reads are unseen
+    if head != stage:
+        return stage, ""
+    args = words[i + 1:]
+    if name in PATTERN_FIRST:
+        return " ".join(drop_patterns(args, PATTERN_FIRST[name])), ""
+    if name == "cp":
+        t = next((j for j, w in enumerate(args) if w in ("-t", "--target-directory")), None)
+        if t is not None:
+            return " ".join(args[:t] + args[t + 2:]), " ".join(args[t:t + 2])
+        dest = max((j for j, w in enumerate(args) if not w.startswith("-")), default=None)
+        if dest is not None:
+            return " ".join(args[:dest] + args[dest + 1:]), args[dest]
+    return " ".join(args), ""
+
+
+def drop_patterns(args: list[str], takes_value: set[str]) -> list[str]:
+    """`args` without the patterns: the first operand, or each value of -e and --regexp."""
+    given = any(w in PATTERN_OPTS or w.startswith(("--regexp=", "--file=")) for w in args)
+    out, i = [], 0
+    while i < len(args):
+        w = args[i]
         if w in ("-e", "--regexp") or w.startswith("--regexp="):
             i += 1 if "=" in w else 2
         elif w in takes_value:
-            out += words[i:i + 2]
+            out += args[i:i + 2]
             i += 2
         elif w.startswith("-") or given:
             out.append(w)
@@ -129,7 +182,7 @@ def operands(stage: str) -> str:
         else:  # the first operand is the pattern
             given = True
             i += 1
-    return " ".join(out)
+    return out
 
 
 def refs(stage: str) -> set[str]:
@@ -142,8 +195,9 @@ def reads(cmd: str) -> tuple[set[str], set[str]]:
     """(pages read, pages only listed) by `cmd`."""
     read, listed = set(), set()
     for st in stages(cmd):
-        shows = READ.search(st) and not SCRIPT.match(st)  # a script file's reads are unseen
-        (read if shows else listed).update(refs(operands(st)))
+        src, named = roles(st)
+        read |= refs(src)
+        listed |= refs(named)
     return read, listed - read
 
 
