@@ -137,7 +137,9 @@ are carried in the same tables.
 
 Every arm runs sandboxed: the agent sees the paper, `frmodel.py`, `render.py`
 and `SM.fr`, and nothing else. This matters because an audit of the *original*
-fleet found 18 of 28 runs had opened their own reference file mid-run. Each run
+fleet found 19 of 28 runs had opened their own reference file mid-run (corrected
+on 2026-10-15 from 18: the GeneralU1 run searched the whole reference cache, and
+the search printed 77 lines of its own reference). Each run
 records whether the paper was read and whether anything outside the sandbox was
 touched.
 

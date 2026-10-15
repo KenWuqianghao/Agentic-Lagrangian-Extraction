@@ -12,8 +12,8 @@ put the original fleet's number beside it.
     python eval/benchmark_runs/rerun_score.py --variant v2 [--seed 1]
 
 The point of the side-by-side: the original fleet could read the reference
-files (contamination_audit.py: 18 of 28 runs did). A drop in field F1 for
-one of those 18 is not a regression of the agent — it is the first honest
+files (contamination_audit.py: 19 of 28 runs did). A drop in field F1 for
+one of those 19 is not a regression of the agent — it is the first honest
 measurement.
 
 Writes rerun_score_<variant>.json and .md next to this file.
