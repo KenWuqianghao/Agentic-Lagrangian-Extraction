@@ -15,6 +15,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import signal
 import subprocess
 import sys
 import time
@@ -120,14 +121,19 @@ def main() -> int:
         args = ["--model", a.model, "--arm", a.arm, "--seed", str(a.seed)]
         args += ["--pages", ",".join(todo)]
         subprocess.run([*cli, "prepare", *args], check=True)
+        # Its own process group, so the deadline also ends the opencode processes it starts.
+        p = subprocess.Popen([*cli, "run", *args, "--jobs", str(a.jobs)], process_group=0)
         try:
-            subprocess.run(
-                [*cli, "run", *args, "--jobs", str(a.jobs)],
-                check=True,
-                timeout=max(1.0, deadline - time.time()),
-            )
+            rc = p.wait(timeout=max(1.0, deadline - time.time()))
         except subprocess.TimeoutExpired:
+            os.killpg(p.pid, signal.SIGKILL)
+            p.wait()
             break
+        except KeyboardInterrupt:  # Ctrl-C does not reach the group
+            os.killpg(p.pid, signal.SIGKILL)
+            raise
+        if rc:
+            raise subprocess.CalledProcessError(rc, p.args)
         moved = archive_rate_limited(a.model, a.arm, a.seed)
         if moved:
             print(f"[supervise] rate-limited, archived for retry: {','.join(moved)}", flush=True)
