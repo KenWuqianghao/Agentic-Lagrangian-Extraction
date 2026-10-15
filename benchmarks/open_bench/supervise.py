@@ -120,7 +120,14 @@ def main() -> int:
         args = ["--model", a.model, "--arm", a.arm, "--seed", str(a.seed)]
         args += ["--pages", ",".join(todo)]
         subprocess.run([*cli, "prepare", *args], check=True)
-        subprocess.run([*cli, "run", *args, "--jobs", str(a.jobs)], check=True)
+        try:
+            subprocess.run(
+                [*cli, "run", *args, "--jobs", str(a.jobs)],
+                check=True,
+                timeout=max(1.0, deadline - time.time()),
+            )
+        except subprocess.TimeoutExpired:
+            break
         moved = archive_rate_limited(a.model, a.arm, a.seed)
         if moved:
             print(f"[supervise] rate-limited, archived for retry: {','.join(moved)}", flush=True)
