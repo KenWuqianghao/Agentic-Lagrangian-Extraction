@@ -275,3 +275,53 @@ for models whose total already contained it. The harness now uses the
 generator and parser from heptapod `main`. `rescore_checks.py` re-ran the
 checks on every stored model; `correction_report.py` builds the correction
 from its ledger. Do not quote any check or full-chain number dated earlier.
+
+## Stage 1 search features (Week 2, from main)
+
+| Feature | CLI / code |
+|---------|------------|
+| Abstract-only filters | `--require-abstract`, `--abstract-keyword-match`, `--abstract-exclude-only` |
+| Abstract semantic scoring | `--semantic-scope {full,abstract,combined}`; `semantic_abstract` in score breakdown |
+| NASA ADS integration | `clients/ads.py`; `--use-ads`; `ADS_API_TOKEN` env var |
+| LaTeX source probe | `--probe-latex-source`; `pipeline/sources.py`; `latex_probe` in audit |
+| LaTeX benchmark script | `scripts/latex_availability_benchmark.py` |
+
+#### Stage 1 features (existing)
+
+| Feature | CLI / code |
+|---------|------------|
+| Single-paper selection | `--top-k 1` (default), `selected_paper` in audit |
+| Relevance ranking | `--sort relevance` (default) |
+| Keyword search (title+abstract) | `-k` / `--keywords` |
+| Theory-only filter | `--theory-only` (default) |
+| INSPIRE citation enrichment | `pipeline/citations.py` |
+| Web UI | `lag-extract-web` |
+
+#### Key files
+
+```
+src/lagrangian_extraction/
+  clients/ads.py            # NASA ADS Search API
+  pipeline/sources.py       # arXiv LaTeX /src/ probe
+  pipeline/semantic.py      # abstract_text(), semantic_similarity_abstract()
+  pipeline/filter.py        # abstract-specific post-filters
+  pipeline/rank.py          # semantic_full + semantic_abstract in relevance score
+  pipeline/search.py        # INSPIRE, then arXiv, then ADS; one failure is an audit error
+scripts/latex_availability_benchmark.py
+.env.example                # ADS_API_TOKEN=
+```
+
+#### LaTeX findings
+
+- **arXiv**: author LaTeX via `https://arxiv.org/src/{arxiv_id}` — use for Stage 2
+- **INSPIRE**: no downloadable author TeX; links to arXiv for e-prints
+
+#### Verification
+
+```bash
+pytest -v
+lag-extract search "scalar leptoquark" -k BSM --require-abstract --semantic-scope abstract --no-download-pdfs
+ADS_API_TOKEN=... lag-extract search "scalar leptoquark" -k leptoquark --since 2015-01-01 --no-download-pdfs
+lag-extract search "scalar leptoquark" -k BSM --probe-latex-source
+python scripts/latex_availability_benchmark.py --audit runs/latest.json
+```
