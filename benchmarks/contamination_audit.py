@@ -19,20 +19,23 @@ for shell commands that read a reference file, and classifies the run:
     clean                 no reference path in any command
 
 What counts as a read: each command is split into its pipeline and list
-stages (a heredoc stays one stage). A stage reads a reference when it names a
-reference path and runs a command that shows or copies file contents (READ):
-cat, sed, rg, diff, cp, an inline python script, find -exec cat. cp counts
-because later reads of the copy name no reference path. A stage that only
-lists or measures (ls, find, wc, stat) is "listed". A path to the cache itself
-(eval/reference_cache, reference_cache/*) names every model's reference,
-including the run's own. A script file the agent runs (python3 x.py) can open
-paths that its command line does not name; the audit cannot see into it. A
-reference path on its command line is "listed", and the run counts in
-script_runs. Only the command word of a stage counts: in `find
-reference_cache -name cat` the word cat is a value, and the stage is a
-listing. The pattern of grep, rg, sed or awk is not a path: in `ls
-reference_cache | grep reference_cache` only ls names the cache. A cp into
-the cache does not read its destination.
+stages (a heredoc body stays with the stage before it). Only the command word
+of a stage counts. A stage reads a reference when its command shows or copies
+file contents (READ: cat, sed, rg, diff, cp, inline python) and a file operand
+names a reference path. Everything else that names a reference is "listed".
+
+- ls, find, wc and stat only list or measure. In `find reference_cache -name
+  cat` the word cat is a value.
+- find -exec runs its own command; {} gives it the search paths.
+- The pattern of grep, rg, sed or awk is not a path: in `ls reference_cache |
+  grep reference_cache` only ls names the cache.
+- cp reads its sources, not its destination. It counts because later reads
+  of the copy name no reference path.
+- A path to the cache itself (eval/reference_cache, reference_cache/*) names
+  every model's reference, including the run's own.
+- A script file (python3 x.py) can open paths that its command line does not
+  name, and the audit cannot see into it. Its reference paths are listed, and
+  the run counts in script_runs.
 
 Writes contamination_audit.json next to this file.
 
@@ -45,6 +48,7 @@ import json
 import re
 import shlex
 from collections import Counter
+from itertools import takewhile
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -66,7 +70,18 @@ PATTERN_FIRST: dict[str, set[str]] = {
     "awk": {"-F", "-v"},
 }
 PATTERN_OPTS = ("-e", "-f", "--regexp", "--file")
-WRAPPERS = {"sudo", "env", "nice", "nohup", "time", "command", "xargs"}
+SHELLS = {"sh", "bash", "zsh", "dash"}
+# Commands that run the command after them, with the options that take a value.
+WRAPPERS: dict[str, set[str]] = {
+    "sudo": {"-u", "-g", "-C", "-D", "-h", "-p", "-U", "-r", "-t"},
+    "env": {"-u", "-C"},
+    "nice": {"-n"},
+    "nohup": set(),
+    "time": {"-f", "-o"},
+    "command": set(),
+    "xargs": {"-n", "-I", "-L", "-P", "-d", "-s", "-E", "-a"},
+    "timeout": {"-s", "-k", "--signal", "--kill-after"},  # then the duration
+}
 EXEC = {"-exec", "-execdir", "-ok", "-okdir"}
 
 
@@ -94,9 +109,11 @@ def stages(cmd: str) -> list[str]:
     """The pipeline and list stages of `cmd`, after unwrapping `sh -lc "..."`."""
     try:
         words = shlex.split(cmd)
-        if len(words) == 3 and words[1] in ("-c", "-lc"):
+        if len(words) == 3 and Path(words[0]).name in SHELLS and words[1] in ("-c", "-lc"):
             cmd = words[2]
         head, here, body = cmd.partition("<<")  # a heredoc body is code, not shell
+        # The lexer drops quotes, so hide find's quoted ; from the separators.
+        head = re.sub(r"\\;|';'|\";\"", "\0", head)
         lex = shlex.shlex(head, posix=True, punctuation_chars=True)
         lex.whitespace_split = True
         tokens = list(lex)
@@ -107,7 +124,7 @@ def stages(cmd: str) -> list[str]:
         if t in SEPARATORS:
             out.append([])
         else:
-            out[-1].append(t)
+            out[-1].append(";" if t == "\0" else t)
     out = [st for st in out if st]
     if here and out:  # the body stays with the command that reads it
         return [shlex.join(st) for st in out[:-1]] + [shlex.join(out[-1]) + " " + here + body]
@@ -115,16 +132,17 @@ def stages(cmd: str) -> list[str]:
 
 
 def command(words: list[str]) -> int:
-    """Index of the command word: after VAR=value words, sudo, env, xargs and timeout N."""
+    """Index of the command word: after VAR=value words and the WRAPPERS with their options."""
     i = 0
     while i < len(words):
         name = Path(words[i]).name
-        if re.fullmatch(r"\w+=.*", words[i]) or name in WRAPPERS:
+        if re.fullmatch(r"\w+=.*", words[i]):
+            i += 1
+        elif name in WRAPPERS:
             i += 1
             while i < len(words) and words[i].startswith("-"):
-                i += 1
-        elif name == "timeout":
-            i += 2
+                i += 2 if words[i] in WRAPPERS[name] else 1
+            i += name == "timeout"
         else:
             return i
     return i
@@ -144,10 +162,18 @@ def roles(stage: str) -> tuple[str, str]:
     if i >= len(words):
         return "", stage
     name = Path(words[i]).name
-    if name == "find":
-        x = next((j for j, w in enumerate(words) if w in EXEC), None)
-        shows = x is not None and x + 1 < len(words) and READ.fullmatch(Path(words[x + 1]).name)
-        return (stage, "") if shows else ("", stage)
+    if name == "find":  # each -exec command reads what it names; {} names the search paths
+        roots = list(takewhile(lambda w: not w.startswith(("-", "(", "!")), words[i + 1:]))
+        src, j = [], i + 1
+        while j < len(words):
+            if words[j] in EXEC:
+                end = next((k for k in range(j + 1, len(words)) if words[k] in (";", "+")),
+                           len(words))
+                run = [r for w in words[j + 1:end] for r in (roots if w == "{}" else [w])]
+                src.append(roles(shlex.join(run))[0])
+                j = end
+            j += 1
+        return " ".join(src), stage
     if not READ.fullmatch(name) or SCRIPT.match(" ".join(words[i:])):
         return "", stage  # a script file's reads are unseen
     if head != stage:
