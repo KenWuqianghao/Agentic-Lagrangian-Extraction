@@ -109,8 +109,9 @@ def stages(cmd: str) -> list[str]:
     """The pipeline and list stages of `cmd`, after unwrapping `sh -lc "..."`."""
     try:
         words = shlex.split(cmd)
-        if len(words) == 3 and Path(words[0]).name in SHELLS and words[1] in ("-c", "-lc"):
-            cmd = words[2]
+        i = command(words)
+        if len(words) == i + 3 and Path(words[i]).name in SHELLS and words[i + 1] in ("-c", "-lc"):
+            cmd = words[i + 2]
         head, here, body = cmd.partition("<<")  # a heredoc body is code, not shell
         # The lexer drops quotes, so hide find's quoted ; from the separators.
         head = re.sub(r"\\;|';'|\";\"", "\0", head)
@@ -163,7 +164,10 @@ def roles(stage: str) -> tuple[str, str]:
         return "", stage
     name = Path(words[i]).name
     if name == "find":  # each -exec command reads what it names; {} names the search paths
-        roots = list(takewhile(lambda w: not w.startswith(("-", "(", "!")), words[i + 1:]))
+        lead = list(takewhile(lambda w: w in ("-H", "-L", "-P") or w.startswith("-O"),
+                              words[i + 1:]))
+        rest = words[i + 1 + len(lead):]
+        roots = list(takewhile(lambda w: not w.startswith(("-", "(", "!")), rest))
         src, j = [], i + 1
         while j < len(words):
             if words[j] in EXEC:
@@ -174,7 +178,7 @@ def roles(stage: str) -> tuple[str, str]:
                 j = end
             j += 1
         return " ".join(src), stage
-    if not READ.fullmatch(name) or SCRIPT.match(" ".join(words[i:])):
+    if not READ.fullmatch(name) or runs_script(words):
         return "", stage  # a script file's reads are unseen
     if head != stage:
         return stage, ""
@@ -189,6 +193,12 @@ def roles(stage: str) -> tuple[str, str]:
         if dest is not None:
             return " ".join(args[:dest] + args[dest + 1:]), args[dest]
     return " ".join(args), ""
+
+
+def runs_script(words: list[str]) -> bool:
+    """Whether the command of a stage runs a script file (python3 x.py, bash x.sh)."""
+    i = command(words)
+    return i < len(words) and bool(SCRIPT.match(" ".join([Path(words[i]).name, *words[i + 1:]])))
 
 
 def drop_patterns(args: list[str], takes_value: set[str]) -> list[str]:
@@ -227,6 +237,17 @@ def reads(cmd: str) -> tuple[set[str], set[str]]:
     return read, listed - read
 
 
+def stage_words(cmd: str) -> list[list[str]]:
+    """The words of each stage of `cmd`, without heredoc bodies."""
+    out = []
+    for st in stages(cmd):
+        try:
+            out.append(shlex.split(st.partition("<<")[0]))
+        except ValueError:
+            pass
+    return out
+
+
 def audit() -> list[dict]:
     """One row per benchmark page: the verdict and the command counts."""
     cands = json.loads((HERE / "db_candidates.json").read_text())["candidates"]
@@ -246,7 +267,7 @@ def audit() -> list[dict]:
                    else "listed only" if listed else "clean")
         rows.append({"page": page, "verdict": verdict, "own_read": len(own_read),
                      "other_read": len(other_read), "listed": len(listed),
-                     "script_runs": sum(1 for x in cmds if SCRIPT.search(x)),
+                     "script_runs": sum(1 for x in cmds if any(map(runs_script, stage_words(x)))),
                      "example": (own_read or other_read or [""])[0][:200]})
     return rows
 
