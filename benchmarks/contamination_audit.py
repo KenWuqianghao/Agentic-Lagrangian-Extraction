@@ -26,8 +26,10 @@ because later reads of the copy name no reference path. A stage that only
 lists or measures (ls, find, wc, stat) is "listed". A path to the cache itself
 (eval/reference_cache, reference_cache/*) names every model's reference,
 including the run's own. A script file the agent runs (python3 x.py) can open
-paths that its command line does not name; the audit cannot see into it and
-counts those runs in script_runs.
+paths that its command line does not name; the audit cannot see into it. A
+reference path on its command line is "listed", and the run counts in
+script_runs. The pattern of grep, rg, sed or awk is not a path: in
+`ls reference_cache | grep reference_cache` only ls names the cache.
 
 Writes contamination_audit.json next to this file.
 
@@ -47,6 +49,18 @@ READ = re.compile(r"\b(cat|sed|head|tail|less|more|awk|grep|rg|python3?|bat|nl|d
 REF = re.compile(r"reference_cache(?:/([^/\s'\"]+))?")
 SCRIPT = re.compile(r"\b(?:python3?|sh|bash|zsh)\s+(?!-)\S+\.(?:py|sh)\b")
 SEPARATORS = {"|", "||", "&&", ";", "&"}
+# The first operand of these commands is a pattern or a program, not a file,
+# unless -e or -f gives it. The options listed take a value as the next word.
+PATTERN_FIRST: dict[str, set[str]] = {
+    "grep": {"-A", "-B", "-C", "-m", "-d", "-D", "--context"},
+    "egrep": {"-A", "-B", "-C", "-m"},
+    "fgrep": {"-A", "-B", "-C", "-m"},
+    "rg": {"-A", "-B", "-C", "-m", "-g", "-t", "-T", "-M", "-j", "-E", "--glob", "--iglob",
+           "--type", "--type-not", "--max-count", "--context"},
+    "sed": {"-l"},
+    "awk": {"-F", "-v"},
+}
+PATTERN_OPTS = ("-e", "-f", "--regexp", "--file")
 
 
 def commands(events_path: Path) -> list[str]:
@@ -91,6 +105,33 @@ def stages(cmd: str) -> list[str]:
     return [" ".join(st) for st in out if st]
 
 
+def operands(stage: str) -> str:
+    """`stage` without the patterns of grep, rg, sed or awk."""
+    try:
+        words = shlex.split(stage)
+    except ValueError:
+        return stage
+    takes_value = PATTERN_FIRST.get(Path(words[0]).name) if words else None
+    if takes_value is None:
+        return stage
+    given = any(w in PATTERN_OPTS or w.startswith(("--regexp=", "--file=")) for w in words)
+    out, i = [words[0]], 1
+    while i < len(words):
+        w = words[i]
+        if w in ("-e", "--regexp") or w.startswith("--regexp="):
+            i += 1 if "=" in w else 2
+        elif w in takes_value:
+            out += words[i:i + 2]
+            i += 2
+        elif w.startswith("-") or given:
+            out.append(w)
+            i += 1
+        else:  # the first operand is the pattern
+            given = True
+            i += 1
+    return " ".join(out)
+
+
 def refs(stage: str) -> set[str]:
     """Pages whose reference the stage names; "*" for the whole cache."""
     return {m.group(1) if m.group(1) and not re.search(r"[*?\[]", m.group(1)) else "*"
@@ -101,11 +142,13 @@ def reads(cmd: str) -> tuple[set[str], set[str]]:
     """(pages read, pages only listed) by `cmd`."""
     read, listed = set(), set()
     for st in stages(cmd):
-        (read if READ.search(st) else listed).update(refs(st))
+        shows = READ.search(st) and not SCRIPT.match(st)  # a script file's reads are unseen
+        (read if shows else listed).update(refs(operands(st)))
     return read, listed - read
 
 
 def audit() -> list[dict]:
+    """One row per benchmark page: the verdict and the command counts."""
     cands = json.loads((HERE / "db_candidates.json").read_text())["candidates"]
     rows = []
     for c in sorted(cands, key=lambda c: c["page"]):
