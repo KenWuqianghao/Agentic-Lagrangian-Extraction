@@ -43,3 +43,26 @@ This project is indexed by GitNexus as **Agentic-Lagrangian-Extraction** (3666 s
 | Index, status, clean, wiki CLI commands | `.claude/skills/gitnexus-cli/SKILL.md` |
 
 <!-- gitnexus:end -->
+
+# Project notes
+
+## Words
+
+- **You**: the coding agent that changes this repo.
+- **I, we**: the people who build this repo.
+- **Runtime agent**: an LLM agent that the pipeline or a harness runs to do an
+  extraction or benchmark task. It is not you.
+- **Harness**: the program that runs a runtime agent (`cc_harness/`, `pi_harness/`).
+
+## Verification
+
+- Fast check: `pytest -v`. The tests mock INSPIRE and arXiv, so they need no network.
+- Real artifact: a `lag-extract` run and the audit JSON that it writes in `runs/`.
+- A run that completes without an error is not proof. Compare the output with a
+  known model when one exists, and say when none exists.
+
+## Interfaces
+
+In a report, show these in full when they change: CLI commands and flags, the
+models in `lagrangian_extraction.models`, and the schema of each file that a
+run writes.
