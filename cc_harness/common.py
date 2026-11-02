@@ -16,6 +16,8 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import shutil
+import tempfile
 import time
 from pathlib import Path
 
@@ -72,6 +74,22 @@ def inside(path: str, root: Path, cwd: Path | None = None) -> tuple[bool, Path]:
 
 def sha(path: Path) -> str | None:
     return hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None
+
+
+REVIEW_COPY = "model_under_review.fr"
+
+
+def referee_sandbox(sb: Path, fr: Path) -> Path:
+    """A directory for the referee alone: the paper, SM.fr and a frozen copy
+    of the model under review, nothing the author wrote besides."""
+    rev = Path(tempfile.mkdtemp(prefix="referee-"))
+    for p in sb.rglob("*"):
+        if p.is_file() and (p.name == "SM.fr" or "/text/" in str(p)):
+            dst = rev / p.relative_to(sb)
+            dst.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(p, dst)
+    shutil.copy2(fr, rev / REVIEW_COPY)
+    return rev
 
 
 STATE = "cc_state.json"

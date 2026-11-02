@@ -24,7 +24,6 @@ import os
 import shutil
 import subprocess
 import sys
-import tempfile
 import time
 from pathlib import Path
 
@@ -194,16 +193,7 @@ def review_model(args: dict) -> str:
     n = st["reviews"] + 1
     st["reviews"] = n
     C.save_state(rd, st)
-    # The referee works in its own sandbox with a frozen copy: the paper,
-    # SM.fr and the model under review, nothing else.
-    rev = Path(tempfile.mkdtemp(prefix="cc-referee-"))
-    sb = C.sandbox()
-    for p in sb.rglob("*"):
-        if p.is_file() and (p.name == "SM.fr" or "/text/" in str(p)):
-            dst = rev / p.relative_to(sb)
-            dst.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(p, dst)
-    shutil.copy2(fr, rev / "model_under_review.fr")
+    rev = C.referee_sandbox(C.sandbox(), fr)
     (rd / "review").mkdir(parents=True, exist_ok=True)
     shutil.copy2(fr, rd / "review" / f"review{n}.fr")
     settings = {"hooks": {"PreToolUse": [{"matcher": "*", "hooks": [
@@ -220,7 +210,7 @@ def review_model(args: dict) -> str:
     env = {**os.environ, "CC_SANDBOX": str(rev), "CC_RUNDIR": str(rd / "review" / f"review{n}_run"),
            "CC_ROLE": "referee"}
     t0 = time.time()
-    r = subprocess.run(cmd, cwd=str(rev), env=env, input=REVIEW_PROMPT.replace("MODEL_PATH", "model_under_review.fr"),
+    r = subprocess.run(cmd, cwd=str(rev), env=env, input=REVIEW_PROMPT.replace("MODEL_PATH", C.REVIEW_COPY),
                        capture_output=True, text=True, timeout=3600)
     try:
         out = json.loads(r.stdout)

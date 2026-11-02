@@ -7,7 +7,9 @@ Two pi arms, one scorer:
             review_model), file tools confined to a sandbox, no bash, and the
             protocol in prompts/protocol.md appended to the system prompt. The
             agent writes model.fr, validates it with the scored chain and
-            repairs it before it hands it in.
+            repairs it before it hands it in. A stop gate (gate.py) sends it
+            back while model.fr is missing, unvalidated, stale or failing, and
+            the referee always reviews the file that is delivered.
   plain     pi with every tool disabled and the exact v3 no-tools prompt of the
             Claude Code ablation arm (paper and SM.fr inlined, one fenced .fr
             in the final message). It separates "pi instead of Claude Code"
@@ -50,6 +52,9 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
+import gate  # noqa: E402
+
 RUNS = Path(os.environ.get("PI_HARNESS_RUNS", Path.home() / "Documents/Github/heptapod/eval/benchmark_runs"))
 SM_FR = Path.home() / "Documents/Github/heptapod/tools/feynrules/test_files/models/SM.fr"
 ADDENDUM = RUNS / "prompt_addendum_v3.txt"
@@ -58,6 +63,7 @@ AGENT_DIR = HERE / "pi-agent"
 EXTENSION = HERE / "extension" / "heptapod.ts"
 PROTOCOL = HERE / "prompts" / "protocol.md"
 HEPVAL = HERE / "hepval.py"
+GATE = HERE / "gate.py"
 AGENT_TIMEOUT = int(os.environ.get("PI_AGENT_TIMEOUT", str(4 * 3600)))
 
 HARNESS_TOOLS = "read,write,edit,grep,find,ls,lint_model,validate_model,massbasis,review_model"
@@ -178,10 +184,11 @@ def _agent_env(sandbox: Path, rundir: Path, args) -> dict:
         "PI_CODING_AGENT_DIR": str(AGENT_DIR),
         "PATH": f"{Path(PI).parent}:{env.get('PATH', '')}",
         "HEPTAPOD_SANDBOX": str(sandbox), "HEPTAPOD_RUNDIR": str(rundir),
-        "HEPTAPOD_HEPVAL": str(HEPVAL), "HEPTAPOD_PYTHON": sys.executable,
+        "HEPTAPOD_HEPVAL": str(HEPVAL), "HEPTAPOD_GATE": str(GATE), "HEPTAPOD_PYTHON": sys.executable,
         "HEPTAPOD_ROLE": "agent", "HEPTAPOD_ARM": args.arm, "HEPTAPOD_PI": PI, "HEPTAPOD_MODEL": args.model,
         "HEPTAPOD_VALIDATE_BUDGET": str(args.validate_budget),
         "HEPTAPOD_REVIEW_BUDGET": str(args.review_budget),
+        "HEPTAPOD_MAX_CONTINUATIONS": str(args.max_continuations),
     })
     if args.extra_ext:
         env["HEPTAPOD_REVIEW_EXTRA_EXT"] = args.extra_ext
@@ -229,12 +236,13 @@ def _parse_stream(lines: list[str]) -> dict:
             "errors": errors}
 
 
+def _jsonl(f: Path) -> list[dict]:
+    return [json.loads(x) for x in f.read_text().splitlines() if x.strip()] if f.is_file() else []
+
+
 def _audit(rundir: Path, sandbox: Path, parsed: dict) -> dict:
     """Server-side facts: the extension's own log of every call and block."""
-    calls = []
-    f = rundir / "tool_calls.jsonl"
-    if f.is_file():
-        calls = [json.loads(x) for x in f.read_text().splitlines() if x.strip()]
+    calls = _jsonl(rundir / "tool_calls.jsonl")
     blocked = [c for c in calls if c.get("event") == "blocked"]
     names = [t["tool"] for t in parsed["tools"]]
     return {
@@ -338,11 +346,15 @@ def finalize(page: str, seed: int, args, rundir: Path, sandbox: Path, rc: int,
     audit = _audit(rundir, sandbox, parsed)
     fr_dst = rundir / "model" / f"{page}_gen.fr"
     fr_dst.parent.mkdir(parents=True, exist_ok=True)
+    review = None
     if args.arm == "harness":
         src = sandbox / "model.fr"
         delivered = src.is_file()
         if delivered:
             shutil.copy2(src, fr_dst)
+            # The gate reviews the final file when the agent stops. A run that
+            # was killed, or whose referee failed, gets its review here.
+            review = gate.final_review(sandbox, rundir, fr_dst, "runner", _agent_env(sandbox, rundir, args))
         if (sandbox / "validation").is_dir():
             shutil.copytree(sandbox / "validation", rundir / "validation_agent_view", dirs_exist_ok=True)
     else:
@@ -360,6 +372,8 @@ def finalize(page: str, seed: int, args, rundir: Path, sandbox: Path, rc: int,
         "paper_inlined": args.arm == "plain",
         "usage": parsed["usage"], "n_turns": parsed["n_turns"], "errors": parsed["errors"][:3],
         "validate_budget": args.validate_budget, "review_budget": args.review_budget,
+        "final_review": review and {k: review[k] for k in ("n", "origin", "ok", "verdict", "model_sha")},
+        "stop_gate_blocks": sum(g.get("decision") == "block" for g in _jsonl(rundir / "stop_gate_log.jsonl")),
         **audit,
     }
     if args.arm == "plain":
@@ -388,7 +402,7 @@ def cmd_finalize(args) -> int:
                     if not _STREAM_DROP.match(line):
                         dst.write(line)
             tmp.replace(stream)
-        log = [json.loads(x) for x in (rundir / "tool_calls.jsonl").read_text().splitlines() if x.strip()]
+        log = _jsonl(rundir / "tool_calls.jsonl")
         secs = round(log[-1]["t"] - log[0]["t"], 1) if len(log) > 1 else None
         ended = any(r.get("event") == "agent_end" for r in log) or args.arm == "plain"
         finalize(page, args.seed, args, rundir, sandbox, 0 if ended else -1, secs, False)
@@ -489,7 +503,10 @@ def main() -> int:
     r.add_argument("--seeds", type=int, default=1)
     r.add_argument("--parallel", type=int, default=4)
     r.add_argument("--validate-budget", type=int, default=6)
-    r.add_argument("--review-budget", type=int, default=2)
+    r.add_argument("--review-budget", type=int, default=2,
+                   help="review_model calls the agent may make; the review of the final model is extra")
+    r.add_argument("--max-continuations", type=int, default=3,
+                   help="times the stop gate may send the agent back")
     r.add_argument("--extra-ext", default="", help="extra extension(s), comma-separated (tests)")
     r.add_argument("--force", action="store_true")
     r.set_defaults(fn=cmd_run)
@@ -502,6 +519,8 @@ def main() -> int:
     f.add_argument("--thinking", default="")
     f.add_argument("--validate-budget", type=int, default=6)
     f.add_argument("--review-budget", type=int, default=2)
+    f.add_argument("--max-continuations", type=int, default=3)
+    f.add_argument("--extra-ext", default="")
     f.set_defaults(fn=cmd_finalize)
     s = sub.add_parser("score")
     s.add_argument("--variants", required=True)

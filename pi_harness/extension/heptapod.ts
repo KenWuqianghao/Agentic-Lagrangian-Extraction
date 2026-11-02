@@ -13,6 +13,10 @@
  *                   compares model.fr with the paper, so passing the chain by
  *                   deleting physics does not go unnoticed
  *
+ * When the agent stops, gate.py decides whether it may: it sends the agent
+ * back while model.fr is missing, unvalidated, stale or failing, and it runs
+ * the reviewer on the final model.fr when the agent did not.
+ *
  * Guards: every file tool is confined to the sandbox (HEPTAPOD_SANDBOX), and
  * bash is refused. The runner enables only read/write/edit/grep/find/ls plus
  * these tools, but the guard holds even if a flag is wrong.
@@ -21,22 +25,25 @@
  *   HEPTAPOD_SANDBOX   sandbox root; the only readable/writable tree
  *   HEPTAPOD_RUNDIR    where validation outputs and tool_calls.jsonl go
  *   HEPTAPOD_HEPVAL    path to hepval.py
+ *   HEPTAPOD_GATE      path to gate.py (the reviewer and the stop gate)
  *   HEPTAPOD_PYTHON    python interpreter (default python3)
  *   HEPTAPOD_ROLE      "agent" (all tools) or "reviewer" (guard only)
  *   HEPTAPOD_VALIDATE_BUDGET, HEPTAPOD_REVIEW_BUDGET   calls allowed per run
+ *   HEPTAPOD_MAX_CONTINUATIONS   times the stop gate may send the agent back
  *   HEPTAPOD_REVIEW_MODEL   model for the reviewer (default: same as agent)
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { Type } from "typebox";
 import { spawn } from "node:child_process";
-import { appendFileSync, mkdirSync, readFileSync, realpathSync, writeFileSync, existsSync } from "node:fs";
+import { appendFileSync, mkdirSync, realpathSync, writeFileSync, existsSync } from "node:fs";
 import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 
 const env = process.env;
 const SANDBOX = env.HEPTAPOD_SANDBOX ? realpathSync(env.HEPTAPOD_SANDBOX) : "";
 const RUNDIR = env.HEPTAPOD_RUNDIR ?? "";
 const HEPVAL = env.HEPTAPOD_HEPVAL ?? "";
+const GATE = env.HEPTAPOD_GATE ?? "";
 const PYTHON = env.HEPTAPOD_PYTHON ?? "python3";
 const ROLE = env.HEPTAPOD_ROLE ?? "agent";
 const VALIDATE_BUDGET = Number(env.HEPTAPOD_VALIDATE_BUDGET ?? "6");
@@ -96,26 +103,6 @@ function run(cmd: string, args: string[], opts: { cwd?: string; env?: NodeJS.Pro
 
 const text = (t: string) => ({ content: [{ type: "text" as const, text: t }], details: {} });
 
-const REVIEW_PROMPT = `You are an independent referee. You did not write the model under review.
-
-Files in the working directory: the paper (LaTeX source under eval/benchmark_runs/*/text/),
-SM.fr (the Standard Model file the add-on is loaded on top of), and the model under review, MODEL_PATH.
-
-Read the paper's model-defining sections and the whole model file. Report every place where the
-model does not implement the paper's model. Check, term by term:
-- every new field of the paper is present, with the paper's spin, colour/SU(2) representation,
-  hypercharge/charge and any new U(1) charge;
-- every Lagrangian term of the paper is present with the paper's coefficient, sign,
-  normalisation (fractions, roots, 1/Lambda powers) and index/chirality structure;
-- nothing the paper has was dropped or set to zero, and nothing was added that the paper does not have
-  (kinetic and mass terms for new fields, SM-override bookkeeping such as LSM - LHiggs, and
-  mixing-angle reparametrisations that are equivalent to the paper's are fine);
-- mixing: the mass eigenstates and the angle match the paper's definitions.
-
-Do not comment on FeynRules syntax or style. Output a numbered list of discrepancies, each with the
-paper equation or LaTeX line and the model line, and a severity (physics-changing / cosmetic).
-If you find none, say "NO DISCREPANCIES".`;
-
 export default function (pi: ExtensionAPI) {
 	// ----------------------------------------------------------- guards
 	pi.on("tool_call", async (event, ctx) => {
@@ -139,7 +126,6 @@ export default function (pi: ExtensionAPI) {
 	if (ROLE === "reviewer") return;
 
 	let validations = 0;
-	let reviews = 0;
 
 	// ------------------------------------------------------------- lint
 	pi.registerTool({
@@ -163,7 +149,7 @@ export default function (pi: ExtensionAPI) {
 		name: "validate_model",
 		label: "Validate model",
 		description:
-			`Run the real validation chain on a .fr file: FeynRules compile (Wolfram), the four FeynRules consistency checks (hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum), then MadGraph 'import model'. This is the exact chain the benchmark scores. Takes 1 to 10 minutes; calls queue for one kernel. Budget: ${VALIDATE_BUDGET} calls per run. Returns the verdicts, FeynRules' explanation for each failed check (including the offending non-diagonal terms), and the distinct lines of the compile log.`,
+			`Run the real validation chain on a .fr file: FeynRules compile (Wolfram), the four FeynRules consistency checks (hermiticity, kinetic_diagonal, mass_diagonal, mass_spectrum), then MadGraph 'import model'. This is the exact chain the benchmark scores. Takes 1 to 10 minutes; calls queue for one kernel. Budget: ${VALIDATE_BUDGET} calls per run. Returns the verdicts, the non-zero vertices of L - HC[L] with the Lagrangian block that holds them, the off-diagonal mass terms and tadpoles, for a MadGraph failure the UFO file, line and object that is not valid Python with the model.fr lines behind it, and the distinct lines of the compile log.`,
 		promptSnippet: "validate_model: FeynRules compile + 4 checks + MadGraph import (the scored chain; budgeted)",
 		parameters: Type.Object({ path: Type.String({ description: "the .fr file, e.g. model.fr" }) }),
 		async execute(_id, params, signal, onUpdate) {
@@ -175,7 +161,7 @@ export default function (pi: ExtensionAPI) {
 			validations += 1;
 			onUpdate?.({ content: [{ type: "text", text: `validation ${validations}/${VALIDATE_BUDGET} running (queued for the Wolfram kernel if another run holds it)...` }], details: {} });
 			const lint = await run(PYTHON, [HEPVAL, "lint", fr], { signal });
-			const r = await run(PYTHON, [HEPVAL, "validate", fr, "--out", join(RUNDIR, "validation")], { signal });
+			const r = await run(PYTHON, [HEPVAL, "validate", fr, "--out", join(RUNDIR, "validation"), "--diag"], { signal });
 			log({ event: "result", tool: "validate_model", n: validations, code: r.code, head: r.out.slice(0, 600) });
 			if (r.code !== 0) throw new Error(`validator error (not a model verdict): ${r.err.slice(-1500)}`);
 			const report = `validation ${validations}/${VALIDATE_BUDGET} (this report is saved as validation/call${validations}.md)\n\n${r.out}\n\n## lint findings\n${lint.out}`;
@@ -211,41 +197,34 @@ export default function (pi: ExtensionAPI) {
 	pi.registerTool({
 		name: "review_model",
 		label: "Independent review",
-		description: `An independent referee (a fresh agent that did not write the model) reads the paper and the .fr file and lists every place the model departs from the paper: missing or extra fields and terms, wrong coefficients, signs, normalisations, charges, mixing. Run it once the chain passes (or when you are unsure a fix preserved the physics). Budget: ${REVIEW_BUDGET} calls per run. A physics-changing discrepancy must be fixed even if the chain passes.`,
+		description: `An independent referee (a fresh agent that did not write the model) reads the paper and the .fr file and lists every place the model departs from the paper: missing or extra fields and terms, wrong coefficients, signs, normalisations, charges, mixing. Run it once the chain passes (or when you are unsure a fix preserved the physics). Budget: ${REVIEW_BUDGET} calls per run. The harness also runs the referee on the model.fr you hand in if you did not, and sends you its report. A physics-changing discrepancy must be fixed even if the chain passes.`,
 		promptSnippet: "review_model: independent paper-vs-model referee (budgeted)",
 		parameters: Type.Object({ path: Type.String({ description: "the .fr file, e.g. model.fr" }) }),
 		async execute(_id, params, signal, onUpdate) {
 			const fr = sandboxPath(params.path);
-			if (reviews >= REVIEW_BUDGET) throw new Error(`review budget exhausted (${REVIEW_BUDGET} calls)`);
-			reviews += 1;
-			onUpdate?.({ content: [{ type: "text", text: `review ${reviews}/${REVIEW_BUDGET} running...` }], details: {} });
-			const rel = relative(SANDBOX, fr);
-			// The referee sees a frozen copy, so the author cannot edit the file mid-review.
-			const snap = join(SANDBOX, "validation", `review${reviews}_${rel.replace(/\//g, "_")}`);
-			mkdirSync(dirname(snap), { recursive: true });
-			writeFileSync(snap, readFileSync(fr));
-			const args = [
-				"-p", "--no-session", "--no-context-files", "--no-skills", "--no-prompt-templates", "--no-extensions",
-				"-e", new URL(import.meta.url).pathname,
-				// Tests load a scripted provider into the referee too.
-				...(env.HEPTAPOD_REVIEW_EXTRA_EXT ?? "").split(",").filter(Boolean).flatMap((p) => ["-e", p]),
-				"--tools", "read,grep,find,ls",
-				...(env.HEPTAPOD_REVIEW_MODEL ? ["--model", env.HEPTAPOD_REVIEW_MODEL] : env.HEPTAPOD_MODEL ? ["--model", env.HEPTAPOD_MODEL] : []),
-				REVIEW_PROMPT.replace("MODEL_PATH", relative(SANDBOX, snap)),
-			];
-			const r = await run(env.HEPTAPOD_PI ?? "pi", args, {
-				cwd: SANDBOX,
-				env: { ...env, HEPTAPOD_ROLE: "reviewer" },
-				signal,
-			});
-			log({ event: "result", tool: "review_model", n: reviews, code: r.code, head: r.out.slice(0, 400) });
-			if (r.code !== 0) throw new Error(`reviewer failed: ${r.err.slice(-1500)}`);
-			writeFileSync(snap.replace(/\.fr$/, "") + ".review.md", r.out);
-			return text(`review ${reviews}/${REVIEW_BUDGET} of ${rel}\n\n${r.out}`);
+			onUpdate?.({ content: [{ type: "text", text: "review running..." }], details: {} });
+			const r = await run(PYTHON, [GATE, "review", fr], { signal });
+			log({ event: "result", tool: "review_model", code: r.code, head: r.out.slice(0, 400) });
+			if (r.code !== 0) throw new Error(r.err.slice(-1500) || "reviewer failed");
+			return text(r.out);
 		},
 	});
 
-	pi.on("agent_end", async () => {
-		log({ event: "agent_end", validations, reviews, model_exists: existsSync(join(SANDBOX, "model.fr")) });
+	pi.on("agent_end", async (event) => {
+		const rec = { event: "agent_end", validations, model_exists: existsSync(join(SANDBOX, "model.fr")) };
+		const last = event.messages.findLast((m) => m.role === "assistant");
+		if (last?.role === "assistant" && (last.stopReason === "error" || last.stopReason === "aborted")) {
+			// pi retries a provider error itself; another user turn cannot repair one.
+			log({ ...rec, gate: "skipped", stop_reason: last.stopReason });
+			return;
+		}
+		const r = await run(PYTHON, [GATE, "stop", "--validations", String(validations)]);
+		if (r.code !== 0) {
+			log({ ...rec, gate: "error", error: r.err.slice(-800) });
+			return;
+		}
+		const { message } = JSON.parse(r.out) as { message: string | null };
+		log({ ...rec, gate: message ? "continue" : "stop" });
+		if (message) pi.sendUserMessage(message, { deliverAs: "followUp" });
 	});
 }

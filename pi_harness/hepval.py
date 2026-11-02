@@ -212,7 +212,7 @@ DIAG_DRIVER = ALE / "cc_harness" / "wl" / "UFO_generator_diag.wl"
 
 
 def _use_diag_driver(rb, fr: Path) -> None:
-    """In-loop validation for the Claude Code harness: the same checks and
+    """In-loop validation for both harnesses: the same checks and
     verdicts, run by a driver copy that also prints the non-hermitian
     vertices, the Lagrangian blocks' field contents and the off-diagonal mass
     terms. Scoring never passes --diag, so the score keeps the pristine
@@ -310,6 +310,8 @@ def validate(args) -> int:
         body += ["", "## compile log, distinct lines (tail)", "```", _dedupe_tail(log, 3000), "```"]
         if "## MadGraph import output" in report:
             body += ["", report[report.index("## MadGraph import output"):][:3500]]
+    # Kept next to the verdict: the stop gates quote it when they send the agent back.
+    (work / "agent_report.md").write_text("\n".join(body) + "\n")
     print("\n".join(body))
     return 0
 
@@ -429,7 +431,7 @@ def main() -> int:
     p.add_argument("model")
     p.add_argument("--out", required=True)
     p.add_argument("--diag", action="store_true",
-                   help="in-loop diagnostics (cc_harness driver copy): non-hermitian vertices, "
+                   help="in-loop diagnostics (cc_harness driver copy, both harnesses): non-hermitian vertices, "
                         "mass matrix, MadGraph back-trace; never used for scoring")
     p.set_defaults(fn=validate)
     p = sub.add_parser("massbasis")

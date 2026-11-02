@@ -39,8 +39,11 @@ def digest(report_path: str | None, limit: int = 2500) -> str:
     return text[:limit].rstrip() + ("\n..." if len(text) > limit else "")
 
 
-def decide(event: dict, sandbox: Path, rundir: Path) -> dict:
-    st = C.load_state(rundir)
+def decide(event: dict, sandbox: Path, rundir: Path, st: dict, limit: int) -> dict:
+    """``st`` is the validation state (validations, validate_budget,
+    last_validation); the pi harness passes its own, read from its run
+    directory. ``model_ok`` says the stop is allowed on merit: the delivered
+    file passed and is unchanged."""
     gate = {"continuations": 0}
     gf = rundir / "stop_gate.json"
     if gf.is_file():
@@ -49,7 +52,6 @@ def decide(event: dict, sandbox: Path, rundir: Path) -> dict:
         except json.JSONDecodeError:
             pass
     k = int(gate.get("continuations", 0))
-    limit = C.env_int("CC_MAX_CONTINUATIONS", 3)
     model = sandbox / "model.fr"
     last = st.get("last_validation")
     reason = None
@@ -64,6 +66,7 @@ def decide(event: dict, sandbox: Path, rundir: Path) -> dict:
         reason = (f"The last validate_model (call {last.get('call')}) did not pass: stage reached = "
                   f"{last.get('stage')}. Fix the cause and validate again. Digest of that report:\n\n"
                   + digest(last.get("report")))
+    model_ok = reason is None
     rec = {"hook": "Stop", "stop_hook_active": bool(event.get("stop_hook_active")),
            "continuations_before": k, "limit": limit,
            "validations": st.get("validations"), "validate_budget": st.get("validate_budget"),
@@ -82,7 +85,7 @@ def decide(event: dict, sandbox: Path, rundir: Path) -> dict:
         rec.update(decision="block", why=reason[:300])
         reason = f"[stop gate {k + 1}/{limit}] {reason}"
     C.log(rundir, "stop_gate_log.jsonl", rec)
-    return {"block": reason is not None, "reason": reason, "record": rec}
+    return {"block": reason is not None, "reason": reason, "record": rec, "model_ok": model_ok}
 
 
 def main() -> int:
@@ -90,7 +93,8 @@ def main() -> int:
         event = json.load(sys.stdin)
     except json.JSONDecodeError:
         event = {}
-    d = decide(event, C.sandbox(), C.rundir())
+    rd = C.rundir()
+    d = decide(event, C.sandbox(), rd, C.load_state(rd), C.env_int("CC_MAX_CONTINUATIONS", 3))
     if d["block"]:
         print(json.dumps({"decision": "block", "reason": d["reason"]}))
     return 0
